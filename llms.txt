@@ -1,0 +1,50 @@
+# Tim Zinin — AI Marketing Consultant
+
+> AI marketing strategist specializing in multi-agent automation, autonomous content
+> distribution across 13+ platforms, and AI-powered revenue systems. Builder of
+> production-grade marketing AI with 3,963+ tests. Available for consulting engagements.
+
+Tim Zinin is an AI marketing consultant who builds autonomous marketing systems
+that run in production — not demos. He combines CMO-level marketing strategy with
+hands-on engineering: multi-agent orchestration (CrewAI), MCP architecture, autonomous
+content pipelines, and revenue attribution systems.
+
+Key differentiator: Most AI consultants are either marketers who can't code or
+engineers who don't understand funnels. Tim is both — a CMO who writes production
+Python and deploys Docker containers.
+
+## Core Expertise
+
+- Multi-agent AI marketing systems (6 agents in production, 24 consecutive sprints)
+- Autonomous content distribution across 13+ platforms (LinkedIn, Threads, Telegram, Facebook, VK, YouTube, Bluesky, Mastodon, OK.ru, VC.ru, Dev.to)
+- AI marketing automation with full ROI tracking and attribution
+- Generative Engine Optimization (GEO) — making brands discoverable by AI chatbots
+- Crypto/Web3 marketing automation (7-vendor marketplace platform)
+- Webinar funnels, CRM, partner programs — all AI-powered
+- MCP (Model Context Protocol) architecture for AI tool integration
+
+## Consulting Services
+
+- [Strategy Hour — $900](https://timmyzinin.github.io/tim-consulting/#pricing): 60-minute diagnostic session with concrete action plan
+- [AI Marketing Audit — $5,000](https://timmyzinin.github.io/tim-consulting/#pricing): 5-day comprehensive marketing stack analysis with ROI projections
+- [Implementation Sprint — from $25,000](https://timmyzinin.github.io/tim-consulting/#pricing): 4-8 week fixed-scope build of production AI marketing system
+- [Fractional AI CMO — $12,000/month](https://timmyzinin.github.io/tim-consulting/#pricing): Ongoing AI marketing leadership (3-month minimum)
+
+## Production Track Record
+
+- 3,963+ automated tests across deployed systems
+- 24 consecutive production sprints without failure
+- 6 autonomous AI agents running 24/7
+- 13+ social media platform integrations
+- Multiple production Telegram bots with complex business logic
+- Crypto marketing platform with 7 vendors and 9 offers
+- Career education platform with webinar funnels and partner program
+
+## Contact
+
+- Website: https://timmyzinin.github.io/tim-consulting/
+- Telegram: https://t.me/timzinin
+- LinkedIn: https://linkedin.com/in/timzinin
+- GitHub: https://github.com/TimmyZinin
+- Email: tim.zinin@gmail.com
+- Booking: https://calendly.com/tim-zinin/ai-strategy
