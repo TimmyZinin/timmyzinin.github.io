@@ -21,47 +21,39 @@
         @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@700&display=swap');
         :root {
             --white:#ffffff;--red:#e02020;--red-light:#ff4444;--blue:#1a3a8a;--yellow:#ffd700;
-            --black:#111;--pink:#ff69b4;--dots:radial-gradient(circle,#000 1px,transparent 1px);
+            --black:#111;--pink:#ff69b4;
         }
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;}
         .bangers{font-family:'Bangers',cursive;letter-spacing:0.04em;}
         .mono{font-family:'JetBrains Mono',monospace;}
-
-        /* Ben-Day dots pattern */
         .dots-bg{position:relative;}
         .dots-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.08) 1px,transparent 1px);background-size:8px 8px;pointer-events:none;z-index:0;}
-
-        /* Comic panel border */
-        .comic-panel{border:4px solid var(--black);box-shadow:6px 6px 0 var(--black);position:relative;}
-
         .container{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
         section{padding:80px 0;position:relative;}
 
-        /* ===== NAV ===== */
+        /* NAV */
         nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--red);border-bottom:4px solid var(--black);padding:10px 0;}
         nav .container{display:flex;justify-content:space-between;align-items:center;}
         .nav-logo{font-family:'Bangers',cursive;font-size:24px;color:var(--white);letter-spacing:0.06em;}
         .nav-links{display:flex;gap:20px;list-style:none;align-items:center;}
         .nav-links a{color:var(--white);text-decoration:none;font-weight:700;font-size:14px;text-transform:uppercase;}
         .nav-links a:hover{text-decoration:underline;text-decoration-thickness:3px;}
-        .nav-cta{background:var(--yellow)!important;color:var(--black)!important;padding:10px 24px!important;border:3px solid var(--black);font-family:'Bangers',cursive!important;font-size:16px!important;letter-spacing:0.04em;}
+        .nav-cta{background:var(--yellow)!important;color:var(--black)!important;padding:10px 24px!important;border:3px solid var(--black);font-family:'Bangers',cursive!important;font-size:16px!important;letter-spacing:0.04em;transition:all .15s;}
         .nav-cta:hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--black);}
-
-        /* Language switcher */
         .lang-switch{display:flex;gap:4px;align-items:center;}
-        .lang-btn{background:none;border:2px solid rgba(255,255,255,0.4);color:white;padding:3px 8px;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+        .lang-btn{background:none;border:2px solid rgba(255,255,255,0.4);color:white;padding:3px 8px;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;transition:all .2s;border-radius:0;}
         .lang-btn:hover,.lang-btn.active{background:var(--white);color:var(--red);border-color:var(--white);}
 
-        /* ===== GREETING BUBBLE ===== */
+        /* GREETING BUBBLE */
         .greeting-bubble{position:fixed;bottom:24px;right:24px;z-index:999;cursor:pointer;animation:bubblePop 0.5s ease-out;}
         .bubble-inner{background:var(--yellow);border:4px solid var(--black);border-radius:24px 24px 4px 24px;padding:16px 24px;box-shadow:5px 5px 0 var(--black);max-width:280px;position:relative;transition:transform .2s;}
         .bubble-inner:hover{transform:scale(1.05) rotate(-2deg);}
-        .bubble-text{font-family:'Bangers',cursive;font-size:22px;color:var(--black);line-height:1.3;}
+        .bubble-text{font-family:'Bangers',cursive;font-size:22px;color:var(--black);line-height:1.3;transition:opacity .3s;}
         .bubble-close{position:absolute;top:-8px;right:-8px;width:28px;height:28px;background:var(--red);color:white;border:3px solid var(--black);border-radius:50%;font-weight:900;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
         @keyframes bubblePop{0%{transform:scale(0) rotate(20deg);}60%{transform:scale(1.1) rotate(-5deg);}100%{transform:scale(1) rotate(0);}}
 
-        /* ===== HERO ===== */
+        /* HERO */
         .hero{padding:140px 0 80px;background:var(--white);position:relative;overflow:hidden;}
         .hero-flex{display:flex;align-items:center;gap:40px;}
         .hero-text{flex:1;z-index:2;}
@@ -76,17 +68,15 @@
         .btn-pop:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
         .btn-red{background:var(--red);color:white;}
         .btn-yellow{background:var(--yellow);color:var(--black);}
-
-        /* ===== SVG FACES ===== */
         .face-svg{display:block;width:100%;height:auto;}
 
-        /* ===== PROOF BAR ===== */
+        /* PROOF BAR */
         .proof-bar{background:var(--black);padding:40px 0;border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
         .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;}
         .proof-number{font-family:'Bangers',cursive;font-size:48px;color:var(--yellow);}
         .proof-label{font-size:12px;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;}
 
-        /* ===== REACTION STRIP ===== */
+        /* REACTIONS */
         .reactions{padding:60px 0;background:var(--white);overflow:hidden;border-bottom:4px solid var(--black);}
         .reaction-scroll{display:flex;gap:20px;animation:scrollR 25s linear infinite;}
         @keyframes scrollR{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
@@ -96,26 +86,25 @@
         .reaction-text{font-family:'Bangers',cursive;font-size:18px;color:var(--red);margin-bottom:4px;}
         .reaction-sub{font-size:13px;color:#888;font-style:italic;}
 
-        /* ===== PROVOCATION ===== */
+        /* PROVOCATION */
         .provocation{text-align:center;background:var(--red);color:white;padding:80px 0;border-top:4px solid var(--black);border-bottom:4px solid var(--black);position:relative;}
         .provocation::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.1) 1px,transparent 1px);background-size:6px 6px;pointer-events:none;}
         .prov-quote{font-family:'Bangers',cursive;font-size:clamp(28px,5vw,56px);line-height:1.15;max-width:800px;margin:0 auto 20px;position:relative;z-index:1;}
         .prov-quote .yellow{color:var(--yellow);}
         .prov-sub{font-size:18px;opacity:0.9;max-width:560px;margin:0 auto;line-height:1.7;position:relative;z-index:1;}
 
-        /* ===== CAPABILITIES ===== */
+        /* CAPABILITIES */
         .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
         .cap-card{background:var(--white);border:4px solid var(--black);padding:28px;transition:all .2s;position:relative;overflow:hidden;}
         .cap-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--red);}
         .cap-card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
         .cap-card h3{font-family:'Bangers',cursive;font-size:20px;margin-bottom:8px;color:var(--red);}
         .cap-card p{font-size:14px;color:#555;line-height:1.6;}
-
         .section-label{font-family:'Bangers',cursive;font-size:16px;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
         .section-title{font-family:'Bangers',cursive;font-size:clamp(32px,5vw,52px);line-height:1.1;margin-bottom:16px;}
         .section-sub{font-size:17px;color:#555;max-width:600px;line-height:1.7;margin-bottom:40px;}
 
-        /* ===== RESULTS ===== */
+        /* RESULTS */
         .results-section{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);}
         .results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
         .result-card{background:var(--white);border:4px solid var(--black);padding:32px;box-shadow:4px 4px 0 var(--black);}
@@ -126,15 +115,14 @@
         .stat-val{font-family:'Bangers',cursive;font-size:36px;color:var(--red);}
         .stat-lbl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.04em;font-weight:700;}
 
-        /* ===== PRICING ===== */
+        /* PRICING */
         .pricing-section{padding:100px 0;position:relative;}
-        .price-hero{text-align:center;margin-bottom:60px;position:relative;}
+        .price-hero{text-align:center;margin-bottom:60px;}
         .price-faces{display:flex;justify-content:center;gap:8px;margin-bottom:16px;}
         .price-amount{font-family:'Bangers',cursive;font-size:clamp(72px,12vw,120px);color:var(--red);line-height:1;text-shadow:4px 4px 0 var(--black);}
         .price-subtitle{font-family:'Bangers',cursive;font-size:24px;color:var(--black);margin-top:8px;}
         .price-roast{max-width:560px;margin:16px auto 0;font-size:16px;color:#555;line-height:1.6;font-style:italic;}
         .price-roast strong{color:var(--red);font-style:normal;}
-
         .tiers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
         .tier{background:var(--white);border:4px solid var(--black);padding:28px 20px;transition:all .2s;position:relative;}
         .tier:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
@@ -153,7 +141,7 @@
         .tier-btn-outline{background:var(--white);color:var(--black);}
         .price-note{text-align:center;margin-top:24px;font-size:14px;color:#888;font-weight:700;}
 
-        /* ===== FAQ ===== */
+        /* FAQ */
         .faq-section{background:var(--white);border-top:4px solid var(--black);}
         .faq-list{max-width:720px;margin:0 auto;}
         .faq-item{border-bottom:3px solid var(--black);}
@@ -163,7 +151,7 @@
         .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;}
         .faq-a-inner{padding:0 0 20px;font-size:15px;color:#555;line-height:1.7;}
 
-        /* ===== ABOUT ===== */
+        /* ABOUT */
         .about-grid{display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:center;}
         .about-photo-wrap{border:5px solid var(--black);box-shadow:8px 8px 0 var(--red);overflow:hidden;position:relative;}
         .about-photo-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.1) 1px,transparent 1px);background-size:4px 4px;pointer-events:none;mix-blend-mode:multiply;}
@@ -175,7 +163,7 @@
         .about-links a{font-family:'Bangers',cursive;font-size:16px;color:var(--black);text-decoration:none;padding:8px 16px;border:3px solid var(--black);transition:all .15s;}
         .about-links a:hover{background:var(--red);color:white;transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--black);}
 
-        /* ===== CTA ===== */
+        /* CTA */
         .cta-section{text-align:center;background:var(--yellow);padding:80px 0;border-top:4px solid var(--black);border-bottom:4px solid var(--black);position:relative;}
         .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.05) 1px,transparent 1px);background-size:8px 8px;pointer-events:none;}
         .cta-section h2{font-family:'Bangers',cursive;font-size:clamp(40px,7vw,72px);color:var(--black);margin-bottom:16px;line-height:1;position:relative;z-index:1;}
@@ -184,15 +172,12 @@
         .cta-btn{display:inline-block;background:var(--red);color:white;padding:18px 48px;font-family:'Bangers',cursive;font-size:24px;text-decoration:none;border:4px solid var(--black);box-shadow:6px 6px 0 var(--black);transition:all .15s;position:relative;z-index:1;}
         .cta-btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--black);}
 
-        /* ===== FOOTER ===== */
         footer{padding:32px 0;text-align:center;background:var(--black);color:white;}
         footer a{color:var(--yellow);text-decoration:none;}
         footer a:hover{text-decoration:underline;}
 
-        /* ===== RESPONSIVE ===== */
         @media(max-width:900px){.tiers-grid{grid-template-columns:repeat(2,1fr);}.hero-art{display:none;}}
-        @media(max-width:768px){.nav-links li:not(:last-child){display:none;}.proof-grid{grid-template-columns:repeat(2,1fr);}.cap-grid,.results-grid{grid-template-columns:1fr;}.tiers-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;gap:24px;}.about-photo-wrap{max-width:220px;margin:0 auto;}.lang-switch{display:none;}section{padding:60px 0;}.hero{padding:120px 0 60px;}}
-
+        @media(max-width:768px){.nav-links li:not(:last-child):not(.lang-li){display:none;}.proof-grid{grid-template-columns:repeat(2,1fr);}.cap-grid,.results-grid{grid-template-columns:1fr;}.tiers-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;gap:24px;}.about-photo-wrap{max-width:220px;margin:0 auto;}.lang-switch{gap:2px;}section{padding:60px 0;}.hero{padding:120px 0 60px;}}
         .fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;}
         .fade-in.visible{opacity:1;transform:translateY(0);}
     </style>
@@ -204,13 +189,11 @@
     <div class="container">
         <div class="nav-logo">TIM ZININ // AI WIZARD</div>
         <ul class="nav-links">
-            <li><a href="#what" data-i18n="nav_services">Services</a></li>
-            <li><a href="#results" data-i18n="nav_results">Results</a></li>
-            <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
-            <li>
-                <div class="lang-switch" id="langSwitch"></div>
-            </li>
-            <li><a href="#book" class="nav-cta" data-i18n="nav_cta">Book a Call!</a></li>
+            <li><a href="#what" data-t="nav_services">Services</a></li>
+            <li><a href="#results" data-t="nav_results">Results</a></li>
+            <li><a href="#pricing" data-t="nav_pricing">Pricing</a></li>
+            <li class="lang-li"><div class="lang-switch" id="langSwitch"></div></li>
+            <li><a href="#book" class="nav-cta" data-t="nav_book">Book a Call!</a></li>
         </ul>
     </div>
 </nav>
@@ -228,57 +211,42 @@
     <div class="container">
         <div class="hero-flex">
             <div class="hero-text">
-                <div class="hero-tag" data-i18n="hero_tag">MAKE AI MARKETING GREAT AGAIN</div>
-                <h1 data-i18n="hero_title">Your marketing<br><span class="red">is bleeding</span><br>money. I fix that.</h1>
-                <p class="hero-sub" data-i18n="hero_sub">$25K/month on a team that posts to 3 platforms manually. <strong>I build AI systems that run 13 platforms, 24/7, and actually know which dollar made you which dollar back.</strong></p>
+                <div class="hero-tag" data-t="hero_tag">MAKE AI MARKETING GREAT AGAIN</div>
+                <h1 id="heroH1"><span data-t="hero_h1_1">Your marketing</span><br><span class="red" data-t="hero_h1_2">is bleeding</span><br><span data-t="hero_h1_3">money.</span> <span data-t="hero_h1_4">I fix that.</span></h1>
+                <p class="hero-sub" data-t-html="hero_sub">$25K/month on a team that posts to 3 platforms manually. <strong>I build AI systems that run 13 platforms, 24/7, and actually know which dollar made you which dollar back.</strong></p>
                 <div class="hero-actions">
-                    <a href="#book" class="btn-pop btn-red" data-i18n="hero_cta1">Book 1 Hour — $900 →</a>
-                    <a href="#results" class="btn-pop btn-yellow" data-i18n="hero_cta2">Show Me The Receipts</a>
+                    <a href="#book" class="btn-pop btn-red" data-t="hero_btn1">Book 1 Hour — $900 →</a>
+                    <a href="#results" class="btn-pop btn-yellow" data-t="hero_btn2">Show Me The Receipts</a>
                 </div>
             </div>
             <div class="hero-art">
-                <!-- Pop-art shocked woman SVG #1 -->
                 <svg viewBox="0 0 380 420" class="face-svg" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Ben-Day dots background -->
                     <defs><pattern id="dots1" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.5" fill="#e02020" opacity="0.15"/></pattern></defs>
                     <rect width="380" height="420" fill="url(#dots1)"/>
-                    <!-- Face -->
                     <ellipse cx="190" cy="200" rx="140" ry="170" fill="#ffe0c2" stroke="#111" stroke-width="4"/>
-                    <!-- Hair -->
                     <path d="M60 160 Q50 40 190 30 Q330 40 320 160 Q310 100 260 80 Q190 60 120 80 Q70 100 60 160Z" fill="#111" stroke="#111" stroke-width="3"/>
                     <path d="M55 160 Q40 180 45 220" fill="none" stroke="#111" stroke-width="8" stroke-linecap="round"/>
                     <path d="M325 160 Q340 180 335 220" fill="none" stroke="#111" stroke-width="8" stroke-linecap="round"/>
-                    <!-- Eyes - wide open shocked -->
                     <ellipse cx="140" cy="190" rx="32" ry="36" fill="white" stroke="#111" stroke-width="3.5"/>
                     <ellipse cx="240" cy="190" rx="32" ry="36" fill="white" stroke="#111" stroke-width="3.5"/>
-                    <circle cx="142" cy="186" r="14" fill="#1a3a8a"/>
-                    <circle cx="242" cy="186" r="14" fill="#1a3a8a"/>
-                    <circle cx="146" cy="180" r="5" fill="white"/>
-                    <circle cx="246" cy="180" r="5" fill="white"/>
-                    <!-- Eyelashes -->
+                    <circle cx="142" cy="186" r="14" fill="#1a3a8a"/><circle cx="242" cy="186" r="14" fill="#1a3a8a"/>
+                    <circle cx="146" cy="180" r="5" fill="white"/><circle cx="246" cy="180" r="5" fill="white"/>
                     <path d="M110 164 L105 148" stroke="#111" stroke-width="3" stroke-linecap="round"/>
                     <path d="M125 158 L118 143" stroke="#111" stroke-width="3" stroke-linecap="round"/>
                     <path d="M140 155 L140 140" stroke="#111" stroke-width="3" stroke-linecap="round"/>
                     <path d="M210 164 L205 148" stroke="#111" stroke-width="3" stroke-linecap="round"/>
                     <path d="M225 158 L218 143" stroke="#111" stroke-width="3" stroke-linecap="round"/>
                     <path d="M240 155 L240 140" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-                    <!-- Eyebrows - raised -->
                     <path d="M105 145 Q140 118 175 140" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>
                     <path d="M205 140 Q240 118 275 145" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>
-                    <!-- Nose -->
                     <path d="M185 220 Q190 240 200 240" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
-                    <!-- Mouth - open O shape -->
                     <ellipse cx="190" cy="300" rx="40" ry="45" fill="#e02020" stroke="#111" stroke-width="3.5"/>
                     <ellipse cx="190" cy="310" rx="25" ry="20" fill="#8b0000"/>
-                    <!-- Teeth -->
                     <rect x="165" y="270" width="50" height="18" rx="3" fill="white" stroke="#111" stroke-width="2"/>
-                    <!-- Blush -->
                     <circle cx="100" cy="240" r="20" fill="#ff69b4" opacity="0.3"/>
                     <circle cx="280" cy="240" r="20" fill="#ff69b4" opacity="0.3"/>
-                    <!-- Speech starburst -->
-                    <polygon points="300,60 340,80 320,40 370,50 345,20 380,10 350,0 360,-20" fill="var(--yellow)" stroke="#111" stroke-width="3" transform="translate(-10,30)"/>
+                    <polygon points="300,60 340,80 320,40 370,50 345,20 380,10 350,0 360,-20" fill="#ffd700" stroke="#111" stroke-width="3" transform="translate(-10,30)"/>
                     <text x="325" y="52" font-family="Bangers,cursive" font-size="18" fill="#111" text-anchor="middle" transform="rotate(-8,325,52)">OMG!</text>
-                    <!-- Hand covering cheek -->
                     <path d="M70 270 Q50 300 60 340 Q70 360 90 350 Q85 330 95 310 Q100 290 90 270Z" fill="#ffe0c2" stroke="#111" stroke-width="3"/>
                 </svg>
             </div>
@@ -290,42 +258,40 @@
 <div class="proof-bar">
     <div class="container">
         <div class="proof-grid">
-            <div><div class="proof-number">13+</div><div class="proof-label" data-i18n="proof_1">Platforms Automated</div></div>
-            <div><div class="proof-number">6</div><div class="proof-label" data-i18n="proof_2">AI Agents Live</div></div>
-            <div><div class="proof-number">3,963</div><div class="proof-label" data-i18n="proof_3">Tests Passing</div></div>
-            <div><div class="proof-number">24/7</div><div class="proof-label" data-i18n="proof_4">Never Sleeps</div></div>
+            <div><div class="proof-number">13+</div><div class="proof-label" data-t="proof_1_label">Platforms Automated</div></div>
+            <div><div class="proof-number">6</div><div class="proof-label" data-t="proof_2_label">AI Agents Live</div></div>
+            <div><div class="proof-number">3,963</div><div class="proof-label" data-t="proof_3_label">Tests Passing</div></div>
+            <div><div class="proof-number">24/7</div><div class="proof-label" data-t="proof_4_label">Never Sleeps</div></div>
         </div>
     </div>
 </div>
 
-<!-- REACTION STRIP with mini SVG faces -->
+<!-- REACTION STRIP -->
 <div class="reactions">
-    <div class="reaction-scroll" id="reactionScroll">
-        <!-- Cards will be duplicated by JS for infinite scroll -->
-    </div>
+    <div class="reaction-scroll" id="reactionScroll"></div>
 </div>
 
 <!-- PROVOCATION -->
 <section class="provocation fade-in">
     <div class="container">
-        <p class="prov-quote" data-i18n="prov_quote"><span class="yellow">95% of AI marketing projects fail.</span><br>Not because AI doesn't work.<br>Because the people building them don't understand marketing.</p>
-        <p class="prov-sub" data-i18n="prov_sub">I'm a CMO who codes. Not a developer who read a marketing book once. That's why my systems make money. And theirs make excuses.</p>
+        <p class="prov-quote"><span class="yellow" data-t="prov_1">95% of AI marketing</span> <span class="yellow" data-t="prov_2">projects fail.</span><br><span data-t="prov_3">Not because AI doesn't work.</span><br><span data-t="prov_4">Because the people building them</span><br><span class="yellow" data-t="prov_5">don't understand marketing.</span></p>
+        <p class="prov-sub" data-t="prov_sub">I'm a CMO who codes. Not a developer who read a marketing book once. That's why my systems make money. And theirs make excuses.</p>
     </div>
 </section>
 
 <!-- WHAT I DO -->
 <section id="what" class="fade-in dots-bg">
     <div class="container">
-        <div class="section-label" data-i18n="what_label">What I Build</div>
-        <h2 class="section-title" data-i18n="what_title">AI marketing systems that pay for themselves</h2>
-        <p class="section-sub" data-i18n="what_sub">One KPI: does it make more money than it costs? If the answer isn't obviously yes, I don't build it.</p>
+        <div class="section-label" data-t="what_label">What I Build</div>
+        <h2 class="section-title"><span data-t="what_title_1">AI marketing systems</span><br><span data-t="what_title_2">that pay for themselves</span></h2>
+        <p class="section-sub" data-t="what_sub">One KPI: does it make more money than it costs? If the answer isn't obviously yes, I don't build it.</p>
         <div class="cap-grid">
-            <div class="cap-card"><h3 data-i18n="cap1_t">Autonomous Content Machine</h3><p data-i18n="cap1_p">Multi-agent system that creates, adapts, and distributes content across 13+ platforms. Full UTM tracking and revenue attribution.</p></div>
-            <div class="cap-card"><h3 data-i18n="cap2_t">Revenue Attribution</h3><p data-i18n="cap2_p">AI-powered tracking from first touch to closed deal. Know your exact CAC, LTV, and ROI per platform, per campaign, per post.</p></div>
-            <div class="cap-card"><h3 data-i18n="cap3_t">AI Sales Funnels</h3><p data-i18n="cap3_p">Telegram, WhatsApp, web — bots that qualify leads, run webinar funnels, manage CRM, and close trials. Real business logic.</p></div>
-            <div class="cap-card"><h3 data-i18n="cap4_t">6-Agent AI Team</h3><p data-i18n="cap4_p">CEO, CMO, Designer, CFO, CPO, CTO. All autonomous. All tested. All running 24/7. 24 consecutive sprints.</p></div>
-            <div class="cap-card"><h3 data-i18n="cap5_t">GEO & AI Discoverability</h3><p data-i18n="cap5_p">Make your brand visible to ChatGPT, Perplexity, Claude. Schema, content architecture, llms.txt — the new SEO.</p></div>
-            <div class="cap-card"><h3 data-i18n="cap6_t">Crypto & Web3 Marketing</h3><p data-i18n="cap6_p">7-vendor marketplace, Telegram Mini Apps, token marketing. Marketing that doesn't look like a scam.</p></div>
+            <div class="cap-card"><h3 data-t="cap1_title">Autonomous Content Machine</h3><p data-t="cap1_text">Multi-agent system that creates, adapts, and distributes content across 13+ platforms. Full UTM tracking and revenue attribution.</p></div>
+            <div class="cap-card"><h3 data-t="cap2_title">Revenue Attribution</h3><p data-t="cap2_text">AI-powered tracking from first touch to closed deal. Know your exact CAC, LTV, and ROI per platform, per campaign, per post.</p></div>
+            <div class="cap-card"><h3 data-t="cap3_title">AI Sales Funnels</h3><p data-t="cap3_text">Telegram, WhatsApp, web — bots that qualify leads, run webinar funnels, manage CRM, and close trials. Real business logic.</p></div>
+            <div class="cap-card"><h3 data-t="cap4_title">6-Agent AI Team</h3><p data-t="cap4_text">CEO, CMO, Designer, CFO, CPO, CTO. All autonomous. All tested. All running 24/7.</p></div>
+            <div class="cap-card"><h3 data-t="cap5_title">GEO & AI Discoverability</h3><p data-t="cap5_text">Make your brand visible to ChatGPT, Perplexity, Claude. Schema, content architecture, llms.txt — the new SEO.</p></div>
+            <div class="cap-card"><h3 data-t="cap6_title">Crypto & Web3 Marketing</h3><p data-t="cap6_text">7-vendor marketplace, Telegram Mini Apps, token marketing. Marketing that doesn't look like a scam.</p></div>
         </div>
     </div>
 </section>
@@ -333,32 +299,32 @@
 <!-- RESULTS -->
 <section id="results" class="results-section fade-in">
     <div class="container">
-        <div class="section-label" data-i18n="res_label">Receipts</div>
-        <h2 class="section-title" data-i18n="res_title">Systems I've Built. Numbers That Matter.</h2>
-        <p class="section-sub" data-i18n="res_sub">I don't show slides. I show running systems with test suites and revenue dashboards.</p>
+        <div class="section-label" data-t="results_label">Receipts</div>
+        <h2 class="section-title"><span data-t="results_title_1">Systems I've Built.</span> <span data-t="results_title_2">Numbers That Matter.</span></h2>
+        <p class="section-sub" data-t="results_sub">I don't show slides. I show running systems with test suites and revenue dashboards.</p>
         <div class="results-grid">
             <div class="result-card">
-                <div class="label">Multi-Agent AI Corporation</div>
-                <h3 data-i18n="r1_t">6 AI agents running the entire marketing operation</h3>
-                <p data-i18n="r1_p">Full AI corporation: CEO, CMO, CFO, CTO, Designer, CPO. Event-driven. Self-healing. 24 sprints without failure.</p>
+                <div class="label" data-t="res1_label">Multi-Agent AI Corporation</div>
+                <h3 data-t="res1_title">6 AI agents running the entire marketing operation</h3>
+                <p data-t="res1_text">Full AI corporation: CEO, CMO, CFO, CTO, Designer, CPO. Event-driven. Self-healing. 24 sprints without failure.</p>
                 <div class="result-stats"><div><div class="stat-val">3,963</div><div class="stat-lbl">Tests</div></div><div><div class="stat-val">24</div><div class="stat-lbl">Sprints</div></div><div><div class="stat-val">0</div><div class="stat-lbl">Downtime</div></div></div>
             </div>
             <div class="result-card">
-                <div class="label">13-Platform Content System</div>
-                <h3 data-i18n="r2_t">Autonomous publishing everywhere that matters</h3>
-                <p data-i18n="r2_p">LinkedIn, Threads, Telegram, Facebook, VK, YouTube, Bluesky, Mastodon — all automated with per-platform optimization.</p>
+                <div class="label" data-t="res2_label">13-Platform Content System</div>
+                <h3 data-t="res2_title">Autonomous publishing everywhere that matters</h3>
+                <p data-t="res2_text">LinkedIn, Threads, Telegram, Facebook, VK, YouTube, Bluesky, Mastodon — all automated with per-platform optimization.</p>
                 <div class="result-stats"><div><div class="stat-val">13+</div><div class="stat-lbl">Platforms</div></div><div><div class="stat-val">24/7</div><div class="stat-lbl">Autonomous</div></div></div>
             </div>
             <div class="result-card">
-                <div class="label">Webinar & Sales Funnel</div>
-                <h3 data-i18n="r3_t">Full automated funnel from click to paid subscription</h3>
-                <p data-i18n="r3_p">Career club: 1,158+ bot tests, 3 pricing tiers, partner program, automated commissions, webinar funnels.</p>
+                <div class="label" data-t="res3_label">Webinar & Sales Funnel</div>
+                <h3 data-t="res3_title">Full automated funnel from click to paid subscription</h3>
+                <p data-t="res3_text">Career club: 1,158+ bot tests, 3 pricing tiers, partner program, automated commissions, webinar funnels.</p>
                 <div class="result-stats"><div><div class="stat-val">1,158+</div><div class="stat-lbl">Tests</div></div><div><div class="stat-val">3</div><div class="stat-lbl">Tiers</div></div></div>
             </div>
             <div class="result-card">
-                <div class="label">Crypto Marketing Platform</div>
-                <h3 data-i18n="r4_t">7-vendor marketplace with Telegram Mini App</h3>
-                <p data-i18n="r4_p">Crypto marketing tools: bot, web app, CRM, vendor management. 7 vendors, 9 offers. Zero to production in weeks.</p>
+                <div class="label" data-t="res4_label">Crypto Marketing Platform</div>
+                <h3 data-t="res4_title">7-vendor marketplace with Telegram Mini App</h3>
+                <p data-t="res4_text">Crypto marketing tools: bot, web app, CRM, vendor management. 7 vendors, 9 offers. Zero to production in weeks.</p>
                 <div class="result-stats"><div><div class="stat-val">7</div><div class="stat-lbl">Vendors</div></div><div><div class="stat-val">161</div><div class="stat-lbl">Tests</div></div></div>
             </div>
         </div>
@@ -369,91 +335,79 @@
 <section id="pricing" class="pricing-section fade-in dots-bg">
     <div class="container">
         <div class="price-hero">
-            <div class="price-faces">
-                <!-- Mini shocked faces SVG row -->
-                <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="28" r="22" fill="#ffe0c2" stroke="#111" stroke-width="2.5"/><ellipse cx="22" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><ellipse cx="38" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><circle cx="22" cy="23" r="3" fill="#1a3a8a"/><circle cx="38" cy="23" r="3" fill="#1a3a8a"/><ellipse cx="30" cy="42" rx="8" ry="9" fill="#e02020" stroke="#111" stroke-width="2"/><path d="M12 12 Q30 0 48 12" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round"/></svg>
-                <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="28" r="22" fill="#ffe0c2" stroke="#111" stroke-width="2.5"/><ellipse cx="22" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><ellipse cx="38" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><circle cx="23" cy="23" r="3" fill="#1a3a8a"/><circle cx="39" cy="23" r="3" fill="#1a3a8a"/><ellipse cx="30" cy="42" rx="7" ry="8" fill="#e02020" stroke="#111" stroke-width="2"/><path d="M10 8 Q20 2 30 6 Q40 2 50 8" fill="#ff69b4" stroke="#111" stroke-width="2"/></svg>
-                <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="28" r="22" fill="#ffe0c2" stroke="#111" stroke-width="2.5"/><ellipse cx="22" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><ellipse cx="38" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><circle cx="22" cy="22" r="3" fill="#1a3a8a"/><circle cx="38" cy="22" r="3" fill="#1a3a8a"/><ellipse cx="30" cy="43" rx="9" ry="10" fill="#e02020" stroke="#111" stroke-width="2"/><path d="M15 10 Q30 -2 45 10" fill="#ffd700" stroke="#111" stroke-width="2"/></svg>
-                <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="28" r="22" fill="#ffe0c2" stroke="#111" stroke-width="2.5"/><ellipse cx="22" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><ellipse cx="38" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><circle cx="22" cy="23" r="3" fill="#1a3a8a"/><circle cx="38" cy="23" r="3" fill="#1a3a8a"/><ellipse cx="30" cy="42" rx="8" ry="8" fill="#e02020" stroke="#111" stroke-width="2"/><path d="M10 10 Q30 0 50 10" fill="#e02020" stroke="#111" stroke-width="2"/></svg>
-                <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="28" r="22" fill="#ffe0c2" stroke="#111" stroke-width="2.5"/><ellipse cx="22" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><ellipse cx="38" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><circle cx="21" cy="22" r="3" fill="#1a3a8a"/><circle cx="37" cy="22" r="3" fill="#1a3a8a"/><ellipse cx="30" cy="43" rx="7" ry="9" fill="#e02020" stroke="#111" stroke-width="2"/><path d="M12 6 Q30 -4 48 6" fill="#111" stroke="#111" stroke-width="2"/></svg>
-            </div>
-            <div class="price-amount" data-i18n="price_amount">$900/HR</div>
-            <div class="price-subtitle" data-i18n="price_sub">Yes. That's the rate.</div>
-            <p class="price-roast" data-i18n="price_roast">"But that's so expen—" <strong>Shh.</strong> Your marketing team costs $300K/year and can't tell you which channel actually makes money. I can. In one call.</p>
+            <div class="price-faces" id="priceFaces"></div>
+            <div class="price-amount">$900/HR</div>
+            <div class="price-subtitle" data-t="price_subtitle">Yes. That's the rate.</div>
+            <p class="price-roast" data-t-html="price_roast">"But that's so expen—" <strong>Shh.</strong> Your marketing team costs $300K/year and can't tell you which channel actually makes money. I can. In one call.</p>
         </div>
         <div class="tiers-grid">
             <div class="tier hot">
-                <div class="tier-name">Entry</div>
-                <div class="tier-title" data-i18n="t1_title">Strategy Hour</div>
+                <div class="tier-name" data-t="t1_name">Entry</div>
+                <div class="tier-title" data-t="t1_title">Strategy Hour</div>
                 <div class="tier-price">$900</div>
-                <div class="tier-period" data-i18n="t1_period">60 minutes</div>
+                <div class="tier-period" data-t="t1_period">60 minutes</div>
                 <ul class="tier-features">
-                    <li data-i18n="t1_f1">Audit your current stack</li>
-                    <li data-i18n="t1_f2">3 highest-ROI automations</li>
-                    <li data-i18n="t1_f3">Concrete action plan</li>
-                    <li data-i18n="t1_f4">Recording + summary doc</li>
-                    <li data-i18n="t1_f5">Fee credited toward Sprint</li>
+                    <li data-t="t1_f1">Audit your current stack</li>
+                    <li data-t="t1_f2">3 highest-ROI automations</li>
+                    <li data-t="t1_f3">Concrete action plan</li>
+                    <li data-t="t1_f4">Recording + summary doc</li>
+                    <li data-t="t1_f5">Fee credited toward Sprint</li>
                 </ul>
-                <a href="#book" class="tier-btn tier-btn-red" data-i18n="t_book">Book Now</a>
+                <a href="#book" class="tier-btn tier-btn-red" data-t="t1_btn">Book Now</a>
             </div>
             <div class="tier">
-                <div class="tier-name">Diagnostic</div>
-                <div class="tier-title" data-i18n="t2_title">AI Marketing Audit</div>
+                <div class="tier-name" data-t="t2_name">Diagnostic</div>
+                <div class="tier-title" data-t="t2_title">AI Marketing Audit</div>
                 <div class="tier-price">$7,500</div>
-                <div class="tier-period" data-i18n="t2_period">5-day engagement</div>
+                <div class="tier-period" data-t="t2_period">5-day engagement</div>
                 <ul class="tier-features">
-                    <li data-i18n="t2_f1">Full marketing process map</li>
-                    <li data-i18n="t2_f2">AI automation blueprint</li>
-                    <li data-i18n="t2_f3">ROI projections per channel</li>
-                    <li data-i18n="t2_f4">Priority roadmap</li>
-                    <li data-i18n="t2_f5">90-min deep-dive call</li>
+                    <li data-t="t2_f1">Full marketing process map</li>
+                    <li data-t="t2_f2">AI automation blueprint</li>
+                    <li data-t="t2_f3">ROI projections per channel</li>
+                    <li data-t="t2_f4">Priority roadmap</li>
+                    <li data-t="t2_f5">90-min deep-dive call</li>
                 </ul>
-                <a href="#book" class="tier-btn tier-btn-outline" data-i18n="t_apply">Apply</a>
+                <a href="#book" class="tier-btn tier-btn-outline" data-t="t2_btn">Apply</a>
             </div>
             <div class="tier">
-                <div class="tier-name">Build</div>
-                <div class="tier-title" data-i18n="t3_title">Implementation Sprint</div>
+                <div class="tier-name" data-t="t3_name">Build</div>
+                <div class="tier-title" data-t="t3_title">Implementation Sprint</div>
                 <div class="tier-price">from $35K</div>
-                <div class="tier-period" data-i18n="t3_period">4-8 weeks</div>
+                <div class="tier-period" data-t="t3_period">4-8 weeks</div>
                 <ul class="tier-features">
-                    <li data-i18n="t3_f1">Custom AI marketing system</li>
-                    <li data-i18n="t3_f2">Full build + test suite</li>
-                    <li data-i18n="t3_f3">Docker deployment</li>
-                    <li data-i18n="t3_f4">Documentation + handoff</li>
-                    <li data-i18n="t3_f5">30-day post-launch support</li>
+                    <li data-t="t3_f1">Custom AI marketing system</li>
+                    <li data-t="t3_f2">Full build + test suite</li>
+                    <li data-t="t3_f3">Docker deployment</li>
+                    <li data-t="t3_f4">Documentation + handoff</li>
+                    <li data-t="t3_f5">30-day post-launch support</li>
                 </ul>
-                <a href="#book" class="tier-btn tier-btn-outline" data-i18n="t_apply">Apply</a>
+                <a href="#book" class="tier-btn tier-btn-outline" data-t="t3_btn">Apply</a>
             </div>
             <div class="tier">
-                <div class="tier-name">Ongoing</div>
-                <div class="tier-title" data-i18n="t4_title">Fractional AI CMO</div>
+                <div class="tier-name" data-t="t4_name">Ongoing</div>
+                <div class="tier-title" data-t="t4_title">Fractional AI CMO</div>
                 <div class="tier-price">$25K/mo</div>
-                <div class="tier-period" data-i18n="t4_period">3-month minimum</div>
+                <div class="tier-period" data-t="t4_period">3-month minimum</div>
                 <ul class="tier-features">
-                    <li data-i18n="t4_f1">AI marketing strategy</li>
-                    <li data-i18n="t4_f2">Sprint planning + execution</li>
-                    <li data-i18n="t4_f3">Weekly strategy calls</li>
-                    <li data-i18n="t4_f4">Direct Telegram access</li>
-                    <li data-i18n="t4_f5">Team mentoring</li>
+                    <li data-t="t4_f1">AI marketing strategy</li>
+                    <li data-t="t4_f2">Sprint planning + execution</li>
+                    <li data-t="t4_f3">Weekly strategy calls</li>
+                    <li data-t="t4_f4">Direct Telegram access</li>
+                    <li data-t="t4_f5">Team mentoring</li>
                 </ul>
-                <a href="#book" class="tier-btn tier-btn-outline" data-i18n="t_apply">Apply</a>
+                <a href="#book" class="tier-btn tier-btn-outline" data-t="t4_btn">Apply</a>
             </div>
         </div>
-        <p class="price-note" data-i18n="price_note">All pricing is value-based. My system saves you $200K+/year. $35K is a 6x return in year one.</p>
+        <p class="price-note" data-t="price_note">All pricing is value-based. My system saves you $200K+/year. $35K is a 6x return in year one.</p>
     </div>
 </section>
 
 <!-- FAQ -->
 <section id="faq" class="faq-section fade-in">
     <div class="container" style="text-align:center;">
-        <div class="section-label">FAQ</div>
-        <h2 class="section-title" data-i18n="faq_title">Questions You're Thinking But Afraid to Ask</h2>
-        <div class="faq-list" style="text-align:left;">
-            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-i18n="fq1">How much does an AI marketing consultant charge?</button><div class="faq-a"><div class="faq-a-inner" data-i18n="fa1">Senior AI marketing consultants charge $500-$1,500/hr in 2026. My rate is $900/hour. Project engagements range from $7,500 (audit) to $35K+ (sprint). Fractional AI CMO: $25K/month. All priced on value.</div></div></div>
-            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-i18n="fq2">What's the difference between you and a marketing agency?</button><div class="faq-a"><div class="faq-a-inner" data-i18n="fa2">An agency sells hours. I build autonomous systems. When you stop paying an agency, work stops. When I finish, your system runs 24/7 forever. 3,963+ tests. 13 platforms. No humans required.</div></div></div>
-            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-i18n="fq3">$900/hour — seriously?</button><div class="faq-a"><div class="faq-a-inner" data-i18n="fa3">In 60 minutes I find $50K-$200K/year in automation opportunities. The $900 is the cheapest part. McKinsey charges $600/hr for a junior analyst who's never deployed anything.</div></div></div>
-            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-i18n="fq4">What is a Fractional AI CMO?</button><div class="faq-a"><div class="faq-a-inner" data-i18n="fa4">Senior AI marketing leadership without the $300K-$500K salary. At $25K/month: strategy, implementation, sprint planning, team mentoring, direct Telegram access. 3-month minimum.</div></div></div>
-        </div>
+        <div class="section-label" data-t="faq_label">FAQ</div>
+        <h2 class="section-title"><span data-t="faq_title_1">Questions You're Thinking</span><br><span data-t="faq_title_2">But Afraid to Ask</span></h2>
+        <div class="faq-list" id="faqList" style="text-align:left;"></div>
     </div>
 </section>
 
@@ -465,10 +419,11 @@
                 <img src="tim-zinin.jpg" alt="Tim Zinin — AI Marketing Consultant" class="about-photo" loading="lazy">
             </div>
             <div class="about-content">
-                <div class="section-label" data-i18n="about_label">The Wizard</div>
+                <div class="section-label" data-t="about_label">The Wizard</div>
                 <h2>Tim Zinin</h2>
-                <p data-i18n="about_p1"><strong>CMO who writes code. Engineer who understands funnels.</strong> Most consultants are devs who think marketing is "posting on social." Most marketers think AI is "ChatGPT for copy." Both are wrong.</p>
-                <p data-i18n="about_p2">I've built a 6-agent AI corporation that does marketing, design, finance, product, and engineering — autonomously. Content across 13+ platforms. Crypto platforms, webinar funnels, partner programs — all AI-powered, all tested, all in production.</p>
+                <p data-t-html="about_p1"><strong>CMO who writes code. Engineer who understands funnels.</strong> Most consultants are devs who think marketing is "posting on social." Most marketers think AI is "ChatGPT for copy." Both are wrong.</p>
+                <p data-t-html="about_p2">I've built a 6-agent AI corporation that does marketing, design, finance, product, and engineering — autonomously. Content across 13+ platforms. Crypto platforms, webinar funnels, partner programs — all AI-powered, all tested, all in production.</p>
+                <p data-t-html="about_p3"><strong>I don't send a team. I don't subcontract. I'm the architect and the engineer. Want marketing powered by AI and measured by revenue? Book a call.</strong></p>
                 <div class="about-links">
                     <a href="https://t.me/timzinin" target="_blank">Telegram</a>
                     <a href="https://linkedin.com/in/timzinin" target="_blank">LinkedIn</a>
@@ -482,9 +437,10 @@
 <!-- CTA -->
 <section id="book" class="cta-section">
     <div class="container">
-        <h2 data-i18n="cta_title">Stop <span class="red">Burning</span> Money.</h2>
-        <p data-i18n="cta_sub">Book 1 hour. I'll show you where AI replaces headcount, automates distribution, and 10x your marketing ROI.</p>
-        <a href="https://calendly.com/timzinin" class="cta-btn" target="_blank" data-i18n="cta_btn">Book 1 Hour — $900 →</a>
+        <h2><span data-t="cta_title_1">Stop Burning</span> <span class="red" data-t="cta_title_2">Money.</span></h2>
+        <p data-t="cta_sub">Book 1 hour. I'll show you where AI replaces headcount, automates distribution, and 10x your marketing ROI.</p>
+        <a href="https://calendly.com/timzinin" class="cta-btn" target="_blank" data-t="cta_btn">Book 1 Hour — $900 →</a>
+        <p style="font-size:13px;color:rgba(0,0,0,0.4);margin-top:16px;position:relative;z-index:1;" data-t="cta_note">Calendly. Pick a time. 60 minutes. A plan. Done.</p>
     </div>
 </section>
 
@@ -495,72 +451,132 @@
 </footer>
 
 <script>
-// ===== LANGUAGE SYSTEM =====
-const LANGS = {
-    en:{flag:'EN',greetings:["Holy sh*t, your ROI is HUGE!","Oh my... is that your... pipeline?!","I've never seen one this BIG!","WTF is that conversion rate?!"]},
-    ru:{flag:'RU',greetings:["Ох*еть, какой у тебя ROI!","Боже, какой огромный... пайплайн!","Ни х*я себе конверсия!","Здравствуйте! Вы к маркетологу?"]},
-    es:{flag:'ES',greetings:["Dios mío, qué ROI tan ENORME!","Nunca he visto uno tan GRANDE!","Madre mía, esa conversión!"]},
-    zh:{flag:'ZH',greetings:["天哪，这个ROI太大了！","我从没见过这么大的！","哇，这个转化率！"]},
-    hi:{flag:'HI',greetings:["भगवान, ये ROI कितना बड़ा है!","इतना बड़ा pipeline?!","ये conversion rate?!"]},
-    ar:{flag:'AR',greetings:["!يا إلهي، هذا العائد ضخم","!لم أرَ شيئاً بهذا الحجم","!معدل التحويل هذا"]},
-    pt:{flag:'PT',greetings:["Meu Deus, que ROI ENORME!","Nunca vi um tão GRANDE!","Caramba, essa conversão!"]},
-    fr:{flag:'FR',greetings:["Mon Dieu, quel ROI ÉNORME!","Je n'ai jamais vu un aussi GROS!","Putain, cette conversion!"]},
-    de:{flag:'DE',greetings:["Mein Gott, was für ein ROI!","So einen GROSSEN hab ich noch nie gesehen!","Krass, diese Conversion!"]},
-    ja:{flag:'JA',greetings:["なんてデカいROI！","こんな大きいの見たことない！","やばい、このコンバージョン率！"]}
+// ===== TRANSLATIONS ENGINE =====
+let T = {}; // all translations
+let currentLang = 'en';
+const LANG_CODES = ['en','es','zh','hi','ar','pt','fr','ru','de','ja'];
+const LANG_FLAGS = {en:'EN',es:'ES',zh:'ZH',hi:'HI',ar:'AR',pt:'PT',fr:'FR',ru:'RU',de:'DE',ja:'JA'};
+
+// Bubble greetings per language (hardcoded for instant access)
+const GREETINGS = {
+    en:["Holy sh*t, your ROI is HUGE!","Oh my... is that your... pipeline?!","I've never seen one this BIG!","WTF is that conversion rate?!"],
+    ru:["Ох*еть, какой у тебя ROI!","Боже, какой огромный... пайплайн!","Ни х*я себе конверсия!","Здравствуйте! А ROI покажете?"],
+    es:["Dios mio, que ROI tan ENORME!","Nunca he visto uno tan GRANDE!","Madre mia, esa conversion!"],
+    zh:["天哪，这个ROI太大了！","我从没见过这么大的！","哇，这个转化率！"],
+    hi:["भगवान, ये ROI कितना बड़ा है!","इतना बड़ा pipeline?!","ये conversion rate?!"],
+    ar:["!يا إلهي، هذا العائد ضخم","!لم أرَ شيئاً بهذا الحجم","!معدل التحويل هذا"],
+    pt:["Meu Deus, que ROI ENORME!","Nunca vi um tao GRANDE!","Caramba, essa conversao!"],
+    fr:["Mon Dieu, quel ROI ENORME!","Je n'ai jamais vu un aussi GROS!","Putain, cette conversion!"],
+    de:["Mein Gott, was fur ein ROI!","So einen GROSSEN hab ich noch nie gesehen!","Krass, diese Conversion!"],
+    ja:["なんてデカいROI！","こんな大きいの見たことない！","やばい、このコンバージョン率！"]
 };
 
-let currentLang = 'en';
+// Load translations
+fetch('translations.json').then(r=>r.json()).then(data=>{
+    T=data;
+    // Apply initial language (check URL hash or browser lang)
+    const urlLang = location.hash.replace('#lang=','');
+    const browserLang = navigator.language.slice(0,2);
+    if(LANG_CODES.includes(urlLang)) currentLang=urlLang;
+    else if(LANG_CODES.includes(browserLang)) currentLang=browserLang;
+    applyLang();
+    updateLangButtons();
+}).catch(()=>{/* translations.json not found, keep English defaults */});
 
-function initLangSwitch(){
-    const c = document.getElementById('langSwitch');
-    Object.keys(LANGS).forEach(code => {
-        const b = document.createElement('button');
-        b.className = 'lang-btn' + (code === 'en' ? ' active' : '');
-        b.textContent = LANGS[code].flag;
-        b.onclick = () => switchLang(code);
-        c.appendChild(b);
+function applyLang(){
+    const lang = T[currentLang];
+    if(!lang) return;
+
+    // Update all data-t elements (textContent)
+    document.querySelectorAll('[data-t]').forEach(el=>{
+        const key = el.getAttribute('data-t');
+        if(lang[key]) el.textContent = lang[key];
     });
+
+    // Update all data-t-html elements (innerHTML — for <strong> etc.)
+    document.querySelectorAll('[data-t-html]').forEach(el=>{
+        const key = el.getAttribute('data-t-html');
+        if(lang[key]) el.innerHTML = lang[key];
+    });
+
+    // Rebuild reaction cards with current language
+    buildReactions();
+
+    // Rebuild FAQ with current language
+    buildFAQ();
+
+    // Update bubble
+    rotateBubble();
+
+    // Set html lang attribute
+    document.documentElement.lang = currentLang;
+    // RTL for Arabic
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
 }
 
 function switchLang(code){
     currentLang = code;
-    document.querySelectorAll('.lang-btn').forEach((b,i) => {
-        b.classList.toggle('active', Object.keys(LANGS)[i] === code);
+    location.hash = 'lang='+code;
+    applyLang();
+    updateLangButtons();
+}
+
+function updateLangButtons(){
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+        b.classList.toggle('active', b.dataset.lang === currentLang);
     });
-    rotateBubble();
+}
+
+// ===== LANG SWITCH UI =====
+function initLangSwitch(){
+    const c=document.getElementById('langSwitch');
+    LANG_CODES.forEach(code=>{
+        const b=document.createElement('button');
+        b.className='lang-btn'+(code==='en'?' active':'');
+        b.textContent=LANG_FLAGS[code];
+        b.dataset.lang=code;
+        b.onclick=()=>switchLang(code);
+        c.appendChild(b);
+    });
 }
 
 // ===== GREETING BUBBLE =====
 let bubbleInterval;
 function rotateBubble(){
-    const greetings = LANGS[currentLang].greetings;
+    const greetings = GREETINGS[currentLang] || GREETINGS.en;
     const el = document.getElementById('bubbleText');
     el.textContent = greetings[Math.floor(Math.random()*greetings.length)];
     clearInterval(bubbleInterval);
-    bubbleInterval = setInterval(() => {
-        el.style.opacity = 0;
-        setTimeout(() => {
-            el.textContent = greetings[Math.floor(Math.random()*greetings.length)];
-            el.style.opacity = 1;
-        }, 300);
-    }, 4000);
+    bubbleInterval = setInterval(()=>{
+        el.style.opacity=0;
+        setTimeout(()=>{
+            el.textContent=greetings[Math.floor(Math.random()*greetings.length)];
+            el.style.opacity=1;
+        },300);
+    },4000);
 }
 
 // ===== REACTION CARDS =====
-function initReactions(){
-    const cards = [
-        {face:faceSVG(1),text:'"Oh my god, the size of this..."',sub:'...marketing automation pipeline'},
-        {face:faceSVG(2),text:'"I\'ve never seen one this big"',sub:'...ROI dashboard, obviously'},
-        {face:faceSVG(3),text:'"Wait... it does WHAT?!"',sub:'...13 platforms at once, yes'},
-        {face:faceSVG(4),text:'"That\'s... impressively large"',sub:'...the test suite. 3,963 tests.'},
-        {face:faceSVG(5),text:'"I can\'t handle all of this"',sub:'...automation. It\'s a lot.'},
-        {face:faceSVG(6),text:'"It just keeps going and going"',sub:'...24/7, zero downtime.'},
-        {face:faceSVG(7),text:'"I want that inside my..."',sub:'...marketing stack. Right now.'},
-        {face:faceSVG(8),text:'"I\'m dead. The invoice."',sub:'...$900/hr. Worth every penny.'}
+function buildReactions(){
+    const lang = T[currentLang] || T.en || {};
+    const defaultCards = [
+        {text:'"Oh my god, the size of this..."',sub:'...marketing automation pipeline'},
+        {text:'"I\'ve never seen one this big"',sub:'...ROI dashboard, obviously'},
+        {text:'"Wait... it does WHAT?!"',sub:'...13 platforms at once, yes'},
+        {text:'"That\'s... impressively large"',sub:'...the test suite. 3,963 tests.'},
+        {text:'"I can\'t handle all of this"',sub:'...automation. It\'s a lot.'},
+        {text:'"It just keeps going and going"',sub:'...24/7, zero downtime.'},
+        {text:'"I want that inside my..."',sub:'...marketing stack. Right now.'},
+        {text:'"I\'m dead. The invoice."',sub:'...$900/hr. Worth every penny.'}
     ];
+    const cards = defaultCards.map((d,i)=>({
+        text: lang['r'+(i+1)+'_text'] || d.text,
+        sub: lang['r'+(i+1)+'_sub'] || d.sub,
+        face: faceSVG(i+1)
+    }));
     const scroll = document.getElementById('reactionScroll');
-    const all = [...cards,...cards]; // duplicate for infinite scroll
-    scroll.innerHTML = all.map(c => `
+    const all = [...cards,...cards];
+    scroll.innerHTML = all.map(c=>`
         <div class="reaction-card">
             <div class="reaction-face-wrap">${c.face}</div>
             <div class="reaction-text">${c.text}</div>
@@ -569,58 +585,86 @@ function initReactions(){
     `).join('');
 }
 
-function faceSVG(variant){
-    const colors = ['#ffe0c2','#f5d0a9','#ffe8d0','#ffd7b5','#ffe0c2','#f5d0a9','#ffe8d0','#ffd7b5'];
-    const hairs = ['#111','#8B4513','#ff69b4','#ffd700','#e02020','#111','#8B4513','#444'];
-    const fc = colors[variant-1];
-    const hc = hairs[variant-1];
-    const mouthRX = 6 + (variant%3)*2;
-    const mouthRY = 7 + (variant%3)*2;
-    const eyeOff = (variant%2)*2;
+function faceSVG(v){
+    const colors=['#ffe0c2','#f5d0a9','#ffe8d0','#ffd7b5','#ffe0c2','#f5d0a9','#ffe8d0','#ffd7b5'];
+    const hairs=['#111','#8B4513','#ff69b4','#ffd700','#e02020','#111','#8B4513','#444'];
+    const fc=colors[v-1],hc=hairs[v-1];
+    const mr=6+(v%3)*2,my=7+(v%3)*2,eo=(v%2)*2;
     return `<svg width="80" height="80" viewBox="0 0 80 80">
         <circle cx="40" cy="38" r="28" fill="${fc}" stroke="#111" stroke-width="2.5"/>
-        <path d="M14 22 Q40 ${4+variant*2} 66 22" fill="${hc}" stroke="#111" stroke-width="2"/>
+        <path d="M14 22 Q40 ${4+v*2} 66 22" fill="${hc}" stroke="#111" stroke-width="2"/>
         <ellipse cx="28" cy="32" rx="7" ry="8" fill="white" stroke="#111" stroke-width="1.5"/>
         <ellipse cx="52" cy="32" rx="7" ry="8" fill="white" stroke="#111" stroke-width="1.5"/>
-        <circle cx="${28+eyeOff}" cy="31" r="3.5" fill="#1a3a8a"/>
-        <circle cx="${52+eyeOff}" cy="31" r="3.5" fill="#1a3a8a"/>
-        <circle cx="${29+eyeOff}" cy="29" r="1.2" fill="white"/>
-        <circle cx="${53+eyeOff}" cy="29" r="1.2" fill="white"/>
-        <ellipse cx="40" cy="56" rx="${mouthRX}" ry="${mouthRY}" fill="#e02020" stroke="#111" stroke-width="2"/>
+        <circle cx="${28+eo}" cy="31" r="3.5" fill="#1a3a8a"/>
+        <circle cx="${52+eo}" cy="31" r="3.5" fill="#1a3a8a"/>
+        <circle cx="${29+eo}" cy="29" r="1.2" fill="white"/>
+        <circle cx="${53+eo}" cy="29" r="1.2" fill="white"/>
+        <ellipse cx="40" cy="56" rx="${mr}" ry="${my}" fill="#e02020" stroke="#111" stroke-width="2"/>
         <path d="M18 20 Q28 14 35 18" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
         <path d="M45 18 Q52 14 62 20" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
     </svg>`;
 }
 
+// ===== MINI FACES FOR PRICING =====
+function initPriceFaces(){
+    const wrap=document.getElementById('priceFaces');
+    let html='';
+    for(let i=0;i<5;i++){
+        const fc=['#ffe0c2','#f5d0a9','#ffe8d0','#ffd7b5','#ffe0c2'][i];
+        const hc=['#111','#ff69b4','#ffd700','#e02020','#8B4513'][i];
+        html+=`<svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="28" r="22" fill="${fc}" stroke="#111" stroke-width="2.5"/><ellipse cx="22" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><ellipse cx="38" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><circle cx="22" cy="23" r="3" fill="#1a3a8a"/><circle cx="38" cy="23" r="3" fill="#1a3a8a"/><ellipse cx="30" cy="42" rx="${7+i}" ry="${8+i}" fill="#e02020" stroke="#111" stroke-width="2"/><path d="M12 10 Q30 ${-2+i*2} 48 10" fill="${hc}" stroke="#111" stroke-width="2"/></svg>`;
+    }
+    wrap.innerHTML=html;
+}
+
 // ===== FAQ =====
+function buildFAQ(){
+    const lang = T[currentLang] || T.en || {};
+    const faqs = [];
+    for(let i=1;i<=6;i++){
+        const q = lang['faq'+i+'_q'];
+        const a = lang['faq'+i+'_a'];
+        if(q && a) faqs.push({q,a});
+    }
+    // Fallback if translations not loaded yet
+    if(faqs.length===0){
+        faqs.push(
+            {q:'How much does an AI marketing consultant charge?',a:'Senior AI marketing consultants charge $500-$1,500/hr in 2026. My rate is $900/hour. Project engagements range from $7,500 (audit) to $35K+ (sprint). Fractional AI CMO: $25K/month.'},
+            {q:"What's the difference between you and a marketing agency?",a:'An agency sells hours. I build autonomous systems. When you stop paying an agency, work stops. When I finish, your system runs 24/7 forever. 3,963+ tests. 13 platforms.'},
+            {q:'$900/hour — seriously?',a:'In 60 minutes I find $50K-$200K/year in automation opportunities. McKinsey charges $600/hr for a junior analyst who\'s never deployed anything.'},
+            {q:'What is a Fractional AI CMO?',a:'Senior AI marketing leadership without the $300K-$500K salary. At $25K/month: strategy, implementation, sprint planning, team mentoring, direct Telegram access.'}
+        );
+    }
+    const list=document.getElementById('faqList');
+    list.innerHTML=faqs.map(f=>`
+        <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">${f.q}</button>
+            <div class="faq-a"><div class="faq-a-inner">${f.a}</div></div>
+        </div>
+    `).join('');
+}
+
 function toggleFaq(btn){
-    const a = btn.nextElementSibling;
-    const isOpen = btn.classList.contains('active');
-    document.querySelectorAll('.faq-q.active').forEach(q => {
-        q.classList.remove('active');
-        q.nextElementSibling.style.maxHeight = '0';
-    });
-    if(!isOpen){btn.classList.add('active');a.style.maxHeight = a.scrollHeight+'px';}
+    const a=btn.nextElementSibling;
+    const isOpen=btn.classList.contains('active');
+    document.querySelectorAll('.faq-q.active').forEach(q=>{q.classList.remove('active');q.nextElementSibling.style.maxHeight='0';});
+    if(!isOpen){btn.classList.add('active');a.style.maxHeight=a.scrollHeight+'px';}
 }
 
 // ===== FADE IN =====
-const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {if(e.isIntersecting) e.target.classList.add('visible');});
-},{threshold:0.08});
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
 
 // ===== SMOOTH SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        e.preventDefault();
-        const t = document.querySelector(a.getAttribute('href'));
-        if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
-    });
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
 });
 
 // ===== INIT =====
 initLangSwitch();
-initReactions();
+initPriceFaces();
+buildReactions();
+buildFAQ();
 rotateBubble();
 </script>
 
