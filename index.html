@@ -17,8 +17,10 @@
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does an AI marketing consultant charge per hour?","acceptedAnswer":{"@type":"Answer","text":"Senior AI marketing consultants with production deployment experience charge $500-$1,500 per hour in 2026. Tim Zinin's strategy sessions are $900/hour, reflecting value-based pricing where client ROI typically exceeds 10x the consulting investment within 90 days."}},{"@type":"Question","name":"What is a Fractional AI CMO?","acceptedAnswer":{"@type":"Answer","text":"A Fractional AI CMO provides senior-level AI marketing leadership on a retainer basis, typically $15,000-$30,000 per month. Tim Zinin's retainer is $25,000/month with a 3-month minimum."}},{"@type":"Question","name":"How long does AI marketing implementation take?","acceptedAnswer":{"@type":"Answer","text":"A focused AI marketing sprint takes 4-8 weeks from strategy to production deployment, compared to Big 4 consulting firms that typically take 6-12 months."}}]}
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@700&display=swap');
         :root {
             --white:#ffffff;--red:#e02020;--red-light:#ff4444;--blue:#1a3a8a;--yellow:#ffd700;
             --black:#111;--pink:#ff69b4;
@@ -69,6 +71,11 @@
         .btn-red{background:var(--red);color:white;}
         .btn-yellow{background:var(--yellow);color:var(--black);}
         .face-svg{display:block;width:100%;height:auto;}
+        .hero-img{width:100%;border:5px solid var(--black);box-shadow:8px 8px 0 var(--red);}
+        .prov-img{max-width:100%;border:4px solid var(--black);box-shadow:6px 6px 0 var(--black);}
+        .pricing-img{max-width:360px;border:4px solid var(--black);box-shadow:6px 6px 0 var(--red);margin:0 auto 20px;display:block;}
+        .cta-img{max-width:280px;margin:0 auto 24px;display:block;position:relative;z-index:1;}
+        .reaction-img{width:80px;height:80px;object-fit:cover;border:3px solid var(--black);border-radius:50%;}
 
         /* PROOF BAR */
         .proof-bar{background:var(--black);padding:40px 0;border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
@@ -89,9 +96,11 @@
         /* PROVOCATION */
         .provocation{text-align:center;background:var(--red);color:white;padding:80px 0;border-top:4px solid var(--black);border-bottom:4px solid var(--black);position:relative;}
         .provocation::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.1) 1px,transparent 1px);background-size:6px 6px;pointer-events:none;}
-        .prov-quote{font-family:'Bangers',cursive;font-size:clamp(28px,5vw,56px);line-height:1.15;max-width:800px;margin:0 auto 20px;position:relative;z-index:1;}
+        .prov-quote{font-family:'Bangers',cursive;font-size:clamp(28px,5vw,56px);line-height:1.15;max-width:600px;position:relative;z-index:1;text-align:left;}
         .prov-quote .yellow{color:var(--yellow);}
-        .prov-sub{font-size:18px;opacity:0.9;max-width:560px;margin:0 auto;line-height:1.7;position:relative;z-index:1;}
+        .prov-sub{font-size:18px;opacity:0.9;max-width:560px;line-height:1.7;position:relative;z-index:1;text-align:left;}
+        .prov-grid{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:center;}
+        @media(max-width:768px){.prov-grid{grid-template-columns:1fr;}.prov-quote,.prov-sub{text-align:center;}}
 
         /* CAPABILITIES */
         .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
@@ -220,35 +229,7 @@
                 </div>
             </div>
             <div class="hero-art">
-                <svg viewBox="0 0 380 420" class="face-svg" xmlns="http://www.w3.org/2000/svg">
-                    <defs><pattern id="dots1" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.5" fill="#e02020" opacity="0.15"/></pattern></defs>
-                    <rect width="380" height="420" fill="url(#dots1)"/>
-                    <ellipse cx="190" cy="200" rx="140" ry="170" fill="#ffe0c2" stroke="#111" stroke-width="4"/>
-                    <path d="M60 160 Q50 40 190 30 Q330 40 320 160 Q310 100 260 80 Q190 60 120 80 Q70 100 60 160Z" fill="#111" stroke="#111" stroke-width="3"/>
-                    <path d="M55 160 Q40 180 45 220" fill="none" stroke="#111" stroke-width="8" stroke-linecap="round"/>
-                    <path d="M325 160 Q340 180 335 220" fill="none" stroke="#111" stroke-width="8" stroke-linecap="round"/>
-                    <ellipse cx="140" cy="190" rx="32" ry="36" fill="white" stroke="#111" stroke-width="3.5"/>
-                    <ellipse cx="240" cy="190" rx="32" ry="36" fill="white" stroke="#111" stroke-width="3.5"/>
-                    <circle cx="142" cy="186" r="14" fill="#1a3a8a"/><circle cx="242" cy="186" r="14" fill="#1a3a8a"/>
-                    <circle cx="146" cy="180" r="5" fill="white"/><circle cx="246" cy="180" r="5" fill="white"/>
-                    <path d="M110 164 L105 148" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M125 158 L118 143" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M140 155 L140 140" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M210 164 L205 148" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M225 158 L218 143" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M240 155 L240 140" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M105 145 Q140 118 175 140" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M205 140 Q240 118 275 145" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M185 220 Q190 240 200 240" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
-                    <ellipse cx="190" cy="300" rx="40" ry="45" fill="#e02020" stroke="#111" stroke-width="3.5"/>
-                    <ellipse cx="190" cy="310" rx="25" ry="20" fill="#8b0000"/>
-                    <rect x="165" y="270" width="50" height="18" rx="3" fill="white" stroke="#111" stroke-width="2"/>
-                    <circle cx="100" cy="240" r="20" fill="#ff69b4" opacity="0.3"/>
-                    <circle cx="280" cy="240" r="20" fill="#ff69b4" opacity="0.3"/>
-                    <polygon points="300,60 340,80 320,40 370,50 345,20 380,10 350,0 360,-20" fill="#ffd700" stroke="#111" stroke-width="3" transform="translate(-10,30)"/>
-                    <text x="325" y="52" font-family="Bangers,cursive" font-size="18" fill="#111" text-anchor="middle" transform="rotate(-8,325,52)">OMG!</text>
-                    <path d="M70 270 Q50 300 60 340 Q70 360 90 350 Q85 330 95 310 Q100 290 90 270Z" fill="#ffe0c2" stroke="#111" stroke-width="3"/>
-                </svg>
+                <img src="img/hero-face.jpg" alt="Pop art shocked woman - OMG!" class="hero-img" loading="eager">
             </div>
         </div>
     </div>
@@ -274,8 +255,13 @@
 <!-- PROVOCATION -->
 <section class="provocation fade-in">
     <div class="container">
-        <p class="prov-quote"><span class="yellow" data-t="prov_1">95% of AI marketing</span> <span class="yellow" data-t="prov_2">projects fail.</span><br><span data-t="prov_3">Not because AI doesn't work.</span><br><span data-t="prov_4">Because the people building them</span><br><span class="yellow" data-t="prov_5">don't understand marketing.</span></p>
-        <p class="prov-sub" data-t="prov_sub">I'm a CMO who codes. Not a developer who read a marketing book once. That's why my systems make money. And theirs make excuses.</p>
+        <div class="prov-grid">
+            <div>
+                <p class="prov-quote"><span class="yellow" data-t="prov_1">95% of AI marketing</span> <span class="yellow" data-t="prov_2">projects fail.</span><br><span data-t="prov_3">Not because AI doesn't work.</span><br><span data-t="prov_4">Because the people building them</span><br><span class="yellow" data-t="prov_5">don't understand marketing.</span></p>
+                <p class="prov-sub" data-t="prov_sub">I'm a CMO who codes. Not a developer who read a marketing book once. That's why my systems make money. And theirs make excuses.</p>
+            </div>
+            <img src="img/provocation.jpg" alt="Stressed businessman looking at invoice" class="prov-img" loading="lazy">
+        </div>
     </div>
 </section>
 
@@ -335,7 +321,7 @@
 <section id="pricing" class="pricing-section fade-in dots-bg">
     <div class="container">
         <div class="price-hero">
-            <div class="price-faces" id="priceFaces"></div>
+            <img src="img/pricing-grid.jpg" alt="Pop art shocked faces" class="pricing-img" loading="lazy">
             <div class="price-amount">$900/HR</div>
             <div class="price-subtitle" data-t="price_subtitle">Yes. That's the rate.</div>
             <p class="price-roast" data-t-html="price_roast">"But that's so expen—" <strong>Shh.</strong> Your marketing team costs $300K/year and can't tell you which channel actually makes money. I can. In one call.</p>
@@ -437,6 +423,7 @@
 <!-- CTA -->
 <section id="book" class="cta-section">
     <div class="container">
+        <img src="img/cta-hand.jpg" alt="Pop art pointing hand" class="cta-img" loading="lazy">
         <h2><span data-t="cta_title_1">Stop Burning</span> <span class="red" data-t="cta_title_2">Money.</span></h2>
         <p data-t="cta_sub">Book 1 hour. I'll show you where AI replaces headcount, automates distribution, and 10x your marketing ROI.</p>
         <a href="https://calendly.com/timzinin" class="cta-btn" target="_blank" data-t="cta_btn">Book 1 Hour — $900 →</a>
@@ -569,53 +556,23 @@ function buildReactions(){
         {text:'"I want that inside my..."',sub:'...marketing stack. Right now.'},
         {text:'"I\'m dead. The invoice."',sub:'...$900/hr. Worth every penny.'}
     ];
+    const faces = ['img/hero-face.jpg','img/reaction-face.jpg','img/hero-face.jpg','img/reaction-face.jpg','img/hero-face.jpg','img/reaction-face.jpg','img/hero-face.jpg','img/reaction-face.jpg'];
     const cards = defaultCards.map((d,i)=>({
         text: lang['r'+(i+1)+'_text'] || d.text,
         sub: lang['r'+(i+1)+'_sub'] || d.sub,
-        face: faceSVG(i+1)
+        face: faces[i]
     }));
     const scroll = document.getElementById('reactionScroll');
     const all = [...cards,...cards];
     scroll.innerHTML = all.map(c=>`
         <div class="reaction-card">
-            <div class="reaction-face-wrap">${c.face}</div>
+            <div class="reaction-face-wrap"><img src="${c.face}" class="reaction-img" alt="Shocked face" loading="lazy"></div>
             <div class="reaction-text">${c.text}</div>
             <div class="reaction-sub">${c.sub}</div>
         </div>
     `).join('');
 }
 
-function faceSVG(v){
-    const colors=['#ffe0c2','#f5d0a9','#ffe8d0','#ffd7b5','#ffe0c2','#f5d0a9','#ffe8d0','#ffd7b5'];
-    const hairs=['#111','#8B4513','#ff69b4','#ffd700','#e02020','#111','#8B4513','#444'];
-    const fc=colors[v-1],hc=hairs[v-1];
-    const mr=6+(v%3)*2,my=7+(v%3)*2,eo=(v%2)*2;
-    return `<svg width="80" height="80" viewBox="0 0 80 80">
-        <circle cx="40" cy="38" r="28" fill="${fc}" stroke="#111" stroke-width="2.5"/>
-        <path d="M14 22 Q40 ${4+v*2} 66 22" fill="${hc}" stroke="#111" stroke-width="2"/>
-        <ellipse cx="28" cy="32" rx="7" ry="8" fill="white" stroke="#111" stroke-width="1.5"/>
-        <ellipse cx="52" cy="32" rx="7" ry="8" fill="white" stroke="#111" stroke-width="1.5"/>
-        <circle cx="${28+eo}" cy="31" r="3.5" fill="#1a3a8a"/>
-        <circle cx="${52+eo}" cy="31" r="3.5" fill="#1a3a8a"/>
-        <circle cx="${29+eo}" cy="29" r="1.2" fill="white"/>
-        <circle cx="${53+eo}" cy="29" r="1.2" fill="white"/>
-        <ellipse cx="40" cy="56" rx="${mr}" ry="${my}" fill="#e02020" stroke="#111" stroke-width="2"/>
-        <path d="M18 20 Q28 14 35 18" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-        <path d="M45 18 Q52 14 62 20" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-    </svg>`;
-}
-
-// ===== MINI FACES FOR PRICING =====
-function initPriceFaces(){
-    const wrap=document.getElementById('priceFaces');
-    let html='';
-    for(let i=0;i<5;i++){
-        const fc=['#ffe0c2','#f5d0a9','#ffe8d0','#ffd7b5','#ffe0c2'][i];
-        const hc=['#111','#ff69b4','#ffd700','#e02020','#8B4513'][i];
-        html+=`<svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="28" r="22" fill="${fc}" stroke="#111" stroke-width="2.5"/><ellipse cx="22" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><ellipse cx="38" cy="24" rx="6" ry="7" fill="white" stroke="#111" stroke-width="1.5"/><circle cx="22" cy="23" r="3" fill="#1a3a8a"/><circle cx="38" cy="23" r="3" fill="#1a3a8a"/><ellipse cx="30" cy="42" rx="${7+i}" ry="${8+i}" fill="#e02020" stroke="#111" stroke-width="2"/><path d="M12 10 Q30 ${-2+i*2} 48 10" fill="${hc}" stroke="#111" stroke-width="2"/></svg>`;
-    }
-    wrap.innerHTML=html;
-}
 
 // ===== FAQ =====
 function buildFAQ(){
@@ -662,7 +619,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 
 // ===== INIT =====
 initLangSwitch();
-initPriceFaces();
 buildReactions();
 buildFAQ();
 rotateBubble();
