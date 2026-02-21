@@ -25,10 +25,10 @@ Python and deploys Docker containers.
 
 ## Consulting Services
 
-- [Strategy Hour — $900](https://timmyzinin.github.io/tim-consulting/#pricing): 60-minute diagnostic session with concrete action plan
-- [AI Marketing Audit — $5,000](https://timmyzinin.github.io/tim-consulting/#pricing): 5-day comprehensive marketing stack analysis with ROI projections
-- [Implementation Sprint — from $25,000](https://timmyzinin.github.io/tim-consulting/#pricing): 4-8 week fixed-scope build of production AI marketing system
-- [Fractional AI CMO — $12,000/month](https://timmyzinin.github.io/tim-consulting/#pricing): Ongoing AI marketing leadership (3-month minimum)
+- [Strategy Hour — $900](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): 60-minute diagnostic session with concrete action plan
+- [AI Marketing Audit — $5,000](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): 5-day comprehensive marketing stack analysis with ROI projections
+- [Implementation Sprint — from $25,000](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): 4-8 week fixed-scope build of production AI marketing system
+- [Fractional AI CMO — $12,000/month](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): Ongoing AI marketing leadership (3-month minimum)
 
 ## Production Track Record
 
@@ -42,9 +42,9 @@ Python and deploys Docker containers.
 
 ## Contact
 
-- Website: https://timmyzinin.github.io/tim-consulting/
+- Website: https://timmyzinin.github.io/ai-marketing-wizard/
 - Telegram: https://t.me/timzinin
 - LinkedIn: https://linkedin.com/in/timzinin
 - GitHub: https://github.com/TimmyZinin
 - Email: tim.zinin@gmail.com
-- Booking: https://calendly.com/tim-zinin/ai-strategy
+- Booking: https://calendly.com/timzinin
