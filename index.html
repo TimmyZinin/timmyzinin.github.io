@@ -161,6 +161,32 @@
         .stat-val{font-family:'JetBrains Mono',monospace;font-size:32px;color:var(--red);font-weight:700;}
         .stat-lbl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.04em;font-weight:700;}
 
+        /* PORTFOLIO PROJECTS */
+        .portfolio-section{padding:100px 0;background:var(--black);color:var(--white);position:relative;}
+        .portfolio-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.08) 1px,transparent 1px);background-size:10px 10px;pointer-events:none;}
+        .portfolio-grid{display:flex;flex-direction:column;gap:60px;}
+        .project-card{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:1;}
+        .project-card:nth-child(even){direction:rtl;}
+        .project-card:nth-child(even) > *{direction:ltr;}
+        .project-img-wrap{position:relative;border:5px solid var(--red);box-shadow:8px 8px 0 rgba(224,32,32,0.4);overflow:hidden;transition:transform .3s, box-shadow .3s;}
+        .project-img-wrap:hover{transform:translate(-4px,-4px);box-shadow:12px 12px 0 rgba(224,32,32,0.5);}
+        .project-img{width:100%;display:block;}
+        .project-badge{position:absolute;top:-12px;right:-12px;background:var(--yellow);color:var(--black);font-family:var(--display);font-size:14px;padding:8px 16px;border:3px solid var(--black);transform:rotate(3deg);z-index:2;}
+        .project-content h3{font-family:var(--display);font-size:clamp(28px,4vw,40px);margin-bottom:8px;color:var(--yellow);}
+        .project-content .project-role{font-size:14px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;}
+        .project-content .project-desc{font-size:16px;line-height:1.7;color:rgba(255,255,255,0.85);margin-bottom:20px;}
+        .project-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+        .project-tag{background:rgba(224,32,32,0.2);border:2px solid var(--red);color:var(--white);padding:4px 12px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;}
+        .project-stats{display:flex;gap:24px;flex-wrap:wrap;}
+        .project-stat{text-align:center;}
+        .project-stat .ps-val{font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--yellow);font-weight:700;}
+        .project-stat .ps-lbl{font-size:10px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;}
+        .project-link{display:inline-block;margin-top:16px;color:var(--yellow);font-family:var(--display);font-size:16px;text-decoration:none;border-bottom:3px solid var(--yellow);padding-bottom:2px;transition:all .2s;}
+        .project-link:hover{color:var(--white);border-color:var(--white);}
+        @media(max-width:768px){
+            .project-card,.project-card:nth-child(even){grid-template-columns:1fr;direction:ltr;}
+        }
+
         /* PRICING — FIX #10: prices use JetBrains Mono so $7,500 != $1,000 */
         .pricing-section{padding:100px 0;position:relative;}
         .price-hero{text-align:center;margin-bottom:60px;}
@@ -290,6 +316,7 @@
         <ul class="nav-links">
             <li class="nav-hide"><a href="#what" data-t="nav_services">Services</a></li>
             <li class="nav-hide"><a href="#results" data-t="nav_results">Results</a></li>
+            <li class="nav-hide"><a href="#portfolio" data-t="nav_portfolio">Portfolio</a></li>
             <li class="nav-hide"><a href="#pricing" data-t="nav_pricing">Pricing</a></li>
             <li><select class="lang-select" id="langSelect" onchange="switchLang(this.value)" aria-label="Language"></select></li>
             <li><a href="#book" class="nav-cta" data-t="nav_book">Book a Call!</a></li>
@@ -426,6 +453,92 @@
                 <h3 data-t="res4_title">7-vendor marketplace with Telegram Mini App</h3>
                 <p data-t="res4_text">Crypto marketing tools: bot, web app, CRM, vendor management. 7 vendors, 9 offers. Zero to production in weeks.</p>
                 <div class="result-stats"><div><div class="stat-val">7</div><div class="stat-lbl">Vendors</div></div><div><div class="stat-val">161</div><div class="stat-lbl">Tests</div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PORTFOLIO PROJECTS -->
+<section id="portfolio" class="portfolio-section fade-in">
+    <div class="container">
+        <div class="section-label" style="color:var(--red);" data-t="portfolio_label">Portfolio</div>
+        <h2 class="section-title" style="color:var(--white);"><span data-t="portfolio_title_1">Built. Deployed.</span> <span style="color:var(--yellow);" data-t="portfolio_title_2">Making Money.</span></h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.7);" data-t="portfolio_sub">These aren't mockups or pitch decks. These are live products generating revenue right now.</p>
+
+        <div class="portfolio-grid">
+            <!-- AI Corporation -->
+            <div class="project-card">
+                <div class="project-img-wrap">
+                    <div class="project-badge">FLAGSHIP</div>
+                    <img src="img/project-aicorp.jpg" alt="AI Corporation — 6 autonomous agents" class="project-img" loading="lazy">
+                </div>
+                <div class="project-content">
+                    <h3 data-t="proj1_title">AI Corporation</h3>
+                    <div class="project-role" data-t="proj1_role">Architect & Solo Developer</div>
+                    <p class="project-desc" data-t="proj1_desc">A full autonomous AI company with 6 agents (CEO, CMO, CFO, CTO, Designer, CPO) running 24/7. Event-driven architecture. Self-healing systems. 24 consecutive sprints without a single failure.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">CrewAI</span>
+                        <span class="project-tag">MCP</span>
+                        <span class="project-tag">Docker</span>
+                        <span class="project-tag">13+ Platforms</span>
+                    </div>
+                    <div class="project-stats">
+                        <div class="project-stat"><div class="ps-val">3,963</div><div class="ps-lbl">Tests</div></div>
+                        <div class="project-stat"><div class="ps-val">13+</div><div class="ps-lbl">Platforms</div></div>
+                        <div class="project-stat"><div class="ps-val">24</div><div class="ps-lbl">Sprints</div></div>
+                        <div class="project-stat"><div class="ps-val">0</div><div class="ps-lbl">Downtime</div></div>
+                    </div>
+                    <a href="#book" class="project-link" data-t="proj1_link">→ Book a Strategy Call</a>
+                </div>
+            </div>
+
+            <!-- СБОРКА Career Club -->
+            <div class="project-card">
+                <div class="project-img-wrap">
+                    <div class="project-badge">LIVE</div>
+                    <img src="img/project-sborka.jpg" alt="СБОРКА Career Club — Telegram bot ecosystem" class="project-img" loading="lazy">
+                </div>
+                <div class="project-content">
+                    <h3 data-t="proj2_title">СБОРКА Career Club</h3>
+                    <div class="project-role" data-t="proj2_role">Co-Founder & AI Architect</div>
+                    <p class="project-desc" data-t="proj2_desc">Discipline-driven career community for developers. Built from zero: Telegram bot with XP system, Mini App, partner program, webinar funnels, AI podcast pipeline, and an autonomous AI-blogger publishing across 6 platforms.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Telegram Bot</span>
+                        <span class="project-tag">Mini App</span>
+                        <span class="project-tag">CRM</span>
+                        <span class="project-tag">Webinar Funnel</span>
+                    </div>
+                    <div class="project-stats">
+                        <div class="project-stat"><div class="ps-val">1,158+</div><div class="ps-lbl">Tests</div></div>
+                        <div class="project-stat"><div class="ps-val">3</div><div class="ps-lbl">Tiers</div></div>
+                        <div class="project-stat"><div class="ps-val">6</div><div class="ps-lbl">Platforms</div></div>
+                    </div>
+                    <a href="https://sborka.work" target="_blank" class="project-link" data-t="proj2_link">→ sborka.work</a>
+                </div>
+            </div>
+
+            <!-- Cryptomarketologi -->
+            <div class="project-card">
+                <div class="project-img-wrap">
+                    <div class="project-badge" style="background:var(--red);color:var(--white);">$350/mo</div>
+                    <img src="img/project-crypto.jpg" alt="Cryptomarketologi — crypto vendor marketplace" class="project-img" loading="lazy">
+                </div>
+                <div class="project-content">
+                    <h3 data-t="proj3_title">Cryptomarketologi</h3>
+                    <div class="project-role" data-t="proj3_role">Founder & Lead Developer</div>
+                    <p class="project-desc" data-t="proj3_desc">B2B2C crypto education platform and vendor marketplace. 7 vendors, 9 active offers, full affiliate tracking. Backend, bot, webapp, CRM, analytics — one person, one stack, full production.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Telegram Mini App</span>
+                        <span class="project-tag">Marketplace</span>
+                        <span class="project-tag">B2B2C</span>
+                    </div>
+                    <div class="project-stats">
+                        <div class="project-stat"><div class="ps-val">7</div><div class="ps-lbl">Vendors</div></div>
+                        <div class="project-stat"><div class="ps-val">161</div><div class="ps-lbl">Tests</div></div>
+                        <div class="project-stat"><div class="ps-val">215+</div><div class="ps-lbl">Users</div></div>
+                    </div>
+                    <a href="https://cryptomarketologi.online" target="_blank" class="project-link" data-t="proj3_link">→ cryptomarketologi.online</a>
+                </div>
             </div>
         </div>
     </div>
