@@ -764,7 +764,7 @@ const GREETINGS = {
 };
 
 // Load translations
-fetch('translations.json').then(r=>r.json()).then(data=>{
+fetch('translations.json?v='+Date.now()).then(r=>r.json()).then(data=>{
     T=data;
     const urlLang = location.hash.replace('#lang=','');
     const browserLang = navigator.language.slice(0,2);
