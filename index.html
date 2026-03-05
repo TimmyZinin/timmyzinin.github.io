@@ -40,10 +40,10 @@
         nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--red);border-bottom:4px solid var(--black);padding:10px 0;}
         nav .container{display:flex;justify-content:space-between;align-items:center;}
         .nav-logo{font-family:var(--display);font-size:24px;color:var(--white);letter-spacing:0.06em;}
-        .nav-links{display:flex;gap:20px;list-style:none;align-items:center;}
+        .nav-links{display:flex;gap:16px;list-style:none;align-items:center;}
         .nav-links a{color:var(--white);text-decoration:none;font-weight:700;font-size:14px;text-transform:uppercase;}
         .nav-links a:hover{text-decoration:underline;text-decoration-thickness:3px;}
-        .nav-cta{background:var(--yellow)!important;color:var(--black)!important;padding:10px 24px!important;border:3px solid var(--black);font-family:var(--display)!important;font-size:16px!important;letter-spacing:0.04em;transition:all .15s;}
+        .nav-cta{background:var(--yellow)!important;color:var(--black)!important;padding:10px 24px!important;border:3px solid var(--black);font-family:var(--display)!important;font-size:16px!important;letter-spacing:0.04em;transition:all .15s;white-space:nowrap;max-width:250px;overflow:hidden;text-overflow:ellipsis;}
         .nav-cta:hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--black);}
         /* FIX #2: lang dropdown instead of 10 tiny buttons */
         .lang-select{background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.4);padding:5px 8px;font-size:12px;font-weight:700;cursor:pointer;text-transform:uppercase;appearance:none;-webkit-appearance:none;border-radius:0;outline:none;}
@@ -261,10 +261,11 @@
         }
 
         /* RESPONSIVE */
-        @media(max-width:1080px){
+        .nav-logo{white-space:nowrap;}
+        @media(max-width:1200px){
             .nav-links .nav-hide{display:none;}
             .hamburger{display:block;}
-            .nav-logo{font-size:16px;white-space:nowrap;}
+            .nav-logo{font-size:16px;}
             .nav-cta{padding:6px 10px!important;font-size:11px!important;white-space:nowrap;flex-shrink:0;}
             .lang-select{padding:3px 4px;font-size:10px;flex-shrink:0;}
             nav .container{gap:8px;overflow:hidden;}
