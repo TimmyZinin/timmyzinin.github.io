@@ -25,10 +25,9 @@ Python and deploys Docker containers.
 
 ## Consulting Services
 
-- [Strategy Hour — $900](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): 60-minute diagnostic session with concrete action plan
-- [AI Marketing Audit — $7,500](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): 5-day comprehensive marketing stack analysis with ROI projections
-- [Implementation Sprint — from $35,000](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): 4-8 week fixed-scope build of production AI marketing system
-- [Fractional AI CMO — $25,000/month](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): Ongoing AI marketing leadership (3-month minimum)
+- [Strategy Hour — $250](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): 60-minute diagnostic session with concrete action plan
+- [AI Marketing Audit — $2,000](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): Comprehensive marketing stack analysis with ROI projections
+- [Implementation Sprint — from $10,000](https://timmyzinin.github.io/ai-marketing-wizard/#pricing): 4-8 week fixed-scope build of production AI marketing system
 
 ## Production Track Record
 
