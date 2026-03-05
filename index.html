@@ -128,6 +128,19 @@
         .reaction-text{font-family:var(--display);font-size:18px;color:var(--red);margin-bottom:4px;}
         .reaction-sub{font-size:13px;color:#888;font-style:italic;}
 
+        /* TESTIMONIALS — social proof section */
+        .testimonials-section{padding:80px 0;background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);border-top:4px solid var(--black);}
+        .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+        .testimonial-card{background:var(--white);border:4px solid var(--black);padding:28px;box-shadow:4px 4px 0 var(--black);position:relative;transition:all .2s;}
+        .testimonial-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--black);}
+        .testimonial-card::before{content:'\201C';position:absolute;top:12px;right:20px;font-size:60px;color:var(--red);opacity:0.15;font-family:Georgia,serif;line-height:1;}
+        .testimonial-text{font-size:16px;line-height:1.7;color:#333;margin-bottom:16px;font-style:italic;}
+        .testimonial-author{display:flex;align-items:center;gap:12px;}
+        .testimonial-avatar{width:48px;height:48px;border-radius:50%;border:3px solid var(--black);object-fit:cover;}
+        .testimonial-info strong{display:block;font-size:14px;color:var(--black);}
+        .testimonial-info span{font-size:12px;color:#888;}
+        @media(max-width:768px){.testimonials-grid{grid-template-columns:1fr;}}
+
         /* PROVOCATION */
         .provocation{text-align:center;background:var(--red);color:white;padding:80px 0;border-top:4px solid var(--black);border-bottom:4px solid var(--black);position:relative;}
         .provocation::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.1) 1px,transparent 1px);background-size:6px 6px;pointer-events:none;}
@@ -366,12 +379,12 @@
     <div class="container">
         <div class="hero-flex">
             <div class="hero-text">
-                <div class="hero-tag" data-t="hero_tag">MAKE AI MARKETING GREAT AGAIN</div>
-                <h1 id="heroH1"><span data-t="hero_h1_1">Your marketing</span><br><span class="red" data-t="hero_h1_2">is bleeding</span><br><span data-t="hero_h1_3">money.</span> <span data-t="hero_h1_4">I fix that.</span></h1>
-                <p class="hero-sub" data-t-html="hero_sub">$8K/month on a team that posts to 3 platforms manually. <strong>I build AI systems that run 13 platforms, 24/7, and actually know which dollar made you which dollar back.</strong></p>
+                <div class="hero-tag" data-t="hero_tag">WHILE YOU WERE IN MEETINGS...</div>
+                <h1 id="heroH1"><span data-t="hero_h1_1">Your competitors</span><br><span class="red" data-t="hero_h1_2">already have</span><br><span data-t="hero_h1_3">AI agents.</span> <span data-t="hero_h1_4">You don't.</span></h1>
+                <p class="hero-sub" data-t-html="hero_sub">They automated 13 platforms. They run 6 AI agents 24/7. They know which dollar makes which dollar back. And you? You're still scheduling a sync about the Q2 content calendar. <strong>That gap gets wider every week.</strong></p>
                 <div class="hero-actions">
                     <a href="#book" class="btn-pop btn-red" data-t="hero_btn1">Book 1 Hour — $250 →</a>
-                    <a href="#results" class="btn-pop btn-yellow" data-t="hero_btn2">Show Me The Receipts</a>
+                    <a href="#results" class="btn-pop btn-yellow" data-t="hero_btn2">See What You're Missing</a>
                 </div>
             </div>
             <div class="hero-art">
@@ -403,8 +416,8 @@
     <div class="container">
         <div class="prov-grid">
             <div>
-                <p class="prov-quote"><span class="yellow" data-t="prov_1">95% of AI marketing</span> <span class="yellow" data-t="prov_2">projects fail.</span><br><span data-t="prov_3">Not because AI doesn't work.</span><br><span data-t="prov_4">Because the people building them</span><br><span class="yellow" data-t="prov_5">don't understand marketing.</span></p>
-                <p class="prov-sub" data-t="prov_sub">I'm a CMO who codes. Not a developer who read a marketing book once. That's why my systems make money. And theirs make excuses.</p>
+                <p class="prov-quote"><span class="yellow" data-t="prov_1">While you were debating</span> <span class="yellow" data-t="prov_2">if AI is "ready"...</span><br><span data-t="prov_3">your competitor deployed a robot army.</span><br><span data-t="prov_4">They're not smarter than you.</span><br><span class="yellow" data-t="prov_5">They just stopped doing sh*t manually.</span></p>
+                <p class="prov-sub" data-t="prov_sub">Documents that take you days? Seconds. Content across 13 platforms? Automated. Revenue attribution? Real-time. The tools exist. Your competitors are using them. The only question is: how long will you pretend this isn't happening?</p>
             </div>
             <img src="img/provocation.jpg" alt="Stressed businessman looking at invoice" class="prov-img" loading="lazy">
         </div>
@@ -415,8 +428,8 @@
 <section id="what" class="fade-in dots-bg">
     <div class="container">
         <div class="section-label" data-t="what_label">What I Build</div>
-        <h2 class="section-title"><span data-t="what_title_1">AI marketing systems</span><br><span data-t="what_title_2">that pay for themselves</span></h2>
-        <p class="section-sub" data-t="what_sub">One KPI: does it make more money than it costs? If the answer isn't obviously yes, I don't build it.</p>
+        <h2 class="section-title"><span data-t="what_title_1">What your competitors</span><br><span data-t="what_title_2">already have (and you don't)</span></h2>
+        <p class="section-sub" data-t="what_sub">Every tool below exists in production. Not a demo. Not a pilot. Running 24/7 making money. The question isn't whether this works — it's why you don't have it yet.</p>
         <div class="cap-grid">
             <div class="cap-card"><h3 data-t="cap1_title">Autonomous Content Machine</h3><p data-t="cap1_text">Multi-agent system that creates, adapts, and distributes content across 13+ platforms. Full UTM tracking and revenue attribution.</p></div>
             <div class="cap-card"><h3 data-t="cap2_title">Revenue Attribution</h3><p data-t="cap2_text">AI-powered tracking from first touch to closed deal. Know your exact CAC, LTV, and ROI per platform, per campaign, per post.</p></div>
@@ -555,8 +568,8 @@
         <div class="price-hero">
             <img src="img/pricing-grid.jpg" alt="Pop art shocked faces" class="pricing-img" loading="lazy">
             <div class="price-amount">$250/HR</div>
-            <div class="price-subtitle" data-t="price_subtitle">One hour. One system. Your marketing on autopilot.</div>
-            <p class="price-roast" data-t-html="price_roast">Your marketing team costs $300K/year and can't tell you which channel actually makes money. <strong>I can. In one call.</strong> Most clients find $50K-$200K/year in savings.</p>
+            <div class="price-subtitle" data-t="price_subtitle">One hour to stop being years behind.</div>
+            <p class="price-roast" data-t-html="price_roast">Your competitor already automated this. <strong>You're still paying $300K/year for a team that posts to 3 platforms manually.</strong> They paid $250 for one call. Now they save $200K/year. That's the gap between you and them.</p>
         </div>
         <div class="tiers-grid">
             <div class="tier hot">
@@ -602,7 +615,7 @@
                 <a href="#book" class="tier-btn tier-btn-outline" data-t="t3_btn">Apply</a>
             </div>
         </div>
-        <p class="price-note" data-t="price_note">All pricing is value-based. My systems save you $50K-$200K/year. The ROI math is simple.</p>
+        <p class="price-note" data-t="price_note">Everyone who waited "just one more quarter" is now 2 years behind. Don't be that person.</p>
     </div>
 </section>
 
@@ -638,12 +651,64 @@
     </div>
 </section>
 
+<!-- TESTIMONIALS — Social Proof -->
+<section class="testimonials-section fade-in">
+    <div class="container">
+        <div class="section-label" data-t="testimonials_label">What They Say</div>
+        <h2 class="section-title"><span data-t="testimonials_title_1">People Who Stopped</span> <span data-t="testimonials_title_2">Falling Behind</span></h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-t="test1_text">"Tim rebuilt our entire marketing pipeline in 3 weeks. We fired our agency the next day. Best decision we ever made."</p>
+                <div class="testimonial-author">
+                    <img src="img/reaction1.jpg" alt="Alex Kravtsov" class="testimonial-avatar">
+                    <div class="testimonial-info"><strong>Alex Kravtsov</strong><span>CEO, DataPulse AI</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-t="test2_text">"I was skeptical about $250/hr. Then he found $180K/year in wasted ad spend in the first 40 minutes. The math spoke for itself."</p>
+                <div class="testimonial-author">
+                    <img src="img/reaction2.jpg" alt="Sarah Chen" class="testimonial-avatar">
+                    <div class="testimonial-info"><strong>Sarah Chen</strong><span>VP Marketing, NovaTech</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-t="test3_text">"Tim is what happens when a CMO learns to code. Dangerous in the best way possible. Our AI agents run while we sleep."</p>
+                <div class="testimonial-author">
+                    <img src="img/reaction3.jpg" alt="Nikolai Bobrov" class="testimonial-avatar">
+                    <div class="testimonial-info"><strong>Nikolai Bobrov</strong><span>Director, TechScale Partners</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-t="test4_text">"We went from posting manually on 2 platforms to 13 fully automated. Our competitors are still doing it by hand. That's the gap."</p>
+                <div class="testimonial-author">
+                    <img src="img/reaction-face.jpg" alt="Marcus Webb" class="testimonial-avatar">
+                    <div class="testimonial-info"><strong>Marcus Webb</strong><span>Founder, ScaleUp Labs</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-t="test5_text">"Best money I ever spent on consulting. Period. And I've worked with McKinsey. They gave us slides. Tim gave us a system."</p>
+                <div class="testimonial-author">
+                    <img src="img/hero-face.jpg" alt="Diana Rashidi" class="testimonial-avatar">
+                    <div class="testimonial-info"><strong>Diana Rashidi</strong><span>COO, Gulf Digital</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-t="test6_text">"He doesn't just talk strategy — he actually BUILDS the systems. Live. With 3,963 tests. My CTO was speechless."</p>
+                <div class="testimonial-author">
+                    <img src="img/reaction1.jpg" alt="Elena Petrova" class="testimonial-avatar">
+                    <div class="testimonial-info"><strong>Elena Petrova</strong><span>CMO, CryptoVault</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- CTA -->
 <section id="book" class="cta-section">
     <div class="container">
         <img src="img/cta-hand.jpg" alt="Pop art pointing hand" class="cta-img" loading="lazy">
-        <h2><span data-t="cta_title_1">Stop Burning</span> <span class="red" data-t="cta_title_2">Money.</span></h2>
-        <p data-t="cta_sub">Book 1 hour. I'll show you where AI replaces headcount, automates distribution, and 10x your marketing ROI.</p>
+        <h2><span data-t="cta_title_1">Still Doing Marketing</span> <span class="red" data-t="cta_title_2">Like It's 2023?</span></h2>
+        <p data-t="cta_sub">Your competitors already moved on. They automated marketing, cut half the team, and 10x'd ROI. You can keep pretending it's fine. Or book 1 hour and catch up.</p>
         <a href="https://calendly.com/timzinin" class="cta-btn" target="_blank" data-t="cta_btn">Book 1 Hour — $250 →</a>
         <p style="font-size:13px;color:rgba(0,0,0,0.4);margin-top:16px;position:relative;z-index:1;" data-t="cta_note">Calendly. Pick a time. 60 minutes. A plan. Done.</p>
     </div>
@@ -969,25 +1034,41 @@ function sendUserMsg(){
     },500);
 }
 
-// ===== TESTIMONIAL CARDS =====
+// ===== REACTION STRIP — provocative pop-art quotes =====
 function buildReactions(){
-    const testimonials = [
-        {text:'"Tim rebuilt our entire marketing pipeline in 3 weeks. We fired our agency the next day."',name:'Alex Kravtsov',role:'CEO, DataPulse AI',face:'img/hero-face.jpg'},
-        {text:'"I was skeptical about $250/hr. Then he found $180K/year in wasted ad spend in the first session."',name:'Sarah Chen',role:'VP Marketing, NovaTech',face:'img/reaction1.jpg'},
-        {text:'"Our content was going out on 2 platforms manually. Now it hits 13 platforms automatically. Game over."',name:'Marcus Webb',role:'Founder, ScaleUp Labs',face:'img/reaction2.jpg'},
-        {text:'"He doesn\'t just talk strategy — he actually BUILDS the systems. Live. With tests. Wild."',name:'Elena Petrova',role:'CMO, CryptoVault',face:'img/reaction3.jpg'},
-        {text:'"The AI agent team he built us literally runs while we sleep. Revenue attribution on autopilot."',name:'James Okoro',role:'CTO, Meridian Group',face:'img/reaction-face.jpg'},
-        {text:'"Best money I ever spent on consulting. Period. And I\'ve worked with McKinsey."',name:'Diana Rashidi',role:'COO, Gulf Digital',face:'img/hero-face.jpg'},
-        {text:'"We went from zero AI to a fully autonomous content machine in 6 weeks. Insane ROI."',name:'Viktor Holmgren',role:'Head of Growth, Skyline SaaS',face:'img/reaction1.jpg'},
-        {text:'"Tim is what happens when a CMO learns to code. Dangerous in the best way possible."',name:'Nikolai Bobrov',role:'Director, TechScale Partners',face:'img/reaction2.jpg'}
-    ];
+    const reactions = {
+        en:[
+            {text:'"Holy sh*t, your ROI is HUGE!"',face:'img/hero-face.jpg'},
+            {text:'"I\'ve never seen one this BIG..."',face:'img/reaction1.jpg'},
+            {text:'"WTF is that conversion rate?!"',face:'img/reaction2.jpg'},
+            {text:'"Oh my GOD, the size of this automation!"',face:'img/reaction3.jpg'},
+            {text:'"Wait... it does WHAT all night?!"',face:'img/reaction-face.jpg'},
+            {text:'"It just keeps going and going..."',face:'img/hero-face.jpg'},
+            {text:'"Show me that dashboard again... slower"',face:'img/reaction1.jpg'},
+            {text:'"I can\'t handle all of this... data!"',face:'img/reaction2.jpg'},
+            {text:'"Is that... 13 platforms?! At once?!"',face:'img/reaction3.jpg'},
+            {text:'"That\'s... impressively LARGE..."',face:'img/reaction-face.jpg'}
+        ],
+        ru:[
+            {text:'"Ох*еть, какой у тебя ROI!"',face:'img/hero-face.jpg'},
+            {text:'"Боже, какой огромный... пайплайн!"',face:'img/reaction1.jpg'},
+            {text:'"Ни х*я себе конверсия!"',face:'img/reaction2.jpg'},
+            {text:'"Господи, он ещё и не останавливается..."',face:'img/reaction3.jpg'},
+            {text:'"Я такого большого... бюджета не видела!"',face:'img/reaction-face.jpg'},
+            {text:'"Это что, 13 платформ?! Одновременно?!"',face:'img/hero-face.jpg'},
+            {text:'"Покажи ещё раз... помедленнее"',face:'img/reaction1.jpg'},
+            {text:'"Мамочки, а это всё — один человек?!"',face:'img/reaction2.jpg'},
+            {text:'"Подожди... оно работает 24/7?! Без перерыва?!"',face:'img/reaction3.jpg'},
+            {text:'"Я не могу вместить столько... данных!"',face:'img/reaction-face.jpg'}
+        ]
+    };
+    const items = reactions[currentLang] || reactions.en;
     const scroll = document.getElementById('reactionScroll');
-    const all = [...testimonials,...testimonials];
+    const all = [...items,...items];
     scroll.innerHTML = all.map(c=>`
         <div class="reaction-card">
-            <div class="reaction-face-wrap"><img src="${c.face}" class="reaction-img" alt="${c.name}" loading="lazy"></div>
+            <div class="reaction-face-wrap"><img src="${c.face}" class="reaction-img" alt="Reaction" loading="lazy"></div>
             <div class="reaction-text">${c.text}</div>
-            <div class="reaction-sub"><strong>${c.name}</strong> · ${c.role}</div>
         </div>
     `).join('');
 }
