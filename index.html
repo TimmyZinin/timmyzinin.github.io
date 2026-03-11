@@ -1115,6 +1115,189 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
 });
 
+// ===== LIVE CHAT INTEGRATION =====
+const API_BASE = 'http://88.218.248.114:8789';
+let ws = null;
+let currentSessionId = null;
+let reconnectAttempts = 0;
+const MAX_RECONNECT = 5;
+
+function showLiveChatOption() {
+    const container = document.getElementById('chatOptions');
+    container.innerHTML = '';
+    const btn = document.createElement('button');
+    btn.className = 'chat-option';
+    btn.style.background = 'var(--red)';
+    btn.style.color = 'white';
+    btn.textContent = '💬 Talk to Tim directly →';
+    btn.onclick = () => startLiveChat();
+    container.appendChild(btn);
+}
+
+async function startLiveChat() {
+    clearOptions();
+    addBotMsg('Connecting to Tim...', () => {});
+
+    try {
+        // Create session
+        const resp = await fetch(`${API_BASE}/api/sessions`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                source: 'timzinin.com',
+                context: { lang: currentLang, url: location.href }
+            })
+        });
+        const data = await resp.json();
+        currentSessionId = data.session_id;
+
+        // Show input
+        const inputWrap = document.querySelector('.chat-input-wrap');
+        inputWrap.style.display = 'flex';
+
+        addBotMsg('✅ Connected! Type your message and Tim will reply in Telegram.', () => {});
+
+        // Connect WebSocket
+        connectWebSocket();
+    } catch (e) {
+        addBotMsg('Connection failed. Please try again or email tim@timzinin.com', () => {});
+        console.error('Live chat error:', e);
+    }
+}
+
+function connectWebSocket() {
+    if (!currentSessionId) return;
+
+    const wsUrl = `ws://88.218.248.114:8789/ws/chat/${currentSessionId}`;
+    ws = new WebSocket(wsUrl);
+
+    ws.onopen = () => {
+        console.log('WebSocket connected');
+        reconnectAttempts = 0;
+        // Hide connecting message
+    };
+
+    ws.onmessage = (event) => {
+        try {
+            const msg = JSON.parse(event.data);
+            if (msg.type === 'message' && msg.text) {
+                // Show Tim's reply
+                const msgs = document.getElementById('chatMessages');
+                const div = document.createElement('div');
+                div.className = 'chat-msg bot';
+                div.innerHTML = `<div class="msg-name">Tim</div>${msg.text}`;
+                msgs.appendChild(div);
+                msgs.scrollTop = msgs.scrollHeight;
+
+                // Hide typing
+                const typing = document.querySelector('.typing-indicator');
+                if (typing) typing.remove();
+            } else if (msg.type === 'typing') {
+                showTypingIndicator();
+            }
+        } catch (e) {
+            console.error('WS message error:', e);
+        }
+    };
+
+    ws.onclose = () => {
+        console.log('WebSocket closed');
+        if (reconnectAttempts < MAX_RECONNECT) {
+            reconnectAttempts++;
+            setTimeout(connectWebSocket, 2000 * reconnectAttempts);
+        }
+    };
+
+    ws.onerror = (e) => {
+        console.error('WebSocket error:', e);
+    };
+}
+
+function showTypingIndicator() {
+    const msgs = document.getElementById('chatMessages');
+    const existing = document.querySelector('.typing-indicator');
+    if (existing) return;
+
+    const div = document.createElement('div');
+    div.className = 'chat-msg bot typing-indicator';
+    div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+}
+
+function sendLiveMessage(text) {
+    if (!text.trim() || !currentSessionId) return;
+
+    addUserMsg(text);
+
+    // Send via WebSocket
+    if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+            type: 'message',
+            text: text,
+            session_id: currentSessionId
+        }));
+    }
+
+    // Also send via REST for reliability
+    fetch(`${API_BASE}/api/messages/${currentSessionId}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            direction: 'from_site',
+            text: text
+        })
+    }).catch(e => console.error('Message send error:', e));
+}
+
+// Override chat input to support live mode
+const originalShowOptions = showOptions;
+showOptions = function(opts) {
+    originalShowOptions(opts);
+    // Add live chat option after other options
+    setTimeout(() => {
+        const container = document.getElementById('chatOptions');
+        if (container && container.children.length > 0 && !container.querySelector('.live-chat-btn')) {
+            const divider = document.createElement('div');
+            divider.style.width = '100%';
+            divider.style.textAlign = 'center';
+            divider.style.fontSize = '12px';
+            divider.style.color = '#999';
+            divider.style.margin = '8px 0';
+            divider.textContent = '— or —';
+            container.appendChild(divider);
+
+            const liveBtn = document.createElement('button');
+            liveBtn.className = 'chat-option live-chat-btn';
+            liveBtn.style.background = 'var(--red)';
+            liveBtn.style.color = 'white';
+            liveBtn.textContent = '💬 Talk to Tim directly';
+            liveBtn.onclick = () => startLiveChat();
+            container.appendChild(liveBtn);
+        }
+    }, 100);
+};
+
+// Add Enter key handler for live chat
+document.addEventListener('DOMContentLoaded', () => {
+    const chatInput = document.querySelector('.chat-input');
+    const chatSend = document.querySelector('.chat-send');
+    if (chatInput && chatSend) {
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && currentSessionId) {
+                sendLiveMessage(chatInput.value);
+                chatInput.value = '';
+            }
+        });
+        chatSend.addEventListener('click', () => {
+            if (currentSessionId) {
+                sendLiveMessage(chatInput.value);
+                chatInput.value = '';
+            }
+        });
+    }
+});
+
 // ===== INIT =====
 initLangSelect();
 buildReactions();
