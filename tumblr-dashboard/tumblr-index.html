@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tumblr Dashboard — timofeyzinin</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #001935; }
+        .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+        .metric { text-align: center; }
+        .metric-value { font-size: 36px; font-weight: 700; color: #001935; }
+        .metric-label { color: #666; font-size: 14px; margin-top: 4px; }
+        .change { color: #00cf00; font-weight: 600; }
+        .goal { color: #0066cc; font-size: 12px; margin-top: 8px; }
+        .updated { color: #999; font-size: 12px; text-align: right; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tumblr Dashboard — timofeyzinin</h1>
+        <div class="card">
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">0</div>
+                    <div class="metric-label">Followers </div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">50</div>
+                    <div class="metric-label">Posts (7 days)</div>
+                    <div class="goal">Goal: 14-21/week</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">7.1</div>
+                    <div class="metric-label">Posts/Day</div>
+                    <div class="goal">Goal: 2-3</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">4.7</div>
+                    <div class="metric-label">Avg Notes/Post</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">106</div>
+                    <div class="metric-label">Est. Reblogs (7d)</div>
+                    <div class="goal">Key metric!</div><div style="color:#999;font-size:11px;margin-top:8px;">* Tumblr API bug: followers = 0</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">233</div>
+                    <div class="metric-label">Total Notes</div>
+                </div>
+            </div>
+        </div>
+        <div class="updated">Updated: 2026-03-12 20:54 UTC</div>
+    </div>
+</body>
+</html>
