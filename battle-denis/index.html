@@ -1,0 +1,1262 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BATTLE DENIS · танковые войны переписки</title>
+<meta name="description" content="Pixel-art танки из переписки. Стреляй во врагов, собирай реальные цитаты Дениса и Тима. One-shot браузерная игра на Dendy-эстетике.">
+<style>
+:root{
+  --bg:#0a0a10;
+  --yel:#FFD843;
+  --yel-d:#B88A00;
+  --brick:#C36B3A;
+  --brick-d:#6E2B08;
+  --steel:#9CA3AD;
+  --red:#E8492C;
+  --grn:#5EC264;
+  --denis:#B07BFF;
+  --tim:#FFD843;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  background:#000;
+  color:#fff;
+  font-family:'Courier New',monospace;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:1rem;
+  background:
+    radial-gradient(ellipse at center, #1a0b2a 0%, #000 60%);
+}
+
+/* CRT scanlines */
+body::after{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.15) 0px,
+    rgba(0,0,0,0.15) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode:multiply;
+}
+
+.title-bar{
+  text-align:center;
+  margin:1rem 0 .8rem;
+  line-height:1;
+}
+.title-bar h1{
+  font-size:clamp(2rem,6vw,4.5rem);
+  letter-spacing:.1em;
+  color:#fff;
+  text-shadow:
+    4px 4px 0 #E8492C,
+    8px 8px 0 #7a1a08,
+    0 0 30px rgba(232,73,44,.6);
+  font-weight:900;
+}
+.title-bar .sub{
+  display:inline-block;
+  margin-top:.5rem;
+  font-size:clamp(.7rem,1.3vw,.95rem);
+  color:var(--yel);
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  text-shadow:2px 2px 0 #6E4400;
+}
+
+.wrap{
+  position:relative;
+  display:inline-block;
+  border:4px solid #fff;
+  box-shadow:
+    0 0 0 4px #000,
+    0 0 0 8px #fff,
+    0 0 60px rgba(232,73,44,.35);
+  background:#000;
+  image-rendering:pixelated;
+  image-rendering:-moz-crisp-edges;
+}
+canvas{
+  display:block;
+  image-rendering:pixelated;
+  image-rendering:-moz-crisp-edges;
+  image-rendering:crisp-edges;
+  background:#000;
+}
+
+/* overlay quotes */
+.quote-pop{
+  position:absolute;
+  left:50%;
+  bottom:12px;
+  transform:translateX(-50%);
+  max-width:90%;
+  padding:10px 16px;
+  background:#000;
+  border:3px solid var(--yel);
+  box-shadow:0 0 0 3px #000, 0 0 0 6px var(--yel), 0 0 40px rgba(255,216,67,.5);
+  font-family:'Courier New',monospace;
+  font-size:clamp(.7rem,1.1vw,.95rem);
+  color:#fff;
+  line-height:1.4;
+  text-align:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.quote-pop.show{opacity:1}
+.quote-pop .who{
+  display:block;
+  font-size:.7em;
+  color:var(--denis);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.quote-pop.tim .who{color:var(--yel)}
+.quote-pop .txt{display:block;max-width:420px;white-space:normal}
+
+/* splash overlay */
+.splash{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:2rem;
+  z-index:10;
+}
+.splash h2{
+  font-size:clamp(2rem,8vw,5rem);
+  letter-spacing:.15em;
+  color:var(--yel);
+  text-shadow:
+    4px 4px 0 var(--red),
+    8px 8px 0 #000;
+  margin-bottom:1rem;
+}
+.splash .press{
+  margin-top:2rem;
+  color:#fff;
+  font-size:clamp(.9rem,1.5vw,1.2rem);
+  letter-spacing:.2em;
+  animation:blink 1.1s infinite;
+}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:.1}}
+.splash .ctrl{
+  margin-top:1.5rem;
+  font-size:clamp(.7rem,1.1vw,.9rem);
+  color:#8fa;
+  letter-spacing:.15em;
+  line-height:1.8;
+}
+.splash .story{
+  margin-top:1rem;
+  color:#ccc;
+  font-size:clamp(.8rem,1.2vw,1rem);
+  max-width:80%;
+  line-height:1.5;
+}
+
+.end-list{
+  margin-top:1.5rem;
+  max-width:90%;
+  max-height:40vh;
+  overflow-y:auto;
+  text-align:left;
+  font-size:.85rem;
+  color:#ccc;
+  padding:0 1rem;
+}
+.end-list .q{
+  margin:.4em 0;
+  padding:.4em .7em;
+  border-left:3px solid var(--denis);
+  background:rgba(176,123,255,.08);
+  line-height:1.4;
+}
+.end-list .q.tim{
+  border-left-color:var(--yel);
+  background:rgba(255,216,67,.08);
+}
+.end-list .q b{display:block;font-size:.7em;letter-spacing:.2em;text-transform:uppercase;color:var(--denis);margin-bottom:.2em}
+.end-list .q.tim b{color:var(--yel)}
+
+.footer-note{
+  margin-top:1.5rem;
+  color:#666;
+  font-size:.75rem;
+  letter-spacing:.1em;
+  text-align:center;
+  max-width:600px;
+}
+.footer-note a{color:var(--yel);text-decoration:none;border-bottom:1px dotted currentColor}
+
+button.retro{
+  margin-top:1.2rem;
+  background:#000;
+  color:var(--yel);
+  border:3px solid var(--yel);
+  box-shadow:4px 4px 0 #6E4400, 0 0 20px rgba(255,216,67,.3);
+  padding:12px 24px;
+  font-family:'Courier New',monospace;
+  font-size:1rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .1s;
+}
+button.retro:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #6E4400, 0 0 30px rgba(255,216,67,.5)}
+button.retro:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #6E4400}
+
+@media(max-width:768px){
+  .title-bar h1{font-size:2rem;text-shadow:2px 2px 0 #E8492C, 4px 4px 0 #7a1a08}
+}
+</style>
+</head>
+<body>
+
+<div class="title-bar">
+  <h1>BATTLE&nbsp;DENIS</h1>
+  <div class="sub">· танковые войны переписки · 1986 ·</div>
+</div>
+
+<div class="wrap" id="wrap">
+  <canvas id="game" width="320" height="260"></canvas>
+
+  <!-- quote popup -->
+  <div class="quote-pop" id="qpop">
+    <span class="who" id="qwho">ДЕНИС</span>
+    <span class="txt" id="qtxt"></span>
+  </div>
+
+  <!-- splash / end screens -->
+  <div class="splash" id="splash">
+    <h2 id="splashTitle">BATTLE DENIS</h2>
+    <div class="story" id="splashStory">
+      Злые тайники дукхи захватили Каш.<br>
+      Только ты, Денис-танк, можешь пробиться к центру мира.<br>
+      С каждого разбитого врага выпадает реальная цитата из переписки.
+    </div>
+    <div class="ctrl">
+      ← ↑ → ↓ &nbsp;или&nbsp; W A S D &nbsp;— движение<br>
+      SPACE &nbsp;— выстрел<br>
+      P &nbsp;— пауза
+    </div>
+    <button class="retro" id="startBtn">▶ START</button>
+    <div class="end-list" id="endList" style="display:none"></div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <p>реальные цитаты из переписки @dgovorunov ↔ @timzinin &nbsp;·&nbsp; апрель 2026</p>
+  <p>оружие — тыканье в клаву. база — орёл. враги — дребезг колеса сансары.</p>
+  <p><a href="https://timzinin.com/sweet-dukkha/">← вернуться к шоколадному буддизму</a></p>
+</div>
+
+<script>
+// ================================================================
+// BATTLE DENIS — one-shot pixel-art tank game with real chat quotes
+// ================================================================
+
+const CV = document.getElementById('game');
+const ctx = CV.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+
+// upscale display
+function fitCanvas(){
+  const maxW = Math.min(window.innerWidth - 40, 1280);
+  const maxH = window.innerHeight - 220;
+  const scaleW = maxW / CV.width;
+  const scaleH = maxH / CV.height;
+  const scale = Math.max(2, Math.floor(Math.min(scaleW, scaleH)));
+  CV.style.width = (CV.width * scale) + 'px';
+  CV.style.height = (CV.height * scale) + 'px';
+}
+fitCanvas();
+window.addEventListener('resize', fitCanvas);
+
+// ---------- CONSTANTS ----------
+const TS = 16;       // tile size
+const MAPW = 13;     // tiles
+const MAPH = 13;
+const FIELDW = MAPW*TS;  // 208
+const FIELDH = MAPH*TS;  // 208
+const HUDX = FIELDW + 8;  // 216
+const TANK = 32;     // 2 tiles
+const BULLET = 4;
+
+// Tile types
+const T_EMPTY=0, T_BRICK=1, T_STEEL=2, T_WATER=3, T_FOREST=4, T_EAGLE=5;
+
+// Directions
+const DIR_UP=0, DIR_RIGHT=1, DIR_DOWN=2, DIR_LEFT=3;
+
+// ---------- QUOTES (real from chat) ----------
+const QUOTES = [
+  {who:'DENIS', text:'Мы на вокзал приехали, но вроде дальше поехали, я испугался, что все 😂'},
+  {who:'DENIS', text:'а, ну да, забыл куда еду, это же центр мира ))'},
+  {who:'DENIS', text:'Привезти тебе чего-нибудь вкусненького?'},
+  {who:'DENIS', text:'Ох, а я думал приеду и уже лето 🙈'},
+  {who:'DENIS', text:'Неожиданно дождливо 😳'},
+  {who:'DENIS', text:'Я уже в кашском автобусе, скоро приеду.'},
+  {who:'DENIS', text:'В Минске очень вкусно кормят, это да ❤️'},
+  {who:'DENIS', text:'Соблазнительно :) Приеду, буду думать )'},
+  {who:'DENIS', text:'Фига себе 😳'},
+  {who:'DENIS', text:'Охренеть'},
+  {who:'DENIS', text:'Подождем 😆'},
+  {who:'DENIS', text:'Это сейчас снег 😳😳😳'},
+  {who:'DENIS', text:'Супер! 20 мин ехать ещё :)'},
+  {who:'DENIS', text:'Ааа, здорово как 😍'},
+  {who:'DENIS', text:'Вылетаем по расписанию, все ок 👍'},
+  {who:'DENIS', text:'Ого! Значит зимой надо требовать 500-600'},
+  {who:'DENIS', text:'Или он в другое место приезжает теперь?'},
+  {who:'DENIS', text:'Фига чуть чуть 😳'},
+  {who:'DENIS', text:'2 с половиной часа где-то ещё ехать'},
+  {who:'DENIS', text:'Ага, 1.5 часа еще'},
+  {who:'TIM', text:'Ура! Мы не бомжи!'},
+  {who:'TIM', text:'Град'},
+  {who:'TIM', text:'чо каво?'},
+  {who:'TIM', text:'ты в Финике сейчас?'},
+  {who:'TIM', text:'Лето будет позднее'},
+  {who:'TIM', text:'По такой погоде я думаю около 3 часов ещё'},
+  {who:'TIM', text:'Чуть чуть'},
+  {who:'TIM', text:'Чуть в другое'},
+  {who:'TIM', text:'ахахахах'},
+  {who:'TIM', text:'Дорогой, да тут всего хватает :) Спасибо тебе'},
+  {who:'TIM', text:'Ты как ?'},
+  {who:'TIM', text:'О\'кей выхожу'},
+  {who:'TIM', text:'Я с тобой готов скинуться разумеется'},
+  {who:'TIM', text:'мне только надо НЕ показывать Сулейману паспорт, я на оверстее'},
+  {who:'TIM', text:'Как дорога ?'},
+  {who:'TIM', text:'Во сколько тебя встречать ?'},
+  {who:'TIM', text:'Приветик'},
+  {who:'TIM', text:'Хорошо тебе доделать завтра'},
+];
+
+// ---------- MAP (13x13) ----------
+// B=brick, S=steel, W=water, F=forest, E=eagle, .=empty
+const MAPSTR = [
+  "......B......",
+  "...B.BBB.B...",
+  "..BB..B..BB..",
+  ".BB.......BB.",
+  "......B......",
+  "BB.BBSSSBB.BB",
+  "BB.BB...BB.BB",
+  "BB.BBSSSBB.BB",
+  "......B......",
+  ".BB.......BB.",
+  ".BB..BBB..BB.",
+  ".BB..BBB..BB.",
+  "....BBEBB....",
+];
+function parseMap(){
+  const m = [];
+  for(let y=0;y<MAPH;y++){
+    const row = [];
+    for(let x=0;x<MAPW;x++){
+      const c = MAPSTR[y][x];
+      if(c==='B') row.push(T_BRICK);
+      else if(c==='S') row.push(T_STEEL);
+      else if(c==='W') row.push(T_WATER);
+      else if(c==='F') row.push(T_FOREST);
+      else if(c==='E') row.push(T_EAGLE);
+      else row.push(T_EMPTY);
+    }
+    m.push(row);
+  }
+  // clear zones (spawn areas + player start), preserving eagle
+  const zones = [
+    {x:0, y:0, w:2, h:2},    // top-left enemy spawn
+    {x:6, y:0, w:2, h:2},    // top-mid enemy spawn
+    {x:11, y:0, w:2, h:2},   // top-right enemy spawn
+    {x:1, y:10, w:3, h:3},   // player start area (3x3 around player)
+  ];
+  for(const z of zones){
+    for(let y=z.y; y<z.y+z.h; y++){
+      for(let x=z.x; x<z.x+z.w; x++){
+        if(m[y] && x<MAPW && m[y][x]!==T_EAGLE){
+          m[y][x] = T_EMPTY;
+        }
+      }
+    }
+  }
+  return m;
+}
+
+// ---------- SPRITES (as arrays of colors per pixel) ----------
+// We draw tanks 32x32 using 2x2 pixel blocks from a 16x16 grid
+
+// palette
+const P = {
+  '.':null,
+  'y':'#FFD843',    // yellow main
+  'Y':'#FFEE99',    // yellow highlight
+  'd':'#8C6200',    // yellow dark
+  'k':'#000000',
+  'w':'#FFFFFF',
+  'g':'#808080',
+  'G':'#C8C8C8',
+  'D':'#303030',
+  'r':'#E8492C',
+  'R':'#FF8060',
+  'b':'#4F6BD6',
+  'B':'#8BA8FF',
+  'p':'#B07BFF',
+  'P':'#D8B4FF',
+  'o':'#C36B3A',
+  'O':'#E8905C',
+  'n':'#6E2B08',
+  'G2':'#5EC264',
+};
+
+// 16x16 tank sprite template, top view (facing up)
+// Use 4-char tokens per row? Simpler: 16 single-char pixels per row
+const PLAYER_SPRITE = [
+  "....yy....yy....",
+  "...yYy....yYy...",
+  "...yYy....yYy...",
+  "...yYy....yYy...",
+  "..yYYYyyyyYYYY..",
+  "..yYd.yyyy.dYy..",
+  "..yY..yyyy..Yy..",
+  "..yY..yyyy..Yy..",
+  "..yY..yyyy..Yy..",
+  "..yY..yyyy..Yy..",
+  "..yYYYyyyyYYYy..",
+  "..yddddddddddy..",
+  ".yyyyyyyyyyyyyy.",
+  ".y.y.y.y.y.y.y..",
+  ".yyyyyyyyyyyyyy.",
+  "................",
+];
+
+const ENEMY1_SPRITE = [ // basic grey
+  "................",
+  "....gg....gg....",
+  "...gGg....gGg...",
+  "...gGg....gGg...",
+  "..gGGGggggGGGg..",
+  "..gGD.gggg.DGg..",
+  "..gG..gggg..Gg..",
+  "..gG..gggg..Gg..",
+  "..gG..gggg..Gg..",
+  "..gG..gggg..Gg..",
+  "..gGGGggggGGGg..",
+  "..gDDDDDDDDDDg..",
+  ".gggggggggggggg.",
+  ".g.g.g.g.g.g.g..",
+  ".gggggggggggggg.",
+  "................",
+];
+
+const ENEMY2_SPRITE = [ // red fast
+  "................",
+  "....rr....rr....",
+  "...rRr....rRr...",
+  "...rRr....rRr...",
+  "..rRRRrrrrRRRr..",
+  "..rRk.rrrr.kRr..",
+  "..rR..rrrr..Rr..",
+  "..rR..rkkr..Rr..",
+  "..rR..rkkr..Rr..",
+  "..rR..rrrr..Rr..",
+  "..rRRRrrrrRRRr..",
+  "..rkkkkkkkkkkr..",
+  ".rrrrrrrrrrrrrr.",
+  ".r.r.r.r.r.r.r..",
+  ".rrrrrrrrrrrrrr.",
+  "................",
+];
+
+const ENEMY3_SPRITE = [ // purple heavy
+  "................",
+  "...ppp....ppp...",
+  "...pPp....pPp...",
+  "...pPp....pPp...",
+  ".pPPPPppppPPPPp.",
+  ".pPpk.pppp.kpPp.",
+  ".pPp..pppp..pPp.",
+  ".pPp..pPPp..pPp.",
+  ".pPp..pPPp..pPp.",
+  ".pPp..pppp..pPp.",
+  ".pPPPPppppPPPPp.",
+  ".ppkkkkkkkkkkpp.",
+  "pppppppppppppppp",
+  "p.p.p.p.p.p.p.p.",
+  "pppppppppppppppp",
+  "................",
+];
+
+// Eagle 16x16
+const EAGLE_SPRITE = [
+  "................",
+  "......wwww......",
+  ".....wwwwww.....",
+  "....wwwwwwww....",
+  "....wYkkkkYw....",
+  "....wkkwwkkw....",
+  "...wwkkwwkkww...",
+  "...wwwwwwwwww...",
+  "..wwwwwwwwwwww..",
+  "..wwWwwwwwwWww..",
+  "...wwwwwwwwww...",
+  "....wkkkkkkw....",
+  "....wkwwwwkw....",
+  ".....wk..kw.....",
+  "......ww.ww.....",
+  "................",
+];
+
+const EAGLE_DEAD = [
+  "................",
+  "......rrrr......",
+  ".....rkkkkr.....",
+  "....rkkkkkkr....",
+  "....rkwwwwkr....",
+  "....rkkrrkkr....",
+  "...rrkkrrkkrr...",
+  "...rkkkkkkkkr...",
+  "..rkkkkkkkkkkr..",
+  "..rkkrkkkkrkkr..",
+  "...rrkkkkkkrr...",
+  "....rkkkkkkr....",
+  "....rkrrrrkr....",
+  ".....rk..kr.....",
+  "......rr.rr.....",
+  "................",
+];
+
+// Create offscreen sprite cache (scaled 2x to 32px)
+function spriteToCanvas(sprite, tokens){
+  // sprite is array of 16 strings; each char = 1 pixel
+  const w = 16, h = 16;
+  const c = document.createElement('canvas');
+  c.width = w*2; c.height = h*2;
+  const cx = c.getContext('2d');
+  cx.imageSmoothingEnabled = false;
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      const ch = sprite[y][x];
+      const col = P[ch];
+      if(col){
+        cx.fillStyle = col;
+        cx.fillRect(x*2, y*2, 2, 2);
+      }
+    }
+  }
+  return c;
+}
+
+// Rotate sprite canvas by direction (0=up default)
+function rotatedSprite(baseCanvas, dir){
+  const c = document.createElement('canvas');
+  c.width = baseCanvas.width; c.height = baseCanvas.height;
+  const cx = c.getContext('2d');
+  cx.imageSmoothingEnabled = false;
+  cx.translate(c.width/2, c.height/2);
+  cx.rotate(dir * Math.PI/2);
+  cx.drawImage(baseCanvas, -baseCanvas.width/2, -baseCanvas.height/2);
+  return c;
+}
+
+const SPRITES = {
+  player: [],
+  e1: [],
+  e2: [],
+  e3: [],
+  eagle: null,
+  eagleDead: null,
+};
+
+function initSprites(){
+  const base = {
+    player: spriteToCanvas(PLAYER_SPRITE),
+    e1: spriteToCanvas(ENEMY1_SPRITE),
+    e2: spriteToCanvas(ENEMY2_SPRITE),
+    e3: spriteToCanvas(ENEMY3_SPRITE),
+  };
+  for(let d=0;d<4;d++){
+    SPRITES.player[d] = rotatedSprite(base.player, d);
+    SPRITES.e1[d] = rotatedSprite(base.e1, d);
+    SPRITES.e2[d] = rotatedSprite(base.e2, d);
+    SPRITES.e3[d] = rotatedSprite(base.e3, d);
+  }
+  SPRITES.eagle = spriteToCanvas(EAGLE_SPRITE);
+  SPRITES.eagleDead = spriteToCanvas(EAGLE_DEAD);
+}
+initSprites();
+
+// ---------- GAME STATE ----------
+const G = {
+  state: 'splash',   // splash | playing | dead | victory | gameover
+  map: parseMap(),
+  player: null,
+  bullets: [],
+  enemies: [],
+  explosions: [],
+  quotesPool: [...QUOTES],
+  quotesCollected: [],
+  enemiesLeft: 20,
+  enemiesMax: 4,
+  lives: 3,
+  score: 0,
+  spawnTimer: 0,
+  spawnInterval: 180,  // frames
+  keys: {},
+  paused: false,
+  spawnPoints: [
+    {x:0, y:0},
+    {x:6*TS, y:0},
+    {x:11*TS, y:0},
+  ],
+  nextSpawnIdx: 0,
+  invTimer: 0,
+};
+
+function resetGame(){
+  G.map = parseMap();
+  G.bullets = [];
+  G.enemies = [];
+  G.explosions = [];
+  G.quotesPool = [...QUOTES];
+  G.quotesCollected = [];
+  G.enemiesLeft = 20;
+  G.lives = 3;
+  G.score = 0;
+  G.spawnTimer = 60;
+  G.player = makePlayer();
+  G.invTimer = 90;
+  G.nextSpawnIdx = 0;
+}
+
+function makePlayer(){
+  return {
+    x: 2*TS,
+    y: 11*TS,
+    dir: DIR_UP,
+    speed: 1,
+    moving: false,
+    isPlayer: true,
+  };
+}
+
+function makeEnemy(px, py){
+  const t = Math.random();
+  let type = 'e1', speed = 0.6, hp = 1;
+  if(t > 0.75){ type='e2'; speed=1.1; hp=1; }
+  else if(t > 0.9){ type='e3'; speed=0.5; hp=2; }
+  return {
+    x: px, y: py,
+    dir: DIR_DOWN,
+    speed, hp, type,
+    moving: true,
+    turnTimer: 0,
+    shootTimer: 60 + Math.floor(Math.random()*120),
+    spawnTimer: 45,  // invincible spawn animation
+  };
+}
+
+// ---------- COLLISION ----------
+function tankRect(t){
+  return {x:t.x, y:t.y, w:TANK, h:TANK};
+}
+
+function rectsOverlap(a,b){
+  return a.x < b.x+b.w && a.x+a.w > b.x && a.y < b.y+b.h && a.y+a.h > b.y;
+}
+
+function canMoveTo(tank, nx, ny){
+  if(nx < 0 || ny < 0 || nx+TANK > FIELDW || ny+TANK > FIELDH) return false;
+  // tile collision
+  const tx1 = Math.floor(nx/TS);
+  const ty1 = Math.floor(ny/TS);
+  const tx2 = Math.floor((nx+TANK-1)/TS);
+  const ty2 = Math.floor((ny+TANK-1)/TS);
+  for(let y=ty1;y<=ty2;y++){
+    for(let x=tx1;x<=tx2;x++){
+      const tile = G.map[y] && G.map[y][x];
+      if(tile===T_BRICK || tile===T_STEEL || tile===T_WATER || tile===T_EAGLE) return false;
+    }
+  }
+  // other tanks
+  const testRect = {x:nx, y:ny, w:TANK, h:TANK};
+  if(tank !== G.player && G.player && rectsOverlap(testRect, tankRect(G.player))) return false;
+  for(const e of G.enemies){
+    if(e === tank) continue;
+    if(rectsOverlap(testRect, tankRect(e))) return false;
+  }
+  return true;
+}
+
+// ---------- MOVEMENT ----------
+function moveTank(t, dir){
+  t.dir = dir;
+  let nx = t.x, ny = t.y;
+  if(dir===DIR_UP) ny -= t.speed;
+  else if(dir===DIR_DOWN) ny += t.speed;
+  else if(dir===DIR_LEFT) nx -= t.speed;
+  else if(dir===DIR_RIGHT) nx += t.speed;
+  // grid alignment: snap perpendicular
+  if(dir===DIR_UP || dir===DIR_DOWN){
+    const gridX = Math.round(t.x/(TS/2))*(TS/2);
+    if(Math.abs(gridX - t.x) < 2) nx = gridX;
+  } else {
+    const gridY = Math.round(t.y/(TS/2))*(TS/2);
+    if(Math.abs(gridY - t.y) < 2) ny = gridY;
+  }
+  if(canMoveTo(t, nx, ny)){
+    t.x = nx; t.y = ny;
+    t.moving = true;
+  } else {
+    t.moving = false;
+  }
+}
+
+// ---------- BULLETS ----------
+function shoot(tank){
+  const cx = tank.x + TANK/2 - BULLET/2;
+  const cy = tank.y + TANK/2 - BULLET/2;
+  let bx = cx, by = cy;
+  if(tank.dir===DIR_UP) by = tank.y - BULLET;
+  else if(tank.dir===DIR_DOWN) by = tank.y + TANK;
+  else if(tank.dir===DIR_LEFT) bx = tank.x - BULLET;
+  else if(tank.dir===DIR_RIGHT) bx = tank.x + TANK;
+  G.bullets.push({
+    x: bx, y: by, dir: tank.dir,
+    owner: tank.isPlayer ? 'player' : 'enemy',
+    speed: 2.5,
+  });
+}
+
+function updateBullets(){
+  for(let i=G.bullets.length-1;i>=0;i--){
+    const b = G.bullets[i];
+    if(b.dir===DIR_UP) b.y -= b.speed;
+    else if(b.dir===DIR_DOWN) b.y += b.speed;
+    else if(b.dir===DIR_LEFT) b.x -= b.speed;
+    else if(b.dir===DIR_RIGHT) b.x += b.speed;
+
+    let hit = false;
+
+    // out of bounds
+    if(b.x < 0 || b.x > FIELDW || b.y < 0 || b.y > FIELDH){
+      hit = true;
+    }
+
+    // tiles
+    if(!hit){
+      const tx = Math.floor((b.x+BULLET/2)/TS);
+      const ty = Math.floor((b.y+BULLET/2)/TS);
+      const tile = G.map[ty] && G.map[ty][tx];
+      if(tile===T_BRICK){
+        G.map[ty][tx] = T_EMPTY;
+        spawnExplosion(tx*TS+TS/2, ty*TS+TS/2, 'small');
+        hit = true;
+      } else if(tile===T_STEEL){
+        spawnExplosion(b.x, b.y, 'tiny');
+        hit = true;
+      } else if(tile===T_EAGLE){
+        G.map[ty][tx] = 999;  // dead eagle marker (still draws)
+        spawnExplosion(tx*TS+TS/2, ty*TS+TS/2, 'big');
+        hit = true;
+        gameOver();
+      }
+    }
+
+    // hit enemies
+    if(!hit && b.owner==='player'){
+      for(let j=G.enemies.length-1;j>=0;j--){
+        const e = G.enemies[j];
+        if(e.spawnTimer>0) continue;
+        const bR = {x:b.x, y:b.y, w:BULLET, h:BULLET};
+        if(rectsOverlap(bR, tankRect(e))){
+          e.hp--;
+          hit = true;
+          if(e.hp<=0){
+            spawnExplosion(e.x+TANK/2, e.y+TANK/2, 'big');
+            G.enemies.splice(j,1);
+            G.score += 100;
+            G.enemiesLeft--;
+            dropQuote();
+            if(G.enemiesLeft<=0 && G.enemies.length===0){
+              victory();
+            }
+          } else {
+            spawnExplosion(b.x, b.y, 'small');
+          }
+          break;
+        }
+      }
+    }
+
+    // hit player
+    if(!hit && b.owner==='enemy' && G.player && G.invTimer<=0){
+      const bR = {x:b.x, y:b.y, w:BULLET, h:BULLET};
+      if(rectsOverlap(bR, tankRect(G.player))){
+        hit = true;
+        spawnExplosion(G.player.x+TANK/2, G.player.y+TANK/2, 'big');
+        playerDie();
+      }
+    }
+
+    // bullet vs bullet
+    if(!hit){
+      for(let k=G.bullets.length-1;k>=0;k--){
+        if(k===i) continue;
+        const b2 = G.bullets[k];
+        if(b2.owner===b.owner) continue;
+        const bR = {x:b.x, y:b.y, w:BULLET, h:BULLET};
+        const b2R = {x:b2.x, y:b2.y, w:BULLET, h:BULLET};
+        if(rectsOverlap(bR, b2R)){
+          hit = true;
+          G.bullets.splice(k,1);
+          if(k<i) i--;
+          break;
+        }
+      }
+    }
+
+    if(hit) G.bullets.splice(i,1);
+  }
+}
+
+// ---------- ENEMIES AI ----------
+function updateEnemies(){
+  for(const e of G.enemies){
+    if(e.spawnTimer>0){ e.spawnTimer--; continue; }
+    e.turnTimer--;
+    e.shootTimer--;
+    if(e.turnTimer<=0 || Math.random()<0.01){
+      // pick new direction, prefer going toward eagle/player
+      const r = Math.random();
+      if(r < 0.4){
+        e.dir = DIR_DOWN;
+      } else if(r < 0.55){
+        e.dir = DIR_LEFT;
+      } else if(r < 0.7){
+        e.dir = DIR_RIGHT;
+      } else if(r < 0.78){
+        e.dir = DIR_UP;
+      } else {
+        e.dir = Math.floor(Math.random()*4);
+      }
+      e.turnTimer = 60 + Math.floor(Math.random()*60);
+    }
+    const prevX = e.x, prevY = e.y;
+    moveTank(e, e.dir);
+    if(prevX===e.x && prevY===e.y){
+      // stuck, try different
+      e.turnTimer = 0;
+    }
+    if(e.shootTimer<=0){
+      shoot(e);
+      e.shootTimer = 100 + Math.floor(Math.random()*140);
+    }
+  }
+}
+
+// ---------- EXPLOSIONS ----------
+function spawnExplosion(x, y, size){
+  const count = size==='big' ? 14 : (size==='small' ? 7 : 4);
+  for(let i=0;i<count;i++){
+    G.explosions.push({
+      x, y,
+      vx: (Math.random()-0.5)*3,
+      vy: (Math.random()-0.5)*3,
+      life: 20 + Math.random()*15,
+      size: Math.random()<0.5 ? 2 : 3,
+      color: Math.random()<0.5 ? '#FFD843' : (Math.random()<0.5 ? '#FF8060' : '#fff'),
+    });
+  }
+}
+
+function updateExplosions(){
+  for(let i=G.explosions.length-1;i>=0;i--){
+    const e = G.explosions[i];
+    e.x += e.vx; e.y += e.vy;
+    e.life--;
+    if(e.life<=0) G.explosions.splice(i,1);
+  }
+}
+
+// ---------- SPAWN ENEMIES ----------
+function updateSpawn(){
+  if(G.enemiesLeft<=0) return;
+  if(G.enemies.length>=G.enemiesMax) return;
+  G.spawnTimer--;
+  if(G.spawnTimer<=0){
+    const sp = G.spawnPoints[G.nextSpawnIdx % G.spawnPoints.length];
+    G.nextSpawnIdx++;
+    // check space
+    let clear = true;
+    const testR = {x:sp.x, y:sp.y, w:TANK, h:TANK};
+    if(G.player && rectsOverlap(testR, tankRect(G.player))) clear = false;
+    for(const e of G.enemies){ if(rectsOverlap(testR, tankRect(e))){ clear=false; break; } }
+    if(clear){
+      G.enemies.push(makeEnemy(sp.x, sp.y));
+      G.spawnTimer = G.spawnInterval;
+    } else {
+      G.spawnTimer = 20;
+    }
+  }
+}
+
+// ---------- DEATH / GAMEOVER / VICTORY ----------
+function playerDie(){
+  G.lives--;
+  if(G.lives <= 0){
+    gameOver();
+  } else {
+    G.player = makePlayer();
+    G.invTimer = 120;
+  }
+}
+
+function gameOver(){
+  G.state = 'gameover';
+  showEndScreen(false);
+}
+
+function victory(){
+  G.state = 'victory';
+  showEndScreen(true);
+}
+
+// ---------- QUOTES DROP ----------
+function dropQuote(){
+  if(G.quotesPool.length===0) return;
+  const idx = Math.floor(Math.random()*G.quotesPool.length);
+  const q = G.quotesPool.splice(idx,1)[0];
+  G.quotesCollected.push(q);
+  showQuotePop(q);
+}
+
+let quoteTimeout;
+function showQuotePop(q){
+  const pop = document.getElementById('qpop');
+  const who = document.getElementById('qwho');
+  const txt = document.getElementById('qtxt');
+  who.textContent = q.who;
+  txt.textContent = q.text;
+  pop.classList.remove('tim');
+  if(q.who==='TIM') pop.classList.add('tim');
+  pop.classList.add('show');
+  clearTimeout(quoteTimeout);
+  quoteTimeout = setTimeout(()=>pop.classList.remove('show'), 3800);
+}
+
+function showEndScreen(win){
+  const splash = document.getElementById('splash');
+  const title = document.getElementById('splashTitle');
+  const story = document.getElementById('splashStory');
+  const btn = document.getElementById('startBtn');
+  const list = document.getElementById('endList');
+  splash.style.display = 'flex';
+  if(win){
+    title.textContent = 'ПОБЕДА';
+    title.style.color = '#5EC264';
+    title.style.textShadow = '4px 4px 0 #1a4a1a, 8px 8px 0 #000';
+    story.innerHTML = `Ты разбил весь дребезг колеса.<br>Собрано цитат: <b>${G.quotesCollected.length}</b> / ${QUOTES.length}<br>Счёт: <b>${G.score}</b>`;
+  } else {
+    title.textContent = 'GAME OVER';
+    title.style.color = '#E8492C';
+    title.style.textShadow = '4px 4px 0 #6e1a08, 8px 8px 0 #000';
+    story.innerHTML = `База пала. Дукха победила.<br>Но ты собрал <b>${G.quotesCollected.length}</b> цитат из <b>${QUOTES.length}</b>.`;
+  }
+  // populate list
+  list.innerHTML = '';
+  list.style.display = 'block';
+  for(const q of G.quotesCollected){
+    const div = document.createElement('div');
+    div.className = 'q' + (q.who==='TIM' ? ' tim' : '');
+    div.innerHTML = `<b>${q.who}</b>${q.text}`;
+    list.appendChild(div);
+  }
+  btn.textContent = '▶ ЕЩЁ РАЗ';
+}
+
+// ---------- INPUT ----------
+window.addEventListener('keydown', e=>{
+  G.keys[e.key.toLowerCase()] = true;
+  if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(e.key.toLowerCase())) e.preventDefault();
+  if(e.key.toLowerCase()==='p' && G.state==='playing'){
+    G.paused = !G.paused;
+  }
+});
+window.addEventListener('keyup', e=>{
+  G.keys[e.key.toLowerCase()] = false;
+});
+
+let shootCooldown = 0;
+function handleInput(){
+  if(!G.player) return;
+  const k = G.keys;
+  let moved = false;
+  if(k['arrowup']||k['w']){ moveTank(G.player, DIR_UP); moved=true; }
+  else if(k['arrowdown']||k['s']){ moveTank(G.player, DIR_DOWN); moved=true; }
+  else if(k['arrowleft']||k['a']){ moveTank(G.player, DIR_LEFT); moved=true; }
+  else if(k['arrowright']||k['d']){ moveTank(G.player, DIR_RIGHT); moved=true; }
+  if(!moved) G.player.moving = false;
+  if(shootCooldown>0) shootCooldown--;
+  if((k[' ']||k['spacebar']||k['space']) && shootCooldown<=0){
+    // only one player bullet at a time
+    const existing = G.bullets.filter(b=>b.owner==='player').length;
+    if(existing < 1){
+      shoot(G.player);
+      shootCooldown = 15;
+    }
+  }
+}
+
+// ---------- RENDER ----------
+const tick = { n:0 };
+
+function drawBrick(x, y){
+  // 16x16 brick, 4x4 small bricks
+  const cols = ['#C36B3A', '#A14D1E'];
+  for(let r=0;r<4;r++){
+    for(let c=0;c<4;c++){
+      const col = cols[(r+c)%2];
+      ctx.fillStyle = col;
+      ctx.fillRect(x+c*4, y+r*4, 4, 4);
+    }
+  }
+  // grout lines
+  ctx.fillStyle = '#6E2B08';
+  ctx.fillRect(x, y+3, TS, 1);
+  ctx.fillRect(x, y+7, TS, 1);
+  ctx.fillRect(x, y+11, TS, 1);
+  ctx.fillRect(x+3, y+0, 1, 3);
+  ctx.fillRect(x+7, y+4, 1, 3);
+  ctx.fillRect(x+11, y+0, 1, 3);
+  ctx.fillRect(x+3, y+8, 1, 3);
+  ctx.fillRect(x+11, y+8, 1, 3);
+  ctx.fillRect(x+7, y+12, 1, 3);
+}
+
+function drawSteel(x, y){
+  ctx.fillStyle = '#9CA3AD';
+  ctx.fillRect(x, y, TS, TS);
+  ctx.fillStyle = '#C8CED8';
+  ctx.fillRect(x, y, TS-1, TS-1);
+  ctx.fillStyle = '#5A606A';
+  ctx.fillRect(x+TS-2, y+1, 2, TS-1);
+  ctx.fillRect(x+1, y+TS-2, TS-1, 2);
+  ctx.fillStyle = '#70767E';
+  ctx.fillRect(x+3, y+3, 4, 2);
+  ctx.fillRect(x+9, y+3, 4, 2);
+  ctx.fillRect(x+3, y+11, 4, 2);
+  ctx.fillRect(x+9, y+11, 4, 2);
+}
+
+function drawMap(){
+  // background field
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, FIELDW, FIELDH);
+  for(let y=0;y<MAPH;y++){
+    for(let x=0;x<MAPW;x++){
+      const t = G.map[y][x];
+      const px = x*TS, py = y*TS;
+      if(t===T_BRICK) drawBrick(px, py);
+      else if(t===T_STEEL) drawSteel(px, py);
+      else if(t===T_EAGLE || t===999){
+        const sp = (t===999) ? SPRITES.eagleDead : SPRITES.eagle;
+        ctx.drawImage(sp, px, py, TS, TS);
+      }
+    }
+  }
+}
+
+function drawTank(t, kind){
+  let spriteArr;
+  if(kind==='player') spriteArr = SPRITES.player;
+  else if(kind==='e1') spriteArr = SPRITES.e1;
+  else if(kind==='e2') spriteArr = SPRITES.e2;
+  else if(kind==='e3') spriteArr = SPRITES.e3;
+  if(!spriteArr) return;
+  // spawn shield flash
+  if(t.spawnTimer && t.spawnTimer>0){
+    ctx.fillStyle = tick.n%4<2 ? '#fff' : '#FFD843';
+    ctx.fillRect(t.x+2, t.y+2, TANK-4, TANK-4);
+    return;
+  }
+  // player invincibility flash
+  if(kind==='player' && G.invTimer>0 && tick.n%6<3){
+    return;
+  }
+  ctx.drawImage(spriteArr[t.dir], t.x, t.y);
+}
+
+function drawBullet(b){
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(b.x, b.y, BULLET, BULLET);
+  ctx.fillStyle = '#FFD843';
+  ctx.fillRect(b.x+1, b.y+1, BULLET-2, BULLET-2);
+}
+
+function drawExplosions(){
+  for(const e of G.explosions){
+    ctx.fillStyle = e.color;
+    ctx.fillRect(Math.round(e.x), Math.round(e.y), e.size, e.size);
+  }
+}
+
+function drawHUD(){
+  // background
+  ctx.fillStyle = '#3A3427';
+  ctx.fillRect(FIELDW, 0, CV.width-FIELDW, CV.height);
+  ctx.fillStyle = '#1A150B';
+  ctx.fillRect(FIELDW, 0, 2, CV.height);
+
+  const baseX = FIELDW + 10;
+  let y = 12;
+
+  // enemies left — small icon grid
+  ctx.fillStyle = '#FFD843';
+  ctx.font = '7px monospace';
+  ctx.fillText('ENEMY', baseX, y);
+  y += 10;
+  // draw squares, 2 per row
+  const remaining = G.enemiesLeft;
+  for(let i=0;i<Math.min(remaining,20);i++){
+    const col = i%2;
+    const row = Math.floor(i/2);
+    ctx.fillStyle = '#E8492C';
+    ctx.fillRect(baseX + col*16, y + row*8, 6, 6);
+  }
+  y += Math.ceil(Math.min(remaining,20)/2)*8 + 10;
+
+  // lives (player)
+  ctx.fillStyle = '#FFD843';
+  ctx.fillText('1P', baseX, y);
+  y += 2;
+  ctx.fillStyle = '#B88A00';
+  ctx.fillRect(baseX, y, 30, 1);
+  y += 4;
+  ctx.fillStyle = '#FFD843';
+  ctx.fillText(G.lives + '', baseX + 20, y + 5);
+  // draw small tank icon
+  ctx.fillStyle = '#FFD843';
+  ctx.fillRect(baseX+2, y+1, 3, 6);
+  ctx.fillRect(baseX+7, y+1, 3, 6);
+  ctx.fillRect(baseX+2, y+2, 8, 4);
+  ctx.fillStyle = '#8C6200';
+  ctx.fillRect(baseX+5, y-2, 2, 3);
+  y += 14;
+
+  // score
+  ctx.fillStyle = '#FFD843';
+  ctx.fillText('SCORE', baseX, y);
+  y += 9;
+  ctx.fillStyle = '#fff';
+  ctx.fillText(G.score + '', baseX, y);
+  y += 14;
+
+  // collected count
+  ctx.fillStyle = '#B07BFF';
+  ctx.fillText('QUOTES', baseX, y);
+  y += 9;
+  ctx.fillStyle = '#fff';
+  ctx.fillText(G.quotesCollected.length + '/' + QUOTES.length, baseX, y);
+  y += 14;
+
+  // stage
+  ctx.fillStyle = '#5EC264';
+  ctx.fillText('STAGE', baseX, y);
+  y += 9;
+  ctx.fillStyle = '#fff';
+  ctx.fillText('КАШ 1', baseX, y);
+
+  // bottom label
+  ctx.fillStyle = '#8C6200';
+  ctx.fillText('BATTLE', baseX, CV.height - 22);
+  ctx.fillText('DENIS', baseX, CV.height - 12);
+}
+
+function render(){
+  // full black
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, CV.width, CV.height);
+
+  drawMap();
+
+  // tanks
+  if(G.player) drawTank(G.player, 'player');
+  for(const e of G.enemies){
+    drawTank(e, e.type);
+  }
+
+  // bullets
+  for(const b of G.bullets) drawBullet(b);
+
+  // forest (drawn on top) — skipped for now
+
+  // explosions
+  drawExplosions();
+
+  drawHUD();
+
+  if(G.paused){
+    ctx.fillStyle = 'rgba(0,0,0,.6)';
+    ctx.fillRect(0,0,FIELDW,FIELDH);
+    ctx.fillStyle = '#FFD843';
+    ctx.font = '12px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('PAUSE', FIELDW/2, FIELDH/2);
+    ctx.textAlign = 'start';
+  }
+}
+
+// ---------- MAIN LOOP ----------
+function loop(){
+  tick.n++;
+  if(G.state==='playing' && !G.paused){
+    if(G.invTimer>0) G.invTimer--;
+    handleInput();
+    updateBullets();
+    updateEnemies();
+    updateSpawn();
+    updateExplosions();
+  }
+  render();
+  requestAnimationFrame(loop);
+}
+
+function startGame(){
+  resetGame();
+  G.state = 'playing';
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('endList').style.display = 'none';
+}
+
+document.getElementById('startBtn').addEventListener('click', startGame);
+window.addEventListener('keydown', e=>{
+  if(G.state!=='playing' && (e.key==='Enter' || e.key===' ')){
+    e.preventDefault();
+    startGame();
+  }
+});
+
+loop();
+</script>
+</body>
+</html>
