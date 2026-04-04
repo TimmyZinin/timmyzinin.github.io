@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>СЛАДКАЯ ДУККХА · Шоколадно-буддийский манускрипт для Дениса</title>
+<meta name="description" content="Персональный шоколадно-буддийский сайт для Дениса: дукха, ахимса, 10 неотвеченных вопросов Будды и польза сахара. С любовью и какао-бобами.">
+<meta property="og:title" content="СЛАДКАЯ ДУККХА — для Дениса">
+<meta property="og:description" content="Шоколадно-буддийский манускрипт. Дукха, ахимса, вопросы, на которые Будда не ответил, и польза сахара.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=Manrope:wght@300;400;500;700&family=Fraunces:opsz,wght@9..144,300;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cadbury:#3C1361;
+  --cadbury-deep:#2A0845;
+  --cadbury-light:#6B3FA0;
+  --gold:#E8A33D;
+  --gold-bright:#FFD47A;
+  --cream:#FFF8E7;
+  --pink:#FFB3D1;
+  --pink-hot:#FF5FA2;
+  --pink-wisp:#FFE0EC;
+  --choco:#4A1E05;
+  --choco-milk:#7B4A2B;
+  --ink:#1A0A2A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{
+  font-family:'Manrope',system-ui,sans-serif;
+  color:var(--cream);
+  background:
+    radial-gradient(ellipse at 20% 10%, #6B3FA0 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 30%, #FF5FA2 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, #2A0845 0%, transparent 60%),
+    linear-gradient(180deg, var(--cadbury) 0%, var(--cadbury-deep) 50%, var(--choco) 100%);
+  background-attachment:fixed;
+  min-height:100vh;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+/* grain overlay */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;z-index:1000;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+  opacity:0.35;
+}
+
+/* butterflies */
+.butterfly{
+  position:fixed;
+  font-size:2rem;
+  pointer-events:none;
+  z-index:5;
+  filter:drop-shadow(0 0 8px rgba(255,179,209,.8)) hue-rotate(320deg);
+  animation:flutter 18s infinite linear, wave 4s infinite ease-in-out;
+}
+.butterfly.b1{top:15%;left:-5%;animation-duration:22s,3.5s;font-size:2.2rem}
+.butterfly.b2{top:45%;left:-8%;animation-duration:28s,5s;animation-delay:-5s,0s;font-size:1.8rem}
+.butterfly.b3{top:70%;left:-6%;animation-duration:25s,4s;animation-delay:-12s,-1s;font-size:2.5rem}
+.butterfly.b4{top:25%;left:-10%;animation-duration:32s,4.5s;animation-delay:-18s,-2s;font-size:1.6rem}
+.butterfly.b5{top:85%;left:-7%;animation-duration:26s,3.8s;animation-delay:-8s,0s;font-size:2rem}
+@keyframes flutter{
+  0%{transform:translateX(0) rotate(-5deg)}
+  100%{transform:translateX(120vw) rotate(5deg)}
+}
+@keyframes wave{
+  0%,100%{margin-top:0}
+  50%{margin-top:-40px}
+}
+
+/* layout */
+main{position:relative;z-index:10}
+section{padding:8rem 2rem;max-width:1300px;margin:0 auto;position:relative}
+@media(max-width:768px){section{padding:5rem 1.25rem}}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding-top:4rem;
+  position:relative;
+}
+.hero .kicker{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(1rem,2vw,1.4rem);
+  letter-spacing:.2em;
+  color:var(--pink);
+  text-transform:uppercase;
+  margin-bottom:1rem;
+  opacity:.9;
+}
+.hero h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,22vw,22rem);
+  line-height:.82;
+  letter-spacing:-.02em;
+  background:linear-gradient(180deg,#FFE0EC 0%,#FFB3D1 30%,#FFD47A 55%,#E8A33D 80%,#7B4A2B 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 0 80px rgba(255,179,209,.25);
+  margin:.2em 0;
+  word-spacing:.05em;
+}
+.hero h1 .split{display:block}
+.hero .slogan{
+  font-family:'Fraunces',serif;
+  font-weight:300;
+  font-size:clamp(1.2rem,2.3vw,1.9rem);
+  max-width:820px;
+  margin:2rem auto 0;
+  color:var(--cream);
+  font-style:italic;
+}
+.hero .slogan b{color:var(--gold-bright);font-weight:700;font-style:normal}
+.hero .dedication{
+  margin-top:3.5rem;
+  padding:1.2rem 2.2rem;
+  border:1px solid rgba(255,179,209,.35);
+  border-radius:999px;
+  background:rgba(60,19,97,.4);
+  backdrop-filter:blur(10px);
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(.95rem,1.4vw,1.15rem);
+  color:var(--pink-wisp);
+  letter-spacing:.08em;
+}
+.hero .dedication b{color:var(--gold-bright)}
+.scroll-hint{
+  position:absolute;
+  bottom:2rem;left:50%;transform:translateX(-50%);
+  color:var(--pink);
+  font-size:.75rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  opacity:.7;
+  animation:pulse 2.5s infinite;
+}
+@keyframes pulse{0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}50%{opacity:.9;transform:translateX(-50%) translateY(10px)}}
+
+/* chocolate bar decoration */
+.choco-bar{
+  position:absolute;
+  width:200px;
+  height:120px;
+  border-radius:12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.1) 0%, transparent 50%),
+    linear-gradient(180deg, #7B4A2B, #4A1E05);
+  box-shadow:
+    inset 0 0 0 2px rgba(0,0,0,.3),
+    0 20px 60px rgba(0,0,0,.5),
+    0 0 40px rgba(232,163,61,.3);
+  transform:rotate(-15deg);
+  opacity:.85;
+}
+.choco-bar::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  background-image:
+    linear-gradient(90deg, rgba(0,0,0,.4) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(0,0,0,.4) 1px, transparent 1px);
+  background-size:33.33% 50%;
+  border-radius:4px;
+}
+.choco-bar::after{
+  content:"OM";
+  position:absolute;
+  bottom:8px;right:14px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;
+  color:var(--gold-bright);
+  letter-spacing:.1em;
+}
+.choco-1{top:12%;right:5%;transform:rotate(18deg) scale(.7)}
+.choco-2{bottom:15%;left:3%;transform:rotate(-22deg) scale(.6)}
+@media(max-width:900px){.choco-bar{display:none}}
+
+/* generic section heading */
+.section-h{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,10vw,9rem);
+  line-height:.85;
+  letter-spacing:-.01em;
+  margin-bottom:1.5rem;
+}
+.section-h .sanskrit{
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:.22em;
+  color:var(--pink);
+  margin-bottom:.3em;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+}
+.section-body{
+  font-family:'Fraunces',serif;
+  font-weight:300;
+  font-size:clamp(1.1rem,1.5vw,1.35rem);
+  max-width:780px;
+  color:#FFF8E7;
+  opacity:.92;
+}
+.section-body p{margin-bottom:1.2em}
+.section-body b{color:var(--gold-bright);font-weight:700}
+.section-body em{color:var(--pink);font-style:italic}
+
+.gold{color:var(--gold-bright)}
+.pink{color:var(--pink)}
+
+/* DUKKHA section */
+#dukkha .section-h{color:var(--pink-hot)}
+.three-types{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;
+  margin-top:3rem;
+}
+.type-card{
+  background:linear-gradient(180deg, rgba(60,19,97,.6), rgba(42,8,69,.8));
+  border:1px solid rgba(255,179,209,.25);
+  border-radius:20px;
+  padding:2rem 1.8rem;
+  backdrop-filter:blur(10px);
+  transition:transform .4s, border-color .4s;
+}
+.type-card:hover{transform:translateY(-6px);border-color:var(--gold)}
+.type-card .num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:4rem;
+  color:var(--gold-bright);
+  line-height:1;
+}
+.type-card h3{
+  font-family:'Fraunces',serif;
+  font-size:1.5rem;
+  margin:.3rem 0 .8rem;
+  color:var(--pink);
+}
+.type-card p{font-size:1rem;color:var(--cream);opacity:.88}
+
+/* AHIMSA */
+#ahimsa{
+  background:linear-gradient(180deg, transparent, rgba(255,179,209,.08), transparent);
+}
+#ahimsa .section-h{color:var(--gold-bright)}
+.ahimsa-pull{
+  border-left:4px solid var(--gold);
+  padding:1rem 0 1rem 2rem;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(1.3rem,2vw,1.7rem);
+  color:var(--pink-wisp);
+  margin:2rem 0;
+}
+
+/* 4 NOBLE TRUTHS */
+.truths{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.2rem;
+  margin-top:3rem;
+  counter-reset:truth;
+}
+.truth{
+  position:relative;
+  padding:2.5rem 1.8rem 1.8rem;
+  background:rgba(255,179,209,.06);
+  border:1px dashed rgba(255,212,122,.4);
+  border-radius:16px;
+  counter-increment:truth;
+}
+.truth::before{
+  content:counter(truth,upper-roman);
+  position:absolute;
+  top:-1.2rem;left:1.5rem;
+  background:var(--cadbury-deep);
+  border:2px solid var(--gold);
+  color:var(--gold-bright);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;
+  width:3rem;height:3rem;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+}
+.truth h4{
+  font-family:'Fraunces',serif;
+  font-size:1.2rem;
+  color:var(--pink);
+  margin-bottom:.5rem;
+}
+.truth p{font-size:.98rem;opacity:.9}
+.truth .pali{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  color:var(--gold-bright);
+  font-size:.85rem;
+  letter-spacing:.1em;
+}
+
+/* UNANSWERED QUESTIONS */
+#questions{position:relative}
+#questions::before{
+  content:"?";
+  position:absolute;
+  right:-5%;top:10%;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(15rem,40vw,40rem);
+  color:rgba(255,179,209,.06);
+  line-height:.8;
+  pointer-events:none;
+  z-index:-1;
+}
+#questions .section-h{color:var(--pink)}
+.q-list{
+  margin-top:3rem;
+  list-style:none;
+  counter-reset:q;
+}
+.q-list li{
+  counter-increment:q;
+  padding:1.2rem 0 1.2rem 4.5rem;
+  border-bottom:1px solid rgba(255,179,209,.15);
+  position:relative;
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);
+  font-weight:300;
+  color:var(--cream);
+}
+.q-list li::before{
+  content:counter(q,decimal-leading-zero);
+  position:absolute;
+  left:0;top:50%;transform:translateY(-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;
+  color:var(--gold-bright);
+  opacity:.7;
+}
+.q-list li::after{
+  content:"тишина.";
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:.75em;
+  color:var(--pink);
+  opacity:.7;
+  margin-top:.3em;
+}
+
+.arrow-parable{
+  margin-top:4rem;
+  padding:2.5rem;
+  background:linear-gradient(135deg,rgba(232,163,61,.12),rgba(255,179,209,.08));
+  border-left:5px solid var(--gold-bright);
+  border-radius:8px;
+}
+.arrow-parable h4{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;
+  color:var(--gold-bright);
+  letter-spacing:.05em;
+  margin-bottom:1rem;
+}
+
+/* SUGAR SECTION */
+#sugar{
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(255,95,162,.15), transparent 60%),
+    radial-gradient(ellipse at 70% 30%, rgba(232,163,61,.1), transparent 60%);
+  border-radius:40px;
+  margin:6rem auto;
+}
+#sugar .section-h{
+  background:linear-gradient(90deg,#FFB3D1,#FFD47A,#FF5FA2);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.sugar-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.8rem;
+  margin-top:3rem;
+}
+.sugar-card{
+  padding:2rem;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,212,122,.3);
+  border-radius:20px;
+  backdrop-filter:blur(8px);
+}
+.sugar-card .icon{
+  font-size:3rem;
+  margin-bottom:.6rem;
+  filter:drop-shadow(0 0 12px rgba(255,212,122,.5));
+}
+.sugar-card h3{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;
+  color:var(--gold-bright);
+  letter-spacing:.03em;
+  margin-bottom:.6rem;
+}
+.sugar-card p{font-size:1rem;color:var(--cream);opacity:.88}
+
+.sugar-mantra{
+  margin-top:4rem;
+  text-align:center;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:clamp(1.3rem,2.5vw,2rem);
+  color:var(--pink-wisp);
+  max-width:820px;
+  margin-left:auto;margin-right:auto;
+  line-height:1.4;
+}
+.sugar-mantra b{color:var(--gold-bright);font-weight:700;font-style:normal}
+
+/* DENIS QUOTES */
+#denis .section-h{color:var(--pink-hot)}
+.quotes{
+  margin-top:3rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.4rem;
+}
+.quote{
+  padding:1.8rem 1.8rem 1.4rem;
+  background:linear-gradient(135deg,rgba(255,95,162,.12),rgba(60,19,97,.4));
+  border:1px solid rgba(255,179,209,.35);
+  border-radius:18px;
+  position:relative;
+}
+.quote::before{
+  content:"\201C";
+  position:absolute;
+  top:-1rem;left:1rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;
+  color:var(--gold-bright);
+  line-height:1;
+  opacity:.7;
+}
+.quote p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem;
+  font-style:italic;
+  color:var(--cream);
+  margin-top:.8rem;
+  line-height:1.4;
+}
+.quote .sig{
+  display:block;
+  margin-top:1rem;
+  font-family:'Manrope',sans-serif;
+  font-size:.8rem;
+  color:var(--pink);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+/* FINAL */
+#final{
+  text-align:center;
+  padding:10rem 2rem 8rem;
+}
+#final .big{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,12vw,11rem);
+  line-height:.85;
+  background:linear-gradient(180deg,#FFE0EC,#E8A33D,#4A1E05);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+#final .signoff{
+  margin-top:3rem;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  color:var(--pink);
+  font-size:1.2rem;
+  letter-spacing:.1em;
+}
+#final .om{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(6rem,15vw,14rem);
+  color:var(--gold-bright);
+  margin-top:2rem;
+  text-shadow:0 0 60px rgba(255,212,122,.5);
+  display:block;
+}
+
+footer{
+  text-align:center;
+  padding:3rem 2rem 4rem;
+  color:rgba(255,248,231,.4);
+  font-size:.8rem;
+  letter-spacing:.1em;
+}
+footer a{color:var(--pink);text-decoration:none;border-bottom:1px dashed currentColor}
+
+/* responsive tweaks */
+@media(max-width:768px){
+  .hero h1{font-size:clamp(4rem,24vw,8rem)}
+  .section-h{font-size:clamp(2.8rem,12vw,5rem)}
+  .hero .dedication{padding:1rem 1.5rem;font-size:.85rem}
+}
+</style>
+</head>
+<body>
+
+<!-- butterflies -->
+<div class="butterfly b1">🦋</div>
+<div class="butterfly b2">🦋</div>
+<div class="butterfly b3">🦋</div>
+<div class="butterfly b4">🦋</div>
+<div class="butterfly b5">🦋</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="choco-bar choco-1"></div>
+  <div class="choco-bar choco-2"></div>
+
+  <div class="kicker">· манускрипт для Дениса · апрель 2026 ·</div>
+  <h1>
+    <span class="split">СЛАДКАЯ</span>
+    <span class="split">ДУККХА</span>
+  </h1>
+  <p class="slogan">
+    Всё — страдание. <b>Но с шоколадкой</b> — приемлемо.<br>
+    Будда молчал. Мы — жуём.
+  </p>
+  <div class="dedication">
+    посвящается <b>Денису</b>, который везёт вкусненькое через снег, град и центр мира
+  </div>
+  <div class="scroll-hint">↓ скролль к просветлению</div>
+</section>
+
+<!-- DUKKHA -->
+<section id="dukkha">
+  <h2 class="section-h">
+    <span class="sanskrit">दुःख · пали: dukkha</span>
+    ДУККХА
+  </h2>
+  <div class="section-body">
+    <p>
+      <b>Дукха</b> — первое слово, которое Будда произнёс в своей первой проповеди в Оленьем парке близ Варанаси,
+      и первое слово, которое услышал Денис, когда мы обсуждали квартиру Гали за 850 долларов.
+    </p>
+    <p>
+      Обычно переводят как «страдание», но буквально это <em>duḥ + kha</em> — «плохое пространство»,
+      «кривая ось колеса». Когда колесо криво насажено — телега дребезжит.
+      Когда жизнь криво насажена на ожидания — дребезжит жизнь.
+    </p>
+    <p>
+      Будда не говорил «всё плохо». Он говорил: <b>всё, что меняется, содержит в себе дребезг</b>.
+      Даже шоколадка. Особенно шоколадка — потому что она всегда кончается.
+    </p>
+  </div>
+
+  <div class="three-types">
+    <div class="type-card">
+      <div class="num">I</div>
+      <h3>Дукха-дукха</h3>
+      <p>Явное страдание. Боль. Град в апреле. Снег в Каше. «Неожиданно дождливо 😳».</p>
+    </div>
+    <div class="type-card">
+      <div class="num">II</div>
+      <h3>Випариṇама-дукха</h3>
+      <p>Страдание от перемен. Шоколадка закончилась. Лето будет позднее. Самолёт задержали.</p>
+    </div>
+    <div class="type-card">
+      <div class="num">III</div>
+      <h3>Саṅкхāра-дукха</h3>
+      <p>Страдание самой обусловленности. Тот факт, что всё вообще есть — уже слегка дребезжит.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AHIMSA -->
+<section id="ahimsa">
+  <h2 class="section-h">
+    <span class="sanskrit">अहिंसा · ahiṃsā</span>
+    АХИМСА
+  </h2>
+  <div class="section-body">
+    <p>
+      <b>Ахимса</b> — ненасилие. Первый из пяти обетов мирянина (<em>панча-шила</em>),
+      базовый принцип буддизма, джайнизма и индуизма. Буквально: <em>а-</em> (не) + <em>химса</em> (вред).
+    </p>
+    <p>
+      <b>Химса</b> — это не только удар кулаком. Это любое действие, слово или мысль,
+      причиняющее страдание другому живому существу. Когда ты отказываешься везти другу шоколадку —
+      это микро-химса. Когда везёшь — это ахимса в действии.
+    </p>
+
+    <div class="ahimsa-pull">
+      «Непричинение вреда всем живущим существам — вот высшая дхарма»<br>
+      <span style="font-size:.7em;color:var(--gold-bright)">— Махабхарата, Анушасана-парва, 115.25</span>
+    </div>
+
+    <p>
+      Джайны доводят ахимсу до предела: метут перед собой дорожку, чтобы не раздавить муравья,
+      и носят повязку на рту, чтобы не вдохнуть мошку.
+      Буддисты помягче: достаточно <em>намерения</em> не вредить. И шоколадки на двоих.
+    </p>
+    <p>
+      <b>Важно:</b> ахимса — не пассивность. Это активная доброжелательность (<em>mettā</em>).
+      Не «я не бью тебя, потому что лень», а «я не бью тебя, потому что желаю тебе счастья».
+      Денис не везёт тебе шоколадку «от безразличия». Он везёт её от метты.
+    </p>
+  </div>
+</section>
+
+<!-- 4 NOBLE TRUTHS -->
+<section id="suffering">
+  <h2 class="section-h">
+    <span class="sanskrit">чатвāри āрьясатьāни</span>
+    ЧТО БУДДА СКАЗАЛ<br>ПРО СТРАДАНИЕ
+  </h2>
+  <div class="section-body">
+    <p>
+      Первая проповедь Будды в Сарнатхе. Четыре пункта. Коротко. Без воды.
+      Как сообщение в телеге: «Ага», «Супер!», «Ок выхожу».
+    </p>
+  </div>
+
+  <div class="truths">
+    <div class="truth">
+      <div class="pali">dukkha</div>
+      <h4>Страдание есть</h4>
+      <p>Рождение — дукха. Старение — дукха. Болезнь — дукха. Не получить желаемое — дукха. Получить нежеланное — тоже дукха. Короче говоря, пять совокупностей привязанности — дукха.</p>
+    </div>
+    <div class="truth">
+      <div class="pali">samudaya</div>
+      <h4>У страдания есть причина</h4>
+      <p>Это <em>таṇхā</em> — жажда. Жажда чувственных удовольствий, жажда существования, жажда несуществования. Жажда ещё одной шоколадки, когда первая уже съедена.</p>
+    </div>
+    <div class="truth">
+      <div class="pali">nirodha</div>
+      <h4>Страдание можно прекратить</h4>
+      <p>Полное угасание жажды. Отпускание. Отстранение от неё. Освобождение. Ниббана — буквально «задувание» (как свечки).</p>
+    </div>
+    <div class="truth">
+      <div class="pali">magga</div>
+      <h4>Есть путь</h4>
+      <p>Благородный восьмеричный путь: правильное воззрение, намерение, речь, действие, образ жизни, усилие, памятование и сосредоточение. Восемь спиц колеса дхармы.</p>
+    </div>
+  </div>
+</section>
+
+<!-- UNANSWERED QUESTIONS -->
+<section id="questions">
+  <h2 class="section-h">
+    <span class="sanskrit">avyākata · неопределённые</span>
+    10 ВОПРОСОВ,<br>на которые Будда<br>промолчал
+  </h2>
+  <div class="section-body">
+    <p>
+      В <em>Чула-Малуṅкья-сутте</em> (MN 63) монах Малункьяпутта пришёл к Будде с ультиматумом:
+      «Если не ответишь на десять вопросов — ухожу из общины». Будда не ответил.
+      Эти десять вопросов называются <b>avyākata</b> — «неопределённые», «то, о чём не высказался».
+    </p>
+  </div>
+
+  <ol class="q-list">
+    <li>Вечен ли мир?</li>
+    <li>Или мир невечен?</li>
+    <li>Конечен ли мир в пространстве?</li>
+    <li>Или мир бесконечен?</li>
+    <li>Душа и тело — одно и то же?</li>
+    <li>Или душа и тело — разное?</li>
+    <li>Существует ли Татхагата после смерти?</li>
+    <li>Не существует ли Татхагата после смерти?</li>
+    <li>И существует, и не существует?</li>
+    <li>Ни существует, ни не существует?</li>
+  </ol>
+
+  <div class="arrow-parable">
+    <h4>Притча о стреле</h4>
+    <p style="font-family:'Fraunces',serif;font-weight:300;font-size:1.15rem;line-height:1.6">
+      «Представь, Малункьяпутта, человека, раненного отравленной стрелой. Друзья зовут хирурга.
+      А раненый говорит: <em>не дам вынуть стрелу, пока не узнаю — кто меня ранил, из какой касты,
+      какого роста, какого цвета кожи, из какого дерева сделана стрела, из какого пера
+      оперение, и каким ядом смазан наконечник</em>. Этот человек умрёт, так и не узнав ответов.»
+    </p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--pink);margin-top:1.2rem;font-size:1.1rem">
+      Будда не ответил не потому, что не знал. А потому, что <b class="gold">ответы не вынимают стрелу</b>.
+      Страдание не лечится метафизикой. Оно лечится шоколадкой и восьмеричным путём.
+    </p>
+  </div>
+</section>
+
+<!-- SUGAR -->
+<section id="sugar">
+  <h2 class="section-h">
+    <span class="sanskrit">śarkarā · सरकरा · санскрит: сахар</span>
+    ПОЛЬЗА<br>САХАРА
+  </h2>
+  <div class="section-body">
+    <p>
+      Слово <b>«сахар»</b> происходит от санскритского <em>śarkarā</em> — «песок», «гравий».
+      Когда Александр Македонский дошёл до Индии в 327 до н.э., его солдаты были поражены:
+      индийцы делали <em>«мёд без пчёл»</em>. Это был тростниковый сахар.
+    </p>
+    <p>
+      В ту же эпоху Будда ходил по тем же дорогам и учил дхарме. Это не случайность.
+      <b>Сахар и дхарма пришли в мир одновременно</b>. Одно сладит тело, другое — ум.
+      Вместе — шоколадка.
+    </p>
+  </div>
+
+  <div class="sugar-grid">
+    <div class="sugar-card">
+      <div class="icon">⚡</div>
+      <h3>Ускоряет человека</h3>
+      <p>Глюкоза — единственное топливо, которое мозг умеет усваивать напрямую. Сахар буквально ускоряет мысль. Будда медитировал под деревом бодхи — а дерево бодхи, между прочим, родственник фиги, фрукта сладкого.</p>
+    </div>
+    <div class="sugar-card">
+      <div class="icon">💗</div>
+      <h3>Запускает дофамин</h3>
+      <p>Первая дукха — это отсутствие приятного. Сахар даёт приятное. Значит, на несколько минут дукха отступает. Это не просветление, но это его бюджетная версия на каждый день.</p>
+    </div>
+    <div class="sugar-card">
+      <div class="icon">🦋</div>
+      <h3>Меняет жизнь к лучшему</h3>
+      <p>Человек, съевший шоколадку, улыбается. Улыбающийся человек генерирует мало химсы. Значит, шоколадка — это инструмент ахимсы. Шоколадка = ненасилие в съедобной форме.</p>
+    </div>
+    <div class="sugar-card">
+      <div class="icon">🌸</div>
+      <h3>Соединяет людей</h3>
+      <p>Никто не едет через пол-Турции с грустью, везя коллеге шоколадку. Сахар — это протокол, по которому передаётся метта. «Привезти тебе чего-нибудь вкусненького?» — это, строго говоря, сутра.</p>
+    </div>
+    <div class="sugar-card">
+      <div class="icon">🍫</div>
+      <h3>Учит непостоянству</h3>
+      <p>Шоколадка всегда кончается. Это главный урок випассаны в съедобной форме. <em>Аничча</em> — непостоянство всех составных вещей. Нет лучшего медитативного объекта, чем тающая в руке Dairy Milk.</p>
+    </div>
+    <div class="sugar-card">
+      <div class="icon">🔔</div>
+      <h3>Пробуждает сейчас</h3>
+      <p>Нельзя есть шоколадку «потом». Её едят <b>сейчас</b>. Сатипаттхана в чистом виде: внимательность к вкусу, к плавлению, к исчезновению. Это дзен-буддизм без дзена — чистый буддизм, завёрнутый в фольгу.</p>
+    </div>
+  </div>
+
+  <p class="sugar-mantra">
+    «Пока вы ищете нирвану в следующей жизни,<br>
+    <b>она уже тает у вас на языке в этой</b>».
+  </p>
+</section>
+
+<!-- DENIS QUOTES -->
+<section id="denis">
+  <h2 class="section-h">
+    <span class="sanskrit">крылатые фразы</span>
+    ДЕНИС<br>ГОВОРИТ
+  </h2>
+  <div class="section-body">
+    <p>
+      Все эти реплики — настоящие. Все взяты из переписки. Ни одна не придумана.
+      Каждая — маленькая сутра о дукхе, ахимсе и пути.
+    </p>
+  </div>
+
+  <div class="quotes">
+    <div class="quote">
+      <p>Мы на вокзал приехали, но вроде дальше поехали, я испугался, что всё 😂</p>
+      <span class="sig">О природе непостоянства · 4 апреля</span>
+    </div>
+    <div class="quote">
+      <p>Привезти тебе чего-нибудь вкусненького?</p>
+      <span class="sig">Первоисточник ахимсы · 3 апреля</span>
+    </div>
+    <div class="quote">
+      <p>Ох, а я думал приеду и уже лето 🙈</p>
+      <span class="sig">Випариṇама-дукха в чистом виде · 4 апреля</span>
+    </div>
+    <div class="quote">
+      <p>А, ну да, забыл куда еду, это же центр мира ))</p>
+      <span class="sig">О пробуждении к месту · 3 апреля</span>
+    </div>
+    <div class="quote">
+      <p>Неожиданно дождливо 😳</p>
+      <span class="sig">Саṅкхāра-дукха, сжато · 4 апреля</span>
+    </div>
+    <div class="quote">
+      <p>В Минске очень вкусно кормят, это да ❤️</p>
+      <span class="sig">Сутра о кулинарной метте · 14 марта</span>
+    </div>
+    <div class="quote">
+      <p>Соблазнительно :) Приеду, буду думать )</p>
+      <span class="sig">Срединный путь между да и нет · 14 марта</span>
+    </div>
+    <div class="quote">
+      <p>Фига себе 😳</p>
+      <span class="sig">Универсальная мантра изумления · многократно</span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section id="final">
+  <div class="big">
+    БУДДА<br>МОЛЧАЛ.<br>ДЕНИС<br>ЖУЁТ.
+  </div>
+  <div class="signoff">
+    · · · всё остальное — дребезг колеса · · ·
+  </div>
+  <span class="om">ॐ</span>
+</section>
+
+</main>
+
+<footer>
+  сделано с дукхой и какао-бобами<br>
+  · апрель 2026 · <a href="https://timzinin.com">timzinin.com</a> ·<br>
+  если нашёл этот сайт случайно — ты Денис, просто пока об этом не знаешь
+</footer>
+
+<script>
+// floating butterflies randomize vertical drift
+document.querySelectorAll('.butterfly').forEach((b,i)=>{
+  b.addEventListener('animationiteration',()=>{
+    b.style.top = (Math.random()*80+5)+'%';
+  });
+});
+</script>
+</body>
+</html>
