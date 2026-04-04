@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLI Coding Agents 2026 — Every Tool, Every Price, Every Model | Zinin Corp</title>
+  <meta name="description" content="Complete research: 15+ CLI coding agents compared. Pricing, SWE-bench scores, free tiers, API costs. Gemini CLI, Aider, Claude Code, MiniMax, DeepSeek and more." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CLI Coding Agents 2026 — Complete Research" />
+  <meta property="og:description" content="15+ CLI coding agents compared: pricing, benchmarks, free tiers. Gemini CLI (1000 free/day), Aider (open-source), MiniMax M2.7, DeepSeek V3.2 and more." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://timzinin.com/cli-agents/" />
+  <meta property="og:image" content="https://timzinin.com/cli-agents/og-image.png" />
+  <meta property="og:site_name" content="Zinin Corp Research" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CLI Coding Agents 2026 — Complete Research" />
+  <meta name="twitter:description" content="15+ CLI coding agents compared. Every tool, every price, every model." />
+  <meta name="twitter:image" content="https://timzinin.com/cli-agents/og-image.png" />
+
+  <!-- Umami Analytics -->
+  <script defer src="https://umami.timzinin.com/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script>
+
+  <!-- React + Babel CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; overflow-x: hidden; }
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const COLORS = {
+      bg: "#0a0a0a",
+      bgDark: "#050510",
+      neonPink: "#ff00ff",
+      neonGreen: "#39ff14",
+      neonCyan: "#00ffff",
+      neonYellow: "#ffff00",
+      neonOrange: "#ff6600",
+      neonRed: "#ff0040",
+      neonPurple: "#bf00ff",
+      neonBlue: "#4444ff",
+      dimGreen: "#0a3a0a",
+      dimPink: "#3a0a3a",
+      dimCyan: "#0a2a3a",
+      dimYellow: "#3a3a0a",
+      white: "#ffffff",
+      gray: "#888888",
+      darkGray: "#333333",
+    };
+
+    const pixelBoxShadow = (color) =>
+      `inset 0 0 0 2px ${color}, 0 0 20px ${color}40, 0 0 60px ${color}20`;
+
+    const font = `'Press Start 2P', monospace`;
+
+    function ScanlineOverlay() {
+      return (
+        <div
+          style={{
+            position: "fixed",
+            top: 0, left: 0, right: 0, bottom: 0,
+            pointerEvents: "none",
+            zIndex: 9999,
+            background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px)",
+          }}
+        />
+      );
+    }
+
+    function GlowText({ children, color, size = 10, style = {} }) {
+      return (
+        <div
+          style={{
+            fontFamily: font,
+            fontSize: size,
+            color: color,
+            textShadow: `0 0 10px ${color}, 0 0 20px ${color}, 0 0 40px ${color}80`,
+            letterSpacing: 2,
+            ...style,
+          }}
+        >
+          {children}
+        </div>
+      );
+    }
+
+    function PixelBar({ value, max, color, label, price }) {
+      const pct = (value / max) * 100;
+      return (
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+            <span style={{ fontFamily: font, fontSize: 7, color: COLORS.white, letterSpacing: 1 }}>{label}</span>
+            <span style={{ fontFamily: font, fontSize: 7, color: color }}>{price}</span>
+          </div>
+          <div style={{ height: 12, background: COLORS.bgDark, border: `2px solid ${color}40`, position: "relative", imageRendering: "pixelated" }}>
+            <div style={{ height: "100%", width: `${pct}%`, background: `repeating-linear-gradient(90deg, ${color} 0px, ${color} 4px, ${color}80 4px, ${color}80 8px)`, boxShadow: `0 0 10px ${color}60`, transition: "width 1s ease" }} />
+          </div>
+        </div>
+      );
+    }
+
+    function PixelBox({ children, borderColor, title, style = {} }) {
+      return (
+        <div style={{ border: `3px solid ${borderColor}`, background: `${borderColor}08`, padding: 16, position: "relative", boxShadow: pixelBoxShadow(borderColor), imageRendering: "pixelated", ...style }}>
+          {title && (
+            <div style={{ position: "absolute", top: -10, left: 12, background: COLORS.bg, padding: "0 8px", fontFamily: font, fontSize: 8, color: borderColor, textShadow: `0 0 10px ${borderColor}`, letterSpacing: 1 }}>
+              {title}
+            </div>
+          )}
+          {children}
+        </div>
+      );
+    }
+
+    function PixelDivider({ color }) {
+      return (
+        <div style={{ height: 3, margin: "24px 0", background: `repeating-linear-gradient(90deg, ${color} 0px, ${color} 8px, transparent 8px, transparent 16px)`, boxShadow: `0 0 10px ${color}40` }} />
+      );
+    }
+
+    function StarRating({ score, max = 5, color }) {
+      return (
+        <span style={{ fontFamily: font, fontSize: 8, letterSpacing: 2 }}>
+          {Array.from({ length: max }, (_, i) => (
+            <span key={i} style={{ color: i < score ? color : COLORS.darkGray }}>&#9733;</span>
+          ))}
+        </span>
+      );
+    }
+
+    function AgentCard({ name, origin, price, type, stars, color, desc, sweBench }) {
+      return (
+        <div style={{ border: `2px solid ${color}`, background: `linear-gradient(180deg, ${color}10 0%, ${COLORS.bgDark} 100%)`, padding: 12, minWidth: 180, position: "relative", boxShadow: `0 0 15px ${color}30` }}>
+          <div style={{ position: "absolute", top: 0, right: 0, background: color, color: COLORS.bgDark, fontFamily: font, fontSize: 6, padding: "3px 6px", fontWeight: "bold" }}>{origin}</div>
+          <GlowText color={color} size={9} style={{ marginBottom: 6, marginTop: 2 }}>{name}</GlowText>
+          <div style={{ fontFamily: font, fontSize: 7, color: COLORS.gray, marginBottom: 6, lineHeight: 1.6 }}>{desc}</div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontFamily: font, fontSize: 10, color: COLORS.neonYellow, textShadow: `0 0 8px ${COLORS.neonYellow}80` }}>{price}</span>
+            <StarRating score={stars} color={color} />
+          </div>
+          {sweBench && (
+            <div style={{ marginTop: 6, padding: "3px 6px", background: `${COLORS.neonGreen}15`, border: `1px solid ${COLORS.neonGreen}40`, fontFamily: font, fontSize: 6, color: COLORS.neonGreen }}>
+              SWE-BENCH: {sweBench}%
+            </div>
+          )}
+          <div style={{ marginTop: 6, fontFamily: font, fontSize: 6, color: type === "FREE" ? COLORS.neonGreen : type === "SUB" ? COLORS.neonCyan : COLORS.neonOrange, textShadow: `0 0 6px ${type === "FREE" ? COLORS.neonGreen : type === "SUB" ? COLORS.neonCyan : COLORS.neonOrange}60` }}>
+            [{type === "FREE" ? "FREE TIER" : type === "SUB" ? "SUBSCRIPTION" : "API PAY-GO"}]
+          </div>
+        </div>
+      );
+    }
+
+    function BlinkText({ children, color, style = {} }) {
+      const [visible, setVisible] = useState(true);
+      useEffect(() => {
+        const iv = setInterval(() => setVisible((v) => !v), 800);
+        return () => clearInterval(iv);
+      }, []);
+      return (
+        <span style={{ fontFamily: font, color: visible ? color : "transparent", textShadow: visible ? `0 0 10px ${color}` : "none", transition: "all 0.1s", ...style }}>
+          {children}
+        </span>
+      );
+    }
+
+    function App() {
+      return (
+        <>
+          <style>{`
+            @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+            @keyframes glitch { 0%{transform:translate(0)} 20%{transform:translate(-2px,2px)} 40%{transform:translate(2px,-2px)} 60%{transform:translate(-1px,-1px)} 80%{transform:translate(1px,1px)} 100%{transform:translate(0)} }
+            @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+            @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: #0a0a0a; }
+            ::-webkit-scrollbar-thumb { background: #ff00ff40; border: 1px solid #ff00ff; }
+          `}</style>
+          <ScanlineOverlay />
+          <div style={{ background: COLORS.bg, minHeight: "100vh", padding: "20px 16px", fontFamily: font, color: COLORS.white, maxWidth: 900, margin: "0 auto", position: "relative", overflow: "hidden" }}>
+            {/* Background grid */}
+            <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: `linear-gradient(${COLORS.neonPink}08 1px, transparent 1px), linear-gradient(90deg, ${COLORS.neonPink}08 1px, transparent 1px)`, backgroundSize: "32px 32px", pointerEvents: "none", zIndex: 0 }} />
+
+            <div style={{ position: "relative", zIndex: 1 }}>
+              {/* HEADER */}
+              <div style={{ textAlign: "center", padding: "20px 0 10px", animation: "slideIn 0.8s ease" }}>
+                <div style={{ fontSize: 7, color: COLORS.neonPink, letterSpacing: 6, marginBottom: 12, textShadow: `0 0 10px ${COLORS.neonPink}` }}>
+                  ══════ ZININ CORP RESEARCH ══════
+                </div>
+                <div style={{ fontSize: 18, color: COLORS.neonCyan, textShadow: `0 0 20px ${COLORS.neonCyan}, 0 0 40px ${COLORS.neonCyan}60, 3px 3px 0 ${COLORS.neonPink}`, lineHeight: 1.6, letterSpacing: 3, animation: "glitch 4s infinite" }}>
+                  CLI CODING<br />AGENTS 2026
+                </div>
+                <div style={{ fontSize: 8, color: COLORS.neonGreen, marginTop: 12, letterSpacing: 2, textShadow: `0 0 8px ${COLORS.neonGreen}` }}>
+                  &#9619;&#9619;&#9619; EVERY TOOL &#9679; EVERY PRICE &#9679; EVERY MODEL &#9619;&#9619;&#9619;
+                </div>
+                <BlinkText color={COLORS.neonYellow} style={{ fontSize: 7, marginTop: 10, display: "block" }}>
+                  &#9658; INSERT COIN TO CONTINUE &#9668;
+                </BlinkText>
+              </div>
+
+              <PixelDivider color={COLORS.neonPink} />
+
+              {/* THE BIG PICTURE */}
+              <PixelBox borderColor={COLORS.neonCyan} title="&#9733; THE BIG PICTURE &#9733;">
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, textAlign: "center", marginTop: 8 }}>
+                  {[
+                    { n: "15+", label: "CLI AGENTS", color: COLORS.neonPink },
+                    { n: "$0", label: "MIN COST", color: COLORS.neonGreen },
+                    { n: "1000", label: "FREE/DAY", color: COLORS.neonYellow },
+                  ].map((item) => (
+                    <div key={item.label}>
+                      <div style={{ fontSize: 20, color: item.color, textShadow: `0 0 15px ${item.color}, 0 0 30px ${item.color}60`, animation: "pulse 2s infinite" }}>{item.n}</div>
+                      <div style={{ fontSize: 6, color: COLORS.gray, marginTop: 4, letterSpacing: 1 }}>{item.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </PixelBox>
+
+              <PixelDivider color={COLORS.neonGreen} />
+
+              {/* AGENT CARDS */}
+              <GlowText color={COLORS.neonPink} size={11} style={{ textAlign: "center", marginBottom: 16 }}>
+                &#9670; SELECT YOUR FIGHTER &#9670;
+              </GlowText>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
+                <AgentCard name="CLAUDE CODE" origin="USA" price="$20/mo" type="SUB" stars={5} color={COLORS.neonPurple} desc="Best reasoning, hits limits fast" sweBench="80.8" />
+                <AgentCard name="GEMINI CLI" origin="USA" price="FREE" type="FREE" stars={4} color={COLORS.neonGreen} desc="1000 req/day free, open-source" sweBench="80.6" />
+                <AgentCard name="AIDER" origin="OSS" price="FREE" type="FREE" stars={4} color={COLORS.neonCyan} desc="Any model, git-native, 42K stars" />
+                <AgentCard name="GH COPILOT" origin="USA" price="$10/mo" type="SUB" stars={4} color={COLORS.neonBlue} desc="300 premium req, PR review" />
+                <AgentCard name="MINIMAX M2.7" origin="CHN" price="$10/mo" type="SUB" stars={3} color={COLORS.neonOrange} desc="Cheapest frontier, self-evolving" sweBench="57.0" />
+                <AgentCard name="DEEPSEEK V3.2" origin="CHN" price="~$0" type="API" stars={4} color={COLORS.neonRed} desc="$0.42/M tokens, 5M free" sweBench="73.0" />
+                <AgentCard name="AMAZON Q" origin="USA" price="FREE" type="FREE" stars={3} color={COLORS.neonYellow} desc="50 chats/mo + security scan" />
+                <AgentCard name="MISTRAL VIBE" origin="FRA" price="$15/mo" type="SUB" stars={3} color={COLORS.neonPink} desc="Devstral 2, 123B params" />
+                <AgentCard name="QWEN3 CODER" origin="CHN" price="FREE" type="FREE" stars={4} color="#00ff88" desc="480B params, open-source CLI" />
+                <AgentCard name="OPENCODE" origin="OSS" price="FREE" type="FREE" stars={4} color="#ff8800" desc="95K+ stars, any LLM backend" />
+                <AgentCard name="TRAE AGENT" origin="CHN" price="FREE" type="FREE" stars={3} color="#ff0088" desc="ByteDance, complex tasks" />
+                <AgentCard name="CODEX CLI" origin="USA" price="$200/mo" type="SUB" stars={4} color="#8844ff" desc="OpenAI, sandboxed execution" />
+              </div>
+
+              <PixelDivider color={COLORS.neonYellow} />
+
+              {/* PRICING TOWER */}
+              <PixelBox borderColor={COLORS.neonYellow} title="$ PRICE PER TOKEN — OUTPUT $/M $">
+                <div style={{ marginTop: 8 }}>
+                  <PixelBar value={0.42} max={25} color={COLORS.neonGreen} label="DEEPSEEK V3.2" price="$0.42" />
+                  <PixelBar value={0.6} max={25} color="#00ff88" label="GEMINI 2.5 FLASH" price="$0.60" />
+                  <PixelBar value={0.9} max={25} color={COLORS.neonCyan} label="CODESTRAL" price="$0.90" />
+                  <PixelBar value={1.2} max={25} color={COLORS.neonOrange} label="MINIMAX M2.7" price="$1.20" />
+                  <PixelBar value={1.25} max={25} color={COLORS.neonPink} label="HAIKU 4.5" price="$1.25" />
+                  <PixelBar value={6} max={25} color={COLORS.neonBlue} label="CODEX-MINI" price="$6.00" />
+                  <PixelBar value={15} max={25} color={COLORS.neonPurple} label="SONNET 4.6" price="$15.0" />
+                  <PixelBar value={25} max={25} color={COLORS.neonRed} label="OPUS 4.6" price="$25.0" />
+                </div>
+                <div style={{ textAlign: "center", marginTop: 8 }}>
+                  <GlowText color={COLORS.neonGreen} size={7}>DEEPSEEK = 60x CHEAPER THAN OPUS</GlowText>
+                </div>
+              </PixelBox>
+
+              <PixelDivider color={COLORS.neonCyan} />
+
+              {/* SWE-BENCH LEADERBOARD */}
+              <PixelBox borderColor={COLORS.neonPurple} title="&#9876; SWE-BENCH VERIFIED LEADERBOARD &#9876;">
+                <div style={{ marginTop: 8 }}>
+                  {[
+                    { name: "CLAUDE OPUS 4.5", score: 80.9, color: COLORS.neonPurple },
+                    { name: "CLAUDE OPUS 4.6", score: 80.8, color: COLORS.neonPurple },
+                    { name: "GEMINI 3.1 PRO", score: 80.6, color: COLORS.neonGreen },
+                    { name: "MINIMAX M2.5", score: 80.2, color: COLORS.neonOrange },
+                    { name: "GPT-5.2", score: 80.0, color: COLORS.neonBlue },
+                    { name: "CLAUDE SONNET 4.6", score: 79.6, color: COLORS.neonPink },
+                    { name: "GLM-5 (ZHIPU)", score: 77.8, color: COLORS.neonRed },
+                    { name: "DEEPSEEK V3.2", score: 73.0, color: COLORS.neonCyan },
+                  ].map((item, i) => (
+                    <div key={item.name} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, padding: "4px 8px", background: i === 0 ? `${item.color}15` : "transparent", border: i === 0 ? `1px solid ${item.color}40` : "1px solid transparent" }}>
+                      <span style={{ fontFamily: font, fontSize: 10, color: i === 0 ? COLORS.neonYellow : COLORS.darkGray, width: 20, textShadow: i === 0 ? `0 0 8px ${COLORS.neonYellow}` : "none" }}>
+                        {i === 0 ? "\u265B" : `${i + 1}.`}
+                      </span>
+                      <span style={{ fontFamily: font, fontSize: 7, color: item.color, flex: 1 }}>{item.name}</span>
+                      <span style={{ fontFamily: font, fontSize: 9, color: COLORS.white, textShadow: `0 0 6px ${item.color}` }}>{item.score}%</span>
+                      <div style={{ width: 80, height: 8, background: COLORS.bgDark, border: `1px solid ${item.color}30` }}>
+                        <div style={{ width: `${((item.score - 70) / 12) * 100}%`, height: "100%", background: item.color, boxShadow: `0 0 6px ${item.color}60` }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </PixelBox>
+
+              <PixelDivider color={COLORS.neonOrange} />
+
+              {/* MINIMAX DEEP DIVE */}
+              <PixelBox borderColor={COLORS.neonOrange} title="&#9672; MINIMAX — YOUR CURRENT WEAPON &#9672;">
+                <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                  <div style={{ border: `2px solid ${COLORS.neonOrange}40`, padding: 10, background: `${COLORS.neonOrange}08` }}>
+                    <GlowText color={COLORS.neonOrange} size={8} style={{ marginBottom: 8 }}>TOKEN PLAN TIERS</GlowText>
+                    {[
+                      { tier: "STARTER", price: "$10", reqs: "1,500 REQ/5H" },
+                      { tier: "PLUS", price: "$20", reqs: "4,500 REQ/5H" },
+                      { tier: "MAX", price: "$50", reqs: "15,000 REQ/5H" },
+                      { tier: "HI-SPD S", price: "$40", reqs: "1,500 FAST" },
+                      { tier: "HI-SPD P", price: "$80", reqs: "4,500 FAST" },
+                      { tier: "HI-SPD M", price: "$150", reqs: "15,000 FAST" },
+                    ].map((t) => (
+                      <div key={t.tier} style={{ display: "flex", justifyContent: "space-between", fontFamily: font, fontSize: 6, color: COLORS.gray, marginBottom: 4, padding: "2px 4px", borderBottom: `1px solid ${COLORS.neonOrange}15` }}>
+                        <span style={{ color: COLORS.neonYellow }}>{t.tier}</span>
+                        <span style={{ color: COLORS.neonGreen }}>{t.price}</span>
+                        <span>{t.reqs}</span>
+                      </div>
+                    ))}
+                    <div style={{ fontFamily: font, fontSize: 6, color: COLORS.neonRed, marginTop: 6, textShadow: `0 0 6px ${COLORS.neonRed}60`, textAlign: "center" }}>
+                      &#9888; NO $25 TIER EXISTS &#9888;
+                    </div>
+                  </div>
+                  <div style={{ border: `2px solid ${COLORS.neonCyan}40`, padding: 10, background: `${COLORS.neonCyan}08` }}>
+                    <GlowText color={COLORS.neonCyan} size={8} style={{ marginBottom: 8 }}>M2.5 vs M2.7</GlowText>
+                    <div style={{ fontFamily: font, fontSize: 6, color: COLORS.gray, lineHeight: 1.8 }}>
+                      <div><span style={{ color: COLORS.neonOrange }}>M2.5</span> SWE-BENCH 80.2%</div>
+                      <div><span style={{ color: COLORS.neonOrange }}>M2.5</span> POLYGLOT KING</div>
+                      <div><span style={{ color: COLORS.neonOrange }}>M2.5</span> API-ONLY NOW</div>
+                      <div style={{ margin: "6px 0", borderTop: `1px dashed ${COLORS.neonCyan}30` }} />
+                      <div><span style={{ color: COLORS.neonGreen }}>M2.7</span> SWE-PRO 56.2%</div>
+                      <div><span style={{ color: COLORS.neonGreen }}>M2.7</span> SELF-EVOLVING</div>
+                      <div><span style={{ color: COLORS.neonGreen }}>M2.7</span> LESS HALLUCINATE</div>
+                      <div><span style={{ color: COLORS.neonGreen }}>M2.7</span> TOKEN PLAN DEFAULT</div>
+                    </div>
+                    <div style={{ fontFamily: font, fontSize: 6, color: COLORS.neonGreen, marginTop: 8, textAlign: "center", textShadow: `0 0 6px ${COLORS.neonGreen}60` }}>
+                      &#10003; M2.7 BETTER FOR REVIEW
+                    </div>
+                  </div>
+                </div>
+              </PixelBox>
+
+              <PixelDivider color={COLORS.neonPurple} />
+
+              {/* WORLD MAP */}
+              <PixelBox borderColor={COLORS.neonPink} title="&#8853; GLOBAL ORIGINS MAP &#8853;">
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: 8, marginTop: 8 }}>
+                  {[
+                    { flag: "\uD83C\uDDFA\uD83C\uDDF8", country: "USA", tools: "Claude, Codex, Copilot, Q, Gemini", color: COLORS.neonBlue },
+                    { flag: "\uD83C\uDDE8\uD83C\uDDF3", country: "CHINA", tools: "DeepSeek, Qwen, Trae, CodeGeeX, Comate", color: COLORS.neonRed },
+                    { flag: "\uD83C\uDDEB\uD83C\uDDF7", country: "FRANCE", tools: "Mistral Vibe, Codestral, Le Chat", color: COLORS.neonCyan },
+                    { flag: "\uD83C\uDF0D", country: "OPEN SRC", tools: "Aider, OpenCode, Cline, Goose", color: COLORS.neonGreen },
+                    { flag: "\uD83C\uDDE6\uD83C\uDDEA", country: "UAE", tools: "Falcon 3 (self-host only)", color: COLORS.neonYellow },
+                    { flag: "\uD83C\uDDF8\uD83C\uDDE6", country: "KSA", tools: "ALLaM (Arabic NLP, not code)", color: COLORS.neonOrange },
+                  ].map((r) => (
+                    <div key={r.country} style={{ border: `1px solid ${r.color}60`, padding: 8, background: `${r.color}08` }}>
+                      <div style={{ fontSize: 16, marginBottom: 4 }}>{r.flag}</div>
+                      <div style={{ fontFamily: font, fontSize: 7, color: r.color, marginBottom: 4, textShadow: `0 0 6px ${r.color}60` }}>{r.country}</div>
+                      <div style={{ fontFamily: font, fontSize: 6, color: COLORS.gray, lineHeight: 1.6 }}>{r.tools}</div>
+                    </div>
+                  ))}
+                </div>
+              </PixelBox>
+
+              <PixelDivider color={COLORS.neonRed} />
+
+              {/* 4-DAY SURVIVAL */}
+              <div style={{ border: `3px solid ${COLORS.neonRed}`, background: `linear-gradient(180deg, ${COLORS.neonRed}15 0%, ${COLORS.bgDark} 100%)`, padding: 16, boxShadow: `0 0 30px ${COLORS.neonRed}30, inset 0 0 30px ${COLORS.neonRed}10` }}>
+                <GlowText color={COLORS.neonRed} size={12} style={{ textAlign: "center", marginBottom: 12 }}>
+                  &#9889; 4-DAY SURVIVAL PLAN &#9889;
+                </GlowText>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 10 }}>
+                  {[
+                    { step: "01", title: "GEMINI CLI", action: "npm i -g @google/gemini-cli", detail: "1000 req/day FREE", color: COLORS.neonGreen },
+                    { step: "02", title: "AIDER + DEEPSEEK", action: "pip install aider-install", detail: "5M tokens FREE signup", color: COLORS.neonCyan },
+                    { step: "03", title: "COPILOT FREE", action: "50 premium requests", detail: "Targeted PR reviews", color: COLORS.neonBlue },
+                    { step: "04", title: "AMAZON Q FREE", action: "50 agentic chats", detail: "Built-in security scan", color: COLORS.neonYellow },
+                  ].map((s) => (
+                    <div key={s.step} style={{ border: `2px solid ${s.color}`, padding: 10, background: `${s.color}08`, position: "relative" }}>
+                      <div style={{ position: "absolute", top: -1, left: -1, background: s.color, color: COLORS.bgDark, fontFamily: font, fontSize: 8, padding: "2px 6px", fontWeight: "bold" }}>{s.step}</div>
+                      <GlowText color={s.color} size={8} style={{ marginTop: 10, marginBottom: 6 }}>{s.title}</GlowText>
+                      <div style={{ fontFamily: font, fontSize: 6, color: COLORS.neonGreen, background: `${COLORS.neonGreen}10`, padding: "3px 6px", marginBottom: 4, wordBreak: "break-all" }}>{s.action}</div>
+                      <div style={{ fontFamily: font, fontSize: 6, color: COLORS.gray }}>{s.detail}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <PixelDivider color={COLORS.neonGreen} />
+
+              {/* OPTIMAL STACK */}
+              <PixelBox borderColor={COLORS.neonGreen} title="&#10022; OPTIMAL $40/MO STACK &#10022;">
+                <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap", justifyContent: "center", alignItems: "stretch" }}>
+                  {[
+                    { name: "CLAUDE PRO", price: "$20", role: "HARD PROBLEMS", color: COLORS.neonPurple, icon: "\u265B" },
+                    { name: "COPILOT PRO", price: "$10", role: "DAILY WORKFLOW", color: COLORS.neonBlue, icon: "\u265E" },
+                    { name: "MINIMAX S", price: "$10", role: "OVERFLOW", color: COLORS.neonOrange, icon: "\u265C" },
+                  ].map((item) => (
+                    <div key={item.name} style={{ flex: "1 1 140px", border: `2px solid ${item.color}`, padding: 12, textAlign: "center", background: `linear-gradient(180deg, ${item.color}15 0%, transparent 100%)`, boxShadow: `0 0 15px ${item.color}25` }}>
+                      <div style={{ fontSize: 24, marginBottom: 6, textShadow: `0 0 15px ${item.color}`, animation: "float 3s ease infinite" }}>{item.icon}</div>
+                      <GlowText color={item.color} size={8}>{item.name}</GlowText>
+                      <div style={{ fontFamily: font, fontSize: 14, color: COLORS.neonYellow, margin: "6px 0", textShadow: `0 0 10px ${COLORS.neonYellow}80` }}>{item.price}</div>
+                      <div style={{ fontFamily: font, fontSize: 6, color: COLORS.gray, letterSpacing: 1 }}>{item.role}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ textAlign: "center", marginTop: 12, padding: "8px 12px", border: `2px solid ${COLORS.neonYellow}`, background: `${COLORS.neonYellow}10` }}>
+                  <span style={{ fontFamily: font, fontSize: 10, color: COLORS.neonYellow, textShadow: `0 0 10px ${COLORS.neonYellow}` }}>TOTAL: $40/MONTH</span>
+                  <div style={{ fontFamily: font, fontSize: 6, color: COLORS.gray, marginTop: 4 }}>+ GEMINI CLI FREE AS EMERGENCY BACKUP</div>
+                </div>
+              </PixelBox>
+
+              <PixelDivider color={COLORS.neonPink} />
+
+              {/* SECURITY WARNING */}
+              <div style={{ border: `2px dashed ${COLORS.neonRed}`, padding: 12, background: `${COLORS.neonRed}08`, textAlign: "center" }}>
+                <BlinkText color={COLORS.neonRed} style={{ fontSize: 9 }}>
+                  &#9888; CRITICAL SECURITY STAT &#9888;
+                </BlinkText>
+                <div style={{ fontFamily: font, fontSize: 20, color: COLORS.neonRed, margin: "10px 0", textShadow: `0 0 20px ${COLORS.neonRed}, 0 0 40px ${COLORS.neonRed}60` }}>45%</div>
+                <div style={{ fontFamily: font, fontSize: 7, color: COLORS.gray, lineHeight: 1.8 }}>
+                  OF AI-GENERATED CODE<br />CONTAINS SECURITY FLAWS
+                </div>
+                <div style={{ fontFamily: font, fontSize: 6, color: COLORS.neonYellow, marginTop: 8, letterSpacing: 1 }}>ALWAYS AUDIT WITH A SECOND MODEL</div>
+              </div>
+
+              <PixelDivider color={COLORS.neonPurple} />
+
+              {/* AUTHOR COMMENTARY */}
+              <PixelBox borderColor={COLORS.neonCyan} title="&#9997; AUTHOR'S TAKE — TIM ZININ &#9997;">
+                <div style={{ marginTop: 8, fontFamily: font, fontSize: 7, color: COLORS.gray, lineHeight: 2 }}>
+                  <p style={{ marginBottom: 12 }}>
+                    <span style={{ color: COLORS.neonCyan }}>{">"}</span> After 2 months of daily Claude Code usage, I ran a full audit of every CLI agent available. The biggest surprise? <span style={{ color: COLORS.neonGreen }}>Aider</span> — fully open-source, works with any model, and the git-native workflow is brilliant.
+                  </p>
+                  <p style={{ marginBottom: 12 }}>
+                    <span style={{ color: COLORS.neonCyan }}>{">"}</span> <span style={{ color: COLORS.neonOrange }}>MiniMax M2.7</span> is genuinely impressive for the price — frontier-class reasoning at 1/20th the cost of Opus. But limits burn fast when you're deep in a refactoring session.
+                  </p>
+                  <p style={{ marginBottom: 12 }}>
+                    <span style={{ color: COLORS.neonCyan }}>{">"}</span> Every time Codex hits its limit, it's a chance to try something new instead of paying $200/mo for the premium tier. <span style={{ color: COLORS.neonRed }}>DeepSeek</span> + <span style={{ color: COLORS.neonCyan }}>Aider</span> = pennies per session.
+                  </p>
+                  <p>
+                    <span style={{ color: COLORS.neonCyan }}>{">"}</span> The Chinese ecosystem is moving fast — <span style={{ color: COLORS.neonRed }}>DeepSeek</span>, <span style={{ color: COLORS.neonOrange }}>MiniMax</span>, <span style={{ color: "#00ff88" }}>Qwen3-Coder</span>. Waiting for more speed and more surprises.
+                  </p>
+                </div>
+                <div style={{ marginTop: 12, textAlign: "center" }}>
+                  <a href="https://linkedin.com/in/timzinin" target="_blank" rel="noopener noreferrer" style={{ fontFamily: font, fontSize: 7, color: COLORS.neonBlue, textDecoration: "none", textShadow: `0 0 6px ${COLORS.neonBlue}60`, marginRight: 16 }}>LINKEDIN</a>
+                  <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener noreferrer" style={{ fontFamily: font, fontSize: 7, color: COLORS.neonCyan, textDecoration: "none", textShadow: `0 0 6px ${COLORS.neonCyan}60` }}>TELEGRAM</a>
+                </div>
+              </PixelBox>
+
+              {/* FOOTER */}
+              <div style={{ textAlign: "center", padding: "24px 0 12px" }}>
+                <div style={{ fontSize: 6, color: COLORS.neonPink, letterSpacing: 4, textShadow: `0 0 8px ${COLORS.neonPink}60` }}>
+                  ═══ GAME OVER ═══
+                </div>
+                <div style={{ fontFamily: font, fontSize: 6, color: COLORS.darkGray, marginTop: 8, letterSpacing: 1 }}>
+                  ZININ CORP &#215; CLAUDE &#215; APR 2026
+                </div>
+                <div style={{ fontFamily: font, fontSize: 6, color: COLORS.darkGray, marginTop: 4 }}>
+                  PRESS START TO RESEARCH AGAIN
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
