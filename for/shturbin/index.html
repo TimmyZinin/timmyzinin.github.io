@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цифровая трансформация недвижимости — Персональное предложение | Tim Zinin</title>
+    <meta name="description" content="AI-автоматизация для брокерской компании: от ручного управления к масштабируемой digital-машине. Персональное предложение от Tim Zinin.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Цифровая трансформация недвижимости">
+    <meta property="og:description" content="AI CMO + Automation. Персональное предложение.">
+    <meta property="og:type" content="website">
+    <script defer src="https://umami.timzinin.com/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&family=Russo+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --white:#ffffff;--red:#e02020;--red-light:#ff4444;--yellow:#ffd700;
+            --black:#111;--green:#22c55e;--blue:#3b82f6;
+            --display:'Russo One',sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+        .mono{font-family:'JetBrains Mono',monospace;}
+        .display{font-family:var(--display);letter-spacing:0.02em;}
+
+        .dots-bg{position:relative;}
+        .dots-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.08) 1px,transparent 1px);background-size:8px 8px;pointer-events:none;z-index:0;}
+
+        .container{max-width:900px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+        section{padding:64px 0;position:relative;}
+
+        /* NAV */
+        nav{background:var(--red);border-bottom:4px solid var(--black);padding:12px 0;position:sticky;top:0;z-index:100;}
+        nav .container{display:flex;justify-content:space-between;align-items:center;}
+        .nav-logo{font-family:var(--display);font-size:20px;color:var(--white);letter-spacing:0.04em;text-decoration:none;}
+        .nav-badge{background:var(--yellow);color:var(--black);padding:6px 16px;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;border:3px solid var(--black);}
+
+        /* HERO */
+        .hero{padding:80px 0 48px;background:var(--white);overflow:hidden;}
+        .hero-tag{display:inline-block;font-family:var(--display);font-size:13px;color:var(--white);background:var(--red);border:3px solid var(--black);padding:6px 16px;margin-bottom:16px;transform:rotate(-1deg);box-shadow:3px 3px 0 var(--black);letter-spacing:0.06em;}
+        .hero h1{font-family:var(--display);font-size:clamp(32px,5vw,52px);line-height:1.05;margin-bottom:20px;color:var(--black);}
+        .hero h1 .red{color:var(--red);}
+        .hero h1 .yellow-bg{background:var(--yellow);padding:0 8px;display:inline-block;transform:rotate(-0.5deg);}
+        .hero-sub{font-size:17px;line-height:1.7;color:#444;max-width:700px;margin-bottom:28px;}
+        .hero-sub strong{color:var(--black);}
+        .hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:16px;}
+        .hero-meta-item{font-size:13px;color:#666;display:flex;align-items:center;gap:6px;}
+        .hero-meta-item strong{color:var(--black);}
+
+        /* DIAGNOSIS */
+        .diagnosis{background:var(--black);color:var(--white);border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
+        .diagnosis h2{font-family:var(--display);font-size:clamp(24px,4vw,36px);color:var(--yellow);margin-bottom:8px;}
+        .diagnosis-sub{color:rgba(255,255,255,0.7);font-size:15px;margin-bottom:40px;}
+        .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+        .pain-card{background:rgba(255,255,255,0.05);border:3px solid rgba(255,255,255,0.15);padding:28px 20px;position:relative;transition:all .2s;}
+        .pain-card:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 8px 24px rgba(224,32,32,0.2);}
+        .pain-number{font-family:'JetBrains Mono',monospace;font-size:48px;color:var(--red);font-weight:700;line-height:1;margin-bottom:12px;}
+        .pain-title{font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:8px;letter-spacing:0.02em;}
+        .pain-text{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;}
+
+        /* STATS BAR */
+        .stats-bar{background:var(--red);padding:32px 0;border-bottom:4px solid var(--black);}
+        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;}
+        .stat-num{font-family:'JetBrains Mono',monospace;font-size:36px;color:var(--yellow);font-weight:700;}
+        .stat-label{font-size:12px;color:rgba(255,255,255,0.9);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-top:4px;}
+
+        /* SOLUTION */
+        .solution{background:var(--white);}
+        .solution h2{font-family:var(--display);font-size:clamp(24px,4vw,36px);margin-bottom:8px;}
+        .solution h2 .red{color:var(--red);}
+        .solution-sub{color:#666;font-size:15px;margin-bottom:40px;max-width:600px;}
+        .sol-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+        .sol-card{background:var(--white);border:4px solid var(--black);padding:24px;box-shadow:4px 4px 0 var(--black);transition:all .2s;position:relative;}
+        .sol-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--black);}
+        .sol-icon{font-size:32px;margin-bottom:12px;}
+        .sol-title{font-family:var(--display);font-size:15px;margin-bottom:8px;letter-spacing:0.02em;}
+        .sol-text{font-size:14px;color:#555;line-height:1.6;}
+        .sol-tag{position:absolute;top:-10px;right:12px;background:var(--red);color:var(--white);font-size:10px;font-weight:800;padding:4px 10px;text-transform:uppercase;letter-spacing:0.08em;border:2px solid var(--black);}
+
+        /* ROADMAP */
+        .roadmap{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);border-top:4px solid var(--black);border-bottom:4px solid var(--black);}
+        .roadmap h2{font-family:var(--display);font-size:clamp(24px,4vw,36px);margin-bottom:40px;text-align:center;}
+        .roadmap h2 .red{color:var(--red);}
+        .road-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+        .road-step{text-align:center;position:relative;}
+        .road-step::after{content:'\2192';position:absolute;right:-14px;top:28px;font-size:24px;color:var(--red);font-weight:900;}
+        .road-step:last-child::after{display:none;}
+        .road-num{width:56px;height:56px;background:var(--red);color:var(--white);font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;border:4px solid var(--black);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:3px 3px 0 var(--black);}
+        .road-title{font-family:var(--display);font-size:14px;margin-bottom:6px;letter-spacing:0.02em;}
+        .road-time{font-size:12px;color:#888;font-weight:600;}
+        .road-desc{font-size:13px;color:#555;line-height:1.5;margin-top:8px;}
+
+        /* PRICING */
+        .pricing{background:var(--white);}
+        .pricing h2{font-family:var(--display);font-size:clamp(24px,4vw,36px);margin-bottom:8px;text-align:center;}
+        .pricing h2 .red{color:var(--red);}
+        .pricing-sub{text-align:center;color:#666;font-size:15px;margin-bottom:40px;}
+        .price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:800px;margin:0 auto;}
+        .price-card{border:4px solid var(--black);padding:32px 24px;position:relative;background:var(--white);transition:all .2s;}
+        .price-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--black);}
+        .price-card.featured{border-color:var(--red);box-shadow:6px 6px 0 var(--red);}
+        .price-card.featured:hover{box-shadow:9px 9px 0 var(--red);transform:translate(-3px,-3px);}
+        .price-label{font-family:var(--display);font-size:13px;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
+        .price-name{font-family:var(--display);font-size:22px;margin-bottom:16px;letter-spacing:0.02em;}
+        .price-amount{font-family:'JetBrains Mono',monospace;font-size:42px;font-weight:700;color:var(--black);line-height:1;}
+        .price-per{font-size:14px;color:#888;font-weight:600;margin-bottom:20px;}
+        .price-features{list-style:none;margin-bottom:24px;}
+        .price-features li{font-size:14px;color:#444;padding:8px 0;border-bottom:1px solid #eee;display:flex;align-items:flex-start;gap:8px;}
+        .price-features li::before{content:'\2713';color:var(--green);font-weight:900;font-size:16px;flex-shrink:0;}
+        .price-note{font-size:13px;color:#888;font-style:italic;margin-top:8px;padding:12px;background:#f8f8f8;border-left:3px solid var(--red);}
+        .featured-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--black);font-family:var(--display);font-size:12px;padding:6px 20px;border:3px solid var(--black);white-space:nowrap;letter-spacing:0.06em;}
+        .btn-cta{display:block;text-align:center;font-family:var(--display);font-size:16px;padding:14px 24px;border:4px solid var(--black);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;transition:all .15s;cursor:pointer;margin-top:8px;}
+        .btn-cta:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--black);}
+        .btn-cta-red{background:var(--red);color:var(--white);}
+        .btn-cta-yellow{background:var(--yellow);color:var(--black);}
+
+        /* COMPARE */
+        .compare{background:var(--black);color:var(--white);border-top:4px solid var(--red);}
+        .compare h2{font-family:var(--display);font-size:clamp(24px,4vw,32px);color:var(--yellow);margin-bottom:32px;text-align:center;}
+        .compare-table{width:100%;border-collapse:collapse;}
+        .compare-table th{font-family:var(--display);font-size:13px;color:var(--yellow);text-align:left;padding:12px 16px;border-bottom:2px solid rgba(255,255,255,0.2);letter-spacing:0.06em;}
+        .compare-table td{padding:12px 16px;font-size:14px;color:rgba(255,255,255,0.8);border-bottom:1px solid rgba(255,255,255,0.08);}
+        .compare-table tr:hover td{background:rgba(255,255,255,0.03);}
+        .check{color:var(--green);font-weight:900;font-size:18px;}
+        .cross{color:var(--red);font-weight:900;font-size:18px;}
+
+        /* WHY ME */
+        .why-me{background:var(--white);border-top:4px solid var(--black);}
+        .why-me h2{font-family:var(--display);font-size:clamp(24px,4vw,32px);margin-bottom:32px;}
+        .why-me h2 .red{color:var(--red);}
+        .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+        .why-card{padding:20px;border:3px solid #eee;transition:all .2s;}
+        .why-card:hover{border-color:var(--red);}
+        .why-num{font-family:'JetBrains Mono',monospace;font-size:36px;color:var(--red);font-weight:700;margin-bottom:8px;}
+        .why-title{font-family:var(--display);font-size:14px;margin-bottom:6px;letter-spacing:0.02em;}
+        .why-text{font-size:13px;color:#666;line-height:1.6;}
+
+        /* CTA */
+        .cta-section{background:var(--red);color:var(--white);text-align:center;border-top:4px solid var(--black);position:relative;overflow:hidden;}
+        .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.1) 1px,transparent 1px);background-size:6px 6px;pointer-events:none;}
+        .cta-section h2{font-family:var(--display);font-size:clamp(28px,5vw,44px);position:relative;z-index:1;margin-bottom:16px;}
+        .cta-section h2 .yellow{color:var(--yellow);}
+        .cta-sub{font-size:17px;opacity:0.9;max-width:500px;margin:0 auto 32px;position:relative;z-index:1;line-height:1.7;}
+        .cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+        .btn-big{display:inline-block;font-family:var(--display);font-size:18px;padding:16px 40px;border:4px solid var(--black);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;transition:all .15s;cursor:pointer;}
+        .btn-big:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
+        .btn-big-yellow{background:var(--yellow);color:var(--black);}
+        .btn-big-white{background:var(--white);color:var(--black);}
+
+        /* FOOTER */
+        footer{background:var(--black);color:rgba(255,255,255,0.5);padding:24px 0;text-align:center;font-size:13px;border-top:4px solid var(--red);}
+        footer a{color:var(--yellow);text-decoration:none;}
+        footer .conf{font-size:11px;color:rgba(255,255,255,0.3);margin-top:8px;}
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .pain-grid,.sol-grid,.why-grid{grid-template-columns:1fr;}
+            .price-grid{grid-template-columns:1fr;}
+            .road-steps{grid-template-columns:repeat(2,1fr);gap:24px;}
+            .road-step::after{display:none;}
+            .stats-grid{grid-template-columns:repeat(2,1fr);}
+            .hero-meta{flex-direction:column;gap:12px;}
+            .compare-table{font-size:13px;}
+            .compare-table th,.compare-table td{padding:8px 10px;}
+        }
+        @media(max-width:480px){
+            .road-steps{grid-template-columns:1fr;}
+        }
+
+        /* Scroll animation */
+        .fade-up{opacity:0;transform:translateY(24px);transition:all .6s ease-out;}
+        .fade-up.visible{opacity:1;transform:translateY(0);}
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <a href="https://timzinin.com" class="nav-logo">TIM ZININ</a>
+        <span class="nav-badge">Персональное предложение</span>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero dots-bg">
+    <div class="container">
+        <div class="hero-tag">AI MARKETING & AUTOMATION</div>
+        <h1>Цифровая <span class="red">революция</span> для брокерской компании</h1>
+        <p class="hero-sub">
+            Алексей, вот моя домашняя работа. Ниже — <strong>диагностика</strong>, <strong>roadmap трансформации</strong> и <strong>два варианта сотрудничества</strong>.
+            Всё, что обсуждали, упаковано в конкретный план действий.
+        </p>
+        <div class="hero-meta">
+            <span class="hero-meta-item"><strong>Дата:</strong> 6 апреля 2026</span>
+            <span class="hero-meta-item"><strong>Для:</strong> Алексей Штурбин</span>
+            <span class="hero-meta-item"><strong>Статус:</strong> Готов к обсуждению</span>
+        </div>
+    </div>
+</section>
+
+<!-- DIAGNOSIS: 3 PAIN POINTS -->
+<section class="diagnosis dots-bg">
+    <div class="container">
+        <h2>Диагностика: 3 боли</h2>
+        <p class="diagnosis-sub">Основано на описании текущего состояния бизнеса</p>
+        <div class="pain-grid fade-up">
+            <div class="pain-card">
+                <div class="pain-number">01</div>
+                <div class="pain-title">Не масштабируется</div>
+                <div class="pain-text">Собственница замкнула все процессы на себе: личный аккаунт, контроль сделок, физическое присутствие. Компания = один человек. Это потолок роста.</div>
+            </div>
+            <div class="pain-card">
+                <div class="pain-number">02</div>
+                <div class="pain-title">Высокие фиксы, мало контроля</div>
+                <div class="pain-text">FOH растёт, а прозрачности нет. Юнит-экономика не считается, ROMI неизвестен, кэшфлоу на ручном управлении. Каждый нанятый человек — это риск.</div>
+            </div>
+            <div class="pain-card">
+                <div class="pain-number">03</div>
+                <div class="pain-title">Всё на коленке</div>
+                <div class="pain-text">Excel вместо дашбордов. Звонки не прослушиваются. Лиды теряются. 85% отвал от Zoom до резервации — и никто не знает почему.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+    <div class="container">
+        <div class="stats-grid fade-up">
+            <div>
+                <div class="stat-num">85%</div>
+                <div class="stat-label">Потери в воронке<br>Zoom &rarr; Резервация</div>
+            </div>
+            <div>
+                <div class="stat-num">0</div>
+                <div class="stat-label">Автоматизированных<br>процессов</div>
+            </div>
+            <div>
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Ручной ввод<br>данных</div>
+            </div>
+            <div>
+                <div class="stat-num">?</div>
+                <div class="stat-label">Реальный CAC<br>и ROMI</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SOLUTION -->
+<section class="solution">
+    <div class="container">
+        <h2>Что <span class="red">конкретно</span> делаем</h2>
+        <p class="solution-sub">6 направлений AI-трансформации, каждое из которых даёт измеримый результат</p>
+        <div class="sol-grid fade-up">
+            <div class="sol-card">
+                <div class="sol-tag">Приоритет #1</div>
+                <div class="sol-icon">&#x1F4CA;</div>
+                <div class="sol-title">Дашборды и аналитика</div>
+                <div class="sol-text">Real-time метрики: воронка, юнит-экономика, ROMI по каналам, кэшфлоу. Вместо Excel — живые дашборды с моментальным доступом.</div>
+            </div>
+            <div class="sol-card">
+                <div class="sol-tag">Приоритет #2</div>
+                <div class="sol-icon">&#x1F916;</div>
+                <div class="sol-title">AI-квалификация лидов</div>
+                <div class="sol-text">Бот принимает заявки, квалифицирует по JTB (инвестиции, ПМЖ, ВНЖ), готовит пакеты, назначает Zoom. До 70% первого этапа воронки — без людей.</div>
+            </div>
+            <div class="sol-card">
+                <div class="sol-icon">&#x1F3AC;</div>
+                <div class="sol-title">Контент-завод на AI</div>
+                <div class="sol-text">Автогенерация контента: виллы, виды Кипра, интервью, stories. Адаптация под каждую платформу. Скорость x10, стоимость /5.</div>
+            </div>
+            <div class="sol-card">
+                <div class="sol-icon">&#x1F4DE;</div>
+                <div class="sol-title">Автоматизация sales</div>
+                <div class="sol-text">Расшифровка Zoom-звонков, анализ причин отказов, AI-скоринг готовности к сделке, автоотправка пакетов по запросу.</div>
+            </div>
+            <div class="sol-card">
+                <div class="sol-icon">&#x1F310;</div>
+                <div class="sol-title">Мультирыночная экспансия</div>
+                <div class="sol-text">Мультиязычные воронки (EN, RU, AR, ZH). Партнёрские программы. Лидогенерация из разных стран — без найма локальных команд.</div>
+            </div>
+            <div class="sol-card">
+                <div class="sol-icon">&#x1F4B0;</div>
+                <div class="sol-title">Финансовая прозрачность</div>
+                <div class="sol-text">Автоматический учёт: прибыльность по каналам, P&L, прогнозирование выручки. CFO-дашборд для собственника.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap">
+    <div class="container">
+        <h2>Roadmap <span class="red">трансформации</span></h2>
+        <div class="road-steps fade-up">
+            <div class="road-step">
+                <div class="road-num">1</div>
+                <div class="road-title">Discovery</div>
+                <div class="road-time">Неделя 1-2</div>
+                <div class="road-desc">Аудит процессов. Карта данных. Интервью с командой. Финальный отчёт с приоритетами.</div>
+            </div>
+            <div class="road-step">
+                <div class="road-num">2</div>
+                <div class="road-title">Quick Wins</div>
+                <div class="road-time">Неделя 3-4</div>
+                <div class="road-desc">Дашборды. AI-бот для лидов. Расшифровка звонков. Первые результаты за 2 недели.</div>
+            </div>
+            <div class="road-step">
+                <div class="road-num">3</div>
+                <div class="road-title">Automation</div>
+                <div class="road-time">Месяц 2-3</div>
+                <div class="road-desc">Контент-завод. CRM-автоматизация. Performance-маркетинг. Оптимизация воронки.</div>
+            </div>
+            <div class="road-step">
+                <div class="road-num">4</div>
+                <div class="road-title">Scale</div>
+                <div class="road-time">Месяц 4+</div>
+                <div class="road-desc">Новые рынки. Партнёрская экосистема. Цифровой аватар компании. Полная автономия.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+    <div class="container">
+        <h2>Два <span class="red">варианта</span> работы</h2>
+        <p class="pricing-sub">Начни с демо-сессии или сразу выбери полное сопровождение</p>
+        <div class="price-grid fade-up">
+            <!-- OPTION A -->
+            <div class="price-card">
+                <div class="price-label">Вариант A</div>
+                <div class="price-name">Демо-сессия</div>
+                <div class="price-amount">$250<span style="font-size:20px;color:#888">/час</span></div>
+                <div class="price-per">Минимум 2 часа &middot; 100% предоплата</div>
+                <ul class="price-features">
+                    <li>Домашняя работа: аудит + подготовка</li>
+                    <li>Лайв-сессия AI-автоматизации</li>
+                    <li>Готовый дашборд на выходе</li>
+                    <li>Цифровой профиль компании</li>
+                    <li>Roadmap дальнейших шагов</li>
+                    <li>Ответы на все вопросы собственника</li>
+                </ul>
+                <div class="price-note">Отличный формат для старта. Собственник уходит с конкретным результатом и пониманием возможностей.</div>
+                <a href="https://t.me/timzinin" class="btn-cta btn-cta-yellow">Запланировать</a>
+            </div>
+            <!-- OPTION B -->
+            <div class="price-card featured">
+                <div class="featured-tag">Рекомендую</div>
+                <div class="price-label">Вариант B</div>
+                <div class="price-name">Part-time AI CMO</div>
+                <div class="price-amount">$3,500<span style="font-size:20px;color:#888">/мес</span></div>
+                <div class="price-per">~20 часов/мес &middot; $175/час (выгоднее на 30%)</div>
+                <ul class="price-features">
+                    <li>Всё из Варианта A включено</li>
+                    <li>Стратегическое руководство маркетингом</li>
+                    <li>Внедрение и настройка AI-систем</li>
+                    <li>Еженедельные дашборды и отчёты</li>
+                    <li>Контент-стратегия + AI-генерация</li>
+                    <li>Оптимизация воронки и конверсий</li>
+                    <li>Масштабирование на новые рынки</li>
+                </ul>
+                <div class="price-note">Оплата на ИП (рубли). Минимум 3 месяца. Без совещаний — только результат. Гарантирую: компания полетит.</div>
+                <a href="https://t.me/timzinin" class="btn-cta btn-cta-red">Обсудить детали</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPARE: AI vs Traditional -->
+<section class="compare">
+    <div class="container">
+        <h2>Классический найм vs AI-трансформация</h2>
+        <table class="compare-table fade-up">
+            <thead>
+                <tr>
+                    <th>Параметр</th>
+                    <th>Нанять команду</th>
+                    <th>AI + Tim Zinin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Head of Marketing</td>
+                    <td>$4,000-6,000/мес</td>
+                    <td>$3,500/мес (part-time AI CMO)</td>
+                </tr>
+                <tr>
+                    <td>Контент-менеджер</td>
+                    <td>$1,500-2,500/мес</td>
+                    <td>AI контент-завод <span class="check">&check;</span></td>
+                </tr>
+                <tr>
+                    <td>Аналитик</td>
+                    <td>$2,000-3,500/мес</td>
+                    <td>Автоматические дашборды <span class="check">&check;</span></td>
+                </tr>
+                <tr>
+                    <td>SDR (квалификация)</td>
+                    <td>$1,500-2,000/мес</td>
+                    <td>AI-бот квалификации <span class="check">&check;</span></td>
+                </tr>
+                <tr>
+                    <td>Финансовый контроллер</td>
+                    <td>$2,500-4,000/мес</td>
+                    <td>CFO-дашборд + алерты <span class="check">&check;</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Итого FOH/мес</strong></td>
+                    <td><strong>$11,500-18,000</strong></td>
+                    <td><strong style="color:var(--yellow);">$3,500</strong></td>
+                </tr>
+                <tr>
+                    <td>Запуск</td>
+                    <td>2-3 месяца найм + онбординг</td>
+                    <td>2 недели до первых результатов</td>
+                </tr>
+                <tr>
+                    <td>Масштабируемость</td>
+                    <td>Линейная (больше людей = больше расход)</td>
+                    <td>Экспоненциальная (AI масштабируется бесплатно)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- WHY ME -->
+<section class="why-me">
+    <div class="container">
+        <h2>Почему <span class="red">я</span></h2>
+        <div class="why-grid fade-up">
+            <div class="why-card">
+                <div class="why-num">6</div>
+                <div class="why-title">AI-агентов в продакшене</div>
+                <div class="why-text">Не теория — работающие системы, которые генерят контент, квалифицируют лиды и управляют воронками. Прямо сейчас.</div>
+            </div>
+            <div class="why-card">
+                <div class="why-num">13</div>
+                <div class="why-title">Платформ автоматизировано</div>
+                <div class="why-text">Instagram, LinkedIn, Telegram, YouTube, TikTok, VK, Facebook — один контент, 13 каналов, zero ручной работы.</div>
+            </div>
+            <div class="why-card">
+                <div class="why-num">10+</div>
+                <div class="why-title">Лет в digital-маркетинге</div>
+                <div class="why-text">CMO-экспертиза + инженерный бэкграунд. Строю то, что проектирую. Без посредников, без совещаний.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section dots-bg">
+    <div class="container" style="padding:0 24px;">
+        <h2>Следующий <span class="yellow">шаг</span></h2>
+        <p class="cta-sub">
+            Созвон на 30 минут. Обсудим детали, погрузимся в специфику клиента, согласуем формат и идём на встречу с собственницей.
+        </p>
+        <div class="cta-actions">
+            <a href="https://t.me/timzinin" class="btn-big btn-big-yellow">Написать в Telegram</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 <a href="https://timzinin.com">Tim Zinin</a> &mdash; AI Marketing That Actually Makes Money</p>
+        <p class="conf">Этот документ является конфиденциальным и подготовлен персонально для Алексея Штурбина</p>
+    </div>
+</footer>
+
+<script>
+// Scroll animation
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
