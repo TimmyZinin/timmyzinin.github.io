@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цифровая трансформация недвижимости — Персональное предложение | Tim Zinin</title>
-    <meta name="description" content="AI-автоматизация для брокерской компании: от ручного управления к масштабируемой digital-машине. Персональное предложение от Tim Zinin.">
+    <title>Antaria Homes — AI-трансформация | Tim Zinin</title>
+    <meta name="description" content="AI-трансформация для Antaria Homes: цифровой контур маркетинга, продаж и аналитики. Персональное предложение от Tim Zinin.">
     <meta name="robots" content="noindex, nofollow">
     <meta property="og:title" content="Цифровая трансформация недвижимости">
     <meta property="og:description" content="AI CMO + Automation. Персональное предложение.">
@@ -171,6 +171,53 @@
         /* Scroll animation */
         .fade-up{opacity:0;transform:translateY(24px);transition:all .6s ease-out;}
         .fade-up.visible{opacity:1;transform:translateY(0);}
+
+        /* HOW section */
+        .how-section{background:var(--white);border-top:4px solid var(--black);}
+        .how-section h2{font-family:var(--display);font-size:clamp(24px,4vw,36px);margin-bottom:8px;}
+        .how-section h2 .red{color:var(--red);}
+        .how-sub{color:#666;font-size:15px;margin-bottom:40px;max-width:700px;}
+        .how-item{display:grid;grid-template-columns:80px 1fr;gap:20px;padding:24px 0;border-bottom:2px solid #eee;}
+        .how-item:last-child{border-bottom:none;}
+        .how-stage{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding-top:4px;}
+        .how-stage span{display:block;font-family:var(--display);font-size:16px;color:var(--black);letter-spacing:0.02em;margin-top:4px;}
+        .how-body h3{font-family:var(--display);font-size:16px;margin-bottom:8px;letter-spacing:0.02em;}
+        .how-body p{font-size:14px;color:#555;line-height:1.7;margin-bottom:8px;}
+        .how-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+        .how-tool{background:#f0f0f0;padding:4px 10px;font-size:11px;font-weight:700;color:#555;letter-spacing:0.04em;border:1px solid #ddd;}
+        .how-result{display:inline-block;background:var(--yellow);color:var(--black);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:4px 10px;border:2px solid var(--black);margin-top:8px;}
+
+        /* PREDICTED section */
+        .predicted{background:var(--black);color:var(--white);border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
+        .predicted h2{font-family:var(--display);font-size:clamp(24px,4vw,32px);color:var(--yellow);margin-bottom:32px;text-align:center;}
+        .pred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+        .pred-card{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);padding:24px;text-align:center;transition:all .2s;}
+        .pred-card:hover{border-color:var(--yellow);}
+        .pred-before{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px;}
+        .pred-arrow{color:var(--red);font-size:20px;margin:4px 0;}
+        .pred-after{font-family:'JetBrains Mono',monospace;font-size:32px;color:var(--yellow);font-weight:700;}
+        .pred-label{font-family:var(--display);font-size:13px;color:rgba(255,255,255,0.8);margin-top:8px;letter-spacing:0.02em;}
+        @media(max-width:768px){.pred-grid{grid-template-columns:1fr;}.how-item{grid-template-columns:1fr;}}
+
+        /* STAGE CONTEXT */
+        .stage-context{background:#fafafa;border-top:4px solid var(--black);border-bottom:4px solid var(--black);}
+        .stage-context h2{font-family:var(--display);font-size:clamp(24px,4vw,32px);margin-bottom:8px;}
+        .stage-context h2 .red{color:var(--red);}
+        .stage-context-sub{color:#666;font-size:15px;margin-bottom:32px;max-width:700px;}
+        .stage-map{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+        .stage-box{padding:16px;border:3px solid #ddd;text-align:center;transition:all .2s;position:relative;}
+        .stage-box.done{border-color:#ccc;background:#f5f5f5;opacity:0.6;}
+        .stage-box.active{border-color:var(--red);background:var(--white);box-shadow:4px 4px 0 var(--red);}
+        .stage-box.future{border-color:#ddd;border-style:dashed;}
+        .stage-box-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:#888;font-weight:700;margin-bottom:4px;}
+        .stage-box-title{font-family:var(--display);font-size:13px;letter-spacing:0.02em;}
+        .stage-box-status{font-size:11px;margin-top:6px;font-weight:700;}
+        .stage-box.done .stage-box-status{color:#888;}
+        .stage-box.active .stage-box-status{color:var(--red);}
+        .stage-box.future .stage-box-status{color:#aaa;}
+        .stage-ai-note{margin-top:24px;padding:16px;background:var(--white);border:3px solid var(--red);font-size:14px;line-height:1.7;color:#444;}
+        .stage-ai-note strong{color:var(--red);}
+        @media(max-width:768px){.stage-map{grid-template-columns:repeat(2,1fr);}}
     </style>
 </head>
 <body>
@@ -185,16 +232,19 @@
 <!-- HERO -->
 <section class="hero dots-bg">
     <div class="container">
-        <div class="hero-tag">AI MARKETING & AUTOMATION</div>
-        <h1>Цифровая <span class="red">революция</span> для брокерской компании</h1>
+        <div class="hero-tag">AI-УСИЛИТЕЛЬ ДЛЯ ANTARIA HOMES</div>
+        <h1>Как <span class="red">именно</span> мы это сделаем</h1>
         <p class="hero-sub">
-            Алексей, вот моя домашняя работа. Ниже — <strong>диагностика</strong>, <strong>roadmap трансформации</strong> и <strong>два варианта сотрудничества</strong>.
-            Всё, что обсуждали, упаковано в конкретный план действий.
+            Алексей, изучил твой Action Plan (4 стадии). Stage 1 закрыт — диагностика есть. Ниже — <strong>конкретные инструменты и методы</strong> для Stage 2-4, <strong>прогнозируемые результаты</strong> по каждому направлению и <strong>два варианта сотрудничества</strong>.
+        </p>
+        <p class="hero-sub" style="margin-top:0;font-size:15px;color:#888;">
+            Моя роль — не заменить твою консалтинговую работу, а дать ей <strong style="color:var(--red);">AI-ускоритель</strong>. Ты выстраиваешь архитектуру бизнеса — я строю цифровую инфраструктуру, которая эту архитектуру исполняет.
         </p>
         <div class="hero-meta">
-            <span class="hero-meta-item"><strong>Дата:</strong> 6 апреля 2026</span>
+            <span class="hero-meta-item"><strong>Дата:</strong> 7 апреля 2026</span>
             <span class="hero-meta-item"><strong>Для:</strong> Алексей Штурбин</span>
-            <span class="hero-meta-item"><strong>Статус:</strong> Готов к обсуждению</span>
+            <span class="hero-meta-item"><strong>Клиент:</strong> Antaria Homes</span>
+            <span class="hero-meta-item"><strong>Обновлено:</strong> v2 с Action Plan</span>
         </div>
     </div>
 </section>
@@ -248,43 +298,235 @@
     </div>
 </div>
 
-<!-- SOLUTION -->
+<!-- STAGE CONTEXT: Aleksei's 4-stage framework -->
+<section class="stage-context">
+    <div class="container">
+        <h2>Контекст: 4 <span class="red">стадии</span> трансформации</h2>
+        <p class="stage-context-sub">Ваш Action Plan — фундамент. Мой AI-контур ложится поверх и ускоряет каждую стадию.</p>
+        <div class="stage-map fade-up">
+            <div class="stage-box done">
+                <div class="stage-box-num">STAGE 1</div>
+                <div class="stage-box-title">Диагностика</div>
+                <div class="stage-box-status">ЗАВЕРШЁН</div>
+            </div>
+            <div class="stage-box active">
+                <div class="stage-box-num">STAGE 2</div>
+                <div class="stage-box-title">Система + Запуск</div>
+                <div class="stage-box-status">AI ПОДКЛЮЧАЕТСЯ</div>
+            </div>
+            <div class="stage-box future">
+                <div class="stage-box-num">STAGE 3</div>
+                <div class="stage-box-title">Контроль внедрения</div>
+                <div class="stage-box-status">AI-ДАШБОРДЫ</div>
+            </div>
+            <div class="stage-box future">
+                <div class="stage-box-num">STAGE 4</div>
+                <div class="stage-box-title">Масштабирование</div>
+                <div class="stage-box-status">AI SCALE</div>
+            </div>
+        </div>
+        <div class="stage-ai-note fade-up">
+            <strong>Как это работает вместе:</strong> Алексей выстраивает управленческую архитектуру (карту приоритетов, роли, процессы). Тим строит цифровую инфраструктуру, которая исполняет эту архитектуру: дашборды для ритма отчётности (2.3), AI-квалификация для верха воронки (2.4), автоматизация follow-up для продаж (2.5), единый CRM-контур (2.6), финансовая модель (2.7). Алексей не подменяется — он усиливается.
+        </div>
+    </div>
+</section>
+
+<!-- HOW EXACTLY: detailed answer -->
+<section class="how-section">
+    <div class="container">
+        <h2>Как <span class="red">именно</span> мы это сделаем</h2>
+        <p class="how-sub">Конкретные инструменты, методы и прогнозируемые результаты по каждому направлению Stage 2</p>
+
+        <div class="how-item fade-up">
+            <div class="how-stage">Stage 2.3<span>Дашборды</span></div>
+            <div class="how-body">
+                <h3>Ритм отчётности и управленческие дашборды</h3>
+                <p>Подключаю CRM (Bitrix/amoCRM/HubSpot), рекламные кабинеты (Meta Ads, Google Ads) и финансовые данные в единую систему. Строю 3 уровня: ежедневный (лиды, расход, конверсии), еженедельный (воронка, pipeline, ROMI по каналам), ежемесячный (P&L, unit-экономика, cash lag).</p>
+                <p><strong>Метод:</strong> n8n (автоматизация потоков данных) + Metabase/Looker Studio (визуализация) + Telegram-алерты при отклонениях от нормы.</p>
+                <div class="how-tools">
+                    <span class="how-tool">n8n</span>
+                    <span class="how-tool">METABASE</span>
+                    <span class="how-tool">META ADS API</span>
+                    <span class="how-tool">GOOGLE ADS API</span>
+                    <span class="how-tool">CRM API</span>
+                    <span class="how-tool">TG ALERTS</span>
+                </div>
+                <div class="how-result">Результат за 2 недели: live-дашборд, собственник видит всё в реальном времени</div>
+            </div>
+        </div>
+
+        <div class="how-item fade-up">
+            <div class="how-stage">Stage 2.4<span>Маркетинг</span></div>
+            <div class="how-body">
+                <h3>AI-контент-завод + управление спросом</h3>
+                <p>Разворачиваю автономный контент-пайплайн: AI генерирует тексты (виллы, лайфстайл, инвестиционные обзоры), адаптирует под Instagram/Facebook/LinkedIn/TikTok, публикует по расписанию. Собственница остаётся лицом бренда — AI готовит сценарии для её видео, тексты для stories, caption'ы.</p>
+                <p><strong>Правила остановки кампаний:</strong> автоматические — если 3 дня нет квалов, кампания ставится на паузу + алерт в Telegram. Сегментация: relocation / инвестиции / lifestyle / по странам.</p>
+                <div class="how-tools">
+                    <span class="how-tool">AI CONTENT PIPELINE</span>
+                    <span class="how-tool">MINIMAX M2.5</span>
+                    <span class="how-tool">n8n WORKFLOWS</span>
+                    <span class="how-tool">META ADS</span>
+                    <span class="how-tool">AUTO-PAUSE RULES</span>
+                </div>
+                <div class="how-result">x10 объём контента, /5 стоимость, 0 ручной работы на публикацию</div>
+            </div>
+        </div>
+
+        <div class="how-item fade-up">
+            <div class="how-stage">Stage 2.4-2.5<span>Воронка</span></div>
+            <div class="how-body">
+                <h3>AI-квалификация лидов + автоматизация первого касания</h3>
+                <p>AI-бот принимает заявку, определяет сегмент (ПМЖ/ВНЖ/инвестиции/lifestyle), задаёт уточняющие вопросы, формирует персональный пакет (подборка объектов + расчёт бюджета + информация по стране), назначает Zoom. Бот работает 24/7 на EN/RU/AR.</p>
+                <p><strong>Метод:</strong> Telegram/WhatsApp бот на Claude API + CRM-интеграция. Каждый лид автоматически попадает в CRM с заполненными полями: источник, сегмент, бюджет, следующий шаг.</p>
+                <div class="how-tools">
+                    <span class="how-tool">CLAUDE API</span>
+                    <span class="how-tool">TELEGRAM BOT</span>
+                    <span class="how-tool">WHATSAPP API</span>
+                    <span class="how-tool">CRM WEBHOOK</span>
+                    <span class="how-tool">PDF GENERATOR</span>
+                </div>
+                <div class="how-result">До 70% квалификации без людей, follow-up в течение 2 минут (не часов)</div>
+            </div>
+        </div>
+
+        <div class="how-item fade-up">
+            <div class="how-stage">Stage 2.5<span>Продажи</span></div>
+            <div class="how-body">
+                <h3>Расшифровка Zoom + AI-анализ причин потерь</h3>
+                <p>Каждый Zoom-звонок автоматически расшифровывается, AI анализирует: что обсуждалось, какие возражения, готовность к сделке (scoring 1-10), рекомендованный следующий шаг. Это решает главную проблему — 85% потерь от Zoom до резервации станут прозрачными.</p>
+                <p><strong>Обязательный follow-up:</strong> после каждого Zoom система автоматически отправляет персонализированный пакет + резюме звонка + следующий шаг. Если брокер не двигает сделку 48ч — алерт руководителю.</p>
+                <div class="how-tools">
+                    <span class="how-tool">WHISPER (STT)</span>
+                    <span class="how-tool">CLAUDE ANALYSIS</span>
+                    <span class="how-tool">DEAL SCORING</span>
+                    <span class="how-tool">AUTO FOLLOW-UP</span>
+                    <span class="how-tool">PIPELINE ALERTS</span>
+                </div>
+                <div class="how-result">Прозрачность: почему 85% отваливаются. Цель: снизить потери до 60%</div>
+            </div>
+        </div>
+
+        <div class="how-item fade-up">
+            <div class="how-stage">Stage 2.6<span>CRM</span></div>
+            <div class="how-body">
+                <h3>Единый цифровой контур данных</h3>
+                <p>Единый словарь метрик (что такое лид, SQL, MQL). Обязательные поля CRM. Автоматическое заполнение из ботов и форм. Дедупликация. Полная атрибуция: от клика до сделки видно откуда клиент, через какой канал, сколько стоил.</p>
+                <p><strong>Запрет "работы вне системы":</strong> вся коммуникация с клиентом логируется. Звонки расшифровываются. Переписка сохраняется. В любой момент собственник видит полную картину по каждому клиенту.</p>
+                <div class="how-tools">
+                    <span class="how-tool">CRM SETUP</span>
+                    <span class="how-tool">n8n SYNC</span>
+                    <span class="how-tool">AUTO-DEDUP</span>
+                    <span class="how-tool">ATTRIBUTION</span>
+                    <span class="how-tool">AUDIT TRAIL</span>
+                </div>
+                <div class="how-result">Единый source of truth. Ноль Excel. Полная прозрачность за 3 недели</div>
+            </div>
+        </div>
+
+        <div class="how-item fade-up">
+            <div class="how-stage">Stage 2.7<span>Финансы</span></div>
+            <div class="how-body">
+                <h3>Операционная финансовая модель</h3>
+                <p>Unit-экономика: стоимость лида по каналам, стоимость квала, стоимость сделки. Базовый P&L в реальном времени. Контроль cash lag (от бронирования до получения комиссии). Pipeline в деньгах: сколько в воронке, прогноз выручки на месяц.</p>
+                <p><strong>Важно:</strong> это НЕ замена финансового директора. Это инструмент для собственника — видеть деньги в реальном времени, а не раз в месяц из Excel.</p>
+                <div class="how-tools">
+                    <span class="how-tool">P&L DASHBOARD</span>
+                    <span class="how-tool">UNIT ECONOMICS</span>
+                    <span class="how-tool">CASH LAG TRACKER</span>
+                    <span class="how-tool">REVENUE FORECAST</span>
+                </div>
+                <div class="how-result">CFO-дашборд для собственника. Решения на данных, а не на ощущениях</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PREDICTED RESULTS -->
+<section class="predicted">
+    <div class="container">
+        <h2>Прогнозируемые результаты за 3 месяца</h2>
+        <div class="pred-grid fade-up">
+            <div class="pred-card">
+                <div class="pred-before">Потери Zoom &rarr; Резервация</div>
+                <div class="pred-arrow">&darr;</div>
+                <div class="pred-after">85% &rarr; 60%</div>
+                <div class="pred-label">За счёт AI follow-up и анализа причин</div>
+            </div>
+            <div class="pred-card">
+                <div class="pred-before">Время ответа на лид</div>
+                <div class="pred-arrow">&darr;</div>
+                <div class="pred-after">часы &rarr; 2 мин</div>
+                <div class="pred-label">AI-бот квалифицирует 24/7</div>
+            </div>
+            <div class="pred-card">
+                <div class="pred-before">Стоимость контента</div>
+                <div class="pred-arrow">&darr;</div>
+                <div class="pred-after">/5</div>
+                <div class="pred-label">AI-генерация + авто-публикация</div>
+            </div>
+            <div class="pred-card">
+                <div class="pred-before">FOH маркетинг</div>
+                <div class="pred-arrow">&darr;</div>
+                <div class="pred-after">$3.5K vs $15K</div>
+                <div class="pred-label">AI CMO вместо найма 5 человек</div>
+            </div>
+            <div class="pred-card">
+                <div class="pred-before">Прозрачность данных</div>
+                <div class="pred-arrow">&uarr;</div>
+                <div class="pred-after">0% &rarr; 100%</div>
+                <div class="pred-label">Real-time дашборды вместо Excel</div>
+            </div>
+            <div class="pred-card">
+                <div class="pred-before">Масштабируемость</div>
+                <div class="pred-arrow">&uarr;</div>
+                <div class="pred-after">EN / RU / AR</div>
+                <div class="pred-label">Мультиязычные воронки без найма</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOLUTION (kept for overview) -->
 <section class="solution">
     <div class="container">
-        <h2>Что <span class="red">конкретно</span> делаем</h2>
-        <p class="solution-sub">6 направлений AI-трансформации, каждое из которых даёт измеримый результат</p>
+        <h2>6 <span class="red">направлений</span> AI-трансформации</h2>
+        <p class="solution-sub">Каждое направление привязано к конкретному блоку Stage 2 вашего Action Plan</p>
         <div class="sol-grid fade-up">
             <div class="sol-card">
-                <div class="sol-tag">Приоритет #1</div>
+                <div class="sol-tag">Stage 2.3</div>
                 <div class="sol-icon">&#x1F4CA;</div>
                 <div class="sol-title">Дашборды и аналитика</div>
-                <div class="sol-text">Real-time метрики: воронка, юнит-экономика, ROMI по каналам, кэшфлоу. Вместо Excel — живые дашборды с моментальным доступом.</div>
+                <div class="sol-text">3 уровня отчётности (день/неделя/месяц). n8n + Metabase. Telegram-алерты при отклонениях. Live за 2 недели.</div>
             </div>
             <div class="sol-card">
-                <div class="sol-tag">Приоритет #2</div>
+                <div class="sol-tag">Stage 2.4</div>
                 <div class="sol-icon">&#x1F916;</div>
                 <div class="sol-title">AI-квалификация лидов</div>
-                <div class="sol-text">Бот принимает заявки, квалифицирует по JTB (инвестиции, ПМЖ, ВНЖ), готовит пакеты, назначает Zoom. До 70% первого этапа воронки — без людей.</div>
+                <div class="sol-text">Telegram/WhatsApp бот: квалификация, персональные пакеты, назначение Zoom. 24/7, EN/RU/AR. 70% автоматизация первого этапа.</div>
             </div>
             <div class="sol-card">
+                <div class="sol-tag">Stage 2.4</div>
                 <div class="sol-icon">&#x1F3AC;</div>
                 <div class="sol-title">Контент-завод на AI</div>
-                <div class="sol-text">Автогенерация контента: виллы, виды Кипра, интервью, stories. Адаптация под каждую платформу. Скорость x10, стоимость /5.</div>
+                <div class="sol-text">AI-пайплайн: генерация + адаптация + публикация. Сценарии для видео собственницы. Авто-пауза кампаний без квалов.</div>
             </div>
             <div class="sol-card">
+                <div class="sol-tag">Stage 2.5</div>
                 <div class="sol-icon">&#x1F4DE;</div>
                 <div class="sol-title">Автоматизация sales</div>
-                <div class="sol-text">Расшифровка Zoom-звонков, анализ причин отказов, AI-скоринг готовности к сделке, автоотправка пакетов по запросу.</div>
+                <div class="sol-text">Расшифровка Zoom, AI deal scoring, обязательный follow-up, pipeline-алерты. Прозрачность потерь.</div>
             </div>
             <div class="sol-card">
-                <div class="sol-icon">&#x1F310;</div>
-                <div class="sol-title">Мультирыночная экспансия</div>
-                <div class="sol-text">Мультиязычные воронки (EN, RU, AR, ZH). Партнёрские программы. Лидогенерация из разных стран — без найма локальных команд.</div>
+                <div class="sol-tag">Stage 2.6</div>
+                <div class="sol-icon">&#x1F5C3;</div>
+                <div class="sol-title">Единый CRM-контур</div>
+                <div class="sol-text">Словарь метрик, обязательные поля, дедупликация, атрибуция от клика до сделки. Запрет работы вне системы.</div>
             </div>
             <div class="sol-card">
+                <div class="sol-tag">Stage 2.7</div>
                 <div class="sol-icon">&#x1F4B0;</div>
-                <div class="sol-title">Финансовая прозрачность</div>
-                <div class="sol-text">Автоматический учёт: прибыльность по каналам, P&L, прогнозирование выручки. CFO-дашборд для собственника.</div>
+                <div class="sol-title">Финансовая модель</div>
+                <div class="sol-text">Unit-экономика, P&L, cash lag, pipeline в деньгах. CFO-дашборд для собственника.</div>
             </div>
         </div>
     </div>
@@ -467,7 +709,7 @@
 <footer>
     <div class="container">
         <p>&copy; 2026 <a href="https://timzinin.com">Tim Zinin</a> &mdash; AI Marketing That Actually Makes Money</p>
-        <p class="conf">Этот документ является конфиденциальным и подготовлен персонально для Алексея Штурбина</p>
+        <p class="conf">Конфиденциально. Подготовлено для Алексея Штурбина / Antaria Homes. v2 — 7 апреля 2026</p>
     </div>
 </footer>
 
