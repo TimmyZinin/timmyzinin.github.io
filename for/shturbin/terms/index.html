@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antaria Homes — Условия работы</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script defer src="https://umami.timzinin.com/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&family=Russo+One&display=swap" rel="stylesheet">
+    <style>
+        :root{--white:#ffffff;--red:#e02020;--yellow:#ffd700;--black:#111;--green:#22c55e;--blue:#3b82f6;--display:'Russo One',sans-serif;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+        .container{max-width:960px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+        section{padding:64px 0;position:relative;}
+
+        /* NAV */
+        nav{background:var(--red);border-bottom:4px solid var(--black);padding:12px 0;position:sticky;top:0;z-index:100;}
+        nav .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+        .nav-logo{font-family:var(--display);font-size:18px;color:var(--white);letter-spacing:0.04em;text-decoration:none;}
+        .nav-links{display:flex;gap:4px;flex-wrap:wrap;}
+        .nav-link{font-family:var(--display);font-size:12px;color:var(--white);text-decoration:none;padding:6px 14px;border:2px solid rgba(255,255,255,0.4);letter-spacing:0.06em;transition:all .15s;text-transform:uppercase;}
+        .nav-link:hover,.nav-link.active{background:var(--yellow);color:var(--black);border-color:var(--black);}
+
+        /* HERO */
+        .hero{padding:64px 0 40px;background:var(--white);border-bottom:4px solid var(--black);}
+        .hero-tag{display:inline-block;font-family:var(--display);font-size:12px;color:var(--white);background:var(--red);border:3px solid var(--black);padding:6px 14px;margin-bottom:14px;transform:rotate(-1deg);box-shadow:3px 3px 0 var(--black);letter-spacing:0.06em;}
+        .hero h1{font-family:var(--display);font-size:clamp(28px,4.5vw,46px);line-height:1.05;margin-bottom:16px;}
+        .hero h1 .red{color:var(--red);}
+        .hero h1 .yellow-bg{background:var(--yellow);padding:0 6px;display:inline-block;}
+        .hero-sub{font-size:16px;line-height:1.7;color:#444;max-width:680px;}
+
+        /* SECTION HEADERS */
+        .section-label{font-family:var(--display);font-size:11px;color:var(--red);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+        .section-title{font-family:var(--display);font-size:clamp(22px,3.5vw,32px);margin-bottom:8px;}
+        .section-title .red{color:var(--red);}
+        .section-sub{font-size:14px;color:#666;margin-bottom:40px;}
+
+        /* ROLES */
+        .roles-section{background:var(--white);border-bottom:4px solid var(--black);}
+        .roles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+        .role-card{border:4px solid var(--black);padding:28px 24px;box-shadow:4px 4px 0 var(--black);position:relative;transition:all .2s;}
+        .role-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--black);}
+        .role-tag{display:inline-block;font-family:var(--display);font-size:11px;padding:5px 14px;border:3px solid var(--black);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px;}
+        .role-tag.consultant{background:var(--black);color:var(--yellow);}
+        .role-tag.aicmo{background:var(--red);color:var(--white);}
+        .role-name{font-family:var(--display);font-size:20px;margin-bottom:4px;letter-spacing:0.02em;}
+        .role-title{font-size:14px;color:#888;font-weight:600;margin-bottom:16px;}
+        .role-items{list-style:none;}
+        .role-items li{font-size:14px;color:#444;padding:7px 0;border-bottom:1px solid #eee;line-height:1.5;display:flex;gap:10px;align-items:flex-start;}
+        .role-items li:last-child{border-bottom:none;}
+        .role-items li::before{content:'→';color:var(--red);font-weight:900;flex-shrink:0;margin-top:1px;}
+
+        /* PRICING */
+        .pricing-section{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);border-top:4px solid var(--black);}
+        .price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:860px;}
+        .price-card{border:4px solid var(--black);padding:32px 24px;background:var(--white);position:relative;box-shadow:4px 4px 0 var(--black);transition:all .2s;}
+        .price-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--black);}
+        .price-card.featured{border-color:var(--red);box-shadow:6px 6px 0 var(--red);}
+        .price-card.featured:hover{box-shadow:9px 9px 0 var(--red);}
+        .featured-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--black);font-family:var(--display);font-size:11px;padding:5px 18px;border:3px solid var(--black);white-space:nowrap;letter-spacing:0.06em;}
+        .option-letter{font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:700;color:var(--red);line-height:1;margin-bottom:8px;}
+        .option-name{font-family:var(--display);font-size:20px;margin-bottom:4px;letter-spacing:0.02em;}
+        .option-tagline{font-size:13px;color:#888;margin-bottom:20px;}
+        .price-amount{font-family:'JetBrains Mono',monospace;font-size:44px;font-weight:700;color:var(--black);line-height:1;}
+        .price-per{font-size:13px;color:#888;font-weight:600;margin-bottom:4px;}
+        .price-savings{display:inline-block;background:var(--green);color:var(--white);font-size:12px;font-weight:800;padding:4px 12px;border:2px solid var(--black);margin-bottom:20px;font-family:'JetBrains Mono',monospace;}
+        .price-features{list-style:none;margin-bottom:20px;}
+        .price-features li{font-size:13px;color:#444;padding:8px 0;border-bottom:1px solid #eee;display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+        .price-features li:last-child{border-bottom:none;}
+        .price-features li::before{content:'✓';color:var(--green);font-weight:900;font-size:15px;flex-shrink:0;}
+        .price-note{font-size:12px;color:#888;font-style:italic;padding:12px 14px;background:#f8f8f8;border-left:3px solid var(--red);margin-top:4px;}
+
+        /* WHAT TIM DOESN'T DO */
+        .limits-section{background:var(--black);color:var(--white);border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
+        .limits-section .section-title{color:var(--yellow);}
+        .limits-section .section-sub{color:rgba(255,255,255,0.6);}
+        .limits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+        .limits-card{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.15);padding:20px;transition:border-color .2s;}
+        .limits-card:hover{border-color:var(--red);}
+        .limits-icon{font-size:24px;margin-bottom:10px;}
+        .limits-title{font-family:var(--display);font-size:14px;color:var(--yellow);margin-bottom:6px;letter-spacing:0.02em;}
+        .limits-text{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+        .limits-not{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(224,32,32,0.2);border:1px solid var(--red);color:var(--red);padding:3px 10px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;}
+        .limits-yes{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(34,197,94,0.15);border:1px solid var(--green);color:var(--green);padding:3px 10px;margin-top:6px;text-transform:uppercase;letter-spacing:0.06em;}
+
+        /* COMPARE TABLE */
+        .compare-section{background:var(--white);border-top:4px solid var(--black);}
+        .compare-table{width:100%;border-collapse:collapse;border:4px solid var(--black);box-shadow:4px 4px 0 var(--black);}
+        .compare-table th{font-family:var(--display);font-size:13px;text-align:left;padding:14px 16px;border-bottom:3px solid var(--black);letter-spacing:0.04em;}
+        .compare-table th.col-param{background:var(--black);color:var(--yellow);}
+        .compare-table th.col-traditional{background:#f8f8f8;color:var(--black);}
+        .compare-table th.col-ai{background:var(--red);color:var(--white);}
+        .compare-table td{padding:12px 16px;font-size:14px;border-bottom:2px solid #eee;vertical-align:middle;}
+        .compare-table tr:last-child td{border-bottom:none;}
+        .compare-table tr:hover td{background:#fafafa;}
+        .compare-table td.param{font-weight:700;color:var(--black);font-size:13px;}
+        .compare-table td.traditional{color:#666;}
+        .compare-table td.ai-val{color:var(--red);font-weight:700;font-family:'JetBrains Mono',monospace;font-size:13px;}
+        .compare-table td.ai-check{color:var(--green);font-weight:900;font-size:18px;}
+        .compare-table td.trad-cross{color:#ccc;font-weight:900;font-size:18px;}
+        .summary-row td{background:var(--black) !important;color:var(--white);font-weight:700;}
+        .summary-row td.param{color:var(--yellow) !important;}
+        .summary-row td.traditional{color:rgba(255,255,255,0.5) !important;font-family:'JetBrains Mono',monospace;}
+        .summary-row td.ai-val{color:var(--yellow) !important;font-size:20px;}
+
+        /* CTA */
+        .cta-section{background:var(--red);color:var(--white);text-align:center;border-top:4px solid var(--black);padding:64px 0;position:relative;overflow:hidden;}
+        .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.1) 1px,transparent 1px);background-size:6px 6px;pointer-events:none;}
+        .cta-section h2{font-family:var(--display);font-size:clamp(28px,4vw,40px);position:relative;z-index:1;margin-bottom:12px;}
+        .cta-section h2 .yellow{color:var(--yellow);}
+        .cta-sub{font-size:16px;opacity:0.9;max-width:480px;margin:0 auto 32px;position:relative;z-index:1;line-height:1.7;}
+        .cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+        .btn-big{display:inline-block;font-family:var(--display);font-size:16px;padding:14px 36px;border:4px solid var(--black);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;transition:all .15s;}
+        .btn-big:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
+        .btn-big-yellow{background:var(--yellow);color:var(--black);}
+        .btn-big-white{background:var(--white);color:var(--black);}
+
+        /* FOOTER */
+        footer{background:var(--black);color:rgba(255,255,255,0.5);padding:24px 0;text-align:center;font-size:13px;border-top:4px solid var(--red);}
+        .conf{font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;}
+
+        .fade-up{opacity:0;transform:translateY(20px);transition:all .5s ease-out;}
+        .fade-up.visible{opacity:1;transform:translateY(0);}
+
+        @media(max-width:768px){
+            .roles-grid,.price-grid,.limits-grid{grid-template-columns:1fr;}
+            .compare-table{font-size:12px;}
+            .compare-table th,.compare-table td{padding:9px 10px;}
+            nav .container{gap:6px;}
+            .nav-links{gap:3px;}
+            .nav-link{font-size:11px;padding:5px 10px;}
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <a href="../" class="nav-logo">ANTARIA HOMES</a>
+        <div class="nav-links">
+            <a href="../" class="nav-link">Главная</a>
+            <a href="../team/" class="nav-link">Команда</a>
+            <a href="../funnel/" class="nav-link">Воронка</a>
+            <a href="../terms/" class="nav-link active">Условия</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-tag">Форматы сотрудничества</div>
+        <h1>Условия <span class="yellow-bg">работы</span><br>с <span class="red">Tim Zinin</span></h1>
+        <p class="hero-sub">Роли сторон, форматы вовлечения и сравнение с наймом традиционной команды маркетинга.</p>
+    </div>
+</section>
+
+<!-- ROLES -->
+<section class="roles-section">
+    <div class="container fade-up">
+        <div class="section-label">Стороны сотрудничества</div>
+        <h2 class="section-title">Кто и что <span class="red">делает</span></h2>
+        <p class="section-sub">Два независимых специалиста с взаимодополняющими ролями. Не конкурируют — усиливают друг друга.</p>
+
+        <div class="roles-grid">
+            <div class="role-card">
+                <div class="role-tag consultant">Консультант</div>
+                <div class="role-name">Алексей Штурбин</div>
+                <div class="role-title">Внешний бизнес-консультант</div>
+                <ul class="role-items">
+                    <li>Архитектура бизнеса и стратегия</li>
+                    <li>Контур договорённостей с командой</li>
+                    <li>Организационные решения и структура</li>
+                    <li>Управление стейкхолдерами</li>
+                    <li>Валидация ключевых решений</li>
+                </ul>
+            </div>
+            <div class="role-card">
+                <div class="role-tag aicmo">AI CMO</div>
+                <div class="role-name">Tim Zinin</div>
+                <div class="role-title">Внешний AI CMO</div>
+                <ul class="role-items">
+                    <li>Цифровая инфраструктура маркетинга</li>
+                    <li>Автоматизация воронки и отчётности</li>
+                    <li>Стратегическое маркетинг-руководство</li>
+                    <li>AI-инструменты и системы</li>
+                    <li>Дашборды, аналитика, KPI-контроль</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top:24px;padding:16px 20px;border:3px solid var(--black);background:#f8f8f8;max-width:700px;box-shadow:3px 3px 0 var(--black);">
+            <span style="font-family:var(--display);font-size:13px;letter-spacing:0.02em;">Важно: роли не пересекаются</span>
+            <p style="font-size:13px;color:#555;margin-top:6px;line-height:1.5;">Tim не замещает роль консультанта Алексея — усиливает её через цифровой инструментарий. Алексей не занимается технической реализацией — работает на уровне архитектуры решений.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING OPTIONS -->
+<section class="pricing-section">
+    <div class="container fade-up">
+        <div class="section-label">Форматы вовлечения</div>
+        <h2 class="section-title">Два <span class="red">варианта</span></h2>
+        <p class="section-sub">Выбирайте формат в зависимости от задачи: разовая диагностика или стратегическое партнёрство.</p>
+
+        <div class="price-grid">
+
+            <div class="price-card">
+                <div class="option-letter">A</div>
+                <div class="option-name">Demo Session</div>
+                <div class="option-tagline">Разовая сессия — диагностика и демо</div>
+                <div class="price-amount">$250</div>
+                <div class="price-per">/ час · минимум 2 часа · 100% предоплата</div>
+                <ul class="price-features">
+                    <li>Аудит текущего состояния (домашнее задание)</li>
+                    <li>Live AI-автоматизация в прямом эфире</li>
+                    <li>Дашборд с ключевыми метриками</li>
+                    <li>Цифровой профиль компании</li>
+                    <li>Roadmap первых 90 дней</li>
+                    <li>Q&A по AI-трансформации</li>
+                </ul>
+                <div class="price-note">Подходит для знакомства с форматом перед долгосрочным сотрудничеством.</div>
+            </div>
+
+            <div class="price-card featured">
+                <div class="featured-badge">Рекомендуем</div>
+                <div class="option-letter" style="color:var(--red);">B</div>
+                <div class="option-name">Part-time AI CMO</div>
+                <div class="option-tagline">Стратегическое партнёрство — результат за 90 дней</div>
+                <div class="price-amount">$3 500</div>
+                <div class="price-per">/ месяц · ~20 ч/мес · $175/ч</div>
+                <div class="price-savings">Экономия 30% vs почасовой</div>
+                <ul class="price-features">
+                    <li>Всё из Demo Session (Option A)</li>
+                    <li>Стратегическое руководство маркетингом</li>
+                    <li>Внедрение AI-систем и автоматизации</li>
+                    <li>Еженедельные дашборды и отчёты</li>
+                    <li>Контент-стратегия и воронка</li>
+                    <li>Оптимизация воронки по KPI</li>
+                    <li>Поддержка расширения рынка</li>
+                    <li>Slack / Telegram для оперативных вопросов</li>
+                </ul>
+                <div class="price-note">Оплата: ИП (рубли). Минимум 3 месяца. Условия уточняются в договоре.</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- WHAT TIM DOESN'T DO -->
+<section class="limits-section">
+    <div class="container fade-up">
+        <div class="section-label" style="color:rgba(255,255,255,0.5);">Важные границы</div>
+        <h2 class="section-title">Что Tim <span style="color:var(--red);">не делает</span></h2>
+        <p class="section-sub">Чёткие границы роли — залог эффективного сотрудничества без завышенных ожиданий.</p>
+
+        <div class="limits-grid">
+
+            <div class="limits-card">
+                <div class="limits-not">Не делает</div>
+                <div class="limits-title">Не замещает операционную команду</div>
+                <div class="limits-text">Tim не выполняет функции отдельных подразделений и не берёт на себя регулярные операционные задачи команды.</div>
+                <div class="limits-yes">Делает: архитектура систем</div>
+            </div>
+
+            <div class="limits-card">
+                <div class="limits-not">Не делает</div>
+                <div class="limits-title">Не управляет людьми напрямую</div>
+                <div class="limits-text">Работает на уровне архитектуры, решений и управления — не линейный руководитель для сотрудников Antaria.</div>
+                <div class="limits-yes">Делает: инфраструктура решений</div>
+            </div>
+
+            <div class="limits-card">
+                <div class="limits-not">Не делает</div>
+                <div class="limits-title">Не заменяет роль Алексея</div>
+                <div class="limits-text">Консалтинговая роль Алексея Штурбина остаётся независимой. Tim не претендует на бизнес-консультирование — это другой контур.</div>
+                <div class="limits-yes">Делает: усиливает через AI</div>
+            </div>
+
+            <div class="limits-card">
+                <div class="limits-not">Не делает</div>
+                <div class="limits-title">Не работает на performance-модели</div>
+                <div class="limits-text">Фиксированная оплата за время и результаты системы, не за % от GMV. Tim не инвестирует личные средства в клиентские проекты.</div>
+                <div class="limits-yes">Делает: системный результат</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- COMPARE TABLE -->
+<section class="compare-section">
+    <div class="container fade-up">
+        <div class="section-label">Анализ альтернатив</div>
+        <h2 class="section-title">AI CMO vs <span class="red">традиционный найм</span></h2>
+        <p class="section-sub">Сравнение ФОТ полноценного маркетингового отдела с форматом AI CMO + автоматизации.</p>
+
+        <div style="overflow-x:auto;">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th class="col-param">Параметр</th>
+                        <th class="col-traditional">Традиционная команда</th>
+                        <th class="col-ai">AI CMO + Tim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="param">Head of Marketing</td>
+                        <td class="traditional">€4 000–6 000/мес (инхаус)</td>
+                        <td class="ai-val">Включён</td>
+                    </tr>
+                    <tr>
+                        <td class="param">Performance / Analytics Lead</td>
+                        <td class="traditional">€2 000–3 000/мес</td>
+                        <td class="ai-val">AI + автоматизация</td>
+                    </tr>
+                    <tr>
+                        <td class="param">Copywriter</td>
+                        <td class="traditional">€1 500–2 000/мес</td>
+                        <td class="ai-val">70% AI, 30% контрактор</td>
+                    </tr>
+                    <tr>
+                        <td class="param">Content Producer</td>
+                        <td class="traditional">€1 500–2 500/мес</td>
+                        <td class="ai-val">60% AI, 40% контрактор</td>
+                    </tr>
+                    <tr>
+                        <td class="param">SMM Manager</td>
+                        <td class="traditional">€1 500–2 000/мес</td>
+                        <td class="ai-val">n8n автопубликация</td>
+                    </tr>
+                    <tr>
+                        <td class="param">Designer</td>
+                        <td class="traditional">€1 500–2 500/мес</td>
+                        <td class="ai-val">AI + разовые подрядчики</td>
+                    </tr>
+                    <tr>
+                        <td class="param">Время до результата</td>
+                        <td class="traditional">3–6 месяцев найм + онбординг</td>
+                        <td class="ai-val">2–3 недели</td>
+                    </tr>
+                    <tr>
+                        <td class="param">Масштабируемость</td>
+                        <td class="trad-cross">✗</td>
+                        <td class="ai-check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="param">Дашборды в реальном времени</td>
+                        <td class="trad-cross">✗</td>
+                        <td class="ai-check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="param">A/B тесты автоматически</td>
+                        <td class="trad-cross">✗</td>
+                        <td class="ai-check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="param">Риск текучки</td>
+                        <td class="traditional">Высокий</td>
+                        <td class="ai-val">Нет</td>
+                    </tr>
+                    <tr class="summary-row">
+                        <td class="param">ИТОГО / МЕС</td>
+                        <td class="traditional">€11 500 – 18 000</td>
+                        <td class="ai-val">$3 500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top:20px;padding:16px 20px;background:var(--black);color:var(--white);border:3px solid var(--black);box-shadow:4px 4px 0 var(--red);display:inline-block;max-width:640px;">
+            <span style="font-family:var(--display);font-size:13px;color:var(--yellow);letter-spacing:0.02em;">Экономия: €8 000–14 500 в месяц</span>
+            <p style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:6px;line-height:1.6;">При сохранении результата и без рисков найма. За год экономия ФОТ составляет <strong style="color:var(--white);">€96 000–174 000</strong> — это дополнительный маркетинговый бюджет или инвестиция в масштабирование.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Начнём <span class="yellow">Demo Session?</span></h2>
+        <p class="cta-sub">2 часа — и у вас будет дашборд, roadmap и понимание, что именно автоматизировать в первую очередь.</p>
+        <div class="cta-actions">
+            <a href="https://t.me/timzinin" class="btn-big btn-big-yellow" target="_blank">Написать в Telegram</a>
+            <a href="../" class="btn-big btn-big-white">К предложению</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div>Antaria Homes — Условия работы</div>
+        <div class="conf">Конфиденциально. Antaria Homes. v2 — 7 апреля 2026</div>
+    </div>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, {threshold:0.1});
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

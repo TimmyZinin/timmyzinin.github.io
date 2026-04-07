@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antaria Homes — Воронка и KPI</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script defer src="https://umami.timzinin.com/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&family=Russo+One&display=swap" rel="stylesheet">
+    <style>
+        :root{--white:#ffffff;--red:#e02020;--yellow:#ffd700;--black:#111;--green:#22c55e;--blue:#3b82f6;--display:'Russo One',sans-serif;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+        .container{max-width:960px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+        section{padding:64px 0;position:relative;}
+
+        /* NAV */
+        nav{background:var(--red);border-bottom:4px solid var(--black);padding:12px 0;position:sticky;top:0;z-index:100;}
+        nav .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+        .nav-logo{font-family:var(--display);font-size:18px;color:var(--white);letter-spacing:0.04em;text-decoration:none;}
+        .nav-links{display:flex;gap:4px;flex-wrap:wrap;}
+        .nav-link{font-family:var(--display);font-size:12px;color:var(--white);text-decoration:none;padding:6px 14px;border:2px solid rgba(255,255,255,0.4);letter-spacing:0.06em;transition:all .15s;text-transform:uppercase;}
+        .nav-link:hover,.nav-link.active{background:var(--yellow);color:var(--black);border-color:var(--black);}
+
+        /* HERO */
+        .hero{padding:64px 0 40px;background:var(--white);border-bottom:4px solid var(--black);}
+        .hero-tag{display:inline-block;font-family:var(--display);font-size:12px;color:var(--white);background:var(--red);border:3px solid var(--black);padding:6px 14px;margin-bottom:14px;transform:rotate(-1deg);box-shadow:3px 3px 0 var(--black);letter-spacing:0.06em;}
+        .hero h1{font-family:var(--display);font-size:clamp(28px,4.5vw,46px);line-height:1.05;margin-bottom:16px;}
+        .hero h1 .red{color:var(--red);}
+        .hero h1 .yellow-bg{background:var(--yellow);padding:0 6px;display:inline-block;}
+        .hero-sub{font-size:16px;line-height:1.7;color:#444;max-width:680px;}
+
+        /* SECTION HEADERS */
+        .section-label{font-family:var(--display);font-size:11px;color:var(--red);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+        .section-title{font-family:var(--display);font-size:clamp(22px,3.5vw,32px);margin-bottom:8px;}
+        .section-title .red{color:var(--red);}
+        .section-sub{font-size:14px;color:#666;margin-bottom:40px;}
+
+        /* GROWTH FORMULA */
+        .formula-section{background:var(--black);color:var(--white);border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
+        .formula-section .section-title{color:var(--yellow);}
+        .formula-section .section-sub{color:rgba(255,255,255,0.6);}
+
+        .funnel-steps{display:flex;flex-direction:column;gap:0;position:relative;max-width:720px;margin:0 auto;}
+
+        .funnel-step{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;position:relative;}
+        .funnel-step + .funnel-step{margin-top:8px;}
+
+        .funnel-left{text-align:right;}
+        .funnel-right{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5;}
+
+        .funnel-box{border:3px solid;padding:14px 24px;text-align:center;min-width:200px;position:relative;}
+        .funnel-box.top{border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.05);}
+        .funnel-box.mid{border-color:var(--yellow);background:rgba(255,215,0,0.08);}
+        .funnel-box.bottom{border-color:var(--red);background:rgba(224,32,32,0.1);}
+        .funnel-box.final{border-color:var(--green);background:rgba(34,197,94,0.1);box-shadow:0 0 20px rgba(34,197,94,0.2);}
+
+        .funnel-num{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;line-height:1;}
+        .funnel-box.top .funnel-num{color:rgba(255,255,255,0.9);}
+        .funnel-box.mid .funnel-num{color:var(--yellow);}
+        .funnel-box.bottom .funnel-num{color:var(--red);}
+        .funnel-box.final .funnel-num{color:var(--green);}
+
+        .funnel-label{font-family:var(--display);font-size:12px;letter-spacing:0.04em;margin-top:4px;opacity:0.75;text-transform:uppercase;}
+
+        .funnel-arrow{display:flex;justify-content:center;margin:6px 0;}
+        .funnel-arrow svg{opacity:0.5;}
+
+        .rate-chip{display:inline-block;background:var(--red);color:var(--white);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:4px 10px;border:2px solid rgba(255,255,255,0.3);margin-top:6px;}
+        .funnel-box.mid .rate-chip{background:var(--yellow);color:var(--black);}
+
+        /* KPI TIERS */
+        .kpi-section{background:var(--white);border-top:4px solid var(--black);}
+        .kpi-tiers{display:flex;flex-direction:column;gap:16px;}
+        .kpi-tier{border:4px solid var(--black);padding:24px;box-shadow:4px 4px 0 var(--black);position:relative;transition:all .2s;}
+        .kpi-tier:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--black);}
+        .tier-header{display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+        .tier-badge{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:6px 14px;border:3px solid var(--black);text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
+        .tier-badge.biz{background:var(--red);color:var(--white);}
+        .tier-badge.mkt{background:var(--black);color:var(--yellow);}
+        .tier-badge.dig{background:var(--yellow);color:var(--black);}
+        .tier-name{font-family:var(--display);font-size:18px;letter-spacing:0.02em;}
+        .tier-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+        .tier-metric{padding:12px 14px;background:#f8f8f8;border-left:4px solid var(--black);}
+        .metric-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--black);}
+        .metric-label{font-size:11px;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;}
+
+        /* RHYTHM */
+        .rhythm-section{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);border-top:4px solid var(--black);border-bottom:4px solid var(--black);}
+        .rhythm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;}
+        .rhythm-card{background:var(--white);border:3px solid var(--black);padding:20px;box-shadow:3px 3px 0 var(--black);}
+        .rhythm-freq{font-family:var(--display);font-size:11px;color:var(--red);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;}
+        .rhythm-title{font-family:var(--display);font-size:14px;margin-bottom:10px;letter-spacing:0.02em;}
+        .rhythm-items{list-style:none;}
+        .rhythm-items li{font-size:13px;color:#555;padding:5px 0;border-bottom:1px solid #eee;line-height:1.4;}
+        .rhythm-items li:last-child{border-bottom:none;}
+        .rhythm-items li::before{content:'→ ';color:var(--red);font-weight:700;}
+
+        /* SCENARIOS */
+        .scenarios-section{background:var(--black);color:var(--white);border-top:4px solid var(--red);}
+        .scenarios-section .section-title{color:var(--yellow);}
+        .scenarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
+        .scenario-card{border:3px solid;padding:24px 20px;position:relative;transition:all .2s;}
+        .scenario-card:hover{transform:translateY(-4px);}
+        .scenario-card.pessimist{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.04);}
+        .scenario-card.realist{border-color:var(--yellow);background:rgba(255,215,0,0.06);}
+        .scenario-card.optimist{border-color:var(--green);background:rgba(34,197,94,0.06);}
+        .scenario-icon{font-size:28px;margin-bottom:12px;}
+        .scenario-name{font-family:var(--display);font-size:16px;margin-bottom:4px;letter-spacing:0.02em;}
+        .scenario-card.pessimist .scenario-name{color:rgba(255,255,255,0.8);}
+        .scenario-card.realist .scenario-name{color:var(--yellow);}
+        .scenario-card.optimist .scenario-name{color:var(--green);}
+        .scenario-gmv{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;margin:8px 0;}
+        .scenario-card.pessimist .scenario-gmv{color:rgba(255,255,255,0.6);}
+        .scenario-card.realist .scenario-gmv{color:var(--yellow);}
+        .scenario-card.optimist .scenario-gmv{color:var(--green);}
+        .scenario-detail{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:10px;}
+        .scenario-bonus{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;}
+        .scenario-card.pessimist .scenario-bonus{color:rgba(255,255,255,0.4);}
+        .scenario-card.realist .scenario-bonus{color:var(--yellow);}
+        .scenario-card.optimist .scenario-bonus{color:var(--green);}
+        .scenario-headcount{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
+
+        /* BOUNDARY */
+        .boundary-section{background:var(--white);border-top:4px solid var(--black);}
+        .boundary-grid{display:grid;grid-template-columns:1fr 80px 1fr;gap:0;border:4px solid var(--black);box-shadow:4px 4px 0 var(--black);}
+        .boundary-col{padding:28px 24px;}
+        .boundary-col.mkt{background:var(--white);}
+        .boundary-col.sales{background:var(--black);color:var(--white);}
+        .boundary-divider{background:var(--red);display:flex;align-items:center;justify-content:center;}
+        .boundary-divider span{font-family:var(--display);font-size:11px;color:var(--white);writing-mode:vertical-rl;letter-spacing:0.1em;text-transform:uppercase;}
+        .boundary-head{font-family:var(--display);font-size:16px;margin-bottom:16px;letter-spacing:0.02em;}
+        .boundary-col.sales .boundary-head{color:var(--yellow);}
+        .boundary-items{list-style:none;}
+        .boundary-items li{font-size:13px;color:#555;padding:7px 0;border-bottom:1px solid #eee;line-height:1.4;}
+        .boundary-col.sales .boundary-items li{color:rgba(255,255,255,0.7);border-bottom-color:rgba(255,255,255,0.1);}
+        .boundary-items li:last-child{border-bottom:none;}
+        .boundary-items li::before{content:'• ';font-weight:900;color:var(--red);}
+        .sla-box{margin-top:32px;padding:16px 20px;background:var(--yellow);border:3px solid var(--black);box-shadow:4px 4px 0 var(--black);}
+        .sla-box .sla-title{font-family:var(--display);font-size:14px;margin-bottom:8px;letter-spacing:0.02em;}
+        .sla-box p{font-size:13px;color:#333;line-height:1.6;}
+
+        /* FOOTER */
+        footer{background:var(--black);color:rgba(255,255,255,0.5);padding:24px 0;text-align:center;font-size:13px;border-top:4px solid var(--red);}
+        .conf{font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;}
+
+        .fade-up{opacity:0;transform:translateY(20px);transition:all .5s ease-out;}
+        .fade-up.visible{opacity:1;transform:translateY(0);}
+
+        @media(max-width:768px){
+            .tier-metrics,.rhythm-grid,.scenarios-grid{grid-template-columns:1fr;}
+            .boundary-grid{grid-template-columns:1fr;}
+            .boundary-divider{writing-mode:horizontal-tb;padding:12px;height:40px;}
+            .boundary-divider span{writing-mode:horizontal-tb;}
+            .funnel-step{grid-template-columns:1fr;text-align:center;}
+            .funnel-left{text-align:center;}
+            nav .container{gap:6px;}
+            .nav-links{gap:3px;}
+            .nav-link{font-size:11px;padding:5px 10px;}
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <a href="../" class="nav-logo">ANTARIA HOMES</a>
+        <div class="nav-links">
+            <a href="../" class="nav-link">Главная</a>
+            <a href="../team/" class="nav-link">Команда</a>
+            <a href="../funnel/" class="nav-link active">Воронка</a>
+            <a href="../terms/" class="nav-link">Условия</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-tag">Система роста</div>
+        <h1>Воронка и <span class="red">KPI</span><br><span class="yellow-bg">Antaria Homes</span></h1>
+        <p class="hero-sub">Формула роста от лидов до GMV, трёхуровневая система KPI, операционный ритм и сценарии развития.</p>
+    </div>
+</section>
+
+<!-- GROWTH FORMULA -->
+<section class="formula-section">
+    <div class="container fade-up">
+        <div class="section-label" style="color:rgba(255,255,255,0.5);">Математика роста</div>
+        <h2 class="section-title">Формула <span style="color:var(--red);">GMV 50M€</span></h2>
+        <p class="section-sub">Каждый этап воронки — конкретные числа и конверсии. Слева — контекст этапа, справа — ответственность.</p>
+
+        <div class="funnel-steps">
+
+            <div class="funnel-step">
+                <div class="funnel-left">
+                    <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;">Paid media + SEO + Organic<br>CPL цель: ≤ €30</div>
+                </div>
+                <div class="funnel-box top">
+                    <div class="funnel-num">13 000</div>
+                    <div class="funnel-label">Лидов / год</div>
+                </div>
+                <div class="funnel-right">
+                    <strong style="color:var(--white);">Маркетинг</strong><br>Трафик, контент, performance
+                </div>
+            </div>
+
+            <div class="funnel-arrow">
+                <svg width="24" height="32" viewBox="0 0 24 32" fill="none"><path d="M12 0v28M5 21l7 9 7-9" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <div class="funnel-step">
+                <div class="funnel-left">
+                    <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;">Квалификаторы обрабатывают<br>Job-to-be-done + Zoom-назначение</div>
+                </div>
+                <div class="funnel-box mid">
+                    <div class="funnel-num">800</div>
+                    <div class="funnel-label">SQL (квалиф. лиды)</div>
+                    <div class="rate-chip">Конверсия 6%</div>
+                </div>
+                <div class="funnel-right">
+                    <strong style="color:var(--white);">Sales + Marketing</strong><br>SQL SLA — граница ответственности
+                </div>
+            </div>
+
+            <div class="funnel-arrow">
+                <svg width="24" height="32" viewBox="0 0 24 32" fill="none"><path d="M12 0v28M5 21l7 9 7-9" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <div class="funnel-step">
+                <div class="funnel-left">
+                    <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;">Презентация объекта,<br>подбор варианта, депозит</div>
+                </div>
+                <div class="funnel-box bottom">
+                    <div class="funnel-num">140</div>
+                    <div class="funnel-label">Резерваций</div>
+                    <div class="rate-chip">17.5% от SQL</div>
+                </div>
+                <div class="funnel-right">
+                    <strong style="color:var(--white);">Sales</strong><br>Брокеры + Customer Care
+                </div>
+            </div>
+
+            <div class="funnel-arrow">
+                <svg width="24" height="32" viewBox="0 0 24 32" fill="none"><path d="M12 0v28M5 21l7 9 7-9" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <div class="funnel-step">
+                <div class="funnel-left">
+                    <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;">Подписание договора,<br>регистрация сделки</div>
+                </div>
+                <div class="funnel-box bottom">
+                    <div class="funnel-num">100</div>
+                    <div class="funnel-label">Сделок / год</div>
+                    <div class="rate-chip">71% от резерваций</div>
+                </div>
+                <div class="funnel-right">
+                    <strong style="color:var(--white);">Sales</strong><br>Закрытие, юр. сопровождение
+                </div>
+            </div>
+
+            <div class="funnel-arrow">
+                <svg width="24" height="32" viewBox="0 0 24 32" fill="none"><path d="M12 0v28M5 21l7 9 7-9" stroke="rgba(34,197,94,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <div class="funnel-step">
+                <div class="funnel-left">
+                    <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;">Ср. чек сделки: €500K<br>CAC цель: ≤ €8K</div>
+                </div>
+                <div class="funnel-box final">
+                    <div class="funnel-num">50M€</div>
+                    <div class="funnel-label">GMV / год</div>
+                </div>
+                <div class="funnel-right">
+                    <strong style="color:var(--white);">Бизнес</strong><br>Цель оптимист-сценария
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- KPI TIERS -->
+<section class="kpi-section">
+    <div class="container fade-up">
+        <div class="section-label">Система контроля</div>
+        <h2 class="section-title">KPI <span class="red">трёх уровней</span></h2>
+        <p class="section-sub">Метрики каскадируются сверху вниз: от бизнес-результатов до цифровых показателей рекламы.</p>
+
+        <div class="kpi-tiers">
+
+            <div class="kpi-tier">
+                <div class="tier-header">
+                    <div class="tier-badge biz">L1</div>
+                    <div class="tier-name">Бизнес-результаты</div>
+                </div>
+                <div class="tier-metrics">
+                    <div class="tier-metric">
+                        <div class="metric-val">45–60M€</div>
+                        <div class="metric-label">GMV / год</div>
+                    </div>
+                    <div class="tier-metric">
+                        <div class="metric-val">~100</div>
+                        <div class="metric-label">Сделок / год</div>
+                    </div>
+                    <div class="tier-metric">
+                        <div class="metric-val">≤ план</div>
+                        <div class="metric-label">Cost per Deal</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-tier">
+                <div class="tier-header">
+                    <div class="tier-badge mkt">L2</div>
+                    <div class="tier-name">Маркетинг-операции</div>
+                </div>
+                <div class="tier-metrics">
+                    <div class="tier-metric" style="border-left-color:var(--red);">
+                        <div class="metric-val" style="color:var(--red);">≥ 3x</div>
+                        <div class="metric-label">ROMI</div>
+                    </div>
+                    <div class="tier-metric" style="border-left-color:var(--red);">
+                        <div class="metric-val" style="color:var(--red);">≥ 12</div>
+                        <div class="metric-label">Резерваций / мес</div>
+                    </div>
+                    <div class="tier-metric" style="border-left-color:var(--red);">
+                        <div class="metric-val" style="color:var(--red);">Рост QoQ</div>
+                        <div class="metric-label">Non-paid %</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-tier">
+                <div class="tier-header">
+                    <div class="tier-badge dig">L3</div>
+                    <div class="tier-name">Цифровые метрики</div>
+                </div>
+                <div class="tier-metrics">
+                    <div class="tier-metric" style="border-left-color:var(--black);">
+                        <div class="metric-val">≤ €30</div>
+                        <div class="metric-label">CPL</div>
+                    </div>
+                    <div class="tier-metric" style="border-left-color:var(--black);">
+                        <div class="metric-val">≥ 6%</div>
+                        <div class="metric-label">SQL rate</div>
+                    </div>
+                    <div class="tier-metric" style="border-left-color:var(--black);">
+                        <div class="metric-val">≤ €8K</div>
+                        <div class="metric-label">CAC</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- OPERATIONS RHYTHM -->
+<section class="rhythm-section">
+    <div class="container fade-up">
+        <div class="section-label">Операционный ритм</div>
+        <h2 class="section-title">Как работает <span class="red">система</span></h2>
+        <p class="section-sub">Регулярные ритуалы и процессы, обеспечивающие управляемость воронки и бюджета.</p>
+
+        <div class="rhythm-grid">
+
+            <div class="rhythm-card">
+                <div class="rhythm-freq">Ежедневно</div>
+                <div class="rhythm-title">Мониторинг</div>
+                <ul class="rhythm-items">
+                    <li>KPI-дашборд: CPL, SQL, расходы</li>
+                    <li>Мониторинг кампаний</li>
+                    <li>Стоп-лосс при аномалиях</li>
+                    <li>Автоматические алерты n8n</li>
+                </ul>
+            </div>
+
+            <div class="rhythm-card">
+                <div class="rhythm-freq">Еженедельно</div>
+                <div class="rhythm-title">Ревью и синхронизация</div>
+                <ul class="rhythm-items">
+                    <li>Performance review HoM + команда</li>
+                    <li>Joint ritual Marketing + Sales</li>
+                    <li>Перераспределение бюджета</li>
+                    <li>Сверка SQL-качества</li>
+                </ul>
+            </div>
+
+            <div class="rhythm-card">
+                <div class="rhythm-freq">Постоянно</div>
+                <div class="rhythm-title">Тест-бэклог</div>
+                <ul class="rhythm-items">
+                    <li>10–15 активных гипотез</li>
+                    <li>A/B тесты по одной переменной</li>
+                    <li>Масштабирование победителей</li>
+                    <li>Документация результатов</li>
+                </ul>
+            </div>
+
+            <div class="rhythm-card">
+                <div class="rhythm-freq">Квартально</div>
+                <div class="rhythm-title">Стратегическое ревью</div>
+                <ul class="rhythm-items">
+                    <li>Сценарий-ревью Pessimist→Optimist</li>
+                    <li>Обновление growth roadmap</li>
+                    <li>Пересмотр бюджета на квартал</li>
+                    <li>Апгрейд команды / подрядчиков</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SCENARIOS -->
+<section class="scenarios-section">
+    <div class="container fade-up">
+        <div class="section-label" style="color:rgba(255,255,255,0.5);">Планирование</div>
+        <h2 class="section-title">3 сценария <span style="color:var(--red);">развития</span></h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.6);">Каждый квартал пересматриваем сценарий. Он определяет размер команды, бюджет маркетинга и бонусную модель.</p>
+
+        <div class="scenarios-grid">
+
+            <div class="scenario-card pessimist">
+                <div class="scenario-icon">📉</div>
+                <div class="scenario-name">Пессимист</div>
+                <div class="scenario-gmv">&lt; 45M€</div>
+                <div class="scenario-detail">Unit-экономика нестабильна. Фокус на снижение CAC, проверку гипотез, перестройку воронки.</div>
+                <div class="scenario-bonus">Бонус: минимальный</div>
+                <div class="scenario-headcount">4–5 чел. в маркетинге</div>
+            </div>
+
+            <div class="scenario-card realist">
+                <div class="scenario-icon">📊</div>
+                <div class="scenario-name">Реалист</div>
+                <div class="scenario-gmv">45–50M€</div>
+                <div class="scenario-detail">Cost per Deal стабилен, ROMI положительный. Команда работает по плану, бюджет расходуется эффективно.</div>
+                <div class="scenario-bonus">Бонус: до €2 000/мес</div>
+                <div class="scenario-headcount">6 чел. в маркетинге</div>
+            </div>
+
+            <div class="scenario-card optimist">
+                <div class="scenario-icon">🚀</div>
+                <div class="scenario-name">Оптимист</div>
+                <div class="scenario-gmv">55M€+</div>
+                <div class="scenario-detail">Unit-экономика зрелая ≥2 кварталов подряд. Масштабирование победивших каналов, расширение рынков.</div>
+                <div class="scenario-bonus">Бонус: до €3 000/мес</div>
+                <div class="scenario-headcount">7–8 чел. в маркетинге</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- MARKETING vs SALES BOUNDARY -->
+<section class="boundary-section">
+    <div class="container fade-up">
+        <div class="section-label">SQL SLA</div>
+        <h2 class="section-title">Граница <span class="red">Marketing vs Sales</span></h2>
+        <p class="section-sub">Кто за что отвечает. Споры решают данные, не ощущения.</p>
+
+        <div class="boundary-grid">
+            <div class="boundary-col mkt">
+                <div class="boundary-head">Marketing</div>
+                <ul class="boundary-items">
+                    <li>Генерирует трафик и лиды</li>
+                    <li>Квалифицирует MQL → SQL</li>
+                    <li>Управляет CPL, ROMI, CAC</li>
+                    <li>Контролирует cost per deal</li>
+                    <li>Создаёт контент и brand awareness</li>
+                    <li>Строит attribution по каналам</li>
+                </ul>
+            </div>
+            <div class="boundary-divider">
+                <span>SQL SLA</span>
+            </div>
+            <div class="boundary-col sales">
+                <div class="boundary-head">Sales</div>
+                <ul class="boundary-items">
+                    <li>Принимает SQL от маркетинга</li>
+                    <li>Проводит презентации объектов</li>
+                    <li>Назначает Zoom-встречи</li>
+                    <li>Закрывает на подпись и резервацию</li>
+                    <li>Возвращает "брак" с причиной</li>
+                    <li>Даёт обратную связь по качеству</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sla-box">
+            <div class="sla-title">Правила SLA-протокола</div>
+            <p>Еженедельно Marketing и Sales согласуют критерии SQL. "Брак" (лид не соответствующий критериям) возвращается в маркетинг с причиной отказа. Споры о качестве лидов решаются данными из CRM — не ощущениями менеджеров.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div>Antaria Homes — Воронка и KPI</div>
+        <div class="conf">Конфиденциально. Antaria Homes. v2 — 7 апреля 2026</div>
+    </div>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, {threshold:0.1});
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

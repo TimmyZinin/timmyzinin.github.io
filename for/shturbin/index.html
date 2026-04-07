@@ -32,9 +32,12 @@
 
         /* NAV */
         nav{background:var(--red);border-bottom:4px solid var(--black);padding:12px 0;position:sticky;top:0;z-index:100;}
-        nav .container{display:flex;justify-content:space-between;align-items:center;}
-        .nav-logo{font-family:var(--display);font-size:20px;color:var(--white);letter-spacing:0.04em;text-decoration:none;}
+        nav .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+        .nav-logo{font-family:var(--display);font-size:18px;color:var(--white);letter-spacing:0.04em;text-decoration:none;}
         .nav-badge{background:var(--yellow);color:var(--black);padding:6px 16px;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;border:3px solid var(--black);}
+        .nav-links{display:flex;gap:4px;flex-wrap:wrap;}
+        .nav-link{font-family:var(--display);font-size:12px;color:var(--white);text-decoration:none;padding:6px 14px;border:2px solid rgba(255,255,255,0.4);letter-spacing:0.06em;transition:all .15s;text-transform:uppercase;}
+        .nav-link:hover,.nav-link.active{background:var(--yellow);color:var(--black);border-color:var(--black);}
 
         /* HERO */
         .hero{padding:80px 0 48px;background:var(--white);overflow:hidden;}
@@ -224,8 +227,13 @@
 
 <nav>
     <div class="container">
-        <a href="https://timzinin.com" class="nav-logo">TIM ZININ</a>
-        <span class="nav-badge">Персональное предложение</span>
+        <a href="https://timzinin.com" class="nav-logo">ANTARIA HOMES</a>
+        <div class="nav-links">
+            <a href="./" class="nav-link active">Главная</a>
+            <a href="./team/" class="nav-link">Команда</a>
+            <a href="./funnel/" class="nav-link">Воронка</a>
+            <a href="./terms/" class="nav-link">Условия</a>
+        </div>
     </div>
 </nav>
 

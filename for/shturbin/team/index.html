@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antaria Homes — Структура компании</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script defer src="https://umami.timzinin.com/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&family=Russo+One&display=swap" rel="stylesheet">
+    <style>
+        :root{--white:#ffffff;--red:#e02020;--yellow:#ffd700;--black:#111;--green:#22c55e;--blue:#3b82f6;--display:'Russo One',sans-serif;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+        .mono{font-family:'JetBrains Mono',monospace;}
+        .display{font-family:var(--display);letter-spacing:0.02em;}
+        .container{max-width:960px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+        section{padding:64px 0;position:relative;}
+
+        /* NAV */
+        nav{background:var(--red);border-bottom:4px solid var(--black);padding:12px 0;position:sticky;top:0;z-index:100;}
+        nav .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+        .nav-logo{font-family:var(--display);font-size:18px;color:var(--white);letter-spacing:0.04em;text-decoration:none;}
+        .nav-links{display:flex;gap:4px;flex-wrap:wrap;}
+        .nav-link{font-family:var(--display);font-size:12px;color:var(--white);text-decoration:none;padding:6px 14px;border:2px solid rgba(255,255,255,0.4);letter-spacing:0.06em;transition:all .15s;text-transform:uppercase;}
+        .nav-link:hover,.nav-link.active{background:var(--yellow);color:var(--black);border-color:var(--black);}
+
+        /* HERO */
+        .hero{padding:64px 0 40px;background:var(--white);border-bottom:4px solid var(--black);}
+        .hero-tag{display:inline-block;font-family:var(--display);font-size:12px;color:var(--white);background:var(--red);border:3px solid var(--black);padding:6px 14px;margin-bottom:14px;transform:rotate(-1deg);box-shadow:3px 3px 0 var(--black);letter-spacing:0.06em;}
+        .hero h1{font-family:var(--display);font-size:clamp(28px,4.5vw,46px);line-height:1.05;margin-bottom:16px;}
+        .hero h1 .red{color:var(--red);}
+        .hero h1 .yellow-bg{background:var(--yellow);padding:0 6px;display:inline-block;}
+        .hero-sub{font-size:16px;line-height:1.7;color:#444;max-width:680px;}
+
+        /* ORG CHART */
+        .org-section{padding:56px 0;}
+        .section-label{font-family:var(--display);font-size:11px;color:var(--red);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+        .section-title{font-family:var(--display);font-size:clamp(22px,3.5vw,32px);margin-bottom:8px;}
+        .section-title .red{color:var(--red);}
+        .section-sub{font-size:14px;color:#666;margin-bottom:40px;}
+
+        /* Org tree current */
+        .org-tree{display:flex;flex-direction:column;gap:0;position:relative;}
+
+        .org-level-0{display:flex;justify-content:center;margin-bottom:0;}
+        .org-node-root{background:var(--red);color:var(--white);border:4px solid var(--black);padding:14px 28px;text-align:center;box-shadow:4px 4px 0 var(--black);position:relative;}
+        .org-node-root .node-name{font-family:var(--display);font-size:16px;letter-spacing:0.02em;}
+        .org-node-root .node-role{font-size:11px;opacity:0.85;margin-top:2px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;}
+
+        .org-connector-v{width:3px;height:32px;background:var(--black);margin:0 auto;}
+        .org-connector-h{display:flex;align-items:flex-start;position:relative;}
+        .org-connector-h::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:3px;height:28px;background:var(--black);}
+
+        .org-branches{display:grid;gap:16px;margin-top:28px;}
+        .org-branches-3{grid-template-columns:repeat(3,1fr);}
+        .org-branches-4{grid-template-columns:repeat(4,1fr);}
+
+        .branch-col{display:flex;flex-direction:column;align-items:center;position:relative;}
+        .branch-col::before{content:'';position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:3px;height:28px;background:var(--black);}
+
+        .org-node{background:var(--white);border:3px solid var(--black);padding:12px 16px;text-align:center;box-shadow:3px 3px 0 var(--black);transition:all .2s;width:100%;}
+        .org-node:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--black);}
+        .org-node.dept{background:var(--black);color:var(--white);}
+        .org-node.dept .node-name{color:var(--yellow);}
+        .org-node.dept .node-role{color:rgba(255,255,255,0.6);}
+        .node-name{font-family:var(--display);font-size:13px;letter-spacing:0.02em;}
+        .node-role{font-size:11px;color:#888;margin-top:2px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
+        .org-node.dept .node-role{color:rgba(255,255,255,0.6);}
+
+        .sub-connector{width:3px;height:20px;background:var(--black);margin:0 auto;}
+        .sub-nodes{display:flex;flex-direction:column;gap:8px;width:100%;}
+        .sub-node{background:#f8f8f8;border:2px solid #ccc;padding:8px 12px;text-align:center;}
+        .sub-node .node-name{font-size:12px;}
+        .sub-node .node-role{font-size:10px;}
+
+        /* Horizontal divider with label */
+        .org-h-bar{display:flex;align-items:center;gap:16px;margin:12px 0;}
+        .org-h-bar::before,.org-h-bar::after{content:'';flex:1;height:2px;background:rgba(0,0,0,0.15);}
+
+        /* TARGET ORG */
+        .target-section{background:var(--black);color:var(--white);border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
+        .target-section .section-title{color:var(--yellow);}
+        .target-section .section-sub{color:rgba(255,255,255,0.6);}
+
+        .t-tree{display:flex;flex-direction:column;align-items:center;gap:0;}
+        .t-node-root{background:var(--red);color:var(--white);border:4px solid rgba(255,255,255,0.5);padding:14px 36px;text-align:center;box-shadow:4px 4px 0 rgba(255,255,255,0.3);}
+        .t-node-root .node-name{font-family:var(--display);font-size:17px;}
+        .t-node-root .node-role{font-size:11px;opacity:0.8;margin-top:2px;text-transform:uppercase;letter-spacing:0.06em;}
+
+        .t-connector-v{width:3px;height:28px;background:rgba(255,255,255,0.4);margin:0 auto;}
+
+        .t-branches{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;margin-top:0;}
+        .t-branch-col{display:flex;flex-direction:column;align-items:center;position:relative;}
+        .t-branch-col::before{content:'';position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:3px;height:28px;background:rgba(255,255,255,0.4);}
+
+        .t-node{background:rgba(255,255,255,0.07);border:2px solid rgba(255,255,255,0.25);padding:12px 14px;text-align:center;width:100%;transition:border-color .2s;}
+        .t-node:hover{border-color:var(--yellow);}
+        .t-node .node-name{color:var(--yellow);font-family:var(--display);font-size:13px;}
+        .t-node .node-role{color:rgba(255,255,255,0.55);font-size:11px;margin-top:2px;text-transform:uppercase;letter-spacing:0.04em;}
+
+        .t-sub-connector{width:3px;height:16px;background:rgba(255,255,255,0.3);margin:0 auto;}
+        .t-sub-nodes{display:flex;flex-direction:column;gap:6px;width:100%;}
+        .t-sub-node{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.15);padding:7px 10px;text-align:center;}
+        .t-sub-node .node-name{color:rgba(255,255,255,0.85);font-size:12px;font-family:'Inter',sans-serif;font-weight:600;}
+        .t-sub-node .node-role{color:rgba(255,255,255,0.4);font-size:10px;text-transform:none;letter-spacing:0;}
+
+        /* Vendors row */
+        .vendors-row{margin-top:28px;width:100%;}
+        .vendors-label{font-family:var(--display);font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;text-align:center;margin-bottom:12px;}
+        .vendors-grid{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+        .vendor-chip{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.2);padding:8px 16px;font-size:12px;color:rgba(255,255,255,0.7);font-weight:600;letter-spacing:0.04em;}
+
+        /* AI REPLACEMENT */
+        .ai-section{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);border-top:4px solid var(--black);}
+        .ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+        .ai-card{background:var(--white);border:3px solid var(--black);padding:20px;box-shadow:3px 3px 0 var(--black);position:relative;}
+        .ai-role{font-family:var(--display);font-size:13px;margin-bottom:6px;letter-spacing:0.02em;}
+        .ai-pct-bar{height:6px;background:#eee;border:1px solid #ccc;margin:8px 0;position:relative;}
+        .ai-pct-fill{height:100%;background:var(--red);position:absolute;top:0;left:0;transition:width .8s ease-out;}
+        .ai-pct-label{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--red);}
+        .ai-tools{font-size:12px;color:#666;margin-top:6px;line-height:1.5;}
+        .ai-badge{position:absolute;top:-10px;right:10px;background:var(--yellow);color:var(--black);font-size:10px;font-weight:800;padding:3px 10px;border:2px solid var(--black);text-transform:uppercase;letter-spacing:0.08em;}
+
+        /* FOOTER */
+        footer{background:var(--black);color:rgba(255,255,255,0.5);padding:24px 0;text-align:center;font-size:13px;border-top:4px solid var(--red);}
+        .conf{font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;}
+
+        /* FADE */
+        .fade-up{opacity:0;transform:translateY(20px);transition:all .5s ease-out;}
+        .fade-up.visible{opacity:1;transform:translateY(0);}
+
+        @media(max-width:768px){
+            .org-branches-3,.org-branches-4,.t-branches,.ai-grid{grid-template-columns:1fr;}
+            .branch-col::before,.t-branch-col::before{display:none;}
+            nav .container{gap:6px;}
+            .nav-links{gap:3px;}
+            .nav-link{font-size:11px;padding:5px 10px;}
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <a href="../" class="nav-logo">ANTARIA HOMES</a>
+        <div class="nav-links">
+            <a href="../" class="nav-link">Главная</a>
+            <a href="../team/" class="nav-link active">Команда</a>
+            <a href="../funnel/" class="nav-link">Воронка</a>
+            <a href="../terms/" class="nav-link">Условия</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-tag">Внутренняя структура</div>
+        <h1>Команда<br><span class="yellow-bg">Antaria Homes</span><br>сейчас и <span class="red">целевая</span></h1>
+        <p class="hero-sub">Текущая org-структура + целевой маркетинговый отдел с разметкой AI-замещения ролей.</p>
+    </div>
+</section>
+
+<!-- CURRENT TEAM -->
+<section class="org-section">
+    <div class="container fade-up">
+        <div class="section-label">Текущий состав</div>
+        <h2 class="section-title">Структура <span class="red">сегодня</span></h2>
+        <p class="section-sub">Фактическая команда компании по состоянию на апрель 2026. Источник: голосовое сообщение Марины.</p>
+
+        <!-- ROOT: CEO -->
+        <div class="org-tree">
+            <div class="org-level-0">
+                <div class="org-node-root">
+                    <div class="node-name">Марина</div>
+                    <div class="node-role">Собственница / CEO</div>
+                </div>
+            </div>
+            <div class="org-connector-v"></div>
+
+            <!-- L1: 4 departments -->
+            <div class="org-branches org-branches-4">
+
+                <!-- Back Office -->
+                <div class="branch-col">
+                    <div class="org-node dept">
+                        <div class="node-name">Back Office</div>
+                        <div class="node-role">Операции</div>
+                    </div>
+                    <div class="sub-connector"></div>
+                    <div class="sub-nodes">
+                        <div class="sub-node">
+                            <div class="node-name">Юлия</div>
+                            <div class="node-role">Офис-менеджер</div>
+                        </div>
+                        <div class="sub-node">
+                            <div class="node-name">Янис</div>
+                            <div class="node-role">Бухгалтер (аутсорс)</div>
+                        </div>
+                        <div class="sub-node">
+                            <div class="node-name">Анна</div>
+                            <div class="node-role">Бизнес-ассистент</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales -->
+                <div class="branch-col">
+                    <div class="org-node dept">
+                        <div class="node-name">Sales</div>
+                        <div class="node-role">Продажи — Максим (РОП)</div>
+                    </div>
+                    <div class="sub-connector"></div>
+                    <div class="sub-nodes">
+                        <div class="sub-node" style="border-color:var(--red);">
+                            <div class="node-name" style="color:var(--red);">3 Квалификатора</div>
+                            <div class="node-role">Кристина, Полина, Иван</div>
+                        </div>
+                        <div class="sub-node" style="font-size:11px;color:#888;text-align:left;padding:6px 10px;">
+                            MQL→SQL · Обзвоны<br>Job-to-be-done · Zoom
+                        </div>
+                        <div class="sub-node" style="border-color:var(--black);background:#111;">
+                            <div class="node-name" style="color:var(--yellow);">3 Брокера</div>
+                            <div class="node-role" style="color:rgba(255,255,255,0.5);">Закрытие сделок</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Care -->
+                <div class="branch-col">
+                    <div class="org-node dept">
+                        <div class="node-name">Customer Care</div>
+                        <div class="node-role">Клиентский сервис</div>
+                    </div>
+                    <div class="sub-connector"></div>
+                    <div class="sub-nodes">
+                        <div class="sub-node">
+                            <div class="node-name">Екатерина</div>
+                            <div class="node-role">Пост-продажное обслуживание</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IT -->
+                <div class="branch-col">
+                    <div class="org-node dept">
+                        <div class="node-name">IT</div>
+                        <div class="node-role">Системы</div>
+                    </div>
+                    <div class="sub-connector"></div>
+                    <div class="sub-nodes">
+                        <div class="sub-node">
+                            <div class="node-name">Сергей</div>
+                            <div class="node-role">IT и системы</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Gap annotation: Marketing absent -->
+        <div style="margin-top:32px;padding:16px 20px;background:var(--yellow);border:3px solid var(--black);box-shadow:4px 4px 0 var(--black);display:inline-block;max-width:600px;">
+            <span style="font-family:var(--display);font-size:13px;letter-spacing:0.02em;">⚠ Маркетинговый отдел отсутствует</span>
+            <p style="font-size:13px;color:#555;margin-top:6px;line-height:1.5;">Текущая структура не имеет выделенной маркетинговой функции. Лиды приходят без системного контроля воронки и brand-стратегии.</p>
+        </div>
+    </div>
+</section>
+
+<!-- TARGET MARKETING TEAM -->
+<section class="target-section">
+    <div class="container fade-up">
+        <div class="section-label" style="color:rgba(255,255,255,0.5);">Целевой маркетинговый контур</div>
+        <h2 class="section-title">Структура <span style="color:var(--red);">маркетинга</span></h2>
+        <p class="section-sub">Целевая конфигурация отдела для выхода на GMV 50M€. Инхаус + контракторы + внешние подрядчики.</p>
+
+        <div class="t-tree">
+            <!-- Root HoM -->
+            <div class="t-node-root">
+                <div class="node-name">Head of Marketing</div>
+                <div class="node-role">Инхаус — руководитель</div>
+            </div>
+            <div class="t-connector-v"></div>
+
+            <!-- 3 leads -->
+            <div class="t-branches">
+
+                <div class="t-branch-col">
+                    <div class="t-node">
+                        <div class="node-name">Brand, Product &amp; Creative Lead</div>
+                        <div class="node-role">Инхаус</div>
+                    </div>
+                    <div class="t-sub-connector"></div>
+                    <div class="t-sub-nodes">
+                        <div class="t-sub-node"><div class="node-name">Content Producer</div></div>
+                        <div class="t-sub-node"><div class="node-name">Designer</div></div>
+                        <div class="t-sub-node"><div class="node-name">Copywriter</div></div>
+                    </div>
+                </div>
+
+                <div class="t-branch-col">
+                    <div class="t-node">
+                        <div class="node-name">Performance &amp; Analytics Lead</div>
+                        <div class="node-role">Инхаус / контрактор</div>
+                    </div>
+                    <div class="t-sub-connector"></div>
+                    <div class="t-sub-nodes">
+                        <div class="t-sub-node"><div class="node-name">Paid Media Specialist</div></div>
+                        <div class="t-sub-node"><div class="node-name">External Targetologists</div><div class="node-role">По платформам</div></div>
+                    </div>
+                </div>
+
+                <div class="t-branch-col">
+                    <div class="t-node">
+                        <div class="node-name">SMM &amp; Community Lead</div>
+                        <div class="node-role">Инхаус</div>
+                    </div>
+                    <div class="t-sub-connector"></div>
+                    <div class="t-sub-nodes">
+                        <div class="t-sub-node"><div class="node-name">UGC / Community</div></div>
+                        <div class="t-sub-node"><div class="node-name">Influencer relations</div></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- External vendors -->
+            <div class="vendors-row">
+                <div class="vendors-label">Внешние подрядчики</div>
+                <div class="vendors-grid">
+                    <div class="vendor-chip">PR-агентство</div>
+                    <div class="vendor-chip">SEO</div>
+                    <div class="vendor-chip">Видео-продакшн</div>
+                    <div class="vendor-chip">Dev / лендинги</div>
+                    <div class="vendor-chip">Инфлюенсеры</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI REPLACEMENT -->
+<section class="ai-section">
+    <div class="container fade-up">
+        <div class="section-label">AI-трансформация</div>
+        <h2 class="section-title">AI-замещение <span class="red">ролей</span></h2>
+        <p class="section-sub">Какие роли целевой маркетинговой команды могут быть частично или полностью автоматизированы с помощью AI-инструментов. Не заменяет — усиливает.</p>
+
+        <div class="ai-grid">
+            <div class="ai-card">
+                <div class="ai-badge">Частично</div>
+                <div class="ai-pct-label">70%</div>
+                <div class="ai-pct-bar"><div class="ai-pct-fill" style="width:70%"></div></div>
+                <div class="ai-role">Copywriter</div>
+                <div class="ai-tools">GPT-4o, Claude, Jasper → черновики, адаптации, A/B тесты текстов. Оставшиеся 30% — тон бренда, стратегия.</div>
+            </div>
+            <div class="ai-card">
+                <div class="ai-badge">Частично</div>
+                <div class="ai-pct-label">60%</div>
+                <div class="ai-pct-bar"><div class="ai-pct-fill" style="width:60%"></div></div>
+                <div class="ai-role">Content Producer</div>
+                <div class="ai-tools">MiniMax, Sora, ElevenLabs → генерация видео-черновиков, озвучка, ре-форматирование под платформы.</div>
+            </div>
+            <div class="ai-card">
+                <div class="ai-badge">Частично</div>
+                <div class="ai-pct-label">55%</div>
+                <div class="ai-pct-bar"><div class="ai-pct-fill" style="width:55%"></div></div>
+                <div class="ai-role">Performance Analyst</div>
+                <div class="ai-tools">n8n + Python → авто-отчёты CPL/ROMI, аномалии, стоп-лосс-алерты, перераспределение бюджета.</div>
+            </div>
+            <div class="ai-card">
+                <div class="ai-pct-label">80%</div>
+                <div class="ai-pct-bar"><div class="ai-pct-fill" style="width:80%;background:var(--red);"></div></div>
+                <div class="ai-role">SMM-планировщик</div>
+                <div class="ai-tools">n8n workflow → контент-календарь, авто-публикация, мониторинг откликов, UTM-трекинг.</div>
+            </div>
+            <div class="ai-card">
+                <div class="ai-badge">Частично</div>
+                <div class="ai-pct-label">45%</div>
+                <div class="ai-pct-bar"><div class="ai-pct-fill" style="width:45%"></div></div>
+                <div class="ai-role">Designer</div>
+                <div class="ai-tools">Midjourney, DALL-E, Canva AI → баннеры, адаптации форматов. Концепции и brand identity — человек.</div>
+            </div>
+            <div class="ai-card">
+                <div class="ai-pct-label">35%</div>
+                <div class="ai-pct-bar"><div class="ai-pct-fill" style="width:35%"></div></div>
+                <div class="ai-role">Head of Marketing</div>
+                <div class="ai-tools">AI CMO (Tim Zinin) → данные, гипотезы, системы. Стратегические решения и управление командой — человек.</div>
+            </div>
+        </div>
+
+        <div style="margin-top:32px;padding:20px 24px;background:var(--black);color:var(--white);border:4px solid var(--black);box-shadow:4px 4px 0 var(--red);max-width:700px;">
+            <div style="font-family:var(--display);font-size:14px;color:var(--yellow);margin-bottom:8px;letter-spacing:0.02em;">Результат AI-автоматизации</div>
+            <p style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.7;">При полном внедрении AI-инфраструктуры команда из <strong style="color:var(--white);">7-8 человек</strong> выполняет объём работы <strong style="color:var(--white);">12-14 специалистов</strong> на скорости в 3-4x. Экономия на ФОТ маркетинга: <strong style="color:var(--yellow);">€6,000–8,000/мес</strong> при сохранении результата.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div>Antaria Homes — Структура компании</div>
+        <div class="conf">Конфиденциально. Antaria Homes. v2 — 7 апреля 2026</div>
+    </div>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, {threshold:0.1});
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
