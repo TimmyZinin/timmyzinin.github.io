@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tim Zinin — AI-консультант для бизнеса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #111;
+  --white: #ffffff;
+  --bg: #fafafa;
+  --red: #e02020;
+  --red-light: #ff4444;
+  --yellow: #ffd700;
+  --blue: #1a3a8a;
+  --pink: #ff69b4;
+  --green: #22c55e;
+  --display: 'Russo One', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { overflow: hidden; height: 100%; }
+body { font-family: var(--body); background: var(--bg); color: var(--black); overflow: hidden; height: 100%; }
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none; z-index: 9999;
+}
+
+.deck {
+  display: flex;
+  height: 100vh;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide {
+  min-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px clamp(40px, 8vw, 140px);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 4px solid var(--black);
+  flex-shrink: 0;
+}
+
+/* Arrow controls */
+.arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  width: 56px; height: 56px;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+  color: var(--black);
+}
+.arrow:hover { transform: translateY(-50%) translate(-2px,-2px); box-shadow: 5px 5px 0 var(--black); }
+.arrow-left { left: 16px; }
+.arrow-right { right: 16px; }
+.arrow:disabled { opacity: 0.3; cursor: default; }
+.arrow:disabled:hover { transform: translateY(-50%); box-shadow: 3px 3px 0 var(--black); }
+
+/* Slide counter */
+.slide-counter {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  font-family: var(--mono);
+  font-size: 14px;
+  background: var(--black);
+  color: var(--yellow);
+  padding: 6px 16px;
+  border: 2px solid var(--black);
+}
+
+.slide-number {
+  position: absolute;
+  top: 32px; left: clamp(40px, 8vw, 140px);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--red);
+  letter-spacing: 0.08em;
+  background: var(--yellow);
+  padding: 4px 12px;
+  border: 2px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  transform: rotate(-1deg);
+}
+
+h1 {
+  font-family: var(--display);
+  font-size: clamp(44px, 6vw, 96px);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-family: var(--display);
+  font-size: clamp(32px, 4.5vw, 72px);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-family: var(--display);
+  font-size: clamp(16px, 1.6vw, 24px);
+  letter-spacing: 0;
+  margin-bottom: 10px;
+}
+
+p, li {
+  font-size: clamp(15px, 1.3vw, 19px);
+  line-height: 1.65;
+  color: #444;
+}
+
+.red { color: var(--red); }
+.blue { color: var(--blue); }
+.green { color: var(--green); }
+.yellow-bg { background: var(--yellow); padding: 2px 8px; display: inline-block; }
+
+.card {
+  background: var(--white);
+  border: 4px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black);
+  padding: 28px;
+}
+.card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); transition: all .15s; }
+
+.card-red {
+  background: var(--white);
+  border: 4px solid var(--red);
+  box-shadow: 4px 4px 0 var(--red);
+  padding: 28px;
+}
+
+.card-yellow {
+  background: var(--yellow);
+  border: 4px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black);
+  padding: 28px;
+  color: var(--black);
+}
+.card-yellow p { color: #333; }
+
+.card-blue {
+  background: var(--blue);
+  border: 4px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black);
+  padding: 28px;
+  color: var(--white);
+}
+.card-blue p { color: rgba(255,255,255,0.85); }
+
+.speech-bubble {
+  background: var(--yellow);
+  border: 4px solid var(--black);
+  border-radius: 24px 24px 4px 24px;
+  padding: 20px 28px;
+  box-shadow: 5px 5px 0 var(--black);
+  font-family: var(--display);
+  font-size: clamp(18px, 2vw, 30px);
+  line-height: 1.3;
+}
+
+.label-tag {
+  display: inline-block;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--display);
+  font-size: clamp(12px, 1vw, 16px);
+  padding: 5px 14px;
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  transform: rotate(-2deg);
+}
+
+.stat {
+  font-family: var(--mono);
+  font-size: clamp(36px, 4.5vw, 64px);
+  color: var(--red);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.08em;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 3px 10px;
+  margin: 3px;
+  transform: rotate(-1deg);
+}
+.tag-red { background: var(--red); color: var(--white); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 28px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 28px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 28px; }
+
+.timeline-item {
+  padding-left: 20px;
+  border-left: 4px solid var(--red);
+  margin-bottom: 20px;
+}
+.timeline-item .year {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--red);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th {
+  text-align: left; padding: 14px;
+  background: var(--black); color: var(--yellow);
+  font-family: var(--display); font-size: 15px;
+}
+td { padding: 12px 14px; border-bottom: 2px solid #eee; font-size: clamp(14px, 1.1vw, 17px); }
+
+.funnel { display: flex; align-items: center; gap: 8px; margin: 24px 0; flex-wrap: wrap; }
+.funnel-step {
+  background: var(--white); border: 3px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black); padding: 14px 18px;
+  text-align: center; flex: 1; min-width: 90px;
+}
+.funnel-step .stat { font-size: clamp(22px, 2.8vw, 40px); margin-bottom: 2px; }
+.funnel-arrow { font-size: 24px; color: var(--red); font-weight: 900; flex-shrink: 0; }
+
+.stripe-bg { background: repeating-linear-gradient(45deg, var(--bg), var(--bg) 10px, var(--white) 10px, var(--white) 20px); }
+.dots-bg { position: relative; }
+.dots-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle, rgba(224,32,32,0.08) 1px, transparent 1px);
+  background-size: 8px 8px; pointer-events: none; z-index: 0;
+}
+
+.pow-badge {
+  display: inline-block;
+  background: var(--yellow);
+  border: 4px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black);
+  font-family: var(--display);
+  font-size: clamp(20px, 2.5vw, 40px);
+  padding: 10px 24px;
+  transform: rotate(-3deg);
+}
+
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--white); border: 2px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  padding: 6px 14px; font-size: 13px; font-weight: 600; margin: 4px;
+}
+
+.option-card {
+  background: var(--white); border: 4px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black); padding: 24px;
+  transition: transform .15s;
+}
+.option-card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+.option-recommended { border-color: var(--red); box-shadow: 4px 4px 0 var(--red); }
+.option-letter { font-family: var(--display); font-size: 48px; color: var(--red); line-height: 1; }
+
+.vs-bad { color: var(--red); }
+.vs-good { color: var(--green); font-weight: 700; }
+
+.photo-placeholder {
+  width: 200px; height: 200px;
+  border: 5px solid var(--black);
+  box-shadow: 8px 8px 0 var(--red);
+  background: #ddd;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 14px; color: #888;
+  overflow: hidden;
+}
+.photo-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+
+.site-preview {
+  border: 3px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black);
+  overflow: hidden;
+  background: #eee;
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+}
+.site-preview img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+.nav-dots {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: row; gap: 8px; z-index: 100;
+}
+.nav-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #ccc; border: 2px solid var(--black);
+  cursor: pointer; transition: all .2s;
+}
+.nav-dot.active { background: var(--red); transform: scale(1.3); }
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .slide { padding: 60px 20px; }
+  .funnel { flex-direction: column; }
+  .funnel-arrow { transform: rotate(90deg); }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-dots" id="navDots"></nav>
+<button class="arrow arrow-left" id="arrowLeft" onclick="goSlide(current-1)">&larr;</button>
+<button class="arrow arrow-right" id="arrowRight" onclick="goSlide(current+1)">&rarr;</button>
+<div class="slide-counter" id="slideCounter">1 / 11</div>
+
+<div class="deck" id="deck">
+
+<!-- SLIDE 1: TITLE -->
+<section class="slide stripe-bg" id="s1">
+  <div class="slide-number">Конфиденциально / Апрель 2026</div>
+  <div class="pow-badge" style="margin-bottom: 20px;">AI-консультант</div>
+  <h1 style="max-width: 900px;">Трансформация<br>маркетинга<br>и продаж</h1>
+  <div style="margin-top: 20px;">
+    <div class="speech-bubble" style="display: inline-block; max-width: 550px; font-size: clamp(16px, 1.6vw, 22px);">
+      Tim Zinin &mdash; AI-консультант для бизнеса.<br>
+      <span class="red">Фокус: лиды, маркетинг, продажи.</span>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2: КТО Я -->
+<section class="slide" id="s2">
+  <div class="slide-number">01 / Кто я</div>
+  <h2>Tim Zinin</h2>
+
+  <div class="grid-2">
+    <div>
+      <div class="photo-placeholder" style="margin-bottom: 20px;">
+        <img src="https://timzinin.com/tim-zinin.jpg" alt="Tim Zinin" onerror="this.parentElement.textContent='ФОТО'">
+      </div>
+
+      <h3>Образование</h3>
+      <p style="margin-bottom: 4px;"><strong>МГТУ им. Н.Э. Баумана</strong> &mdash; Москва</p>
+      <p style="margin-bottom: 16px;"><strong>&Eacute;cole Centrale de Lyon</strong> &mdash; Франция</p>
+
+      <h3>20 лет в маркетинге</h3>
+      <div class="timeline-item">
+        <div class="year">2006 &mdash; 2017</div>
+        <p><strong>Рекламные агентства.</strong> Основатель. Команды 10-30 человек. B2B/B2C: FMCG, недвижимость, финансы.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2017 &mdash; 2024</div>
+        <p><strong>Криптосфера.</strong> Маркетинг криптовалют и криптокошельков: 1inch Wallet, EMCD (топ-5 майнинг-пул). Бюджеты $500K+, международные рынки.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2024 &mdash; сейчас</div>
+        <p><strong>Zinin Corp.</strong> AI Marketing Corporation. 6 автономных агентов в продакшене.</p>
+      </div>
+    </div>
+    <div>
+      <h3 class="red">Консультирую бизнес</h3>
+      <p style="margin-bottom: 16px;">Помогаю компаниям пройти AI-переход с фокусом на лиды, маркетинг и продажи. Захожу как консультант, не как агентство.</p>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+        <span class="tag">Claude Code</span>
+        <span class="tag">Python</span>
+        <span class="tag">n8n</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Playwright</span>
+        <span class="tag">MCP</span>
+      </div>
+
+      <h3>Мои проекты</h3>
+      <div class="card" style="margin-bottom: 12px; padding: 16px;">
+        <h3>Крипто Маркетологи</h3>
+        <p>B2B-маркетплейс для крипто-компаний. 8 вендоров, TMA, каталог.</p>
+        <div class="tag" style="margin-top: 8px;">cryptomarketologi.online</div>
+      </div>
+      <div class="card" style="margin-bottom: 12px; padding: 16px;">
+        <h3>СБОРКА</h3>
+        <p>Карьерный клуб. 400+ участников, бот, CRM, вебинары, подкаст.</p>
+        <div class="tag" style="margin-top: 8px;">sborka.work</div>
+      </div>
+      <div class="card" style="padding: 16px;">
+        <h3>Botanica Club</h3>
+        <p>Крипто-школа. Буткемп AI для предпринимателей (Каш, Турция).</p>
+        <div class="tag" style="margin-top: 8px;">botanicaschool.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: КЕЙСЫ -->
+<section class="slide dots-bg" id="s3">
+  <div class="slide-number">02 / Кейсы</div>
+  <h2>Что я делаю.<br><span class="red">Инструменты в продакшене.</span></h2>
+
+  <div class="grid-3">
+    <div class="card-yellow">
+      <h3 style="color: var(--black);">Lead Machine</h3>
+      <div class="stat" style="color: var(--black);">44</div>
+      <div class="stat-label" style="color: #555;">горячих лида за 14 дней</div>
+      <p style="margin-top: 10px;">Автономный аутрич: 1293 компании &rarr; 330 emails &rarr; 44 лида. Стоимость: <strong>$7</strong> в токенах.</p>
+    </div>
+    <div class="card">
+      <h3 class="red">Content Factory</h3>
+      <div class="stat">99.6</div>
+      <div class="stat-label">quality score / 100</div>
+      <p style="margin-top: 10px;">Автопубликация на 13 платформ. 30+ дней без ручной работы. 8-экспертный pipeline проверки.</p>
+    </div>
+    <div class="card">
+      <h3 class="blue">Обучение C-level</h3>
+      <div class="stat" style="color: var(--blue);">4</div>
+      <div class="stat-label">компании холдинга</div>
+      <p style="margin-top: 10px;">Бобров Capital: транспорт (500 перевозок/сутки), ресторан (Испания), RWA (Лондон), AI для HR.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
+    <div class="pill">timzinin.com</div>
+    <div class="pill">sborka.work</div>
+    <div class="pill">cryptomarketologi.online</div>
+    <div class="pill">mcphire.com &mdash; 38K вакансий</div>
+  </div>
+</section>
+
+<!-- SLIDE 4: ДИАГНОСТИКА -->
+<section class="slide" id="s4">
+  <div class="slide-number">03 / Диагностика</div>
+  <h2>Три боли,<br><span class="red">которые я обычно вижу</span></h2>
+  <p style="margin-bottom: 20px; font-size: 17px;">Типичная ситуация на рынке. Не про конкретную компанию &mdash; про паттерн.</p>
+
+  <div class="grid-3">
+    <div class="card-red">
+      <h3 style="color: var(--red);">01 / Собственник = компания</h3>
+      <p>Все процессы замкнуты на одного человека: аккаунт, контроль сделок, присутствие. Это потолок роста. Owner Dependency Ratio = 100%.</p>
+    </div>
+    <div class="card-red">
+      <h3 style="color: var(--red);">02 / Расходы без контроля</h3>
+      <p>ФОТ растёт, а юнит-экономика не считается. ROMI неизвестен. Каждый нанятый человек &mdash; это риск, а не инвестиция.</p>
+    </div>
+    <div class="card-red">
+      <h3 style="color: var(--red);">03 / Ручное управление</h3>
+      <p>Excel вместо дашбордов. Звонки не анализируются. Лиды теряются. Причины потерь в воронке &mdash; неизвестны.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; display: flex; gap: 16px; flex-wrap: wrap;">
+    <div class="card-yellow" style="padding: 14px 20px; text-align: center;">
+      <div class="stat" style="color: var(--black);">85%</div>
+      <div class="stat-label" style="color: #555;">потери в воронке</div>
+    </div>
+    <div class="card-yellow" style="padding: 14px 20px; text-align: center;">
+      <div class="stat" style="color: var(--black);">0</div>
+      <div class="stat-label" style="color: #555;">автоматизация</div>
+    </div>
+    <div class="card-yellow" style="padding: 14px 20px; text-align: center;">
+      <div class="stat" style="color: var(--black);">?</div>
+      <div class="stat-label" style="color: #555;">реальный CAC</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: M2M + RWA -->
+<section class="slide stripe-bg" id="s5">
+  <div class="slide-number">04 / Рыночный сдвиг</div>
+  <h2>B2B и B2C уходят.<br><span class="red">Machine-to-Machine</span> приходит.</h2>
+
+  <div class="grid-2">
+    <div>
+      <div class="speech-bubble" style="margin-bottom: 20px; font-size: clamp(16px, 1.8vw, 26px);">
+        Если вы ещё не перестроились &mdash; <span class="red">вы отстаёте.</span> Давайте это исправим.
+      </div>
+      <div class="card" style="margin-bottom: 16px;">
+        <h3>Раньше</h3>
+        <p>Человек пишет &rarr; человек публикует &rarr; человек отвечает &rarr; человек квалифицирует &rarr; человек звонит</p>
+      </div>
+      <div class="card-yellow">
+        <h3 style="color: var(--black);">Сейчас</h3>
+        <p style="color: #333;">AI генерирует &rarr; авто-публикация &rarr; AI-бот за 2 мин &rarr; AI квалифицирует &rarr; Zoom автоматически</p>
+        <div class="label-tag" style="margin-top: 10px;">Человек только закрывает сделку</div>
+      </div>
+    </div>
+    <div>
+      <div class="card-blue" style="margin-bottom: 16px;">
+        <h3 style="color: var(--yellow);">AI в недвижимости</h3>
+        <p>$222 млрд (2024) &rarr; <strong style="color:var(--yellow);">$990 млрд</strong> к 2029</p>
+        <p>68% риэлторов уже используют AI (NAR 2025)</p>
+        <p style="margin-top: 8px;">Лиды, обработанные за 5 мин, конвертируются <strong style="color:var(--yellow);">в 100 раз</strong> лучше (HBR)</p>
+      </div>
+      <div class="card" style="border-color: var(--blue); box-shadow: 4px 4px 0 var(--blue);">
+        <h3 style="color: var(--blue);">RWA &mdash; следующая волна</h3>
+        <p>Токенизация недвижимости: рынок вырос с $2.9 млрд (2022) до <strong style="color:var(--blue);">$30+ млрд</strong> (Q3 2025). Прогноз BCG/Ripple: <strong style="color:var(--blue);">$18.9 трлн к 2033.</strong></p>
+        <p style="margin-top: 6px;">Deloitte: токенизированная недвижимость &rarr; <strong>$4 трлн к 2035.</strong></p>
+        <p style="margin-top: 6px;">AI снижает два главных барьера: стоимость due diligence и операционную сложность. AI + RWA = экспоненциальный рост в ближайшие 1-2 года.</p>
+        <p style="margin-top: 6px; font-size: 12px; color: #888;">BCG, BlackRock ($2B BUIDL), Ripple, Deloitte, PwC</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: PUSH + PULL -->
+<section class="slide" id="s6">
+  <div class="slide-number">05 / Инструменты</div>
+  <h2><span class="red">Push</span> + <span class="blue">Pull</span><br>нового поколения</h2>
+
+  <div class="grid-2">
+    <div class="card" style="border-color: var(--red);">
+      <div class="label-tag" style="margin-bottom: 14px;">Push / AI-аутрич</div>
+      <p style="margin-bottom: 10px;">AI-агент: сканирует базы &rarr; обогащает &rarr; персонализирует &rarr; отправляет &rarr; анализирует ответ.</p>
+      <div style="background: rgba(224,32,32,0.05); padding: 14px; border-left: 4px solid var(--red); margin-top: 10px;">
+        <p><strong>Кейс:</strong> 1293 компании &rarr; 44 лида. 14 дней. $7.</p>
+      </div>
+      <p style="margin-top: 10px;"><strong>Применение:</strong> аутрич по базам релокантов, инвесторов. Реактивация CRM-базы.</p>
+    </div>
+    <div class="card" style="border-color: var(--blue);">
+      <div class="label-tag" style="background: var(--blue); margin-bottom: 14px;">Pull / Контент-завод</div>
+      <p style="margin-bottom: 10px;">AI-пайплайн: генерация &rarr; адаптация под платформу &rarr; публикация &rarr; аналитика.</p>
+      <div style="background: rgba(26,58,138,0.05); padding: 14px; border-left: 4px solid var(--blue); margin-top: 10px;">
+        <p><strong>Было:</strong> 3 человека, 5 постов/нед, $8K<br><strong>Стало:</strong> 0 людей, 5 постов/день, ~$500</p>
+      </div>
+      <p style="margin-top: 10px;"><strong>Применение:</strong> Instagram, Facebook, LinkedIn, TikTok. Сценарии для видео. EN/RU/AR.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: НАПРАВЛЕНИЯ ТРАНСФОРМАЦИИ -->
+<section class="slide dots-bg" id="s7">
+  <div class="slide-number">06 / Направления</div>
+  <h2>Направления<br><span class="red">AI-трансформации</span></h2>
+  <p style="margin-bottom: 20px; font-size: 17px;">Конкретный набор зависит от роли, в которой я вхожу. Типичные направления:</p>
+
+  <div class="grid-3">
+    <div class="card" style="border-top: 6px solid var(--red);">
+      <h3 class="red">1. Работа с фаундером</h3>
+      <p>Введение практик: скиллы, агенты, переезд на Obsidian для базы знаний. Собрать &laquo;сознание фаундера&raquo; &mdash; чтобы система знала, куда движется компания.</p>
+    </div>
+    <div class="card" style="border-top: 6px solid var(--yellow);">
+      <h3>2. Обучение команды</h3>
+      <p>Интеграция Claude Code в команду. AI-подписки для каждого сотрудника. Серия тренингов по промпт-инжинирингу и автоматизации.</p>
+    </div>
+    <div class="card" style="border-top: 6px solid var(--blue);">
+      <h3 class="blue">3. Аудит процессов</h3>
+      <p>Сбор данных, аналитика, анализ информации. Аудит продукта. Выявление узких мест и точек роста в воронке.</p>
+    </div>
+    <div class="card" style="border-top: 6px solid var(--green);">
+      <h3 class="green">4. Автоматизация</h3>
+      <p>AI-боты квалификации, контент-пайплайн, расшифровка звонков, auto follow-up. Дашборды для контроля.</p>
+    </div>
+    <div class="card" style="border-top: 6px solid var(--pink);">
+      <h3 style="color: var(--pink);">5. CRM и данные</h3>
+      <p>Апгрейд CRM. Единый словарь метрик, дедупликация, атрибуция от клика до сделки. Запрет работы вне системы.</p>
+    </div>
+    <div class="card" style="border-top: 6px solid var(--red);">
+      <h3 class="red">6. Финансовая модель</h3>
+      <p>Unit-экономика, P&L, cash lag, pipeline в деньгах. CFO-дашборд для собственника в реальном времени.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: ВОРОНКА -->
+<section class="slide" id="s8">
+  <div class="slide-number">07 / Воронка</div>
+  <h2>Автоматизация<br><span class="red">воронки продаж</span></h2>
+
+  <div class="funnel">
+    <div class="funnel-step"><div class="stat">13K</div><div class="stat-label">лидов</div></div>
+    <div class="funnel-arrow">&raquo;</div>
+    <div class="funnel-step"><div class="stat" style="color: var(--blue);">800</div><div class="stat-label">SQL</div></div>
+    <div class="funnel-arrow">&raquo;</div>
+    <div class="funnel-step" style="border-color: var(--red);"><div class="stat">140</div><div class="stat-label">резерваций</div></div>
+    <div class="funnel-arrow">&raquo;</div>
+    <div class="funnel-step"><div class="stat" style="color: var(--green);">100</div><div class="stat-label">сделок</div></div>
+    <div class="funnel-arrow">&raquo;</div>
+    <div class="funnel-step" style="background: var(--yellow);"><div class="stat" style="color: var(--black);">50M&euro;</div><div class="stat-label" style="color:#555;">GMV</div></div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 12px;">
+    <div class="card-red">
+      <h3 style="color: var(--red);">Проблема</h3>
+      <p>85% потерь Zoom &rarr; резервация. Ответ на лид часы. Причины неизвестны.</p>
+    </div>
+    <div class="card" style="border-color: var(--green); box-shadow: 4px 4px 0 var(--green);">
+      <h3 class="green">AI на каждом этапе</h3>
+      <p><span class="tag">AI-бот</span> 24/7 квалификация, EN/RU/AR</p>
+      <p><span class="tag">Whisper</span> Расшифровка Zoom</p>
+      <p><span class="tag">Scoring</span> Готовность 1-10</p>
+      <p><span class="tag">Follow-up</span> Авто-пакет + алерт</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: KPI -->
+<section class="slide stripe-bg" id="s9">
+  <div class="slide-number">08 / KPI</div>
+  <h2>KPI<br><span class="red">на 3 месяца</span></h2>
+
+  <div class="grid-3">
+    <div class="card-yellow" style="text-align: center;">
+      <div class="stat" style="color: var(--black);">85% &rarr; 60%</div>
+      <div class="stat-label" style="color: #555;">потери в воронке</div>
+      <p style="margin-top: 6px; font-size: 14px; color: #333;">AI follow-up + анализ причин</p>
+    </div>
+    <div class="card-yellow" style="text-align: center;">
+      <div class="stat" style="color: var(--black);">часы &rarr; 2 мин</div>
+      <div class="stat-label" style="color: #555;">время ответа на лид</div>
+      <p style="margin-top: 6px; font-size: 14px; color: #333;">AI-бот квалификации 24/7</p>
+    </div>
+    <div class="card-yellow" style="text-align: center;">
+      <div class="stat" style="color: var(--black);">/5</div>
+      <div class="stat-label" style="color: #555;">стоимость контента</div>
+      <p style="margin-top: 6px; font-size: 14px; color: #333;">AI-генерация + авто-публикация</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 20px;">
+    <div class="card" style="text-align: center;">
+      <div class="stat" style="color: var(--green);">15&ndash;50%</div>
+      <div class="stat-label">возможное сокращение ФОТ</div>
+      <p style="margin-top: 6px;">За счёт автоматизации рутинных функций</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div class="stat" style="color: var(--blue);">0% &rarr; 100%</div>
+      <div class="stat-label">прозрачность данных</div>
+      <p style="margin-top: 6px;">Дашборды вместо Excel</p>
+    </div>
+  </div>
+  <p style="margin-top: 16px; font-size: 14px; color: #888;"><strong>Важно:</strong> появляются расходы на AI-подписки и генерацию контента (LLM-токены). Но они кратно ниже экономии на ФОТ.</p>
+</section>
+
+<!-- SLIDE 10: ROI -->
+<section class="slide" id="s10">
+  <div class="slide-number">09 / Экономика</div>
+  <h2>Классический найм vs<br><span class="red">AI-трансформация</span></h2>
+
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr>
+          <th>Функция</th>
+          <th style="background: var(--red);">Нанять</th>
+          <th style="background: var(--green); color: var(--black);">AI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Head of Marketing</strong></td><td class="vs-bad">$4-6K/мес</td><td class="vs-good">AI CMO &check;</td></tr>
+        <tr><td><strong>Контент-менеджер</strong></td><td class="vs-bad">$1.5-2.5K/мес</td><td class="vs-good">AI контент-завод &check;</td></tr>
+        <tr><td><strong>Аналитик</strong></td><td class="vs-bad">$2-3.5K/мес</td><td class="vs-good">Автодашборды &check;</td></tr>
+        <tr><td><strong>SDR</strong></td><td class="vs-bad">$1.5-2K/мес</td><td class="vs-good">AI-бот 24/7 &check;</td></tr>
+        <tr><td><strong>Фин. контроллер</strong></td><td class="vs-bad">$2.5-4K/мес</td><td class="vs-good">CFO-дашборд &check;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-3" style="margin-top: 20px;">
+    <div class="card-yellow" style="text-align: center; padding: 18px;">
+      <div class="stat" style="color: var(--black);">$18K</div>
+      <div class="stat-label" style="color: #555;">найм 5 человек/мес</div>
+    </div>
+    <div class="card" style="text-align: center; padding: 18px; border-color: var(--green); box-shadow: 4px 4px 0 var(--green);">
+      <div class="stat" style="color: var(--green);">$3.5K</div>
+      <div class="stat-label">AI + консультант/мес</div>
+    </div>
+    <div class="card" style="text-align: center; padding: 18px;">
+      <div class="stat">2 нед</div>
+      <div class="stat-label">запуск vs 3 мес найм</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11: ПЛАН ДЕЙСТВИЙ -->
+<section class="slide dots-bg" id="s11">
+  <div class="slide-number">10 / План действий</div>
+  <h2>Как мы<br><span class="red">начинаем работать</span></h2>
+
+  <div class="grid-2">
+    <div>
+      <div class="card" style="margin-bottom: 20px; border-top: 6px solid var(--yellow);">
+        <div class="label-tag" style="background: var(--yellow); color: var(--black); margin-bottom: 12px;">Шаг 1 / Платная сессия</div>
+        <h3>Discovery &mdash; 1 час</h3>
+        <p>Разговор: я, собственница, Алексей. Узнаю боли, обсуждаем приоритеты, прямо на ходу пробуем решить что-то. По итогам &mdash; вывод о дальнейшей работе.</p>
+        <p style="margin-top: 8px; font-size: 14px; color: #888;">Оплата: 100% предоплата за 1 час.</p>
+      </div>
+
+      <div class="card" style="border-top: 6px solid var(--red);">
+        <div class="label-tag" style="margin-bottom: 12px;">Шаг 2 / Подписка</div>
+        <h3>20 часов в месяц</h3>
+        <p>Начинаем работу по подписке. Из инструментария, описанного выше, выбираем направления под конкретные задачи бизнеса.</p>
+        <p style="margin-top: 10px;"><strong class="red">$3,500/мес</strong> <span style="color: #888;">(275 000 руб)</span></p>
+        <p style="font-size: 14px; color: #888;">Минимум 3 месяца. Async-first. Звонки в счёт часов.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card-yellow" style="padding: 32px; text-align: center;">
+        <div class="pow-badge" style="font-size: 24px; margin-bottom: 16px;">Результат</div>
+        <p style="font-size: 17px; color: #333; margin-bottom: 16px;">За 3 месяца бизнес получает:</p>
+        <ul style="text-align: left; list-style: none; padding: 0;">
+          <li style="margin-bottom: 8px; padding-left: 14px; border-left: 4px solid var(--black); color: #333;">Прозрачные данные и дашборды</li>
+          <li style="margin-bottom: 8px; padding-left: 14px; border-left: 4px solid var(--black); color: #333;">Обученную команду с AI-инструментами</li>
+          <li style="margin-bottom: 8px; padding-left: 14px; border-left: 4px solid var(--black); color: #333;">Автоматизированные ключевые процессы</li>
+          <li style="padding-left: 14px; border-left: 4px solid var(--black); color: #333;">Снижение ФОТ и рост эффективности</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <h3>Tim Zinin</h3>
+        <p>AI-консультант для бизнеса</p>
+        <div style="margin-top: 12px;">
+          <div class="pill">timzinin.com</div>
+          <div class="pill">@timzinin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<script>
+const deck = document.getElementById('deck');
+const slides = document.querySelectorAll('.slide');
+const navDots = document.getElementById('navDots');
+const counter = document.getElementById('slideCounter');
+const total = slides.length;
+let current = 0;
+
+// Build dots
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot';
+  dot.onclick = () => goSlide(i);
+  navDots.appendChild(dot);
+});
+
+function goSlide(n) {
+  if (n < 0 || n >= total) return;
+  current = n;
+  deck.style.transform = `translateX(-${current * 100}vw)`;
+  counter.textContent = `${current + 1} / ${total}`;
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  document.getElementById('arrowLeft').disabled = current === 0;
+  document.getElementById('arrowRight').disabled = current === total - 1;
+}
+
+goSlide(0);
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goSlide(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goSlide(current - 1); }
+});
+
+// Click on slide to advance
+deck.addEventListener('click', e => {
+  if (e.target.closest('a, button, .arrow')) return;
+  const x = e.clientX;
+  if (x > window.innerWidth * 0.65) goSlide(current + 1);
+  else if (x < window.innerWidth * 0.35) goSlide(current - 1);
+});
+
+// Swipe support
+let touchX = 0;
+deck.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+deck.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (dx < -50) goSlide(current + 1);
+  if (dx > 50) goSlide(current - 1);
+});
+</script>
+
+</body>
+</html>
