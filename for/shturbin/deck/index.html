@@ -38,6 +38,8 @@ body::after {
 .deck {
   display: flex;
   height: 100vh;
+  width: max-content;
+  overflow: hidden;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -50,8 +52,7 @@ body::after {
   justify-content: center;
   padding: 80px clamp(40px, 8vw, 140px);
   position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   border-right: 4px solid var(--black);
   flex-shrink: 0;
 }
@@ -805,6 +806,13 @@ function goSlide(n) {
 }
 
 goSlide(0);
+
+// Block vertical scroll, use wheel for slide navigation
+document.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (e.deltaY > 30) goSlide(current + 1);
+  if (e.deltaY < -30) goSlide(current - 1);
+}, { passive: false });
 
 // Keyboard
 document.addEventListener('keydown', e => {
