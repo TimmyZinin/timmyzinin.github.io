@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LH — Trend-to-Product Intelligence</title>
+  <meta name="description" content="Исследование и архитектура LH: как превратить fashion-сигналы в shortlist товаров и 10 AI-концептов через Telegram HITL.">
+  <meta property="og:title" content="LH — Trend-to-Product Intelligence">
+  <meta property="og:description" content="Source of truth по проекту Roman / LH: источники, инструменты, архитектура, HITL и roadmap.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://timzinin.com/lh/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6efe5;
+      --paper: rgba(255, 250, 244, 0.84);
+      --ink: #16110f;
+      --muted: #5c514b;
+      --line: rgba(22, 17, 15, 0.12);
+      --accent: #d95d39;
+      --accent-2: #2f6c5d;
+      --accent-3: #d1a11b;
+      --shadow: 0 24px 80px rgba(38, 26, 21, 0.10);
+      --radius: 26px;
+      --max: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "IBM Plex Sans", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(217, 93, 57, 0.18), transparent 28%),
+        radial-gradient(circle at 100% 20%, rgba(47, 108, 93, 0.18), transparent 30%),
+        linear-gradient(180deg, #f7efe5 0%, #f2e7da 100%);
+    }
+
+    a { color: inherit; }
+    .page {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      padding: 24px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      background: linear-gradient(140deg, rgba(255,255,255,0.85), rgba(252, 242, 233, 0.65));
+      border: 1px solid rgba(255,255,255,0.55);
+      border-radius: calc(var(--radius) + 8px);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -80px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 93, 57, 0.26), transparent 62%);
+      z-index: -1;
+    }
+
+    .eyebrow, h1, h2, h3 { font-family: "Space Grotesk", sans-serif; }
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(22, 17, 15, 0.06);
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(42px, 8vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      max-width: 980px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+      margin-top: 24px;
+    }
+
+    .lede {
+      max-width: 760px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .glass, .metric, .section, .source-card, .step {
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+    }
+
+    .panel {
+      padding: 20px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(22, 17, 15, 0.08);
+    }
+
+    .hero-stats {
+      display: grid;
+      gap: 14px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 22px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 34px;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.05em;
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .section {
+      margin-top: 22px;
+      padding: 24px;
+      border-radius: var(--radius);
+    }
+
+    .section h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -0.04em;
+    }
+
+    .sub {
+      margin: 0 0 22px;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .grid-3, .grid-2, .source-grid, .timeline, .risk-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .source-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .risk-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.45);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .card p, .card li, .step p, .source-card p, .source-card li {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .architecture {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      position: relative;
+      padding: 18px 18px 18px 76px;
+      border-radius: 24px;
+    }
+
+    .step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 20px;
+      background: linear-gradient(135deg, var(--accent), #f3b07b);
+      color: white;
+    }
+
+    .score-bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .bar {
+      display: grid;
+      gap: 6px;
+    }
+
+    .bar-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .track {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(22, 17, 15, 0.08);
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-3));
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(22, 17, 15, 0.06);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .source-card {
+      padding: 18px;
+      border-radius: 22px;
+    }
+
+    .source-card ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .source-card a {
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      color: var(--accent-2);
+    }
+
+    .timeline {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .phase {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.45);
+    }
+
+    .phase strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .phase p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .risk {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(217, 93, 57, 0.16);
+      background: linear-gradient(180deg, rgba(255,255,255,0.56), rgba(255, 238, 229, 0.65));
+    }
+
+    .risk strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .footer {
+      margin-top: 22px;
+      padding: 22px 24px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(22,17,15,0.92), rgba(47,108,93,0.92));
+      color: rgba(255,255,255,0.88);
+      box-shadow: var(--shadow);
+    }
+
+    .footer a { color: #f7d6aa; }
+    .footer small {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255,255,255,0.62);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .fade-up:nth-child(2) { animation-delay: 0.08s; }
+    .fade-up:nth-child(3) { animation-delay: 0.16s; }
+    .fade-up:nth-child(4) { animation-delay: 0.24s; }
+    .fade-up:nth-child(5) { animation-delay: 0.32s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2,
+      .source-grid,
+      .timeline,
+      .risk-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .page { width: min(calc(100% - 18px), var(--max)); padding: 12px 0 40px; }
+      .hero, .section, .footer { padding: 18px; border-radius: 24px; }
+      h1 { font-size: clamp(36px, 14vw, 64px); }
+      .lede { font-size: 16px; }
+      .step { padding-left: 68px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero fade-up">
+      <div class="eyebrow">LH / Roman / Source of Truth / 8 April 2026</div>
+      <h1>Из тренда в товар. Не поток шума, а shortlist для запуска.</h1>
+      <p class="lede">
+        LH нужно строить как систему ранжирования возможностей: она читает trend-сигналы, матчит визуальные аналоги, проверяет Instagram-тягу, подтверждает идею по нескольким каналам и отправляет в Telegram только те продукты, которые реально стоят 40-60 дневного цикла до Москвы.
+      </p>
+      <div class="hero-grid">
+        <div class="panel">
+          <h3 style="margin:0 0 12px;font-size:26px;">Что считаю главным выводом</h3>
+          <p class="sub" style="margin:0;">
+            Не нужен "универсальный fashion-скрапер". Нужен intelligence-loop с человеческим фильтром. Сильные сигналы идут из WGSN, Lyst, Pinterest и curated brand watchlist; доказательство спроса и timing идут из Instagram; решение о генерации и производстве остаётся за человеком.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Double confirmation</span>
+            <span class="pill">Telegram HITL</span>
+            <span class="pill">10 AI variants</span>
+            <span class="pill">40-60 day cycle target</span>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="metric">
+            <strong>100</strong>
+            <span>Сопоставимых Instagram-постов на нишевой кластер достаточно для breakout-оценки. Нужен кластерный анализ, не бесконечный feed crawl.</span>
+          </div>
+          <div class="metric">
+            <strong>5</strong>
+            <span>Обязательных HITL-гейтов: source list, scoring, shortlist, generation, production trigger.</span>
+          </div>
+          <div class="metric">
+            <strong>3</strong>
+            <span>Контуры системы: signal layer, evidence layer, action layer.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2>Как LH должен думать</h2>
+      <p class="sub">Задача не в том, чтобы найти "что-то похожее". Задача в том, чтобы собрать достаточно независимых подтверждений, что категория действительно стреляет и подходит под реальный цикл производства.</p>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Signal</h3>
+          <p>Upstream-сигналы из WGSN, Lyst, Pinterest и curated watchlist превращаются в нормализованные тренд-теги: силуэт, материал, отделка, паттерн, цветовая группа, cultural cue.</p>
+        </article>
+        <article class="card">
+          <h3>Evidence</h3>
+          <p>Каждый seed концепт получает доказательства через визуальный и semantic match по сайтам, затем подтверждается Instagram-тягой и кросс-источниковым совпадением.</p>
+        </article>
+        <article class="card">
+          <h3>Action</h3>
+          <p>В Telegram летят только кандидаты выше порога. Там же человек жмёт approve, reject, ask for evidence или generate 10 variants.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2>Архитектура</h2>
+      <p class="sub">Рекомендую строить LH как последовательный intelligence pipeline, а не как один большой crawler. Это проще контролировать, валидировать и потом доращивать.</p>
+      <div class="architecture">
+        <div class="step" data-step="1">
+          <h3 style="margin:0 0 8px;font-size:24px;">Signal Intake</h3>
+          <p>WGSN, Lyst Index, Pinterest Predicts / Trends, curated trendsetter brands и retail watchlist превращаются в trend briefs и seed hypotheses.</p>
+        </div>
+        <div class="step" data-step="2">
+          <h3 style="margin:0 0 8px;font-size:24px;">Product Graph</h3>
+          <p>Все товары приводятся к общей схеме: brand, source, text, images, attributes, timestamps, vectors. Без canonical item schema матчинг быстро разваливается.</p>
+        </div>
+        <div class="step" data-step="3">
+          <h3 style="margin:0 0 8px;font-size:24px;">Similarity Engine</h3>
+          <p>Image embeddings + metadata + text similarity. Матч должен считать не только "картинка похожа", но и "категория и тренд-теги совпадают".</p>
+        </div>
+        <div class="step" data-step="4">
+          <h3 style="margin:0 0 8px;font-size:24px;">Instagram Evidence</h3>
+          <p>Для каждого candidate cluster собирается выборка сравнимых постов, считается baseline, находятся breakout-публикации, а не просто самые лайкнутые посты вообще.</p>
+        </div>
+        <div class="step" data-step="5">
+          <h3 style="margin:0 0 8px;font-size:24px;">Telegram HITL + Generation</h3>
+          <p>После human approval система генерирует 10 design directions на основе validated brief, а не на основе сырого вдохновения.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2>Opportunity Score</h2>
+      <p class="sub">Порог "интересно" и порог "отправлять в Telegram" должны быть разными. Иначе либо утонете в шуме, либо пропустите early winners.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Вес модели</h3>
+          <div class="score-bars">
+            <div class="bar">
+              <div class="bar-head"><span>Trend strength</span><span>25%</span></div>
+              <div class="track"><div class="fill" style="width:25%"></div></div>
+            </div>
+            <div class="bar">
+              <div class="bar-head"><span>Visual similarity</span><span>25%</span></div>
+              <div class="track"><div class="fill" style="width:25%"></div></div>
+            </div>
+            <div class="bar">
+              <div class="bar-head"><span>Instagram traction</span><span>20%</span></div>
+              <div class="track"><div class="fill" style="width:20%"></div></div>
+            </div>
+            <div class="bar">
+              <div class="bar-head"><span>Cross-source confirmation</span><span>15%</span></div>
+              <div class="track"><div class="fill" style="width:15%"></div></div>
+            </div>
+            <div class="bar">
+              <div class="bar-head"><span>Manufacturability / speed</span><span>15%</span></div>
+              <div class="track"><div class="fill" style="width:15%"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Что считается good signal</h3>
+          <ul class="list">
+            <li>Сигнал подтверждён минимум из двух независимых контуров.</li>
+            <li>Есть не просто визуальное сходство, а совпадение по силуэту, детали и тренд-тегам.</li>
+            <li>Instagram показывает breakout относительно локального baseline, а не просто большие цифры у крупного аккаунта.</li>
+            <li>Категория укладывается в цикл производства и поставки, а не только красиво выглядит на референсе.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2>HITL: где человек обязателен</h2>
+      <p class="sub">Roman просит скорость, но скорость без гейтов превращается в дорогой шум. Поэтому предлагаю пять обязательных ручных проверок.</p>
+      <div class="timeline">
+        <div class="phase">
+          <strong>Gate 1</strong>
+          <p>Утверждение списка источников, брендов, сайтов и нишевых Instagram-кластеров.</p>
+        </div>
+        <div class="phase">
+          <strong>Gate 2</strong>
+          <p>Утверждение порогов scoring: что интересно, что попадает в Telegram, что идёт в generation.</p>
+        </div>
+        <div class="phase">
+          <strong>Gate 3</strong>
+          <p>Подтверждение shortlist из топ-кандидатов. Это фильтр коммерческого смысла.</p>
+        </div>
+        <div class="phase">
+          <strong>Gate 4</strong>
+          <p>Разрешение на генерацию 10 design variants только по подтверждённому candidate brief.</p>
+        </div>
+        <div class="phase">
+          <strong>Gate 5</strong>
+          <p>Production go/no-go: supplier brief и запуск не должны происходить без финального human decision.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2>Инструменты и источники</h2>
+      <p class="sub">Ниже только те сервисы и API, которые дают практическую ценность для LH уже на этапе архитектуры.</p>
+      <div class="source-grid">
+        <article class="source-card">
+          <h3>Trend Intelligence</h3>
+          <p>Лучшие upstream-сигналы сейчас вижу здесь:</p>
+          <ul>
+            <li><a href="https://www.wgsn.com/en/wgsn" target="_blank" rel="noreferrer">WGSN</a> — enterprise trend forecasting и analytics.</li>
+            <li><a href="https://mlp.wgsn.com/rs/669-IKC-742/images/WGSN_OC%26C_Doing_More_With_Less.pdf" target="_blank" rel="noreferrer">TrendCurve+ material</a> — подтверждает data + predictive positioning.</li>
+            <li><a href="https://www.lyst.com/data/the-lyst-index/q125/" target="_blank" rel="noreferrer">Lyst Index Q1 2025</a> — shopper behavior + sales + social activity.</li>
+            <li><a href="https://www.lyst.com/data/the-lyst-index/q425/" target="_blank" rel="noreferrer">Lyst Index Q4 2025</a> — свежий ориентир по hottest brands/products.</li>
+            <li><a href="https://business.pinterest.com/pinterest-predicts/" target="_blank" rel="noreferrer">Pinterest Predicts</a> и <a href="https://trends.pinterest.com/" target="_blank" rel="noreferrer">Pinterest Trends</a>.</li>
+          </ul>
+        </article>
+        <article class="source-card">
+          <h3>Instagram Reality</h3>
+          <p>Важно разделять supported и unsupported сценарии:</p>
+          <ul>
+            <li><a href="https://developers.facebook.com/docs/instagram-platform/content-publishing/" target="_blank" rel="noreferrer">Meta Content Publishing</a></li>
+            <li><a href="https://developers.facebook.com/docs/instagram-platform/insights/" target="_blank" rel="noreferrer">Meta Insights</a></li>
+            <li><a href="https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login/business-discovery/" target="_blank" rel="noreferrer">Meta Business Discovery</a></li>
+            <li><a href="https://apify.com/apify/instagram-api-scraper" target="_blank" rel="noreferrer">Apify Instagram API Scraper</a></li>
+            <li><a href="https://apify.com/apify/instagram-scraper" target="_blank" rel="noreferrer">Apify Instagram Scraper</a></li>
+          </ul>
+        </article>
+        <article class="source-card">
+          <h3>Retrieval Layer</h3>
+          <p>Для visual match требуется vector store и metadata-aware search.</p>
+          <ul>
+            <li><a href="https://qdrant.tech/" target="_blank" rel="noreferrer">Qdrant</a> — hybrid search, multi-vector retrieval, filters.</li>
+            <li>Postgres — source records, approvals, scoring history.</li>
+            <li>Object storage — image cache и artifact archive.</li>
+          </ul>
+        </article>
+        <article class="source-card">
+          <h3>Decision Interface</h3>
+          <p>Для HITL-кнопок и alert-карточек отдельного сложного фронта не нужно.</p>
+          <ul>
+            <li><a href="https://core.telegram.org/bots/api" target="_blank" rel="noreferrer">Telegram Bot API</a> — sendMessage, sendPhoto, InlineKeyboardMarkup.</li>
+            <li>GitHub repo `TimmyZinin/LH` — source of truth, decisions, roadmap.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2>Главные риски</h2>
+      <p class="sub">Эти риски не причина не делать LH. Это причина с самого начала заложить правильные рамки.</p>
+      <div class="risk-grid">
+        <article class="risk">
+          <strong>Instagram coverage</strong>
+          <p>Официальный Meta stack уже полезен, но для широкого competitor scan его не хватит. Нужен отдельный public-data contour.</p>
+        </article>
+        <article class="risk">
+          <strong>Derivative design</strong>
+          <p>LH должен выявлять opportunity patterns, а не превращаться в copier. На generation нужен отдельный originality check.</p>
+        </article>
+        <article class="risk">
+          <strong>False heat</strong>
+          <p>Один всплеск по лайкам может быть шумом. Нужен baseline и cross-source confirmation, а не культ вирусного поста.</p>
+        </article>
+        <article class="risk">
+          <strong>Paid source lock-in</strong>
+          <p>Лучшие trend-сигналы уже находятся в платных системах. Это не баг, а часть экономической модели проекта.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2>Roadmap</h2>
+      <p class="sub">Рекомендую начинать уже не с полной автоматизации, а с узкого MVP по одной категории и одному watchlist. Это быстрее даст реальные пороги и полезные сигналы.</p>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Phase 0</h3>
+          <p>Финализировать источники, schema, scoring model и approval states.</p>
+        </article>
+        <article class="card">
+          <h3>Phase 1</h3>
+          <p>Собрать signal intake из WGSN / Lyst / Pinterest / curated sites и нормализовать в trend tags.</p>
+        </article>
+        <article class="card">
+          <h3>Phase 2</h3>
+          <p>Поднять product graph и similarity engine: image embeddings, metadata filters, cluster retrieval.</p>
+        </article>
+        <article class="card">
+          <h3>Phase 3</h3>
+          <p>Сделать Instagram evidence engine по узкой нише и научиться считать breakout against baseline.</p>
+        </article>
+        <article class="card">
+          <h3>Phase 4</h3>
+          <p>Подключить Telegram HITL: карточки, approve / reject / evidence / generate.</p>
+        </article>
+        <article class="card">
+          <h3>Phase 5</h3>
+          <p>Запуск 10 AI-variants только по approved opportunities и ведение полного decision trail.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer fade-up">
+      <div><strong>Source of truth:</strong> <a href="https://github.com/TimmyZinin/LH" target="_blank" rel="noreferrer">github.com/TimmyZinin/LH</a></div>
+      <div style="margin-top:8px;"><strong>Deployment target:</strong> <a href="https://timzinin.com/lh/" target="_blank" rel="noreferrer">timzinin.com/lh/</a></div>
+      <small>Подготовлено как рабочий briefing layer для Roman. Следующий практический шаг: утвердить source list и одну узкую MVP-категорию перед сборкой automation pipeline.</small>
+    </footer>
+  </main>
+</body>
+</html>
