@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real World Assets: Cyprus Market Research | Antaria Homes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface-2: #1a1a2e;
+  --border: rgba(255,255,255,0.06);
+  --text: #e8e8ef;
+  --text-muted: #8888a0;
+  --accent: #6c5ce7;
+  --accent-2: #a29bfe;
+  --gold: #f0c040;
+  --green: #00d2a0;
+  --coral: #ff6b6b;
+  --blue: #4ecdc4;
+  --orange: #ffa502;
+  --gradient-1: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  --gradient-2: linear-gradient(135deg, #00d2a0, #4ecdc4);
+  --gradient-hero: linear-gradient(160deg, #0a0a0f 0%, #1a1040 40%, #0d2137 70%, #0a0a0f 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* === ANIMATED HOUSE === */
+.house-scene {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 2rem;
+}
+
+.house-body {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  width: 120px;
+  height: 90px;
+  background: linear-gradient(180deg, #e8d5b7, #d4b896);
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.house-roof {
+  position: absolute;
+  bottom: 115px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 55px solid #c0392b;
+  filter: drop-shadow(0 -2px 8px rgba(192,57,43,0.3));
+}
+
+.house-door {
+  position: absolute;
+  bottom: 30px;
+  left: 80px;
+  width: 30px;
+  height: 45px;
+  background: #8b4513;
+  border-radius: 15px 15px 0 0;
+}
+
+.house-door::after {
+  content: '';
+  position: absolute;
+  right: 5px;
+  top: 22px;
+  width: 5px;
+  height: 5px;
+  background: #f0c040;
+  border-radius: 50%;
+}
+
+.house-window {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 220, 100, 0.8);
+  border: 2px solid #a08060;
+  border-radius: 2px;
+  animation: windowGlow 3s ease-in-out infinite alternate;
+}
+
+.house-window.w1 { bottom: 75px; left: 52px; }
+.house-window.w2 { bottom: 75px; left: 118px; }
+.house-window.w3 { bottom: 45px; left: 118px; }
+
+@keyframes windowGlow {
+  0% { background: rgba(255, 220, 100, 0.6); box-shadow: 0 0 8px rgba(255,200,50,0.3); }
+  100% { background: rgba(255, 220, 100, 1); box-shadow: 0 0 20px rgba(255,200,50,0.6); }
+}
+
+.house-chimney {
+  position: absolute;
+  bottom: 145px;
+  left: 110px;
+  width: 18px;
+  height: 30px;
+  background: #8b6f47;
+  border-radius: 2px 2px 0 0;
+}
+
+.smoke {
+  position: absolute;
+  bottom: 175px;
+  left: 113px;
+  width: 12px;
+  height: 12px;
+  background: rgba(200,200,210,0.4);
+  border-radius: 50%;
+  animation: smokeRise 3s ease-out infinite;
+}
+
+.smoke:nth-child(2) { animation-delay: 1s; left: 117px; }
+.smoke:nth-child(3) { animation-delay: 2s; left: 110px; }
+
+@keyframes smokeRise {
+  0% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50% { opacity: 0.3; }
+  100% { transform: translateY(-60px) scale(2.5); opacity: 0; }
+}
+
+.house-ground {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  width: 180px;
+  height: 15px;
+  background: linear-gradient(180deg, #2d5a27, #1a3a15);
+  border-radius: 8px;
+}
+
+.house-tree {
+  position: absolute;
+  bottom: 30px;
+}
+
+.tree-trunk {
+  width: 8px;
+  height: 30px;
+  background: #6b4423;
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.tree-crown {
+  width: 35px;
+  height: 40px;
+  background: radial-gradient(ellipse, #2ecc71, #27ae60);
+  border-radius: 50% 50% 45% 45%;
+  margin-bottom: -5px;
+  animation: treeSway 4s ease-in-out infinite alternate;
+}
+
+@keyframes treeSway {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+.house-tree.t1 { left: 5px; }
+.house-tree.t2 { right: 0px; }
+.house-tree.t2 .tree-crown { width: 28px; height: 32px; animation-delay: 1.5s; }
+
+/* Floating particles around house */
+.house-scene::before,
+.house-scene::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.6;
+}
+.house-scene::before { top: 20px; left: 30px; animation-delay: 0s; }
+.house-scene::after { top: 40px; right: 25px; animation-delay: 3s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-15px) scale(1.3); opacity: 1; }
+}
+
+/* === HERO === */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--gradient-hero);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 40%, rgba(108,92,231,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(0,210,160,0.06) 0%, transparent 50%);
+  animation: heroShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes heroShift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-5%, -3%); }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(108,92,231,0.15);
+  border: 1px solid rgba(108,92,231,0.3);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  color: var(--accent-2);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+}
+
+.hero h1 .highlight {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h1 .highlight-green {
+  background: var(--gradient-2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 640px;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-prepared {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  position: relative;
+  z-index: 1;
+  margin-top: 2rem;
+}
+
+.hero-prepared strong {
+  color: var(--accent-2);
+}
+
+/* === NAV === */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 2rem;
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.sticky-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.sticky-nav a:hover {
+  color: var(--accent-2);
+  background: rgba(108,92,231,0.1);
+}
+
+/* === SECTIONS === */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+section:last-of-type { border-bottom: none; }
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-2);
+  margin-bottom: 1rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 20px;
+  height: 2px;
+  background: var(--gradient-1);
+  border-radius: 2px;
+}
+
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  color: var(--text);
+}
+
+p { margin-bottom: 1rem; color: var(--text-muted); }
+p strong { color: var(--text); }
+
+/* === BIG NUMBERS === */
+.big-numbers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.big-num-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.big-num-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(108,92,231,0.3);
+}
+
+.big-num-card .number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.big-num-card.green .number {
+  background: var(--gradient-2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.big-num-card.gold .number {
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+}
+
+.big-num-card .label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.big-num-card .source {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  margin-top: 0.5rem;
+}
+
+/* === TABLES === */
+.table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+thead {
+  background: var(--surface-2);
+}
+
+th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent-2);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  vertical-align: top;
+}
+
+tr:hover td {
+  background: rgba(108,92,231,0.03);
+}
+
+td:first-child { font-weight: 500; color: var(--text); }
+
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.tag-high { background: rgba(0,210,160,0.15); color: var(--green); }
+.tag-med { background: rgba(255,165,2,0.15); color: var(--orange); }
+.tag-low { background: rgba(255,107,107,0.15); color: var(--coral); }
+.tag-dom { background: rgba(108,92,231,0.15); color: var(--accent-2); }
+
+/* === CHART BARS === */
+.bar-chart {
+  margin: 2rem 0;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.bar-label {
+  width: 140px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--gradient-1);
+  display: flex;
+  align-items: center;
+  padding-left: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  transition: width 1s ease;
+}
+
+.bar-fill.green { background: var(--gradient-2); }
+.bar-fill.gold { background: linear-gradient(135deg, #f0c040, #e67e22); }
+.bar-fill.coral { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+
+/* === CARD GRID === */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.8rem;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(108,92,231,0.25);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card p { font-size: 0.85rem; margin-bottom: 0; }
+
+/* === TIMELINE === */
+.timeline {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--green), var(--gold));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.35rem;
+  top: 0.3rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+
+.timeline-item .date {
+  font-size: 0.75rem;
+  color: var(--accent-2);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-item h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-item p {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+/* === COMPARISON MATRIX === */
+.matrix-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.matrix-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating {
+  display: flex;
+  gap: 3px;
+}
+
+.rating-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--surface-2);
+}
+
+.rating-dot.filled { background: var(--accent); }
+.rating-dot.filled.green { background: var(--green); }
+
+/* === SOURCES === */
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+}
+
+.source-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  transition: border-color 0.2s;
+  line-height: 1.4;
+}
+
+.source-link:hover {
+  border-color: rgba(108,92,231,0.3);
+  color: var(--text);
+}
+
+.source-link::before {
+  content: '→';
+  color: var(--accent-2);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* === FOOTER === */
+footer {
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+footer a {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .big-numbers { grid-template-columns: repeat(2, 1fr); }
+  .card-grid { grid-template-columns: 1fr; }
+  .bar-label { width: 100px; font-size: 0.75rem; }
+  .sticky-nav { justify-content: flex-start; padding: 0.6rem 1rem; }
+  section { padding: 3rem 0; }
+  .sources-grid { grid-template-columns: 1fr; }
+}
+
+/* === GLOW ANIMATION === */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(108,92,231,0.1); }
+  50% { box-shadow: 0 0 40px rgba(108,92,231,0.2); }
+}
+
+.glow { animation: pulse-glow 4s ease-in-out infinite; }
+
+/* === CALLOUT === */
+.callout {
+  background: linear-gradient(135deg, rgba(108,92,231,0.1), rgba(0,210,160,0.05));
+  border: 1px solid rgba(108,92,231,0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.callout h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: var(--text);
+}
+
+.callout p { margin-bottom: 0.5rem; }
+.callout p:last-child { margin-bottom: 0; }
+
+/* === PILL LIST === */
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.pill {
+  padding: 0.4rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.pill.active {
+  border-color: var(--accent);
+  color: var(--accent-2);
+  background: rgba(108,92,231,0.1);
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="top">
+  <div class="hero-badge">Аналитическое исследование &middot; Апрель 2026</div>
+
+  <div class="house-scene">
+    <div class="smoke"></div>
+    <div class="smoke"></div>
+    <div class="smoke"></div>
+    <div class="house-chimney"></div>
+    <div class="house-roof"></div>
+    <div class="house-body"></div>
+    <div class="house-door"></div>
+    <div class="house-window w1"></div>
+    <div class="house-window w2"></div>
+    <div class="house-window w3"></div>
+    <div class="house-ground"></div>
+    <div class="house-tree t1">
+      <div class="tree-crown"></div>
+      <div class="tree-trunk"></div>
+    </div>
+    <div class="house-tree t2">
+      <div class="tree-crown"></div>
+      <div class="tree-trunk"></div>
+    </div>
+  </div>
+
+  <h1>
+    Real World Assets:<br>
+    <span class="highlight">Tokenization &amp; Cyprus</span><br>
+    <span class="highlight-green">Market Research 2026</span>
+  </h1>
+
+  <p class="hero-sub">
+    Комплексное исследование рынка токенизации реальных активов: глобальные тренды, регуляция, блокчейны, сравнение юрисдикций и стратегические возможности для рынка недвижимости Кипра.
+  </p>
+
+  <p class="hero-prepared">
+    Подготовлено специально для <strong>Марины</strong> из <strong>Antaria Homes</strong>
+  </p>
+</section>
+
+<!-- ==================== NAV ==================== -->
+<nav class="sticky-nav">
+  <a href="#market">Рынок</a>
+  <a href="#forecasts">Прогнозы</a>
+  <a href="#cyprus">Кипр</a>
+  <a href="#blockchains">Блокчейны</a>
+  <a href="#regulation">Регуляция</a>
+  <a href="#comparison">Сравнение стран</a>
+  <a href="#tradfi">TradFi + DeFi</a>
+  <a href="#players">Игроки</a>
+  <a href="#strategy">Стратегия</a>
+  <a href="#sources">Источники</a>
+</nav>
+
+<!-- ==================== MARKET SIZE ==================== -->
+<section id="market">
+<div class="container">
+  <div class="section-label">Глобальный обзор</div>
+  <h2>Размер и структура рынка RWA</h2>
+  <p>Рынок токенизации Real World Assets вырос в <strong>4 раза за 2025 год</strong>, достигнув рекордных показателей. Без учёта стейблкоинов, TVL токенизированных RWA на публичных блокчейнах составляет <strong>$26-33 млрд</strong>. С учётом permissioned-платформ (JPMorgan, Goldman Sachs) — более <strong>$412 млрд</strong>.</p>
+
+  <div class="big-numbers">
+    <div class="big-num-card glow">
+      <div class="number">$33B</div>
+      <div class="label">TVL on-chain RWA</div>
+      <div class="source">RWA.xyz, CoinDesk, Q1 2026</div>
+    </div>
+    <div class="big-num-card green">
+      <div class="number">4x</div>
+      <div class="label">Рост за 2025 год</div>
+      <div class="source">с $6.5B → $26B+</div>
+    </div>
+    <div class="big-num-card gold">
+      <div class="number">200+</div>
+      <div class="label">Активных проектов</div>
+      <div class="source">CoinLaw, 2026</div>
+    </div>
+    <div class="big-num-card">
+      <div class="number">$412B</div>
+      <div class="label">Включая permissioned</div>
+      <div class="source">Pointsville, 2026</div>
+    </div>
+  </div>
+
+  <h3>Структура рынка по сегментам</h3>
+
+  <div class="bar-chart">
+    <div class="bar-row">
+      <div class="bar-label">Private Credit</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 61%">$11B · 61%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Treasuries</div>
+      <div class="bar-track">
+        <div class="bar-fill green" style="width: 30%">$9B · 30%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Commodities</div>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 15%">$6B · 7%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Real Estate</div>
+      <div class="bar-track">
+        <div class="bar-fill coral" style="width: 22%">$10-20B</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Inst. Funds</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 8%">$2B</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Недвижимость — растущий сегмент</h4>
+    <p>По данным <strong>Deloitte</strong>, рынок токенизированной недвижимости может вырасти с ~$300 млрд (2024) до <strong>$4 трлн к 2035 году</strong>. Лидеры: RealT ($150M+, 600+ объектов, 65K+ инвесторов), Lofty ($50M, 150+ объектов). Ежедневные выплаты арендного дохода в стейблкоинах.</p>
+  </div>
+</div>
+</section>
+
+<!-- ==================== FORECASTS ==================== -->
+<section id="forecasts">
+<div class="container">
+  <div class="section-label">Прогнозы развития</div>
+  <h2>Глобальные прогнозы: $2-30 трлн к 2030-2034</h2>
+  <p>Ведущие аналитические дома дают широкий диапазон прогнозов. Консенсус среднего сценария — <strong>$10-16 трлн к 2030 году</strong>.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Организация</th>
+          <th>Прогноз</th>
+          <th>Горизонт</th>
+          <th>Примечания</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BCG + ADDX</td>
+          <td><strong>$16 трлн</strong></td>
+          <td>2030</td>
+          <td>~10% мирового ВВП</td>
+        </tr>
+        <tr>
+          <td>BCG + Ripple</td>
+          <td><strong>$18.9 трлн</strong></td>
+          <td>2033</td>
+          <td>Обновлённый прогноз 2025</td>
+        </tr>
+        <tr>
+          <td>McKinsey</td>
+          <td><strong>$2-4 трлн</strong></td>
+          <td>2030</td>
+          <td>Консервативная оценка</td>
+        </tr>
+        <tr>
+          <td>Citi GPS</td>
+          <td><strong>$4-5 трлн</strong></td>
+          <td>2030</td>
+          <td>+ $1.6-3.7 трлн стейблкоины</td>
+        </tr>
+        <tr>
+          <td>Standard Chartered</td>
+          <td><strong>$30.1 трлн</strong></td>
+          <td>2034</td>
+          <td>Агрессивный сценарий</td>
+        </tr>
+        <tr>
+          <td>BlackRock (Larry Fink)</td>
+          <td><strong>"Multi-trillion"</strong></td>
+          <td>2030+</td>
+          <td>Запуск BUIDL как сигнал</td>
+        </tr>
+        <tr>
+          <td>NextMSC</td>
+          <td><strong>$9.43 трлн</strong></td>
+          <td>2030</td>
+          <td>CAGR 72.8%</td>
+        </tr>
+        <tr>
+          <td>Deloitte (RE)</td>
+          <td><strong>$4 трлн</strong></td>
+          <td>2035</td>
+          <td>Только недвижимость</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h4>Институциональный сигнал</h4>
+    <p>Институциональные инвесторы планируют аллокировать <strong>5.6% портфеля</strong> в токенизированные активы к 2026. HNW-инвесторы — <strong>8.6%</strong>. К 2030 году десятая часть глобального пост-трейда будет проходить через стейблкоины и токенизированные ЦБ (Citi GPS).</p>
+  </div>
+</div>
+</section>
+
+<!-- ==================== CYPRUS ==================== -->
+<section id="cyprus">
+<div class="container">
+  <div class="section-label">Фокус: Кипр</div>
+  <h2>Кипр и токенизация недвижимости</h2>
+  <p>Токенизация недвижимости на Кипре находится на <strong>ранней стадии</strong>, но демонстрирует первые признаки институционализации. Это создаёт уникальное окно <strong>first-mover advantage</strong>.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">&#127474;&#127486;</div>
+      <h4>EU Passport через MiCA</h4>
+      <p>CySEC-лицензированная компания получает доступ к <strong>500 млн</strong> потенциальных инвесторов в 30 странах ЕС/ЕЭЗ с одной лицензией.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128176;</div>
+      <h4>Налоговый режим 2026</h4>
+      <p><strong>8% flat tax</strong> на прибыль от крипто/токенов — один из самых низких в ЕС. Корпоративный налог <strong>15%</strong>. Non-Dom: дивиденды <strong>tax-free</strong>.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#9878;&#65039;</div>
+      <h4>English Common Law</h4>
+      <p>Правовая система на основе английского общего права. Знакомая и надёжная для международных инвесторов из UK, US, ME.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#127758;</div>
+      <h4>Геостратегическая позиция</h4>
+      <p>Мост между <strong>ЕС, Ближним Востоком и СНГ</strong>. 3.5ч до Дубая, 4ч до Лондона, 1ч до Тель-Авива.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128640;</div>
+      <h4>CySEC Innovation Hub</h4>
+      <p>Регуляторная песочница для тестирования токенизационных моделей под надзором CySEC. Лицензирование ~40 рабочих дней.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#127970;</div>
+      <h4>Развитый рынок RE</h4>
+      <p>Лимассол, Пафос, Никосия привлекают международных инвесторов. Крипто-покупатели уже активны (Brighty: 100+ сделок).</p>
+    </div>
+  </div>
+
+  <h3>Ключевые события на Кипре</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="date">Май 2025</div>
+      <h4>REALTYon Limassol</h4>
+      <p>Панельная дискуссия о будущем токенизированной недвижимости с отраслевыми экспертами.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">Октябрь 2024</div>
+      <h4>CySEC заморозила CASP-заявки</h4>
+      <p>Переход на MiCA-режим. Все новые заявки направляются по европейскому фреймворку.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">30 декабря 2024</div>
+      <h4>MiCA полностью вступил в силу</h4>
+      <p>Кипр — полноценный участник единого европейского крипто-регулирования.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">Январь 2026</div>
+      <h4>Налоговая реформа: 8% flat crypto tax</h4>
+      <p>Введён 8% фиксированный налог на крипто-прибыль. Один из самых конкурентных в ЕС.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">Март 2026</div>
+      <h4>Конференция "Tokenisation &amp; Crypto in Cyprus RE"</h4>
+      <p>Привлечение иностранных инвесторов, налогообложение, security-токены.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1 июля 2026</div>
+      <h4>Дедлайн переходного периода</h4>
+      <p>Все CASP обязаны получить MiCA-лицензию или прекратить деятельность.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Eurivex — готовая инфраструктура</h4>
+    <p>Регулируемая платформа для онбординга проектов: конвертация крипто-инвестиций в евро, доставка на IBAN проектных компаний. Прямое решение для токенизации кипрской недвижимости.</p>
+  </div>
+</div>
+</section>
+
+<!-- ==================== BLOCKCHAINS ==================== -->
+<section id="blockchains">
+<div class="container">
+  <div class="section-label">Технологии</div>
+  <h2>RWA по блокчейнам</h2>
+  <p>Ethereum доминирует с 53-60% рынка, но альтернативные сети быстро растут. Институциональные игроки всё чаще выбирают мультичейн-стратегию.</p>
+
+  <div class="bar-chart">
+    <div class="bar-row">
+      <div class="bar-label">Ethereum</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 80%">$14B · 53-60%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">BNB Chain</div>
+      <div class="bar-track">
+        <div class="bar-fill green" style="width: 14%">$2B+</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Solana</div>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 8%">$873M</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Stellar</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 6%">$590M+</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Avalanche</div>
+      <div class="bar-track">
+        <div class="bar-fill coral" style="width: 4%">$200M+</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Polygon</div>
+      <div class="bar-track">
+        <div class="bar-fill green" style="width: 3.5%">RE focus</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Algorand</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 2%">Lofty</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Блокчейн</th>
+          <th>Ключевые RWA-проекты</th>
+          <th>Фокус</th>
+          <th>Институциональность</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ethereum</td>
+          <td>BlackRock BUIDL, Ondo, Centrifuge, Maple, Backed</td>
+          <td>Treasuries, Private Credit</td>
+          <td><span class="tag tag-high">Высокая</span></td>
+        </tr>
+        <tr>
+          <td>Stellar</td>
+          <td>Franklin Templeton BENJI</td>
+          <td>Паевые фонды</td>
+          <td><span class="tag tag-high">Высокая</span></td>
+        </tr>
+        <tr>
+          <td>Solana</td>
+          <td>BUIDL ($255M), Ondo ($176M), Homebase</td>
+          <td>Недвижимость, Treasuries</td>
+          <td><span class="tag tag-med">Средняя</span></td>
+        </tr>
+        <tr>
+          <td>Avalanche</td>
+          <td>Securitize (EU DLT), JPMorgan тесты, Spruce</td>
+          <td>Институц. пилоты</td>
+          <td><span class="tag tag-high">Высокая</span></td>
+        </tr>
+        <tr>
+          <td>Polygon</td>
+          <td>Институциональные пилоты</td>
+          <td>Недвижимость</td>
+          <td><span class="tag tag-med">Средняя</span></td>
+        </tr>
+        <tr>
+          <td>Algorand</td>
+          <td>Lofty.ai ($50M, 150+ объектов)</td>
+          <td>Недвижимость</td>
+          <td><span class="tag tag-low">Нишевая</span></td>
+        </tr>
+        <tr>
+          <td>Tezos</td>
+          <td>BTG Pactual ReitBZ</td>
+          <td>Формальная верификация</td>
+          <td><span class="tag tag-low">Нишевая</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Приватные / permissioned сети</h3>
+  <p>Крупнейшие банки мира строят собственные сети для токенизации:</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>JPMorgan Kinexys</h4>
+      <p>Ребрендинг Onyx. Обработка на <strong>сотни миллиардов $</strong>. JPM Coin как токенизированный депозит. Миграция на Canton Network в 2026.</p>
+    </div>
+    <div class="card">
+      <h4>Canton Network</h4>
+      <p>Digital Asset + Goldman Sachs, BNP Paribas, Deutsche Borse, BNY Mellon. <strong>"Network of networks"</strong> для институциональных RWA.</p>
+    </div>
+    <div class="card">
+      <h4>Broadridge DLR</h4>
+      <p>Торговля репо: <strong>$1.5 трлн+/мес</strong>. Крупнейший объём реальных транзакций в DLT-инфраструктуре.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== REGULATION ==================== -->
+<section id="regulation">
+<div class="container">
+  <div class="section-label">Регуляция</div>
+  <h2>Регуляторный ландшафт</h2>
+
+  <h3>EU MiCA — единый фреймворк</h3>
+  <p>Markets in Crypto-Assets Regulation полностью применяется с <strong>30 декабря 2024</strong>. Важно понимать: MiCA НЕ покрывает security tokens (токенизированные ценные бумаги) — они регулируются через <strong>MiFID II</strong>.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">&#128220;</div>
+      <h4>MiCA</h4>
+      <p>Utility tokens, стейблкоины (ART, EMT), CASP-лицензирование. <strong>Единая лицензия на весь ЕС</strong> — выдаётся одним регулятором.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128200;</div>
+      <h4>MiFID II</h4>
+      <p>Security tokens (токенизированные акции, облигации, доли). Торговля только на <strong>регулируемых площадках</strong>. AML/KYC обязательны.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128196;</div>
+      <h4>Prospectus Regulation</h4>
+      <p>Для публичного предложения security tokens. Исключение для малых эмиссий <strong>&lt;€8M</strong>. Паспортируется по ЕС.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128300;</div>
+      <h4>DLT Pilot Regime</h4>
+      <p>Экспериментальный режим для DLT-инфраструктур. Текущий лимит €6 млрд, предложение EC — <strong>повышение до €100 млрд</strong>.</p>
+    </div>
+  </div>
+
+  <h3>Юридическая структура токенизации RE</h3>
+  <p>Доминирующая модель (90%+ проектов) — <strong>SPV-based</strong>:</p>
+
+  <div class="callout">
+    <h4>Как это работает</h4>
+    <p><strong>1.</strong> Создаётся SPV (Special Purpose Vehicle) — обычно Cyprus Private Ltd</p>
+    <p><strong>2.</strong> SPV приобретает недвижимость → становится юридическим владельцем</p>
+    <p><strong>3.</strong> SPV выпускает токены (equity или debt) → представляют доли в SPV</p>
+    <p><strong>4.</strong> Инвесторы покупают токены → получают экономические права (аренда, прирост стоимости)</p>
+    <p><strong>5.</strong> Smart contracts автоматизируют распределение дохода, голосование, compliance</p>
+    <p>Token holders владеют долями в SPV, а <strong>не прямым титулом</strong> на недвижимость.</p>
+  </div>
+
+  <h3>Кипр: налоговый режим для токенов (2026)</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Категория</th>
+          <th>Ставка</th>
+          <th>Детали</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Крипто/токен disposal gains</td>
+          <td><strong>8% flat</strong></td>
+          <td>Продажа, обмен, донат, расход — физ. и юр. лица</td>
+        </tr>
+        <tr>
+          <td>Корпоративный налог</td>
+          <td><strong>15%</strong></td>
+          <td>Повышен с 12.5% в 2026</td>
+        </tr>
+        <tr>
+          <td>Staking / yield farming</td>
+          <td>Стандартный income tax</td>
+          <td>НЕ подпадает под 8%</td>
+        </tr>
+        <tr>
+          <td>Non-Dom дивиденды</td>
+          <td><strong>0%</strong></td>
+          <td>Полностью tax-free</td>
+        </tr>
+        <tr>
+          <td>Дивиденды нерезидентам</td>
+          <td><strong>0% withholding</strong></td>
+          <td>Нет удержания у источника</td>
+        </tr>
+        <tr>
+          <td>Tax-exempt порог</td>
+          <td>€30,000</td>
+          <td>Общая сумма</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ==================== COMPARISON ==================== -->
+<section id="comparison">
+<div class="container">
+  <div class="section-label">Сравнение юрисдикций</div>
+  <h2>Кипр vs. мировые RWA-хабы</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Юрисдикция</th>
+          <th>Рейтинг RWA</th>
+          <th>Ключевое преимущество</th>
+          <th>Корп. налог</th>
+          <th>Крипто-налог</th>
+          <th>EU Passport</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&#127474;&#127486; Кипр</td>
+          <td><span class="tag tag-med">Развивающийся</span></td>
+          <td>8% flat crypto, быстрая лицензия, MiCA, MiFID II</td>
+          <td>15%</td>
+          <td><strong>8%</strong></td>
+          <td><strong>Да</strong></td>
+        </tr>
+        <tr>
+          <td>&#127462;&#127466; ОАЭ</td>
+          <td><span class="tag tag-high">Топ-3</span></td>
+          <td>Скорость, 0% налог, live RE токенизация (DLD)</td>
+          <td>0-9%</td>
+          <td>0%</td>
+          <td>Нет</td>
+        </tr>
+        <tr>
+          <td>&#127480;&#127468; Сингапур</td>
+          <td><span class="tag tag-dom">Лидер</span></td>
+          <td>MAS Sandbox Plus, Project Guardian, баланс</td>
+          <td>17%</td>
+          <td>0% (физ.)</td>
+          <td>Нет</td>
+        </tr>
+        <tr>
+          <td>&#127464;&#127469; Швейцария</td>
+          <td><span class="tag tag-high">Топ-5</span></td>
+          <td>DLT Act, Crypto Valley, юр. определённость</td>
+          <td>12-22%</td>
+          <td>0% (&gt;1 год)</td>
+          <td>Нет</td>
+        </tr>
+        <tr>
+          <td>&#127473;&#127470; Лихтенштейн</td>
+          <td><span class="tag tag-high">Нишевой лидер</span></td>
+          <td>TVTG: любое право токенизируемо</td>
+          <td>12.5%</td>
+          <td>Станд.</td>
+          <td><strong>Да (EEA)</strong></td>
+        </tr>
+        <tr>
+          <td>&#127473;&#127482; Люксембург</td>
+          <td><span class="tag tag-high">Топ-3 ЕС</span></td>
+          <td>Крупнейший фондовый центр ЕС, CSSF опыт</td>
+          <td>25%</td>
+          <td>Станд.</td>
+          <td><strong>Да</strong></td>
+        </tr>
+        <tr>
+          <td>&#127468;&#127463; Великобритания</td>
+          <td><span class="tag tag-med">Растущий</span></td>
+          <td>FCA sandbox, сильный TradFi</td>
+          <td>25%</td>
+          <td>CGT</td>
+          <td>Нет</td>
+        </tr>
+        <tr>
+          <td>&#127482;&#127480; США</td>
+          <td><span class="tag tag-dom">Доминирует</span></td>
+          <td>Крупнейший рынок, SEC-платформы</td>
+          <td>21%+</td>
+          <td>Cap. Gains</td>
+          <td>Нет</td>
+        </tr>
+        <tr>
+          <td>&#127465;&#127466; Германия</td>
+          <td><span class="tag tag-high">Высокий</span></td>
+          <td>eWpG: облигации и акции on-chain</td>
+          <td>~30%</td>
+          <td>0% (&gt;1 год)</td>
+          <td><strong>Да</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h4>Позиционирование Кипра</h4>
+    <p><strong>Уникальная ниша:</strong> EU-passport + один из самых низких крипто-налогов в ЕС (8%) + быстрое лицензирование + English common law + геопозиция как мост EU &#8596; Middle East. Конкуренты не могут предложить такую комбинацию: ОАЭ не дают EU passport, Люксембург дорог (25%), Лихтенштейн — микрорынок.</p>
+  </div>
+
+  <h3>Если ваш приоритет...</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>EU + низкий налог</h4>
+      <p><strong>Кипр</strong> или <strong>Лихтенштейн</strong></p>
+    </div>
+    <div class="card">
+      <h4>Ноль налогов + live RE токенизация</h4>
+      <p><strong>ОАЭ (Дубай)</strong></p>
+    </div>
+    <div class="card">
+      <h4>Институц. кредитование + фонды</h4>
+      <p><strong>Люксембург</strong> или <strong>Сингапур</strong></p>
+    </div>
+    <div class="card">
+      <h4>Юридическая определённость</h4>
+      <p><strong>Швейцария</strong> или <strong>Германия</strong></p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== TRADFI ==================== -->
+<section id="tradfi">
+<div class="container">
+  <div class="section-label">Конвергенция</div>
+  <h2>TradFi + DeFi: институциональный мост</h2>
+  <p>Рынок структурировался в два симбиотических слоя: <strong>permissioned/регулируемый</strong> (BlackRock, JPMorgan) и <strong>permissionless DeFi</strong> (оборачивает институциональные активы как "pristine collateral").</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Институция</th>
+          <th>Продукт / Действие</th>
+          <th>Масштаб</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BlackRock</td>
+          <td>BUIDL фонд (Ethereum через Securitize)</td>
+          <td><strong>$1.9 млрд AUM</strong></td>
+        </tr>
+        <tr>
+          <td>Franklin Templeton</td>
+          <td>BENJI (FOBXX) на Stellar — SEC-зарег. паевой фонд</td>
+          <td><strong>~$800 млн</strong></td>
+        </tr>
+        <tr>
+          <td>JPMorgan</td>
+          <td>Kinexys + JPM Coin на Canton Network</td>
+          <td><strong>Сотни миллиардов $</strong></td>
+        </tr>
+        <tr>
+          <td>Ondo Finance</td>
+          <td>OUSG ($1.1B), USDY, Global Markets</td>
+          <td><strong>$2.75 млрд TVL</strong></td>
+        </tr>
+        <tr>
+          <td>Securitize</td>
+          <td>Платформа: SEC + EU DLT лицензии</td>
+          <td>Партнёр BlackRock, KKR, Hamilton Lane</td>
+        </tr>
+        <tr>
+          <td>Backed Finance</td>
+          <td>xStocks (приобретена Kraken)</td>
+          <td><strong>$186 млн AUM</strong>, 9x за 5 мес</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Преимущества для рынка недвижимости</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">&#128178;</div>
+      <h4>Дробная собственность</h4>
+      <p>Порог входа от <strong>$50-100</strong>. Инвестор из любой юрисдикции может купить долю в кипрской недвижимости.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#9201;</div>
+      <h4>24/7 расчёты</h4>
+      <p>Нет T+2 задержек. Токенизированные активы как коллатерал <strong>круглосуточно</strong>.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128202;</div>
+      <h4>Ликвидность</h4>
+      <p>Вторичный рынок для традиционно <strong>неликвидных активов</strong>. Smart contracts автоматизируют арендные выплаты.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#127760;</div>
+      <h4>Глобальный доступ</h4>
+      <p>Привлечение инвесторов из любой точки мира. <strong>EU passport</strong> для масштабирования по ЕС.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== PLAYERS ==================== -->
+<section id="players">
+<div class="container">
+  <div class="section-label">Ключевые игроки</div>
+  <h2>Экосистема RWA: платформы и проекты</h2>
+
+  <h3>Токенизация недвижимости</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Проект</th>
+          <th>Объём</th>
+          <th>Блокчейн</th>
+          <th>Модель</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RealT</td>
+          <td>$150M+, 600+ объектов</td>
+          <td>Ethereum (Gnosis)</td>
+          <td>65K+ инвесторов, ежедневные выплаты</td>
+        </tr>
+        <tr>
+          <td>Lofty</td>
+          <td>$50M, 150+ объектов</td>
+          <td>Algorand</td>
+          <td>Минимум $50, мгновенная ликвидность</td>
+        </tr>
+        <tr>
+          <td>Homebase</td>
+          <td>Растущий</td>
+          <td>Solana</td>
+          <td>NFT-доли от $100</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Private Credit &amp; Treasuries</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Проект</th>
+          <th>TVL / AUM</th>
+          <th>Тип</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BlackRock BUIDL</td>
+          <td>$1.9 млрд</td>
+          <td>Treasuries (крупнейший продукт)</td>
+        </tr>
+        <tr>
+          <td>Ondo Finance</td>
+          <td>$2.75 млрд total TVL</td>
+          <td>Treasuries + Global Markets</td>
+        </tr>
+        <tr>
+          <td>Centrifuge</td>
+          <td>>$1 млрд TVL</td>
+          <td>Private Credit, CLO</td>
+        </tr>
+        <tr>
+          <td>Maple Finance</td>
+          <td>$4+ млрд AUM</td>
+          <td>Private Credit</td>
+        </tr>
+        <tr>
+          <td>Goldfinch</td>
+          <td>Растущий</td>
+          <td>Private Credit (9-12% yield)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Инфраструктура и комплаенс</h3>
+  <div class="pill-list">
+    <span class="pill active">Securitize</span>
+    <span class="pill active">Backed Finance</span>
+    <span class="pill active">Tokeny</span>
+    <span class="pill">Eurivex</span>
+    <span class="pill">Centrifuge</span>
+    <span class="pill">Canton Network</span>
+    <span class="pill">JPMorgan Kinexys</span>
+    <span class="pill">Broadridge DLR</span>
+  </div>
+</div>
+</section>
+
+<!-- ==================== STRATEGY ==================== -->
+<section id="strategy">
+<div class="container">
+  <div class="section-label">Стратегические выводы</div>
+  <h2>Возможности для Antaria Homes</h2>
+
+  <div class="card-grid">
+    <div class="card" style="border-color: rgba(0,210,160,0.3);">
+      <div class="card-icon">&#127942;</div>
+      <h4>First-Mover Advantage</h4>
+      <p>На Кипре нет доминирующего игрока в токенизации недвижимости. Ранний выход = лидерство в нише.</p>
+    </div>
+    <div class="card" style="border-color: rgba(0,210,160,0.3);">
+      <div class="card-icon">&#127758;</div>
+      <h4>500M+ инвесторов через EU Passport</h4>
+      <p>CySEC MiCA-лицензия открывает доступ ко всему ЕС. Единая лицензия — 30 стран.</p>
+    </div>
+    <div class="card" style="border-color: rgba(0,210,160,0.3);">
+      <div class="card-icon">&#128181;</div>
+      <h4>$4 трлн рынок к 2035</h4>
+      <p>Deloitte прогнозирует рост токенизированной недвижимости в 13x за 10 лет.</p>
+    </div>
+    <div class="card" style="border-color: rgba(0,210,160,0.3);">
+      <div class="card-icon">&#128101;</div>
+      <h4>Крипто-покупатели уже на Кипре</h4>
+      <p>Brighty: 100+ сделок. HNW-клиенты готовы покупать RE за крипту.</p>
+    </div>
+  </div>
+
+  <h3>Рекомендуемая модель</h3>
+
+  <div class="callout" style="border-color: rgba(0,210,160,0.3);">
+    <h4>Оптимальная структура для Antaria Homes</h4>
+    <p><strong>1. Cyprus SPV</strong> — владеет недвижимостью (местное право + низкий налог)</p>
+    <p><strong>2. MiCA CASP-лицензия</strong> — для выпуска и торговли токенами (EU passport)</p>
+    <p><strong>3. Security tokens</strong> (equity или debt) под Prospectus Regulation</p>
+    <p><strong>4. Блокчейн: Ethereum</strong> (макс. ликвидность) или <strong>Avalanche</strong> (Securitize EU)</p>
+    <p><strong>5. Дробная собственность</strong> — порог $500-1000 для международных инвесторов</p>
+    <p><strong>6. CySEC Sandbox</strong> — тестирование модели под надзором регулятора</p>
+    <p><strong>7. Eurivex</strong> — партнёрство для крипто &#8596; фиат конвертации</p>
+  </div>
+
+  <h3>Риски</h3>
+
+  <div class="card-grid">
+    <div class="card" style="border-color: rgba(255,107,107,0.3);">
+      <h4>Регуляторная неопределённость</h4>
+      <p>DLT Pilot Regime может быть пересмотрен. MiCA Level 2 акты продолжают выходить. Необходим юридический мониторинг.</p>
+    </div>
+    <div class="card" style="border-color: rgba(255,107,107,0.3);">
+      <h4>Конкуренция юрисдикций</h4>
+      <p>ОАЭ и Сингапур агрессивно привлекают токенизационные проекты. Нужна уникальная value proposition.</p>
+    </div>
+    <div class="card" style="border-color: rgba(255,107,107,0.3);">
+      <h4>Ликвидность вторичного рынка</h4>
+      <p>Остаётся ключевым ограничением для всех платформ токенизированной недвижимости.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== SOURCES ==================== -->
+<section id="sources">
+<div class="container">
+  <div class="section-label">Исследования и источники</div>
+  <h2>120+ источников</h2>
+  <p>Все данные в этом исследовании базируются на отчётах ведущих аналитических домов, регуляторных документах и отраслевых платформах.</p>
+
+  <h3>Ключевые отчёты</h3>
+  <div class="sources-grid">
+    <a href="https://addx.co/files/bcg_ADDX_report_Asset_tokenization_trillion_opportunity_by_2030_de2aaa41a4.pdf" target="_blank" rel="noopener" class="source-link">BCG + ADDX: Asset Tokenization $16T by 2030</a>
+    <a href="https://www.coindesk.com/markets/2024/06/21/mckinsey-sees-just-2t-of-tokenized-rwas-by-2030-in-base-case-with-broad-adoption-still-far-away" target="_blank" rel="noopener" class="source-link">McKinsey: $2T Tokenized RWAs Base Case</a>
+    <a href="https://www.citigroup.com/global/insights/stablecoins-2030" target="_blank" rel="noopener" class="source-link">Citi GPS: Stablecoins 2030</a>
+    <a href="https://www.sc.com/en/press-release/trade-finance-to-play-substantial-role-in-usd-30-1-trillion-tokenised-real-world-assets-market-by-2034/" target="_blank" rel="noopener" class="source-link">Standard Chartered: $30.1T by 2034</a>
+    <a href="https://assets.coingecko.com/reports/2025/CoinGecko-2025-RWA-Report.pdf" target="_blank" rel="noopener" class="source-link">CoinGecko: 2025 RWA Report</a>
+    <a href="https://investax.io/blog/q3-2025-real-world-asset-tokenization-market-report" target="_blank" rel="noopener" class="source-link">InvestAX: Q3 2025 RWA Market Report</a>
+  </div>
+
+  <h3>Регуляция и право</h3>
+  <div class="sources-grid">
+    <a href="https://cms.law/en/int/expert-guides/cms-expert-guide-to-crypto-regulation/cyprus" target="_blank" rel="noopener" class="source-link">CMS: Crypto Regulation in Cyprus</a>
+    <a href="https://www.cysec.gov.cy/en-GB/entities/crypto-asset-services-providers-casps/casp-register/" target="_blank" rel="noopener" class="source-link">CySEC: CASP Register</a>
+    <a href="https://salvusfunds.com/2026/03/25/establishing-a-casp-in-cyprus-in-2026/" target="_blank" rel="noopener" class="source-link">SALVUS: Establishing CASP in Cyprus 2026</a>
+    <a href="https://raphael.legal/f/mica-in-cyprus-a-guide-for-crypto-asset-service-providers" target="_blank" rel="noopener" class="source-link">Raphael Legal: MiCA in Cyprus Guide</a>
+    <a href="https://kpmg.com/us/en/taxnewsflash/news/2026/01/tnf-cyprus-tax-reform-legislation-enacted-and-effective-january-1-2026.html" target="_blank" rel="noopener" class="source-link">KPMG: Cyprus Tax Reform 2026</a>
+    <a href="https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/dlt-pilot-regime" target="_blank" rel="noopener" class="source-link">ESMA: DLT Pilot Regime</a>
+    <a href="https://www.legalnodes.com/article/rwa-tokenization-in-the-eu-most-suitable-jurisdictions-and-regulatory-frameworks-for-2025-and-beyond" target="_blank" rel="noopener" class="source-link">LegalNodes: RWA in EU Jurisdictions</a>
+    <a href="https://www.cryptoverselawyers.io/mica-rwa-tokenization-eu-2026/" target="_blank" rel="noopener" class="source-link">CryptoVerse Lawyers: MiCA RWA 2026</a>
+    <a href="https://www.fenwick.com/insights/publications/tokenized-real-world-assets-pathways-to-sec-registration" target="_blank" rel="noopener" class="source-link">Fenwick: Tokenized RWAs SEC Pathways</a>
+    <a href="https://www.cooley.com/news/insight/2025/2025-09-09-everything-you-want-to-know-about-rwas-but-are-afraid-to-ask" target="_blank" rel="noopener" class="source-link">Cooley: Everything About RWAs</a>
+  </div>
+
+  <h3>Рынок и аналитика</h3>
+  <div class="sources-grid">
+    <a href="https://coinlaw.io/asset-tokenization-statistics/" target="_blank" rel="noopener" class="source-link">CoinLaw: Tokenization Statistics 2026</a>
+    <a href="https://app.rwa.xyz/" target="_blank" rel="noopener" class="source-link">RWA.xyz: Analytics Platform (live data)</a>
+    <a href="https://www.bdo.com/insights/industries/fintech/trends-in-tokenization-reimagining-real-world-assets" target="_blank" rel="noopener" class="source-link">BDO: Tokenization Trends for 2026</a>
+    <a href="https://www.nasdaq.com/articles/4-industries-real-world-asset-tokenization-could-transform-2026" target="_blank" rel="noopener" class="source-link">Nasdaq: 4 Industries RWA Could Transform</a>
+    <a href="https://www.mintlayer.org/blogs/16-30-trillion-by-2030-unlocking-the-rwa-opportunity" target="_blank" rel="noopener" class="source-link">Mintlayer: $16-30T by 2030</a>
+    <a href="https://blocklr.com/news/rwa-tokenization-2026-guide/" target="_blank" rel="noopener" class="source-link">Blocklr: RWA Tokenization 2026 Guide</a>
+  </div>
+
+  <h3>Кипр: недвижимость и токенизация</h3>
+  <div class="sources-grid">
+    <a href="https://www.financialmirror.com/2026/03/13/tokenisation-creates-opportunities-for-cyprus-real-estate/" target="_blank" rel="noopener" class="source-link">Financial Mirror: Tokenisation in Cyprus RE</a>
+    <a href="https://www.soneverse.com/real-estate-blockchain-cyprus-2025/" target="_blank" rel="noopener" class="source-link">Soneverse: Blockchain RE in Cyprus</a>
+    <a href="https://www.crowdx.eu/en_tokenizationandcrypto_in_cy_real_estate/" target="_blank" rel="noopener" class="source-link">CrowdX: Tokenization &amp; Crypto in Cyprus RE</a>
+    <a href="https://blog.tokenizer.estate/tokenization-in-cyprus-bridging-real-estate-and-blockchain/" target="_blank" rel="noopener" class="source-link">Tokenizer Estate: Tokenization in Cyprus</a>
+    <a href="https://www.lympid.io/allthingscrypto/tokenization-in-cyprus" target="_blank" rel="noopener" class="source-link">Lympid: Tokenization in Cyprus</a>
+    <a href="https://thetechisland.org/blog/real-estate-tokenization-legal-perspectives-europe-and-middle-east" target="_blank" rel="noopener" class="source-link">TechIsland: RE Tokenization Legal Perspectives</a>
+  </div>
+
+  <h3>Блокчейны и платформы</h3>
+  <div class="sources-grid">
+    <a href="https://gomining.com/blog/top-6-blockchains-by-tokenized-rwa-total-value" target="_blank" rel="noopener" class="source-link">GoMining: Top RWA Blockchains 2025-2026</a>
+    <a href="https://blog.redstone.finance/2025/09/29/solana-rwa/" target="_blank" rel="noopener" class="source-link">RedStone: Solana RWA Report Q4 2025</a>
+    <a href="https://blog.redstone.finance/2026/03/26/tokenization-rwa-report-2026/" target="_blank" rel="noopener" class="source-link">RedStone: Tokenization Standards 2026</a>
+    <a href="https://www.jpmorgan.com/insights/payments/blockchain-digital-assets/introducing-kinexys" target="_blank" rel="noopener" class="source-link">JPMorgan: Introducing Kinexys</a>
+    <a href="https://www.theblock.co/post/380639/securitize-eu-approval-operate-tokenized-trading-system-avalanche" target="_blank" rel="noopener" class="source-link">The Block: Securitize EU on Avalanche</a>
+    <a href="https://centrifuge.io/blog/2026-real-world-asset-tokenization" target="_blank" rel="noopener" class="source-link">Centrifuge: 2026 RWA Predictions</a>
+  </div>
+
+  <h3>TradFi конвергенция</h3>
+  <div class="sources-grid">
+    <a href="https://www.coindesk.com/business/2025/12/18/jpmorgan-s-tokenized-dollars-are-quietly-rewiring-how-wall-street-moves-money" target="_blank" rel="noopener" class="source-link">CoinDesk: JPMorgan Tokenized Dollars</a>
+    <a href="https://aurpay.net/aurspace/rwa-tokenization-2026/" target="_blank" rel="noopener" class="source-link">Aurpay: TradFi &amp; DeFi Convergence 2026</a>
+    <a href="https://www.elliptic.co/blog/cryptoasset-and-tradfi-convergence-set-to-accelerate-in-2026" target="_blank" rel="noopener" class="source-link">Elliptic: TradFi Convergence 2026</a>
+    <a href="https://www.binaryx.com/blog/the-8-best-countries-for-crypto-and-rwa-tokenization-a-2025-guide-for-investors-and-entrepreneurs" target="_blank" rel="noopener" class="source-link">Binaryx: 8 Best Countries for RWA</a>
+    <a href="https://investax.io/blog/leading-jurisdictions-for-tokenized-real-world-assets" target="_blank" rel="noopener" class="source-link">InvestAX: Leading RWA Jurisdictions</a>
+  </div>
+</div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="container">
+    <p style="margin-bottom: 0.5rem; color: var(--text);">
+      Подготовлено специально для <strong>Марины</strong> из <strong>Antaria Homes</strong>
+    </p>
+    <p style="margin-bottom: 0.5rem;">
+      Исследование: <a href="https://timzinin.com" target="_blank">Tim Zinin</a> &middot; Апрель 2026
+    </p>
+    <p style="font-size: 0.72rem; opacity: 0.5;">
+      Данные актуальны на 8 апреля 2026. Все прогнозы являются оценками аналитических домов и не являются инвестиционной рекомендацией.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
