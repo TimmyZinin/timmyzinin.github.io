@@ -146,6 +146,39 @@
     'регата вышла. ветер, брызги, Денис рулит, я смеюсь как ребёнок'
   ];
 
+  // SPRINT 12 — Marina's morning inner monologue when resources are critical
+  var HUNGRY_MORNINGS = [
+    'проспала будильник. живот жжёт — три дня на кофе и доширке',
+    'проснулась и сразу захотелось мяса. реального, не соевого. ничего в холодильнике',
+    'голова кружится когда встаёшь. надо что-то съесть нормальное, иначе я не вытяну',
+    'забыла как меня зовут пару секунд. это нормально? это от голода?',
+    'утро. сижу в кухне, смотрю на пустой холодильник, планирую оптимальную закупку на $10'
+  ];
+
+  var TIRED_MORNINGS = [
+    'будильник в 8:30. в 10:45 всё ещё в кровати. руки как ватные',
+    'проснулась с чувством что я пробежала марафон во сне. ничего не сделала за неделю',
+    'кофе третьей заварки. глаза закрываются сами. мне нужен день тишины, но его нет',
+    'меня кто-то выпил. физически. лежу, смотрю в потолок, считаю трещины',
+    'сколько можно вставать уставшей. это уже не усталость — это метаморфоза'
+  ];
+
+  var SAD_MORNINGS = [
+    'проснулась без причины в 5 утра. всё тихо и мне грустно, но я не знаю почему',
+    'хочу позвонить маме и не могу. не знаю что сказать кроме «всё плохо»',
+    'читаю свои старые посты в телеграм и не узнаю ту девочку. когда я стала такой',
+    'плачу в душе. ничего особенного не случилось. просто накопилось',
+    'утро. смотрю в зеркало. кто этот человек. серьёзно'
+  ];
+
+  var FINE_MORNINGS = [
+    'проснулась до будильника. что за фокус',
+    'кофе, солнце в окне, три мысли в голове вместо ста. редкое утро',
+    'чувствую себя живой сегодня. спасибо вчерашнему ужину',
+    'утро из тех когда я могу',
+    'сегодня получится. я это чувствую'
+  ];
+
   // ========== state ==========
 
   function defaultState() {
@@ -520,8 +553,94 @@
     renderHud();
   }
 
+  // SPRINT 12 — Marina's morning inner monologue (visible crisis feedback)
+  function postMorningMonologue() {
+    if (STATE.day < 2) return; // skip day 1
+    var h = STATE.hunger, e = STATE.energy, m = STATE.comfort;
+    // Pick the worst resource and post inner-monologue for it
+    if (h != null && h < 30) {
+      postMessage('scratch', { kind: 'outgoing', text: pick(HUNGRY_MORNINGS) });
+      return;
+    }
+    if (m != null && m < 25) {
+      postMessage('scratch', { kind: 'outgoing', text: pick(SAD_MORNINGS) });
+      return;
+    }
+    if (e < 30) {
+      postMessage('scratch', { kind: 'outgoing', text: pick(TIRED_MORNINGS) });
+      return;
+    }
+    // Fine morning — only 25% chance (not every day)
+    if (Math.random() < 0.25) {
+      postMessage('scratch', { kind: 'outgoing', text: pick(FINE_MORNINGS) });
+    }
+  }
+
+  // SPRINT 12 — Dynamic brand subtitle based on Marina's state
+  function renderBrandStatus() {
+    var $sub = $('.brand-subtitle');
+    if ($sub.length === 0) return;
+    var h = STATE.hunger || 100;
+    var e = STATE.energy || 100;
+    var m = STATE.comfort || 60;
+    var status = 'теледрам v2.1.5';
+    if (STATE.bank_locked) status = '🔒 счёт заблокирован';
+    else if (h < 20) status = '🍔 очень голодна';
+    else if (e < 20) status = '⚡ на пределе';
+    else if (m < 20) status = '💔 грустит';
+    else if (h < 35 || e < 35 || m < 30) status = '😮‍💨 устала';
+    $sub.text(status);
+
+    // Avatar grayscale when comfort low
+    var $avatar = $('.brand-circle img');
+    if ($avatar.length) {
+      if (m < 30) $avatar.css('filter', 'grayscale(0.7) brightness(0.85)');
+      else $avatar.css('filter', '');
+    }
+  }
+
+  // SPRINT 12 — Crisis banner top of screen (persistent warning)
+  function renderCrisisBanner() {
+    var $banner = $('#crisis-banner');
+    if ($banner.length === 0) return;
+    var h = STATE.hunger, e = STATE.energy, m = STATE.comfort, c = STATE.cash;
+    var msg = null, cls = '';
+
+    if (STATE.bank_locked) {
+      var daysLeft = Math.max(0, (STATE.bank_locked_until || STATE.day) - STATE.day);
+      msg = '🔒 СЧЁТ ЗАБЛОКИРОВАН ПО 115-ФЗ · ещё ' + daysLeft + ' дн.';
+      cls = 'crit';
+    } else if (h != null && h < 15) {
+      msg = '🍔 МАРИНА ГОЛОДАЕТ · энергия падает быстро · поешь';
+      cls = 'crit';
+    } else if (e < 15) {
+      msg = '⚡ МАРИНА НА ПРЕДЕЛЕ · перерыв срочно';
+      cls = 'crit';
+    } else if (c < -500) {
+      msg = '💰 БАЛАНС КРИТИЧЕСКИЙ · −$' + Math.abs(c) + ' · сдай проект или теряешь квартиру';
+      cls = 'crit';
+    } else if (m != null && m < 15) {
+      msg = '💔 КОМФОРТ ОБНУЛИЛСЯ · ты сгораешь · шопинг/еда/друзья';
+      cls = 'crit';
+    } else if (h != null && h < 30) {
+      msg = '🍔 голодно · хочется настоящей еды';
+      cls = 'warn';
+    } else if (e < 30) {
+      msg = '⚡ устала · пора отдохнуть';
+      cls = 'warn';
+    }
+
+    if (msg) {
+      $banner.text(msg).attr('class', 'crisis-banner ' + cls).show();
+    } else {
+      $banner.hide();
+    }
+  }
+
   // ===== Top resource HUD (BLOCK C.1) =====
   function renderHud() {
+    renderBrandStatus();
+    renderCrisisBanner();
     var $hud = $('#resource-hud');
     var $hudList = $('#resource-hud-list'); // mobile list view
     if ($hud.length === 0 && $hudList.length === 0) return;
@@ -1729,6 +1848,8 @@
         }
 
         try { processPassive(STATE.day); } catch (e) { console.error('passive error', e); }
+        // SPRINT 12 — Marina's morning inner monologue based on worst resource
+        try { postMorningMonologue(); } catch (e) {}
         try { fireDayBeats(STATE.day); } catch (e) { console.error('beats error', e); }
         // Expire Kirill invite if window closed
         if (STATE.kirill_invite_active && STATE.kirill_invite_expires_day && STATE.day > STATE.kirill_invite_expires_day) {
