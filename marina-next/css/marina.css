@@ -789,7 +789,9 @@ html, body {
 .dock-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px 8px;
+  padding: 6px 2px 2px; /* room for badges that extend top/right */
+  overflow: visible;
 }
 
 .dock-btn {
@@ -804,7 +806,8 @@ html, body {
   cursor: pointer;
   transition: background 160ms, border-color 160ms, transform 120ms, box-shadow 160ms;
   position: relative;
-  overflow: hidden;
+  /* overflow: visible so badges can overflow the button corner */
+  overflow: visible;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
@@ -1335,20 +1338,23 @@ html, body {
 
 .dock-btn .dock-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 6px;
-  border-radius: 10px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 20px;
+  top: -8px;
+  right: -8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 11px;
+  background: #ff4520;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 22px;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(255, 107, 61, 0.4);
+  box-shadow: 0 3px 10px rgba(255, 69, 32, 0.55), 0 0 0 2px var(--panel);
   pointer-events: none;
+  z-index: 3;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
 }
 
 .dock-btn .dock-badge.hot {
