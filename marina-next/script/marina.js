@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.1.1';
+  var VERSION = '2.1.2';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -231,6 +231,26 @@
       beat_svetka_day18: false,
       beat_svetka_day22: false,
       beat_svetka_day26: false,
+      // Sprint 07 late-game density beats
+      beat_khozyaika_d22: false,
+      beat_khozyaika_d27: false,
+      beat_olya_retry: false,
+      beat_olya_final: false,
+      beat_krypta_retry: false,
+      beat_krypta_final: false,
+      beat_pavel_d13: false,
+      beat_pavel_d17: false,
+      beat_pavel_d21: false,
+      beat_pavel_d25: false,
+      beat_mama_d20: false,
+      beat_denis_d22: false,
+      // Настя parallel arc
+      beat_nastya_d6: false,
+      beat_nastya_d11: false,
+      beat_nastya_d16: false,
+      beat_nastya_d20: false,
+      beat_nastya_d25: false,
+      beat_nastya_d30: false,
       // reactive
       reach_out_total: 0,
       reach_out_misses: 0,
@@ -256,6 +276,7 @@
         { id: 'vera',    name: 'Вера Николаевна',    avatar: 'В', unread: 0, visible: false, spam: true },
         { id: 'sosed',   name: 'сосед снизу',        avatar: 'С', unread: 0, visible: false, spam: true },
         { id: 'svetka',  name: 'Светка (подружка)',  avatar: '🎤', unread: 0, visible: false },
+        { id: 'nastya',  name: 'Настя (коллега)',    avatar: 'Н',  unread: 0, visible: false },
         // one-shot flavor spam (7)
         { id: 'lyuda',   name: 'Людочка (не та)',    avatar: 'Л', unread: 0, visible: false, spam: true },
         { id: 'ozon',    name: 'OZON курьер',        avatar: '📦', unread: 0, visible: false, spam: true },
@@ -269,7 +290,7 @@
       threads: {
         lena: [], anna: [], tim: [], bank: [],
         khozyaika: [], pavel: [], mama: [], denis: [],
-        olya: [], kirill: [], krypta: [], artur: [], vera: [], sosed: [], svetka: [],
+        olya: [], kirill: [], krypta: [], artur: [], vera: [], sosed: [], svetka: [], nastya: [],
         lyuda: [], ozon: [], taxi: [], student: [], katya: [], teshcha: [], marathon: [],
         scratch: []
       },
@@ -1312,10 +1333,13 @@
       triggerLenaIntro();
       renderDock();
     }, 500);
-    // Day 1 Khozyaika rent reminder — arrives 2.5s after lamp click
+    // Day 1 Khozyaika rent reminder (serious) + комод (absurd) — both arrive day 1
     setTimeout(function () {
       beatKhozyaikaDay1Rent();
     }, 2500);
+    setTimeout(function () {
+      beatKhozyaikaDay2Komod();
+    }, 5500);
     save();
     openChat('scratch');
     renderDock();
@@ -2061,6 +2085,214 @@
     postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'слушай, ты сейчас одна? в смысле по жизни.' });
   }
 
+  // ========== SPRINT 07 — Late-game density beats ==========
+
+  function beatKhozyaikaD22() {
+    if (STATE.beat_khozyaika_d22) return;
+    STATE.beat_khozyaika_d22 = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      text: 'Марина, я вчера видела сон будто у нас в подъезде появился домовой в форме кошки. Мурка теперь на подоконнике смотрит в одну точку третий день. Вы не против если я загляну освятить квартиру батюшкой?'
+    });
+  }
+
+  function beatKhozyaikaD27() {
+    if (STATE.beat_khozyaika_d27) return;
+    STATE.beat_khozyaika_d27 = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      text: 'Марина, на следующей неделе полнолуние в Раке. В это время комоды особенно уязвимы. Пожалуйста, не ставьте на него горячие чашки и не включайте китайских мантр рядом. И вообще лучше выйти из квартиры между 23:00 и 01:00.'
+    });
+  }
+
+  function beatOlyaRetry() {
+    if (STATE.beat_olya_retry) return;
+    STATE.beat_olya_retry = true;
+    var c = findContact('olya'); if (c) c.visible = true;
+    postMessage('olya', {
+      kind: 'incoming',
+      senderName: 'Оля Петрова',
+      text: 'Мариночка, как ты? Я тут обновление по нашему клубу — мы запускаем НОВЫЙ уровень. Всего $400, но ты получаешь в три раза больше активаций. Подумай, я верю в тебя!'
+    });
+  }
+
+  function beatOlyaFinal() {
+    if (STATE.beat_olya_final) return;
+    STATE.beat_olya_final = true;
+    var c = findContact('olya'); if (c) c.visible = true;
+    postMessage('olya', {
+      kind: 'incoming',
+      senderName: 'Оля Петрова',
+      text: 'Марина, я понимаю что ты сомневаешься. Но вот скриншот моего дохода за месяц: $3200 чистыми. И это не предел. Последнее предложение: $150, заходишь бесплатным уровнем и начинаешь зарабатывать.'
+    });
+  }
+
+  function beatKryptaRetry() {
+    if (STATE.beat_krypta_retry) return;
+    STATE.beat_krypta_retry = true;
+    var c = findContact('krypta'); if (c) c.visible = true;
+    postMessage('krypta', {
+      kind: 'incoming',
+      senderName: 'БРАТ крипта',
+      text: 'БРАТ алё ты жива? смотри SOLANA х3 за неделю я говорил! у меня есть ещё 1 слот. $50 минимум, на следующей неделе $500. не упусти'
+    });
+  }
+
+  function beatKryptaFinal() {
+    if (STATE.beat_krypta_final) return;
+    STATE.beat_krypta_final = true;
+    var c = findContact('krypta'); if (c) c.visible = true;
+    postMessage('krypta', {
+      kind: 'incoming',
+      senderName: 'БРАТ крипта',
+      text: 'сестра, скажу честно. у меня не было $100. они пошли на оплату хостинга для моего блога. но завтра реально точно ракета. прости брат. больше не будет. $30?'
+    });
+  }
+
+  function beatPavelD13() {
+    if (STATE.beat_pavel_d13) return;
+    STATE.beat_pavel_d13 = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
+    postMessage('pavel', {
+      kind: 'incoming',
+      senderName: 'Павел',
+      text: 'марина я вчера был в твоём доме. просто проходил. вспомнил крышу куда мы поднимались в мае 2022. помнишь?'
+    });
+  }
+
+  function beatPavelD17() {
+    if (STATE.beat_pavel_d17) return;
+    STATE.beat_pavel_d17 = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
+    postMessage('pavel', {
+      kind: 'incoming',
+      senderName: 'Павел',
+      text: 'слушай. а если я серьёзно. давай встретимся на чашку кофе. без возврата денег, без истории. как старые знакомые.'
+    });
+  }
+
+  function beatPavelD21() {
+    if (STATE.beat_pavel_d21) return;
+    STATE.beat_pavel_d21 = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
+    postMessage('pavel', {
+      kind: 'incoming',
+      senderName: 'Павел',
+      text: 'марин, слышал у тебя кто-то появился. может не стоит? ты меня лучше знаешь.'
+    });
+  }
+
+  function beatPavelD25() {
+    if (STATE.beat_pavel_d25) return;
+    STATE.beat_pavel_d25 = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
+    postMessage('pavel', {
+      kind: 'incoming',
+      senderName: 'Павел',
+      text: 'ну и ладно. удачи. я всегда был рядом когда тебе было сложно. помни.'
+    });
+  }
+
+  function beatMamaD20() {
+    if (STATE.beat_mama_d20) return;
+    STATE.beat_mama_d20 = true;
+    var c = findContact('mama'); if (c) c.visible = true;
+    postMessage('mama', {
+      kind: 'incoming',
+      senderName: 'мама',
+      text: 'доча, соседка спрашивает какой у тебя бизнес. я сказала что ты творческая, всё пишешь. она говорит это хорошо. у её дочки такой же бизнес, но та получает зарплату в мвд. но я тебя не сравниваю.'
+    });
+  }
+
+  function beatDenisD22() {
+    if (STATE.beat_denis_d22) return;
+    STATE.beat_denis_d22 = true;
+    var c = findContact('denis'); if (c) c.visible = true;
+    postMessage('denis', {
+      kind: 'incoming',
+      senderName: 'Денис',
+      text: 'марин, слышал про тебя от общих. гордимся. держись. кстати — парус-тур на выходных, присоединяйся.'
+    });
+  }
+
+  // Настя — параллельная arc коллеги-фаундера
+  function beatNastyaD6() {
+    if (STATE.beat_nastya_d6) return;
+    STATE.beat_nastya_d6 = true;
+    var c = findContact('nastya'); if (c) c.visible = true;
+    postMessage('nastya', {
+      kind: 'incoming',
+      senderName: 'Настя',
+      text: 'привет! я Настя, тоже фрилансер, мы вроде в одном чате в telegram были. хотела спросить — как ты справляешься с первыми неделями без офиса?'
+    });
+    setTimeout(function () {
+      postMessage('nastya', {
+        kind: 'incoming',
+        senderName: 'Настя',
+        text: 'у меня прям паника каждое утро. но я вот начала выписывать три задачи в день вместо десяти. помогает.'
+      });
+    }, 1100);
+  }
+
+  function beatNastyaD11() {
+    if (STATE.beat_nastya_d11) return;
+    STATE.beat_nastya_d11 = true;
+    var c = findContact('nastya'); if (c) c.visible = true;
+    postMessage('nastya', {
+      kind: 'incoming',
+      senderName: 'Настя',
+      text: 'ооо я сегодня закрыла второй проект. чувствую себя богиней. и одновременно засыпаю стоя. как оно у тебя?'
+    });
+  }
+
+  function beatNastyaD16() {
+    if (STATE.beat_nastya_d16) return;
+    STATE.beat_nastya_d16 = true;
+    var c = findContact('nastya'); if (c) c.visible = true;
+    postMessage('nastya', {
+      kind: 'incoming',
+      senderName: 'Настя',
+      text: 'слушай, думала. нам надо объединяться. одна хорошо, но вдвоём быстрее. может посидим, обсудим?'
+    });
+  }
+
+  function beatNastyaD20() {
+    if (STATE.beat_nastya_d20) return;
+    STATE.beat_nastya_d20 = true;
+    var c = findContact('nastya'); if (c) c.visible = true;
+    postMessage('nastya', {
+      kind: 'incoming',
+      senderName: 'Настя',
+      text: 'у меня тут проект на двух человек, клиент крупный. половину могу тебе отдать. $400 твои, только делай хорошо. интересно?'
+    });
+  }
+
+  function beatNastyaD25() {
+    if (STATE.beat_nastya_d25) return;
+    STATE.beat_nastya_d25 = true;
+    var c = findContact('nastya'); if (c) c.visible = true;
+    postMessage('nastya', {
+      kind: 'incoming',
+      senderName: 'Настя',
+      text: 'марин, я серьёзно думаю о партнёрстве. давай после месяца встретимся и обсудим. у меня есть план.'
+    });
+  }
+
+  function beatNastyaD30() {
+    if (STATE.beat_nastya_d30) return;
+    STATE.beat_nastya_d30 = true;
+    var c = findContact('nastya'); if (c) c.visible = true;
+    postMessage('nastya', {
+      kind: 'incoming',
+      senderName: 'Настя',
+      text: 'ты дожила. я горжусь. давай встретимся в воскресенье, я принесу вино и план на следующий месяц.'
+    });
+  }
+
   // ========== Светка подружка (SPRINT 06) — гороскоп, голосовые, сплетни ==========
 
   var SVETKA_GOSSIP = [
@@ -2539,7 +2771,7 @@
 
   function fireDayBeats(day) {
     // v2.1.1 — 30-day arc with tighter Khozyaika spam
-    if (day === 2) { beatKhozyaikaDay2Komod(); beatPavelNightDay2(); }
+    if (day === 2) beatPavelNightDay2(); // komod now fires day 1 in actLamp
     if (day === 3) { beatDenis(3); beatOlya(); }
     if (day === 4) beatKhozyaika1(); // счётчики воды
     if (day === 5) { beatAnnaOffer(); beatPavelDay5(); beatTimConsultIntro(); }
@@ -2557,6 +2789,23 @@
     if (day === 18) svetkaBeat('beat_svetka_day18');
     if (day === 22) svetkaBeat('beat_svetka_day22');
     if (day === 26) svetkaBeat('beat_svetka_day26');
+    // Sprint 07 late-game density
+    if (day === 13) beatPavelD13();
+    if (day === 17) { beatPavelD17(); beatOlyaRetry(); }
+    if (day === 18) beatKryptaRetry();
+    if (day === 20) beatMamaD20();
+    if (day === 21) beatPavelD21();
+    if (day === 22) { beatKhozyaikaD22(); beatDenisD22(); }
+    if (day === 24) beatOlyaFinal();
+    if (day === 25) { beatPavelD25(); beatKryptaFinal(); }
+    if (day === 27) beatKhozyaikaD27();
+    // Настя параллельная arc
+    if (day === 6) beatNastyaD6();
+    if (day === 11) beatNastyaD11();
+    if (day === 16) beatNastyaD16();
+    if (day === 20) beatNastyaD20();
+    if (day === 25) beatNastyaD25();
+    if (day === 30) beatNastyaD30();
     if (day === 11) beatKhozyaika2(); // тикток эзотерика
     if (day === 12) beatKhozyaikaRescue(); // BLOCK N — rescue beat, mandatory
     if (day === 14) beatPavel();
