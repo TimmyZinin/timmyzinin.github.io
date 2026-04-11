@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://timzinin.com/marina-next/"/>
   <meta name="twitter:card" content="summary"/>
   <link rel="icon" href="favicon.ico"/>
-  <link rel="stylesheet" type="text/css" href="css/marina.css?v=2.0.4"/>
+  <link rel="stylesheet" type="text/css" href="css/marina.css?v=2.1.0"/>
 
   <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. -->
   <!-- Forked from A Dark Room by Michael Townsend (doublespeakgames/adarkroom). -->
@@ -88,7 +88,7 @@
             </div>
             <div class="brand-text">
               <div class="brand-title">🔥 Марина в огне</div>
-              <div class="brand-subtitle">теледрам v2.0b4</div>
+              <div class="brand-subtitle">теледрам v2.1.0</div>
             </div>
           </div>
           <div id="contacts-status" class="status-mini"></div>
@@ -98,16 +98,20 @@
           <button class="folder-tab" data-folder="funnel">🎯 воронка</button>
           <button class="folder-tab" data-folder="team">👥 команда</button>
           <button class="folder-tab" data-folder="money">💰 деньги</button>
+          <button class="folder-tab" data-folder="spam">💤 прочее</button>
         </div>
         <div id="contacts-list"></div>
       </aside>
 
       <!-- Chat main pane -->
       <section id="chat">
+        <!-- Top resource HUD (BLOCK C.1) -->
+        <div id="resource-hud" class="resource-hud"></div>
         <div id="chat-header">
           <div id="chat-title">—</div>
           <div id="chat-subtitle"></div>
         </div>
+        <div id="chat-pinned"></div>
         <div id="chat-thread" aria-live="polite"></div>
         <div id="chat-typing" class="typing-indicator" style="display:none;">
           <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
@@ -120,14 +124,14 @@
     <!-- Global action dock (always visible) -->
     <nav id="action-dock" role="navigation">
       <div class="dock-topbar">
-        <div class="dock-label">день <span id="dock-day">1</span> / 12 · <span id="dock-hours">8</span>h · $<span id="dock-cash">500</span> · <span id="dock-leads">0</span>l · <span id="dock-qualified">0</span>q · <span id="dock-done">0</span>/3 ✓</div>
+        <div class="dock-hint">действия · ⏳ день идёт</div>
         <button id="audio-toggle" type="button" title="музыка вкл/выкл" aria-label="музыка">🔊</button>
       </div>
       <div class="dock-buttons" id="dock-buttons"></div>
     </nav>
 
     <footer id="footer">
-      v2.0b3 canary · <a id="reset-link" href="#" title="начать заново">reset</a> ·
+      v2.1.0 survival · <a id="reset-link" href="#" title="начать заново">reset</a> ·
       <a href="/marina/" style="color:#7a7a7a;">terminal v1.6a</a> ·
       <a href="/marina-terminal/" style="color:#7a7a7a;">archive</a> ·
       source → <a href="https://github.com/TimmyZinin/marina-v-ogne" target="_blank" rel="noopener">github</a>
@@ -136,9 +140,9 @@
 
   </div>
 
-  <script src="script/lead.js?v=2.0.4"></script>
-  <script src="script/marina-audio.js?v=2.0.4"></script>
-  <script src="script/bubbles.js?v=2.0.4"></script>
-  <script src="script/marina.js?v=2.0.4"></script>
+  <script src="script/lead.js?v=2.1.0"></script>
+  <script src="script/marina-audio.js?v=2.1.0"></script>
+  <script src="script/bubbles.js?v=2.1.0"></script>
+  <script src="script/marina.js?v=2.1.0"></script>
 </body>
 </html>

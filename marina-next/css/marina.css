@@ -1140,3 +1140,253 @@ html, body {
 @media (max-width: 380px) {
   .dock-buttons .dock-btn { flex: 1 1 auto; min-width: calc(50% - 3px); }
 }
+
+/* ========== v2.1 BLOCK C — Top Resource HUD ========== */
+
+.resource-hud {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 6px;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #0f1721 0%, #17212b 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  scrollbar-width: none;
+  z-index: 5;
+  position: relative;
+}
+.resource-hud::-webkit-scrollbar { display: none; }
+
+.r-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px 5px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--fg);
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.r-pill .r-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.r-pill .r-val {
+  color: var(--fg);
+}
+
+.r-pill .r-max {
+  color: var(--subtle);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.r-pill .r-bar {
+  width: 28px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-left: 3px;
+}
+
+.r-pill .r-fill {
+  height: 100%;
+  background: var(--ok);
+  transition: width 200ms ease;
+}
+
+.r-pill.ok   .r-fill { background: var(--ok); }
+.r-pill.warn .r-fill { background: var(--warn); }
+.r-pill.crit .r-fill { background: var(--accent); }
+.r-pill.ok   { border-color: rgba(101, 199, 126, 0.25); }
+.r-pill.warn { border-color: rgba(255, 181, 71, 0.3); }
+.r-pill.crit {
+  border-color: rgba(255, 107, 61, 0.45);
+  background: rgba(255, 107, 61, 0.08);
+  animation: critPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes critPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 61, 0.3); }
+  50%      { box-shadow: 0 0 0 4px rgba(255, 107, 61, 0); }
+}
+
+.r-pill.r-cash.crit .r-val { color: var(--accent); }
+.r-pill.r-cash.warn .r-val { color: var(--warn); }
+.r-pill.r-cash.ok   .r-val { color: var(--ok); }
+
+.r-pill.r-locked {
+  background: rgba(255, 107, 61, 0.15);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  animation: critPulse 2s ease-in-out infinite;
+}
+
+/* ===== Dock button badges ===== */
+
+.dock-btn {
+  position: relative; /* for badge absolute */
+}
+
+.dock-btn .dock-label {
+  font-weight: 500;
+}
+
+.dock-btn .dock-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(255, 107, 61, 0.4);
+  pointer-events: none;
+}
+
+.dock-btn .dock-badge.hot {
+  animation: badgePulseHot 1.4s ease-in-out infinite;
+}
+
+.dock-btn .dock-badge.pulse {
+  animation: badgePulseCrit 1s ease-in-out infinite;
+  background: #ff4520;
+}
+
+@keyframes badgePulseHot {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 61, 0.5); }
+  50%      { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(255, 107, 61, 0); }
+}
+
+@keyframes badgePulseCrit {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+
+/* ===== New folder tab «💤 прочее» already uses existing .folder-tab ===== */
+
+/* ===== 13 new spam avatar gradients ===== */
+.contact-avatar.olya     { background: linear-gradient(135deg, #f5a5c0 0%, #b04d75 100%); }
+.contact-avatar.kirill   { background: linear-gradient(135deg, #8b9dc7 0%, #455876 100%); }
+.contact-avatar.krypta   { background: linear-gradient(135deg, #ffd166 0%, #f17300 100%); color: #2a1a00; }
+.contact-avatar.artur    { background: linear-gradient(135deg, #7c8996 0%, #3a4651 100%); }
+.contact-avatar.vera     { background: linear-gradient(135deg, #d4b5e8 0%, #6a4b82 100%); }
+.contact-avatar.sosed    { background: linear-gradient(135deg, #94a3b5 0%, #3e4a58 100%); }
+.contact-avatar.lyuda    { background: linear-gradient(135deg, #a5b8c9 0%, #4e5d6d 100%); }
+.contact-avatar.ozon     { background: linear-gradient(135deg, #4a6fa5 0%, #1c3a66 100%); }
+.contact-avatar.taxi     { background: linear-gradient(135deg, #ffe066 0%, #d19e00 100%); color: #2a1f00; }
+.contact-avatar.student  { background: linear-gradient(135deg, #7fb5d5 0%, #3a6989 100%); }
+.contact-avatar.katya    { background: linear-gradient(135deg, #a5c4a5 0%, #4a7a4a 100%); }
+.contact-avatar.teshcha  { background: linear-gradient(135deg, #8d7a9e 0%, #4a3a5c 100%); }
+.contact-avatar.marathon { background: linear-gradient(135deg, #ffb5c5 0%, #c45a8a 100%); }
+
+/* Per-contact sender-name color in spam bubbles */
+.bubble.incoming[data-from="olya"]     .sender-name { color: #f5a5c0; }
+.bubble.incoming[data-from="kirill"]   .sender-name { color: #8b9dc7; }
+.bubble.incoming[data-from="krypta"]   .sender-name { color: #ffd166; }
+.bubble.incoming[data-from="artur"]    .sender-name { color: #a5b5c5; }
+.bubble.incoming[data-from="vera"]     .sender-name { color: #d4b5e8; }
+.bubble.incoming[data-from="sosed"]    .sender-name { color: #94a3b5; }
+.bubble.incoming[data-from="lyuda"]    .sender-name { color: #a5b8c9; font-style: italic; }
+.bubble.incoming[data-from="ozon"]     .sender-name { color: #6a85b5; font-style: italic; }
+.bubble.incoming[data-from="taxi"]     .sender-name { color: #ffd166; font-style: italic; }
+.bubble.incoming[data-from="student"]  .sender-name { color: #7fb5d5; font-style: italic; }
+.bubble.incoming[data-from="katya"]    .sender-name { color: #a5c4a5; font-style: italic; }
+.bubble.incoming[data-from="teshcha"]  .sender-name { color: #8d7a9e; font-style: italic; }
+.bubble.incoming[data-from="marathon"] .sender-name { color: #ffb5c5; font-style: italic; }
+
+/* ===== BLOCK D — Bank pinned balance card ===== */
+
+#chat-pinned {
+  padding: 0;
+  margin: 0;
+}
+
+.bank-balance-card {
+  margin: 12px 18px 6px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #15221a 0%, #1a2a1f 100%);
+  border: 1px solid rgba(101, 199, 126, 0.3);
+  border-left: 4px solid var(--ok);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.bb-label {
+  font-size: 10.5px;
+  color: #86d69a;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.bb-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--fg);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.bb-value.neg { color: var(--accent); }
+
+.bb-delta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.bb-delta.neg { color: var(--accent); }
+.bb-delta.pos { color: var(--ok); }
+
+/* ===== BLOCK J — Funnel particles ===== */
+
+.particle {
+  position: fixed;
+  z-index: 200;
+  font-size: 15px;
+  line-height: 1;
+  pointer-events: none;
+  font-weight: 700;
+  will-change: transform;
+  transition: transform 650ms cubic-bezier(0.28, 1.1, 0.35, 1), opacity 400ms;
+}
+.particle.blue   { color: #7cc4ff; text-shadow: 0 0 6px rgba(124, 196, 255, 0.5); }
+.particle.red    { color: #ff6b3d; text-shadow: 0 0 6px rgba(255, 107, 61, 0.5); }
+.particle.money  { color: #65c77e; text-shadow: 0 0 8px rgba(101, 199, 126, 0.6); font-size: 17px; }
+.particle.progress  { color: #ffd166; text-shadow: 0 0 6px rgba(255, 209, 102, 0.5); }
+
+/* Dock hint label (replaces old .dock-label one-liner) */
+.dock-hint {
+  font-size: 10.5px;
+  color: var(--subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  flex: 1;
+  font-weight: 600;
+}
+
+/* Mobile: smaller HUD pills */
+@media (max-width: 640px) {
+  .resource-hud { padding: 7px 10px; gap: 5px; }
+  .r-pill { padding: 4px 8px 4px 6px; font-size: 11.5px; }
+  .r-pill .r-bar { width: 22px; }
+  .r-pill .r-icon { font-size: 12px; }
+  .bank-balance-card { margin: 10px 14px 4px; padding: 12px 14px; }
+  .bb-value { font-size: 24px; }
+}

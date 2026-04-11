@@ -13,14 +13,20 @@
   'use strict';
 
   var MUTE_KEY = 'marina-fire:v2.0:audio_muted';
-  var SOUNDTRACK_SRC = 'audio/soundtrack.mp3';
+  // Sequential playlist: main → «потолок не падает» → «обычный вторник» → repeat
+  var PLAYLIST = [
+    'audio/soundtrack.mp3',    // 1. «Двенадцать дней до конца месяца»
+    'audio/soundtrack_2.mp3',  // 2. «потолок не падает»
+    'audio/soundtrack_3.mp3'   // 3. «обычный вторник»
+  ];
   var MUSIC_VOL = 0.42; // sit under SFX (~-7 dB)
 
   var AudioCtx = window.AudioContext || window.webkitAudioContext;
   var ctx = null;
   var masterGain = null;
   var muted = false; // default ON — real music now ships
-  var soundtrack = null; // HTMLAudioElement
+  var soundtrack = null; // current HTMLAudioElement
+  var trackIndex = 0;
   var musicFadeTimer = null;
   var firstUnlockDone = false;
 
@@ -49,23 +55,50 @@
     }
   }
 
-  // ===== soundtrack (HTMLAudioElement) =====
+  // ===== soundtrack playlist =====
 
   function ensureSoundtrack() {
     if (soundtrack) return soundtrack;
     try {
-      soundtrack = new Audio(SOUNDTRACK_SRC);
-      soundtrack.loop = true;
+      soundtrack = new Audio(PLAYLIST[trackIndex]);
+      soundtrack.loop = false; // playlist mode: advance to next on ended
       soundtrack.preload = 'auto';
       soundtrack.volume = 0;
+      soundtrack.addEventListener('ended', onTrackEnded);
       soundtrack.addEventListener('error', function () {
-        console.warn('soundtrack load failed, falling back silent');
+        console.warn('track ' + trackIndex + ' load failed, skipping');
+        onTrackEnded();
       });
     } catch (e) {
       console.warn('soundtrack init failed', e);
       soundtrack = null;
     }
     return soundtrack;
+  }
+
+  function onTrackEnded() {
+    // Advance to next track in playlist (wrap around)
+    trackIndex = (trackIndex + 1) % PLAYLIST.length;
+    if (soundtrack) {
+      try {
+        soundtrack.removeEventListener('ended', onTrackEnded);
+        soundtrack.pause();
+      } catch (e) {}
+      soundtrack = null;
+    }
+    // If unmuted, start next track
+    if (!muted) {
+      ensureSoundtrack();
+      var s = soundtrack;
+      if (!s) return;
+      try {
+        var p = s.play();
+        if (p && typeof p.then === 'function') {
+          p.catch(function () { /* blocked — wait for user gesture */ });
+        }
+        fadeTo(MUSIC_VOL, 1500);
+      } catch (e) {}
+    }
   }
 
   function clearFade() {
@@ -87,7 +120,9 @@
       var progress = Math.min(1, i / steps);
       // Ease-out cubic
       var eased = 1 - Math.pow(1 - progress, 3);
-      soundtrack.volume = Math.max(0, Math.min(1, startVol + delta * eased));
+      if (soundtrack) {
+        soundtrack.volume = Math.max(0, Math.min(1, startVol + delta * eased));
+      }
       if (progress >= 1) {
         clearFade();
         if (onDone) onDone();

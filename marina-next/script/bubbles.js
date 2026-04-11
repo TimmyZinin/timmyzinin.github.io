@@ -149,13 +149,18 @@
     }
 
     var filterIds = null;
+    var SPAM_IDS = ['olya','kirill','krypta','artur','vera','sosed','lyuda','ozon','taxi','student','katya','teshcha','marathon'];
     if (folder === 'team') filterIds = ['lena', 'anna', 'tim'];
     else if (folder === 'money') filterIds = ['bank', 'khozyaika', 'pavel', 'mama'];
+    else if (folder === 'spam') filterIds = SPAM_IDS;
+    // folder === 'all' shows everything visible except spam
+    var hideSpamInAll = folder === 'all';
 
     var anyRendered = false;
     state.contacts.forEach(function (c) {
       if (!c.visible) return;
       if (filterIds && filterIds.indexOf(c.id) === -1) return;
+      if (hideSpamInAll && c.spam) return; // «все» folder hides spam group
       anyRendered = true;
 
       var $item = $('<div class="contact-item">').attr('data-contact', c.id);
@@ -184,6 +189,7 @@
       var emptyTexts = {
         team: 'команда ещё не собрана · продолжай искать клиентов',
         money: 'в папке «деньги» пока только банк',
+        spam: 'пока тихо · спам ещё не посыпался',
         all: 'пусто · продолжай играть'
       };
       $list.append($('<div class="folder-empty-state">').text(emptyTexts[folder] || 'пусто'));
@@ -240,7 +246,7 @@
     $('#chat-title').text(contact ? contact.name : '—');
     var sub = '';
     if (contact) {
-      if (contact.id === 'tim')       sub = 'консультант · каш, турция';
+      if (contact.id === 'tim')       sub = 'создатель игры · каш, турция';
       else if (contact.id === 'lena') sub = 'бывшая коллега · москва';
       else if (contact.id === 'anna') sub = 'первый клиент';
       else if (contact.id === 'bank') sub = 'Т-Банк · входящие уведомления';
@@ -248,10 +254,23 @@
       else if (contact.id === 'pavel') sub = 'бывший · 4 месяца тишины';
       else if (contact.id === 'mama')  sub = 'мама · всегда на связи';
       else if (contact.id === 'denis') sub = 'Денис · тусовщик';
-      else if (contact.id === 'spam')  sub = 'неизвестные номера · не твои контакты';
+      // new spam contacts
+      else if (contact.id === 'olya')  sub = '11-Б · клуб женщин';
+      else if (contact.id === 'kirill') sub = 'Tinder · угощает';
+      else if (contact.id === 'krypta') sub = 'не знает как тебя зовут';
+      else if (contact.id === 'artur') sub = 'бывший босс';
+      else if (contact.id === 'vera')  sub = 'училка · одноклассники';
+      else if (contact.id === 'sosed') sub = 'квартира 23';
+      else if (contact.id === 'lyuda') sub = 'случайный номер';
+      else if (contact.id === 'ozon')  sub = 'ваш заказ?';
+      else if (contact.id === 'taxi')  sub = 'случайный таксист';
+      else if (contact.id === 'student') sub = 'диплом горит';
+      else if (contact.id === 'katya') sub = 'Катя с работы';
+      else if (contact.id === 'teshcha') sub = 'свекровь кого-то';
+      else if (contact.id === 'marathon') sub = 'эзотерический клуб';
       else if (contact.id === 'scratch') sub = 'личные заметки';
       if (contact.online) sub += ' · в сети';
-      else if (sub && contact.id !== 'bank' && contact.id !== 'scratch' && contact.id !== 'spam') sub += ' · был(а) недавно';
+      else if (sub && contact.id !== 'bank' && contact.id !== 'scratch' && !contact.spam) sub += ' · был(а) недавно';
     }
     $('#chat-subtitle').text(sub);
   }
