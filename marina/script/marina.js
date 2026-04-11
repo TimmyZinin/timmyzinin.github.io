@@ -5,211 +5,88 @@
  * Derivative work based on A Dark Room by Michael Townsend
  * (github.com/doublespeakgames/adarkroom, MPL-2.0).
  *
- * «Марина в огне» — minimal incremental text sim about a founder's
- * first days. Implementation (c) 2026 Tim Zinin.
+ * «Марина в огне» v1.5 — 12-day terminal-style text sim about
+ * a founder's first days. Implementation (c) 2026 Tim Zinin.
  */
 
 (function () {
   'use strict';
 
-  var STATE_KEY = 'marina-fire:v1:state';
-  var VERSION_KEY = 'marina-fire:v1:version';
-  var VERSION = '1.0.0';
+  // ---------- constants ----------
+
+  var VERSION = '1.5.0';
+  var STATE_KEY = 'marina-fire:v1.5:state';
+  var VERSION_KEY = 'marina-fire:v1.5:version';
+  var OLD_V1_KEY = 'marina-fire:v1:state';
+  var OLD_V1_VERSION_KEY = 'marina-fire:v1:version';
   var SESSION_KEY = 'marina-fire:session_started_at';
 
-  var DAY_DURATION_MS = 30000; // 30s = 1 day
   var HOURS_PER_DAY = 100;
-
-  var STATE;
-
-  // ---------- narrative copy ----------
-
-  var COPY = {
-    intro: [
-      'пусто. тихо.',
-      'батарейка ноутбука на 20%.',
-      'марина смотрит на экран.',
-      '',
-      '«никому не нужно то, что я умею. это просто я думаю, что нужно.»',
-      '',
-      'она вздыхает и включает настольную лампу.'
-    ],
-    day_start: [
-      '',
-      '— день {day}. —',
-      '100 часов впереди. что делать первым.'
-    ],
-    reach_out_good: [
-      'написала в холодную. одному ответили: «давайте созвон завтра в 14».',
-      'один человек откликнулся. «сколько стоит?» — это похоже на начало.',
-      'написала двадцать сообщений. два дошли куда надо.',
-      'кто-то из старых коллег скинул контакт. «попробуй, ей как раз нужно».'
-    ],
-    reach_out_ok: [
-      'написала. один из ответов — «вернёмся через пару дней». засчитываем.',
-      'никто не ответил. зато есть вот этот — из альтернативного канала.',
-      'холодный запрос → тёплый ответ. так и пишется биография.'
-    ],
-    reach_out_meh: [
-      'часы ушли. ответов нет. так тоже бывает.',
-      'никто. тишина. закрыла ноутбук, открыла обратно.',
-      'зря. все чаты молчат.',
-      'отправила двенадцать писем. одно вернулось — «not delivered». хороший знак.'
-    ],
-    reach_out_bad: [
-      'буквы расплываются. марина перечитывает три раза, сдаётся, ничего не отправляет.',
-      'написала «извините», передумала. день провалился.',
-      'голова не варит. закрыла почту.'
-    ],
-    rest_locked_hint: [
-      'надо бы выключиться. но — «ещё пару писем». ещё пару. ещё.'
-    ],
-    rest_done: [
-      'налила кофе. дала ему остыть. двадцать минут — в окно.',
-      'прилегла. не спала, но выключилась на полчаса.',
-      'вышла в магазин. вернулась — мир немного другой.'
-    ],
-    end_day_normal: [
-      'закрыла ноутбук. завтра.',
-      'день закончился. рабочее окно закрывается.',
-      'свет в кабинете выключен. до утра.'
-    ],
-    hire_unlock: [
-      '',
-      'три человека ответили «давайте поговорим». один даже перезвонил.',
-      'теперь возможно нанять первого помощника — если хватит часов и лидов.'
-    ],
-    hire_done: [
-      '',
-      'первый сотрудник. в договоре написано «контент-менеджер», но на деле — всё.',
-      '— «вы точно хотите меня, а не кого-то с опытом?»',
-      '— «опыт заработается. мне нужен кто-то, кто не сбежит за неделю.»',
-      '',
-      'теперь есть кого попросить выйти на холодные контакты.'
-    ],
-    delegate_good: [
-      'сотрудник написал в холодную. два ответа. один — с вопросом: «можно созвон?».',
-      'новенький молодец. нашёл старого клиента, который сейчас в активном поиске.',
-      'хороший заход. команда работает, ты не одна.'
-    ],
-    delegate_ok: [
-      'сотрудник написал. один ответ. хорошо.',
-      'команда делает работу. ты пока смотришь в окно.',
-      'тишина, но не та, что изнутри. внешняя.'
-    ],
-    delegate_meh: [
-      'ничего не вышло. зато не ты это делала.',
-      'сотрудник отписался: «никто не отвечает». — «тоже нормально».',
-      'день работает сам по себе. результат — ноль.'
-    ],
-    forced_sleep: [
-      '',
-      'марина закрывает глаза за клавиатурой. просыпается через четыре часа с отпечатком q-w-e-r-t-y на щеке.',
-      'половина дня ушла. ничего не поделаешь — энергия была на нуле.'
-    ],
-    tim_intro: [
-      '',
-      'в дверь кабинета стучат. заходит немолодой мужчина с термосом.',
-      '',
-      '— «извините, я искал соседнюю дверь. а ваша открыта. я тут по воде».',
-      '— «нет воды».',
-      '— «я вижу».',
-      '',
-      'он смотрит на стол.',
-      '',
-      '— «знакомая сцена. я свою первую студию открывал в каше, турция. потом в москве. потом снова в каше. лампа, ноутбук, ощущение что ты дура, что это не работа».',
-      '— «вы кто?»',
-      '— «тим. оставлю визитку. не читайте сегодня. прочтите, когда устанете настолько, что перестанете отвечать на сообщения».',
-      '',
-      '— «и ещё: налей кофе. дай воде остыть. сядь у окна и не делай ничего двадцать минут. без этого не дойдёшь».',
-      '',
-      '(+5 часов · +1 лид · открыт отдых)'
-    ],
-    pressure_event: [
-      '',
-      'телефон вибрирует: «добрый день, вы нам писали. можно обсудить?»',
-      'сердце уходит в пятки. потом возвращается.',
-      '(+1 лид)'
-    ],
-    energy_warning: [
-      '',
-      'марина поймала себя на мысли: «я в последний раз ела? вчера? позавчера?»',
-      'звоночек. лёгкий.'
-    ],
-    day_summary_template: function (day, leads) {
-      return '— конец дня ' + day + ' · всего лидов: ' + leads + ' —';
-    }
-  };
-
-  // ---------- narrative output ----------
-
-  function say(linesOrLine) {
-    var lines = Array.isArray(linesOrLine) ? linesOrLine : [linesOrLine];
-    var $log = $('#log');
-    for (var i = 0; i < lines.length; i++) {
-      var line = lines[i];
-      var $p = $('<div>').addClass('log-line').text(line);
-      if (line === '') { $p.addClass('log-spacer'); }
-      $log.append($p);
-    }
-    // scroll into view
-    var el = document.getElementById('log');
-    if (el) { el.scrollTop = el.scrollHeight; }
-  }
-
-  function randomFrom(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
+  var FINALE_DAY = 12;
+  var CLOSE_DEAL_FAIL_RATE = 0.30; // pre-Tim
+  var MAX_LOG_LINES = 400;
 
   // ---------- state ----------
 
   function defaultState() {
     return {
+      version: VERSION,
       day: 1,
       hours: HOURS_PER_DAY,
       energy: 100,
+      cash: 500,
       leads: 0,
-      tim_met: false,
-      rest_unlocked: false,
-      hire_unlocked: false,
-      hire_done: false,
-      delegate_unlocked: false,
-      ending_seen: false,
-      pressure_event_fired: false,
-      energy_warning_fired: false,
-      actions_taken_total: 0,
-      actions_taken_today: 0,
+      // progression flags
       lamp_on: false,
-      day_started_at_ms: null
+      notebook_available: false,
+      lead_submitted: false,
+      qualification_unlocked: false,
+      // beat flags (fire once)
+      beat_intro: false,
+      beat_lena: false,
+      beat_anna: false,
+      beat_tim: false,
+      beat_tim_retry: false,
+      beat_food: false,
+      beat_anna_referral: false,
+      beat_rent: false,
+      beat_tim_return: false,
+      // reactive
+      lena_lifeline_used: false,
+      actions_today: 0,
+      ending_seen: false,
+      pending_choice: null
     };
   }
 
-  function saveState() {
-    try {
-      localStorage.setItem(STATE_KEY, JSON.stringify(STATE));
-      localStorage.setItem(VERSION_KEY, VERSION);
-    } catch (e) {
-      // ignore
-    }
-  }
+  var STATE;
 
   function loadState() {
+    // cleanup old v1 keys
+    try {
+      localStorage.removeItem(OLD_V1_KEY);
+      localStorage.removeItem(OLD_V1_VERSION_KEY);
+    } catch (e) {}
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
       if (raw && ver === VERSION) {
         var parsed = JSON.parse(raw);
-        // merge with defaults to guard against new fields
         var d = defaultState();
         for (var k in d) {
           if (!(k in parsed)) parsed[k] = d[k];
         }
         return parsed;
       }
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) {}
     return defaultState();
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STATE_KEY, JSON.stringify(STATE));
+      localStorage.setItem(VERSION_KEY, VERSION);
+    } catch (e) {}
   }
 
   function clearState() {
@@ -219,251 +96,589 @@
     } catch (e) {}
   }
 
-  // ---------- hud ----------
+  // ---------- log helpers ----------
+
+  function logLine(text, cls) {
+    var $log = $('#log');
+    var $p = $('<div>').addClass('log-line').text(text);
+    if (cls) $p.addClass(cls);
+    if (text === '') $p.addClass('log-spacer');
+    $log.append($p);
+    // trim old lines
+    var all = $log.children('.log-line');
+    if (all.length > MAX_LOG_LINES) {
+      all.slice(0, all.length - MAX_LOG_LINES).remove();
+    }
+    // auto-scroll
+    var el = document.getElementById('log');
+    if (el) el.scrollTop = el.scrollHeight;
+  }
+
+  function say(lines, cls) {
+    if (!Array.isArray(lines)) lines = [lines];
+    for (var i = 0; i < lines.length; i++) {
+      logLine(lines[i], cls);
+    }
+  }
+
+  function sys(text)   { logLine('[system] ' + text, 'log-system'); }
+  function alert_(text){ logLine('[alert] ' + text, 'log-alert'); }
+  function ok(text)    { logLine('[ok] ' + text, 'log-ok'); }
+  function divider()   { logLine('───────────────────────────────────────────', 'log-divider'); }
+  function spacer()    { logLine('', 'log-spacer'); }
+
+  // ---------- HUD ----------
 
   function renderHud() {
-    $('#hud-day').text('день ' + STATE.day);
-    $('#hud-hours').text(Math.max(0, Math.floor(STATE.hours)) + ' ч');
-    $('#hud-energy').text(Math.max(0, Math.floor(STATE.energy)) + ' · энергия');
-    $('#hud-leads').text(STATE.leads + ' · лиды');
+    var $l1 = $('#hud-line1').empty();
+    $l1.append($('<span class="prompt">').text('marina@studio ~$ '));
+    $l1.append($('<span class="title">').text('day ' + STATE.day + ' / ' + FINALE_DAY));
+
+    var $l2 = $('#hud-line2').empty();
+    var stats = [
+      { label: Math.max(0, Math.floor(STATE.hours)) + 'h', cls: 'stat stat-hours' },
+      { label: Math.max(0, Math.floor(STATE.energy)) + 'e', cls: 'stat stat-energy' + (STATE.energy < 25 ? ' low' : '') },
+      { label: (STATE.cash < 0 ? '-$' + Math.abs(STATE.cash) : '$' + STATE.cash), cls: 'stat stat-cash' + (STATE.cash < 0 ? ' neg' : '') },
+      { label: STATE.leads + ' leads', cls: 'stat stat-leads' }
+    ];
+    stats.forEach(function (s) {
+      $l2.append($('<span>').addClass(s.cls).text(s.label));
+    });
+  }
+
+  // ---------- beats (narrative only — no money mutations) ----------
+
+  function beatIntro() {
+    if (STATE.beat_intro) return;
+    STATE.beat_intro = true;
+    say([
+      'пусто.',
+      'тихо.',
+      'батарейка ноутбука на 20%.',
+      '',
+      '«никому не нужно то, что я умею. это просто я думаю, что нужно».',
+      '',
+      'марина вздыхает и тянется к настольной лампе.'
+    ]);
+  }
+
+  function beatLena() {
+    if (STATE.beat_lena) return;
+    STATE.beat_lena = true;
+    spacer();
+    sys('входящее: лена');
+    say([
+      '«эй, подруга. услышала, что ты ушла из агентства.',
+      ' первая неделя всегда самая тяжёлая — я была там.',
+      ' через пару дней скину контакты: одна девочка',
+      ' ищет подрядчика на лендинг. держись».'
+    ]);
+  }
+
+  function beatAnna() {
+    if (STATE.beat_anna) return;
+    STATE.beat_anna = true;
+    spacer();
+    sys('входящее: анна (по рекомендации лены)');
+    say([
+      '«привет. лена про тебя рассказала.',
+      ' у меня небольшой проект — двустраничник,',
+      ' бюджет скромный: $300. если готова',
+      ' быстро — возьмёшь?»'
+    ]);
+    STATE.pending_choice = 'anna_first';
+  }
+
+  function beatTimNotebook() {
+    if (STATE.beat_tim) return;
+    STATE.beat_tim = true;
+    STATE.notebook_available = true;
+    spacer();
+    sys('входящее: лена');
+    say([
+      '«слушай. у меня есть знакомый — тим.',
+      ' живёт где-то в каше, турция. когда-то',
+      ' я у него верстала сайт.',
+      ' он не продаёт волшебных таблеток.',
+      ' говорит: если хочешь, напиши ему что',
+      ' сейчас горит больше всего. прочитает».'
+    ]);
+    spacer();
+    divider();
+    say('тим / каш / бывший клиент лены');
+    divider();
+    spacer();
+    sys('доступно действие: открыть блокнот');
+  }
+
+  function beatTimRetry() {
+    if (STATE.beat_tim_retry) return;
+    if (STATE.lead_submitted) return;
+    STATE.beat_tim_retry = true;
+    spacer();
+    sys('входящее: лена');
+    say([
+      '«тим снова передавал привет. говорит,',
+      ' если передумаешь — блокнот всё ещё на столе».'
+    ]);
+    sys('доступно действие: открыть блокнот');
+  }
+
+  function beatFoodDoubt() {
+    if (STATE.beat_food) return;
+    STATE.beat_food = true;
+    spacer();
+    say([
+      'в супермаркете ты стоишь в отделе круп и считаешь',
+      'в уме: на сколько хватит.',
+      '',
+      'в 31 год. после 4 лет карьеры. над крупой.'
+    ]);
+  }
+
+  function beatAnnaReferral() {
+    if (STATE.beat_anna_referral) return;
+    STATE.beat_anna_referral = true;
+    spacer();
+    sys('входящее: анна');
+    say([
+      '«эй. я тебя везде рекомендую.',
+      ' у коллеги задача — скоро напишет.',
+      ' если сработаетесь — будет ещё пара».'
+    ]);
+    STATE.leads += 2;
+    ok('+2 лида');
+  }
+
+  function beatRent() {
+    if (STATE.beat_rent) return;
+    STATE.beat_rent = true;
+    spacer();
+    say([
+      'простая цифра. ни тревоги, ни облегчения. баланс.',
+      'просто баланс, который каждый месяц показывает,',
+      'что ты — всё ещё здесь.'
+    ]);
+  }
+
+  function beatTimReturn() {
+    if (STATE.beat_tim_return) return;
+    if (!STATE.lead_submitted) return;
+    STATE.beat_tim_return = true;
+    spacer();
+    sys('входящее: тим');
+    say([
+      '«почти две недели прошло.',
+      ' qualification работает?',
+      ' ты уже видишь, кто реальный, а кто из воздуха».'
+    ]);
+  }
+
+  // ---------- day-triggered beat dispatch ----------
+
+  var BEATS = {
+    2:  [beatLena],
+    4:  [beatAnna],
+    5:  [beatTimNotebook],
+    6:  [beatFoodDoubt],
+    7:  [beatTimRetry],
+    8:  [beatAnnaReferral],
+    10: [beatRent],
+    11: [beatTimReturn]
+  };
+
+  // ---------- passive costs (SINGLE SOURCE) ----------
+
+  function processPassive(day) {
+    // food day 6
+    if (day === 6 && !STATE._passive_food_done) {
+      STATE._passive_food_done = true;
+      STATE.cash -= 200;
+      sys('-$200. магазин.');
+    }
+    // rent day 10
+    if (day === 10 && !STATE._passive_rent_done) {
+      STATE._passive_rent_done = true;
+      STATE.cash -= 500;
+      sys('-$500. аренда. смс от банка.');
+    }
+    // Lena lifeline (reactive, once)
+    if (STATE.cash < 0 && !STATE.lena_lifeline_used) {
+      STATE.lena_lifeline_used = true;
+      STATE.cash += 300;
+      spacer();
+      sys('входящее: лена');
+      say([
+        '«подруга. у меня есть $300',
+        ' на пару недель. не спорь.',
+        ' отдашь как сможешь».'
+      ]);
+      ok('+$300 · лена');
+    }
   }
 
   // ---------- actions ----------
 
+  function canAct() {
+    return !STATE.ending_seen && !STATE.pending_choice;
+  }
+
   var ACTIONS = {
     lamp: {
       label: 'включить лампу',
-      cost: { hours: 0, energy: 0 },
       visible: function () { return !STATE.lamp_on; },
-      enabled: function () { return true; },
+      enabled: function () { return canAct(); },
       perform: function () {
         STATE.lamp_on = true;
-        STATE.day_started_at_ms = Date.now();
-        say(['', 'свет. кабинет вдруг стал теснее и конкретнее.', 'ноутбук открыт. почта открыта. чат пуст.']);
-        say(COPY.day_start.map(function (s) { return s.replace('{day}', STATE.day); }));
-        scheduleTimTrigger();
+        spacer();
+        say([
+          'свет. кабинет вдруг стал теснее и конкретнее.',
+          'ноутбук открыт. почта открыта. чат пуст.'
+        ]);
+        spacer();
+        sys('день 1. 100 часов впереди.');
+        // fire day 1 intro sequel if needed
       }
     },
+
     reach_out: {
-      label: 'написать в холодную',
-      cost: { hours: 15, energy: 10 },
+      label: 'написать в холодную (15ч, 10e)',
       visible: function () { return STATE.lamp_on; },
-      enabled: function () { return STATE.hours >= 15 && STATE.energy > 0; },
+      enabled: function () { return canAct() && STATE.hours >= 15 && STATE.energy >= 10; },
       perform: function () {
-        var bucket;
-        var e = STATE.energy;
-        var roll = Math.random();
-        if (e >= 70) {
-          // 10% 0, 50% 1, 40% 2
-          if (roll < 0.1) bucket = 0;
-          else if (roll < 0.6) bucket = 1;
-          else bucket = 2;
-          if (bucket === 0) say(randomFrom(COPY.reach_out_meh));
-          else say(randomFrom(COPY.reach_out_good));
-        } else if (e >= 40) {
-          // 30% 0, 50% 1, 20% 2
-          if (roll < 0.3) bucket = 0;
-          else if (roll < 0.8) bucket = 1;
-          else bucket = 2;
-          if (bucket === 0) say(randomFrom(COPY.reach_out_meh));
-          else if (bucket === 1) say(randomFrom(COPY.reach_out_ok));
-          else say(randomFrom(COPY.reach_out_good));
-        } else if (e >= 20) {
-          // 50% 0, 40% 1, 10% 2
-          if (roll < 0.5) bucket = 0;
-          else if (roll < 0.9) bucket = 1;
-          else bucket = 2;
-          if (bucket === 0) say(randomFrom(COPY.reach_out_meh));
-          else if (bucket === 1) say(randomFrom(COPY.reach_out_ok));
-          else say(randomFrom(COPY.reach_out_good));
-        } else {
-          // 80% 0, 20% 1, 0% 2
-          bucket = roll < 0.8 ? 0 : 1;
-          say(randomFrom(COPY.reach_out_bad));
-        }
         STATE.hours -= 15;
         STATE.energy = Math.max(0, STATE.energy - 10);
+        STATE.actions_today += 1;
+
+        // RNG weighted by energy
+        var roll = Math.random();
+        var bucket;
+        var e = STATE.energy;
+        if (e >= 70) {
+          bucket = roll < 0.10 ? 0 : (roll < 0.60 ? 1 : 2);
+        } else if (e >= 40) {
+          bucket = roll < 0.30 ? 0 : (roll < 0.80 ? 1 : 2);
+        } else if (e >= 20) {
+          bucket = roll < 0.50 ? 0 : (roll < 0.90 ? 1 : 2);
+        } else {
+          bucket = roll < 0.80 ? 0 : 1;
+        }
+
+        var flavors = [
+          [
+            ['> reach_out --cold', 'log-prompt'],
+            ['написала десять писем. тишина.', 'log-system']
+          ],
+          [
+            ['> reach_out --cold', 'log-prompt'],
+            ['один ответил: «давайте на созвон завтра».', null]
+          ],
+          [
+            ['> reach_out --cold', 'log-prompt'],
+            ['два ответа за раз. один даже спросил про сроки.', null]
+          ]
+        ];
+        var frames = flavors[bucket];
+        spacer();
+        for (var i = 0; i < frames.length; i++) {
+          logLine(frames[i][0], frames[i][1] || undefined);
+        }
         STATE.leads += bucket;
-        STATE.actions_taken_total += 1;
-        STATE.actions_taken_today += 1;
-        maybeTimIntro();
-        maybePressureEvent();
-        maybeEnergyWarning();
-        maybeHireUnlock();
-        maybeFirstLeadAnalytics();
+        if (bucket > 0) ok('+' + bucket + ' лид' + (bucket > 1 ? 'а' : ''));
       }
     },
+
     rest: {
-      label: 'передохнуть (20 ч → +30 энергии)',
-      cost: { hours: 20, energy: 0 },
-      visible: function () { return STATE.rest_unlocked; },
-      enabled: function () { return STATE.hours >= 20 && STATE.energy < 100; },
+      label: 'отдохнуть (20ч → +30 энергии)',
+      visible: function () { return STATE.lamp_on; },
+      enabled: function () { return canAct() && STATE.hours >= 20 && STATE.energy < 100; },
       perform: function () {
         STATE.hours -= 20;
         STATE.energy = Math.min(100, STATE.energy + 30);
-        say(randomFrom(COPY.rest_done));
+        spacer();
+        logLine('> rest', 'log-prompt');
+        say('налила кофе. дала воде остыть. двадцать минут — в окно.');
+        ok('+30 энергии');
       }
     },
-    hire: {
-      label: 'нанять помощника (3 лида + 50 ч)',
-      cost: { hours: 50, energy: 0, leads: 3 },
-      visible: function () { return STATE.hire_unlocked && !STATE.hire_done; },
-      enabled: function () { return STATE.hours >= 50 && STATE.leads >= 3; },
+
+    close_deal: {
+      label: 'закрыть сделку (25ч)',
+      visible: function () { return STATE.lamp_on && STATE.beat_anna; },
+      enabled: function () { return canAct() && STATE.hours >= 25 && STATE.leads >= 1; },
       perform: function () {
-        STATE.hours -= 50;
-        STATE.leads -= 3;
-        STATE.hire_done = true;
-        STATE.delegate_unlocked = true;
-        say(COPY.hire_done);
-        umami('hire_unlocked');
+        STATE.hours -= 25;
+        STATE.leads -= 1;
+        spacer();
+        logLine('> close_deal', 'log-prompt');
+
+        if (STATE.qualification_unlocked) {
+          // reliable, +$400-600
+          var gain = 400 + Math.floor(Math.random() * 201); // 400..600
+          STATE.cash += gain;
+          say([
+            'созвон прошёл ровно. договор подписан,',
+            'первая часть сегодня на счёт.'
+          ]);
+          ok('+$' + gain + ' · сделка закрыта');
+        } else {
+          // 30% fail
+          if (Math.random() < CLOSE_DEAL_FAIL_RATE) {
+            STATE.energy = Math.max(0, STATE.energy - 5);
+            say([
+              'созвон странный. клиент «подумает»',
+              'и исчезает. ты не поняла где потеряла.'
+            ]);
+            alert_('сделка не состоялась');
+          } else {
+            var gainUnq = 300 + Math.floor(Math.random() * 101); // 300..400
+            STATE.cash += gainUnq;
+            say([
+              'сработало. не идеально, но сработало.',
+              'договор подписан, аванс на счёт.'
+            ]);
+            ok('+$' + gainUnq + ' · сделка закрыта');
+          }
+        }
       }
     },
-    delegate_outreach: {
-      label: 'поручить команде холодные',
-      cost: { hours: 10, energy: 0 },
-      visible: function () { return STATE.delegate_unlocked; },
-      enabled: function () { return STATE.hours >= 10; },
+
+    qualification: {
+      label: 'квалифицировать лид (10ч)',
+      visible: function () { return STATE.qualification_unlocked; },
+      enabled: function () { return canAct() && STATE.hours >= 10 && STATE.leads >= 1; },
       perform: function () {
-        var bucket;
-        var roll = Math.random();
-        // flatter distribution, cost no energy (team takes the burnout)
-        if (roll < 0.35) bucket = 0;
-        else if (roll < 0.85) bucket = 1;
-        else bucket = 2;
-        if (bucket === 0) say(randomFrom(COPY.delegate_meh));
-        else if (bucket === 1) say(randomFrom(COPY.delegate_ok));
-        else say(randomFrom(COPY.delegate_good));
         STATE.hours -= 10;
-        STATE.leads += bucket;
-        STATE.actions_taken_total += 1;
-        STATE.actions_taken_today += 1;
+        spacer();
+        logLine('> qualification --next', 'log-prompt');
+        say([
+          'десять минут вопросов: кто ты, зачем, бюджет.',
+          'на этом лиде — всё сходится. реальный.'
+        ]);
+        ok('следующий close_deal гарантированно успешен');
       }
     },
+
+    open_notebook: {
+      label: 'открыть блокнот (написать тиму)',
+      visible: function () { return STATE.notebook_available && !STATE.lead_submitted; },
+      enabled: function () { return canAct(); },
+      perform: function () {
+        spacer();
+        logLine('> open notebook', 'log-prompt');
+        mountInlineForm();
+      }
+    },
+
     end_day: {
       label: 'закрыть ноутбук (конец дня)',
-      cost: {},
       visible: function () { return STATE.lamp_on; },
-      enabled: function () { return true; },
+      enabled: function () { return canAct(); },
       perform: function () {
-        say(['', COPY.day_summary_template(STATE.day, STATE.leads)]);
-        say(randomFrom(COPY.end_day_normal));
+        spacer();
+        logLine('> end_day', 'log-prompt');
+        say('— конец дня ' + STATE.day + ' · $' + STATE.cash + ' · лидов ' + STATE.leads + ' —');
+
         STATE.day += 1;
         STATE.hours = HOURS_PER_DAY;
-        STATE.actions_taken_today = 0;
-        STATE.day_started_at_ms = Date.now();
-        say(COPY.day_start.map(function (s) { return s.replace('{day}', STATE.day); }));
+        STATE.energy = Math.min(100, STATE.energy + 20);
+        STATE.actions_today = 0;
+
+        if (STATE.day > FINALE_DAY) {
+          STATE.day = FINALE_DAY;
+          triggerFinale();
+          return;
+        }
+
+        // morning header
+        spacer();
+        sys('день ' + STATE.day + '. 100 часов впереди.');
+
+        // fire day-triggered beats
+        fireBeatsForDay(STATE.day);
+        // process passive costs
+        processPassive(STATE.day);
+        // lifeline check again after passive
+        if (STATE.cash < 0 && !STATE.lena_lifeline_used) {
+          processPassive(STATE.day);
+        }
       }
     }
   };
 
-  // ---------- events ----------
-
-  function scheduleTimTrigger() {
-    // Tim appears after 2 reach_out actions OR 45 seconds of play, whichever first
-    setTimeout(function () { maybeTimIntro(); }, 45000);
+  function fireBeatsForDay(day) {
+    var beats = BEATS[day];
+    if (!beats) return;
+    for (var i = 0; i < beats.length; i++) {
+      try { beats[i](); } catch (e) { /* noop */ }
+    }
   }
 
-  function maybeTimIntro() {
-    if (STATE.tim_met) return;
-    // trigger only after at least 1 action taken — so player sees the setup first
-    if (STATE.actions_taken_total < 1 && (Date.now() - (STATE.day_started_at_ms || Date.now())) < 45000) return;
-    STATE.tim_met = true;
-    STATE.rest_unlocked = true;
-    STATE.hours = Math.min(HOURS_PER_DAY, STATE.hours + 5);
-    STATE.leads += 1;
-    say(COPY.tim_intro);
-    render();
+  // ---------- choice handling (Anna first deal) ----------
+
+  function renderChoice() {
+    var $actions = $('#actions').empty();
+    if (STATE.pending_choice === 'anna_first') {
+      var $take = $('<button>').attr('type', 'button').addClass('action-btn').text('взять проект');
+      $take.on('click', function () {
+        STATE.pending_choice = null;
+        STATE.cash += 300;
+        STATE.leads = Math.max(0, STATE.leads); // no deduction
+        spacer();
+        say([
+          '«ура. договор отправила. первый $300 на счету.',
+          'странное чувство: ты больше не «бывший сотрудник».',
+          'ты — «подрядчик». смешно, но вслух проговорить страшно».'
+        ]);
+        ok('+$300 · первый закрытый');
+        save();
+        render();
+      });
+
+      var $decline = $('<button>').attr('type', 'button').addClass('action-btn').text('отказать (слишком быстро)');
+      $decline.on('click', function () {
+        STATE.pending_choice = null;
+        spacer();
+        say([
+          'ты отвечаешь «не сейчас». через полчаса',
+          'жалеешь, но уже поздно. лена поймёт.'
+        ]);
+        save();
+        render();
+      });
+
+      $actions.append($take).append($decline);
+    }
+  }
+
+  // ---------- inline lead form ----------
+
+  function mountInlineForm() {
+    if (!window.MarinaLead || typeof window.MarinaLead.mountInline !== 'function') {
+      sys('ошибка: lead модуль не загружен');
+      return;
+    }
+    var $log = $('#log');
+    var $formHost = $('<div>').attr('id', 'inline-lead-form');
+    $log.append($formHost);
+    document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
+
+    window.MarinaLead.mountInline($formHost, {
+      archetype: 'marina-v15',
+      source: 'marina-v-ogne',
+      onSuccess: function () {
+        STATE.lead_submitted = true;
+        STATE.qualification_unlocked = true;
+        spacer();
+        ok('блокнот закрыт. тим получил запись.');
+        spacer();
+        sys('входящее: тим');
+        say([
+          '«спасибо. прочитал. короткий совет:',
+          ' перед каждой сделкой делай qualification —',
+          ' 10 минут разговора «кто ты, зачем, есть ли',
+          ' бюджет». половина «клиентов» уходит в песок',
+          ' без этого. после этого — чище».'
+        ]);
+        ok('открыто действие: quality / qualification --next');
+        sys('день продолжается.');
+        save();
+        render();
+      },
+      onCancel: function () {
+        spacer();
+        sys('блокнот закрыт без записи.');
+        render();
+      }
+    });
+  }
+
+  // ---------- finale ----------
+
+  function triggerFinale() {
+    STATE.ending_seen = true;
     save();
-    umami('tim_intro');
-  }
 
-  function maybePressureEvent() {
-    if (STATE.pressure_event_fired) return;
-    if (STATE.leads >= 5 && !STATE.hire_done) {
-      STATE.pressure_event_fired = true;
-      STATE.leads += 1;
-      say(COPY.pressure_event);
-    }
-  }
+    var isA = (STATE.cash >= 0 && STATE.energy >= 25);
 
-  function maybeEnergyWarning() {
-    if (STATE.energy_warning_fired) return;
-    if (STATE.energy <= 25 && STATE.energy > 0) {
-      STATE.energy_warning_fired = true;
-      say(COPY.energy_warning);
-    }
-  }
+    // clear game-mode actions so no [ ] leftover shows up
+    $('#actions').empty();
+    // refresh HUD one last time
+    renderHud();
 
-  function maybeHireUnlock() {
-    if (STATE.hire_unlocked) return;
-    if (STATE.leads >= 3) {
-      STATE.hire_unlocked = true;
-      say(COPY.hire_unlock);
-    }
-  }
-
-  var _firstLeadReported = false;
-  function maybeFirstLeadAnalytics() {
-    if (!_firstLeadReported && STATE.leads >= 1) {
-      _firstLeadReported = true;
-      umami('first_lead');
-    }
-  }
-
-  function maybeForcedSleep() {
-    if (STATE.energy === 0 && STATE.hours > 0) {
-      say(COPY.forced_sleep);
-      STATE.hours = Math.max(0, STATE.hours - 50);
-      STATE.energy = 40;
-    }
-  }
-
-  // ---------- ending ----------
-
-  function checkEnding() {
-    if (STATE.ending_seen) return false;
-    if (STATE.leads >= 10) {
-      STATE.ending_seen = true;
-      umami('ending_seen');
-      saveState();
-      showEnding();
-      return true;
-    }
-    return false;
-  }
-
-  function showEnding() {
+    var $game = $('#game');
     var $ending = $('#ending');
     $ending.empty();
 
-    var endingLines = [
+    var linesA = [
       '',
-      'прошло ' + STATE.day + ' дней.',
+      'прошло 12 дней.',
       '',
-      'студия тлеет. не горит ярко — тлеет. но тепло.',
-      'марина смотрит на окно. за окном — другая марина. в турции, в мадриде, в каше, в шанхае.',
-      'каждая из них сейчас делает одно и то же: решает, сдаться или продолжить.',
+      'на счету что-то есть.',
+      'энергия — есть.',
+      'ты не сгорела. и это не победа.',
+      'это день двенадцатый. из долгой работы.',
       '',
-      'эта игра была не про победу.',
-      'она была про то, чтобы узнать себя раньше, чем сгорит всё.',
-      '',
-      'если ты узнала что-то про себя за эти 10 лидов —',
-      'расскажи. тим увидит.'
+      'но теперь ты знаешь: дальше можно.'
     ];
-    for (var i = 0; i < endingLines.length; i++) {
-      var l = endingLines[i];
+
+    var linesB = [
+      '',
+      'прошло 12 дней.',
+      '',
+      'что-то не получилось.',
+      'не ты. формат.',
+      'первая студия — часто не студия.',
+      'это испытание.',
+      '',
+      'эта игра заканчивается.',
+      'но второй шанс — не в игре.'
+    ];
+
+    var lines = isA ? linesA : linesB;
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i];
       var $p = $('<div>').addClass('ending-line').text(l);
       if (l === '') $p.addClass('log-spacer');
       $ending.append($p);
     }
 
-    // mount form
-    if (window.MarinaLead && typeof window.MarinaLead.mountForm === 'function') {
-      var $formHost = $('<div>').attr('id', 'lead-form-host').appendTo($ending);
-      window.MarinaLead.mountForm($formHost, { archetype: 'marina-v1a', source: 'marina-v-ogne' });
+    $ending.append($('<div>').addClass('ending-line ending-divider').text('— — —'));
+
+    if (STATE.lead_submitted) {
+      $ending.append($('<div>').addClass('ending-line ending-cta').text(
+        'тим видел твой блокнот. напиши в @timofeyzinin — договоримся про следующие 12 дней.'
+      ));
+      var $link = $('<a>')
+        .attr('href', 'https://t.me/timofeyzinin')
+        .attr('target', '_blank')
+        .attr('rel', 'noopener')
+        .addClass('ending-link')
+        .text('→ открыть telegram @timofeyzinin');
+      $ending.append($link);
+    } else {
+      $ending.append($('<div>').addClass('ending-line ending-cta').text(
+        'у тебя есть 30 секунд, чтобы рассказать тиму что горит больше всего. он ответит сегодня.'
+      ));
+      var $formHost = $('<div>').attr('id', 'ending-lead-form-host');
+      $ending.append($formHost);
+      if (window.MarinaLead) {
+        window.MarinaLead.mountInline($formHost, {
+          archetype: 'marina-v15',
+          source: 'marina-v-ogne',
+          finaleMode: true,
+          onSuccess: function () {
+            STATE.lead_submitted = true;
+            save();
+            $formHost.empty().append($('<div>').addClass('ending-line ending-cta').text(
+              'спасибо. тим ответит сегодня.'
+            ));
+          }
+        });
+      }
     }
 
-    $('#game').hide();
+    $game.hide();
     $ending.show();
     document.title = 'финал · Марина в огне';
     window.scrollTo(0, 0);
@@ -473,6 +688,13 @@
 
   function render() {
     renderHud();
+    if (STATE.ending_seen) {
+      return;
+    }
+    if (STATE.pending_choice) {
+      renderChoice();
+      return;
+    }
     var $actions = $('#actions').empty();
     for (var name in ACTIONS) {
       var a = ACTIONS[name];
@@ -488,19 +710,7 @@
     }
   }
 
-  function save() {
-    saveState();
-  }
-
-  // ---------- umami event helper ----------
-
-  function umami(name) {
-    try {
-      if (window.umami && typeof window.umami.track === 'function') {
-        window.umami.track(name);
-      }
-    } catch (e) {}
-  }
+  function save() { saveState(); }
 
   // ---------- init ----------
 
@@ -510,48 +720,62 @@
     }
 
     STATE = loadState();
-    renderHud();
 
-    if (!STATE.lamp_on) {
-      say(COPY.intro);
-    } else {
-      say(['', '(продолжаем с того же места. день ' + STATE.day + '.)']);
-    }
-
-    // If ending was seen, go directly to ending
+    // If resuming a completed game, show ending directly
     if (STATE.ending_seen) {
-      showEnding();
+      renderHud();
+      triggerFinale();
       return;
     }
 
-    render();
-    umami('game_start');
+    if (!STATE.lamp_on) {
+      // cold start
+      beatIntro();
+    } else {
+      say(['', '(продолжаем с того же места. день ' + STATE.day + ' / ' + FINALE_DAY + '.)']);
+    }
 
-    $('#actions').on('click', '.action-btn', function () {
+    render();
+
+    // day 1 beat sequence — lena fires on day 2 after end_day
+    $('#actions').on('click', '.action-btn[data-action]', function () {
       var name = $(this).attr('data-action');
       var a = ACTIONS[name];
       if (!a || !a.enabled()) return;
       a.perform();
-      maybeForcedSleep();
+      if (!STATE.pending_choice && STATE.day === 1 && STATE.lamp_on && !STATE.beat_intro_done) {
+        // first lamp click already logged intro text
+        STATE.beat_intro_done = true;
+      }
       save();
       render();
-      checkEnding();
     });
 
     $('#reset-link').on('click', function (e) {
       e.preventDefault();
-      if (confirm('начать заново?')) {
+      if (confirm('начать заново? текущий прогресс удалится.')) {
         clearState();
+        sessionStorage.removeItem(SESSION_KEY);
         location.reload();
       }
     });
   }
 
-  // expose for test / reset
+  // expose for test / rollback
   window.Marina = {
     init: init,
+    version: VERSION,
     _state: function () { return STATE; },
-    _reset: clearState
+    _reset: function () { clearState(); location.reload(); },
+    _forceDay: function (day) {
+      STATE.day = Math.min(FINALE_DAY, Math.max(1, parseInt(day, 10) || 1));
+      STATE.hours = HOURS_PER_DAY;
+      save(); render();
+    },
+    _forceEnding: function () {
+      STATE.day = FINALE_DAY;
+      triggerFinale();
+    }
   };
 
   $(function () { init(); });

@@ -2,8 +2,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * Lead submission module for «Марина в огне».
- * POSTs to FastAPI proxy — no bot token in frontend.
+ * Lead submission module for «Марина в огне» v1.5.
+ * Inline mode — renders inside game log, calls onSuccess to continue game.
+ * No bot token in frontend — POST via FastAPI proxy.
  * (c) 2026 Tim Zinin.
  */
 
@@ -18,48 +19,100 @@
   var MAX_HANDLE = 33;
   var MAX_PAIN = 500;
 
-  function mountForm($host, opts) {
+  function mountInline($host, opts) {
     opts = opts || {};
-    var archetype = opts.archetype || 'marina-v1a';
+    var archetype = opts.archetype || 'marina-v15';
     var source = opts.source || 'marina-v-ogne';
+    var finaleMode = !!opts.finaleMode;
+    var onSuccess = opts.onSuccess || function () {};
+    var onCancel = opts.onCancel || function () {};
 
     var $form = $('<form>').addClass('lead-form').attr('novalidate', 'novalidate');
 
-    $form.append($('<div>').addClass('lead-title').text('рассказать тиму'));
-    $form.append($('<div>').addClass('lead-sub').text('30 секунд. форма вручную читается. тим отвечает сам.'));
+    $form.append($('<div>').addClass('lead-form-header').text(
+      finaleMode
+        ? '──── написать тиму (30 сек) ────'
+        : '──── блокнот ────'
+    ));
 
+    // Name
     var $nameWrap = $('<label>').addClass('lead-field');
     $nameWrap.append($('<span>').text('как к тебе обращаться'));
-    var $name = $('<input>').attr({type: 'text', maxlength: MAX_NAME, required: 'required', autocomplete: 'off'});
+    var $name = $('<input>').attr({
+      type: 'text',
+      maxlength: MAX_NAME,
+      required: 'required',
+      autocomplete: 'off',
+      spellcheck: 'false'
+    });
     $nameWrap.append($name);
     $form.append($nameWrap);
 
+    // Handle
     var $handleWrap = $('<label>').addClass('lead-field');
-    $handleWrap.append($('<span>').text('telegram (@username, 3-32 символа)'));
-    var $handle = $('<input>').attr({type: 'text', maxlength: MAX_HANDLE, required: 'required', autocomplete: 'off', placeholder: '@username'});
+    $handleWrap.append($('<span>').text('@telegram (3-32 символа: буквы, цифры, _)'));
+    var $handle = $('<input>').attr({
+      type: 'text',
+      maxlength: MAX_HANDLE,
+      required: 'required',
+      autocomplete: 'off',
+      spellcheck: 'false',
+      placeholder: '@username'
+    });
     $handleWrap.append($handle);
     $form.append($handleWrap);
 
+    // Pain
     var $painWrap = $('<label>').addClass('lead-field');
-    $painWrap.append($('<span>').text('что сейчас болит больше всего'));
-    var $pain = $('<textarea>').attr({maxlength: MAX_PAIN, required: 'required', rows: '4'});
+    $painWrap.append($('<span>').text('что сейчас горит больше всего'));
+    var $pain = $('<textarea>').attr({
+      maxlength: MAX_PAIN,
+      required: 'required',
+      rows: '3',
+      spellcheck: 'false'
+    });
     $painWrap.append($pain);
     $form.append($painWrap);
 
-    // honeypot
+    // Honeypot
     var $hp = $('<input>').attr({
-      type: 'text', name: 'website', tabindex: '-1',
-      autocomplete: 'off', 'aria-hidden': 'true'
+      type: 'text',
+      name: 'website',
+      tabindex: '-1',
+      autocomplete: 'off',
+      'aria-hidden': 'true'
     }).css({
-      position: 'absolute', left: '-9999px', opacity: '0', height: '1px', width: '1px'
+      position: 'absolute',
+      left: '-9999px',
+      opacity: '0',
+      height: '1px',
+      width: '1px'
     });
     $form.append($hp);
 
-    var $submit = $('<button>').attr('type', 'submit').addClass('lead-submit').text('отправить');
-    $form.append($submit);
+    // Actions
+    var $actions = $('<div>').addClass('lead-form-actions');
+    var $submit = $('<button>').attr('type', 'submit').addClass('lead-submit').text('save');
+    $actions.append($submit);
+    if (!finaleMode) {
+      var $cancel = $('<button>').attr('type', 'button').addClass('lead-cancel').text('cancel');
+      $cancel.on('click', function (e) {
+        e.preventDefault();
+        $form.remove();
+        onCancel();
+      });
+      $actions.append($cancel);
+    }
+    $form.append($actions);
 
     var $status = $('<div>').addClass('lead-status');
     $form.append($status);
+
+    function setStatus(text, isErr) {
+      $status.text(text);
+      if (isErr) $status.addClass('err');
+      else $status.removeClass('err');
+    }
 
     $form.on('submit', function (e) {
       e.preventDefault();
@@ -70,33 +123,34 @@
       var hpVal = $.trim($hp.val());
 
       if (hpVal) {
-        $status.text('').css('color', '');
+        // honeypot — silently fail
+        setStatus('', false);
         return;
       }
 
       if (!name || name.length > MAX_NAME) {
-        $status.text('имя нужно, и покороче.').css('color', '#c5380e');
+        setStatus('имя нужно, до 60 символов.', true);
         return;
       }
       var handleNormalized = handle.replace(/^@/, '');
       if (!/^[a-zA-Z0-9_]{3,32}$/.test(handleNormalized)) {
-        $status.text('telegram handle должен быть 3-32 латинских/цифр/подчёркиваний.').css('color', '#c5380e');
+        setStatus('telegram: 3-32 символа, латинские/цифры/подчёркивания.', true);
         return;
       }
       if (!pain || pain.length > MAX_PAIN) {
-        $status.text('опиши что болит (до 500 символов).').css('color', '#c5380e');
+        setStatus('опиши что горит. до 500 символов.', true);
         return;
       }
 
       var sessionStart = parseInt(sessionStorage.getItem(SESSION_KEY) || '0', 10);
       var elapsed = Date.now() - sessionStart;
       if (!sessionStart || elapsed < MIN_SESSION_MS) {
-        $status.text('сессия слишком короткая. подожди ещё немного.').css('color', '#c5380e');
+        setStatus('сессия слишком короткая. подожди ещё немного.', true);
         return;
       }
 
-      $submit.attr('disabled', 'disabled').text('отправляем...');
-      $status.text('').css('color', '');
+      $submit.attr('disabled', 'disabled').text('sending...');
+      setStatus('', false);
 
       var payload = {
         name: name,
@@ -115,29 +169,35 @@
         data: JSON.stringify(payload),
         timeout: 15000
       }).done(function () {
-        $form.empty();
-        $form.append($('<div>').addClass('lead-success').text('тим увидит заявку. обычно отвечает в течение дня.'));
-        try {
-          if (window.umami && typeof window.umami.track === 'function') {
-            window.umami.track('lead_submitted');
-          }
-        } catch (e) {}
+        $form.remove();
+        onSuccess();
       }).fail(function (xhr) {
-        var msg = 'не доставилось. попробуй ещё раз через минуту.';
+        var msg = 'не доставилось. попробуй через минуту.';
         if (xhr && xhr.status === 429) {
           msg = 'слишком много попыток. попробуй через час.';
         } else if (xhr && xhr.status === 400) {
-          msg = 'что-то не так с данными. проверь handle и текст.';
+          msg = 'что-то не так с данными. проверь @handle.';
         } else if (xhr && xhr.status === 403) {
-          msg = 'отправка заблокирована. напиши тиму напрямую.';
+          msg = 'заблокировано cors. напиши тиму напрямую.';
         }
-        $status.text(msg).css('color', '#c5380e');
-        $submit.removeAttr('disabled').text('отправить');
+        setStatus(msg, true);
+        $submit.removeAttr('disabled').text('save');
       });
     });
 
     $host.append($form);
+
+    // focus first field
+    setTimeout(function () { $name.focus(); }, 30);
   }
 
-  window.MarinaLead = { mountForm: mountForm };
+  // Legacy compat (old v1a callers)
+  function mountForm($host, opts) {
+    return mountInline($host, opts);
+  }
+
+  window.MarinaLead = {
+    mountInline: mountInline,
+    mountForm: mountForm
+  };
 })();
