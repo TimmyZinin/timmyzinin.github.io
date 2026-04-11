@@ -50,7 +50,7 @@
     "success_title": "Получил",
     "success_body": "Тим увидит твою заявку в течение часа. Если срочно — пиши ему напрямую: @timzinin",
     "error_rate_limit": "Слишком много заявок с твоего IP. Попробуй через час.",
-    "error_origin": "Открой игру через timzinin.com/entrepreneur-quest/ и попробуй снова.",
+    "error_origin": "Открой игру через timzinin.com/eq/ и попробуй снова.",
     "error_server": "Сервер не отвечает. Напиши Тиму напрямую: @timzinin"
   },
   "share_screen": {
@@ -79,7 +79,7 @@
       "linkedin_text": "«Год Марины» — моя концовка Phoenix. Неплохой триггер задуматься над своим роутом. Попробуй →"
     }
   },
-  "share_url_base": "https://timzinin.com/entrepreneur-quest/?utm_source={platform}&utm_medium=social&utm_campaign=entrepreneur_quest&utm_content={archetype}",
+  "share_url_base": "https://timzinin.com/eq/?utm_source={platform}&utm_medium=social&utm_campaign=entrepreneur_quest&utm_content={archetype}",
   "og_meta": {
     "title": "Год Марины — браузерная история про предпринимателя",
     "description": "Интерактивная история в 7 сценах. Каждый выбор меняет судьбу студии. Какой будет твоя концовка?",

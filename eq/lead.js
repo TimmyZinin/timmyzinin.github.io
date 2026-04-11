@@ -83,7 +83,7 @@
         return { ok: false, error: 'Слишком много заявок. Попробуй через час.' };
       }
       if (resp.status === 403) {
-        return { ok: false, error: 'Открой игру через timzinin.com/entrepreneur-quest/' };
+        return { ok: false, error: 'Открой игру через timzinin.com/eq/' };
       }
       if (resp.status === 400) {
         return { ok: false, error: 'Проверь поля формы и попробуй ещё раз.' };

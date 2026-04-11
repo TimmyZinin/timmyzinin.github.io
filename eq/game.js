@@ -336,7 +336,7 @@
 
   // ============ Share ============
   function generateShareUrl(platform) {
-    const base = 'https://timzinin.com/entrepreneur-quest/';
+    const base = 'https://timzinin.com/eq/';
     const utm = new URLSearchParams({
       utm_source: platform,
       utm_medium: 'social',
