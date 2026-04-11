@@ -19,6 +19,8 @@
     'audio/soundtrack_2.mp3',  // 2. «потолок не падает»
     'audio/soundtrack_3.mp3'   // 3. «обычный вторник»
   ];
+  // Finale track — interrupts rotation starting day 29+
+  var FINALE_TRACK = 'audio/soundtrack_4.mp3'; // 4. «Тридцать дней до потолка»
   var MUSIC_VOL = 0.42; // sit under SFX (~-7 dB)
 
   var AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -27,6 +29,7 @@
   var muted = false; // default ON — real music now ships
   var soundtrack = null; // current HTMLAudioElement
   var trackIndex = 0;
+  var inFinaleMode = false;
   var musicFadeTimer = null;
   var firstUnlockDone = false;
 
@@ -77,7 +80,20 @@
   }
 
   function onTrackEnded() {
-    // Advance to next track in playlist (wrap around)
+    // In finale mode — loop the finale track forever, don't advance playlist
+    if (inFinaleMode) {
+      if (soundtrack) {
+        try {
+          soundtrack.currentTime = 0;
+          var p = soundtrack.play();
+          if (p && typeof p.then === 'function') {
+            p.catch(function () {});
+          }
+        } catch (e) {}
+      }
+      return;
+    }
+    // Normal rotation: advance to next track
     trackIndex = (trackIndex + 1) % PLAYLIST.length;
     if (soundtrack) {
       try {
@@ -86,7 +102,6 @@
       } catch (e) {}
       soundtrack = null;
     }
-    // If unmuted, start next track
     if (!muted) {
       ensureSoundtrack();
       var s = soundtrack;
@@ -94,11 +109,48 @@
       try {
         var p = s.play();
         if (p && typeof p.then === 'function') {
-          p.catch(function () { /* blocked — wait for user gesture */ });
+          p.catch(function () {});
         }
         fadeTo(MUSIC_VOL, 1500);
       } catch (e) {}
     }
+  }
+
+  // Switch to finale track (called from day 29+) — overrides playlist rotation
+  function playFinaleTrack() {
+    if (inFinaleMode) return; // already in finale mode
+    inFinaleMode = true;
+
+    // Fade out current track, swap source, fade in
+    fadeTo(0, 800, function () {
+      if (soundtrack) {
+        try {
+          soundtrack.removeEventListener('ended', onTrackEnded);
+          soundtrack.pause();
+        } catch (e) {}
+      }
+      try {
+        soundtrack = new Audio(FINALE_TRACK);
+        soundtrack.loop = true; // real loop — no advance
+        soundtrack.preload = 'auto';
+        soundtrack.volume = 0;
+        soundtrack.addEventListener('ended', onTrackEnded);
+        soundtrack.addEventListener('error', function () {
+          console.warn('finale track load failed');
+          inFinaleMode = false;
+        });
+        if (!muted) {
+          var p = soundtrack.play();
+          if (p && typeof p.then === 'function') {
+            p.catch(function () {});
+          }
+          fadeTo(MUSIC_VOL, 2000);
+        }
+      } catch (e) {
+        console.warn('finale track init error', e);
+        inFinaleMode = false;
+      }
+    });
   }
 
   function clearFade() {
@@ -291,6 +343,7 @@
     setMuted: setMuted,
     isMuted: isMuted,
     playMusic: playMusic,
-    stopMusic: stopMusic
+    stopMusic: stopMusic,
+    playFinaleTrack: playFinaleTrack
   };
 })();

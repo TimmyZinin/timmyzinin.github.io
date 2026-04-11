@@ -416,7 +416,7 @@
     });
 
     if (!STATE.lamp_on) {
-      var $lamp = $('<button class="dock-btn">').attr('data-action', 'lamp').text('включить лампу');
+      var $lamp = $('<button class="dock-btn">').attr('data-action', 'lamp').text('включить компьютер');
       $buttons.append($lamp);
     }
 
@@ -1504,6 +1504,10 @@
         try { fireDayBeats(STATE.day); } catch (e) { console.error('beats error', e); }
         // Check mid-month hard-fail conditions (hunger starvation / comfort breakdown / cash crash)
         try { checkEndings(false); } catch (e) {}
+        // SPRINT 02 — Finale track kicks in on last 2 days
+        if (STATE.day >= 29 && window.MarinaAudio && window.MarinaAudio.playFinaleTrack) {
+          try { window.MarinaAudio.playFinaleTrack(); } catch (e) {}
+        }
       } catch (e) {
         console.error('endDay transition error', e);
       } finally {
