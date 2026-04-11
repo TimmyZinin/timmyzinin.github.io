@@ -304,6 +304,7 @@ html, body {
 .contact-avatar.pavel    { background: linear-gradient(135deg, #b5bfcc 0%, #5f6d80 100%); }
 .contact-avatar.mama     { background: linear-gradient(135deg, #ff9ab4 0%, #d13c65 100%); }
 .contact-avatar.denis    { background: linear-gradient(135deg, #ffd47a 0%, #d17e0e 100%); }
+.contact-avatar.spam     { background: linear-gradient(135deg, #6c7d90 0%, #2b3a4a 100%); color: #a1b5c8; }
 .contact-avatar.scratch  { background: linear-gradient(135deg, #ffb64a 0%, #c5380e 60%, #8f1a05 100%); }
 
 .contact-info {
@@ -598,6 +599,7 @@ html, body {
 .bubble.incoming[data-from="pavel"] .sender-name { color: var(--c-pavel); }
 .bubble.incoming[data-from="mama"]  .sender-name { color: var(--c-mama); }
 .bubble.incoming[data-from="denis"] .sender-name { color: var(--c-denis); }
+.bubble.incoming[data-from="spam"]  .sender-name { color: #8c9aaa; font-style: italic; }
 
 /* Typing indicator */
 

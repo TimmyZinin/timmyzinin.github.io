@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.0.3';
+  var VERSION = '2.0.4';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -142,13 +142,15 @@
         { id: 'pavel',   name: 'Павел',           avatar: 'П',  unread: 0, visible: false },
         { id: 'mama',    name: 'мама',            avatar: '♥',  unread: 0, visible: false },
         { id: 'denis',   name: 'Денис',           avatar: 'Д',  unread: 0, visible: false },
+        { id: 'spam',    name: '+7 неизвестные',  avatar: '?',  unread: 0, visible: false },
         { id: 'scratch', name: 'себе',            avatar: 'М',  unread: 0, visible: true  }
       ],
       threads: {
         lena: [], anna: [], tim: [], bank: [],
-        khozyaika: [], pavel: [], mama: [], denis: [],
+        khozyaika: [], pavel: [], mama: [], denis: [], spam: [],
         scratch: []
       },
+      spam_used: [],
       current_chat: 'scratch',
       current_folder: 'all'
     };
@@ -924,6 +926,155 @@
     STATE['_denis' + day + '_pending'] = true;
   }
 
+  // ========== spam / humor dialogues (flavor only, zero cost) ==========
+
+  var JOKE_DECK = [
+    {
+      id: 'pirog',
+      sender: 'Людочка (не Людочка)',
+      bubbles: [
+        'Людочка, ты забыла у меня в духовке пирог 🥧',
+        'Я не знаю что с ним делать. Он уже 4 часа там. Он живой ещё?',
+        'Алло? Люда это ты??'
+      ]
+    },
+    {
+      id: 'solana',
+      sender: 'БРАТ КРИПТА',
+      bubbles: [
+        'БРАТ',
+        'СОЛАНА ЛЕТИТ 🚀🚀🚀',
+        '1000X ЭТОТ МЕСЯЦ. заносишь $100 — делаешь $100000. не упусти шанс поменять жизнь'
+      ]
+    },
+    {
+      id: 'herbalife',
+      sender: 'Оля Петрова (11-Б)',
+      bubbles: [
+        'Мариночка приветик! Это Оля Петрова, мы учились вместе в 11-Б. Помнишь меня?',
+        'У меня появилась уникальная возможность для женщин которые хотят изменить свою жизнь и финансы. Можно я расскажу 5 минут?',
+        'Это не пирамида, это клуб ✨'
+      ]
+    },
+    {
+      id: 'tinder',
+      sender: 'Кирилл',
+      bubbles: [
+        'ну привет',
+        'ты потерялась?',
+        'я просто хотел сказать что уважаю твой выбор не отвечать три недели. но считаю его слабым. удачи'
+      ]
+    },
+    {
+      id: 'shvabra',
+      sender: 'OZON курьер',
+      bubbles: [
+        'Добрый день! Ваш заказ "Швабра телескопическая 3в1 Премиум" готов к доставке',
+        'Когда вам удобно принять? Адрес в заказе указан верно?'
+      ]
+    },
+    {
+      id: 'coach',
+      sender: 'женская сила',
+      bubbles: [
+        'ТЫ ГОТОВА К ПРОРЫВУ??? 🔥🔥🔥',
+        'марафон «ПРОБУЖДЕНИЕ ТВОЕЙ СИЛЫ» · 21 день · бесплатно · только сегодня',
+        '🌸 истинная женщина не работает — она притягивает 🌸'
+      ]
+    },
+    {
+      id: 'taxi_atlant',
+      sender: 'водитель яндекса',
+      bubbles: [
+        'здравствуйте это водитель. вы ехали в среду из аэропорта',
+        'вы забыли у меня в машине книгу «атлант расправил плечи» том 2',
+        'вернуть могу за 500 как договаривались'
+      ]
+    },
+    {
+      id: 'old_boss',
+      sender: 'Артур (экс-босс)',
+      bubbles: [
+        'марина привет. я понимаю что ты ушла не на лучшей ноте',
+        'но у меня есть тема. подойди завтра в 10 в старый офис, объясню лично',
+        'это взаимовыгодно'
+      ]
+    },
+    {
+      id: 'sosed',
+      sender: 'сосед снизу',
+      bubbles: [
+        'здравствуйте. это ваш сосед снизу, квартира 23',
+        'у меня на потолке появилось пятно',
+        'я думаю это от вас. спустите поговорить?'
+      ]
+    },
+    {
+      id: 'teacher',
+      sender: 'Вера Николаевна',
+      bubbles: [
+        'Марина Сергеевна, здравствуйте! Это Вера Николаевна, ваша учительница по литературе',
+        'Я в одноклассниках увидела что вы открыли своё дело. Горжусь вами!',
+        'У меня есть внучка Алиса. Она пишет стихи. Не могли бы вы её продвинуть в интернете?'
+      ]
+    },
+    {
+      id: 'philosophy',
+      sender: 'студент СПбГУ',
+      bubbles: [
+        'привет. я пишу диплом по постпозитивизму',
+        'можно задать 12 вопросов? займёт 5 минут',
+        'первый вопрос: как думаешь, сознание — это вычисление?'
+      ]
+    },
+    {
+      id: 'teshcha',
+      sender: 'неизвестный номер',
+      bubbles: [
+        'Ну и что, ты думала я не узнаю??',
+        'Света мне всё рассказала. Я не буду устраивать сцен',
+        'Приедешь в субботу — поговорим как взрослые люди. Я всё ещё твоя мать'
+      ]
+    },
+    {
+      id: 'pony',
+      sender: 'Катя с работы',
+      bubbles: [
+        'Марин, ты случайно не знаешь где взять пони в аренду на день?',
+        'У Мишутки день рождения в субботу. Нужна живая, можно с седлом',
+        'срочно'
+      ]
+    }
+  ];
+
+  function beatSpamJoke(day) {
+    try {
+      STATE.spam_used = STATE.spam_used || [];
+      var available = JOKE_DECK.filter(function (j) {
+        return STATE.spam_used.indexOf(j.id) === -1;
+      });
+      if (available.length === 0) return;
+      var joke = pick(available);
+      STATE.spam_used.push(joke.id);
+
+      var c = findContact('spam');
+      if (c) c.visible = true;
+
+      // Post bubbles with staggered delay so they feel like real incoming msgs
+      joke.bubbles.forEach(function (text, i) {
+        setTimeout(function () {
+          postMessage('spam', {
+            kind: 'incoming',
+            senderName: joke.sender,
+            text: text
+          });
+        }, i * 800);
+      });
+    } catch (e) {
+      console.error('spam joke error', e);
+    }
+  }
+
   // ========== delayed callbacks (Pavel loan return) ==========
 
   function processPendingCallbacks(day) {
@@ -978,6 +1129,12 @@
     if (day === 8) beatPavel();
     if (day === 9) { beatLenaDay9(); beatDenis(9); }
     if (day === 11) beatMama11();
+
+    // Humor flavor: ~40% chance of a random spam dialogue per day (from day 2 onwards).
+    // Deck has 13 one-shots, no repeats. Pure entertainment, zero gameplay impact.
+    if (day >= 2 && Math.random() < 0.42) {
+      setTimeout(function () { beatSpamJoke(day); }, 1800);
+    }
 
     // Delayed callbacks processed each day
     processPendingCallbacks(day);

@@ -248,9 +248,10 @@
       else if (contact.id === 'pavel') sub = 'бывший · 4 месяца тишины';
       else if (contact.id === 'mama')  sub = 'мама · всегда на связи';
       else if (contact.id === 'denis') sub = 'Денис · тусовщик';
+      else if (contact.id === 'spam')  sub = 'неизвестные номера · не твои контакты';
       else if (contact.id === 'scratch') sub = 'личные заметки';
       if (contact.online) sub += ' · в сети';
-      else if (sub && contact.id !== 'bank' && contact.id !== 'scratch') sub += ' · был(а) недавно';
+      else if (sub && contact.id !== 'bank' && contact.id !== 'scratch' && contact.id !== 'spam') sub += ' · был(а) недавно';
     }
     $('#chat-subtitle').text(sub);
   }
