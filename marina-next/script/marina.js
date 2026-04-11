@@ -429,6 +429,7 @@
 
   function postIncoming(threadId, text, senderName) {
     postMessage(threadId, { from: threadId, text: text, kind: 'incoming', senderName: senderName });
+    if (window.MarinaAudio) window.MarinaAudio.messagePing();
   }
 
   function postSystem(threadId, text) {
@@ -441,6 +442,7 @@
       kind: 'bank',
       meta: { bank_name: 'Т-Банк', amount: amount }
     });
+    if (window.MarinaAudio) window.MarinaAudio.bankDing();
   }
 
   // ========== action pipeline (single-flight) ==========
@@ -706,10 +708,14 @@
   function triggerLenaIntro() {
     if (STATE.beat_lena_intro) return;
     STATE.beat_lena_intro = true;
-    STATE.contacts.find(function (c) { return c.id === 'lena'; }).visible = true;
+    var lena = STATE.contacts.find(function (c) { return c.id === 'lena'; });
+    lena.visible = true;
+    lena.online = true;
     postMessage('lena', {
       kind: 'incoming',
       senderName: 'Лена',
+      photo: 'img/events/lena_coffee.webp',
+      photoAlt: 'кофейня',
       text: 'эй, подруга. услышала что ты ушла из агентства.\n\nпервая неделя всегда самая тяжёлая — я была там. через пару дней скину контакты. держись.'
     });
     Bubbles.renderContacts(STATE);
@@ -722,6 +728,8 @@
     postMessage('anna', {
       kind: 'incoming',
       senderName: 'Анна',
+      photo: 'img/events/anna_landing_sketch.webp',
+      photoAlt: 'wireframe лендинга',
       text: 'привет. лена про тебя рассказала.\n\nу меня небольшой проект — двустраничник, $250 upfront + $300 на сдаче. если готова быстро — берём?'
     });
     postMessage('scratch', { kind: 'system', text: 'Анна написала · ответь ей' });
@@ -746,6 +754,8 @@
     postMessage('tim', {
       kind: 'incoming',
       senderName: 'Тим',
+      photo: 'img/events/tim_kas_view.webp',
+      photoAlt: 'вид из каша',
       text: 'привет. лена написала про тебя.\n\nесли хочешь — открой блокнот и напиши одним куском что сейчас жрёт больше всего времени и сил.\n\nя прочитаю, верну конкретные 3 вещи которые можно сделать завтра утром.'
     });
     postMessage('scratch', { kind: 'system', text: 'Тим доступен · открой чат и напиши в блокнот' });
@@ -771,6 +781,8 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
+      photo: 'img/events/notebook_sketch.webp',
+      photoAlt: 'комод, якобы поцарапанный',
       text: 'марина, добрый день. мне сегодня приснилось что вы поцарапали комод в прихожей. думаю будет справедливо повысить аренду на $500. жду квитанции к 15-му числу. наталья валерьевна.'
     });
     postMessage('scratch', { kind: 'system', text: 'хозяйка написала · открой чат' });
@@ -784,6 +796,8 @@
     postMessage('pavel', {
       kind: 'incoming',
       senderName: 'Павел',
+      photo: 'img/events/bank_sms.webp',
+      photoAlt: 'скриншот — обещаю вернуть',
       text: 'привет. знаю, не звонил четыре месяца.\n\nслушай, у меня жёсткая ситуация — нужно $300 на пару недель. верну $450, честно. помоги, пожалуйста.'
     });
     postMessage('scratch', { kind: 'system', text: 'Павел написал · открой чат' });
@@ -797,6 +811,8 @@
     postMessage('mama', {
       kind: 'incoming',
       senderName: 'мама',
+      photo: 'img/events/cat_window.webp',
+      photoAlt: 'кошка у окна',
       text: 'доча, я на лекарства не могу накопить в этом месяце. если можешь помочь — $200 скинь. если нет — я понимаю, у тебя и так сложно.'
     });
     postMessage('scratch', { kind: 'system', text: 'мама написала · открой чат' });
@@ -810,6 +826,8 @@
     postMessage('mama', {
       kind: 'incoming',
       senderName: 'мама',
+      photo: 'img/events/desk_night.webp',
+      photoAlt: 'ночной стол',
       text: 'ты там живая? звонков нет. приезжай на выходных, я пирогов напеку.'
     });
     postMessage('scratch', { kind: 'system', text: 'мама ждёт ответа' });
@@ -826,9 +844,16 @@
       6: 'слушай, в кино идём? новый фильм — хвалят. отвлечёшься на два часа',
       9: 'перестань работать хоть на день. гулять поехали на набережную? я занесу вино'
     };
+    var photos = {
+      3: 'img/events/regatta.webp',
+      6: 'img/events/cinema_ticket.webp',
+      9: 'img/events/street_window.webp'
+    };
     postMessage('denis', {
       kind: 'incoming',
       senderName: 'Денис',
+      photo: photos[day],
+      photoAlt: day === 3 ? 'регата' : day === 6 ? 'кино' : 'набережная',
       text: texts[day] || 'привет, как ты там?'
     });
     postMessage('scratch', { kind: 'system', text: 'Денис зовёт гулять · открой чат' });
@@ -1143,6 +1168,7 @@
     // Dock button click
     $('#dock-buttons').on('click', '.dock-btn', function () {
       if (isBusy) return;
+      if (window.MarinaAudio) window.MarinaAudio.click();
       var name = $(this).attr('data-action');
       switch (name) {
         case 'lamp': actLamp(); break;
@@ -1151,8 +1177,37 @@
         case 'send_offer': actSendOffer(); break;
         case 'work_on_project': actWorkOnProject(); break;
         case 'rest': actRest(); break;
-        case 'end_day': actEndDay(); break;
+        case 'end_day':
+          if (window.MarinaAudio) window.MarinaAudio.dayEnd();
+          actEndDay();
+          break;
       }
+    });
+
+    // Audio toggle
+    $('#audio-toggle').on('click', function () {
+      if (window.MarinaAudio) {
+        window.MarinaAudio.toggle();
+      }
+    });
+    // Sync initial button state
+    if (window.MarinaAudio) {
+      $('#audio-toggle').text(window.MarinaAudio.isMuted() ? '🔇' : '🔊');
+    }
+
+    // Reply chip click sound
+    $('#chat-actions').on('click', '.reply-chip', function () {
+      if (window.MarinaAudio) window.MarinaAudio.click();
+    });
+
+    // Contact click sound
+    $('#contacts-list').on('click', '.contact-item', function () {
+      if (window.MarinaAudio) window.MarinaAudio.click();
+    });
+
+    // Folder tab click sound
+    $('#folder-tabs').on('click', '.folder-tab', function () {
+      if (window.MarinaAudio) window.MarinaAudio.click();
     });
 
     // Reset

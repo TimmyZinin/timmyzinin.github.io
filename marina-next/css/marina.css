@@ -85,12 +85,16 @@ html, body {
   overflow: hidden;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(197, 56, 14, 0.3);
+  background: linear-gradient(135deg, #ffb64a 0%, #c5380e 60%, #8f1a05 100%);
+  position: relative;
 }
 
-.brand-circle svg {
+.brand-circle svg,
+.brand-circle img {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .brand-text {
@@ -242,6 +246,20 @@ html, body {
   font-size: 13px;
   margin-right: 10px;
   flex-shrink: 0;
+  position: relative;
+}
+
+.contact-avatar.online::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4caf50;
+  border: 2px solid var(--panel);
+  box-sizing: border-box;
 }
 
 .contact-avatar.lena  { background: #5a4a6a; }
@@ -411,6 +429,36 @@ html, body {
 .bubble.bank .bank-amount.pos { color: var(--ok); }
 .bubble.bank .bank-amount.neg { color: var(--accent); }
 
+.bubble-photo {
+  margin: 2px 0 6px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 240px;
+  background: var(--panel-2);
+  line-height: 0;
+}
+
+.bubble-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: brightness(0.96) contrast(1.02);
+  transition: filter 160ms, transform 160ms;
+}
+
+.bubble-photo img:hover {
+  filter: brightness(1) contrast(1.05);
+  transform: scale(1.01);
+}
+
+.bubble-photo-err {
+  padding: 16px;
+  color: var(--subtle);
+  font-size: 11px;
+  text-align: center;
+  font-style: italic;
+}
+
 .bubble .time {
   display: block;
   font-size: 10px;
@@ -418,6 +466,17 @@ html, body {
   margin-top: 4px;
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+.bubble.outgoing .time::after {
+  content: " ✓✓";
+  color: #a5d5ff;
+  margin-left: 2px;
+}
+
+.bubble.outgoing .time.unread::after {
+  content: " ✓";
+  color: var(--subtle);
 }
 
 .bubble.incoming .time { text-align: left; }
@@ -568,12 +627,43 @@ html, body {
   flex-shrink: 0;
 }
 
+.dock-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+#audio-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background 160ms, border-color 160ms;
+}
+
+#audio-toggle:hover {
+  background: var(--panel-2);
+  border-color: var(--accent);
+}
+
 .dock-label {
   font-size: 11px;
   color: var(--muted);
-  margin-bottom: 8px;
+  margin-bottom: 0;
   font-variant-numeric: tabular-nums;
   font-family: "SF Mono", "Menlo", monospace;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dock-label span {
@@ -650,7 +740,7 @@ html, body {
 
 @keyframes dockRipple {
   0%   { transform: scale(1); }
-  40%  { transform: scale(1.03); }
+  50%  { transform: scale(0.97); }
   100% { transform: scale(1); }
 }
 

@@ -26,8 +26,9 @@
   /**
    * Append a bubble to the chat thread.
    * @param {string} threadId - contact id
-   * @param {object} msg - { from, text, kind, time, meta }
+   * @param {object} msg - { from, text, kind, time, meta, photo }
    *   kind: 'incoming' | 'outgoing' | 'system' | 'bank'
+   *   photo: 'img/events/filename.webp' (optional)
    */
   function renderBubble(threadId, msg) {
     // Only render if this is the currently visible chat
@@ -53,7 +54,20 @@
       if (msg.senderName && msg.kind === 'incoming') {
         $b.append($('<span class="sender-name">').text(msg.senderName));
       }
-      $b.append(document.createTextNode(msg.text || ''));
+      // Photo attachment (if any)
+      if (msg.photo) {
+        var $photoWrap = $('<div class="bubble-photo">');
+        var $img = $('<img>')
+          .attr('src', msg.photo)
+          .attr('alt', msg.photoAlt || 'вложение')
+          .attr('loading', 'lazy')
+          .on('error', function () { $photoWrap.html('<div class="bubble-photo-err">[📷 вложение недоступно]</div>'); });
+        $photoWrap.append($img);
+        $b.append($photoWrap);
+      }
+      if (msg.text) {
+        $b.append(document.createTextNode(msg.text));
+      }
     }
 
     if (msg.time) {
@@ -102,7 +116,19 @@
         if (msg.senderName && msg.kind === 'incoming') {
           $b.append($('<span class="sender-name">').text(msg.senderName));
         }
-        $b.append(document.createTextNode(msg.text || ''));
+        if (msg.photo) {
+          var $photoWrap = $('<div class="bubble-photo">');
+          var $img = $('<img>')
+            .attr('src', msg.photo)
+            .attr('alt', msg.photoAlt || 'вложение')
+            .attr('loading', 'lazy')
+            .on('error', function () { $photoWrap.html('<div class="bubble-photo-err">[📷 вложение недоступно]</div>'); });
+          $photoWrap.append($img);
+          $b.append($photoWrap);
+        }
+        if (msg.text) {
+          $b.append(document.createTextNode(msg.text));
+        }
       }
       if (msg.time) $b.append($('<span class="time">').text(msg.time));
       $thread.append($b);
@@ -162,6 +188,7 @@
       if (state.current_chat === c.id) $item.addClass('active');
 
       var $avatar = $('<div class="contact-avatar">').addClass(c.id).text(c.avatar || c.name[0]);
+      if (c.online) $avatar.addClass('online');
       $item.append($avatar);
 
       var $info = $('<div class="contact-info">');
@@ -238,11 +265,19 @@
   function renderChatHeader(state, contact) {
     $('#chat-title').text(contact ? contact.name : '—');
     var sub = '';
-    if (contact && contact.id === 'tim') sub = 'консультант · каш, турция';
-    else if (contact && contact.id === 'lena') sub = 'бывшая коллега · москва';
-    else if (contact && contact.id === 'anna') sub = 'первый клиент';
-    else if (contact && contact.id === 'bank') sub = 'входящие уведомления';
-    else if (contact && contact.id && contact.id.indexOf('client') === 0) sub = 'клиентский чат';
+    if (contact) {
+      if (contact.id === 'tim')       sub = 'консультант · каш, турция';
+      else if (contact.id === 'lena') sub = 'бывшая коллега · москва';
+      else if (contact.id === 'anna') sub = 'первый клиент';
+      else if (contact.id === 'bank') sub = 'Т-Банк · входящие уведомления';
+      else if (contact.id === 'khozyaika') sub = 'хозяйка квартиры';
+      else if (contact.id === 'pavel') sub = 'бывший · 4 месяца тишины';
+      else if (contact.id === 'mama')  sub = 'мама · всегда на связи';
+      else if (contact.id === 'denis') sub = 'Денис · тусовщик';
+      else if (contact.id === 'scratch') sub = 'личные заметки';
+      if (contact.online) sub += ' · в сети';
+      else if (sub && contact.id !== 'bank' && contact.id !== 'scratch') sub += ' · был(а) недавно';
+    }
     $('#chat-subtitle').text(sub);
   }
 
