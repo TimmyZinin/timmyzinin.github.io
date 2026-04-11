@@ -1431,6 +1431,8 @@
 
         try { processPassive(STATE.day); } catch (e) { console.error('passive error', e); }
         try { fireDayBeats(STATE.day); } catch (e) { console.error('beats error', e); }
+        // Check mid-month hard-fail conditions (hunger starvation / comfort breakdown / cash crash)
+        try { checkEndings(false); } catch (e) {}
       } catch (e) {
         console.error('endDay transition error', e);
       } finally {
@@ -2021,8 +2023,10 @@
   function processPassive(day) {
     // Base daily drains (survival economy v2.1 — tuned so day 10-12 always hit negative)
     STATE.cash -= 25; // daily mini-expenses (coffee, метро, подписки, всякая мелочь)
-    STATE.hunger = Math.max(0, (STATE.hunger || 100) - 12);
-    STATE.comfort = Math.max(0, (STATE.comfort || 60) - 4);
+    if (STATE.hunger == null) STATE.hunger = 100;
+    if (STATE.comfort == null) STATE.comfort = 60;
+    STATE.hunger = Math.max(0, STATE.hunger - 12);
+    STATE.comfort = Math.max(0, STATE.comfort - 4);
 
     // Low hunger → energy drain
     if (STATE.hunger < 30) {
