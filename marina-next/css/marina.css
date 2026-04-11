@@ -1079,7 +1079,11 @@ html, body {
   border-color: var(--fg);
 }
 
-/* ========== Mobile ≤640px — full restructure: contacts top strip, chat center, dock bottom ========== */
+/* Desktop: hide mobile-only elements */
+#chat-back { display: none; }
+#mobile-list-hud { display: none; }
+
+/* ========== Mobile ≤640px — navigation stack: list view ↔ chat view ========== */
 
 @media (max-width: 640px) {
   html, body { overflow: hidden; }
@@ -1087,20 +1091,73 @@ html, body {
     max-width: 100%;
     box-shadow: none;
     height: 100dvh;
-  }
-  #messenger {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* Contacts become top horizontal strip */
+  /* Messenger is the stack container */
+  #messenger {
+    display: block !important;
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: none !important;
+    grid-template-rows: none !important;
+  }
+
+  /* List view — contacts occupy the stack, visible by default */
   #contacts {
     display: flex;
     flex-direction: column;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--panel);
     border-right: none;
-    border-bottom: 1px solid var(--border);
-    max-height: 40vh;
+    border-bottom: none;
+    max-height: none;
+    overflow: hidden;
+  }
+
+  /* Chat view — slides in from right when contact tapped */
+  #chat {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: var(--bg);
+    transform: translateX(100%);
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.chat-open #chat {
+    transform: translateX(0);
+  }
+
+  /* Back button (visible only on mobile) */
+  #chat-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--fg);
+    font-size: 24px;
+    line-height: 1;
+    padding: 6px 10px;
+    margin-right: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  #chat-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px 8px;
+  }
+  #chat-header .chat-header-text {
+    flex: 1;
+    min-width: 0;
   }
 
   #contacts-header {
@@ -1125,7 +1182,7 @@ html, body {
     flex: 1;
     overflow-y: auto;
     padding: 2px 0;
-    max-height: 180px;
+    max-height: none;
   }
 
   .contact-item {
@@ -1149,8 +1206,11 @@ html, body {
   #chat-subtitle { font-size: 10.5px; }
 
   #chat-thread {
+    flex: 1;
+    min-height: 0;
     padding: 10px 12px 4px;
     gap: 2px;
+    overflow-y: auto;
   }
 
   .bubble {
@@ -1169,7 +1229,30 @@ html, body {
   }
 
   #action-dock {
-    padding: 0 12px 10px;
+    padding: 0 10px 8px;
+    flex-shrink: 0;
+    max-height: 50vh;
+    overflow-y: auto;
+    display: none;
+  }
+  body.chat-open #action-dock {
+    display: block;
+  }
+  /* List view: compact HUD-only bar at bottom replaces action-dock */
+  #mobile-list-hud {
+    display: none;
+    padding: 6px 10px 8px;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  body:not(.chat-open) #mobile-list-hud {
+    display: block;
+  }
+  #mobile-list-hud .resource-hud {
+    padding: 0;
+    margin: 0;
+    border: none;
   }
 
   .resource-hud {

@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.1.2';
+  var VERSION = '2.1.1';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -173,6 +173,8 @@
       plate_girl_count: 0,
       kirill_date_count: 0, // blocks date action after 3 uses
       kirill_blocked: false,
+      kirill_invite_active: false, // SPRINT 08 — pulses only when Kirill has active invite
+      kirill_invite_expires_day: 0,
       kirill_affection: 0,  // SPRINT 01 — love arc score
       love_ending_unlocked: false,
       beat_kirill_love_1: false,
@@ -459,10 +461,15 @@
       });
       // Social actions — только если анлокнуты
       if (STATE.kirill_unlocked && !STATE.kirill_blocked) {
+        var kirillInviteActive = !!STATE.kirill_invite_active;
         actions.push({
-          id: 'date_kirill', label: '💔 свидание (Кирилл)', cost: '3ч · −10⚡',
-          disabled: STATE.hours < COST.date_kirill.h || (STATE.kirill_date_count >= 4 && !STATE.bank_locked),
-          reason: 'не хватает часов'
+          id: 'date_kirill',
+          label: '💔 свидание (Кирилл)',
+          cost: '3ч · −10⚡',
+          badge: kirillInviteActive ? '!' : null,
+          badgePulse: kirillInviteActive,
+          disabled: !kirillInviteActive || STATE.hours < COST.date_kirill.h || STATE.energy < COST.date_kirill.e || (STATE.kirill_date_count >= 4 && !STATE.bank_locked),
+          reason: !kirillInviteActive ? 'Кирилл сейчас не зовёт' : (STATE.energy < COST.date_kirill.e ? 'нет энергии' : 'не хватает часов')
         });
       }
       if (STATE.beat_denis3 || STATE.beat_denis6 || STATE.beat_denis9 || STATE.beat_denis15) {
@@ -516,7 +523,8 @@
   // ===== Top resource HUD (BLOCK C.1) =====
   function renderHud() {
     var $hud = $('#resource-hud');
-    if ($hud.length === 0) return;
+    var $hudList = $('#resource-hud-list'); // mobile list view
+    if ($hud.length === 0 && $hudList.length === 0) return;
 
     function colorClass(val) {
       if (val >= 60) return 'ok';
@@ -541,7 +549,9 @@
       parts.push('<div class="r-pill r-locked"><span class="r-icon">🔒</span><span class="r-val">115-ФЗ</span><span class="r-max">· ' + daysLeft + 'д</span></div>');
     }
 
-    $hud.html(parts.join(''));
+    var html = parts.join('');
+    if ($hud.length) $hud.html(html);
+    if ($hudList.length) $hudList.html(html);
   }
 
   // ========== messenger rendering ==========
@@ -929,7 +939,10 @@
           postOutgoing('kirill', 'хорошо, давай встретимся. не обещаю ничего серьёзного.');
           STATE.kirill_unlocked = true;
           STATE.kirill_affection = (STATE.kirill_affection || 0) + 3;
-          postMessage('scratch', { kind: 'system', text: 'Кирилл разблокировал свидания' });
+          // Activate date invitation window (expires in 2 days)
+          STATE.kirill_invite_active = true;
+          STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
+          postMessage('scratch', { kind: 'system', text: 'Кирилл разблокировал свидания · ⏳ окно 2 дня' });
         } else {
           postOutgoing('kirill', 'извини, ты не мой типаж.');
           STATE.kirill_blocked = true;
@@ -1333,13 +1346,10 @@
       triggerLenaIntro();
       renderDock();
     }, 500);
-    // Day 1 Khozyaika rent reminder (serious) + комод (absurd) — both arrive day 1
+    // Day 1 Khozyaika rent reminder only — rest of her beats spread across days
     setTimeout(function () {
       beatKhozyaikaDay1Rent();
     }, 2500);
-    setTimeout(function () {
-      beatKhozyaikaDay2Komod();
-    }, 5500);
     save();
     openChat('scratch');
     renderDock();
@@ -1602,6 +1612,8 @@
     STATE.hunger = Math.min(100, STATE.hunger + COST.date_kirill.f);
     STATE.comfort = Math.min(100, STATE.comfort + COST.date_kirill.m);
     STATE.kirill_date_count += 1;
+    // Clear active invite — Kirill gets quiet until next ping
+    STATE.kirill_invite_active = false;
     if (STATE.bank_locked) {
       STATE.plate_girl_count = (STATE.plate_girl_count || 0) + 1;
       STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 5);
@@ -1717,6 +1729,10 @@
 
         try { processPassive(STATE.day); } catch (e) { console.error('passive error', e); }
         try { fireDayBeats(STATE.day); } catch (e) { console.error('beats error', e); }
+        // Expire Kirill invite if window closed
+        if (STATE.kirill_invite_active && STATE.kirill_invite_expires_day && STATE.day > STATE.kirill_invite_expires_day) {
+          STATE.kirill_invite_active = false;
+        }
         // Check mid-month hard-fail conditions (hunger starvation / comfort breakdown / cash crash)
         try { checkEndings(false); } catch (e) {}
         // SPRINT 02 — Finale track kicks in on last 2 days
@@ -2398,7 +2414,7 @@
 
   function beatKirillLove1() {
     if (STATE.beat_kirill_love_1) return;
-    if ((STATE.kirill_affection || 0) < 5) return;
+    if ((STATE.kirill_affection || 0) < 3) return;
     if (STATE.kirill_blocked) return;
     STATE.beat_kirill_love_1 = true;
     var c = findContact('kirill'); if (c) c.visible = true;
@@ -2424,11 +2440,13 @@
     }, 2400);
     postMessage('scratch', { kind: 'system', text: 'Кирилл написал что-то странное · открой чат' });
     STATE._kirill_love1_pending = true;
+    STATE.kirill_invite_active = true;
+    STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
   }
 
   function beatKirillLove2() {
     if (STATE.beat_kirill_love_2) return;
-    if ((STATE.kirill_affection || 0) < 6) return;
+    if ((STATE.kirill_affection || 0) < 4) return;
     if (STATE.kirill_blocked) return;
     STATE.beat_kirill_love_2 = true;
     var c = findContact('kirill'); if (c) c.visible = true;
@@ -2446,12 +2464,14 @@
       });
     }, 1100);
     STATE._kirill_love2_pending = true;
+    STATE.kirill_invite_active = true;
+    STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
     postMessage('scratch', { kind: 'system', text: 'Кирилл зовёт без повода · открой чат' });
   }
 
   function beatKirillLoveFinal() {
     if (STATE.beat_kirill_love_final) return;
-    if ((STATE.kirill_affection || 0) < 7) return;
+    if ((STATE.kirill_affection || 0) < 5) return;
     if (STATE.kirill_blocked) return;
     STATE.beat_kirill_love_final = true;
     var c = findContact('kirill'); if (c) c.visible = true;
@@ -2500,18 +2520,22 @@
     var texts = {
       3: 'марин, задолбал сидеть дома. поехали на регату в субботу? море, ветер, никаких писем',
       6: 'слушай, в кино идём? новый фильм — хвалят. отвлечёшься на два часа',
-      9: 'перестань работать хоть на день. гулять поехали на набережную? я занесу вино'
+      9: 'перестань работать хоть на день. гулять поехали на набережную? я занесу вино',
+      15: 'марина, парус-тур в субботу. 5 человек, яхта, вечер. место есть для тебя',
+      27: 'новый год через 3 дня. у меня на квартире посиделки, не пропусти'
     };
     var photos = {
       3: 'img/events/regatta.webp',
       6: 'img/events/cinema_ticket.webp',
-      9: 'img/events/street_window.webp'
+      9: 'img/events/street_window.webp',
+      15: 'img/events/denis_paris.webp',
+      27: 'img/events/denis_new_year.webp'
     };
     postMessage('denis', {
       kind: 'incoming',
       senderName: 'Денис',
-      photo: photos[day],
-      photoAlt: day === 3 ? 'регата' : day === 6 ? 'кино' : 'набережная',
+      photo: photos[day] || 'img/events/street_window.webp',
+      photoAlt: day === 3 ? 'регата' : day === 6 ? 'кино' : day === 27 ? 'новый год' : 'гулянка',
       text: texts[day] || 'привет, как ты там?'
     });
     postMessage('scratch', { kind: 'system', text: 'Денис зовёт гулять · открой чат' });
@@ -2743,7 +2767,8 @@
                 senderName: 'Кирилл',
                 text: 'привет. хочешь в кафе вечером? я угощаю, тебе ничего не надо'
               });
-              STATE._kirill_invite_pending = true;
+              STATE.kirill_invite_active = true;
+              STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
             }, 1800);
           }
         } else if (cb.type === 'khozyaika_fine') {
@@ -2771,7 +2796,7 @@
 
   function fireDayBeats(day) {
     // v2.1.1 — 30-day arc with tighter Khozyaika spam
-    if (day === 2) beatPavelNightDay2(); // komod now fires day 1 in actLamp
+    if (day === 2) { beatKhozyaikaDay2Komod(); beatPavelNightDay2(); }
     if (day === 3) { beatDenis(3); beatOlya(); }
     if (day === 4) beatKhozyaika1(); // счётчики воды
     if (day === 5) { beatAnnaOffer(); beatPavelDay5(); beatTimConsultIntro(); }
@@ -3240,6 +3265,15 @@
       if (id === 'anna' && STATE._anna_pending) {
         renderAnnaChoice();
       }
+      // Mobile: slide chat view in
+      if (window.innerWidth <= 640) {
+        document.body.classList.add('chat-open');
+      }
+    });
+
+    // Mobile chat back button — slide back to list view
+    $(document).on('click', '#chat-back', function () {
+      document.body.classList.remove('chat-open');
     });
 
     // Dock button click
