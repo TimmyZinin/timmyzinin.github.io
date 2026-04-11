@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <title>Марина в огне</title>
+  <meta name="description" content="Текстовая игра про первые дни фаундера контент-студии. 8-15 минут. От Тима Зинина."/>
+  <meta property="og:title" content="Марина в огне"/>
+  <meta property="og:description" content="Текстовая игра про первые дни фаундера контент-студии. 8-15 минут."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://timzinin.com/marina/"/>
+  <meta name="twitter:card" content="summary"/>
+  <link rel="icon" href="favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="css/marina.css"/>
+
+  <!-- Derivative work notice — full license at LICENSE.md and NOTICE in the public repo -->
+  <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. -->
+  <!-- Forked from A Dark Room by Michael Townsend (doublespeakgames/adarkroom). -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+  <!-- Umami analytics: self-hosted endpoint currently unavailable.
+       Restore when umami.timzinin.com DNS is reinstated:
+       <script async defer src="https://umami.timzinin.com/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script> -->
+</head>
+<body>
+  <div id="wrapper">
+    <div id="brand">лид-магнит · от тима зинина</div>
+    <h1 id="title">Марина в огне</h1>
+
+    <div id="hud" role="status" aria-live="polite">
+      <span id="hud-day">день 1</span>
+      <span id="hud-hours">100 ч</span>
+      <span id="hud-energy">100 · энергия</span>
+      <span id="hud-leads">0 · лиды</span>
+    </div>
+
+    <div id="game">
+      <div id="log" aria-live="polite"></div>
+      <div id="actions"></div>
+    </div>
+
+    <div id="ending" aria-live="polite"></div>
+
+    <div id="footer">
+      <div>
+        v1a · 2026 · <a id="reset-link" href="#" title="начать заново">reset</a>
+      </div>
+      <div style="margin-top:6px;">
+        source →
+        <a href="https://github.com/TimmyZinin/marina-v-ogne" target="_blank" rel="noopener">github.com/TimmyZinin/marina-v-ogne</a>
+        · fork of <a href="https://github.com/doublespeakgames/adarkroom" target="_blank" rel="noopener">A Dark Room</a> (MPL-2.0)
+      </div>
+      <div style="margin-top:6px;">
+        звук отключён в v1a · проходится 8-15 минут
+      </div>
+    </div>
+  </div>
+
+  <script src="script/lead.js"></script>
+  <script src="script/marina.js"></script>
+</body>
+</html>

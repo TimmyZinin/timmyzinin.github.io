@@ -1,0 +1,26 @@
+«Марина в огне» (Marina v Ogne)
+================================
+
+A browser-based lead-magnet text game about founder burnout.
+
+This is a derivative work based on:
+
+    "A Dark Room"
+    Copyright (c) Michael Townsend / Doublespeak Games
+    https://github.com/doublespeakgames/adarkroom
+    Licensed under the Mozilla Public License, v. 2.0.
+
+«Марина в огне» uses the A Dark Room engine (jQuery-based module loader,
+state manager, notification system, button primitives) as a framework,
+and implements a new minimal game loop about a founder's first days
+building a content studio.
+
+Modifications © 2026 Tim Zinin, released under the Mozilla Public License,
+v. 2.0. See LICENSE.md for full text or visit https://mozilla.org/MPL/2.0/.
+
+Source (including all modifications) is publicly available at:
+    https://github.com/TimmyZinin/marina-v-ogne
+
+Audio assets from the upstream A Dark Room repository have been
+REMOVED from this fork to avoid distributing content with unclear
+rights. «Марина в огне» ships silent.
