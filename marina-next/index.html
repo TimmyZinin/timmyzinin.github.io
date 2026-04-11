@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <title>Марина в огне · v2.0 (canary)</title>
+  <meta name="description" content="Текстовая игра в мессенджере про первые 12 дней фаундера. От Тима Зинина."/>
+  <meta property="og:title" content="Марина в огне"/>
+  <meta property="og:description" content="Текстовая игра в мессенджере про первые 12 дней фаундера."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://timzinin.com/marina-next/"/>
+  <meta name="twitter:card" content="summary"/>
+  <link rel="icon" href="favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="css/marina.css"/>
+
+  <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. -->
+  <!-- Forked from A Dark Room by Michael Townsend (doublespeakgames/adarkroom). -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="app">
+
+    <!-- Intro overlay (shown once on first load) -->
+    <div id="intro-overlay" class="overlay" aria-live="polite" style="display:none;">
+      <div class="overlay-card">
+        <h1 class="intro-title">Марина в огне</h1>
+        <div class="intro-sub">день 1. март 2026.</div>
+        <div class="intro-body">
+          <p>Марина только что ушла из агентства. Три года копирайтила бренды, писала тексты, вела клиентов.</p>
+          <p>Две недели назад решила: попробую сама. Сняла квартиру-студию. Сказала родителям «я в порядке». Открыла ноутбук.</p>
+          <p>Ничего не происходит. Почта пуста. Никто не пишет. Батарейка на 20%.</p>
+          <p>У неё 12 дней и $500 на счету. Нужно закрыть 3 проекта до конца месяца, иначе аренда съест всё.</p>
+          <p class="intro-hint">открывается её телефон. сообщения приходят в чаты. отвечай, планируй, работай.</p>
+        </div>
+        <button id="intro-start" class="primary-btn">начать смену</button>
+      </div>
+    </div>
+
+    <!-- Win overlay -->
+    <div id="win-overlay" class="overlay" aria-live="polite" style="display:none;">
+      <div class="overlay-card win-card">
+        <div class="overlay-kicker">УРОВЕНЬ 1 ПРОЙДЕН</div>
+        <div class="overlay-stats" id="win-stats"></div>
+        <div class="overlay-body">
+          <p>ты прошла первый месяц.</p>
+          <p>студия — есть. деньги — есть. энергия — есть.</p>
+          <p>впереди второй уровень: масштаб без выгорания.</p>
+        </div>
+        <div class="overlay-actions">
+          <a id="win-tg-link" href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="primary-btn">рассказать тиму (telegram)</a>
+          <button id="win-restart" class="secondary-btn">начать заново</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lose overlay -->
+    <div id="lose-overlay" class="overlay" aria-live="polite" style="display:none;">
+      <div class="overlay-card lose-card">
+        <div class="overlay-kicker">GAME OVER</div>
+        <div class="overlay-reason" id="lose-reason"></div>
+        <div class="overlay-body">
+          <p>марина не справилась в этот раз.</p>
+          <p>бывает. формат виноват, не ты.</p>
+          <p>первая студия — часто не студия. это испытание.</p>
+        </div>
+        <div class="overlay-actions">
+          <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="primary-btn">рассказать тиму что пошло не так</a>
+          <button id="lose-restart" class="secondary-btn">попробовать заново</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main messenger UI -->
+    <div id="messenger">
+
+      <!-- Contacts sidebar -->
+      <aside id="contacts">
+        <div id="contacts-header">
+          <div class="brand">marina · messenger</div>
+          <div id="contacts-status" class="status-mini"></div>
+        </div>
+        <div id="contacts-list"></div>
+      </aside>
+
+      <!-- Chat main pane -->
+      <section id="chat">
+        <div id="chat-header">
+          <div id="chat-title">—</div>
+          <div id="chat-subtitle"></div>
+        </div>
+        <div id="chat-thread" aria-live="polite"></div>
+        <div id="chat-typing" class="typing-indicator" style="display:none;">
+          <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
+          <span class="typing-label">марина печатает</span>
+        </div>
+        <div id="chat-actions"></div>
+      </section>
+    </div>
+
+    <!-- Global action dock (always visible) -->
+    <nav id="action-dock" role="navigation">
+      <div class="dock-label">день <span id="dock-day">1</span> / 12 · <span id="dock-hours">8</span>h · $<span id="dock-cash">500</span> · <span id="dock-leads">0</span>l · <span id="dock-qualified">0</span>q · <span id="dock-done">0</span>/3 ✓</div>
+      <div class="dock-buttons" id="dock-buttons"></div>
+    </nav>
+
+    <footer id="footer">
+      v2.0a canary · <a id="reset-link" href="#" title="начать заново">reset</a> ·
+      <a href="/marina/" style="color:#7a7a7a;">terminal v1.6a</a> ·
+      <a href="/marina-terminal/" style="color:#7a7a7a;">archive</a> ·
+      source → <a href="https://github.com/TimmyZinin/marina-v-ogne" target="_blank" rel="noopener">github</a>
+      · fork of <a href="https://github.com/doublespeakgames/adarkroom" target="_blank" rel="noopener">A Dark Room</a> (MPL-2.0)
+    </footer>
+
+  </div>
+
+  <script src="script/lead.js"></script>
+  <script src="script/bubbles.js"></script>
+  <script src="script/marina.js"></script>
+</body>
+</html>
