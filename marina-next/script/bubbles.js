@@ -78,9 +78,9 @@
       return;
     }
     var $b = buildBubble(threadId, msg);
-    // SPRINT 06 — newest-first: prepend instead of append
-    $('#chat-thread').prepend($b);
-    scrollToTop();
+    // Standard messenger order — newest at bottom
+    $('#chat-thread').append($b);
+    scrollToBottom();
   }
 
   /**
@@ -105,11 +105,11 @@
   function replayThread(state, threadId) {
     var $thread = $('#chat-thread').empty();
     var msgs = state.threads[threadId] || [];
-    // SPRINT 06 — newest-first: iterate from end backwards + append (so newest ends up on top)
-    for (var i = msgs.length - 1; i >= 0; i--) {
-      $thread.append(buildBubble(threadId, msgs[i]));
-    }
-    scrollToTop();
+    // Standard messenger order — oldest first, newest at bottom, auto-scroll bottom
+    msgs.forEach(function (msg) {
+      $thread.append(buildBubble(threadId, msg));
+    });
+    scrollToBottom();
   }
 
   function scrollToBottom() {
@@ -161,8 +161,21 @@
     // folder === 'all' shows EVERYTHING visible including spam (SPRINT 06)
     var hideSpamInAll = false;
 
+    // Sort contacts by last message time, descending. Pin 'scratch' always first.
+    function lastMsgTime(c) {
+      var t = (state.threads && state.threads[c.id]) || [];
+      if (t.length === 0) return 0;
+      var last = t[t.length - 1];
+      return last._received_at || 0;
+    }
+    var sortedContacts = state.contacts.slice().sort(function (a, b) {
+      if (a.id === 'scratch') return -1;
+      if (b.id === 'scratch') return 1;
+      return lastMsgTime(b) - lastMsgTime(a);
+    });
+
     var anyRendered = false;
-    state.contacts.forEach(function (c) {
+    sortedContacts.forEach(function (c) {
       if (!c.visible) return;
       if (filterIds && filterIds.indexOf(c.id) === -1) return;
       if (hideSpamInAll && c.spam) return; // «все» folder hides spam group

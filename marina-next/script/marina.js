@@ -1186,6 +1186,7 @@
     // Default fields
     if (!msg.time) msg.time = Bubbles.formatTimestamp(STATE.day, STATE.hours);
     if (!msg.kind) msg.kind = 'incoming';
+    msg._received_at = Date.now(); // for contact sort by last message time
     Bubbles.appendToThreadHistory(STATE, threadId, msg);
     // If this thread is currently open, render live
     if (STATE.current_chat === threadId) {
