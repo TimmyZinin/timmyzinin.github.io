@@ -113,8 +113,6 @@
 
       <!-- Chat main pane -->
       <section id="chat">
-        <!-- Top resource HUD (BLOCK C.1) -->
-        <div id="resource-hud" class="resource-hud"></div>
         <div id="chat-header">
           <div id="chat-title">—</div>
           <div id="chat-subtitle"></div>
@@ -129,10 +127,11 @@
       </section>
     </div>
 
-    <!-- Global action dock (always visible) -->
+    <!-- Global action dock (always visible + top resource HUD above buttons) -->
     <nav id="action-dock" role="navigation">
+      <div id="resource-hud" class="resource-hud"></div>
       <div class="dock-topbar">
-        <div class="dock-hint">действия · ⏳ день идёт</div>
+        <div class="dock-hint">действия</div>
         <button id="audio-toggle" type="button" title="музыка вкл/выкл" aria-label="музыка">🔊</button>
       </div>
       <div class="dock-buttons" id="dock-buttons"></div>
