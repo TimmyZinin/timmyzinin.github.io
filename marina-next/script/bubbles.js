@@ -30,13 +30,10 @@
    *   kind: 'incoming' | 'outgoing' | 'system' | 'bank'
    *   photo: 'img/events/filename.webp' (optional)
    */
-  function renderBubble(threadId, msg) {
-    // Only render if this is the currently visible chat
-    if (window.Marina && window.Marina.currentChat && window.Marina.currentChat() !== threadId) {
-      return;
-    }
-    var $thread = $('#chat-thread');
+  // Build a single bubble element — shared by live render + replay
+  function buildBubble(threadId, msg) {
     var $b = $('<div class="bubble">').addClass(msg.kind || 'incoming');
+    if (threadId) $b.attr('data-from', threadId);
 
     if (msg.kind === 'bank') {
       // Bank notification card
@@ -50,11 +47,9 @@
       var $desc = $('<div>').text(msg.text || '');
       $b.append($head).append($amount).append($desc);
     } else {
-      // Regular bubble
       if (msg.senderName && msg.kind === 'incoming') {
         $b.append($('<span class="sender-name">').text(msg.senderName));
       }
-      // Photo attachment (if any)
       if (msg.photo) {
         var $photoWrap = $('<div class="bubble-photo">');
         var $img = $('<img>')
@@ -74,7 +69,16 @@
       $b.append($('<span class="time">').text(msg.time));
     }
 
-    $thread.append($b);
+    return $b;
+  }
+
+  function renderBubble(threadId, msg) {
+    // Only render if this is the currently visible chat
+    if (window.Marina && window.Marina.currentChat && window.Marina.currentChat() !== threadId) {
+      return;
+    }
+    var $b = buildBubble(threadId, msg);
+    $('#chat-thread').append($b);
     scrollToBottom();
   }
 
@@ -101,37 +105,7 @@
     var $thread = $('#chat-thread').empty();
     var msgs = state.threads[threadId] || [];
     msgs.forEach(function (msg) {
-      var $b = $('<div class="bubble">').addClass(msg.kind || 'incoming');
-      if (msg.kind === 'bank') {
-        var $head = $('<div class="bank-header">').text(msg.meta && msg.meta.bank_name || 'Т-Банк');
-        var $amount = $('<div class="bank-amount">');
-        if (msg.meta && typeof msg.meta.amount === 'number') {
-          var sign = msg.meta.amount >= 0 ? '+' : '';
-          $amount.text(sign + '$' + msg.meta.amount);
-          $amount.addClass(msg.meta.amount >= 0 ? 'pos' : 'neg');
-        }
-        var $desc = $('<div>').text(msg.text || '');
-        $b.append($head).append($amount).append($desc);
-      } else {
-        if (msg.senderName && msg.kind === 'incoming') {
-          $b.append($('<span class="sender-name">').text(msg.senderName));
-        }
-        if (msg.photo) {
-          var $photoWrap = $('<div class="bubble-photo">');
-          var $img = $('<img>')
-            .attr('src', msg.photo)
-            .attr('alt', msg.photoAlt || 'вложение')
-            .attr('loading', 'lazy')
-            .on('error', function () { $photoWrap.html('<div class="bubble-photo-err">[📷 вложение недоступно]</div>'); });
-          $photoWrap.append($img);
-          $b.append($photoWrap);
-        }
-        if (msg.text) {
-          $b.append(document.createTextNode(msg.text));
-        }
-      }
-      if (msg.time) $b.append($('<span class="time">').text(msg.time));
-      $thread.append($b);
+      $thread.append(buildBubble(threadId, msg));
     });
     scrollToBottom();
   }

@@ -2,23 +2,27 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * «Марина в огне» v2.0b2 — audio module.
- * Uses Web Audio API for inline SFX synthesis + 8-bit ambient pattern.
- * No external files. Mute default ON (opt-in via toggle).
- * (c) 2026 Tim Zinin.
+ * «Марина в огне» v2.0b3 — audio module.
+ * Uses Web Audio API for inline SFX synthesis.
+ * Soundtrack: audio/soundtrack.mp3 («Двенадцать дней до конца месяца»),
+ * played via HTMLAudioElement with fade-in/out + loop.
+ * Mute default OFF (music-on by default). Tim Zinin (c) 2026.
  */
 
 (function () {
   'use strict';
 
   var MUTE_KEY = 'marina-fire:v2.0:audio_muted';
+  var SOUNDTRACK_SRC = 'audio/soundtrack.mp3';
+  var MUSIC_VOL = 0.42; // sit under SFX (~-7 dB)
 
   var AudioCtx = window.AudioContext || window.webkitAudioContext;
   var ctx = null;
   var masterGain = null;
-  var muted = true;
-  var ambientTimer = null;
-  var ambientStep = 0;
+  var muted = false; // default ON — real music now ships
+  var soundtrack = null; // HTMLAudioElement
+  var musicFadeTimer = null;
+  var firstUnlockDone = false;
 
   function initCtx() {
     if (ctx) return;
@@ -37,6 +41,77 @@
     if (ctx && ctx.state === 'suspended') {
       ctx.resume();
     }
+    // First-time unlock: lazy-instantiate the soundtrack and start if unmuted
+    if (!firstUnlockDone) {
+      firstUnlockDone = true;
+      ensureSoundtrack();
+      if (!muted) playMusic();
+    }
+  }
+
+  // ===== soundtrack (HTMLAudioElement) =====
+
+  function ensureSoundtrack() {
+    if (soundtrack) return soundtrack;
+    try {
+      soundtrack = new Audio(SOUNDTRACK_SRC);
+      soundtrack.loop = true;
+      soundtrack.preload = 'auto';
+      soundtrack.volume = 0;
+      soundtrack.addEventListener('error', function () {
+        console.warn('soundtrack load failed, falling back silent');
+      });
+    } catch (e) {
+      console.warn('soundtrack init failed', e);
+      soundtrack = null;
+    }
+    return soundtrack;
+  }
+
+  function clearFade() {
+    if (musicFadeTimer) {
+      clearInterval(musicFadeTimer);
+      musicFadeTimer = null;
+    }
+  }
+
+  function fadeTo(target, durationMs, onDone) {
+    if (!soundtrack) { if (onDone) onDone(); return; }
+    clearFade();
+    var startVol = soundtrack.volume || 0;
+    var delta = target - startVol;
+    var steps = Math.max(1, Math.floor(durationMs / 40));
+    var i = 0;
+    musicFadeTimer = setInterval(function () {
+      i += 1;
+      var progress = Math.min(1, i / steps);
+      // Ease-out cubic
+      var eased = 1 - Math.pow(1 - progress, 3);
+      soundtrack.volume = Math.max(0, Math.min(1, startVol + delta * eased));
+      if (progress >= 1) {
+        clearFade();
+        if (onDone) onDone();
+      }
+    }, 40);
+  }
+
+  function playMusic() {
+    var s = ensureSoundtrack();
+    if (!s) return;
+    try {
+      var p = s.play();
+      if (p && typeof p.then === 'function') {
+        p.catch(function () { /* autoplay blocked — will retry on next user click */ });
+      }
+      fadeTo(MUSIC_VOL, 1500);
+    } catch (e) { /* noop */ }
+  }
+
+  function stopMusic() {
+    if (!soundtrack) return;
+    fadeTo(0, 600, function () {
+      try { soundtrack.pause(); } catch (e) {}
+    });
   }
 
   // ===== SFX synthesizers =====
@@ -131,42 +206,6 @@
     });
   }
 
-  // ===== 8-bit ambient loop (simple chiptune arp) =====
-
-  var AMBIENT_NOTES = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63]; // C4-E4-G4-C5-G4-E4
-
-  function ambientTick() {
-    if (muted || !ctx) return;
-    var t = ctx.currentTime;
-    var freq = AMBIENT_NOTES[ambientStep % AMBIENT_NOTES.length];
-    ambientStep += 1;
-    var osc = ctx.createOscillator();
-    var g = ctx.createGain();
-    osc.type = 'triangle';
-    osc.frequency.value = freq;
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(0.03, t + 0.02);
-    g.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
-    osc.connect(g);
-    g.connect(masterGain);
-    osc.start(t);
-    osc.stop(t + 0.3);
-  }
-
-  function startAmbient() {
-    if (ambientTimer) return;
-    ambientStep = 0;
-    ambientTick();
-    ambientTimer = setInterval(ambientTick, 600); // 100 BPM
-  }
-
-  function stopAmbient() {
-    if (ambientTimer) {
-      clearInterval(ambientTimer);
-      ambientTimer = null;
-    }
-  }
-
   // ===== mute toggle =====
 
   function isMuted() { return muted; }
@@ -174,16 +213,17 @@
   function setMuted(v) {
     muted = !!v;
     try { localStorage.setItem(MUTE_KEY, muted ? '1' : '0'); } catch (e) {}
+    // SFX master gain follows mute
     if (masterGain && ctx) {
       masterGain.gain.setValueAtTime(muted ? 0 : 1, ctx.currentTime);
     }
+    // Music: fade in / out
     if (muted) {
-      stopAmbient();
+      stopMusic();
     } else {
       unlock();
-      startAmbient();
+      playMusic();
     }
-    // Update toggle button if present
     var btn = document.getElementById('audio-toggle');
     if (btn) btn.textContent = muted ? '🔇' : '🔊';
   }
@@ -197,7 +237,8 @@
   function init() {
     try {
       var saved = localStorage.getItem(MUTE_KEY);
-      muted = saved === null ? true : saved === '1';
+      // Default: music ON (saved === null → not muted)
+      muted = saved === '1';
     } catch (e) {}
   }
 
@@ -213,6 +254,8 @@
     dayEnd: dayEnd,
     toggle: toggle,
     setMuted: setMuted,
-    isMuted: isMuted
+    isMuted: isMuted,
+    playMusic: playMusic,
+    stopMusic: stopMusic
   };
 })();

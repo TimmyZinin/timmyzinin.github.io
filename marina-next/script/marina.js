@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.0.0';
+  var VERSION = '2.0.3';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -168,13 +168,52 @@
       if (raw && ver === VERSION) {
         var parsed = JSON.parse(raw);
         var d = defaultState();
+        // Top-level merge
         for (var k in d) {
           if (!(k in parsed)) parsed[k] = d[k];
+        }
+        // Deep-merge contacts by id (keep progress flags, add missing entries)
+        if (Array.isArray(parsed.contacts)) {
+          var byId = {};
+          parsed.contacts.forEach(function (c) { if (c && c.id) byId[c.id] = c; });
+          var merged = [];
+          d.contacts.forEach(function (def) {
+            if (byId[def.id]) {
+              // Keep saved fields, backfill any new keys from default
+              var saved = byId[def.id];
+              for (var kk in def) {
+                if (!(kk in saved)) saved[kk] = def[kk];
+              }
+              merged.push(saved);
+            } else {
+              merged.push(def);
+            }
+          });
+          parsed.contacts = merged;
+        } else {
+          parsed.contacts = d.contacts;
+        }
+        // Deep-merge threads — ensure every contact id has a thread array
+        if (!parsed.threads || typeof parsed.threads !== 'object') {
+          parsed.threads = d.threads;
+        } else {
+          for (var tid in d.threads) {
+            if (!Array.isArray(parsed.threads[tid])) parsed.threads[tid] = [];
+          }
         }
         return parsed;
       }
     } catch (e) {}
     return defaultState();
+  }
+
+  // Safe contact lookup — never throws if id missing
+  function findContact(id) {
+    if (!STATE || !Array.isArray(STATE.contacts)) return null;
+    for (var i = 0; i < STATE.contacts.length; i++) {
+      if (STATE.contacts[i].id === id) return STATE.contacts[i];
+    }
+    return null;
   }
 
   function saveState() {
@@ -654,6 +693,8 @@
   }
 
   function actEndDay() {
+    if (isBusy) return;
+    isBusy = true;
     var prevDay = STATE.day;
 
     // Show night overlay first
@@ -661,45 +702,57 @@
     var $text = $overlay.find('.night-text');
     $text.text('ночь · день ' + prevDay + ' позади');
     $overlay.addClass('active');
+    renderDock();
+
+    // Safety net: no matter what happens in the transition callback,
+    // always release the overlay after max 3.5s so game cannot freeze.
+    var safety = setTimeout(function () {
+      $overlay.removeClass('active');
+      isBusy = false;
+      renderDock();
+    }, 3500);
 
     // After 1.5s overlay — do the actual day transition
     setTimeout(function () {
-      STATE.day += 1;
-      STATE.hours = HOURS_PER_DAY;
-      STATE.energy = Math.min(100, STATE.energy + 20);
-      STATE.coffee_stacks = Math.max(0, STATE.coffee_stacks - 1);
+      try {
+        STATE.day += 1;
+        STATE.hours = HOURS_PER_DAY;
+        STATE.energy = Math.min(100, STATE.energy + 20);
+        STATE.coffee_stacks = Math.max(0, STATE.coffee_stacks - 1);
 
-      // Day 12 → 13 transition → finale check
-      if (STATE.day > FINALE_DAY) {
-        postSystem('scratch', '— месяц закончился. день ' + FINALE_DAY + ' позади. —');
-        checkEndings(true);
-        STATE.day = FINALE_DAY;
-        $overlay.removeClass('active');
-        save();
-        renderDock();
-        return;
+        // Day 12 → 13 transition → finale check
+        if (STATE.day > FINALE_DAY) {
+          postSystem('scratch', '— месяц закончился. день ' + FINALE_DAY + ' позади. —');
+          checkEndings(true);
+          STATE.day = FINALE_DAY;
+          return;
+        }
+
+        postSystem('scratch', '— конец дня ' + prevDay + ' · новый день начался —');
+        postSystem('scratch', 'день ' + STATE.day + ' · 8 часов впереди · $' + STATE.cash);
+
+        if (STATE.day === FINALE_DAY - 1) {
+          postSystem('scratch', 'это последний рабочий день этого месяца · пора заканчивать проекты');
+        }
+        if (STATE.day === FINALE_DAY) {
+          postSystem('scratch', 'последний день месяца · сегодня всё решится');
+        }
+
+        try { processPassive(STATE.day); } catch (e) { console.error('passive error', e); }
+        try { fireDayBeats(STATE.day); } catch (e) { console.error('beats error', e); }
+      } catch (e) {
+        console.error('endDay transition error', e);
+      } finally {
+        // Always: save, re-render, and release the overlay
+        clearTimeout(safety);
+        try { save(); } catch (e) {}
+        try { renderDock(); } catch (e) {}
+        setTimeout(function () {
+          $overlay.removeClass('active');
+          isBusy = false;
+          renderDock();
+        }, 400);
       }
-
-      postSystem('scratch', '— конец дня ' + prevDay + ' · новый день начался —');
-      postSystem('scratch', 'день ' + STATE.day + ' · 8 часов впереди · $' + STATE.cash);
-
-      if (STATE.day === FINALE_DAY - 1) {
-        postSystem('scratch', 'это последний рабочий день этого месяца · пора заканчивать проекты');
-      }
-      if (STATE.day === FINALE_DAY) {
-        postSystem('scratch', 'последний день месяца · сегодня всё решится');
-      }
-
-      processPassive(STATE.day);
-      fireDayBeats(STATE.day);
-
-      save();
-      renderDock();
-
-      // Hide overlay after short dwell
-      setTimeout(function () {
-        $overlay.removeClass('active');
-      }, 400);
     }, 1500);
   }
 
@@ -708,7 +761,8 @@
   function triggerLenaIntro() {
     if (STATE.beat_lena_intro) return;
     STATE.beat_lena_intro = true;
-    var lena = STATE.contacts.find(function (c) { return c.id === 'lena'; });
+    var lena = findContact('lena');
+    if (!lena) return;
     lena.visible = true;
     lena.online = true;
     postMessage('lena', {
@@ -724,7 +778,7 @@
   function beatAnnaOffer() {
     if (STATE.beat_anna_offer) return;
     STATE.beat_anna_offer = true;
-    STATE.contacts.find(function (c) { return c.id === 'anna'; }).visible = true;
+    var c = findContact('anna'); if (c) c.visible = true;
     postMessage('anna', {
       kind: 'incoming',
       senderName: 'Анна',
@@ -741,7 +795,7 @@
   function beatTimIntro() {
     if (STATE.beat_tim_intro) return;
     STATE.beat_tim_intro = true;
-    STATE.contacts.find(function (c) { return c.id === 'tim'; }).visible = true;
+    var c = findContact('tim'); if (c) c.visible = true;
     STATE.notebook_available = true;
 
     // Lena hands off
@@ -777,7 +831,7 @@
   function beatKhozyaika() {
     if (STATE.beat_khozyaika) return;
     STATE.beat_khozyaika = true;
-    STATE.contacts.find(function (c) { return c.id === 'khozyaika'; }).visible = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
@@ -792,7 +846,7 @@
   function beatPavel() {
     if (STATE.beat_pavel) return;
     STATE.beat_pavel = true;
-    STATE.contacts.find(function (c) { return c.id === 'pavel'; }).visible = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
     postMessage('pavel', {
       kind: 'incoming',
       senderName: 'Павел',
@@ -807,7 +861,7 @@
   function beatMama6() {
     if (STATE.beat_mama6) return;
     STATE.beat_mama6 = true;
-    STATE.contacts.find(function (c) { return c.id === 'mama'; }).visible = true;
+    var c = findContact('mama'); if (c) c.visible = true;
     postMessage('mama', {
       kind: 'incoming',
       senderName: 'мама',
@@ -822,7 +876,7 @@
   function beatMama11() {
     if (STATE.beat_mama11) return;
     STATE.beat_mama11 = true;
-    STATE.contacts.find(function (c) { return c.id === 'mama'; }).visible = true;
+    var c = findContact('mama'); if (c) c.visible = true;
     postMessage('mama', {
       kind: 'incoming',
       senderName: 'мама',
@@ -838,7 +892,7 @@
     var flag = 'beat_denis' + day;
     if (STATE[flag]) return;
     STATE[flag] = true;
-    STATE.contacts.find(function (c) { return c.id === 'denis'; }).visible = true;
+    var c = findContact('denis'); if (c) c.visible = true;
     var texts = {
       3: 'марин, задолбал сидеть дома. поехали на регату в субботу? море, ветер, никаких писем',
       6: 'слушай, в кино идём? новый фильм — хвалят. отвлечёшься на два часа',
@@ -1137,11 +1191,12 @@
       showIntroOverlay();
     }
 
-    // Intro start
+    // Intro start — also unlocks audio context + kicks off music (user gesture)
     $('#intro-start').on('click', function () {
       STATE.intro_seen = true;
       save();
       $('#intro-overlay').fadeOut(300);
+      if (window.MarinaAudio) window.MarinaAudio.unlock();
     });
 
     // Win / lose overlay buttons
@@ -1168,7 +1223,7 @@
     // Dock button click
     $('#dock-buttons').on('click', '.dock-btn', function () {
       if (isBusy) return;
-      if (window.MarinaAudio) window.MarinaAudio.click();
+      if (window.MarinaAudio) { window.MarinaAudio.unlock(); window.MarinaAudio.click(); }
       var name = $(this).attr('data-action');
       switch (name) {
         case 'lamp': actLamp(); break;
