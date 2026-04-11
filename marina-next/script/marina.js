@@ -125,6 +125,11 @@
       plate_girl_count: 0,
       kirill_date_count: 0, // blocks date action after 3 uses
       kirill_blocked: false,
+      kirill_affection: 0,  // SPRINT 01 — love arc score
+      love_ending_unlocked: false,
+      beat_kirill_love_1: false,
+      beat_kirill_love_2: false,
+      beat_kirill_love_final: false,
       // Interaction counter (BLOCK M)
       player_interactions: 0,
       beat_tim_creator_fired: false,
@@ -736,11 +741,74 @@
         if (opt.id === 'yes') {
           postOutgoing('kirill', 'хорошо, давай встретимся. не обещаю ничего серьёзного.');
           STATE.kirill_unlocked = true;
-          postMessage('scratch', { kind: 'system', text: 'Кирилл разблокировал свидания (action «свидание»)' });
+          STATE.kirill_affection = (STATE.kirill_affection || 0) + 3;
+          postMessage('scratch', { kind: 'system', text: 'Кирилл разблокировал свидания' });
         } else {
           postOutgoing('kirill', 'извини, ты не мой типаж.');
           STATE.kirill_blocked = true;
         }
+        save(); renderDock();
+      });
+      return;
+    }
+
+    // Kirill love arc — mid-late game warm messages
+    if (contactId === 'kirill' && STATE._kirill_love1_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'warm', label: 'ответить искренне (+affection)' },
+        { id: 'cool', label: 'отшутиться (−affection)' }
+      ], function (opt) {
+        STATE._kirill_love1_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'warm') {
+          postOutgoing('kirill', 'спасибо. мне сейчас сложно, но я тебя слышу. и мне важно что ты видишь.');
+          STATE.kirill_affection = (STATE.kirill_affection || 0) + 2;
+          STATE.comfort = Math.min(100, STATE.comfort + 5);
+        } else {
+          postOutgoing('kirill', 'ох лично, сохрани на потом. я в процессе.');
+          STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 2);
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    if (contactId === 'kirill' && STATE._kirill_love2_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'yes', label: 'да, встретимся (+affection, −3h)' },
+        { id: 'defer', label: 'не сейчас, работа' }
+      ], function (opt) {
+        STATE._kirill_love2_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'yes') {
+          postOutgoing('kirill', 'давай. просто погуляем.');
+          STATE.hours = Math.max(0, STATE.hours - 3);
+          STATE.comfort = Math.min(100, STATE.comfort + 15);
+          STATE.kirill_affection = (STATE.kirill_affection || 0) + 2;
+        } else {
+          postOutgoing('kirill', 'Кирилл, сейчас не могу. проекты горят.');
+          STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 1);
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    if (contactId === 'kirill' && STATE._kirill_love_final_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'yes_love', label: '«да. я тоже.»' },
+        { id: 'scared', label: '«Кирилл, я боюсь, но хочу попробовать»' }
+      ], function (opt) {
+        STATE._kirill_love_final_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'yes_love') {
+          postOutgoing('kirill', 'да. я тоже.');
+        } else {
+          postOutgoing('kirill', 'Кирилл, я боюсь. но я хочу попробовать быть с тобой.');
+        }
+        STATE.love_ending_unlocked = true;
+        postMessage('scratch', { kind: 'system', text: '❤️ love ending подтверждён' });
         save(); renderDock();
       });
       return;
@@ -1320,6 +1388,9 @@
     STATE.kirill_date_count += 1;
     if (STATE.bank_locked) {
       STATE.plate_girl_count = (STATE.plate_girl_count || 0) + 1;
+      STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 5);
+    } else {
+      STATE.kirill_affection = (STATE.kirill_affection || 0) + 2;
     }
 
     runAction(function () {
@@ -1709,6 +1780,104 @@
     });
   }
 
+  // ========== SPRINT 01 — Kirill Love Arc ==========
+
+  function beatKirillLove1() {
+    if (STATE.beat_kirill_love_1) return;
+    if ((STATE.kirill_affection || 0) < 5) return;
+    if (STATE.kirill_blocked) return;
+    STATE.beat_kirill_love_1 = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'слушай, я тут подумал. я понимаю что звучит странно, но ты мне нравишься не только на ужинах.'
+    });
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'у тебя в глазах что-то такое — как будто ты сражаешься с драконом и никому не рассказываешь. я это вижу. и мне хочется просто сидеть рядом.'
+      });
+    }, 1200);
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'как ты вообще?'
+      });
+    }, 2400);
+    postMessage('scratch', { kind: 'system', text: 'Кирилл написал что-то странное · открой чат' });
+    STATE._kirill_love1_pending = true;
+  }
+
+  function beatKirillLove2() {
+    if (STATE.beat_kirill_love_2) return;
+    if ((STATE.kirill_affection || 0) < 6) return;
+    if (STATE.kirill_blocked) return;
+    STATE.beat_kirill_love_2 = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'марин, давай встретимся. не ради ужина. просто пройдёмся, я хочу с тобой поговорить.'
+    });
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'у меня нет плана, нет повода. просто хочу быть рядом пару часов. как тебе?'
+      });
+    }, 1100);
+    STATE._kirill_love2_pending = true;
+    postMessage('scratch', { kind: 'system', text: 'Кирилл зовёт без повода · открой чат' });
+  }
+
+  function beatKirillLoveFinal() {
+    if (STATE.beat_kirill_love_final) return;
+    if ((STATE.kirill_affection || 0) < 7) return;
+    if (STATE.kirill_blocked) return;
+    STATE.beat_kirill_love_final = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'марина. я за эти недели понял одну штуку.'
+    });
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'ты не лёгкая. ты не ангел. ты иногда уставшая и злая. но когда ты говоришь о своей работе — у тебя в голосе огонь. и я хочу быть тем, кто этот огонь слушает, когда ты приходишь домой.'
+      });
+    }, 1200);
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'я не прошу переехать. я не прошу обещаний. я прошу только разрешения. быть.'
+      });
+    }, 2400);
+    setTimeout(function () {
+      postMessage('scratch', { kind: 'system', text: '────── строчка в блокнот ──────' });
+    }, 3600);
+    setTimeout(function () {
+      postOutgoing('scratch', 'я не ожидала. вообще. от него, от себя, от этого месяца.');
+    }, 4000);
+    setTimeout(function () {
+      postOutgoing('scratch', 'кажется я влюбилась. и самое странное — мне не страшно.');
+    }, 4800);
+    setTimeout(function () {
+      STATE.love_ending_unlocked = true;
+      save();
+      postMessage('scratch', { kind: 'system', text: '❤️ love ending разблокирован' });
+    }, 5600);
+    STATE._kirill_love_final_pending = true;
+  }
+
   function beatDenis(day) {
     var flag = 'beat_denis' + day;
     if (STATE[flag]) return;
@@ -2005,9 +2174,11 @@
     if (day === 21) beatAnnaReferral();
     if (day === 24) beatMama24();
     if (day === 25) beatKhozyaika4(); // гороскоп
-    if (day === 26) beatKrypta();
+    if (day === 22) beatKirillLove1();
+    if (day === 26) { beatKrypta(); beatKirillLove2(); }
     if (day === 27) beatDenis(27);
     if (day === 29) beatMamaFinal();
+    if (day === 30) beatKirillLoveFinal();
 
     // One-shot flavor spam: ~35% chance of a random pop-up per day
     if (day >= 2 && Math.random() < 0.35) {
@@ -2202,6 +2373,19 @@
     save();
     var stats = STATE.delivered_projects + ' проекта сданы · $' + STATE.cash + ' · энергия ' + STATE.energy + '/100';
     $('#win-stats').text(stats);
+
+    // SPRINT 01 — love ending bonus
+    var $card = $('#win-overlay .overlay-card');
+    $card.find('.love-bonus').remove();
+    if (STATE.love_ending_unlocked) {
+      var $love = $('<div class="love-bonus">').html(
+        '<div class="love-kicker">❤️ LOVE ENDING UNLOCKED</div>' +
+        '<p>ты не только дожила до конца месяца — ты ещё и влюбилась.</p>' +
+        '<p>Кирилл не был персонажем. он был человеком. и ты это увидела.</p>' +
+        '<p class="love-quiet">в следующем месяце он рядом.</p>'
+      );
+      $card.find('.overlay-body').after($love);
+    }
     $('#win-overlay').show();
   }
 
