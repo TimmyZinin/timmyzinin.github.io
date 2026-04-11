@@ -4,16 +4,16 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
   <title>Марина в огне</title>
-  <meta name="description" content="Текстовая игра-терминал про первые 12 дней фаундера. 8-12 минут. От Тима Зинина."/>
+  <meta name="description" content="Текстовая игра-терминал про первые 12 дней фаундера. 12-18 минут. От Тима Зинина."/>
   <meta property="og:title" content="Марина в огне"/>
-  <meta property="og:description" content="Текстовая игра-терминал про первые 12 дней фаундера. 8-12 минут."/>
+  <meta property="og:description" content="Текстовая игра-терминал про первые 12 дней фаундера. 12-18 минут."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://timzinin.com/marina/"/>
   <meta name="twitter:card" content="summary"/>
   <link rel="icon" href="favicon.ico"/>
   <link rel="stylesheet" type="text/css" href="css/marina.css"/>
 
-  <!-- Derivative work notice — full license at LICENSE.md and NOTICE in the public repo -->
+  <!-- Derivative work notice — full license at LICENSE.md and NOTICE -->
   <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. -->
   <!-- Forked from A Dark Room by Michael Townsend (doublespeakgames/adarkroom). -->
 
@@ -25,17 +25,21 @@
     <header id="hud" role="status" aria-live="polite">
       <div id="hud-line1"></div>
       <div id="hud-line2"></div>
+      <div id="hud-line3"></div>
     </header>
+    <div id="hud-hint" role="status"></div>
+    <div id="hud-projects"></div>
 
     <div id="game">
       <div id="log" aria-live="polite"></div>
+      <div id="status-line" aria-live="polite"></div>
       <div id="actions"></div>
     </div>
 
     <div id="ending" aria-live="polite"></div>
 
     <div id="footer">
-      v1.5 · <a id="reset-link" href="#" title="начать заново">reset</a>
+      v1.6a · <a id="reset-link" href="#" title="начать заново">reset</a>
       &nbsp;·&nbsp;
       source → <a href="https://github.com/TimmyZinin/marina-v-ogne" target="_blank" rel="noopener">github.com/TimmyZinin/marina-v-ogne</a>
       · fork of <a href="https://github.com/doublespeakgames/adarkroom" target="_blank" rel="noopener">A Dark Room</a> (MPL-2.0)
