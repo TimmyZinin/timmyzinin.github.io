@@ -72,11 +72,48 @@ html, body {
   border-bottom: 1px solid var(--border);
 }
 
-#contacts-header .brand {
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 500;
-  letter-spacing: 0.02em;
+#contacts-header .brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(197, 56, 14, 0.3);
+}
+
+.brand-circle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.brand-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: var(--subtle);
+  font-style: italic;
+  margin-top: 2px;
 }
 
 #contacts-status.status-mini {
@@ -84,6 +121,88 @@ html, body {
   font-size: 11px;
   color: var(--subtle);
   font-variant-numeric: tabular-nums;
+}
+
+/* ========== Folder tabs ========== */
+
+#folder-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px 4px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+#folder-tabs::-webkit-scrollbar { display: none; }
+
+.folder-tab {
+  flex-shrink: 0;
+  padding: 5px 11px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  white-space: nowrap;
+}
+
+.folder-tab:hover {
+  background: var(--panel-2);
+  color: var(--fg);
+}
+
+.folder-tab.active {
+  background: var(--accent);
+  color: var(--fg);
+  border-color: var(--accent);
+}
+
+.funnel-group-header {
+  padding: 8px 14px 4px;
+  font-size: 10px;
+  color: var(--subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.funnel-group-count {
+  float: right;
+  color: var(--muted);
+}
+
+.funnel-item {
+  padding: 8px 14px;
+  color: var(--muted);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.funnel-item .funnel-progress {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.funnel-item .funnel-progress-fill {
+  height: 100%;
+  background: var(--accent);
+}
+
+.folder-empty-state {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--subtle);
+  font-size: 12px;
+  font-style: italic;
 }
 
 #contacts-list {
@@ -461,6 +580,9 @@ html, body {
   color: var(--fg);
 }
 
+.dock-label #dock-cash.neg { color: var(--accent); }
+.dock-label #dock-cash.low { color: var(--warn); }
+
 .dock-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -468,22 +590,29 @@ html, body {
 }
 
 .dock-btn {
-  padding: 8px 12px;
+  padding: 9px 14px;
   background: var(--panel-2);
   color: var(--fg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   font-family: inherit;
   font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 120ms, border-color 120ms;
+  transition: background 160ms, border-color 160ms, transform 120ms, box-shadow 160ms;
   position: relative;
   overflow: hidden;
 }
 
 .dock-btn:hover:not([disabled]) {
-  background: rgba(197, 56, 14, 0.10);
+  background: rgba(197, 56, 14, 0.12);
   border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(197, 56, 14, 0.15);
+}
+
+.dock-btn:active:not([disabled]) {
+  animation: dockRipple 240ms ease-out;
 }
 
 .dock-btn[disabled] {
@@ -495,6 +624,88 @@ html, body {
   color: var(--subtle);
   font-size: 10px;
   margin-left: 4px;
+  font-weight: 400;
+}
+
+/* Primary action — larger, filled, pronounced */
+.dock-btn.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(197, 56, 14, 0.35);
+}
+
+.dock-btn.primary:hover:not([disabled]) {
+  background: #de430f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(197, 56, 14, 0.45);
+}
+
+.dock-btn.primary .dock-cost {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes dockRipple {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* End-day pulse alert when hours ≤ 2 */
+.dock-btn.pulse {
+  animation: dockPulse 1.2s ease-in-out infinite;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0 rgba(197, 56, 14, 0.5);
+}
+
+@keyframes dockPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197, 56, 14, 0.5); }
+  50%      { box-shadow: 0 0 0 8px rgba(197, 56, 14, 0); }
+}
+
+/* Night transition overlay */
+.night-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 6, 10, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+}
+
+.night-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.night-content {
+  text-align: center;
+  color: var(--fg);
+}
+
+.night-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  animation: nightFloat 2s ease-in-out infinite;
+}
+
+.night-text {
+  font-size: 15px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+@keyframes nightFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
 }
 
 /* ========== Footer ========== */

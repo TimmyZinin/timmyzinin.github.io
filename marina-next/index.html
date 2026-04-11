@@ -40,16 +40,16 @@
     <!-- Win overlay -->
     <div id="win-overlay" class="overlay" aria-live="polite" style="display:none;">
       <div class="overlay-card win-card">
-        <div class="overlay-kicker">УРОВЕНЬ 1 ПРОЙДЕН</div>
+        <div class="overlay-kicker">ПЕРВЫЙ МЕСЯЦ ПРОЙДЕН</div>
         <div class="overlay-stats" id="win-stats"></div>
         <div class="overlay-body">
-          <p>ты прошла первый месяц.</p>
-          <p>студия — есть. деньги — есть. энергия — есть.</p>
-          <p>впереди второй уровень: масштаб без выгорания.</p>
+          <p>12 дней позади.</p>
+          <p>ты завершила свой первый месяц как фаундер.</p>
+          <p>это не конец — это только начало.</p>
+          <p>второй месяц приходит скоро.</p>
         </div>
         <div class="overlay-actions">
-          <a id="win-tg-link" href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="primary-btn">рассказать тиму (telegram)</a>
-          <button id="win-restart" class="secondary-btn">начать заново</button>
+          <button id="win-continue" class="primary-btn" disabled title="второй месяц — в v2.1, следи за обновлениями">продолжить (v2.1 скоро)</button>
         </div>
       </div>
     </div>
@@ -57,17 +57,22 @@
     <!-- Lose overlay -->
     <div id="lose-overlay" class="overlay" aria-live="polite" style="display:none;">
       <div class="overlay-card lose-card">
-        <div class="overlay-kicker">GAME OVER</div>
+        <div class="overlay-kicker">МЕСЯЦ НЕ ДОШЁЛ</div>
         <div class="overlay-reason" id="lose-reason"></div>
-        <div class="overlay-body">
-          <p>марина не справилась в этот раз.</p>
-          <p>бывает. формат виноват, не ты.</p>
-          <p>первая студия — часто не студия. это испытание.</p>
+        <div class="overlay-body" id="lose-body">
+          <p>бывает.</p>
         </div>
         <div class="overlay-actions">
-          <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="primary-btn">рассказать тиму что пошло не так</a>
-          <button id="lose-restart" class="secondary-btn">попробовать заново</button>
+          <button id="lose-continue" class="primary-btn" disabled title="второй шанс — в v2.1">продолжить (v2.1 скоро)</button>
         </div>
+      </div>
+    </div>
+
+    <!-- Night transition overlay -->
+    <div id="night-overlay" class="night-overlay" aria-live="polite">
+      <div class="night-content">
+        <div class="night-icon">🌙</div>
+        <div class="night-text"></div>
       </div>
     </div>
 
@@ -77,8 +82,33 @@
       <!-- Contacts sidebar -->
       <aside id="contacts">
         <div id="contacts-header">
-          <div class="brand">marina · messenger</div>
+          <div class="brand-row">
+            <div class="brand-circle" aria-hidden="true">
+              <svg viewBox="0 0 44 44" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="flameGrad" cx="50%" cy="55%" r="50%">
+                    <stop offset="0%" stop-color="#ffb64a"/>
+                    <stop offset="55%" stop-color="#e65a1a"/>
+                    <stop offset="100%" stop-color="#8f1a05"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="22" cy="22" r="21" fill="url(#flameGrad)"/>
+                <path d="M14 30 Q14 18 22 10 Q30 18 30 30 Q26 25 22 28 Q18 25 14 30 Z" fill="#ffe8b0" opacity="0.4"/>
+                <text x="22" y="29" text-anchor="middle" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="18" font-weight="700">М</text>
+              </svg>
+            </div>
+            <div class="brand-text">
+              <div class="brand-title">🔥 Марина в огне</div>
+              <div class="brand-subtitle">теледрам v2.0b1</div>
+            </div>
+          </div>
           <div id="contacts-status" class="status-mini"></div>
+        </div>
+        <div id="folder-tabs" role="tablist">
+          <button class="folder-tab active" data-folder="all">все</button>
+          <button class="folder-tab" data-folder="funnel">🎯 воронка</button>
+          <button class="folder-tab" data-folder="team">👥 команда</button>
+          <button class="folder-tab" data-folder="money">💰 деньги</button>
         </div>
         <div id="contacts-list"></div>
       </aside>

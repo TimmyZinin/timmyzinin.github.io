@@ -133,11 +133,31 @@
 
   /**
    * Render the contacts sidebar list.
+   * Filters by state.current_folder: 'all' | 'funnel' | 'team' | 'money'
    */
   function renderContacts(state) {
     var $list = $('#contacts-list').empty();
+    var folder = state.current_folder || 'all';
+
+    // Update folder tab active state
+    $('#folder-tabs .folder-tab').removeClass('active');
+    $('#folder-tabs .folder-tab[data-folder="' + folder + '"]').addClass('active');
+
+    if (folder === 'funnel') {
+      renderFunnelGroups(state, $list);
+      return;
+    }
+
+    var filterIds = null;
+    if (folder === 'team') filterIds = ['lena', 'anna', 'tim'];
+    else if (folder === 'money') filterIds = ['bank', 'khozyaika', 'pavel', 'mama'];
+
+    var anyRendered = false;
     state.contacts.forEach(function (c) {
       if (!c.visible) return;
+      if (filterIds && filterIds.indexOf(c.id) === -1) return;
+      anyRendered = true;
+
       var $item = $('<div class="contact-item">').attr('data-contact', c.id);
       if (state.current_chat === c.id) $item.addClass('active');
 
@@ -157,6 +177,49 @@
       $item.append($meta);
 
       $list.append($item);
+    });
+
+    if (!anyRendered) {
+      var emptyTexts = {
+        team: 'команда ещё не собрана · продолжай искать клиентов',
+        money: 'в папке «деньги» пока только банк',
+        all: 'пусто · продолжай играть'
+      };
+      $list.append($('<div class="folder-empty-state">').text(emptyTexts[folder] || 'пусто'));
+    }
+  }
+
+  /**
+   * Render funnel sub-groups for 'funnel' folder.
+   */
+  function renderFunnelGroups(state, $list) {
+    var groups = [
+      { icon: '🔥', label: 'cold', count: state.leads, desc: 'холодные лиды' },
+      { icon: '📝', label: 'qualified', count: state.qualified_leads, desc: 'прошли бриф' },
+      { icon: '🚧', label: 'в работе', count: (state.active_projects || []).length, desc: 'активные проекты' },
+      { icon: '✅', label: 'сдано', count: state.delivered_projects, desc: 'за месяц · цель 3' }
+    ];
+    groups.forEach(function (g) {
+      var $header = $('<div class="funnel-group-header">');
+      $header.text(g.icon + ' ' + g.label);
+      $header.append($('<span class="funnel-group-count">').text(g.count));
+      $list.append($header);
+
+      if (g.label === 'в работе' && state.active_projects && state.active_projects.length > 0) {
+        state.active_projects.forEach(function (p) {
+          var $item = $('<div class="funnel-item">');
+          $item.append($('<span>').text('#' + p.id + ' ' + p.client));
+          var $prog = $('<span class="funnel-progress">');
+          $prog.append($('<span class="funnel-progress-fill">').css('width', p.progress + '%'));
+          $item.append($prog);
+          $item.append($('<span>').text(p.progress + '%'));
+          $list.append($item);
+        });
+      } else if (g.count === 0) {
+        $list.append($('<div class="funnel-item">').css('opacity', '0.5').text('— пусто —'));
+      } else {
+        $list.append($('<div class="funnel-item">').text(g.desc));
+      }
     });
   }
 

@@ -119,27 +119,38 @@
       beat_food: false,
       beat_rent: false,
       beat_lena_day9: false,
+      beat_khozyaika: false,
+      beat_pavel: false,
+      beat_mama6: false,
+      beat_mama11: false,
+      beat_denis3: false,
+      beat_denis6: false,
+      beat_denis9: false,
       // reactive
       reach_out_total: 0,
       reach_out_misses: 0,
       lena_lifeline_used: false,
+      pending_callbacks: [], // delayed events {trigger_day, type, data}
       ending_seen: false, // 'win' | 'lose_eviction' | 'lose_burnout' | 'lose_no_traction' | false
       // messenger
       contacts: [
-        { id: 'lena',  name: 'Лена',   avatar: 'Л', unread: 0, visible: true },
-        { id: 'anna',  name: 'Анна',   avatar: 'А', unread: 0, visible: false },
-        { id: 'tim',   name: 'Тим',    avatar: 'Т', unread: 0, visible: false },
-        { id: 'bank',  name: 'Т-Банк', avatar: '$', unread: 0, visible: true },
-        { id: 'scratch', name: 'себе', avatar: 'М', unread: 0, visible: true }
+        { id: 'lena',    name: 'Лена',            avatar: 'Л',  unread: 0, visible: true  },
+        { id: 'anna',    name: 'Анна',            avatar: 'А',  unread: 0, visible: false },
+        { id: 'tim',     name: 'Тим',             avatar: 'Т',  unread: 0, visible: false },
+        { id: 'bank',    name: 'Т-Банк',          avatar: '$',  unread: 0, visible: true  },
+        { id: 'khozyaika', name: 'Наталья Вал.',  avatar: 'Н',  unread: 0, visible: false },
+        { id: 'pavel',   name: 'Павел',           avatar: 'П',  unread: 0, visible: false },
+        { id: 'mama',    name: 'мама',            avatar: '♥',  unread: 0, visible: false },
+        { id: 'denis',   name: 'Денис',           avatar: 'Д',  unread: 0, visible: false },
+        { id: 'scratch', name: 'себе',            avatar: 'М',  unread: 0, visible: true  }
       ],
       threads: {
-        lena: [],
-        anna: [],
-        tim: [],
-        bank: [],
+        lena: [], anna: [], tim: [], bank: [],
+        khozyaika: [], pavel: [], mama: [], denis: [],
         scratch: []
       },
-      current_chat: 'scratch'
+      current_chat: 'scratch',
+      current_folder: 'all'
     };
   }
 
@@ -187,9 +198,15 @@
   // ========== dock (global HUD) ==========
 
   function renderDock() {
-    $('#dock-day').text(STATE.day);
+    // Time-of-day icon based on hours left (8h day)
+    var h = STATE.hours;
+    var tod = h >= 6 ? '🌅' : h >= 4 ? '☀️' : h >= 2 ? '🌇' : '🌙';
+    $('#dock-day').text(tod + ' ' + STATE.day);
     $('#dock-hours').text(Math.max(0, STATE.hours));
-    $('#dock-cash').text(STATE.cash);
+    // Cash color
+    var $cash = $('#dock-cash').text(STATE.cash).removeClass('neg low');
+    if (STATE.cash < 0) $cash.addClass('neg');
+    else if (STATE.cash < 200) $cash.addClass('low');
     $('#dock-leads').text(STATE.leads);
     $('#dock-qualified').text(STATE.qualified_leads);
     $('#dock-done').text(STATE.delivered_projects);
@@ -199,25 +216,35 @@
     var actions = [];
     if (STATE.lamp_on) {
       if (STATE.hours >= COST.reach_out.h && STATE.energy >= COST.reach_out.e) {
-        actions.push({ id: 'reach_out', label: 'написать в холодную', cost: '1ч, 5e' });
+        actions.push({ id: 'reach_out', label: 'искать клиентов', cost: '1ч · −5⚡', primary: true });
       }
       if (STATE.leads >= 1 && STATE.hours >= COST.brief_lead.h && STATE.energy >= COST.brief_lead.e) {
-        actions.push({ id: 'brief_lead', label: 'пробрифовать лида', cost: '1ч, 3e' });
+        actions.push({ id: 'brief_lead', label: 'созвон с лидом', cost: '1ч · −3⚡' });
       }
       if (STATE.qualified_leads >= 1 && STATE.hours >= COST.send_offer.h) {
-        actions.push({ id: 'send_offer', label: 'сделать коммерческое', cost: '1ч' });
+        actions.push({ id: 'send_offer', label: 'отправить оффер', cost: '1ч' });
       }
       if (STATE.active_projects.length > 0 && STATE.hours >= COST.work_on_project.h && STATE.energy >= COST.work_on_project.e) {
-        actions.push({ id: 'work_on_project', label: 'работать над проектом', cost: '2ч, 5e' });
+        actions.push({ id: 'work_on_project', label: 'делать работу', cost: '2ч · −5⚡' });
       }
       if (STATE.energy < 100 && STATE.hours >= COST.rest.h && STATE.coffee_stacks < 4) {
-        actions.push({ id: 'rest', label: 'отдохнуть', cost: '1ч, +30e' });
+        actions.push({ id: 'rest', label: 'перерыв', cost: '1ч · +30⚡' });
       }
-      actions.push({ id: 'end_day', label: 'закрыть ноутбук', cost: 'конец дня' });
+      actions.push({ id: 'end_day', label: '🌙 лечь спать', cost: 'конец дня' });
     }
 
+    // Primary action = first with primary flag
+    var primarySet = false;
     actions.forEach(function (a) {
       var $btn = $('<button class="dock-btn">').attr('data-action', a.id).text(a.label);
+      if (a.primary && !primarySet) {
+        $btn.addClass('primary');
+        primarySet = true;
+      }
+      // Day-end pulse when hours ≤ 2
+      if (a.id === 'end_day' && STATE.hours <= 2 && STATE.lamp_on) {
+        $btn.addClass('pulse');
+      }
       if (a.cost) $btn.append($('<span class="dock-cost">').text(' · ' + a.cost));
       if (isBusy) $btn.attr('disabled', 'disabled');
       $buttons.append($btn);
@@ -251,10 +278,136 @@
     if (contactId === 'tim' && STATE.notebook_available && !STATE.lead_submitted) {
       Bubbles.renderReplyChips([
         { id: 'open_notebook', label: 'открыть блокнот (написать тиму)' }
-      ], function () {
-        mountInlineForm();
-      });
+      ], function () { mountInlineForm(); });
+      return;
     }
+    // Khozyaika rent shock
+    if (contactId === 'khozyaika' && STATE._khozyaika_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'pay', label: 'заплатить +$500 (без споров)' },
+        { id: 'argue', label: 'возразить (40% waive)' },
+        { id: 'ignore', label: 'игнорировать' }
+      ], function (opt) {
+        STATE._khozyaika_pending = false;
+        Bubbles.clearChipsArea();
+        if (opt.id === 'pay') {
+          postOutgoing('khozyaika', 'окей. перевожу.');
+          STATE.cash -= 500;
+          postBank(-500, 'доп-rent «комод»');
+          postMessage('scratch', { kind: 'system', text: '−$500 · хозяйка' });
+        } else if (opt.id === 'argue') {
+          postOutgoing('khozyaika', 'извините, но я ничего не царапала. не буду доплачивать.');
+          setTimeout(function () {
+            if (Math.random() < 0.40) {
+              postIncoming('khozyaika', 'ну хорошо. на этот раз.', 'Наталья В.');
+              postMessage('scratch', { kind: 'system', text: 'хозяйка отступила' });
+            } else {
+              postIncoming('khozyaika', 'у меня есть другие арендаторы. до конца недели $500 или уходите.', 'Наталья В.');
+              STATE.cash -= 500;
+              postBank(-500, 'доп-rent (продавлено)');
+            }
+            save(); renderDock();
+          }, 800);
+        } else {
+          postMessage('scratch', { kind: 'system', text: 'игнорировала хозяйку' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // Pavel loan
+    if (contactId === 'pavel' && STATE._pavel_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'lend', label: 'дать $300 в долг' },
+        { id: 'refuse', label: 'отказать' }
+      ], function (opt) {
+        STATE._pavel_pending = false;
+        Bubbles.clearChipsArea();
+        if (opt.id === 'lend') {
+          postOutgoing('pavel', 'ладно. держи.');
+          STATE.cash -= 300;
+          postBank(-300, 'в долг · Павлу');
+          postMessage('scratch', { kind: 'system', text: '−$300 · отданы Павлу' });
+          // Delayed callback
+          STATE.pending_callbacks = STATE.pending_callbacks || [];
+          STATE.pending_callbacks.push({ trigger_day: STATE.day + 3, type: 'pavel_return' });
+        } else {
+          postOutgoing('pavel', 'не сейчас, извини.');
+          postMessage('scratch', { kind: 'system', text: 'Павлу отказала' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // Mama day 6
+    if (contactId === 'mama' && STATE._mama6_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'send', label: 'перевести $200' },
+        { id: 'defer', label: 'не сейчас, мам' }
+      ], function (opt) {
+        STATE._mama6_pending = false;
+        Bubbles.clearChipsArea();
+        if (opt.id === 'send') {
+          postOutgoing('mama', 'перевела, мам. береги себя.');
+          STATE.cash -= 200;
+          postBank(-200, 'маме · лекарства');
+          postMessage('scratch', { kind: 'system', text: '−$200 · маме' });
+        } else {
+          postOutgoing('mama', 'мам, сейчас не могу. в следующий раз. обещаю.');
+          STATE.energy = Math.max(0, STATE.energy - 5);
+          postMessage('scratch', { kind: 'system', text: '−5⚡ · эмоциональный вес' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // Mama day 11
+    if (contactId === 'mama' && STATE._mama11_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'come', label: 'приеду в воскресенье' },
+        { id: 'later', label: 'потом, работа' }
+      ], function (opt) {
+        STATE._mama11_pending = false;
+        Bubbles.clearChipsArea();
+        if (opt.id === 'come') {
+          postOutgoing('mama', 'буду в воскресенье. соскучилась.');
+          STATE.energy = Math.min(100, STATE.energy + 40);
+          postMessage('scratch', { kind: 'system', text: '+40⚡ · пироги работают' });
+        } else {
+          postOutgoing('mama', 'мам, проект горит. позже, ладно?');
+          STATE.energy = Math.max(0, STATE.energy - 10);
+          postMessage('scratch', { kind: 'system', text: '−10⚡ · эмоциональный долг' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // Denis party invitations (3 days)
+    [3, 6, 9].forEach(function (d) {
+      var key = '_denis' + d + '_pending';
+      if (contactId === 'denis' && STATE[key]) {
+        Bubbles.renderReplyChips([
+          { id: 'go', label: 'поехать (−$150, +60⚡, −2h дня)' },
+          { id: 'skip', label: 'не сейчас' }
+        ], function (opt) {
+          STATE[key] = false;
+          Bubbles.clearChipsArea();
+          if (opt.id === 'go') {
+            postOutgoing('denis', 'ладно, поехали. работа подождёт.');
+            STATE.cash -= 150;
+            STATE.energy = Math.min(100, STATE.energy + 60);
+            STATE.hours = Math.max(0, STATE.hours - 2);
+            postBank(-150, 'с Денисом');
+            postMessage('scratch', { kind: 'system', text: '−$150 · +60⚡ · −2h · день ожил' });
+          } else {
+            postOutgoing('denis', 'не сегодня. работа.');
+            postMessage('scratch', { kind: 'system', text: 'Денису отказала' });
+          }
+          save(); renderDock();
+        });
+        return;
+      }
+    });
   }
 
   function postMessage(threadId, msg) {
@@ -301,7 +454,8 @@
       try { fn(); } catch (e) { console.error('action error', e); }
       setTimeout(function () {
         isBusy = false;
-        checkEndings();
+        // Hard-fail only: cash crash can end mid-day
+        checkEndings(false);
         save();
         renderDock();
       }, BUBBLE_DELAY_MS);
@@ -498,26 +652,53 @@
   }
 
   function actEndDay() {
-    STATE.day += 1;
-    STATE.hours = HOURS_PER_DAY;
-    STATE.energy = Math.min(100, STATE.energy + 20);
-    STATE.coffee_stacks = Math.max(0, STATE.coffee_stacks - 1);
+    var prevDay = STATE.day;
 
-    if (STATE.day > FINALE_DAY) {
-      STATE.day = FINALE_DAY;
-      checkEndings(true);
-      return;
-    }
+    // Show night overlay first
+    var $overlay = $('#night-overlay');
+    var $text = $overlay.find('.night-text');
+    $text.text('ночь · день ' + prevDay + ' позади');
+    $overlay.addClass('active');
 
-    postSystem('scratch', '— конец дня ' + (STATE.day - 1) + ' · новый день начался —');
-    postSystem('scratch', 'день ' + STATE.day + ' · 8 часов впереди · $' + STATE.cash);
+    // After 1.5s overlay — do the actual day transition
+    setTimeout(function () {
+      STATE.day += 1;
+      STATE.hours = HOURS_PER_DAY;
+      STATE.energy = Math.min(100, STATE.energy + 20);
+      STATE.coffee_stacks = Math.max(0, STATE.coffee_stacks - 1);
 
-    // Fire scheduled day beats + passive
-    processPassive(STATE.day);
-    fireDayBeats(STATE.day);
+      // Day 12 → 13 transition → finale check
+      if (STATE.day > FINALE_DAY) {
+        postSystem('scratch', '— месяц закончился. день ' + FINALE_DAY + ' позади. —');
+        checkEndings(true);
+        STATE.day = FINALE_DAY;
+        $overlay.removeClass('active');
+        save();
+        renderDock();
+        return;
+      }
 
-    save();
-    renderDock();
+      postSystem('scratch', '— конец дня ' + prevDay + ' · новый день начался —');
+      postSystem('scratch', 'день ' + STATE.day + ' · 8 часов впереди · $' + STATE.cash);
+
+      if (STATE.day === FINALE_DAY - 1) {
+        postSystem('scratch', 'это последний рабочий день этого месяца · пора заканчивать проекты');
+      }
+      if (STATE.day === FINALE_DAY) {
+        postSystem('scratch', 'последний день месяца · сегодня всё решится');
+      }
+
+      processPassive(STATE.day);
+      fireDayBeats(STATE.day);
+
+      save();
+      renderDock();
+
+      // Hide overlay after short dwell
+      setTimeout(function () {
+        $overlay.removeClass('active');
+      }, 400);
+    }, 1500);
   }
 
   // ========== beats ==========
@@ -581,11 +762,136 @@
     });
   }
 
+  // ========== new characters (v2.0b1) ==========
+
+  function beatKhozyaika() {
+    if (STATE.beat_khozyaika) return;
+    STATE.beat_khozyaika = true;
+    STATE.contacts.find(function (c) { return c.id === 'khozyaika'; }).visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      text: 'марина, добрый день. мне сегодня приснилось что вы поцарапали комод в прихожей. думаю будет справедливо повысить аренду на $500. жду квитанции к 15-му числу. наталья валерьевна.'
+    });
+    postMessage('scratch', { kind: 'system', text: 'хозяйка написала · открой чат' });
+    STATE._khozyaika_pending = true;
+  }
+
+  function beatPavel() {
+    if (STATE.beat_pavel) return;
+    STATE.beat_pavel = true;
+    STATE.contacts.find(function (c) { return c.id === 'pavel'; }).visible = true;
+    postMessage('pavel', {
+      kind: 'incoming',
+      senderName: 'Павел',
+      text: 'привет. знаю, не звонил четыре месяца.\n\nслушай, у меня жёсткая ситуация — нужно $300 на пару недель. верну $450, честно. помоги, пожалуйста.'
+    });
+    postMessage('scratch', { kind: 'system', text: 'Павел написал · открой чат' });
+    STATE._pavel_pending = true;
+  }
+
+  function beatMama6() {
+    if (STATE.beat_mama6) return;
+    STATE.beat_mama6 = true;
+    STATE.contacts.find(function (c) { return c.id === 'mama'; }).visible = true;
+    postMessage('mama', {
+      kind: 'incoming',
+      senderName: 'мама',
+      text: 'доча, я на лекарства не могу накопить в этом месяце. если можешь помочь — $200 скинь. если нет — я понимаю, у тебя и так сложно.'
+    });
+    postMessage('scratch', { kind: 'system', text: 'мама написала · открой чат' });
+    STATE._mama6_pending = true;
+  }
+
+  function beatMama11() {
+    if (STATE.beat_mama11) return;
+    STATE.beat_mama11 = true;
+    STATE.contacts.find(function (c) { return c.id === 'mama'; }).visible = true;
+    postMessage('mama', {
+      kind: 'incoming',
+      senderName: 'мама',
+      text: 'ты там живая? звонков нет. приезжай на выходных, я пирогов напеку.'
+    });
+    postMessage('scratch', { kind: 'system', text: 'мама ждёт ответа' });
+    STATE._mama11_pending = true;
+  }
+
+  function beatDenis(day) {
+    var flag = 'beat_denis' + day;
+    if (STATE[flag]) return;
+    STATE[flag] = true;
+    STATE.contacts.find(function (c) { return c.id === 'denis'; }).visible = true;
+    var texts = {
+      3: 'марин, задолбал сидеть дома. поехали на регату в субботу? море, ветер, никаких писем',
+      6: 'слушай, в кино идём? новый фильм — хвалят. отвлечёшься на два часа',
+      9: 'перестань работать хоть на день. гулять поехали на набережную? я занесу вино'
+    };
+    postMessage('denis', {
+      kind: 'incoming',
+      senderName: 'Денис',
+      text: texts[day] || 'привет, как ты там?'
+    });
+    postMessage('scratch', { kind: 'system', text: 'Денис зовёт гулять · открой чат' });
+    STATE['_denis' + day + '_pending'] = true;
+  }
+
+  // ========== delayed callbacks (Pavel loan return) ==========
+
+  function processPendingCallbacks(day) {
+    if (!STATE.pending_callbacks || STATE.pending_callbacks.length === 0) return;
+    var keep = [];
+    STATE.pending_callbacks.forEach(function (cb) {
+      if (day >= cb.trigger_day) {
+        // Execute
+        if (cb.type === 'pavel_return') {
+          if (Math.random() < 0.30) {
+            STATE.cash += 450;
+            postMessage('pavel', {
+              kind: 'incoming',
+              senderName: 'Павел',
+              text: 'спасибо что выручила. держу слово — вернул $450. без задержек.'
+            });
+            postBank(450, 'возврат от Павла (с процентом)');
+          } else {
+            postMessage('pavel', {
+              kind: 'incoming',
+              senderName: 'Павел',
+              text: 'привет. у меня тут затяжка. через неделю-две.'
+            });
+            postMessage('scratch', { kind: 'system', text: 'Павел обещает через неделю...' });
+            // Reschedule once
+            if (!cb.retried) {
+              keep.push({ trigger_day: day + 4, type: 'pavel_silence', retried: true });
+            }
+          }
+        } else if (cb.type === 'pavel_silence') {
+          postMessage('pavel', {
+            kind: 'incoming',
+            senderName: 'Павел',
+            text: 'прости. не получилось.'
+          });
+          postMessage('scratch', { kind: 'system', text: 'Павел не вернул деньги' });
+        }
+      } else {
+        keep.push(cb);
+      }
+    });
+    STATE.pending_callbacks = keep;
+  }
+
   function fireDayBeats(day) {
     if (day === 2) { /* lena intro already fired via lamp */ }
+    if (day === 3) beatDenis(3);
     if (day === 4) beatAnnaOffer();
     if (day === 5) beatTimIntro();
-    if (day === 9) beatLenaDay9();
+    if (day === 6) { beatMama6(); beatDenis(6); }
+    if (day === 7) beatKhozyaika();
+    if (day === 8) beatPavel();
+    if (day === 9) { beatLenaDay9(); beatDenis(9); }
+    if (day === 11) beatMama11();
+
+    // Delayed callbacks processed each day
+    processPendingCallbacks(day);
   }
 
   // ========== passive costs (single source) ==========
@@ -624,28 +930,39 @@
 
   // ========== endings ==========
 
+  /**
+   * checkEndings — fires ending ONLY on day 12+ transition (forceOnFinaleDay=true)
+   * or on hard-fail cash crash (any day).
+   * Game remains freeform until day 12 — player может делать >3 проекта, накопить
+   * больше денег, играть по-свободному. Previously (v2.0a bug) win fired at any
+   * delivered>=3 causing game to end at day 7-8.
+   */
   function checkEndings(forceOnFinaleDay) {
     if (STATE.ending_seen) return;
-    // Lose conditions
-    if (STATE.cash < -1500) { showLose('eviction', 'денежный крах: −$1500'); return; }
-    if (forceOnFinaleDay && STATE.day >= FINALE_DAY && STATE.delivered_projects < 1) {
-      showLose('no_traction', '12 дней · ни одного закрытого проекта'); return;
+    // Hard fail: cash crash — any day
+    if (STATE.cash < -1500) {
+      showLose('eviction', 'месяц не дошёл · не хватило денег');
+      return;
     }
-    // Win condition
+    // Finale check — only fires when forceOnFinaleDay AND we've moved past FINALE_DAY
+    if (!forceOnFinaleDay) return;
+    // At this point STATE.day should be FINALE_DAY+1 (not yet clamped by caller)
+    if (STATE.day <= FINALE_DAY) return;
+
+    // Finale reached
     if (STATE.delivered_projects >= 3 && STATE.cash >= 0 && STATE.energy >= 25) {
-      showWin(); return;
-    }
-    // Finale check
-    if (forceOnFinaleDay && STATE.day >= FINALE_DAY) {
-      if (STATE.delivered_projects >= 3) { showWin(); return; }
-      else { showLose('burnout', 'день 12 · проекты не добиты'); return; }
+      showWin();
+    } else if (STATE.delivered_projects === 0) {
+      showLose('no_traction', '12 дней · ни одного закрытого проекта');
+    } else {
+      showLose('burnout', 'месяц закончился · проектов не добила');
     }
   }
 
   function showWin() {
     STATE.ending_seen = 'win';
     save();
-    var stats = STATE.delivered_projects + ' проекта сданы · $' + STATE.cash + ' · energy ' + STATE.energy;
+    var stats = STATE.delivered_projects + ' проекта сданы · $' + STATE.cash + ' · энергия ' + STATE.energy + '/100';
     $('#win-stats').text(stats);
     $('#win-overlay').show();
   }
@@ -654,6 +971,39 @@
     STATE.ending_seen = 'lose_' + reason;
     save();
     $('#lose-reason').text(reasonText);
+
+    // Build narrative body by reason type
+    var $body = $('#lose-body').empty();
+    var lines = [];
+    if (reason === 'eviction') {
+      lines = [
+        'не хватило месяца — тебя попросили съехать.',
+        'но ты держалась до последнего. это уже что-то.',
+        'формат «один в одно лицо» жестокий. не ты виновата — система.',
+        ''
+      ];
+    } else if (reason === 'no_traction') {
+      lines = [
+        '12 дней прошло. ни одного закрытого проекта.',
+        'может быть, формат контент-студии не твой.',
+        'или время было неподходящее.',
+        'это не провал — это информация.',
+        ''
+      ];
+    } else if (reason === 'burnout') {
+      lines = [
+        'месяц закончился. проекты не добила.',
+        'твоё тело требует остановки, не формат.',
+        'первый месяц всегда самый беспощадный.',
+        'отдохни и попробуй ещё раз в v2.1.',
+        ''
+      ];
+    } else {
+      lines = ['бывает.'];
+    }
+    lines.forEach(function (l) {
+      $body.append($('<p>').text(l));
+    });
     $('#lose-overlay').show();
   }
 
@@ -770,10 +1120,15 @@
     });
 
     // Win / lose overlay buttons
-    $('#win-restart, #lose-restart').on('click', function () {
-      clearState();
-      sessionStorage.removeItem(SESSION_KEY);
-      location.reload();
+    // Win/lose overlay "continue" buttons are disabled placeholders (v2.1)
+    // Game uses reset link в footer if player wants to restart
+
+    // Folder tab click
+    $('#folder-tabs').on('click', '.folder-tab', function () {
+      var folder = $(this).attr('data-folder');
+      STATE.current_folder = folder;
+      save();
+      Bubbles.renderContacts(STATE);
     });
 
     // Contact click
