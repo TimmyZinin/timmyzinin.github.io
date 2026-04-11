@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.1.0';
+  var VERSION = '2.1.1';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -98,6 +98,54 @@
     'поставила чайник, забыла, снова поставила'
   ];
 
+  var EAT_HOME_TEXT = [
+    'варю макароны с сыром. не ресторан, но хоть что-то горячее',
+    'гречка с луком. бабушкина схема. работает',
+    'яичница из трёх яиц. кофе. смотрю на стену',
+    'ем йогурт с бананом прямо из баночки. на тарелку лень',
+    'замораживаю половинку лазаньи из пятёрки. норм'
+  ];
+
+  var EAT_OUT_TEXT = [
+    'заказала в кафе · боул с лососем, кофе · dopamine hit',
+    'забежала в бистро на углу. паста карбонара. в одиночестве за столиком у окна',
+    'ресторан с видом на реку. стейк, бокал вина. чувствую себя наполовину человеком',
+    'dim sum place в торговом. одна, с книжкой. тихо и хорошо',
+    'суши-сет со скидкой по промокоду. грустноватая романтика но сытно'
+  ];
+
+  var SHOPPING_TEXT = [
+    'купила тёплый свитер в zara. мелочь, но настроение +50',
+    'новые кроссовки со скидкой. с ними чувствую что могу бегать быстрее (не буду)',
+    'платье которое давно хотела. оно всё ещё не по размеру, но куплено. счастье',
+    'косметика в рив гош. палетка теней и помада. буду красить лицо завтра',
+    'книга в мольскине + термо-кружка. рабочий набор обновлён'
+  ];
+
+  var WORK_NIGHT_TEXT = [
+    'сижу до 4 утра · экран режет глаза · проект двигается',
+    'чай третьей заварки, вентилятор ноутбука на максимум, соседи спят',
+    'в окне синий рассвет. я ещё не спала. но работа почти закончена',
+    'ночной дожор: орехи, доширак, чай. кнопка save нажата 47 раз',
+    'наушники, lofi hip hop, руки сами по себе. 3:47 утра'
+  ];
+
+  var DATE_KIRILL_TEXT = [
+    'свидание с Кириллом · грустный ужин, но он угощает',
+    'с Кириллом в кафе. он говорит о криптотрейдинге. я киваю и ем салат',
+    'с Кириллом в баре. он заказал коктейль с зонтиком. мне стейк. норм',
+    'ужин с Кириллом. он пытается держать руку. я не убираю. странно и тепло',
+    'Кирилл привёл в кино и кафе после. даже проводил до метро. может он не так плох'
+  ];
+
+  var HANGOUT_DENIS_TEXT = [
+    'с Денисом на набережной · вино, смех, море, 4 часа как 40 минут',
+    'квартирник у Дениса. акустическая гитара, вино, 12 человек, я смеюсь до слёз',
+    'парк горького с Денисом. велосипеды, квас, шашлык, закат',
+    'клуб с Денисом. душно, громко, дорого, но я танцевала три часа подряд',
+    'регата вышла. ветер, брызги, Денис рулит, я смеюсь как ребёнок'
+  ];
+
   // ========== state ==========
 
   function defaultState() {
@@ -133,6 +181,12 @@
       // Interaction counter (BLOCK M)
       player_interactions: 0,
       beat_tim_creator_fired: false,
+      // SPRINT 06 — Tim consultant automation tiers
+      beat_tim_consult_intro: false,
+      auto_reach_out: false,       // tier 1 — $200
+      auto_brief_lead: false,      // tier 2 — $300
+      auto_send_offer: false,      // tier 3 — $400
+      auto_work_project: false,    // tier 4 — $500
       // beat flags (30-day arc)
       beat_lena_intro: false,
       beat_anna_offer: false,
@@ -144,11 +198,17 @@
       beat_rent_20: false,
       beat_rent_30: false,
       beat_lena_day9: false,
+      beat_khozyaika_day1: false,
+      beat_khozyaika_komod: false,
       beat_khozyaika_1: false,
       beat_khozyaika_2: false,
       beat_khozyaika_3: false,
       beat_khozyaika_4: false,
       beat_pavel: false,
+      beat_pavel_night_day2: false,
+      beat_pavel_day5: false,
+      beat_pavel_day7: false,
+      beat_pavel_day9: false,
       beat_mama6: false,
       beat_mama11: false,
       beat_mama17: false,
@@ -164,6 +224,13 @@
       beat_artur: false,
       beat_vera: false,
       beat_sosed: false,
+      beat_svetka_day3: false,
+      beat_svetka_day6: false,
+      beat_svetka_day10: false,
+      beat_svetka_day14: false,
+      beat_svetka_day18: false,
+      beat_svetka_day22: false,
+      beat_svetka_day26: false,
       // reactive
       reach_out_total: 0,
       reach_out_misses: 0,
@@ -188,6 +255,7 @@
         { id: 'artur',   name: 'Артур (экс-босс)',   avatar: 'А', unread: 0, visible: false, spam: true },
         { id: 'vera',    name: 'Вера Николаевна',    avatar: 'В', unread: 0, visible: false, spam: true },
         { id: 'sosed',   name: 'сосед снизу',        avatar: 'С', unread: 0, visible: false, spam: true },
+        { id: 'svetka',  name: 'Светка (подружка)',  avatar: '🎤', unread: 0, visible: false },
         // one-shot flavor spam (7)
         { id: 'lyuda',   name: 'Людочка (не та)',    avatar: 'Л', unread: 0, visible: false, spam: true },
         { id: 'ozon',    name: 'OZON курьер',        avatar: '📦', unread: 0, visible: false, spam: true },
@@ -201,7 +269,7 @@
       threads: {
         lena: [], anna: [], tim: [], bank: [],
         khozyaika: [], pavel: [], mama: [], denis: [],
-        olya: [], kirill: [], krypta: [], artur: [], vera: [], sosed: [],
+        olya: [], kirill: [], krypta: [], artur: [], vera: [], sosed: [], svetka: [],
         lyuda: [], ozon: [], taxi: [], student: [], katya: [], teshcha: [], marathon: [],
         scratch: []
       },
@@ -339,9 +407,9 @@
         reason: STATE.active_projects.length === 0 ? 'нет проектов' : (STATE.hours < COST.work_on_project.h ? 'нет часов' : 'нет энергии')
       });
       actions.push({
-        id: 'work_night', label: '🌙 ночная работа', cost: '3ч · −15⚡',
-        disabled: STATE.active_projects.length === 0 || STATE.day < 5 || STATE.hours < COST.work_night.h || STATE.energy < COST.work_night.e,
-        reason: STATE.day < 5 ? 'доступно с дня 5' : (STATE.active_projects.length === 0 ? 'нет проектов' : 'нет часов/энергии')
+        id: 'work_night', label: '🌙 ночная работа', cost: '−15⚡ · −15💚',
+        disabled: STATE.active_projects.length === 0 || STATE.day < 3 || STATE.energy < COST.work_night.e,
+        reason: STATE.day < 3 ? 'доступно с дня 3' : (STATE.active_projects.length === 0 ? 'нет проектов' : 'мало энергии')
       });
       // Еда + отдых + шопинг
       actions.push({
@@ -512,11 +580,109 @@
   }
 
   function renderThreadContextActions(contactId) {
-    // Tim thread (creator lead form): show when beat_tim_creator_fired
+    // Tim creator 4th wall break: lead form chip
     if (contactId === 'tim' && STATE.beat_tim_creator_fired && !STATE.lead_submitted) {
       Bubbles.renderReplyChips([
-        { id: 'fill_form', label: '📝 заполнить форму (связаться с Тимом)' }
+        { id: 'fill_form', label: '📝 заполнить форму (связаться с реальным Тимом)' }
       ], function () { mountInlineForm(); });
+      return;
+    }
+    // Tim tier 1 — auto_reach_out
+    if (contactId === 'tim' && STATE._tim_consult_pending && !STATE.auto_reach_out) {
+      Bubbles.renderReplyChips([
+        { id: 'buy', label: 'купить автофарминг ($200)' },
+        { id: 'later', label: 'подумаю позже' }
+      ], function (opt) {
+        STATE._tim_consult_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'buy' && STATE.cash >= 200 && !STATE.bank_locked) {
+          STATE.cash -= 200;
+          STATE.auto_reach_out = true;
+          postBank(-200, 'Тим · автофарминг лидов');
+          postOutgoing('tim', 'беру. переведу $200.');
+          setTimeout(function () {
+            postIncoming('tim', 'отлично, настроил. с завтрашнего дня +1 лид в день автоматом.', 'Тим');
+          }, 900);
+        } else if (opt.id === 'buy') {
+          postOutgoing('tim', 'не хватает денег пока.');
+        } else {
+          postOutgoing('tim', 'хорошо, пока не сейчас.');
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // Tim tier 2 — auto_brief_lead
+    if (contactId === 'tim' && STATE._tim_tier2_pending && !STATE.auto_brief_lead) {
+      Bubbles.renderReplyChips([
+        { id: 'buy', label: 'купить авто-созвоны ($300)' },
+        { id: 'later', label: 'нет' }
+      ], function (opt) {
+        STATE._tim_tier2_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'buy' && STATE.cash >= 300 && !STATE.bank_locked) {
+          STATE.cash -= 300;
+          STATE.auto_brief_lead = true;
+          postBank(-300, 'Тим · AI созвоны');
+          postOutgoing('tim', 'беру, настраивай.');
+          setTimeout(function () {
+            postIncoming('tim', 'готово. AI будет квалифицировать лиды каждое утро.', 'Тим');
+          }, 900);
+        } else {
+          postOutgoing('tim', opt.id === 'buy' ? 'не хватает денег' : 'пока нет.');
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // Tim tier 3 — auto_send_offer
+    if (contactId === 'tim' && STATE._tim_tier3_pending && !STATE.auto_send_offer) {
+      Bubbles.renderReplyChips([
+        { id: 'buy', label: 'купить AI-оффер ($400)' },
+        { id: 'later', label: 'нет' }
+      ], function (opt) {
+        STATE._tim_tier3_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'buy' && STATE.cash >= 400 && !STATE.bank_locked) {
+          STATE.cash -= 400;
+          STATE.auto_send_offer = true;
+          postBank(-400, 'Тим · AI оффер');
+          postOutgoing('tim', 'беру.');
+          setTimeout(function () {
+            postIncoming('tim', 'настроил. AI будет сам отправлять офферы и принимать контракты.', 'Тим');
+          }, 900);
+        } else {
+          postOutgoing('tim', opt.id === 'buy' ? 'не хватает денег' : 'нет.');
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // Tim tier 4 — auto_work_project
+    if (contactId === 'tim' && STATE._tim_tier4_pending && !STATE.auto_work_project) {
+      Bubbles.renderReplyChips([
+        { id: 'buy', label: 'купить AI-копирайтера ($500)' },
+        { id: 'later', label: 'нет' }
+      ], function (opt) {
+        STATE._tim_tier4_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'buy' && STATE.cash >= 500 && !STATE.bank_locked) {
+          STATE.cash -= 500;
+          STATE.auto_work_project = true;
+          postBank(-500, 'Тим · AI копирайтер');
+          postOutgoing('tim', 'беру.');
+          setTimeout(function () {
+            postIncoming('tim', 'готово. AI пишет первый черновик, ты добиваешь.', 'Тим');
+          }, 900);
+        } else {
+          postOutgoing('tim', opt.id === 'buy' ? 'не хватает денег' : 'нет.');
+        }
+        save(); renderDock();
+      });
       return;
     }
     // Khozyaika 1 — счётчики воды
@@ -934,6 +1100,30 @@
       return;
     }
 
+    // Светка — сплетни (SPRINT 06)
+    if (contactId === 'svetka' && STATE._svetka_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'listen', label: '«слушать» сплетню (−1h, +15💚)' },
+        { id: 'ignore', label: 'не сейчас (−5💚)' }
+      ], function (opt) {
+        STATE._svetka_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'listen') {
+          postOutgoing('svetka', 'ааа рассказывай подробнее');
+          STATE.hours = Math.max(0, STATE.hours - 1);
+          STATE.comfort = Math.min(100, STATE.comfort + 15);
+          setTimeout(function () {
+            postIncoming('svetka', 'ТЫ ЛУЧШАЯ я тебя обожаю 💕 расскажу всё на кофе в воскресенье', 'Светка');
+          }, 1000);
+        } else {
+          postOutgoing('svetka', 'света я не могу, проект горит. позже');
+          STATE.comfort = Math.max(0, STATE.comfort - 5);
+        }
+        save(); renderDock();
+      });
+      return;
+    }
     // Сосед снизу — протёк
     if (contactId === 'sosed' && STATE._sosed_pending) {
       Bubbles.renderReplyChips([
@@ -1114,16 +1304,18 @@
 
   function actLamp() {
     STATE.lamp_on = true;
-    // Open scratch chat with intro
     postMessage('scratch', {
       text: 'день 1. 9:00. ноутбук открыт. чат пуст. кофе остыл. пора начинать.',
       kind: 'system'
     });
-    // Lena pre-seeded message arrives in a moment
     setTimeout(function () {
       triggerLenaIntro();
       renderDock();
     }, 500);
+    // Day 1 Khozyaika rent reminder — arrives 2.5s after lamp click
+    setTimeout(function () {
+      beatKhozyaikaDay1Rent();
+    }, 2500);
     save();
     openChat('scratch');
     renderDock();
@@ -1332,7 +1524,7 @@
     STATE.comfort = Math.min(100, STATE.comfort + COST.eat_home.m);
 
     runAction(function () {
-      postOutgoing('scratch', 'варю макароны с сыром · еда, но хоть что-то');
+      postOutgoing('scratch', pick(EAT_HOME_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+' + COST.eat_home.f + ' сытости · −$' + COST.eat_home.c);
       }, 400);
@@ -1349,7 +1541,7 @@
     STATE.comfort = Math.min(100, STATE.comfort + COST.eat_out.m);
 
     runAction(function () {
-      postOutgoing('scratch', 'заказала в кафе · боул с лососем и кофе · dopamine hit');
+      postOutgoing('scratch', pick(EAT_OUT_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+' + COST.eat_out.f + ' сытости · +' + COST.eat_out.m + ' комфорт · −$' + COST.eat_out.c);
         postBank(-COST.eat_out.c, 'кафе на углу');
@@ -1367,7 +1559,7 @@
     STATE.comfort = Math.min(100, STATE.comfort + COST.shopping.m);
 
     runAction(function () {
-      postOutgoing('scratch', 'купила новый свитер, носки, крем для лица · маленькие штуки, но поднимают');
+      postOutgoing('scratch', pick(SHOPPING_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+' + COST.shopping.m + ' комфорт · −$' + COST.shopping.c);
         postBank(-COST.shopping.c, 'маленький шопинг');
@@ -1394,7 +1586,7 @@
     }
 
     runAction(function () {
-      postOutgoing('scratch', 'свидание с Кириллом · грустный ужин но он угощает');
+      postOutgoing('scratch', pick(DATE_KIRILL_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+' + COST.date_kirill.f + ' сытости · +' + COST.date_kirill.m + ' комфорт · −3h · −10⚡');
       }, 400);
@@ -1412,7 +1604,7 @@
     STATE.energy = Math.min(100, STATE.energy + COST.hangout_denis.ePlus);
 
     runAction(function () {
-      postOutgoing('scratch', 'с Денисом на набережной · вино, смех, море, 4 часа как 40 минут');
+      postOutgoing('scratch', pick(HANGOUT_DENIS_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+' + COST.hangout_denis.m + ' комфорт · +' + COST.hangout_denis.ePlus + '⚡ · −$' + COST.hangout_denis.c);
         postBank(-COST.hangout_denis.c, 'с Денисом');
@@ -1420,13 +1612,12 @@
     });
   }
 
-  // BLOCK F — night work (more progress, more cost)
+  // BLOCK F — night work (extra time beyond 8h day, burns energy + comfort)
   function actWorkNight() {
     if (STATE.active_projects.length === 0) return;
-    if (STATE.day < 5) return;
-    if (STATE.hours < COST.work_night.h) return;
+    if (STATE.day < 3) return;
     if (STATE.energy < COST.work_night.e) return;
-    STATE.hours -= COST.work_night.h;
+    // No hours check — night work happens AFTER the day's 8 hours
     STATE.energy = Math.max(0, STATE.energy - COST.work_night.e);
     STATE.comfort = Math.max(0, STATE.comfort + COST.work_night.m); // .m is negative
 
@@ -1434,7 +1625,7 @@
       var p = STATE.active_projects[0];
       p.progress = Math.min(100, (p.progress || 0) + 50);
       p.work_units_done = (p.work_units_done || 0) + 1.5; // night = 1.5 units
-      postOutgoing('scratch', 'сидишь до 4 утра · экран режет глаза · проект двигается');
+      postOutgoing('scratch', pick(WORK_NIGHT_TEXT));
       setTimeout(function () {
         postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '% · −15⚡ ночной режим');
         if (p.work_units_done >= (p.work_units_total || 3)) {
@@ -1583,48 +1774,160 @@
     });
   }
 
-  // ========== Тим as game creator (BLOCK M) — triggered by interaction count, not day ==========
+  // ========== Тим as automation consultant (SPRINT 06) ==========
+  // Arc: day 5 intro → buys automation tiers → day 28 4th-wall-break → lead form
+  // 4 tiers unlock in sequence: $200 auto_reach_out → $300 auto_brief_lead →
+  // $400 auto_send_offer → $500 auto_work_project. Each tier makes that action
+  // auto-trigger once per day in processPassive (passive income generation).
 
-  function beatTimCreator() {
-    if (STATE.beat_tim_creator_fired) return;
-    STATE.beat_tim_creator_fired = true;
+  var TIM_TIERS = [
+    { id: 'auto_reach_out',   label: 'Автофарминг холодных лидов', price: 200 },
+    { id: 'auto_brief_lead',  label: 'Авто-созвоны с лидами',      price: 300 },
+    { id: 'auto_send_offer',  label: 'Авто-оффер и торг',          price: 400 },
+    { id: 'auto_work_project',label: 'AI-копирайтер для проектов', price: 500 }
+  ];
+
+  function beatTimConsultIntro() {
+    if (STATE.beat_tim_consult_intro) return;
+    STATE.beat_tim_consult_intro = true;
     var c = findContact('tim'); if (c) { c.visible = true; c.online = true; }
-    STATE.notebook_available = true;
 
-    // 4th wall break: Tim-as-creator messages the player directly
     postMessage('tim', {
       kind: 'incoming',
       senderName: 'Тим',
-      text: 'привет. это не персонаж — это реально я. Тим, создатель этой игры.'
+      photo: 'img/events/tim_kas_view.webp',
+      photoAlt: 'вид из каша',
+      text: 'привет, марина. лена мне про тебя рассказала. я консультант по автоматизации и AI.'
     });
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        photo: 'img/events/tim_kas_view.webp',
-        photoAlt: 'вид из каша',
-        text: 'спасибо что ты тут. что играешь за Марину, принимаешь решения, тратишь своё время. мне правда важно.\n\nесли тебе хочется сэкономить ещё больше своего времени — в реальной жизни — я могу помочь. я автоматизирую бизнесы и прикручиваю ИИ к процессам. это то чем я занимаюсь каждый день.'
+        text: 'смотри: я могу прикрутить ИИ к твоему процессу поиска клиентов. ты заплатишь один раз, и я настрою систему которая будет искать клиентов за тебя, пока ты спишь.'
       });
     }, 1200);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'если интересно — нажми кнопку ниже и заполни короткую форму. я свяжусь лично. без воронок, без ботов, без курсов. просто Тим.'
+        text: 'первый уровень — автофарминг холодки. $200. каждый день +1 лид без твоего участия. хочешь попробовать?'
       });
     }, 2400);
+    STATE._tim_consult_pending = true;
+    postMessage('scratch', { kind: 'system', text: 'Тим предлагает автоматизацию · открой чат' });
+  }
 
-    postMessage('scratch', { kind: 'system', text: 'сообщение от Тима · открой чат' });
+  function beatTimTier2Offer() {
+    if (STATE.beat_tim_tier2_offer) return;
+    STATE.beat_tim_tier2_offer = true;
+    postMessage('tim', {
+      kind: 'incoming',
+      senderName: 'Тим',
+      text: 'смотрю твоя система работает. теперь могу автоматизировать созвоны — AI делает brief за тебя. $300. +1 квалифицированный лид в день.'
+    });
+    STATE._tim_tier2_pending = true;
+  }
+
+  function beatTimTier3Offer() {
+    if (STATE.beat_tim_tier3_offer) return;
+    STATE.beat_tim_tier3_offer = true;
+    postMessage('tim', {
+      kind: 'incoming',
+      senderName: 'Тим',
+      text: 'третий уровень: AI сам отправляет офферы и торгуется по базовой стратегии. $400. +1 оффер отправлен в день.'
+    });
+    STATE._tim_tier3_pending = true;
+  }
+
+  function beatTimTier4Offer() {
+    if (STATE.beat_tim_tier4_offer) return;
+    STATE.beat_tim_tier4_offer = true;
+    postMessage('tim', {
+      kind: 'incoming',
+      senderName: 'Тим',
+      text: 'последний уровень: AI-копирайтер делает первый черновик проектов. $500. +0.5 work unit в день по текущему проекту.'
+    });
+    STATE._tim_tier4_pending = true;
+  }
+
+  // Day 28 — 4th wall break (moved from interaction-based to late-game beat)
+  function beatTimCreator() {
+    if (STATE.beat_tim_creator_fired) return;
+    STATE.beat_tim_creator_fired = true;
+    var c = findContact('tim'); if (c) { c.visible = true; c.online = true; }
+    STATE.notebook_available = true;
+
+    postMessage('tim', {
+      kind: 'incoming',
+      senderName: 'Тим',
+      text: 'слушай, марина. есть одна штука которую я до сих пор не сказал.'
+    });
+    setTimeout(function () {
+      postMessage('tim', {
+        kind: 'incoming',
+        senderName: 'Тим',
+        text: 'я не персонаж. я реально Тим. я создатель этой игры. и ты прямо сейчас читаешь это как игрок, а не как Марина.'
+      });
+    }, 1500);
+    setTimeout(function () {
+      postMessage('tim', {
+        kind: 'incoming',
+        senderName: 'Тим',
+        text: 'то что я рассказывал Марине про автоматизацию — это реально то, чем я занимаюсь. я прикручиваю ИИ к бизнесам. если тебе надо такое — нажми кнопку ниже, заполни форму, я свяжусь лично.'
+      });
+    }, 3000);
+    setTimeout(function () {
+      postMessage('tim', {
+        kind: 'incoming',
+        senderName: 'Тим',
+        text: 'без воронок, без курсов. просто я и ты. если интересно — жди сообщения в течение суток.'
+      });
+    }, 4500);
+    postMessage('scratch', { kind: 'system', text: '❕ сообщение от Тима (реального) · открой чат' });
   }
 
   function bumpInteraction() {
     STATE.player_interactions = (STATE.player_interactions || 0) + 1;
-    if (STATE.player_interactions >= 3 && !STATE.beat_tim_creator_fired) {
-      setTimeout(beatTimCreator, 600);
-    }
   }
 
-  // ========== Хозяйка 4 absurd beats (BLOCK E) ==========
+  // ========== Хозяйка (SPRINT 06: 6+ beats starting day 1) ==========
+
+  function beatKhozyaikaDay1Rent() {
+    if (STATE.beat_khozyaika_day1) return;
+    STATE.beat_khozyaika_day1 = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      text: 'Марина, добрый день! На всякий случай напоминаю: оплата за квартиру $500 первого числа каждой декады — 10, 20 и 30. Поздравляю с новой главой в жизни!'
+    });
+    setTimeout(function () {
+      postMessage('khozyaika', {
+        kind: 'incoming',
+        senderName: 'Наталья Валерьевна',
+        text: 'И если вдруг задержка — дайте знать. Я приду с ключами уже со своим дворником. У него характер.'
+      });
+    }, 1200);
+    postMessage('scratch', { kind: 'system', text: 'хозяйка напомнила про аренду · 10/20/30 число · $500' });
+  }
+
+  function beatKhozyaikaDay2Komod() {
+    if (STATE.beat_khozyaika_komod) return;
+    STATE.beat_khozyaika_komod = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      text: 'Марина, мне сегодня приснилось что вы поцарапали комод в прихожей. Комод этот от дедушки, ручная работа, ему 60 лет. Я его берегу.'
+    });
+    setTimeout(function () {
+      postMessage('khozyaika', {
+        kind: 'incoming',
+        senderName: 'Наталья Валерьевна',
+        text: 'Ничего страшного, конечно, просто на всякий случай — осмотрите его, пожалуйста. И напишите мне фото. Я волнуюсь.'
+      });
+    }, 1000);
+  }
 
   function beatKhozyaika1() {
     if (STATE.beat_khozyaika_1) return;
@@ -1661,7 +1964,7 @@
       senderName: 'Наталья Валерьевна',
       photo: 'img/events/cat_window.webp',
       photoAlt: 'кошка Мурка',
-      text: 'SOS МАРИНА! Кошка Мурка сбежала из квартиры на восьмой этаж. Помогите расклеить объявления по району, вы же дома работаете? У вас время есть. Срочно пожалуйста.'
+      text: 'SOS МАРИНА! Кошка Мурка сбежала из квартиры на восьмом этаже. Помогите расклеить объявления по району, вы же дома работаете? У вас время есть. Срочно пожалуйста.'
     });
     postMessage('scratch', { kind: 'system', text: 'хозяйка потеряла кошку · открой чат' });
     STATE._khozyaika3_pending = true;
@@ -1727,10 +2030,85 @@
       senderName: 'Павел',
       photo: 'img/events/bank_sms.webp',
       photoAlt: 'скриншот — обещаю вернуть',
-      text: 'привет. знаю, не звонил четыре месяца.\n\nслушай, у меня жёсткая ситуация — нужно $300 на пару недель. верну $450, честно. помоги, пожалуйста.'
+      text: 'слушай, у меня жёсткая ситуация — нужно $300 на пару недель. верну $450, честно. помоги, пожалуйста.'
     });
-    postMessage('scratch', { kind: 'system', text: 'бывший написал · открой чат' });
+    postMessage('scratch', { kind: 'system', text: 'бывший просит денег · открой чат' });
     STATE._pavel_pending = true;
+  }
+
+  // SPRINT 06 — бывший пишет чаще до Кирилла
+  function beatPavelNightDay2() {
+    if (STATE.beat_pavel_night_day2) return;
+    STATE.beat_pavel_night_day2 = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'привет, спишь?' });
+  }
+
+  function beatPavelDay5() {
+    if (STATE.beat_pavel_day5) return;
+    STATE.beat_pavel_day5 = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'я тут вспомнил, как мы с тобой в Питере сидели на Мойке. помнишь?' });
+    setTimeout(function () {
+      postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'тебе было 23, мне 27. я был дурак и не понимал ничего. прости если что.' });
+    }, 1200);
+  }
+
+  function beatPavelDay7() {
+    if (STATE.beat_pavel_day7) return;
+    STATE.beat_pavel_day7 = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'слушай, ты сейчас одна? в смысле по жизни.' });
+  }
+
+  // ========== Светка подружка (SPRINT 06) — гороскоп, голосовые, сплетни ==========
+
+  var SVETKA_GOSSIP = [
+    {
+      intros: [
+        '🎤 голосовое сообщение · 47 минут',
+        '🎤 голосовое сообщение · 52 минуты',
+        '🎤 голосовое сообщение · 38 минут',
+        '🎤 голосовое сообщение · 1 час 2 минуты',
+        '🎤 голосовое сообщение · 44 минуты'
+      ],
+      gossip: [
+        'марин! ты не поверишь. Ленка с работы встречается с ТЕМ саМЫМ! ну помнишь который был женат на Наташе которая в декрете? ну которая на йогу ходит в ту студию где теперь мой тренер по пилатесу работает? так вот ТА Наташа — она беременна ВТОРЫМ от своего нового который был в тиндере у меня 2 года назад! марина это катастрофа я не знаю кому звонить. перезвони срочно пожалуйста ТОЛЬКО ТЕБЕ МОГУ СКАЗАТЬ 😭',
+        'марина ты не поверишь что вчера было. я пошла на ту выставку где был пиар-вечер и встретила ТОГО САМОГО Олежу, помнишь мы на дне рождения у Ксюши с ним сидели и он сказал что у него свой стартап? так вот ОКАЗАЛОСЬ он таксует в яндексе, а стартап это что он продаёт кальяны онлайн. кальяны карл. и в процессе рассказа как он кальяны продаёт ОН МЕНЯ ПОЦЕЛОВАЛ я в шоке',
+        'слушай у меня тут драма. я переспала с Антоном — помнишь он нас знакомил на квартирнике в декабре? ну тот который по йоге гуру а на самом деле бухгалтер в адидасе. так вот. я узнала что у него есть ДЕВУШКА и она в Грузии сейчас и мы встречались всю неделю и он мне СКАЗАЛ что у него никого и я ЧУВСТВУЮ что я разрушила отношения. марина что мне делать звонить ей??',
+        'ты СИДИШЬ? маринчик моя тётя узнала что мой двоюродный брат развёлся с Кариной потому что она ему изменила с их СОСЕДОМ! карл! с соседом! у которого кошка живёт у них в квартире пока он в командировках! так вот они все три года пока она ей изменяла у них был такой график когда кошка приходит когда кошка уходит!!! это же конец света скажи мне!!',
+        'марина я вчера гадала на картах таро и мне выпал аркан башни в позиции близкого будущего я в панике что это значит?? гуглила всю ночь говорят это развод с кем-то кого я ещё даже не встретила это как мне готовиться?? я в панике я себе купила новую помаду но это не помогает'
+      ]
+    }
+  ];
+
+  function svetkaBeat(key) {
+    if (STATE[key]) return;
+    STATE[key] = true;
+    var c = findContact('svetka'); if (c) c.visible = true;
+    var deck = SVETKA_GOSSIP[0];
+    var voiceLabel = pick(deck.intros);
+    var gossip = pick(deck.gossip);
+    postMessage('svetka', {
+      kind: 'incoming',
+      senderName: 'Светка',
+      text: voiceLabel + '\n\n(не слушается)'
+    });
+    setTimeout(function () {
+      postMessage('svetka', {
+        kind: 'incoming',
+        senderName: 'Светка',
+        text: gossip
+      });
+    }, 1000);
+    STATE._svetka_pending = true;
+  }
+
+  function beatPavelDay9() {
+    if (STATE.beat_pavel_day9) return;
+    STATE.beat_pavel_day9 = true;
+    var c = findContact('pavel'); if (c) c.visible = true;
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'марина, если честно — я думаю о тебе каждый день уже которую неделю. я знаю что ты не хочешь. но ты должна это услышать.' });
   }
 
   function beatMama6() {
@@ -2160,14 +2538,25 @@
   }
 
   function fireDayBeats(day) {
-    // v2.1 — 30-day arc. Beats распределены по трём неделям.
-    // Tim creator beat (BLOCK M) триггерится по player_interactions, не по дню.
+    // v2.1.1 — 30-day arc with tighter Khozyaika spam
+    if (day === 2) { beatKhozyaikaDay2Komod(); beatPavelNightDay2(); }
     if (day === 3) { beatDenis(3); beatOlya(); }
     if (day === 4) beatKhozyaika1(); // счётчики воды
-    if (day === 5) beatAnnaOffer();
-    if (day === 6) beatSosedIntro();
+    if (day === 5) { beatAnnaOffer(); beatPavelDay5(); beatTimConsultIntro(); }
+    if (day === 10 && STATE.auto_reach_out) beatTimTier2Offer();
+    if (day === 16 && STATE.auto_brief_lead) beatTimTier3Offer();
+    if (day === 22 && STATE.auto_send_offer) beatTimTier4Offer();
+    if (day === 28) beatTimCreator();
+    if (day === 6) { beatSosedIntro(); svetkaBeat('beat_svetka_day6'); }
+    if (day === 7) beatPavelDay7();
     if (day === 8) beatMama6();
-    if (day === 9) { beatLenaDay9(); beatKirillIntro(); beatDenis(9); }
+    if (day === 9) { beatLenaDay9(); beatPavelDay9(); beatKirillIntro(); beatDenis(9); }
+    if (day === 3) svetkaBeat('beat_svetka_day3');
+    if (day === 10) svetkaBeat('beat_svetka_day10');
+    if (day === 14) svetkaBeat('beat_svetka_day14');
+    if (day === 18) svetkaBeat('beat_svetka_day18');
+    if (day === 22) svetkaBeat('beat_svetka_day22');
+    if (day === 26) svetkaBeat('beat_svetka_day26');
     if (day === 11) beatKhozyaika2(); // тикток эзотерика
     if (day === 12) beatKhozyaikaRescue(); // BLOCK N — rescue beat, mandatory
     if (day === 14) beatPavel();
@@ -2196,22 +2585,27 @@
   // ========== passive costs (single source) ==========
 
   function processPassive(day) {
-    // Base daily drains (survival economy v2.1 — tuned so day 10-12 always hit negative)
-    STATE.cash -= 25; // daily mini-expenses (coffee, метро, подписки, всякая мелочь)
+    // Base daily drains (survival economy v2.1.1 — tightened per playtest feedback)
+    STATE.cash -= 45; // daily: метро + кофе + подписки + мелочи + вайбы
     if (STATE.hunger == null) STATE.hunger = 100;
     if (STATE.comfort == null) STATE.comfort = 60;
-    STATE.hunger = Math.max(0, STATE.hunger - 12);
-    STATE.comfort = Math.max(0, STATE.comfort - 4);
+    STATE.hunger = Math.max(0, STATE.hunger - 20); // faster hunger decay
+    STATE.comfort = Math.max(0, STATE.comfort - 8); // faster comfort decay
 
-    // Low hunger → energy drain
+    // Low hunger → sharp energy drain (stronger v2.1.1)
     if (STATE.hunger < 30) {
-      STATE.energy = Math.max(0, STATE.energy - 8);
-      postMessage('scratch', { kind: 'system', text: 'голодно · −8 энергии · пора поесть' });
+      STATE.energy = Math.max(0, STATE.energy - 15);
+      postMessage('scratch', { kind: 'system', text: '🍔 голодно · −15⚡ · надо поесть' });
     }
-    // Low comfort → impulsive purchase
-    if (STATE.comfort < 30 && Math.random() < 0.35) {
-      STATE.cash -= 50;
-      postBank(-50, 'импульсивная покупка · комфорт низкий');
+    if (STATE.hunger < 10) {
+      STATE.comfort = Math.max(0, STATE.comfort - 5);
+      postMessage('scratch', { kind: 'system', text: '🍔 на пределе · руки дрожат · не могу работать нормально' });
+    }
+    // Low comfort → impulsive purchase + more frequent
+    if (STATE.comfort < 30 && Math.random() < 0.55) {
+      var impulse = 50 + Math.floor(Math.random() * 50);
+      STATE.cash -= impulse;
+      postBank(-impulse, 'импульсивная покупка · комфорт низкий');
     }
     // High comfort → energy regen
     if (STATE.comfort >= 70) {
@@ -2303,13 +2697,45 @@
       });
     }
 
-    // Automation
-    if (STATE.automation_active) {
-      STATE.leads += 1;
-      postMessage('scratch', {
-        kind: 'system',
-        text: '[auto] automation pipeline · +1 лид из фоновой воронки'
+    // SPRINT 06 — Tim automation tiers (passive income per day)
+    if (STATE.auto_reach_out) {
+      STATE.leads = (STATE.leads || 0) + 1;
+      postMessage('scratch', { kind: 'system', text: '🤖 автофарминг · +1 холодный лид' });
+    }
+    if (STATE.auto_brief_lead && STATE.leads > 0) {
+      STATE.leads -= 1;
+      STATE.qualified_leads = (STATE.qualified_leads || 0) + 1;
+      postMessage('scratch', { kind: 'system', text: '🤖 AI созвон · +1 квалифицированный лид' });
+    }
+    if (STATE.auto_send_offer && STATE.qualified_leads > 0 && !STATE.bank_locked) {
+      STATE.qualified_leads -= 1;
+      // Auto-create project with 10% lower payout than manual (since no torgi)
+      var autoBudget = 180 + Math.floor(Math.random() * 60);
+      var autoUpfront = Math.floor(autoBudget * 0.4);
+      var autoFinal = autoBudget - autoUpfront;
+      STATE.cash += autoUpfront;
+      STATE.active_projects.push({
+        id: (STATE.active_projects.length + STATE.delivered_projects + 100),
+        clientId: 'scratch',
+        client: pick(['ai lead saas','ai d2c','ai b2b','ai study']),
+        progress: 0,
+        work_units_done: 0,
+        work_units_total: 3,
+        upfront_paid: autoUpfront,
+        final_due: autoFinal,
+        final_payment: autoFinal,
+        started_day: STATE.day,
+        deadline_day: STATE.day + 7,
+        status: 'active'
       });
+      postBank(autoUpfront, 'AI оффер принят · upfront');
+      postMessage('scratch', { kind: 'system', text: '🤖 AI оффер · контракт подписан автоматически' });
+    }
+    if (STATE.auto_work_project && STATE.active_projects.length > 0) {
+      var ap = STATE.active_projects[0];
+      ap.work_units_done = (ap.work_units_done || 0) + 0.5;
+      ap.progress = Math.min(100, (ap.progress || 0) + 15);
+      postMessage('scratch', { kind: 'system', text: '🤖 AI копирайтер · проект #' + ap.id + ' прогресс +15%' });
     }
     // Lena lifeline — available only after day 14 (after khozyaika rescue).
     // До day 12 player должен дойти в минусе — тогда хозяйка спасает. После 14 —

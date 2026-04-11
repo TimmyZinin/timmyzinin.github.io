@@ -78,8 +78,9 @@
       return;
     }
     var $b = buildBubble(threadId, msg);
-    $('#chat-thread').append($b);
-    scrollToBottom();
+    // SPRINT 06 — newest-first: prepend instead of append
+    $('#chat-thread').prepend($b);
+    scrollToTop();
   }
 
   /**
@@ -104,15 +105,21 @@
   function replayThread(state, threadId) {
     var $thread = $('#chat-thread').empty();
     var msgs = state.threads[threadId] || [];
-    msgs.forEach(function (msg) {
-      $thread.append(buildBubble(threadId, msg));
-    });
-    scrollToBottom();
+    // SPRINT 06 — newest-first: iterate from end backwards + append (so newest ends up on top)
+    for (var i = msgs.length - 1; i >= 0; i--) {
+      $thread.append(buildBubble(threadId, msgs[i]));
+    }
+    scrollToTop();
   }
 
   function scrollToBottom() {
     var el = document.getElementById('chat-thread');
     if (el) el.scrollTop = el.scrollHeight;
+  }
+
+  function scrollToTop() {
+    var el = document.getElementById('chat-thread');
+    if (el) el.scrollTop = 0;
   }
 
   /**
@@ -149,12 +156,10 @@
     }
 
     var filterIds = null;
-    var SPAM_IDS = ['olya','kirill','krypta','artur','vera','sosed','lyuda','ozon','taxi','student','katya','teshcha','marathon'];
     if (folder === 'team') filterIds = ['lena', 'anna', 'tim'];
     else if (folder === 'money') filterIds = ['bank', 'khozyaika', 'pavel', 'mama'];
-    else if (folder === 'spam') filterIds = SPAM_IDS;
-    // folder === 'all' shows everything visible except spam
-    var hideSpamInAll = folder === 'all';
+    // folder === 'all' shows EVERYTHING visible including spam (SPRINT 06)
+    var hideSpamInAll = false;
 
     var anyRendered = false;
     state.contacts.forEach(function (c) {
