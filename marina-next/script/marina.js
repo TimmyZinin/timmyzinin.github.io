@@ -1126,10 +1126,23 @@
           },
           { id: 'skip', label: 'не сейчас' }
         ], function (opt) {
-          // Guard at execution time too (defensive — chip should be disabled but double-check)
-          if (opt.id === 'go' && !canAfford) {
-            postOutgoing('denis', 'слушай, не сейчас. не могу.');
-            return;
+          // SPRINT 14.1 rev4 — re-evaluate guards against CURRENT STATE (not stale closure).
+          // Codex caught bypass: player opens chat while affordable, spends money
+          // elsewhere, returns and clicks "go" — render-time canAfford was true.
+          if (opt.id === 'go') {
+            var liveBankLocked = STATE.bank_locked;
+            var liveCash = STATE.cash;
+            var liveHours = STATE.hours;
+            if (liveBankLocked || liveCash < dCost || liveHours < 2) {
+              var reason = liveBankLocked ? 'счёт заблокирован' :
+                           (liveCash < dCost ? 'не хватает $' + (dCost - liveCash) : 'нет 2 часов');
+              postOutgoing('denis', 'слушай, не сейчас. не могу — ' + reason + '.');
+              // Do NOT clear pending — let player come back when ready.
+              // Re-render chips so UI reflects current resource state.
+              Bubbles.clearChipsArea();
+              renderThreadContextActions('denis');
+              return;
+            }
           }
           STATE[key] = false;
           Bubbles.clearChipsArea();
