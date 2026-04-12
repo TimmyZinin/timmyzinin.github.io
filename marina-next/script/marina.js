@@ -405,12 +405,17 @@
     OLD_KEYS.forEach(function (k) {
       try { localStorage.removeItem(k); } catch (e) {}
     });
+    // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
+    // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
-      if (raw && ver === VERSION) {
+      if (raw && (ver === VERSION || COMPATIBLE_VERSIONS.indexOf(ver) !== -1)) {
         var parsed = JSON.parse(raw);
         var d = defaultState();
+        // Stamp current version onto migrated save so future loads skip the compat check
+        parsed.version = VERSION;
         // Top-level merge
         for (var k in d) {
           if (!(k in parsed)) parsed[k] = d[k];
@@ -1102,15 +1107,30 @@
       return;
     }
     // Denis party invitations (any day — SPRINT 14: per-event variable pricing)
+    // SPRINT 14.1 rev3 — chip enforces bank_locked, cash, hours guards (was bypassed after
+    // actHangoutDenis() removal). Codex decision audit BLOCKER #1.
     var DENIS_COSTS = { 3: 250, 6: 200, 9: 300, 15: 350, 27: 300 };
     [3, 6, 9, 15, 27].forEach(function (d) {
       var key = '_denis' + d + '_pending';
       if (contactId === 'denis' && STATE[key]) {
         var dCost = DENIS_COSTS[d] || 250;
+        var canAfford = !STATE.bank_locked && STATE.cash >= dCost && STATE.hours >= 2;
+        var denyReason = STATE.bank_locked ? 'счёт заблокирован' :
+                         (STATE.cash < dCost ? 'не хватает $' + (dCost - STATE.cash) :
+                         (STATE.hours < 2 ? 'нет 2 часов' : null));
         Bubbles.renderReplyChips([
-          { id: 'go', label: 'поехать (−$' + dCost + ', +60⚡, −2h дня)' },
+          {
+            id: 'go',
+            label: 'поехать (−$' + dCost + ', +60⚡, −2h дня)' + (canAfford ? '' : ' · ' + denyReason),
+            disabled: !canAfford
+          },
           { id: 'skip', label: 'не сейчас' }
         ], function (opt) {
+          // Guard at execution time too (defensive — chip should be disabled but double-check)
+          if (opt.id === 'go' && !canAfford) {
+            postOutgoing('denis', 'слушай, не сейчас. не могу.');
+            return;
+          }
           STATE[key] = false;
           Bubbles.clearChipsArea();
           bumpInteraction();
