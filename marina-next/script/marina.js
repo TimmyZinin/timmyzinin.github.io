@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.1';
+  var VERSION = '2.2.2';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -407,7 +407,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -2278,7 +2278,7 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
-      photo: 'img/events/cat_window.webp',
+      photo: 'img/events/khozyaika_cat.webp',
       photoAlt: 'кошка Мурка',
       text: 'SOS МАРИНА! Кошка Мурка сбежала из квартиры на восьмом этаже. Помогите расклеить объявления по району, вы же дома работаете? У вас время есть. Срочно пожалуйста.'
     });
@@ -2618,6 +2618,13 @@
     }
   ];
 
+  // SPRINT 14.2 — Светка random photo pool
+  var SVETKA_PHOTOS = [
+    { src: 'img/events/svetka_phone.webp', alt: 'светка звонит' },
+    { src: 'img/events/svetka_drama.webp', alt: 'драма' },
+    { src: 'img/events/svetka_taro.webp', alt: 'карты таро' }
+  ];
+
   function svetkaBeat(key) {
     if (STATE[key]) return;
     STATE[key] = true;
@@ -2625,6 +2632,7 @@
     var deck = SVETKA_GOSSIP[0];
     var voiceLabel = pick(deck.intros);
     var gossip = pick(deck.gossip);
+    var photo = pick(SVETKA_PHOTOS);
     postMessage('svetka', {
       kind: 'incoming',
       senderName: 'Светка',
@@ -2634,6 +2642,8 @@
       postMessage('svetka', {
         kind: 'incoming',
         senderName: 'Светка',
+        photo: photo.src,
+        photoAlt: photo.alt,
         text: gossip
       });
     }, 1000);
@@ -2816,7 +2826,7 @@
     };
     var photos = {
       3: 'img/events/regatta.webp',
-      6: 'img/events/cinema_ticket.webp',
+      6: 'img/events/denis_coffee_spot.webp',
       9: 'img/events/street_window.webp',
       15: 'img/events/denis_paris.webp',
       27: 'img/events/denis_new_year.webp'
