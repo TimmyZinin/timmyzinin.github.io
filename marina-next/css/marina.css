@@ -1083,6 +1083,34 @@ html, body {
 #chat-back { display: none; }
 #mobile-list-hud { display: none; }
 
+/* SPRINT 13 — AI automation indicator on dock buttons */
+.dock-btn.auto-ai {
+  background: linear-gradient(135deg, rgba(101, 199, 126, 0.14) 0%, rgba(101, 199, 126, 0.06) 100%) !important;
+  border-color: rgba(101, 199, 126, 0.45) !important;
+  opacity: 0.88;
+  position: relative;
+}
+.dock-btn.auto-ai .dock-label {
+  color: #86d69a !important;
+}
+.dock-btn.auto-ai .dock-cost {
+  color: rgba(134, 214, 154, 0.7) !important;
+}
+.dock-btn.auto-ai::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent 0%, rgba(101, 199, 126, 0.12) 50%, transparent 100%);
+  animation: autoAiPulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes autoAiPulse {
+  0%, 100% { opacity: 0; transform: translateX(-100%); }
+  50%      { opacity: 1; transform: translateX(0); }
+  99%      { opacity: 0; transform: translateX(100%); }
+}
+
 /* SPRINT 12 — Crisis banner (persistent resource warning) */
 .crisis-banner {
   display: block;

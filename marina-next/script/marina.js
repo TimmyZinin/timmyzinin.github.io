@@ -179,6 +179,31 @@
     'сегодня получится. я это чувствую'
   ];
 
+  // SPRINT 13 — Marina POV narrative for Tim automation (feels real, not system)
+  var AUTO_REACH_NARRATIVE = [
+    'открыла ноут · в inbox уже есть ответ от одного из фоновых холодок. AI-бот Тима отработал ночью',
+    'засыпала — папка «входящие» пустая. проснулась — три ответа. один живой, двое seen. не понимаю как это работает, но работает',
+    'бот тима написал за меня 20 холодок пока я спала. один из них ответил. я просто пью кофе и читаю. это странно',
+    'уведомление в 7:12 утра: «новый лид». AI сделал свою работу. я даже не знаю что ему написать в ответ — посмотрю',
+    'просыпаюсь в мире где мой холодный фарминг идёт без меня. не знаю куда это всё денется, но пока работает'
+  ];
+
+  var AUTO_BRIEF_NARRATIVE = [
+    'AI Тима провёл созвон за меня. отправил расшифровку: клиент адекватный, бюджет $200+, нужен лендинг. квалифицированный лид',
+    'открываю AI-трансcript: «клиент сказал, я хочу запустить за неделю, готов платить». квалифицирован. я даже не говорила с ним',
+    'бот закрыл первый контакт на брифе, сразу в qualified. я прочитала pipeline-notes и поняла что могу не звонить',
+    'AI-созвонщик: 23 минуты, 4 уточняющих, закрыл на следующий шаг. я за это время успела выпить кофе и посмотреть в окно',
+    'первый раз в жизни кто-то провёл созвон за меня. странное чувство благодарности и немного вины'
+  ];
+
+  var AUTO_OFFER_NARRATIVE = [
+    'AI отправил оффер и провёл торг. клиент согласился на upfront. я только что прочитала диалог — адекватный торг, не передавил',
+    'уведомление: «контракт подписан». AI сделал всё. upfront уже в банке. я проверяю три раза, не верю',
+    'бот отправил предложение, клиент согласился за 4 часа. я в этот момент гуляла. деньги пришли сами',
+    'торг AI: начал с $280, клиент упирался, AI сделал контр-оффер $240, согласие. я бы переборщила',
+    'вся воронка работает без меня. первый контакт → бриф → оффер → upfront. осталось только делать проект. это пугает и освобождает одновременно'
+  ];
+
   // ========== state ==========
 
   function defaultState() {
@@ -216,12 +241,11 @@
       // Interaction counter (BLOCK M)
       player_interactions: 0,
       beat_tim_creator_fired: false,
-      // SPRINT 06 — Tim consultant automation tiers
+      // SPRINT 06/13 — Tim consultant automation tiers (3 tiers, work is not automated)
       beat_tim_consult_intro: false,
       auto_reach_out: false,       // tier 1 — $200
       auto_brief_lead: false,      // tier 2 — $300
-      auto_send_offer: false,      // tier 3 — $400
-      auto_work_project: false,    // tier 4 — $500
+      auto_send_offer: false,      // tier 3 — $400 (final tier)
       // beat flags (30-day arc)
       beat_lena_intro: false,
       beat_anna_offer: false,
@@ -437,24 +461,33 @@
     if (STATE.lamp_on) {
       // Воронка: искать → созвон → оффер → работать → ночная работа
       actions.push({
-        id: 'reach_out', label: 'искать клиентов', cost: '1ч · −5⚡',
-        disabled: STATE.hours < COST.reach_out.h || STATE.energy < COST.reach_out.e,
-        reason: STATE.hours < COST.reach_out.h ? 'нет часов' : 'нет энергии',
-        primary: true
+        id: 'reach_out',
+        label: (STATE.auto_reach_out ? '🤖 ' : '') + 'искать клиентов',
+        cost: STATE.auto_reach_out ? 'AI делает' : '1ч · −5⚡',
+        auto: STATE.auto_reach_out,
+        disabled: STATE.auto_reach_out || STATE.hours < COST.reach_out.h || STATE.energy < COST.reach_out.e,
+        reason: STATE.auto_reach_out ? 'AI автоматизирован' : (STATE.hours < COST.reach_out.h ? 'нет часов' : 'нет энергии'),
+        primary: !STATE.auto_reach_out
       });
       actions.push({
-        id: 'brief_lead', label: 'созвон с лидом', cost: '1ч · −3⚡',
-        badge: STATE.leads > 0 ? STATE.leads : null,
+        id: 'brief_lead',
+        label: (STATE.auto_brief_lead ? '🤖 ' : '') + 'созвон с лидом',
+        cost: STATE.auto_brief_lead ? 'AI делает' : '1ч · −3⚡',
+        auto: STATE.auto_brief_lead,
+        badge: !STATE.auto_brief_lead && STATE.leads > 0 ? STATE.leads : null,
         badgeHot: STATE.leads > 0,
-        disabled: STATE.leads < 1 || STATE.hours < COST.brief_lead.h || STATE.energy < COST.brief_lead.e,
-        reason: STATE.leads < 1 ? 'нет лидов' : (STATE.hours < COST.brief_lead.h ? 'нет часов' : 'нет энергии')
+        disabled: STATE.auto_brief_lead || STATE.leads < 1 || STATE.hours < COST.brief_lead.h || STATE.energy < COST.brief_lead.e,
+        reason: STATE.auto_brief_lead ? 'AI автоматизирован' : (STATE.leads < 1 ? 'нет лидов' : (STATE.hours < COST.brief_lead.h ? 'нет часов' : 'нет энергии'))
       });
       actions.push({
-        id: 'send_offer', label: 'отправить оффер', cost: '1ч',
-        badge: STATE.qualified_leads > 0 ? STATE.qualified_leads : null,
+        id: 'send_offer',
+        label: (STATE.auto_send_offer ? '🤖 ' : '') + 'отправить оффер',
+        cost: STATE.auto_send_offer ? 'AI делает' : '1ч',
+        auto: STATE.auto_send_offer,
+        badge: !STATE.auto_send_offer && STATE.qualified_leads > 0 ? STATE.qualified_leads : null,
         badgeHot: STATE.qualified_leads > 0,
-        disabled: STATE.qualified_leads < 1 || STATE.hours < COST.send_offer.h || STATE.bank_locked,
-        reason: STATE.bank_locked ? 'счёт заблокирован' : (STATE.qualified_leads < 1 ? 'нет брифов' : 'нет часов')
+        disabled: STATE.auto_send_offer || STATE.qualified_leads < 1 || STATE.hours < COST.send_offer.h || STATE.bank_locked,
+        reason: STATE.auto_send_offer ? 'AI автоматизирован' : (STATE.bank_locked ? 'счёт заблокирован' : (STATE.qualified_leads < 1 ? 'нет брифов' : 'нет часов'))
       });
       actions.push({
         id: 'work_on_project', label: 'делать работу', cost: '2ч · −5⚡',
@@ -526,6 +559,9 @@
       if (a.primary && !primarySet && !a.disabled) {
         $btn.addClass('primary');
         primarySet = true;
+      }
+      if (a.auto) {
+        $btn.addClass('auto-ai');
       }
       if (a.id === 'end_day' && STATE.hours <= 2 && STATE.lamp_on) {
         $btn.addClass('pulse');
@@ -811,30 +847,7 @@
       });
       return;
     }
-    // Tim tier 4 — auto_work_project
-    if (contactId === 'tim' && STATE._tim_tier4_pending && !STATE.auto_work_project) {
-      Bubbles.renderReplyChips([
-        { id: 'buy', label: 'купить AI-копирайтера ($500)' },
-        { id: 'later', label: 'нет' }
-      ], function (opt) {
-        STATE._tim_tier4_pending = false;
-        Bubbles.clearChipsArea();
-        bumpInteraction();
-        if (opt.id === 'buy' && STATE.cash >= 500 && !STATE.bank_locked) {
-          STATE.cash -= 500;
-          STATE.auto_work_project = true;
-          postBank(-500, 'Тим · AI копирайтер');
-          postOutgoing('tim', 'беру.');
-          setTimeout(function () {
-            postIncoming('tim', 'готово. AI пишет первый черновик, ты добиваешь.', 'Тим');
-          }, 900);
-        } else {
-          postOutgoing('tim', opt.id === 'buy' ? 'не хватает денег' : 'нет.');
-        }
-        save(); renderDock();
-      });
-      return;
-    }
+    // (tier 4 removed — work_on_project stays manual by design)
     // Khozyaika 1 — счётчики воды
     if (contactId === 'khozyaika' && STATE._khozyaika1_pending) {
       Bubbles.renderReplyChips([
@@ -1945,8 +1958,7 @@
   var TIM_TIERS = [
     { id: 'auto_reach_out',   label: 'Автофарминг холодных лидов', price: 200 },
     { id: 'auto_brief_lead',  label: 'Авто-созвоны с лидами',      price: 300 },
-    { id: 'auto_send_offer',  label: 'Авто-оффер и торг',          price: 400 },
-    { id: 'auto_work_project',label: 'AI-копирайтер для проектов', price: 500 }
+    { id: 'auto_send_offer',  label: 'Авто-оффер и торг',          price: 400 }
   ];
 
   function beatTimConsultIntro() {
@@ -2001,16 +2013,7 @@
     STATE._tim_tier3_pending = true;
   }
 
-  function beatTimTier4Offer() {
-    if (STATE.beat_tim_tier4_offer) return;
-    STATE.beat_tim_tier4_offer = true;
-    postMessage('tim', {
-      kind: 'incoming',
-      senderName: 'Тим',
-      text: 'последний уровень: AI-копирайтер делает первый черновик проектов. $500. +0.5 work unit в день по текущему проекту.'
-    });
-    STATE._tim_tier4_pending = true;
-  }
+  // (tier 4 removed — see SPRINT 13)
 
   // Day 28 — 4th wall break (moved from interaction-based to late-game beat)
   function beatTimCreator() {
@@ -2924,7 +2927,7 @@
     if (day === 5) { beatAnnaOffer(); beatPavelDay5(); beatTimConsultIntro(); }
     if (day === 10 && STATE.auto_reach_out) beatTimTier2Offer();
     if (day === 16 && STATE.auto_brief_lead) beatTimTier3Offer();
-    if (day === 22 && STATE.auto_send_offer) beatTimTier4Offer();
+    // (tier 4 removed — work_on_project stays manual)
     if (day === 28) beatTimCreator();
     if (day === 6) { beatSosedIntro(); svetkaBeat('beat_svetka_day6'); }
     if (day === 7) beatPavelDay7();
@@ -3093,15 +3096,22 @@
       });
     }
 
-    // SPRINT 06 — Tim automation tiers (passive income per day)
+    // SPRINT 13 — Tim automation tiers (3 tiers, narrative as Marina POV)
     if (STATE.auto_reach_out) {
       STATE.leads = (STATE.leads || 0) + 1;
-      postMessage('scratch', { kind: 'system', text: '🤖 автофарминг · +1 холодный лид' });
+      postMessage('scratch', { kind: 'outgoing', text: pick(AUTO_REACH_NARRATIVE) });
+      // Visual: ghost-fire reach_out button with particle burst
+      setTimeout(function () {
+        try { funnelBurstReachOut(true); } catch (e) {}
+      }, 600);
     }
     if (STATE.auto_brief_lead && STATE.leads > 0) {
       STATE.leads -= 1;
       STATE.qualified_leads = (STATE.qualified_leads || 0) + 1;
-      postMessage('scratch', { kind: 'system', text: '🤖 AI созвон · +1 квалифицированный лид' });
+      postMessage('scratch', { kind: 'outgoing', text: pick(AUTO_BRIEF_NARRATIVE) });
+      setTimeout(function () {
+        try { spawnParticle({ from: 'brief_lead', to: 'send_offer', kind: 'red', icon: '📞', duration: 700 }); } catch (e) {}
+      }, 900);
     }
     if (STATE.auto_send_offer && STATE.qualified_leads > 0 && !STATE.bank_locked) {
       STATE.qualified_leads -= 1;
@@ -3125,13 +3135,10 @@
         status: 'active'
       });
       postBank(autoUpfront, 'AI оффер принят · upfront');
-      postMessage('scratch', { kind: 'system', text: '🤖 AI оффер · контракт подписан автоматически' });
-    }
-    if (STATE.auto_work_project && STATE.active_projects.length > 0) {
-      var ap = STATE.active_projects[0];
-      ap.work_units_done = (ap.work_units_done || 0) + 0.5;
-      ap.progress = Math.min(100, (ap.progress || 0) + 15);
-      postMessage('scratch', { kind: 'system', text: '🤖 AI копирайтер · проект #' + ap.id + ' прогресс +15%' });
+      postMessage('scratch', { kind: 'outgoing', text: pick(AUTO_OFFER_NARRATIVE) });
+      setTimeout(function () {
+        try { spawnParticle({ from: 'send_offer', to: 'work_on_project', kind: 'red', icon: '📄', duration: 700 }); } catch (e) {}
+      }, 1200);
     }
     // Lena lifeline — available only after day 14 (after khozyaika rescue).
     // До day 12 player должен дойти в минусе — тогда хозяйка спасает. После 14 —
