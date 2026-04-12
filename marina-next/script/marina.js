@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.1.1';
+  var VERSION = '2.2.0';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -277,6 +277,7 @@
       beat_khozyaika_post12_quote2: false,
       // SPRINT 14 — night work hangover
       worked_night_last_day: 0,
+      _hangover_active: false,
       // beat flags (30-day arc)
       beat_lena_intro: false,
       beat_anna_offer: false,
@@ -304,6 +305,7 @@
       beat_mama17: false,
       beat_mama24: false,
       beat_denis3: false,
+      beat_denis6: false,
       beat_denis9: false,
       beat_denis15: false,
       beat_denis27: false,
@@ -573,11 +575,15 @@
         });
       }
       if (STATE.beat_denis3 || STATE.beat_denis6 || STATE.beat_denis9 || STATE.beat_denis15) {
+        // Denis actions only via reply chips in chat (per-event pricing)
+        var hasDenisPending = STATE._denis3_pending || STATE._denis6_pending || STATE._denis9_pending || STATE._denis15_pending || STATE._denis27_pending;
         actions.push({
-          id: 'hangout_denis', label: '🎉 с Денисом', cost: '4ч · −$250+',
-          disabled: STATE.cash < COST.hangout_denis.c || STATE.hours < COST.hangout_denis.h || STATE.bank_locked,
-          reason: STATE.bank_locked ? 'счёт заблокирован' : 'не хватает ресурсов',
-          hideOnMobile: STATE.cash < COST.hangout_denis.c || STATE.bank_locked
+          id: 'hangout_denis', label: '🎉 с Денисом', cost: hasDenisPending ? 'ответь в чат' : 'ждёт приглашения',
+          badge: hasDenisPending ? '!' : null,
+          badgePulse: hasDenisPending,
+          disabled: !hasDenisPending,
+          reason: 'ответь на приглашение Дениса в чате',
+          hideOnMobile: !hasDenisPending
         });
       }
       actions.push({
@@ -3200,7 +3206,7 @@
     if (day === 16 && STATE.auto_brief_lead) beatTimTier3Offer();
     // (tier 4 removed — work_on_project stays manual)
     if (day === 28) beatTimCreator();
-    if (day === 6) { beatSosedIntro(); svetkaBeat('beat_svetka_day6'); }
+    if (day === 6) { beatSosedIntro(); svetkaBeat('beat_svetka_day6'); beatDenis(6); }
     if (day === 7) beatPavelDay7();
     if (day === 8) beatMama6();
     if (day === 9) { beatLenaDay9(); beatPavelDay9(); beatKirillIntro(); beatDenis(9); }
@@ -3693,7 +3699,7 @@
         case 'eat_out': actEatOut(); break;
         case 'shopping': actShopping(); break;
         case 'date_kirill': actDateKirill(); break;
-        case 'hangout_denis': actHangoutDenis(); break;
+        case 'hangout_denis': openChat('denis'); break; // always route to chat (per-event pricing)
         case 'end_day':
           if (window.MarinaAudio) window.MarinaAudio.dayEnd();
           actEndDay();
