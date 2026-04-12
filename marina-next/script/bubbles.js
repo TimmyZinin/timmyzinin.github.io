@@ -146,6 +146,23 @@
     var $list = $('#contacts-list').empty();
     var folder = state.current_folder || 'all';
 
+    // SPRINT 14 — "Turn on computer" button on contacts list
+    var $lampCta = $('#contacts-lamp-cta');
+    if (!state.lamp_on) {
+      if ($lampCta.length === 0) {
+        $lampCta = $('<button id="contacts-lamp-cta" class="contacts-lamp-btn">')
+          .text('💻 включить компьютер');
+        $lampCta.on('click', function () {
+          if (window.Marina && window.Marina._actLamp) window.Marina._actLamp();
+          $lampCta.remove();
+        });
+        $('#contacts-list').before($lampCta);
+      }
+      $lampCta.show();
+    } else {
+      $lampCta.hide();
+    }
+
     // Update folder tab active state
     $('#folder-tabs .folder-tab').removeClass('active');
     $('#folder-tabs .folder-tab[data-folder="' + folder + '"]').addClass('active');

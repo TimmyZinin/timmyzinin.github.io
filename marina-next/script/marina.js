@@ -41,7 +41,7 @@
     eat_out:         { h: 1, c: 35, f: 45, m: 8 },
     shopping:        { h: 2, c: 80, m: 25 },
     date_kirill:     { h: 3, e: 10, f: 50, m: 15 }, // free food but energy drain
-    hangout_denis:   { h: 4, c: 150, f: 30, m: 20, ePlus: 15 },
+    hangout_denis:   { h: 4, c: 250, f: 30, m: 20, ePlus: 15 },
     end_day:         { h: 0, e: 0 }
   };
 
@@ -179,6 +179,22 @@
     'сегодня получится. я это чувствую'
   ];
 
+  // SPRINT 14 — Hungry work text (used when hunger < 50)
+  var WORK_TEXT_HUNGRY = [
+    'пытаюсь писать. буквы расплываются. когда я ела в последний раз?',
+    'делаю правки. трижды перечитываю одно предложение. голова не работает',
+    'работа идёт в два раза медленнее. желудок урчит как трактор',
+    'сижу и смотрю на экран. мысли не складываются. надо поесть'
+  ];
+
+  // SPRINT 14 — Night work hangover morning
+  var HANGOVER_MORNINGS = [
+    'проснулась в 11. голова как чугун. кофе не помогает. это цена ночной работы',
+    'будильник в 8. ноутбук ещё тёплый от вчерашней ночи. я холодная. руки не слушаются',
+    'полночи работала, полночи смотрела в потолок. итог: минус полдня',
+    'рассвет. экран слепит. уснула за ноутбуком. шея болит, спина болит, всё болит'
+  ];
+
   // SPRINT 13 — Marina POV narrative for Tim automation (feels real, not system)
   var AUTO_REACH_NARRATIVE = [
     'открыла ноут · в inbox уже есть ответ от одного из фоновых холодок. AI-бот Тима отработал ночью',
@@ -246,6 +262,21 @@
       auto_reach_out: false,       // tier 1 — $200
       auto_brief_lead: false,      // tier 2 — $300
       auto_send_offer: false,      // tier 3 — $400 (final tier)
+      // SPRINT 14 — guaranteed economy drain events
+      beat_drain_charger: false,   // day 3 — $60
+      beat_drain_phone: false,     // day 6 — $80
+      beat_drain_dentist: false,   // day 8 — $150
+      beat_drain_electric: false,  // day 11 — $100
+      // SPRINT 14 — khozyaika arc enhancement
+      beat_khozyaika_day3_noise: false,
+      beat_khozyaika_day5_electric: false,
+      beat_khozyaika_day7_damage: false,
+      beat_khozyaika_day9_chain: false,
+      beat_khozyaika_post12_flowers: false,
+      beat_khozyaika_post12_quote1: false,
+      beat_khozyaika_post12_quote2: false,
+      // SPRINT 14 — night work hangover
+      worked_night_last_day: 0,
       // beat flags (30-day arc)
       beat_lena_intro: false,
       beat_anna_offer: false,
@@ -498,7 +529,8 @@
       actions.push({
         id: 'work_night', label: '🌙 ночная работа', cost: '−15⚡ · −15💚',
         disabled: STATE.active_projects.length === 0 || STATE.day < 3 || STATE.energy < COST.work_night.e,
-        reason: STATE.day < 3 ? 'доступно с дня 3' : (STATE.active_projects.length === 0 ? 'нет проектов' : 'мало энергии')
+        reason: STATE.day < 3 ? 'доступно с дня 3' : (STATE.active_projects.length === 0 ? 'нет проектов' : 'мало энергии'),
+        hideOnMobile: STATE.active_projects.length === 0 || STATE.day < 3
       });
       // Еда + отдых + шопинг
       actions.push({
@@ -523,7 +555,8 @@
       actions.push({
         id: 'shopping', label: '🛍 шопинг', cost: '2ч · −$80',
         disabled: STATE.day < 5 || STATE.cash < COST.shopping.c || STATE.hours < COST.shopping.h || STATE.bank_locked,
-        reason: STATE.day < 5 ? 'с дня 5' : (STATE.bank_locked ? 'счёт заблокирован' : 'не хватает ресурсов')
+        reason: STATE.day < 5 ? 'с дня 5' : (STATE.bank_locked ? 'счёт заблокирован' : 'не хватает ресурсов'),
+        hideOnMobile: STATE.day < 5 || STATE.cash < COST.shopping.c || STATE.bank_locked
       });
       // Social actions — только если анлокнуты
       if (STATE.kirill_unlocked && !STATE.kirill_blocked) {
@@ -535,14 +568,16 @@
           badge: kirillInviteActive ? '!' : null,
           badgePulse: kirillInviteActive,
           disabled: !kirillInviteActive || STATE.hours < COST.date_kirill.h || STATE.energy < COST.date_kirill.e || (STATE.kirill_date_count >= 4 && !STATE.bank_locked),
-          reason: !kirillInviteActive ? 'Кирилл сейчас не зовёт' : (STATE.energy < COST.date_kirill.e ? 'нет энергии' : 'не хватает часов')
+          reason: !kirillInviteActive ? 'Кирилл сейчас не зовёт' : (STATE.energy < COST.date_kirill.e ? 'нет энергии' : 'не хватает часов'),
+          hideOnMobile: !kirillInviteActive
         });
       }
       if (STATE.beat_denis3 || STATE.beat_denis6 || STATE.beat_denis9 || STATE.beat_denis15) {
         actions.push({
-          id: 'hangout_denis', label: '🎉 с Денисом', cost: '4ч · −$150',
+          id: 'hangout_denis', label: '🎉 с Денисом', cost: '4ч · −$250+',
           disabled: STATE.cash < COST.hangout_denis.c || STATE.hours < COST.hangout_denis.h || STATE.bank_locked,
-          reason: STATE.bank_locked ? 'счёт заблокирован' : 'не хватает ресурсов'
+          reason: STATE.bank_locked ? 'счёт заблокирован' : 'не хватает ресурсов',
+          hideOnMobile: STATE.cash < COST.hangout_denis.c || STATE.bank_locked
         });
       }
       actions.push({
@@ -565,6 +600,10 @@
       }
       if (a.id === 'end_day' && STATE.hours <= 2 && STATE.lamp_on) {
         $btn.addClass('pulse');
+      }
+      // SPRINT 14 — hide irrelevant disabled buttons on mobile
+      if (a.hideOnMobile && a.disabled) {
+        $btn.addClass('mobile-hide');
       }
       if (a.cost) $btn.append($('<span class="dock-cost">').text(' · ' + a.cost));
       if (a.badge !== null && a.badge !== undefined) {
@@ -592,6 +631,12 @@
   // SPRINT 12 — Marina's morning inner monologue (visible crisis feedback)
   function postMorningMonologue() {
     if (STATE.day < 2) return; // skip day 1
+    // SPRINT 14 — hangover takes priority
+    if (STATE._hangover_active) {
+      postMessage('scratch', { kind: 'outgoing', text: pick(HANGOVER_MORNINGS) });
+      postSystem('scratch', '☕ после ночной работы · энергия не восстановилась');
+      return;
+    }
     var h = STATE.hunger, e = STATE.energy, m = STATE.comfort;
     // Pick the worst resource and post inner-monologue for it
     if (h != null && h < 30) {
@@ -928,6 +973,52 @@
       });
       return;
     }
+    // SPRINT 14 — Khozyaika day 5 electric meter
+    if (contactId === 'khozyaika' && STATE._khozyaika_electric_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'send', label: 'отправить фото (−1h)' },
+        { id: 'later', label: 'потом отправлю (−5 комфорт)' }
+      ], function (opt) {
+        STATE._khozyaika_electric_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'send') {
+          postOutgoing('khozyaika', 'отправила фото счётчика. розетка нормальная.');
+          STATE.hours = Math.max(0, STATE.hours - 1);
+        } else {
+          postOutgoing('khozyaika', 'Наталья Валерьевна, отправлю позже.');
+          STATE.comfort = Math.max(0, STATE.comfort - 5);
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // SPRINT 14 — Khozyaika day 9 chain letter
+    if (contactId === 'khozyaika' && STATE._khozyaika_chain_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'forward', label: 'переслать 5 людям (−1h)' },
+        { id: 'refuse', label: 'не буду (−5 комфорт)' }
+      ], function (opt) {
+        STATE._khozyaika_chain_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'forward') {
+          postOutgoing('khozyaika', 'хорошо, переслала.');
+          STATE.hours = Math.max(0, STATE.hours - 1);
+          setTimeout(function () {
+            postIncoming('khozyaika', 'СПАСИБО Марина! Карма дома восстановлена! 🙏✨', 'Наталья В.');
+          }, 800);
+        } else {
+          postOutgoing('khozyaika', 'Наталья Валерьевна, я не верю в это.');
+          STATE.comfort = Math.max(0, STATE.comfort - 5);
+          setTimeout(function () {
+            postIncoming('khozyaika', 'Ну как хотите. Но если что случится — я предупреждала.', 'Наталья В.');
+          }, 800);
+        }
+        save(); renderDock();
+      });
+      return;
+    }
     // Pavel loan
     if (contactId === 'pavel' && STATE._pavel_pending) {
       Bubbles.renderReplyChips([
@@ -998,12 +1089,14 @@
       });
       return;
     }
-    // Denis party invitations (any day — invitations use generic pending)
+    // Denis party invitations (any day — SPRINT 14: per-event variable pricing)
+    var DENIS_COSTS = { 3: 250, 6: 200, 9: 300, 15: 350, 27: 300 };
     [3, 6, 9, 15, 27].forEach(function (d) {
       var key = '_denis' + d + '_pending';
       if (contactId === 'denis' && STATE[key]) {
+        var dCost = DENIS_COSTS[d] || 250;
         Bubbles.renderReplyChips([
-          { id: 'go', label: 'поехать (−$150, +60⚡, −2h дня)' },
+          { id: 'go', label: 'поехать (−$' + dCost + ', +60⚡, −2h дня)' },
           { id: 'skip', label: 'не сейчас' }
         ], function (opt) {
           STATE[key] = false;
@@ -1011,11 +1104,11 @@
           bumpInteraction();
           if (opt.id === 'go') {
             postOutgoing('denis', 'ладно, поехали. работа подождёт.');
-            STATE.cash -= 150;
+            STATE.cash -= dCost;
             STATE.energy = Math.min(100, STATE.energy + 60);
             STATE.hours = Math.max(0, STATE.hours - 2);
-            postBank(-150, 'с Денисом');
-            postMessage('scratch', { kind: 'system', text: '−$150 · +60⚡ · −2h · день ожил' });
+            postBank(-dCost, 'с Денисом');
+            postMessage('scratch', { kind: 'system', text: '−$' + dCost + ' · +60⚡ · −2h · день ожил' });
           } else {
             postOutgoing('denis', 'не сегодня. работа.');
             postMessage('scratch', { kind: 'system', text: 'Денису отказала' });
@@ -1640,11 +1733,20 @@
 
     runAction(function () {
       var p = STATE.active_projects[0];
-      p.progress = Math.min(100, (p.progress || 0) + 34);
+      // SPRINT 14 — hunger + hangover affect work progress
+      var workProgress = 34;
+      if (STATE.hunger < 30) workProgress = 15;
+      else if (STATE.hunger < 50) workProgress = 25;
+      if (STATE._hangover_active) workProgress = Math.floor(workProgress * 0.75);
+      p.progress = Math.min(100, (p.progress || 0) + workProgress);
       p.work_units_done = (p.work_units_done || 0) + 1; // daytime = 1 unit
-      postOutgoing('scratch', pick(WORK_TEXT));
+      postOutgoing('scratch', STATE.hunger < 50 ? pick(WORK_TEXT_HUNGRY) : pick(WORK_TEXT));
       setTimeout(function () {
-        postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '%');
+        var extra = '';
+        if (STATE.hunger < 30) extra = ' · 🍔 голод снижает прогресс';
+        else if (STATE.hunger < 50) extra = ' · 🍔 голодно';
+        if (STATE._hangover_active) extra += ' · ☕ похмелье';
+        postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '%' + extra);
         if (p.work_units_done >= (p.work_units_total || 3)) {
           // Delivered — money particle flies to cash pill
           STATE.active_projects.shift();
@@ -1782,6 +1884,7 @@
   }
 
   // BLOCK F — night work (extra time beyond 8h day, burns energy + comfort)
+  // SPRINT 14 — tracks hangover for next morning
   function actWorkNight() {
     if (STATE.active_projects.length === 0) return;
     if (STATE.day < 3) return;
@@ -1789,14 +1892,19 @@
     // No hours check — night work happens AFTER the day's 8 hours
     STATE.energy = Math.max(0, STATE.energy - COST.work_night.e);
     STATE.comfort = Math.max(0, STATE.comfort + COST.work_night.m); // .m is negative
+    STATE.worked_night_last_day = STATE.day; // SPRINT 14 — triggers hangover
 
     runAction(function () {
       var p = STATE.active_projects[0];
-      p.progress = Math.min(100, (p.progress || 0) + 50);
+      // SPRINT 14 — hunger affects night work too
+      var nightProgress = 50;
+      if (STATE.hunger < 30) nightProgress = 22;
+      else if (STATE.hunger < 50) nightProgress = 37;
+      p.progress = Math.min(100, (p.progress || 0) + nightProgress);
       p.work_units_done = (p.work_units_done || 0) + 1.5; // night = 1.5 units
       postOutgoing('scratch', pick(WORK_NIGHT_TEXT));
       setTimeout(function () {
-        postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '% · −15⚡ ночной режим');
+        postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '% · −15⚡ ночной режим · завтра будет тяжело');
         if (p.work_units_done >= (p.work_units_total || 3)) {
           // Delivered
           STATE.active_projects.shift();
@@ -1839,7 +1947,18 @@
       try {
         STATE.day += 1;
         STATE.hours = HOURS_PER_DAY;
-        STATE.energy = Math.min(100, STATE.energy + 20);
+        // SPRINT 14 — overnight energy recovery depends on hunger + hangover
+        var overnightRecovery = 20;
+        if (STATE.hunger < 30) overnightRecovery = 5;
+        else if (STATE.hunger < 50) overnightRecovery = 12;
+        // Night work hangover — extra penalty
+        if (STATE.worked_night_last_day === prevDay) {
+          overnightRecovery = Math.max(0, overnightRecovery - 10);
+          STATE._hangover_active = true;
+        } else {
+          STATE._hangover_active = false;
+        }
+        STATE.energy = Math.min(100, STATE.energy + overnightRecovery);
         STATE.coffee_stacks = Math.max(0, STATE.coffee_stacks - 1);
 
         // Day 12 → 13 transition → finale check
@@ -2101,6 +2220,8 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
+      photo: 'img/events/khozyaika_meters.webp',
+      photoAlt: 'счётчики воды',
       text: 'Марина, добрый день! Не забудьте передать показания счётчиков горячей и холодной воды до 10 числа. ВАЖНО: обязательно с фотографией сертифицированного образца. Иначе штраф $100. Наталья В.'
     });
     postMessage('scratch', { kind: 'system', text: 'хозяйка требует счётчики · открой чат' });
@@ -2142,6 +2263,8 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
+      photo: 'img/events/khozyaika_tarot.webp',
+      photoAlt: 'карты таро',
       text: 'Марина, читала ваш гороскоп на месяц. Скорпионы в этом месяце в огне. Деньги НЕ давайте Весам (особенно Весам в очках). Это важно для кармы дома, я переживаю как за родную.'
     });
     STATE._khozyaika4_pending = true;
@@ -2213,7 +2336,7 @@
     if (STATE.beat_pavel_day5) return;
     STATE.beat_pavel_day5 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'я тут вспомнил, как мы с тобой в Питере сидели на Мойке. помнишь?' });
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', photo: 'img/events/pavel_roof.webp', photoAlt: 'крыша', text: 'я тут вспомнил, как мы с тобой в Питере сидели на Мойке. помнишь?' });
     setTimeout(function () {
       postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'тебе было 23, мне 27. я был дурак и не понимал ничего. прости если что.' });
     }, 1200);
@@ -2257,6 +2380,8 @@
     postMessage('olya', {
       kind: 'incoming',
       senderName: 'Оля Петрова',
+      photo: 'img/events/olya_product.webp',
+      photoAlt: 'продукт клуба',
       text: 'Мариночка, как ты? Я тут обновление по нашему клубу — мы запускаем НОВЫЙ уровень. Всего $400, но ты получаешь в три раза больше активаций. Подумай, я верю в тебя!'
     });
   }
@@ -2279,6 +2404,8 @@
     postMessage('krypta', {
       kind: 'incoming',
       senderName: 'БРАТ крипта',
+      photo: 'img/events/krypta_wallet.webp',
+      photoAlt: 'крипто-кошелёк',
       text: 'БРАТ алё ты жива? смотри SOLANA х3 за неделю я говорил! у меня есть ещё 1 слот. $50 минимум, на следующей неделе $500. не упусти'
     });
   }
@@ -2301,6 +2428,8 @@
     postMessage('pavel', {
       kind: 'incoming',
       senderName: 'Павел',
+      photo: 'img/events/pavel_bridge.webp',
+      photoAlt: 'мост ночью',
       text: 'марина я вчера был в твоём доме. просто проходил. вспомнил крышу куда мы поднимались в мае 2022. помнишь?'
     });
   }
@@ -2368,6 +2497,8 @@
     postMessage('nastya', {
       kind: 'incoming',
       senderName: 'Настя',
+      photo: 'img/events/nastya_desk.webp',
+      photoAlt: 'рабочий стол',
       text: 'привет! я Настя, тоже фрилансер, мы вроде в одном чате в telegram были. хотела спросить — как ты справляешься с первыми неделями без офиса?'
     });
     setTimeout(function () {
@@ -2397,6 +2528,8 @@
     postMessage('nastya', {
       kind: 'incoming',
       senderName: 'Настя',
+      photo: 'img/events/nastya_coworking.webp',
+      photoAlt: 'коворкинг',
       text: 'слушай, думала. нам надо объединяться. одна хорошо, но вдвоём быстрее. может посидим, обсудим?'
     });
   }
@@ -2506,8 +2639,8 @@
     postMessage('mama', {
       kind: 'incoming',
       senderName: 'мама',
-      photo: 'img/events/desk_night.webp',
-      photoAlt: 'ночной стол',
+      photo: 'img/events/mama_pie.webp',
+      photoAlt: 'мамины пироги',
       text: 'ты там живая? звонков нет уже неделю. пирогов наготовила, приезжай в субботу.'
     });
     STATE._mama17_pending = true;
@@ -2520,6 +2653,8 @@
     postMessage('mama', {
       kind: 'incoming',
       senderName: 'мама',
+      photo: 'img/events/mama_letter.webp',
+      photoAlt: 'мамино письмо',
       text: 'доча, я скучаю. звони когда сможешь. хоть на 5 минут.'
     });
   }
@@ -2676,7 +2811,7 @@
     if (STATE.beat_olya) return;
     STATE.beat_olya = true;
     var c = findContact('olya'); if (c) c.visible = true;
-    postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', text: 'Мариночка приветик! Это Оля Петрова, мы учились вместе в 11-Б. Помнишь меня?' });
+    postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', photo: 'img/events/olya_pyramid.webp', photoAlt: 'клуб женщин', text: 'Мариночка приветик! Это Оля Петрова, мы учились вместе в 11-Б. Помнишь меня?' });
     setTimeout(function () {
       postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', text: 'У меня появилась уникальная возможность для женщин которые хотят изменить жизнь и финансы. Можно я расскажу 5 минут?' });
     }, 900);
@@ -2706,7 +2841,7 @@
     if (STATE.beat_krypta) return;
     STATE.beat_krypta = true;
     var c = findContact('krypta'); if (c) c.visible = true;
-    postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', text: 'БРАТ' });
+    postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', photo: 'img/events/krypta_moon.webp', photoAlt: 'крипто-луна', text: 'БРАТ' });
     setTimeout(function () {
       postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', text: 'СОЛАНА ЛЕТИТ 🚀🚀🚀 1000X ЭТОТ МЕСЯЦ' });
     }, 700);
@@ -2837,6 +2972,128 @@
     }
   }
 
+  // ========== SPRINT 14 — Guaranteed economy drain events ==========
+
+  function beatDrainCharger() {
+    if (STATE.beat_drain_charger) return;
+    STATE.beat_drain_charger = true;
+    STATE.cash -= 60;
+    postBank(-60, 'зарядка для ноутбука');
+    postMessage('scratch', { kind: 'outgoing', text: 'зарядка сдохла. прямо посреди работы. новая — $60. без неё никак.' });
+    postSystem('scratch', '⚡ −$60 · зарядка для ноутбука');
+  }
+
+  function beatDrainPhone() {
+    if (STATE.beat_drain_phone) return;
+    STATE.beat_drain_phone = true;
+    STATE.cash -= 80;
+    postBank(-80, 'ремонт экрана телефона');
+    postMessage('scratch', { kind: 'outgoing', text: 'уронила телефон. экран в паутине. без него нет связи с клиентами. ремонт $80.' });
+    postSystem('scratch', '📱 −$80 · ремонт экрана');
+  }
+
+  function beatDrainDentist() {
+    if (STATE.beat_drain_dentist) return;
+    STATE.beat_drain_dentist = true;
+    STATE.cash -= 150;
+    STATE.hours = Math.max(0, STATE.hours - 2);
+    postBank(-150, 'стоматолог · срочный');
+    postMessage('scratch', { kind: 'outgoing', text: 'зуб. проснулась от боли в 5 утра. стоматолог $150, без вариантов. полдня потеряно.' });
+    postSystem('scratch', '🦷 −$150 · −2h · стоматолог');
+  }
+
+  function beatDrainElectric() {
+    if (STATE.beat_drain_electric) return;
+    STATE.beat_drain_electric = true;
+    STATE.cash -= 100;
+    postBank(-100, 'электричество + интернет');
+    postMessage('scratch', { kind: 'outgoing', text: 'пришёл счёт за электричество и интернет. $100. автосписание. ничего не сделаешь.' });
+    postSystem('scratch', '💡 −$100 · коммуналка');
+  }
+
+  // ========== SPRINT 14 — Khozyaika arc enhancement ==========
+
+  // Pre-day-12: annoying beats
+  function beatKhozyaikaDay3Noise() {
+    if (STATE.beat_khozyaika_day3_noise) return;
+    STATE.beat_khozyaika_day3_noise = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      text: 'Марина, соседи с первого этажа жаловались на шум. Вы работаете после 23:00? Пожалуйста, тише печатайте на клавиатуре. У нас дом 1978 года, слышимость как в коммуналке. Я серьёзно.'
+    });
+    STATE.comfort = Math.max(0, STATE.comfort - 5);
+    postSystem('scratch', '−5 комфорт · хозяйка жалуется на шум');
+  }
+
+  function beatKhozyaikaDay5Electric() {
+    if (STATE.beat_khozyaika_day5_electric) return;
+    STATE.beat_khozyaika_day5_electric = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      photo: 'img/events/khozyaika_meters.webp',
+      photoAlt: 'электросчётчик',
+      text: 'Марина, вы сегодня снимаете показания электросчётчика? Я за ваш свет плачу, мне надо знать сколько. Скиньте фото. И сразу: почему розетка на кухне воняет? Вы что-то включали кроме чайника?'
+    });
+    STATE._khozyaika_electric_pending = true;
+  }
+
+  function beatKhozyaikaDay7Damage() {
+    if (STATE.beat_khozyaika_day7_damage) return;
+    STATE.beat_khozyaika_day7_damage = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      text: 'Марина, я тут была у вас пока вы на работе. Обнаружила ЦАРАПИНУ на линолеуме в прихожей. Это было до вас или после? Мне важно для страховки.'
+    });
+    setTimeout(function () {
+      postMessage('khozyaika', {
+        kind: 'incoming',
+        senderName: 'Наталья Валерьевна',
+        text: 'И ещё — в ванной потёк кран. Вызовите сантехника сами, $50 за выезд. Я не обязана.'
+      });
+    }, 1000);
+    STATE.cash -= 50;
+    postBank(-50, 'сантехник по требованию хозяйки');
+    postSystem('scratch', '🔧 −$50 · хозяйка заставила вызвать сантехника');
+  }
+
+  function beatKhozyaikaDay9Chain() {
+    if (STATE.beat_khozyaika_day9_chain) return;
+    STATE.beat_khozyaika_day9_chain = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      photo: 'img/events/khozyaika_tarot.webp',
+      photoAlt: 'карты таро',
+      text: 'Марина, это ОЧЕНЬ ВАЖНО. Перешлите это сообщение пяти людям: «квартира, в которой живёт женщина-фаундер, накапливает карму неудач если не распространять энергию благодарности». Мне так психолог-астролог сказал. Она раньше работала в МЧС.'
+    });
+    STATE._khozyaika_chain_pending = true;
+  }
+
+  // Post-day-12: sweet beats
+  function beatKhozyaikaPost12(variant) {
+    var flagKey = 'beat_khozyaika_post12_' + variant;
+    if (STATE[flagKey]) return;
+    STATE[flagKey] = true;
+    var c = findContact('khozyaika'); if (c) c.visible = true;
+    var texts = {
+      flowers: 'Мариночка, надеюсь вы покушали сегодня. 🌸 Я вот вчера пирог с капустой пекла, думала про вас. Мурка тоже сидит и мурлычет — чувствует что вы хорошая. Держитесь, родная!',
+      quote1: 'Марина, видела мотивирующий пост: «Сильная женщина — не та что не плачет, а та что плачет и всё равно делает». Это про вас. 💪🌸 Вы справитесь, я чувствую.',
+      quote2: 'Мариночка, как дела? Я тут свечку за вас в церкви поставила. Не за квартиру — за вас лично. Мурка тоже передаёт привет 🐱 P.S. комод в порядке, не переживайте.'
+    };
+    postMessage('khozyaika', {
+      kind: 'incoming',
+      senderName: 'Наталья Валерьевна',
+      text: texts[variant] || texts.flowers
+    });
+  }
+
   // ========== delayed callbacks (Pavel loan return) ==========
 
   function processPendingCallbacks(day) {
@@ -2920,6 +3177,20 @@
   }
 
   function fireDayBeats(day) {
+    // SPRINT 14 — guaranteed drain events (fire before story beats)
+    if (day === 3) beatDrainCharger();
+    if (day === 6) beatDrainPhone();
+    if (day === 8) beatDrainDentist();
+    if (day === 11) beatDrainElectric();
+    // SPRINT 14 — khozyaika pre-day-12 annoyance
+    if (day === 3) beatKhozyaikaDay3Noise();
+    if (day === 5) beatKhozyaikaDay5Electric();
+    if (day === 7) beatKhozyaikaDay7Damage();
+    if (day === 9) beatKhozyaikaDay9Chain();
+    // SPRINT 14 — khozyaika post-day-12 sweetness
+    if (day === 14) beatKhozyaikaPost12('flowers');
+    if (day === 17) beatKhozyaikaPost12('quote1');
+    if (day === 21) beatKhozyaikaPost12('quote2');
     // v2.1.1 — 30-day arc with tighter Khozyaika spam
     if (day === 2) { beatKhozyaikaDay2Komod(); beatPavelNightDay2(); }
     if (day === 3) { beatDenis(3); beatOlya(); }
@@ -2988,8 +3259,8 @@
     STATE.cash -= 45; // daily: метро + кофе + подписки + мелочи + вайбы
     if (STATE.hunger == null) STATE.hunger = 100;
     if (STATE.comfort == null) STATE.comfort = 60;
-    STATE.hunger = Math.max(0, STATE.hunger - 20); // faster hunger decay
-    STATE.comfort = Math.max(0, STATE.comfort - 8); // faster comfort decay
+    STATE.hunger = Math.max(0, STATE.hunger - 25); // SPRINT 14 — even more punishing
+    STATE.comfort = Math.max(0, STATE.comfort - 10); // SPRINT 14 — increased decay
 
     // Low hunger → sharp energy drain (stronger v2.1.1)
     if (STATE.hunger < 30) {
@@ -3001,7 +3272,7 @@
       postMessage('scratch', { kind: 'system', text: '🍔 на пределе · руки дрожат · не могу работать нормально' });
     }
     // Low comfort → impulsive purchase + more frequent
-    if (STATE.comfort < 30 && Math.random() < 0.55) {
+    if (STATE.comfort < 35 && Math.random() < 0.60) { // SPRINT 14 — more impulse
       var impulse = 50 + Math.floor(Math.random() * 50);
       STATE.cash -= impulse;
       postBank(-impulse, 'импульсивная покупка · комфорт низкий');
@@ -3472,6 +3743,7 @@
     version: VERSION,
     _state: function () { return STATE; },
     _reset: function () { clearState(); location.reload(); },
+    _actLamp: actLamp,
     currentChat: currentChat
   };
 

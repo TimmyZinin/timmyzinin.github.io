@@ -1079,6 +1079,34 @@ html, body {
   border-color: var(--fg);
 }
 
+/* SPRINT 14 — "Turn on computer" CTA on contacts list */
+.contacts-lamp-btn {
+  display: block;
+  width: calc(100% - 24px);
+  margin: 14px auto 10px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, var(--accent) 0%, #e14f1f 100%);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: -0.01em;
+  box-shadow: 0 6px 18px rgba(255, 107, 61, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  animation: lampPulse 2s ease-in-out infinite;
+}
+.contacts-lamp-btn:hover {
+  background: linear-gradient(135deg, #ff7d52 0%, #ff5a29 100%);
+  transform: translateY(-1px);
+}
+@keyframes lampPulse {
+  0%, 100% { box-shadow: 0 6px 18px rgba(255, 107, 61, 0.4); }
+  50%      { box-shadow: 0 6px 24px rgba(255, 107, 61, 0.65); }
+}
+
 /* Desktop: hide mobile-only elements */
 #chat-back { display: none; }
 #mobile-list-hud { display: none; }
@@ -1399,6 +1427,13 @@ html, body {
   .intro-title { font-size: 24px; }
   .overlay-card { padding: 24px 20px 22px; }
   .lead-field input, .lead-field textarea { font-size: 16px; /* avoid iOS zoom */ }
+}
+
+/* SPRINT 14 — hide irrelevant disabled buttons on mobile */
+@media (max-width: 640px) {
+  .dock-btn.mobile-hide {
+    display: none !important;
+  }
 }
 
 @media (max-width: 380px) {
