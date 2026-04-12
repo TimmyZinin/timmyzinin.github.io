@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.0';
+  var VERSION = '2.2.1';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -41,7 +41,7 @@
     eat_out:         { h: 1, c: 35, f: 45, m: 8 },
     shopping:        { h: 2, c: 80, m: 25 },
     date_kirill:     { h: 3, e: 10, f: 50, m: 15 }, // free food but energy drain
-    hangout_denis:   { h: 4, c: 250, f: 30, m: 20, ePlus: 15 },
+    // hangout_denis: removed — Denis uses per-event pricing via DENIS_COSTS in chat chips
     end_day:         { h: 0, e: 0 }
   };
 
@@ -309,6 +309,12 @@
       beat_denis9: false,
       beat_denis15: false,
       beat_denis27: false,
+      // SPRINT 14.1 — explicit init for Denis reply-chip pending flags
+      _denis3_pending: false,
+      _denis6_pending: false,
+      _denis9_pending: false,
+      _denis15_pending: false,
+      _denis27_pending: false,
       // recurring spam intros (BLOCK A)
       beat_olya: false,
       beat_kirill: false,
@@ -1114,6 +1120,7 @@
             STATE.energy = Math.min(100, STATE.energy + 60);
             STATE.hours = Math.max(0, STATE.hours - 2);
             postBank(-dCost, 'с Денисом');
+            postMessage('scratch', { kind: 'outgoing', text: pick(HANGOUT_DENIS_TEXT) });
             postMessage('scratch', { kind: 'system', text: '−$' + dCost + ' · +60⚡ · −2h · день ожил' });
           } else {
             postOutgoing('denis', 'не сегодня. работа.');
@@ -1870,24 +1877,8 @@
     });
   }
 
-  function actHangoutDenis() {
-    if (STATE.bank_locked) return;
-    if (STATE.cash < COST.hangout_denis.c) return;
-    if (STATE.hours < COST.hangout_denis.h) return;
-    STATE.hours -= COST.hangout_denis.h;
-    STATE.cash -= COST.hangout_denis.c;
-    STATE.hunger = Math.min(100, STATE.hunger + COST.hangout_denis.f);
-    STATE.comfort = Math.min(100, STATE.comfort + COST.hangout_denis.m);
-    STATE.energy = Math.min(100, STATE.energy + COST.hangout_denis.ePlus);
-
-    runAction(function () {
-      postOutgoing('scratch', pick(HANGOUT_DENIS_TEXT));
-      setTimeout(function () {
-        postSystem('scratch', '+' + COST.hangout_denis.m + ' комфорт · +' + COST.hangout_denis.ePlus + '⚡ · −$' + COST.hangout_denis.c);
-        postBank(-COST.hangout_denis.c, 'с Денисом');
-      }, 400);
-    });
-  }
+  // SPRINT 14.1 — actHangoutDenis() removed. Denis interactions go via chat reply chips
+  // with per-event pricing (DENIS_COSTS map at line ~1093). Dock button only opens chat.
 
   // BLOCK F — night work (extra time beyond 8h day, burns energy + comfort)
   // SPRINT 14 — tracks hangover for next morning
