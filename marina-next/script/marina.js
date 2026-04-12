@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.2';
+  var VERSION = '2.2.3';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -407,7 +407,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -650,14 +650,25 @@
     if (STATE.day < 2) return; // skip day 1
     // SPRINT 14 — hangover takes priority
     if (STATE._hangover_active) {
-      postMessage('scratch', { kind: 'outgoing', text: pick(HANGOVER_MORNINGS) });
+      postMessage('scratch', {
+        kind: 'outgoing',
+        photo: 'img/events/hangover_desk.webp',
+        photoAlt: 'утро после ночной работы',
+        text: pick(HANGOVER_MORNINGS)
+      });
       postSystem('scratch', '☕ после ночной работы · энергия не восстановилась');
       return;
     }
     var h = STATE.hunger, e = STATE.energy, m = STATE.comfort;
     // Pick the worst resource and post inner-monologue for it
     if (h != null && h < 30) {
-      postMessage('scratch', { kind: 'outgoing', text: pick(HUNGRY_MORNINGS) });
+      // SPRINT 14.3 — empty fridge photo when critically hungry
+      postMessage('scratch', {
+        kind: 'outgoing',
+        photo: h < 15 ? 'img/events/marina_hungry.webp' : undefined,
+        photoAlt: 'пустой холодильник',
+        text: pick(HUNGRY_MORNINGS)
+      });
       return;
     }
     if (m != null && m < 25) {
@@ -2828,14 +2839,14 @@
       3: 'img/events/regatta.webp',
       6: 'img/events/denis_coffee_spot.webp',
       9: 'img/events/street_window.webp',
-      15: 'img/events/denis_paris.webp',
+      15: 'img/events/denis_yacht.webp',
       27: 'img/events/denis_new_year.webp'
     };
     postMessage('denis', {
       kind: 'incoming',
       senderName: 'Денис',
       photo: photos[day] || 'img/events/street_window.webp',
-      photoAlt: day === 3 ? 'регата' : day === 6 ? 'кофейня' : day === 27 ? 'новый год' : 'гулянка',
+      photoAlt: day === 3 ? 'регата' : day === 6 ? 'кофейня' : day === 15 ? 'яхта' : day === 27 ? 'новый год' : 'гулянка',
       text: texts[day] || 'привет, как ты там?'
     });
     postMessage('scratch', { kind: 'system', text: 'Денис зовёт гулять · открой чат' });
@@ -3019,7 +3030,12 @@
     STATE.beat_drain_charger = true;
     STATE.cash -= 60;
     postBank(-60, 'зарядка для ноутбука');
-    postMessage('scratch', { kind: 'outgoing', text: 'зарядка сдохла. прямо посреди работы. новая — $60. без неё никак.' });
+    postMessage('scratch', {
+      kind: 'outgoing',
+      photo: 'img/events/charger_broken.webp',
+      photoAlt: 'сломанная зарядка',
+      text: 'зарядка сдохла. прямо посреди работы. новая — $60. без неё никак.'
+    });
     postSystem('scratch', '⚡ −$60 · зарядка для ноутбука');
   }
 
@@ -3028,7 +3044,12 @@
     STATE.beat_drain_phone = true;
     STATE.cash -= 80;
     postBank(-80, 'ремонт экрана телефона');
-    postMessage('scratch', { kind: 'outgoing', text: 'уронила телефон. экран в паутине. без него нет связи с клиентами. ремонт $80.' });
+    postMessage('scratch', {
+      kind: 'outgoing',
+      photo: 'img/events/phone_cracked.webp',
+      photoAlt: 'треснувший экран',
+      text: 'уронила телефон. экран в паутине. без него нет связи с клиентами. ремонт $80.'
+    });
     postSystem('scratch', '📱 −$80 · ремонт экрана');
   }
 
@@ -3038,7 +3059,12 @@
     STATE.cash -= 150;
     STATE.hours = Math.max(0, STATE.hours - 2);
     postBank(-150, 'стоматолог · срочный');
-    postMessage('scratch', { kind: 'outgoing', text: 'зуб. проснулась от боли в 5 утра. стоматолог $150, без вариантов. полдня потеряно.' });
+    postMessage('scratch', {
+      kind: 'outgoing',
+      photo: 'img/events/dentist_receipt.webp',
+      photoAlt: 'чек стоматолога',
+      text: 'зуб. проснулась от боли в 5 утра. стоматолог $150, без вариантов. полдня потеряно.'
+    });
     postSystem('scratch', '🦷 −$150 · −2h · стоматолог');
   }
 
@@ -3047,7 +3073,12 @@
     STATE.beat_drain_electric = true;
     STATE.cash -= 100;
     postBank(-100, 'электричество + интернет');
-    postMessage('scratch', { kind: 'outgoing', text: 'пришёл счёт за электричество и интернет. $100. автосписание. ничего не сделаешь.' });
+    postMessage('scratch', {
+      kind: 'outgoing',
+      photo: 'img/events/electric_bill.webp',
+      photoAlt: 'квитанция',
+      text: 'пришёл счёт за электричество и интернет. $100. автосписание. ничего не сделаешь.'
+    });
     postSystem('scratch', '💡 −$100 · коммуналка');
   }
 
@@ -3061,6 +3092,8 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
+      photo: 'img/events/khozyaika_noise.webp',
+      photoAlt: 'хозяйка у двери',
       text: 'Марина, соседи с первого этажа жаловались на шум. Вы работаете после 23:00? Пожалуйста, тише печатайте на клавиатуре. У нас дом 1978 года, слышимость как в коммуналке. Я серьёзно.'
     });
     STATE.comfort = Math.max(0, STATE.comfort - 5);
@@ -3088,6 +3121,8 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
+      photo: 'img/events/khozyaika_damage.webp',
+      photoAlt: 'царапина на линолеуме',
       text: 'Марина, я тут была у вас пока вы на работе. Обнаружила ЦАРАПИНУ на линолеуме в прихожей. Это было до вас или после? Мне важно для страховки.'
     });
     setTimeout(function () {
@@ -3127,11 +3162,17 @@
       quote1: 'Марина, видела мотивирующий пост: «Сильная женщина — не та что не плачет, а та что плачет и всё равно делает». Это про вас. 💪🌸 Вы справитесь, я чувствую.',
       quote2: 'Мариночка, как дела? Я тут свечку за вас в церкви поставила. Не за квартиру — за вас лично. Мурка тоже передаёт привет 🐱 P.S. комод в порядке, не переживайте.'
     };
-    postMessage('khozyaika', {
+    // Photo only for quote2 ("свечку поставила") — matches khozyaika_sweet aesthetic
+    var msg = {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
       text: texts[variant] || texts.flowers
-    });
+    };
+    if (variant === 'quote2') {
+      msg.photo = 'img/events/khozyaika_sweet.webp';
+      msg.photoAlt = 'свечка и фото Мурки';
+    }
+    postMessage('khozyaika', msg);
   }
 
   // ========== delayed callbacks (Pavel loan return) ==========
