@@ -790,6 +790,79 @@ footer h3{
   color: var(--bordeaux);
   margin-top: 30px;
 }
+
+/* Products matrix */
+.products-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 2px solid var(--line);
+  border-left: 2px solid var(--line);
+}
+@media(max-width:780px){.products-grid{grid-template-columns:1fr}}
+.product{
+  border-right: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  padding: 32px 30px;
+  display:flex; flex-direction:column; gap: 14px;
+  background: var(--cream);
+  position:relative;
+  min-height: 320px;
+  transition: background .2s, transform .2s;
+}
+.product:hover{background: var(--peach); transform: translateY(-4px)}
+.product-1{}
+.product-2{background: var(--peach)}
+.product-2:hover{background: var(--ochre)}
+.product-3{background: var(--ochre)}
+.product-3:hover{background: var(--peach)}
+.product-4{background: var(--ink); color: var(--cream)}
+.product-4 .p-tag, .product-4 .p-price b, .product-4 .p-channels b{color: var(--ochre)}
+.product-4:hover{background: oklch(22% 0.04 35); transform: translateY(-4px)}
+.p-tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+}
+.p-name{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.p-name em{font-style:italic; color: var(--bordeaux)}
+.product-4 .p-name em{color: var(--ochre)}
+.p-desc{
+  font-size: 15px;
+  line-height: 1.45;
+  flex: 1;
+}
+.p-meta{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1.5px solid currentColor;
+}
+.p-price b, .p-channels b{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+  display:block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.p-price span, .p-channels span{
+  font-family:'DM Serif Display', serif;
+  font-size: 18px;
+  line-height: 1.15;
+  font-style: normal;
+}
+.p-channels span{font-size: 14px; line-height:1.3; font-family:'Space Grotesk', sans-serif}
 </style>
 </head>
 <body>
@@ -797,13 +870,14 @@ footer h3{
 <nav class="nav">
   <span class="brand">В / ВОСЬМЁРКИ</span>
   <a href="#snapshot">01 Срез</a>
-  <a href="#funnel">02 Воронка</a>
-  <a href="#panel">03 Панель</a>
-  <a href="#conflicts">04 Споры</a>
-  <a href="#plan">05 План</a>
-  <a href="#zero">06 Без бюджета</a>
-  <a href="#metrics">07 Метрики</a>
-  <a href="#work">08 Сотрудничество</a>
+  <a href="#products">02 Продукты</a>
+  <a href="#funnel">03 Воронка</a>
+  <a href="#panel">04 Панель</a>
+  <a href="#conflicts">05 Споры</a>
+  <a href="#plan">06 План</a>
+  <a href="#zero">07 Без бюджета</a>
+  <a href="#metrics">08 Метрики</a>
+  <a href="#work">09 Сотрудничество</a>
 </nav>
 
 <header class="hero">
@@ -882,16 +956,65 @@ footer h3{
 
   <div class="snap-grid">
     <div class="snap-card"><div class="k">01 / Ниша</div><div class="v">Миграционные услуги</div><div class="d">Визы, ВНЖ, регистрация бизнеса, внутрикорпоративные переводы L1 / ICT через собственную структуру.</div></div>
-    <div class="snap-card"><div class="k">02 / География</div><div class="v">Казахстан → США / Канада / Евросоюз / Великобритания</div><div class="d">База — Алматы. Клиенты: релоканты в Казахстане и казахи, выезжающие в Америку и Европу.</div></div>
-    <div class="snap-card"><div class="k">03 / Премиум-линия</div><div class="v">L1 · ICT · Бизнес</div><div class="d">Чек $10K – $50K+. Реальное преимущество: готовые юрлица в пяти странах для внутрикорпоративного перевода.</div></div>
-    <div class="snap-card"><div class="k">04 / Визовая линия</div><div class="v">B1/B2 · Канада · Польша</div><div class="d">Чек $300 – $3K. Туризм, рабочая виза в Польшу, РВП в Казахстане через работодателя.</div></div>
+    <div class="snap-card"><div class="k">02 / География</div><div class="v">Россия · Казахстан → США / Канада / ЕС / Великобритания · DNV-страны</div><div class="d">База — Алматы. Клиенты: россияне-релоканты, бизнес-Россия, казахи в Америку и Европу, удалёнщики в страны цифровых кочевников.</div></div>
+    <div class="snap-card"><div class="k">03 / Сейчас на сайте</div><div class="v">Всё в одной куче</div><div class="d">L1 за $30K, туризм за $300, бизнес-релокация — на одной странице, в одном ВатсАпе. Половина трафика уходит, не найдя «свой» оффер.</div></div>
+    <div class="snap-card"><div class="k">04 / Что предлагаю</div><div class="v">4 продукта = 4 воронки</div><div class="d">Премиум · Визы · Кочевник · Мост Россия–KZ. Под каждый — своя страница, своя реклама, свой сценарий ВатсАпа. Подробнее ↓</div></div>
     <div class="snap-card"><div class="k">05 / Точка входа</div><div class="v">Только ВатсАп</div><div class="d">+7 (777) 575-49-95. Один канал. Нет формы, нет квалификации, нет нормативов ответа.</div></div>
     <div class="snap-card"><div class="k">06 / Соцсети и стек</div><div class="v">Инстаграм · Фейсбук · Вордпресс</div><div class="d">@vse_vosmerki. Без пикселя, без счётчиков, без СРМ, без блога. Слепая стрельба.</div></div>
   </div>
 </section>
 
-<section id="funnel" class="reveal">
+<section id="products" class="reveal">
   <span class="sec-num">02</span>
+  <span class="eyebrow">Что я предлагаю упаковать · 4 продукта</span>
+  <h2 class="sec-title">Один бизнес — четыре продукта.</h2>
+  <p class="lead">Сейчас на сайте всё в одну кучу: и L1 за $30 000, и туристическая виза за $300 в одном ВатсАпе. Из 100 рекламных долларов работают только 30–40 — половина людей видит «не свой» оффер и закрывает сайт. Я предлагаю разделить на четыре чётких трека: под каждый — отдельная страница, отдельный текст, отдельная реклама и отдельный сценарий ВатсАпа.</p>
+
+  <div class="products-grid">
+    <article class="product product-1">
+      <span class="p-tag">01 · ВОСЬМЁРКИ <em>Премиум</em></span>
+      <div class="p-name"><em>L1 / ICT</em><br>Бизнес-релокация</div>
+      <div class="p-desc">Перевод сотрудника в США / Канаду через собственную корпоративную структуру. Семья, школа детям, разрешение работать супругу. Ваш реальный моат — готовые юрлица в пяти странах.</div>
+      <div class="p-meta">
+        <div class="p-price"><b>Чек</b><span>$10 000 – $50 000+</span></div>
+        <div class="p-channels"><b>Откуда лиды</b><span>LinkedIn-таргет, прямой обход, TG-каналы про IT-релокацию</span></div>
+      </div>
+    </article>
+
+    <article class="product product-2">
+      <span class="p-tag">02 · ВОСЬМЁРКИ <em>Визы</em></span>
+      <div class="p-name"><em>Туризм</em><br>Рабочая Польша</div>
+      <div class="p-desc">B1/B2 в США, туристическая в Канаду, рабочая виза D в Польшу с дальнейшей картой побыту. Массовый понятный продукт с быстрым циклом сделки.</div>
+      <div class="p-meta">
+        <div class="p-price"><b>Чек</b><span>$300 – $3 000</span></div>
+        <div class="p-channels"><b>Откуда лиды</b><span>Фейсбук, Инстаграм, Гугл-реклама</span></div>
+      </div>
+    </article>
+
+    <article class="product product-3">
+      <span class="p-tag">03 · ВОСЬМЁРКИ <em>Кочевник</em></span>
+      <div class="p-name"><em>Digital Nomad</em><br>Visa</div>
+      <div class="p-desc">Визы для удалёнщиков: Португалия, Испания, Хорватия, Кипр, ОАЭ, Бразилия. Растущий тренд, мало конкурентов в русскоязычном сегменте, готовая аудитория в IT-каналах.</div>
+      <div class="p-meta">
+        <div class="p-price"><b>Чек</b><span>$1 500 – $5 000</span></div>
+        <div class="p-channels"><b>Откуда лиды</b><span>TG-каналы про номадов, Reddit, YouTube-блогеры</span></div>
+      </div>
+    </article>
+
+    <article class="product product-4">
+      <span class="p-tag">04 · ВОСЬМЁРКИ <em>Мост</em></span>
+      <div class="p-name"><em>Россия ↔ Казахстан</em></div>
+      <div class="p-desc">РВП через работодателя, регистрация бизнеса туда-обратно, легализация семьи. Огромный поток россиян в Казахстан 2022–2026 и обратные сценарии. Ниша, где у вас есть структура и понимание.</div>
+      <div class="p-meta">
+        <div class="p-price"><b>Чек</b><span>$1 000 – $8 000</span></div>
+        <div class="p-channels"><b>Откуда лиды</b><span>Яндекс.Директ, чаты релокантов в KZ, региональные TG</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="funnel" class="reveal">
+  <span class="sec-num">03</span>
   <span class="eyebrow">Текущая воронка · как сейчас</span>
   <h2 class="sec-title">Воронка протекает в шести местах.</h2>
   <p class="lead">Трафик упирается в одну ВатсАп-ссылку без пикселя, без квалификации и без СРМ. До контакта доходит, по оценке специалиста по конверсии, <b class="mark">15–30%</b> трафика.</p>
@@ -918,7 +1041,7 @@ footer h3{
 </section>
 
 <section id="panel" class="reveal">
-  <span class="sec-num">03</span>
+  <span class="sec-num">04</span>
   <span class="eyebrow">Панель ИИ-экспертов · 6 голосов</span>
   <h2 class="sec-title">Что сказали шесть ИИ-экспертов.</h2>
   <p class="lead">Я собрал панель из <b>шести агентов на базе искусственного интеллекта</b>, каждый — со своей ролью, своим бэкграундом и своей слепой зоной: директор по маркетингу, специалист по платному трафику, специалист по конверсии, ветеран миграционной отрасли, специалист по партнёркам, операционка продаж. Они разобрали ваш бизнес параллельно, каждый под своим углом. Голоса я свёл в один план.</p>
@@ -969,7 +1092,7 @@ footer h3{
 </section>
 
 <section id="conflicts" class="reveal">
-  <span class="sec-num">04</span>
+  <span class="sec-num">05</span>
   <span class="eyebrow">Споры в панели · 5 разногласий</span>
   <h2 class="sec-title">Где эксперты не сошлись.</h2>
   <p class="lead">Разные роли — разные приоритеты. Ниже пять тем, где позиции разошлись, и как их свели в один план.</p>
@@ -1015,7 +1138,7 @@ footer h3{
 </section>
 
 <section id="plan" class="reveal">
-  <span class="sec-num">05</span>
+  <span class="sec-num">06</span>
   <span class="eyebrow">План в 3 фазы · 0 → 90 дней</span>
   <h2 class="sec-title">Три фазы, три цели, одна траектория.</h2>
   <p class="lead">Модель «свои · арендованные · заёмные каналы» плюс фазовый перезапуск бренда вокруг двух линий продуктов.</p>
@@ -1081,7 +1204,7 @@ footer h3{
 </section>
 
 <section id="zero" class="reveal">
-  <span class="sec-num">06</span>
+  <span class="sec-num">07</span>
   <span class="eyebrow">Если бюджет = 0</span>
   <h2 class="sec-title">Восемь шагов за неделю. Бесплатно.</h2>
   <p class="lead">Даже без копейки вложений, 80% эффекта достигается этими восемью шагами за 5–7 дней.</p>
@@ -1099,7 +1222,7 @@ footer h3{
 </section>
 
 <section id="metrics" class="reveal">
-  <span class="sec-num">07</span>
+  <span class="sec-num">08</span>
   <span class="eyebrow">Метрики · было → стало</span>
   <h2 class="sec-title">Куда двигаем цифры.</h2>
   <p class="lead">X — текущий неизмеренный уровень. Первая задача фазы 1 — поставить учёт и узнать X.</p>
@@ -1130,7 +1253,7 @@ footer h3{
 </section>
 
 <section id="work" class="reveal">
-  <span class="sec-num">08</span>
+  <span class="sec-num">09</span>
   <span class="eyebrow">Сотрудничество · от $1000 в месяц</span>
   <h2 class="sec-title">Как мы будем работать вместе.</h2>
 
