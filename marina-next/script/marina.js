@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.4.0';
+  var APP_VERSION = '2.4.1';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -204,7 +204,7 @@
   var AUTO_REACH_NARRATIVE = [
     'открыла ноут · в inbox уже есть ответ от одного из фоновых холодок. AI-бот Тима отработал ночью',
     'засыпала — папка «входящие» пустая. проснулась — три ответа. один живой, двое seen. не понимаю как это работает, но работает',
-    'бот тима написал за меня 20 холодок пока я спала. один из них ответил. я просто пью кофе и читаю. это странно',
+    'бот Тима написал за меня 20 холодок пока я спала. один из них ответил. я просто пью кофе и читаю. это странно',
     'уведомление в 7:12 утра: «новый лид». AI сделал свою работу. я даже не знаю что ему написать в ответ — посмотрю',
     'просыпаюсь в мире где мой холодный фарминг идёт без меня. не знаю куда это всё денется, но пока работает'
   ];
@@ -445,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -971,11 +971,18 @@
             postIncoming('tim', 'готово. AI будет квалифицировать лиды каждое утро.', 'Тим');
           }, 900);
         } else if (opt.id === 'buy') {
-          // Keep pending for retry
-          postOutgoing('tim', 'не хватает $' + Math.max(0, 300 - STATE.cash) + '. вернусь позже.');
-          setTimeout(function () {
-            postIncoming('tim', 'предложение остаётся. как накопишь — пиши.', 'Тим');
-          }, 900);
+          // Keep pending for retry — distinguish bank_locked vs low cash
+          if (STATE.bank_locked) {
+            postOutgoing('tim', 'счёт заблокирован, не могу перевести.');
+            setTimeout(function () {
+              postIncoming('tim', 'ок, как разблокируют — напиши.', 'Тим');
+            }, 900);
+          } else {
+            postOutgoing('tim', 'не хватает $' + (300 - STATE.cash) + '. вернусь позже.');
+            setTimeout(function () {
+              postIncoming('tim', 'предложение остаётся. как накопишь — пиши.', 'Тим');
+            }, 900);
+          }
         } else {
           STATE._tim_tier2_pending = false;
           postOutgoing('tim', 'пока нет.');
@@ -1002,10 +1009,17 @@
             postIncoming('tim', 'настроил. AI будет сам отправлять офферы и принимать контракты.', 'Тим');
           }, 900);
         } else if (opt.id === 'buy') {
-          postOutgoing('tim', 'не хватает $' + Math.max(0, 400 - STATE.cash) + '.');
-          setTimeout(function () {
-            postIncoming('tim', 'когда подкопишь — напиши, оставлю слот.', 'Тим');
-          }, 900);
+          if (STATE.bank_locked) {
+            postOutgoing('tim', 'счёт заблокирован.');
+            setTimeout(function () {
+              postIncoming('tim', 'жду пока разблокируют. слот за тобой.', 'Тим');
+            }, 900);
+          } else {
+            postOutgoing('tim', 'не хватает $' + (400 - STATE.cash) + '.');
+            setTimeout(function () {
+              postIncoming('tim', 'когда подкопишь — напиши, оставлю слот.', 'Тим');
+            }, 900);
+          }
         } else {
           STATE._tim_tier3_pending = false;
           postOutgoing('tim', 'нет.');
@@ -3930,7 +3944,7 @@
           senderName: 'Тим',
           text: 'прочитал. спасибо что без фильтров.\n\nтри вещи на завтра утром:\n1. разложить почту по воронке (cold / качественный / в работе / сдано)\n2. срезать одну мёртвую задачу — ту, что откладываешь четвёртый день\n3. забронировать два часа без чата, писать одно дело\n\nзакину шаблоны — увидишь эффект.'
         });
-        postBank(200, 'тим закинул шаблоны · оплата от клиента который ждал');
+        postBank(200, 'Тим закинул шаблоны · оплата от клиента который ждал');
         postMessage('scratch', { kind: 'system', text: '+2 лида · +$200 · +15 энергии · automation on' });
         save();
         Bubbles.clearChipsArea();
