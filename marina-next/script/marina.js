@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.9';
+  var VERSION = '2.3.0';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -407,7 +407,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -3850,11 +3850,12 @@
       // Ignore if any overlay is visible (intro/win/lose)
       if ($('#intro-overlay').is(':visible') || $('#win-overlay').is(':visible') || $('#lose-overlay').is(':visible')) return;
 
-      // Digits 1-9 — click Nth visible non-disabled dock button
+      // SPRINT 17 rev2 — filter by :visible too (not just :not([disabled]))
+      // to skip mobile-hide buttons and off-screen ones
       var dig = parseInt(e.key, 10);
       if (dig >= 1 && dig <= 9) {
         e.preventDefault();
-        var $btns = $('#dock-buttons .dock-btn:not([disabled])');
+        var $btns = $('#dock-buttons .dock-btn:not([disabled]):visible');
         var $btn = $btns.eq(dig - 1);
         if ($btn.length) $btn.click();
         return;
@@ -3867,8 +3868,12 @@
         return;
       }
       // Space or Enter — end day (primary accessible action)
+      // SPRINT 17 rev2 — skip if focus is on button/link/input to avoid
+      // overriding native activation on focused elements
       if (e.key === ' ' || e.key === 'Enter') {
-        var $end = $('.dock-btn[data-action="end_day"]:not([disabled])');
+        var tag = e.target && e.target.tagName;
+        if (tag === 'BUTTON' || tag === 'A' || tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+        var $end = $('.dock-btn[data-action="end_day"]:not([disabled]):visible');
         if ($end.length) {
           e.preventDefault();
           $end.click();
