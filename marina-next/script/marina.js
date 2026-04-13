@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.3.4';
+  var APP_VERSION = '2.3.5';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -445,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -531,6 +531,15 @@
 
   function pick(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // SPRINT 22 — Umami custom event tracking (privacy-respecting)
+  function track(event, data) {
+    try {
+      if (window.umami && typeof window.umami.track === 'function') {
+        window.umami.track(event, data || {});
+      }
+    } catch (e) {}
   }
 
   // ========== dock (global HUD) ==========
@@ -1700,6 +1709,7 @@
 
   function actLamp() {
     STATE.lamp_on = true;
+    track('game_started', { version: APP_VERSION });
     postMessage('scratch', {
       text: 'день 1. 9:00. ноутбук открыт. чат пуст. кофе остыл. пора начинать.',
       kind: 'system'
@@ -2080,6 +2090,10 @@
       try {
         STATE.day += 1;
         STATE.hours = HOURS_PER_DAY;
+        // SPRINT 22 — milestone events every 5 days
+        if (STATE.day % 5 === 0 && STATE.day <= 30) {
+          track('day_reached', { day: STATE.day, cash: STATE.cash, delivered: STATE.delivered_projects });
+        }
         // SPRINT 14 — overnight energy recovery depends on hunger + hangover
         var overnightRecovery = 20;
         if (STATE.hunger < 30) overnightRecovery = 5;
@@ -3745,6 +3759,11 @@
   function showWin() {
     STATE.ending_seen = 'win';
     save();
+    track('game_won', {
+      delivered: STATE.delivered_projects,
+      love: !!STATE.love_ending_unlocked,
+      auto_tiers: (STATE.auto_reach_out ? 1 : 0) + (STATE.auto_brief_lead ? 1 : 0) + (STATE.auto_send_offer ? 1 : 0)
+    });
     var stats = STATE.delivered_projects + ' проекта сданы · $' + STATE.cash + ' · энергия ' + STATE.energy + '/100';
     $('#win-stats').text(stats);
 
@@ -3766,6 +3785,7 @@
   function showLose(reason, reasonText) {
     STATE.ending_seen = 'lose_' + reason;
     save();
+    track('game_lost', { reason: reason, day: STATE.day });
     $('#lose-reason').text(reasonText);
 
     // Build narrative body by reason type
@@ -3818,6 +3838,7 @@
       onSuccess: function () {
         STATE.lead_submitted = true;
         STATE.automation_active = true;
+        track('lead_submitted', { day: STATE.day });
         STATE.leads += 2;
         STATE.cash += 200;
         STATE.energy = Math.min(100, STATE.energy + 15);
