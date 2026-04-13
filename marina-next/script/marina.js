@@ -692,7 +692,7 @@
     var h = STATE.hunger || 100;
     var e = STATE.energy || 100;
     var m = STATE.comfort || 60;
-    var status = 'теледрам v2.1.5';
+    var status = 'теледрам v' + VERSION;
     if (STATE.bank_locked) status = '🔒 счёт заблокирован';
     else if (h < 20) status = '🍔 очень голодна';
     else if (e < 20) status = '⚡ на пределе';
