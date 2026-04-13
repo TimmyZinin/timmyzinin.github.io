@@ -20,11 +20,23 @@
   <meta name="twitter:image" content="https://timzinin.com/marina-next/img/hero/hero_main.webp"/>
   <link rel="icon" href="favicon.ico"/>
   <link rel="preload" as="image" href="img/hero/hero_main.webp"/>
-  <link rel="stylesheet" type="text/css" href="css/landing.css?v=2.0.3"/>
+  <link rel="stylesheet" type="text/css" href="css/landing.css?v=2.3.4"/>
 
   <!-- MPL-2.0 · fork of A Dark Room (doublespeakgames/adarkroom) -->
 </head>
 <body>
+
+  <!-- SPRINT 21 — Sticky nav -->
+  <nav class="sticky-nav">
+    <a href="#top" class="nav-brand">🔥 Марина в огне</a>
+    <div class="nav-links">
+      <a href="#about">о игре</a>
+      <a href="#characters">персонажи</a>
+      <a href="#features">фичи</a>
+      <a href="#faq">faq</a>
+      <a href="play.html" class="nav-cta">играть →</a>
+    </div>
+  </nav>
 
   <!-- Cinematic hero -->
   <section class="hero">
@@ -79,22 +91,81 @@
     <p>У неё <b>12 дней</b> и <b>$500</b> на счету. Надо закрыть <b>3 проекта</b> до конца месяца — иначе аренда съест всё.</p>
     <p>Сообщения приходят в мессенджер «Теледрам». Лена поддерживает. Анна предлагает заказ. Тим пишет из Каша. Неадекватная хозяйка грозит повышением аренды. Мама просит на лекарства. Бывший — на «пару недель». Денис зовёт гулять на регату. У тебя <b>8 часов в сутки</b>. Что успеешь?</p>
 
-    <div class="feature-row">
+    <div class="feature-row" id="features">
       <div class="feature">
         <span class="feature-icon">💬</span>
         <div class="feature-title">мессенджер как UI</div>
-        <p class="feature-desc">всё происходит в чатах. никаких меню, инвентарей, таблиц. только сообщения.</p>
+        <p class="feature-desc">всё в чатах. никаких меню и таблиц. только сообщения.</p>
       </div>
       <div class="feature">
         <span class="feature-icon">🎭</span>
-        <div class="feature-title">9 персонажей</div>
-        <p class="feature-desc">у каждого своя папка, свои потребности и свой tone of voice. не все из них друзья.</p>
+        <div class="feature-title">24 контакта</div>
+        <p class="feature-desc">7 ключевых, 6 повторяющийся спам, 7 одноразовых. у всех свой tone.</p>
       </div>
       <div class="feature">
         <span class="feature-icon">⏳</span>
         <div class="feature-title">real-time эконом</div>
-        <p class="feature-desc">часы, энергия, деньги, лиды. каждое решение стоит ресурса. как в жизни.</p>
+        <p class="feature-desc">часы, энергия, деньги, голод, комфорт. каждое решение — ресурс.</p>
       </div>
+      <div class="feature">
+        <span class="feature-icon">💔</span>
+        <div class="feature-title">love arc</div>
+        <p class="feature-desc">Кирилл — не просто Tinder. 8 beats, конфликт, resolution, возможный love ending.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🌙</span>
+        <div class="feature-title">ночная работа</div>
+        <p class="feature-desc">после 8 часов дня можно работать ночью. +прогресс, −комфорт, 20% баг, утром похмелье.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🎯</span>
+        <div class="feature-title">воронка продаж</div>
+        <p class="feature-desc">reach_out → созвон → оффер → работа. Тим продаёт AI-автоматизацию тиров.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPRINT 21 — Characters section -->
+  <section class="content" id="characters">
+    <h2>кто пишет Марине</h2>
+    <div class="characters-grid">
+      <div class="char-card"><div class="char-avatar">Л</div><div class="char-name">Лена</div><div class="char-role">бывшая коллега · Москва</div><p>поддерживает. первая пишет. скидывает контакты клиентов.</p></div>
+      <div class="char-card"><div class="char-avatar">А</div><div class="char-name">Анна</div><div class="char-role">первый клиент</div><p>двустраничник за $250 upfront + $300. 6 дней на сдачу.</p></div>
+      <div class="char-card"><div class="char-avatar">Т</div><div class="char-name">Тим</div><div class="char-role">консультант по автоматизации · Каш</div><p>3 тира AI-автоматизации: автофарминг лидов / созвоны / офферы.</p></div>
+      <div class="char-card"><div class="char-avatar">Н</div><div class="char-name">Наталья Валерьевна</div><div class="char-role">хозяйка квартиры</div><p>до 12 дня — абсурдные требования. после — внезапно прощает аренду.</p></div>
+      <div class="char-card"><div class="char-avatar">К</div><div class="char-name">Кирилл</div><div class="char-role">Tinder match · ужины</div><p>настойчивый. может быть love ending если играешь на доверие.</p></div>
+      <div class="char-card"><div class="char-avatar">П</div><div class="char-name">Павел</div><div class="char-role">бывший · 4 месяца тишины</div><p>просит $300 в долг. флиртует. ночью пишет воспоминания.</p></div>
+      <div class="char-card"><div class="char-avatar">Д</div><div class="char-name">Денис</div><div class="char-role">друг-тусовщик</div><p>зовёт на регату, в кино, на яхту. $200-350 за вечер, но +60 энергии.</p></div>
+      <div class="char-card"><div class="char-avatar">♥</div><div class="char-name">мама</div><div class="char-role">всегда на связи</div><p>звонит насчёт лекарств. зовёт на пироги. не сравнивает. почти.</p></div>
+    </div>
+  </section>
+
+  <!-- SPRINT 21 — FAQ -->
+  <section class="content" id="faq">
+    <h2>часто спрашивают</h2>
+    <div class="faq-item">
+      <h3>сколько длится прохождение?</h3>
+      <p>30 дней игрового времени ≈ 20-25 минут реального. Можно остановиться в любой момент — сохранение автоматическое.</p>
+    </div>
+    <div class="faq-item">
+      <h3>можно ли проиграть?</h3>
+      <p>Да. Кончились деньги, не ешь 4 дня, или сгорела до нуля комфорта на день 15+. Игра не прощает.</p>
+    </div>
+    <div class="faq-item">
+      <h3>это лид-магнит — что дальше?</h3>
+      <p>На 28 дне Тим (реальный Тим Зинин) пишет из игры. Можно заполнить форму и получить личный AI-аудит.</p>
+    </div>
+    <div class="faq-item">
+      <h3>почему messenger UI?</h3>
+      <p>Потому что фаундер живёт в чатах. Почта, slack, telegram, discord — всё через мессенджер. Игра про настоящее.</p>
+    </div>
+    <div class="faq-item">
+      <h3>есть versiя на компьютер?</h3>
+      <p>Играется в браузере на любом устройстве. На компьютере — keyboard shortcuts (1-9 для действий, Space = конец дня).</p>
+    </div>
+    <div class="faq-item">
+      <h3>это бесплатно?</h3>
+      <p>Да. Open source (MPL-2.0), fork of A Dark Room. Никаких микротранзакций или подписок.</p>
     </div>
   </section>
 

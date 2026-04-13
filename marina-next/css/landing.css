@@ -381,3 +381,135 @@ a { color: inherit; text-decoration: none; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .gallery-item:nth-child(3) { grid-column: 1 / -1; }
 }
+
+/* SPRINT 21 — Sticky nav */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: rgba(14, 22, 33, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 107, 61, 0.25);
+}
+.sticky-nav .nav-brand {
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.sticky-nav .nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.sticky-nav .nav-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 140ms;
+}
+.sticky-nav .nav-links a:hover {
+  color: #fff;
+}
+.sticky-nav .nav-cta {
+  background: linear-gradient(135deg, #ff6b3d 0%, #e14f1f 100%);
+  color: #fff !important;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+@media (max-width: 640px) {
+  .sticky-nav { padding: 10px 14px; }
+  .sticky-nav .nav-links { gap: 10px; }
+  .sticky-nav .nav-links a:not(.nav-cta) { display: none; }
+}
+
+/* SPRINT 21 — Characters grid */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+.char-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 107, 61, 0.15);
+  border-radius: 12px;
+  padding: 16px;
+  transition: transform 160ms, border-color 160ms;
+}
+.char-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 107, 61, 0.45);
+}
+.char-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b3d, #8f1a05);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.char-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.char-role {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 8px;
+}
+.char-card p {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.45;
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .characters-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .characters-grid { grid-template-columns: 1fr; }
+}
+
+/* SPRINT 21 — FAQ */
+.faq-item {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.faq-item h3 {
+  font-size: 15px;
+  color: #fff;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.faq-item p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Feature row grows to 6 cards */
+.feature-row {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 900px) {
+  .feature-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .feature-row { grid-template-columns: 1fr; }
+}
