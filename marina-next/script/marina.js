@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.6.8';
+  var APP_VERSION = '2.6.9';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -254,6 +254,8 @@
       kirill_blocked: false,
       // SPRINT 36 — one-time Kirill food delivery if Marina ignores dates
       beat_kirill_food_delivery: false,
+      // SPRINT 41 — day 29 morning-after light romantic beat
+      beat_kirill_day29_morning: false,
       kirill_invite_active: false, // SPRINT 08 — pulses only when Kirill has active invite
       kirill_invite_expires_day: 0,
       kirill_affection: 0,  // SPRINT 01 — love arc score
@@ -461,7 +463,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.6.6', '2.6.7', '2.6.8', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.6.6', '2.6.7', '2.6.8', '2.6.9', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -972,11 +974,29 @@
     // SPRINT 38c — Anna intro + referral chips routed via openChat too
     if (contactId === 'anna' && STATE._anna_pending) { renderAnnaChoice(); return; }
     if (contactId === 'anna' && STATE._anna_referral_pending) { renderAnnaReferralChoice(); return; }
-    // Tim creator 4th wall break: lead form chip
+    // SPRINT 41 — Tim creator 4th wall break: Telegram subscribe (was inline form)
     if (contactId === 'tim' && STATE.beat_tim_creator_fired && !STATE.lead_submitted) {
       Bubbles.renderReplyChips([
-        { id: 'fill_form', label: '📝 заполнить форму (связаться с реальным Тимом)' }
-      ], function () { mountInlineForm(); });
+        { id: 'tg_subscribe', label: '🔔 подписаться на @timofeyzinin в Telegram' },
+        { id: 'tg_later',     label: 'позже' }
+      ], function (opt) {
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'tg_subscribe') {
+          STATE.lead_submitted = true; // reuse flag to suppress chip after click
+          track('telegram_cta_clicked', { overlay: 'tim_creator' });
+          // Open Telegram channel in new tab
+          var w = window.open('https://t.me/timofeyzinin', '_blank', 'noopener');
+          if (!w) { /* popup blocked — link still visible in chat */ }
+          postOutgoing('tim', 'подписалась 👍');
+          setTimeout(function () {
+            postIncoming('tim', 'спасибо! увидимся в канале.', 'Тим');
+          }, 900);
+        } else {
+          postOutgoing('tim', 'позже подпишусь.');
+        }
+        save(); renderDock();
+      });
       return;
     }
     // Tim tier 1 — auto_reach_out
@@ -2596,6 +2616,7 @@
   // (tier 4 removed — see SPRINT 13)
 
   // Day 28 — 4th wall break (moved from interaction-based to late-game beat)
+  // SPRINT 41 — formal 4th-wall break (Tim approved verbatim style)
   function beatTimCreator() {
     if (STATE.beat_tim_creator_fired) return;
     STATE.beat_tim_creator_fired = true;
@@ -2605,29 +2626,36 @@
     postMessage('tim', {
       kind: 'incoming',
       senderName: 'Тим',
-      text: 'слушай, марина. есть одна штука которую я до сих пор не сказал.'
+      text: 'Привет. Спасибо большое, что играешь в мою игру.'
     });
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'я не персонаж. я реально Тим. я создатель этой игры. и ты прямо сейчас читаешь это как игрок, а не как Марина.'
+        text: 'Я не просто персонаж этой игры — я её создатель. И да, я действительно занимаюсь автоматизацией, связанной с искусственным интеллектом.'
       });
     }, 1500);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'то что я рассказывал Марине про автоматизацию — это реально то, чем я занимаюсь. я прикручиваю ИИ к бизнесам. если тебе надо такое — нажми кнопку ниже, заполни форму, я свяжусь лично.'
+        text: 'Если тебе понравилась моя игра — не забудь, пожалуйста, лайкнуть её, подписаться на мои соцсети и посоветовать игру друзьям.'
       });
     }, 3000);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'без воронок, без курсов. просто я и ты. если интересно — жди сообщения в течение суток.'
+        text: 'А если тебе или кому-то из знакомых для бизнеса потребуется автоматизация — ну, ты поняла, к кому обращаться 😉'
       });
     }, 4500);
+    setTimeout(function () {
+      postMessage('tim', {
+        kind: 'incoming',
+        senderName: 'Тим',
+        text: 'Удачи. До конца месяца осталось совсем немного. Подписывайся на меня в Telegram — кнопка ниже 👇'
+      });
+    }, 6000);
     postMessage('scratch', { kind: 'system', text: '❕ сообщение от Тима (реального) · открой чат' });
   }
 
@@ -3965,7 +3993,7 @@
     if (day === 22) beatKirillLove1();
     if (day === 26) { beatKrypta(); beatKirillLove2(); }
     if (day === 27) beatDenis(27);
-    if (day === 29) beatMamaFinal();
+    if (day === 29) { beatMamaFinal(); beatKirillDay29Morning(); }
     if (day === 30) beatKirillLoveFinal();
 
     // One-shot flavor spam: ~35% chance of a random pop-up per day
@@ -4147,7 +4175,42 @@
         try { spawnParticle({ from: 'send_offer', to: 'work_on_project', kind: 'red', icon: '📄', duration: 700 }); } catch (e) {}
       }, 1200);
     }
-    // SPRINT 36 — Kirill brings dinner if Marina ignored him + is hungry (once)
+    // SPRINT 41 — Day 29 morning-after light romantic beat.
+  // Hints something happened the night before, without explicit content.
+  // Only fires if love arc has earned trust (affection >= 5 OR love final unlocked).
+  function beatKirillDay29Morning() {
+    if (STATE.beat_kirill_day29_morning) return;
+    if (STATE.kirill_blocked) return;
+    if (!STATE.kirill_unlocked) return;
+    var earned = (STATE.kirill_affection || 0) >= 5 || STATE.beat_kirill_love_2 || STATE.love_ending_unlocked;
+    if (!earned) return;
+    STATE.beat_kirill_day29_morning = true;
+    var c = findContact('kirill'); if (c) { c.visible = true; c.online = true; }
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'доброе утро. кофе на кухне, свежий. ушёл тихо, чтобы не будить.'
+    });
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'спасибо что вчера. редко бывает так спокойно.'
+      });
+    }, 1400);
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'если что — я тут. без давления. просто здесь.'
+      });
+    }, 2800);
+    STATE.kirill_affection = (STATE.kirill_affection || 0) + 1;
+    STATE.comfort = Math.min(100, STATE.comfort + 10);
+    postMessage('scratch', { kind: 'system', text: '☕ +10💚 утро начинается тихо' });
+  }
+
+  // SPRINT 36 — Kirill brings dinner if Marina ignored him + is hungry (once)
     try { beatKirillFoodDelivery(); } catch (e) {}
 
     // Lena lifeline — available only after day 14 (after khozyaika rescue).
