@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.3.1';
+  var APP_VERSION = '2.3.2';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -438,7 +438,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -851,15 +851,17 @@
     $pinned.empty();
     if (contactId !== 'bank') return;
 
-    // Calculate 7-day delta from bank thread history
+    // SPRINT 19 — real 7-day delta using meta.day stamped at postBank time
+    // Legacy messages without meta.day are included (fallback assumes recent)
     var bankMsgs = (STATE.threads.bank || []);
     var sevenDaysAgoDay = Math.max(0, STATE.day - 7);
     var delta = 0;
     bankMsgs.forEach(function (m) {
-      // Approximate: take meta.amount of all recent bank messages (can't perfectly filter by day
-      // without day field on each message — use latest 10 as proxy)
       if (m.meta && typeof m.meta.amount === 'number') {
-        delta += m.meta.amount;
+        var day = (typeof m.meta.day === 'number') ? m.meta.day : STATE.day; // legacy fallback
+        if (day >= sevenDaysAgoDay) {
+          delta += m.meta.amount;
+        }
       }
     });
 
@@ -1539,7 +1541,7 @@
     postMessage('bank', {
       text: desc || '',
       kind: 'bank',
-      meta: { bank_name: 'Т-Банк', amount: amount }
+      meta: { bank_name: 'Т-Банк', amount: amount, day: STATE.day } // SPRINT 19 — day for 7-day delta filter
     });
     if (window.MarinaAudio) window.MarinaAudio.bankDing();
   }
@@ -1979,17 +1981,30 @@
     STATE.comfort = Math.max(0, STATE.comfort + COST.work_night.m); // .m is negative
     STATE.worked_night_last_day = STATE.day; // SPRINT 14 — triggers hangover
 
+    // SPRINT 19 / BLOCK F — 20% chance of fatigue bug: code has errors, work undone
+    var fatigueBug = Math.random() < 0.20;
+
     runAction(function () {
       var p = STATE.active_projects[0];
       // SPRINT 14 — hunger affects night work too
       var nightProgress = 50;
       if (STATE.hunger < 30) nightProgress = 22;
       else if (STATE.hunger < 50) nightProgress = 37;
-      p.progress = Math.min(100, (p.progress || 0) + nightProgress);
-      p.work_units_done = (p.work_units_done || 0) + 1.5; // night = 1.5 units
-      postOutgoing('scratch', pick(WORK_NIGHT_TEXT));
+      // SPRINT 19 — fatigue bug: instead of +progress, lose 0.5 work_units
+      if (fatigueBug) {
+        p.work_units_done = Math.max(0, (p.work_units_done || 0) - 0.5);
+        postOutgoing('scratch', 'опять баг в коде ночью · переделала утром то что сломала');
+      } else {
+        p.progress = Math.min(100, (p.progress || 0) + nightProgress);
+        p.work_units_done = (p.work_units_done || 0) + 1.5; // night = 1.5 units
+        postOutgoing('scratch', pick(WORK_NIGHT_TEXT));
+      }
       setTimeout(function () {
-        postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '% · −15⚡ ночной режим · завтра будет тяжело');
+        if (fatigueBug) {
+          postSystem('scratch', '⚠ ночная работа · усталость · прогресс -0.5 unit');
+        } else {
+          postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '% · −15⚡ ночной режим · завтра будет тяжело');
+        }
         if (p.work_units_done >= (p.work_units_total || 3)) {
           // Delivered
           STATE.active_projects.shift();
