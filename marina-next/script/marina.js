@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.5.0';
+  var APP_VERSION = '2.5.1';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -450,7 +450,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -3867,21 +3867,21 @@
       return;
     }
 
-    // Hunger starvation → подруга/сосед привозит еды + хозяйка вызывает скорую (once)
+    // SPRINT 28 rev2 — rescues set hours=0 only (player presses end_day → normal day flow).
+    // Day count advances naturally via actEndDay; we don't skip processPassive/fireDayBeats.
+    // Hunger starvation → мама + хозяйка вызывают скорую (once)
     if (STATE.hunger !== undefined && STATE.hunger <= 5 && STATE.day >= 4 && !STATE.rescue_hospital_used && STATE.day < FINALE_DAY) {
       STATE.rescue_hospital_used = true;
       STATE.hunger = 80;
       STATE.energy = Math.max(40, STATE.energy);
       STATE.comfort = Math.min(100, STATE.comfort + 25);
-      STATE.hours = 0;
-      // Skip a day in-game: project work delayed
-      STATE.day = Math.min(FINALE_DAY, STATE.day + 1);
+      STATE.hours = 0; // forces end_day soon — player presses, day advances normally
       postMessage('mama', {
         kind: 'incoming',
         senderName: 'мама',
         text: 'я тебя нашла. наталья валерьевна позвонила, у тебя тут полная катастрофа. сейчас приеду. ничего не делай.'
       });
-      postMessage('scratch', { kind: 'system', text: '🏥 свалилась → день в больнице · +еда +комфорт · мама приехала, привезла продукты' });
+      postMessage('scratch', { kind: 'system', text: '🏥 свалилась → день в больнице · мама приехала · +80 голод +25 комфорт · нажми «конец дня»' });
       return;
     }
 
@@ -3891,31 +3891,27 @@
       STATE.comfort = 70;
       STATE.energy = Math.min(100, STATE.energy + 30);
       STATE.hours = 0;
-      STATE.day = Math.min(FINALE_DAY, STATE.day + 1);
       postMessage('lena', {
         kind: 'incoming',
         senderName: 'Лена',
         text: 'марин, ты странно отвечала. я еду к тебе. собирай сумку, переночуешь у меня. без споров.'
       });
-      postMessage('scratch', { kind: 'system', text: '🛋 ночёвка у Лены · +30⚡ +70 комфорт · день потерян, но ты человек снова' });
+      postMessage('scratch', { kind: 'system', text: '🛋 ночёвка у Лены · +30⚡ +70 комфорт · нажми «конец дня»' });
       return;
     }
 
-    // Final fallback: cash so deep negative AND mama already saved → father comes to take her home
-    // (game still survives until day 30, but Marina effectively returned to parents)
+    // Final fallback: cash deep negative AND mama already saved → father comes
     if (STATE.cash < -1500 && !STATE.rescue_father_used && STATE.day < FINALE_DAY) {
       STATE.rescue_father_used = true;
       STATE.cash = 200;
       STATE.hours = 0;
       STATE.comfort = Math.min(100, STATE.comfort + 15);
-      // Big day skip — 3 days at parents
-      STATE.day = Math.min(FINALE_DAY, STATE.day + 3);
       postMessage('mama', {
         kind: 'incoming',
         senderName: 'мама',
         text: 'папа выехал. забирает тебя к нам на пару дней. это не провал, это пауза. ничего не говори, просто собирай вещи.'
       });
-      postMessage('scratch', { kind: 'system', text: '🏡 родители забрали на 3 дня · cash до $200 · +комфорт · ты дома, в безопасности' });
+      postMessage('scratch', { kind: 'system', text: '🏡 родители забрали · cash сброшен до $200 · +15 комфорт · нажми «конец дня»' });
       return;
     }
 
@@ -4215,8 +4211,11 @@
 
     // SPRINT 28 — dock collapse toggle (mobile UX: see full chat)
     $('#dock-collapse').on('click', function () {
-      document.body.classList.toggle('dock-collapsed');
-      $('#dock-collapse').text(document.body.classList.contains('dock-collapsed') ? '⇧' : '⇕');
+      var collapsed = document.body.classList.toggle('dock-collapsed');
+      var $btn = $('#dock-collapse');
+      $btn.text(collapsed ? '⇧' : '⇕');
+      $btn.attr('title', collapsed ? 'развернуть панель действий' : 'свернуть панель (видеть полный чат)');
+      $btn.attr('aria-label', collapsed ? 'развернуть' : 'свернуть');
     });
 
     // Reply chip click sound
