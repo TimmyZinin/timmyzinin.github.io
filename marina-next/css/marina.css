@@ -995,6 +995,8 @@ html, body {
 .overlay-card {
   max-width: 540px;
   width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
   background: var(--panel);
   border: 1px solid var(--border-strong);
   border-radius: 16px;
@@ -1877,11 +1879,12 @@ body.dock-collapsed #action-dock {
   margin-bottom: 10px;
 }
 .love-bonus p {
-  margin: 0 0 8px;
+  margin: 0 0 3px 0;
   font-size: 14px;
   line-height: 1.55;
   color: var(--fg);
 }
+.love-bonus p.para-gap { margin-top: 6px; }
 .love-bonus .love-quiet {
   color: var(--muted);
   font-style: italic;
