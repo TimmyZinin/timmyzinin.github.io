@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.6.4';
+  var APP_VERSION = '2.6.5';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -353,16 +353,20 @@
       _kirill_love_final_pending: false,
       _kirill_pending: false,
       _krypta_pending: false,
+      _krypta_retry_pending: false, // SPRINT 38b
+      _krypta_final_pending: false, // SPRINT 38b
       _mama6_pending: false,
       _mama17_pending: false,
       _olya_pending: false,
       _pavel_pending: false,
+      _pavel_d17_pending: false, // SPRINT 38b
       _sosed_pending: false,
       _svetka_pending: false,
       _tim_consult_pending: false,
       _tim_tier2_pending: false,
       _tim_tier3_pending: false,
       _vera_pending: false,
+      _nastya_partnership_pending: false, // SPRINT 38b — Nastya partnership choice
       // recurring spam intros (BLOCK A)
       beat_olya: false,
       beat_kirill: false,
@@ -455,7 +459,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -1226,6 +1230,36 @@
       });
       return;
     }
+    // SPRINT 38b — Pavel day 17 'давай встретимся на кофе' (both options = decline)
+    if (contactId === 'pavel' && STATE._pavel_d17_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'soft',  label: 'мягко отказать · «не сейчас, Паш. правда занята»' },
+        { id: 'hard',  label: 'жёстко отказать · «нет. больше не пиши»' }
+      ], function (opt) {
+        STATE._pavel_d17_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'soft') {
+          postOutgoing('pavel', 'Паш, не сейчас. правда занята месяцем-фаундером.');
+          STATE.comfort = Math.max(0, STATE.comfort - 3);
+          setTimeout(function () {
+            postIncoming('pavel', 'понял. удачи тебе.', 'Павел');
+          }, 1000);
+        } else {
+          postOutgoing('pavel', 'нет, Паш. больше не пиши, пожалуйста.');
+          STATE.comfort = Math.min(100, STATE.comfort + 5); // closure feels good
+          // Block further Pavel beats — он отстаёт
+          STATE.beat_pavel_d21 = true;
+          STATE.beat_pavel_d25 = true;
+          setTimeout(function () {
+            postIncoming('pavel', 'ок. больше не буду.', 'Павел');
+          }, 1000);
+          postMessage('scratch', { kind: 'system', text: 'Павел больше не пишет · +5💚 закрытый гештальт' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
     // Mama day 6
     if (contactId === 'mama' && STATE._mama6_pending) {
       Bubbles.renderReplyChips([
@@ -1392,8 +1426,8 @@
     // Kirill love arc — mid-late game warm messages
     if (contactId === 'kirill' && STATE._kirill_love1_pending) {
       Bubbles.renderReplyChips([
-        { id: 'warm', label: 'ответить искренне (+affection)' },
-        { id: 'cool', label: 'отшутиться (−affection)' }
+        { id: 'warm', label: 'ответить искренне · +💚 Кирилл, +5💚 настроение' },
+        { id: 'cool', label: 'отшутиться · −💚 Кирилл' }
       ], function (opt) {
         STATE._kirill_love1_pending = false;
         Bubbles.clearChipsArea();
@@ -1412,7 +1446,7 @@
     }
     if (contactId === 'kirill' && STATE._kirill_love2_pending) {
       Bubbles.renderReplyChips([
-        { id: 'yes', label: 'да, встретимся (+affection, −3h)' },
+        { id: 'yes',   label: 'да, встретимся · +💚 Кирилл, −3ч сегодня' },
         { id: 'defer', label: 'не сейчас, работа' }
       ], function (opt) {
         STATE._kirill_love2_pending = false;
@@ -1471,12 +1505,65 @@
       });
       return;
     }
+    // SPRINT 38b — Nastya partnership choice (day 20 offer)
+    if (contactId === 'nastya' && STATE._nastya_partnership_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'join',   label: 'согласиться · +$200 upfront, +1 проект на неделю' },
+        { id: 'maybe',  label: 'подумаю · сохранить вариант' },
+        { id: 'decline',label: 'нет, я одна справлюсь' }
+      ], function (opt) {
+        STATE._nastya_partnership_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'join') {
+          postOutgoing('nastya', 'беру половину. скидывай детали.');
+          STATE.cash += 200;
+          postBank(200, 'upfront · партнёрство с Настей');
+          // Add a project: shared work, 4 units, 7-day deadline, $200 final
+          STATE.active_projects.push({
+            id: STATE.active_projects.length + STATE.delivered_projects + 1,
+            clientId: 'nastya',
+            client: 'настина половина',
+            progress: 0,
+            work_units_done: 0,
+            work_units_total: 4, // smaller than solo project — Nastya does half
+            upfront_paid: 200,
+            final_due: 200,
+            final_payment: 200,
+            started_day: STATE.day,
+            deadline_day: STATE.day + 7,
+            status: 'active'
+          });
+          STATE.comfort = Math.min(100, STATE.comfort + 10);
+          postMessage('scratch', { kind: 'system', text: '🤝 партнёрство с Настей · +$200 + новый проект (4 units, 7 дн) · +10💚' });
+          setTimeout(function () {
+            postIncoming('nastya', 'кайф, спасибо. закидываю бриф в почту, начинаем завтра.', 'Настя');
+          }, 1000);
+        } else if (opt.id === 'maybe') {
+          postOutgoing('nastya', 'дай мне сутки подумать.');
+          // Keep visible for re-trigger possibility — re-set pending so chip stays
+          // (simple version: just acknowledge; lost forever — Nastya finds another partner)
+          setTimeout(function () {
+            postIncoming('nastya', 'жду, но недолго — клиент торопит.', 'Настя');
+          }, 900);
+        } else {
+          postOutgoing('nastya', 'спасибо что предложила. сама справлюсь.');
+          STATE.kirill_affection = STATE.kirill_affection; // no-op marker
+          setTimeout(function () {
+            postIncoming('nastya', 'ок, удачи. найду кого-нибудь ещё.', 'Настя');
+          }, 900);
+        }
+        save(); renderDock();
+      });
+      return;
+    }
     // SPRINT 20 — Kirill conflict (Pavel night messages)
+    // SPRINT 38b — chip labels in human language (no leaked code identifiers)
     if (contactId === 'kirill' && STATE._kirill_conflict_pending) {
       Bubbles.renderReplyChips([
-        { id: 'honest', label: 'я с ним не возвращаюсь (+affection, −5 комфорт)' },
-        { id: 'defensive', label: 'это не твоё дело (−affection)' },
-        { id: 'leave', label: 'может мы и правда рано... (−affection, STATE.kirill_blocked)' }
+        { id: 'honest',    label: 'я с ним не возвращаюсь · +💚 Кирилл, −5💚 (тяжёлый разговор)' },
+        { id: 'defensive', label: 'это не твоё дело · −💚 Кирилл' },
+        { id: 'leave',     label: 'может мы и правда рано… · 💔 расстаться с Кириллом' }
       ], function (opt) {
         STATE._kirill_conflict_pending = false;
         Bubbles.clearChipsArea();
@@ -1522,6 +1609,58 @@
           }, 800);
         } else {
           postMessage('scratch', { kind: 'system', text: 'БРАТ проигнорирован' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+
+    // SPRINT 38b — БРАТ крипта retry (day 18) — chip choice
+    if (contactId === 'krypta' && STATE._krypta_retry_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'send_50',  label: 'перевести $50 (5% шанс х10)' },
+        { id: 'block',    label: 'заблокировать БРАТА · больше не пишет' },
+        { id: 'ignore',   label: 'игнор · он напишет снова через неделю' }
+      ], function (opt) {
+        STATE._krypta_retry_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'send_50') {
+          postOutgoing('krypta', 'ладно, $50. последний раз.');
+          STATE.cash -= 50;
+          postBank(-50, 'БРАТ крипта · второй заход');
+          STATE.pending_callbacks.push({ trigger_day: STATE.day + 1, type: 'bank_lock_115' });
+          postMessage('scratch', { kind: 'system', text: '⚠ ещё одна подозрительная транзакция — жди последствий' });
+        } else if (opt.id === 'block') {
+          postMessage('scratch', { kind: 'system', text: '🚫 БРАТ крипта заблокирован · больше не пишет' });
+          STATE.beat_krypta_final = true; // suppress final retry too
+          STATE.comfort = Math.min(100, STATE.comfort + 3);
+        } else {
+          postMessage('scratch', { kind: 'system', text: 'БРАТ проигнорирован' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+
+    // SPRINT 38b — БРАТ крипта final desperation (day 25)
+    if (contactId === 'krypta' && STATE._krypta_final_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'pity_30', label: 'из жалости $30' },
+        { id: 'no',      label: '«нет, Брат. на этом всё»' }
+      ], function (opt) {
+        STATE._krypta_final_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'pity_30') {
+          postOutgoing('krypta', 'на хостинг. удачи.');
+          STATE.cash -= 30;
+          postBank(-30, 'БРАТ крипта · последняя жалость');
+          STATE.comfort = Math.max(0, STATE.comfort - 3);
+        } else {
+          postOutgoing('krypta', 'нет, Брат. на этом всё.');
+          STATE.comfort = Math.min(100, STATE.comfort + 5);
+          postMessage('scratch', { kind: 'system', text: '✓ закрыла тему с БРАТОМ · +5💚' });
         }
         save(); renderDock();
       });
@@ -2669,6 +2808,9 @@
       photoAlt: 'крипто-кошелёк',
       text: 'БРАТ алё ты жива? смотри SOLANA х3 за неделю я говорил! у меня есть ещё 1 слот. $50 минимум, на следующей неделе $500. не упусти'
     });
+    // SPRINT 38b — open chip so player can decline / engage (was no reply path)
+    STATE._krypta_retry_pending = true;
+    postMessage('scratch', { kind: 'system', text: 'БРАТ крипта снова пишет · открой чат' });
   }
 
   function beatKryptaFinal() {
@@ -2680,6 +2822,8 @@
       senderName: 'БРАТ крипта',
       text: 'сестра, скажу честно. у меня не было $100. они пошли на оплату хостинга для моего блога. но завтра реально точно ракета. прости брат. больше не будет. $30?'
     });
+    // SPRINT 38b — chip for final retry too
+    STATE._krypta_final_pending = true;
   }
 
   function beatPavelD13() {
@@ -2704,6 +2848,9 @@
       senderName: 'Павел',
       text: 'слушай. а если я серьёзно. давай встретимся на чашку кофе. без возврата денег, без истории. как старые знакомые.'
     });
+    // SPRINT 38b — два варианта отказа (Тим: 'нужно два варианта ответа, оба отказ')
+    STATE._pavel_d17_pending = true;
+    postMessage('scratch', { kind: 'system', text: 'Павел зовёт на кофе · открой чат' });
   }
 
   function beatPavelD21() {
@@ -2795,6 +2942,7 @@
     });
   }
 
+  // SPRINT 38b — Nastya partnership now actionable: chip choice with real reward
   function beatNastyaD20() {
     if (STATE.beat_nastya_d20) return;
     STATE.beat_nastya_d20 = true;
@@ -2802,8 +2950,10 @@
     postMessage('nastya', {
       kind: 'incoming',
       senderName: 'Настя',
-      text: 'у меня тут проект на двух человек, клиент крупный. половину могу тебе отдать. $400 твои, только делай хорошо. интересно?'
+      text: 'у меня проект на двух, клиент крупный. половину могу тебе отдать. $200 upfront прямо сейчас + $200 на сдаче через неделю. только делай хорошо. интересно?'
     });
+    postMessage('scratch', { kind: 'system', text: 'Настя предлагает партнёрство · открой чат' });
+    STATE._nastya_partnership_pending = true;
   }
 
   function beatNastyaD25() {
