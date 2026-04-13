@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.6.1';
+  var APP_VERSION = '2.6.2';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -252,6 +252,8 @@
       plate_girl_count: 0,
       kirill_date_count: 0, // blocks date action after 3 uses
       kirill_blocked: false,
+      // SPRINT 36 — one-time Kirill food delivery if Marina ignores dates
+      beat_kirill_food_delivery: false,
       kirill_invite_active: false, // SPRINT 08 — pulses only when Kirill has active invite
       kirill_invite_expires_day: 0,
       kirill_affection: 0,  // SPRINT 01 — love arc score
@@ -453,7 +455,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -3182,6 +3184,33 @@
     });
   }
 
+  // SPRINT 36 — Kirill brings dinner if Marina ignored him + is starving (once per game)
+  function beatKirillFoodDelivery() {
+    if (STATE.beat_kirill_food_delivery) return;
+    if (!STATE.kirill_unlocked) return;
+    if (STATE.kirill_blocked) return;
+    if (STATE.kirill_date_count > 0) return; // only triggers if she's been ignoring him
+    if (STATE.hunger > 35) return; // only when actually hungry
+    STATE.beat_kirill_food_delivery = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'не отвечаешь, не выходишь. знаю, ты в работе. оставил у двери пакет — суп из «Чебурашки», два хачапури, баклава. поешь, ладно? я не буду заходить.'
+    });
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'когда сможешь — напиши, что доела. это я для своего спокойствия.'
+      });
+    }, 1500);
+    STATE.hunger = 100;
+    STATE.comfort = 100;
+    postMessage('scratch', { kind: 'system', text: '🥡 Кирилл оставил ужин у двери · +100 голод · +100 комфорт' });
+    STATE.kirill_affection = (STATE.kirill_affection || 0) + 1;
+  }
+
   function beatKirillIntro() {
     if (STATE.beat_kirill) return;
     STATE.beat_kirill = true;
@@ -3865,6 +3894,9 @@
         try { spawnParticle({ from: 'send_offer', to: 'work_on_project', kind: 'red', icon: '📄', duration: 700 }); } catch (e) {}
       }, 1200);
     }
+    // SPRINT 36 — Kirill brings dinner if Marina ignored him + is hungry (once)
+    try { beatKirillFoodDelivery(); } catch (e) {}
+
     // Lena lifeline — available only after day 14 (after khozyaika rescue).
     // До day 12 player должен дойти в минусе — тогда хозяйка спасает. После 14 —
     // lena подстраховывает вторую половину если что.
