@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.3.2';
+  var APP_VERSION = '2.3.3';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -259,6 +259,13 @@
       beat_kirill_love_1: false,
       beat_kirill_love_2: false,
       beat_kirill_love_final: false,
+      // SPRINT 20 — Kirill arc expansion beats
+      beat_kirill_scene11: false,
+      beat_kirill_scene13: false,
+      beat_kirill_conflict16: false,
+      beat_kirill_resolution19: false,
+      beat_kirill_prefinale24: false,
+      _kirill_conflict_pending: false,
       // Interaction counter (BLOCK M)
       player_interactions: 0,
       beat_tim_creator_fired: false,
@@ -438,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -1357,6 +1364,32 @@
         } else {
           postOutgoing('kirill', 'Кирилл, у меня был счёт заблокирован. мне было нечем.');
           STATE.comfort = Math.max(0, STATE.comfort - 10);
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // SPRINT 20 — Kirill conflict (Pavel night messages)
+    if (contactId === 'kirill' && STATE._kirill_conflict_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'honest', label: 'я с ним не возвращаюсь (+affection, −5 комфорт)' },
+        { id: 'defensive', label: 'это не твоё дело (−affection)' },
+        { id: 'leave', label: 'может мы и правда рано... (−affection, STATE.kirill_blocked)' }
+      ], function (opt) {
+        STATE._kirill_conflict_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'honest') {
+          postOutgoing('kirill', 'нет. он просто пишет. я отвечаю коротко и сплю. я тут, с тобой.');
+          STATE.kirill_affection = (STATE.kirill_affection || 0) + 2;
+          STATE.comfort = Math.max(0, STATE.comfort - 5);
+        } else if (opt.id === 'defensive') {
+          postOutgoing('kirill', 'Кирилл, это не твоё дело с кем я переписываюсь.');
+          STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 2);
+        } else {
+          postOutgoing('kirill', 'может мы правда поторопились. мне нужно время.');
+          STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 3);
+          STATE.kirill_blocked = true;
         }
         save(); renderDock();
       });
@@ -2932,6 +2965,96 @@
     postMessage('scratch', { kind: 'system', text: 'одноклассница пишет · открой чат' });
   }
 
+  // SPRINT 20 — Kirill arc expansion: 5 new scenes + conflict beat
+  function beatKirillScene11() {
+    if (STATE.beat_kirill_scene11) return;
+    if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
+    STATE.beat_kirill_scene11 = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'вчера ты странно себя вела на ужине. сказала "я в порядке" три раза. это обычно значит обратное. я не давлю, просто — если что, я тут.'
+    });
+  }
+
+  function beatKirillScene13() {
+    if (STATE.beat_kirill_scene13) return;
+    if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
+    STATE.beat_kirill_scene13 = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'покажу тебе одну штуку. я с 17 лет пишу в блокноты, никогда не показывал никому. вот страница 47 из прошлого года.'
+    });
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: '«все настоящее — тихое. и когда я найду её, я её узнаю по тишине.»\n\nэто я писал когда мне было 28. тебе — не говорю зачем показываю.'
+      });
+    }, 1100);
+  }
+
+  // SPRINT 20 — CONFLICT beat
+  function beatKirillConflict16() {
+    if (STATE.beat_kirill_conflict16) return;
+    if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
+    STATE.beat_kirill_conflict16 = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'марина. я видел что ты отвечала Павлу в 2 часа ночи. три дня подряд. я не ревную, я просто спрашиваю.'
+    });
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'если ты возвращаешься туда — скажи сейчас. я не буду мешать.'
+      });
+    }, 1200);
+    postMessage('scratch', { kind: 'system', text: '⚠ Кирилл конфликт · открой чат' });
+    STATE._kirill_conflict_pending = true;
+  }
+
+  function beatKirillResolution19() {
+    if (STATE.beat_kirill_resolution19) return;
+    if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
+    // Resolution triggers only if affection survived conflict (>=4)
+    if ((STATE.kirill_affection || 0) < 4) return;
+    STATE.beat_kirill_resolution19 = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'прости за тот вопрос про Павла. я не имел права. просто испугался что теряю тебя раньше чем узнал.'
+    });
+    setTimeout(function () {
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'я учусь доверять. медленно, но учусь.'
+      });
+    }, 1200);
+    STATE.kirill_affection = (STATE.kirill_affection || 0) + 1;
+    STATE.comfort = Math.min(100, (STATE.comfort || 0) + 5);
+  }
+
+  function beatKirillPreFinale24() {
+    if (STATE.beat_kirill_prefinale24) return;
+    if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
+    if ((STATE.kirill_affection || 0) < 5) return;
+    STATE.beat_kirill_prefinale24 = true;
+    var c = findContact('kirill'); if (c) c.visible = true;
+    postMessage('kirill', {
+      kind: 'incoming',
+      senderName: 'Кирилл',
+      text: 'через неделю закончится этот твой первый месяц. ты устанешь, я знаю. я просто хочу сказать — мне всё равно сдашь ты три проекта или один. я с тобой.'
+    });
+  }
+
   function beatKirillIntro() {
     if (STATE.beat_kirill) return;
     STATE.beat_kirill = true;
@@ -3377,6 +3500,12 @@
     if (day === 21) beatAnnaReferral();
     if (day === 24) beatMama24();
     if (day === 25) beatKhozyaika4(); // гороскоп
+    // SPRINT 20 — Kirill arc expansion
+    if (day === 11) beatKirillScene11();
+    if (day === 13) beatKirillScene13();
+    if (day === 16) beatKirillConflict16();
+    if (day === 19) beatKirillResolution19();
+    if (day === 24) beatKirillPreFinale24();
     if (day === 22) beatKirillLove1();
     if (day === 26) { beatKrypta(); beatKirillLove2(); }
     if (day === 27) beatDenis(27);
