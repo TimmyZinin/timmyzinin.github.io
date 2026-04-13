@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.6.3';
+  var APP_VERSION = '2.6.4';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -455,7 +455,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -3094,41 +3094,64 @@
   }
 
   // SPRINT 20 — Kirill arc expansion: 5 new scenes + conflict beat
+  // SPRINT 38 — Scene11 rewritten: works whether dates happened or not
   function beatKirillScene11() {
     if (STATE.beat_kirill_scene11) return;
     if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
     STATE.beat_kirill_scene11 = true;
     var c = findContact('kirill'); if (c) c.visible = true;
-    postMessage('kirill', {
-      kind: 'incoming',
-      senderName: 'Кирилл',
-      text: 'вчера ты странно себя вела на ужине. сказала "я в порядке" три раза. это обычно значит обратное. я не давлю, просто — если что, я тут.'
-    });
+    // Variant A: had dinner — refer to it
+    // Variant B: just intro'd, no dates yet — just check in
+    var hadDate = (STATE.kirill_date_count || 0) > 0;
+    var text = hadDate
+      ? 'вчера ты странно себя вела на ужине. три раза сказала «я в порядке». это обычно значит обратное. я не давлю — просто, если что, я тут.'
+      : 'привет. знаю, ты в работе и времени нет. я не пропадаю, просто хочу чтобы ты знала: я тут. как ты вообще?';
+    postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: text });
   }
 
+  // SPRINT 38 — Scene13 gated: this is intimate, requires earned trust.
+  // If NOT earned (no dates, low affection) — postpones the journal moment to a lighter check-in.
   function beatKirillScene13() {
     if (STATE.beat_kirill_scene13) return;
     if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
     STATE.beat_kirill_scene13 = true;
     var c = findContact('kirill'); if (c) c.visible = true;
-    postMessage('kirill', {
-      kind: 'incoming',
-      senderName: 'Кирилл',
-      text: 'покажу тебе одну штуку. я с 17 лет пишу в блокноты, никогда не показывал никому. вот страница 47 из прошлого года.'
-    });
-    setTimeout(function () {
+    var earnedTrust = (STATE.kirill_date_count || 0) >= 1 || (STATE.kirill_affection || 0) >= 4;
+    if (earnedTrust) {
+      // Original intimate journal beat
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: '«все настоящее — тихое. и когда я найду её, я её узнаю по тишине.»\n\nэто я писал когда мне было 28. тебе — не говорю зачем показываю.'
+        text: 'покажу тебе одну штуку. я с 17 лет пишу в блокноты, никогда не показывал никому. вот страница 47 из прошлого года.'
       });
-    }, 1100);
+      setTimeout(function () {
+        postMessage('kirill', {
+          kind: 'incoming',
+          senderName: 'Кирилл',
+          text: '«все настоящее — тихое. и когда я найду её, я её узнаю по тишине.»\n\nэто я писал когда мне было 28. тебе — не говорю зачем показываю.'
+        });
+      }, 1100);
+    } else {
+      // Light surface-level beat — gauge interest before opening up
+      postMessage('kirill', {
+        kind: 'incoming',
+        senderName: 'Кирилл',
+        text: 'слушай, расскажи когда у тебя получится выдохнуть на час. я в кафе на лиговке зайду — кофе хороший, тишина. без обязательств.'
+      });
+    }
   }
 
   // SPRINT 20 — CONFLICT beat
   function beatKirillConflict16() {
     if (STATE.beat_kirill_conflict16) return;
     if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
+    // SPRINT 38 — conflict beat only fires if relationship has substance.
+    // Otherwise Kirill has no standing to ask about Pavel.
+    var hasSubstance = (STATE.kirill_date_count || 0) >= 1 || (STATE.kirill_affection || 0) >= 4;
+    if (!hasSubstance) {
+      STATE.beat_kirill_conflict16 = true; // mark so it doesn't retry; skip beat
+      return;
+    }
     STATE.beat_kirill_conflict16 = true;
     var c = findContact('kirill'); if (c) c.visible = true;
     postMessage('kirill', {
