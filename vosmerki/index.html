@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSE VOSMERKI — Sales Growth Plan 2026</title>
+<meta name="description" content="90-дневный план роста продаж миграционного бизнеса VSE VOSMERKI. Экспертная панель, стратегия, бюджет, метрики.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: oklch(97% 0.020 85);
+  --bg-2: oklch(94% 0.030 80);
+  --ink: oklch(18% 0.02 40);
+  --ink-soft: oklch(35% 0.03 40);
+  --line: oklch(20% 0.02 40);
+  --bordeaux: oklch(42% 0.15 25);
+  --terracotta: oklch(58% 0.17 45);
+  --ochre: oklch(72% 0.14 75);
+  --coral: oklch(62% 0.19 30);
+  --peach: oklch(82% 0.09 75);
+  --cream: oklch(93% 0.04 85);
+  --accent: var(--bordeaux);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  position: relative;
+}
+/* Grain overlay */
+body::before{
+  content:"";
+  position: fixed;
+  inset:0;
+  pointer-events:none;
+  z-index: 1000;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+h1,h2,h3,h4{font-family:'DM Serif Display', Georgia, serif;font-weight:400;letter-spacing:-0.02em;line-height:1.02;margin:0}
+.mono{font-family:'JetBrains Mono', ui-monospace, monospace}
+
+/* NAV */
+.nav{
+  position: sticky; top:0; z-index: 500;
+  display:flex; gap: clamp(8px, 1.5vw, 22px);
+  padding: 14px clamp(16px, 4vw, 56px);
+  background: var(--bg);
+  border-bottom: 1.5px solid var(--line);
+  font-family:'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.nav a{color: var(--ink);text-decoration:none;padding:3px 0;border-bottom: 2px solid transparent;transition: border-color .2s}
+.nav a:hover{border-color: var(--accent)}
+.nav .brand{color: var(--bordeaux);font-weight:700;margin-right:auto}
+
+/* SECTION shell */
+section{
+  padding: clamp(60px, 9vw, 140px) clamp(20px, 5vw, 80px);
+  border-bottom: 1.5px solid var(--line);
+  position: relative;
+}
+.sec-num{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(80px, 14vw, 200px);
+  line-height: 0.9;
+  color: var(--ink);
+  opacity: 0.08;
+  position: absolute;
+  top: clamp(20px, 4vw, 50px);
+  right: clamp(16px, 4vw, 56px);
+  pointer-events: none;
+  user-select:none;
+}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--bordeaux);
+  margin-bottom: 18px;
+  display:inline-block;
+  padding: 5px 10px;
+  border: 1.5px solid var(--bordeaux);
+}
+h2.sec-title{
+  font-size: clamp(40px, 7vw, 96px);
+  margin-bottom: 30px;
+  max-width: 18ch;
+}
+.lead{
+  font-size: clamp(18px, 1.7vw, 22px);
+  max-width: 62ch;
+  color: var(--ink-soft);
+  margin-bottom: 40px;
+}
+
+/* HERO */
+.hero{
+  min-height: 92vh;
+  padding: clamp(100px, 14vw, 180px) clamp(20px, 5vw, 80px) clamp(60px, 8vw, 120px);
+  display:flex; flex-direction:column; justify-content:space-between;
+  gap: 40px;
+  position:relative;
+  overflow: hidden;
+}
+.hero-head{
+  font-size: clamp(54px, 11vw, 180px);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  max-width: 15ch;
+  z-index: 2;
+}
+.hero-head em{
+  font-style: italic;
+  color: var(--bordeaux);
+  font-family:'DM Serif Display', serif;
+}
+.hero-pitch{
+  max-width: 56ch;
+  font-size: clamp(18px, 1.8vw, 24px);
+  color: var(--ink-soft);
+  line-height: 1.4;
+  z-index: 2;
+}
+.hero-meta{
+  display:flex; flex-wrap:wrap; gap: 30px 50px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  text-transform:uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  z-index: 2;
+}
+.hero-meta b{color: var(--bordeaux);display:block;font-size:11px;margin-bottom:4px;font-weight:600;letter-spacing:0.12em}
+.hero-geom{
+  position:absolute; pointer-events:none; z-index: 1;
+  right: clamp(20px, 5vw, 80px);
+  top: clamp(120px, 16vw, 200px);
+  width: clamp(200px, 28vw, 420px);
+  opacity: 0.85;
+}
+
+/* Snapshot */
+.snap-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0;
+  border-top: 1.5px solid var(--line);
+  border-left: 1.5px solid var(--line);
+}
+.snap-card{
+  padding: 28px 26px;
+  border-right: 1.5px solid var(--line);
+  border-bottom: 1.5px solid var(--line);
+  background: var(--cream);
+  min-height: 170px;
+  display:flex; flex-direction: column; gap: 10px;
+  transition: background .2s, transform .2s;
+}
+.snap-card:hover{background: var(--peach)}
+.snap-card .k{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bordeaux);
+}
+.snap-card .v{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(22px, 2.3vw, 32px);
+  line-height: 1.05;
+}
+.snap-card .d{font-size:14px;color:var(--ink-soft);margin-top:auto}
+
+/* Funnel */
+.funnel{
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(30px, 5vw, 70px);
+  align-items:start;
+}
+@media(max-width:880px){.funnel{grid-template-columns:1fr}}
+.funnel-flow{
+  background: var(--cream);
+  border: 1.5px solid var(--line);
+  padding: 30px;
+  position:relative;
+}
+.funnel-step{
+  display:flex; align-items:center; gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--ink);
+  font-size: 16px;
+}
+.funnel-step:last-child{border-bottom:none}
+.funnel-step .n{
+  font-family:'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--bordeaux);
+  width: 42px;
+}
+.funnel-step .label{font-weight:600;flex:1}
+.funnel-step .loss{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--bordeaux);
+  color: var(--cream);
+  padding: 3px 8px;
+  letter-spacing: 0.08em;
+}
+.funnel-leak{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.funnel-leak li{
+  padding: 16px 20px;
+  border-left: 4px solid var(--coral);
+  background: var(--cream);
+  font-size: 15px;
+}
+.funnel-leak li b{color:var(--bordeaux);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace;display:block;margin-bottom:4px}
+
+/* Panel */
+.panel-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0;
+  border-top: 2px solid var(--line);
+  border-left: 2px solid var(--line);
+}
+.panel-card{
+  border-right: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  padding: 32px 28px;
+  min-height: 320px;
+  display:flex; flex-direction:column; gap: 14px;
+  background: var(--cream);
+  position:relative;
+  overflow: hidden;
+  transition: transform .25s ease, background .25s ease;
+}
+.panel-card:hover{background: var(--peach); transform: translateY(-4px)}
+.panel-card .role{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1;
+  color: var(--ink);
+}
+.panel-card .tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+}
+.panel-card .assess{
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  flex:1;
+}
+.panel-card .reco{
+  border-top: 1.5px solid var(--ink);
+  padding-top: 14px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.panel-card .reco b{color: var(--bordeaux);display:block;font-size:10px;letter-spacing:0.15em;font-family:'JetBrains Mono',monospace;margin-bottom:6px;font-weight:600}
+.panel-card::before{
+  content: attr(data-index);
+  position:absolute; top: 14px; right: 18px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--bordeaux);
+  letter-spacing: 0.1em;
+}
+
+/* Conflicts */
+.conflicts{display:grid;gap:24px}
+.conflict{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1.3fr;
+  gap: 0;
+  border: 1.5px solid var(--line);
+  background: var(--cream);
+  overflow: hidden;
+}
+@media(max-width:780px){.conflict{grid-template-columns:1fr}}
+.conflict > div{padding: 22px 22px;}
+.conflict .topic{
+  background: var(--ink); color: var(--cream);
+  font-family:'DM Serif Display', serif;
+  font-size: 22px;
+  line-height: 1.1;
+  display:flex; align-items:center;
+}
+.conflict .pos{
+  border-right: 1.5px solid var(--line);
+  border-left: 1.5px solid var(--line);
+  position:relative;
+  font-size: 14px;
+  display:grid; gap: 12px;
+}
+@media(max-width:780px){.conflict .pos{border-left:none;border-right:none;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line)}}
+.conflict .pos .who{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+}
+.conflict .pos-a .vs{
+  position: absolute; right: -14px; top: 50%;
+  transform: translateY(-50%);
+  width: 28px; height: 28px;
+  background: var(--coral);
+  color: var(--cream);
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  display:flex; align-items:center; justify-content:center;
+  z-index: 2;
+}
+@media(max-width:780px){.conflict .pos-a .vs{display:none}}
+.conflict .resolve{
+  background: var(--peach);
+  font-size: 14px;
+  display:grid; gap: 8px;
+}
+.conflict .resolve b{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+  font-weight: 600;
+}
+
+/* Timeline */
+.tl{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 2px solid var(--line);
+}
+@media(max-width:880px){.tl{grid-template-columns:1fr}}
+.tl-phase{
+  padding: 32px 28px;
+  border-right: 2px solid var(--line);
+  min-height: 500px;
+  display:flex; flex-direction:column; gap: 16px;
+  position:relative;
+}
+.tl-phase:last-child{border-right:none}
+@media(max-width:880px){.tl-phase{border-right:none;border-bottom:2px solid var(--line)}.tl-phase:last-child{border-bottom:none}}
+.tl-phase-1{background: var(--cream)}
+.tl-phase-2{background: var(--peach)}
+.tl-phase-3{background: var(--ochre); color: var(--ink)}
+.tl-phase .ph-num{
+  font-family:'DM Serif Display', serif;
+  font-size: 70px;
+  line-height: 0.9;
+  color: var(--bordeaux);
+}
+.tl-phase .ph-dur{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform:uppercase;
+  color: var(--ink-soft);
+}
+.tl-phase h3{
+  font-family:'DM Serif Display', serif;
+  font-size: 32px;
+  line-height: 1.05;
+}
+.tl-phase .goal{
+  font-size: 15px;
+  line-height: 1.4;
+  padding: 14px 16px;
+  border-left: 3px solid var(--bordeaux);
+  background: rgba(255,255,255,0.35);
+}
+.tl-phase ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:14px}
+.tl-phase ul li{padding-left: 22px; position:relative; line-height: 1.4}
+.tl-phase ul li::before{content:"▸";position:absolute;left:0;color:var(--bordeaux);font-weight:700}
+.tl-phase .fm{
+  margin-top: auto;
+  display:flex; justify-content:space-between; gap: 14px;
+  padding-top: 16px;
+  border-top: 1.5px dashed var(--ink);
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tl-phase .fm b{display:block;font-size:18px;color:var(--bordeaux);letter-spacing:0;font-family:'DM Serif Display',serif;font-weight:400;margin-top:2px}
+
+/* Budget */
+.budget{
+  display:grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(30px, 5vw, 70px);
+  align-items: start;
+}
+@media(max-width:880px){.budget{grid-template-columns:1fr}}
+.budget-total{
+  padding: 40px 36px;
+  background: var(--ink);
+  color: var(--cream);
+  border: 2px solid var(--line);
+}
+.budget-total .big{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(70px, 11vw, 140px);
+  line-height: 0.9;
+  color: var(--ochre);
+  margin: 10px 0;
+}
+.budget-total .sub{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform:uppercase;
+  opacity: 0.75;
+}
+.budget-bars{display:grid;gap:20px}
+.b-row{display:grid;gap:6px}
+.b-label{display:flex;justify-content:space-between;align-items:baseline;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
+.b-label b{font-family:'DM Serif Display', serif;font-size:22px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--bordeaux)}
+.b-bar{height: 36px;background: var(--cream);border:1.5px solid var(--line);position:relative;overflow:hidden}
+.b-fill{position:absolute;inset:0 auto 0 0;display:flex;align-items:center;justify-content:flex-end;padding-right: 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cream);letter-spacing:0.05em}
+.b-fill-1{background: var(--terracotta); width: 4.1%}
+.b-fill-2{background: var(--bordeaux); width: 21.8%}
+.b-fill-3{background: var(--coral); width: 74.1%}
+.b-bar-items{
+  display:flex; flex-wrap:wrap; gap: 6px;
+  margin-top: 4px;
+  font-size: 12px; color: var(--ink-soft);
+}
+.b-bar-items span{background: var(--cream);padding:3px 8px;border:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.05em}
+
+/* Zero-budget */
+.zero{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0;
+  border-top: 1.5px solid var(--line);
+  border-left: 1.5px solid var(--line);
+  counter-reset: zero;
+}
+.zero-item{
+  padding: 24px 24px 26px;
+  border-right: 1.5px solid var(--line);
+  border-bottom: 1.5px solid var(--line);
+  background: var(--cream);
+  display:grid; gap: 10px;
+  counter-increment: zero;
+  position:relative;
+}
+.zero-item::before{
+  content: counter(zero, decimal-leading-zero);
+  font-family:'DM Serif Display', serif;
+  font-size: 40px;
+  color: var(--bordeaux);
+  line-height: 1;
+}
+.zero-item .t{font-weight:600;font-size:16px;line-height:1.3}
+.zero-item .m{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-transform:uppercase;
+  letter-spacing: 0.1em;
+}
+.zero-item.done::after{
+  content: "✓ FREE";
+  position:absolute; top: 20px; right: 20px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--bordeaux);
+  border: 1.5px solid var(--bordeaux);
+  padding: 3px 7px;
+}
+
+/* Metrics table */
+.mx-wrap{overflow-x:auto;border: 2px solid var(--line);background: var(--cream)}
+table.mx{
+  width:100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  min-width: 640px;
+}
+table.mx th, table.mx td{
+  text-align:left;
+  padding: 18px 18px;
+  border-bottom: 1.5px solid var(--line);
+  vertical-align: top;
+}
+table.mx th{
+  background: var(--ink); color: var(--cream);
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform:uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+table.mx tr:last-child td{border-bottom:none}
+table.mx td:first-child{font-weight:600}
+table.mx td.grow{color: var(--bordeaux); font-family:'DM Serif Display', serif; font-size: 22px; line-height: 1}
+
+/* Footer */
+footer{
+  padding: clamp(50px, 7vw, 100px) clamp(20px, 5vw, 80px);
+  background: var(--ink);
+  color: var(--cream);
+  display:grid; gap: 30px;
+}
+footer h3{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  color: var(--ochre);
+  max-width: 20ch;
+}
+.fgrid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform:uppercase;
+}
+.fgrid b{display:block;color: var(--ochre);margin-bottom:10px;font-weight:600;letter-spacing:0.12em}
+.fgrid a{color: var(--cream);text-decoration: underline;text-underline-offset: 3px}
+.fgrid a:hover{color: var(--ochre)}
+.fmeta{font-size:11px;opacity:0.65;letter-spacing:0.1em}
+
+/* Scroll reveal */
+.reveal{opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease}
+.reveal.in{opacity: 1; transform: translateY(0)}
+
+/* Utility */
+.small{font-size:13px;color:var(--ink-soft)}
+.mark{background: var(--ochre); padding: 0 6px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="brand">V / VOSMERKI</span>
+  <a href="#snapshot">01 Snapshot</a>
+  <a href="#funnel">02 Funnel</a>
+  <a href="#panel">03 Panel</a>
+  <a href="#conflicts">04 Conflicts</a>
+  <a href="#plan">05 Plan</a>
+  <a href="#budget">06 Budget</a>
+  <a href="#zero">07 Zero-$</a>
+  <a href="#metrics">08 Metrics</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="hero-geom" viewBox="0 0 420 420" aria-hidden="true">
+    <circle cx="210" cy="210" r="180" fill="none" stroke="oklch(42% 0.15 25)" stroke-width="2"/>
+    <circle cx="210" cy="210" r="110" fill="oklch(72% 0.14 75)" opacity="0.6"/>
+    <polygon points="210,60 360,300 60,300" fill="none" stroke="oklch(42% 0.15 25)" stroke-width="2"/>
+    <line x1="30" y1="210" x2="390" y2="210" stroke="oklch(18% 0.02 40)" stroke-width="1.5" stroke-dasharray="6 8"/>
+    <line x1="210" y1="30" x2="210" y2="390" stroke="oklch(18% 0.02 40)" stroke-width="1.5" stroke-dasharray="6 8"/>
+    <circle cx="210" cy="210" r="6" fill="oklch(42% 0.15 25)"/>
+  </svg>
+
+  <div class="hero-pitch">
+    <span class="eyebrow">vosmerki.com · 2026-04-13</span>
+  </div>
+
+  <h1 class="hero-head">VSE<br>VOSMERKI —<br><em>Sales Growth</em><br>Plan 2026.</h1>
+
+  <p class="hero-pitch">
+    Разделить два продукта, починить воронку, собрать партнёрку как продукт —
+    и за <b>90 дней</b> перейти от «самых низких цен» к бренду, который тянет себя сам.
+  </p>
+
+  <div class="hero-meta">
+    <div><b>Ниша</b>Миграция · Визы · ВНЖ</div>
+    <div><b>База</b>Алматы, Казахстан</div>
+    <div><b>Домен</b>vosmerki.com</div>
+    <div><b>Вход</b>WhatsApp +7 777 575-49-95</div>
+    <div><b>Горизонт</b>0–7 · 8–30 · 31–90</div>
+    <div><b>Бюджет</b>$24 300 / 90 дней</div>
+  </div>
+</header>
+
+<!-- 01 SNAPSHOT -->
+<section id="snapshot" class="reveal">
+  <span class="sec-num">01</span>
+  <span class="eyebrow">Business Snapshot</span>
+  <h2 class="sec-title">Что это за бизнес на 13 апреля 2026.</h2>
+  <p class="lead">Сервисный бизнес с редким юридическим активом — собственная корпоративная структура в KZ / US / CA / UK / EU, через которую можно делать L1/ICT-перевод. Замаскирован в WordPress-лонгриде рядом с туризмом.</p>
+
+  <div class="snap-grid">
+    <div class="snap-card"><div class="k">01 / Ниша</div><div class="v">Миграционные услуги</div><div class="d">Визы, ВНЖ, регистрация бизнеса, L1/ICT-переводы через собственную структуру.</div></div>
+    <div class="snap-card"><div class="k">02 / География</div><div class="v">KZ → US/CA/EU/UK</div><div class="d">База — Алматы. Клиенты: релоканты в KZ и казахи, выезжающие в Америку/Европу.</div></div>
+    <div class="snap-card"><div class="k">03 / Premium линия</div><div class="v">L1 · ICT · Бизнес</div><div class="d">Чек $10K – $50K+. Реальное УТП: готовые юрлица в 5 странах для intra-company transfer.</div></div>
+    <div class="snap-card"><div class="k">04 / Visa линия</div><div class="v">B1/B2 · TRV · D-PL</div><div class="d">Чек $300 – $3K. Туризм, Польша рабочая, РВП Казахстан через работодателя.</div></div>
+    <div class="snap-card"><div class="k">05 / Точка входа</div><div class="v">WhatsApp only</div><div class="d">+7 (777) 575-49-95. Единый канал. Нет формы, нет квалификации, нет SLA.</div></div>
+    <div class="snap-card"><div class="k">06 / Соцсети и стек</div><div class="v">IG · FB · WP/Elementor</div><div class="d">@vse_vosmerki. Без pixel, без GA, без CRM, без блога. Слепая стрельба.</div></div>
+  </div>
+</section>
+
+<!-- 02 FUNNEL -->
+<section id="funnel" class="reveal">
+  <span class="sec-num">02</span>
+  <span class="eyebrow">Current Funnel · As-Is</span>
+  <h2 class="sec-title">Воронка протекает в 6 местах.</h2>
+  <p class="lead">Трафик упирается в одну WhatsApp-ссылку без pixel, без квалификации и без CRM. До контакта доходит, по оценке CRO, <b class="mark">15–30%</b> трафика.</p>
+
+  <div class="funnel">
+    <div class="funnel-flow">
+      <div class="funnel-step"><span class="n">01</span><span class="label">Трафик (IG · сарафан · Google long-tail)</span><span class="loss">100%</span></div>
+      <div class="funnel-step"><span class="n">02</span><span class="label">Сайт: WordPress-лонгрид</span><span class="loss">−40%</span></div>
+      <div class="funnel-step"><span class="n">03</span><span class="label">CTA «WhatsApp» (переключение app)</span><span class="loss">−30%</span></div>
+      <div class="funnel-step"><span class="n">04</span><span class="label">WA-диалог без квалификации</span><span class="loss">−20%</span></div>
+      <div class="funnel-step"><span class="n">05</span><span class="label">Менеджер (L1 и туризм в одной очереди)</span><span class="loss">−15%</span></div>
+      <div class="funnel-step"><span class="n">06</span><span class="label">Продажа (без CRM, без follow-up)</span><span class="loss">~</span></div>
+    </div>
+
+    <ul class="funnel-leak">
+      <li><b>Leak 01</b>Нет Meta / GA / YM pixel — любой платный трафик горит, ретаргета нет.</li>
+      <li><b>Leak 02</b>Нет прайса и нет квалификации — оператор тонет в мусоре.</li>
+      <li><b>Leak 03</b>Слоган «самые низкие цены» убивает доверие к L1/ICT продукту за $30K+.</li>
+      <li><b>Leak 04</b>Партнёрка упомянута 8 раз на сайте — но нет лендинга, трекинга, кабинета и выплат.</li>
+      <li><b>Leak 05</b>Нет CRM — карточка лида не создаётся, SLA нет, follow-up теряется.</li>
+      <li><b>Leak 06</b>Нет соц. доказательств: ни видео-отзывов, ни кейсов, ни счётчика переехавших.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 03 EXPERT PANEL -->
+<section id="panel" class="reveal">
+  <span class="sec-num">03</span>
+  <span class="eyebrow">Expert Panel · 6 голосов</span>
+  <h2 class="sec-title">Что сказали шесть экспертов.</h2>
+  <p class="lead">Прогнали бизнес через панель: CMO, Performance, CRO, Industry Veteran, Partnership, Sales Ops. У каждого — своя оценка, свой риск, своя рекомендация.</p>
+
+  <div class="panel-grid">
+    <article class="panel-card" data-index="// 01">
+      <div class="tag">CMO · Head of Growth</div>
+      <div class="role">Премиум продаётся как ширпотреб.</div>
+      <div class="assess">Сильный редкий продукт (L1/ICT через свою структуру) замаскирован в WordPress-лонгриде рядом с туризмом. Слоган «самые низкие цены» убивает high-ticket.</div>
+      <div class="reco"><b>Recommendation</b>Разделить на две линии — <b>VOSMERKI Premium</b> и <b>VOSMERKI Visa</b>. Разные лендинги, тона, цены.</div>
+    </article>
+
+    <article class="panel-card" data-index="// 02">
+      <div class="tag">Performance Marketer</div>
+      <div class="role">Слепая стрельба.</div>
+      <div class="assess">Нет pixel, GA, UTM, ретаргета. Любой таргет без pixel = 3× CAC. Первым делом — аналитика, только потом — трафик.</div>
+      <div class="reco"><b>Recommendation</b>Неделя 1 — GA4 + Meta Pixel + Я.Метрика + UTM. Неделя 2 — Google Ads на commercial-intent ($1–2K/мес).</div>
+    </article>
+
+    <article class="panel-card" data-index="// 03">
+      <div class="tag">CRO · Funnel & UX</div>
+      <div class="role">Сайт убивает конверсию.</div>
+      <div class="assess">Нет CTA выше фолда, только WhatsApp-ссылка, нет соц. доказательств, нет прайса, нет квалификации. Воронка теряет 70–85% до контакта.</div>
+      <div class="reco"><b>Recommendation</b>Квиз-калькулятор + видео-отзывы + прайс-коридоры + счётчик кейсов. 7–10 дней работы.</div>
+    </article>
+
+    <article class="panel-card" data-index="// 04">
+      <div class="tag">Migration Industry Veteran</div>
+      <div class="role">Демпинг несовместим с L1.</div>
+      <div class="assess">L1/ICT через KZ-структуру — легальный серый продукт. Работает только на доверии и кейсах. Один публичный отказ с упоминанием VOSMERKI = конец продукта.</div>
+      <div class="reco"><b>Recommendation</b>Тон «Не дёшево. Работает». Убрать слоган с Premium. Платная стратегконсультация $150–300 — фильтр и якорь.</div>
+    </article>
+
+    <article class="panel-card" data-index="// 05">
+      <div class="tag">Partnership Specialist</div>
+      <div class="role">Самый быстрый ROI простаивает.</div>
+      <div class="assess">Партнёрка упомянута 8 раз — они её хотят, но ничего не построено. Нет лендинга, регистрации, трекинга, кабинета, промо, чата, выплат.</div>
+      <div class="reco"><b>Recommendation</b>Лендинг /partners + персонализированные wa.me-ссылки + TG-чат + промо-пак + outreach 50–100 каналов.</div>
+    </article>
+
+    <article class="panel-card" data-index="// 06">
+      <div class="tag">Sales Ops</div>
+      <div class="role">Стеклянное бутылочное горлышко.</div>
+      <div class="assess">Единая WA-точка без автоответа, шаблонов, CRM. Менеджер ушёл на обед — лид в топку. Дорогие L1-лиды обрабатываются как турвизы.</div>
+      <div class="reco"><b>Recommendation</b>48ч — WhatsApp Business API + меню + amoCRM/Kommo + SLA 10/30 мин + скрипты + Calendly.</div>
+    </article>
+  </div>
+</section>
+
+<!-- 04 CONFLICTS -->
+<section id="conflicts" class="reveal">
+  <span class="sec-num">04</span>
+  <span class="eyebrow">Panel Conflicts · 5 дебатов</span>
+  <h2 class="sec-title">Где эксперты не сошлись.</h2>
+  <p class="lead">Разные роли — разные priorities. Ниже 5 тем, где позиции разошлись, и как их свели в один план.</p>
+
+  <div class="conflicts">
+
+    <article class="conflict">
+      <div class="topic">Цена «от» на сайте</div>
+      <div class="pos pos-a"><span class="who">CRO</span><span>Показать прайс-коридоры на всех услугах — самоквалификация.</span><span class="vs">vs</span></div>
+      <div class="pos"><span class="who">Industry</span><span>Скрыть цену на Premium — это high-touch, цена убивает диалог.</span></div>
+      <div class="resolve"><b>Resolution · Гибрид</b><span>Прайс-коридоры на туризм и KZ-бизнес-пакеты. Premium — «от $25K, точная оценка на платной консультации».</span></div>
+    </article>
+
+    <article class="conflict">
+      <div class="topic">Слоган «самые низкие цены»</div>
+      <div class="pos pos-a"><span class="who">Industry</span><span>Убрать с Premium — демпинг ломает L1/ICT доверие.</span><span class="vs">vs</span></div>
+      <div class="pos"><span class="who">CMO</span><span>Убрать полностью — противоречит новому бренду.</span></div>
+      <div class="resolve"><b>Resolution</b><span>Снять с главной и Premium. Опционально оставить на карточках турвиз, где чек $300.</span></div>
+    </article>
+
+    <article class="conflict">
+      <div class="topic">$2K бюджета на 30 дней</div>
+      <div class="pos pos-a"><span class="who">Performance</span><span>Весь бюджет — в Google Ads на commercial-intent ключи.</span><span class="vs">vs</span></div>
+      <div class="pos"><span class="who">Partnership</span><span>Весь бюджет — на выплаты первым партнёрам, это дешевле.</span></div>
+      <div class="resolve"><b>Resolution · 50/50</b><span>Обе гипотезы параллельно. $1K в Google Ads, $1K резерв на комиссии партнёрам — измеряем CPL и сравниваем.</span></div>
+    </article>
+
+    <article class="conflict">
+      <div class="topic">Квалификация лида</div>
+      <div class="pos pos-a"><span class="who">CRO</span><span>Квиз прямо на сайте — фильтр до WhatsApp.</span><span class="vs">vs</span></div>
+      <div class="pos"><span class="who">Sales Ops</span><span>WA-меню после клика — не пугать пользователя формой на сайте.</span></div>
+      <div class="resolve"><b>Resolution · Оба</b><span>Неделя 1 — квиз. Неделя 2 — WA-меню. Квиз генерит pre-filled WA-сообщение, меню добивает квалификацию.</span></div>
+    </article>
+
+    <article class="conflict">
+      <div class="topic">Комиссия за L1-лида</div>
+      <div class="pos pos-a"><span class="who">Partnership</span><span>$500–2000 фикс — партнёрам понятно и быстро.</span><span class="vs">vs</span></div>
+      <div class="pos"><span class="who">Industry</span><span>% от закрытой сделки — защита маржи при больших чеках.</span></div>
+      <div class="resolve"><b>Resolution · Двухуровнево</b><span>$200 фикс при квалификации лида + 5–8% от закрытой сделки. Быстрые деньги + upside.</span></div>
+    </article>
+
+  </div>
+</section>
+
+<!-- 05 PLAN -->
+<section id="plan" class="reveal">
+  <span class="sec-num">05</span>
+  <span class="eyebrow">3-Phase Plan · 0 → 90 days</span>
+  <h2 class="sec-title">Три фазы, три цели, одна траектория.</h2>
+  <p class="lead">Модель ORB (Owned / Rented / Borrowed) + фазовый релонч бренда вокруг двух линий продуктов.</p>
+
+  <div class="tl">
+    <div class="tl-phase tl-phase-1">
+      <div class="ph-dur">Phase 01 · Day 0–7</div>
+      <div class="ph-num">01</div>
+      <h3>Foundation.<br>Перестать терять.</h3>
+      <div class="goal">Главная цель: перестать терять лидов и начать их считать.</div>
+      <ul>
+        <li>GA4 + Meta Pixel + Я.Метрика + UTM на wa.me</li>
+        <li>CRM (amoCRM/Kommo) + WhatsApp Business API</li>
+        <li>Автосалют + меню (туризм / работа / ПМЖ / бизнес)</li>
+        <li>Снять «самые низкие цены», переверстать H1</li>
+        <li>Квиз-калькулятор «Какая программа вам подходит»</li>
+        <li>Лендинг /partners + TG-чат партнёров</li>
+      </ul>
+      <div class="fm">
+        <div>Бюджет<b>$1 000</b></div>
+        <div>Метрика<b>Baseline</b></div>
+      </div>
+    </div>
+
+    <div class="tl-phase tl-phase-2">
+      <div class="ph-dur">Phase 02 · Day 8–30</div>
+      <div class="ph-num">02</div>
+      <h3>Quick Wins.<br>Первые продажи.</h3>
+      <div class="goal">Главная цель: +30–50% к закрытым сделкам без роста команды.</div>
+      <ul>
+        <li>5 видео-отзывов + 3 case-study на сайт</li>
+        <li>Google Ads на 5 commercial-intent ключей</li>
+        <li>Meta Ads ретаргет на посетителей сайта и квиза</li>
+        <li>Instagram: 3 поста + 2 Reels в неделю</li>
+        <li>Промо-пак партнёрам + outreach 50 TG-каналов</li>
+        <li>Платная стратегконсультация $150–300</li>
+      </ul>
+      <div class="fm">
+        <div>Бюджет<b>$5 300</b></div>
+        <div>Лидов / нед<b>× 2</b></div>
+      </div>
+    </div>
+
+    <div class="tl-phase tl-phase-3">
+      <div class="ph-dur">Phase 03 · Day 31–90</div>
+      <div class="ph-num">03</div>
+      <h3>Scale.<br>Бренд тянет сам.</h3>
+      <div class="goal">Главная цель: от «тянем руками» к «бренд приводит клиентов».</div>
+      <ul>
+        <li>Разделить сайт: /premium и /visa, два тона</li>
+        <li>Telegram-канал + YouTube (кейсы + интервью)</li>
+        <li>Email welcome-серия + еженедельная рассылка</li>
+        <li>Личный кабинет партнёра (TG-bot)</li>
+        <li>Партнёрский вебинар-кампания</li>
+        <li>Новый SKU «VOSMERKI Employer» (от $2K)</li>
+      </ul>
+      <div class="fm">
+        <div>Бюджет<b>$18 000</b></div>
+        <div>Лидов / мес<b>× 4–5</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 BUDGET -->
+<section id="budget" class="reveal">
+  <span class="sec-num">06</span>
+  <span class="eyebrow">Budget Breakdown · 90 days</span>
+  <h2 class="sec-title">Куда уходят 24 300 долларов.</h2>
+  <p class="lead">Главные статьи: переверстка сайта и контент-продакшн во второй половине, платный трафик по ходу, CRM и WA-инфра — копейки.</p>
+
+  <div class="budget">
+    <div class="budget-total">
+      <div class="sub">Total 90-day capex</div>
+      <div class="big">$24.3K</div>
+      <div class="sub">+ ~$80 / мес операционных</div>
+      <p class="small" style="color:rgba(255,255,255,0.75);margin-top:30px;line-height:1.5">
+        90 дней разделены на 3 бюджетные волны. Фаза 1 — минимум инфры,
+        фаза 2 — первые эксперименты с трафиком и партнёрками,
+        фаза 3 — бренд и масштаб.
+      </p>
+    </div>
+
+    <div class="budget-bars">
+      <div class="b-row">
+        <div class="b-label"><span>Phase 01 · Foundation · 7d</span><b>$1 000</b></div>
+        <div class="b-bar"><div class="b-fill b-fill-1">4.1%</div></div>
+        <div class="b-bar-items"><span>CRM подписка</span><span>WA Business API</span><span>Разработчик квиза + /partners</span></div>
+      </div>
+      <div class="b-row">
+        <div class="b-label"><span>Phase 02 · Quick Wins · 23d</span><b>$5 300</b></div>
+        <div class="b-bar"><div class="b-fill b-fill-2">21.8%</div></div>
+        <div class="b-bar-items"><span>Google Ads $1 500</span><span>Meta retarget $500</span><span>Видео-продакшн $800</span><span>Кейсы + PDF $400</span><span>Outreach PM $600</span><span>Комиссии партнёрам $1 500</span></div>
+      </div>
+      <div class="b-row">
+        <div class="b-label"><span>Phase 03 · Scale · 60d</span><b>$18 000</b></div>
+        <div class="b-bar"><div class="b-fill b-fill-3">74.1%</div></div>
+        <div class="b-bar-items"><span>Переверстка $2 500</span><span>Контент-продакшн $3 000</span><span>Ads масштабирование $6 000</span><span>ЛК партнёра $2 500</span><span>PR публикации $2 000</span><span>Вебинар + приз $2 000</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 ZERO BUDGET -->
+<section id="zero" class="reveal">
+  <span class="sec-num">07</span>
+  <span class="eyebrow">If Budget = $0</span>
+  <h2 class="sec-title">Восемь шагов за неделю. Бесплатно.</h2>
+  <p class="lead">Даже без копейки вложений, 80% эффекта достигается этими восьмью шагами за 5–7 дней.</p>
+
+  <div class="zero">
+    <div class="zero-item done"><div class="t">Снять слоган «самые низкие цены» с главной</div><div class="m">0 денег · 10 минут</div></div>
+    <div class="zero-item done"><div class="t">Добавить UTM-разметку во все ссылки wa.me</div><div class="m">0 денег · 30 минут</div></div>
+    <div class="zero-item done"><div class="t">Установить GA4 + Meta Pixel + Я.Метрика</div><div class="m">Бесплатно · 1 час</div></div>
+    <div class="zero-item done"><div class="t">Сделать /partners-форму на Tilda или Google Forms</div><div class="m">0 денег · 2 часа</div></div>
+    <div class="zero-item done"><div class="t">Собрать TG-чат партнёров, написать 20 уже известным</div><div class="m">0 денег · 1 день</div></div>
+    <div class="zero-item done"><div class="t">Снять 5 видео-отзывов клиентов на iPhone</div><div class="m">0 денег · 3 дня + договорённости</div></div>
+    <div class="zero-item done"><div class="t">Поставить автосалют в WhatsApp Business app</div><div class="m">0 денег · 15 минут</div></div>
+    <div class="zero-item done"><div class="t">Написать 5 скриптов для менеджера</div><div class="m">0 денег · 2 часа</div></div>
+  </div>
+</section>
+
+<!-- 08 METRICS -->
+<section id="metrics" class="reveal">
+  <span class="sec-num">08</span>
+  <span class="eyebrow">Metrics · Before → After</span>
+  <h2 class="sec-title">Куда двигаем цифры.</h2>
+  <p class="lead">X = текущий неизмеренный baseline. Первая задача фазы 1 — поставить аналитику и узнать X.</p>
+
+  <div class="mx-wrap">
+    <table class="mx">
+      <thead>
+        <tr>
+          <th>Метрика</th>
+          <th>Baseline (Day 0)</th>
+          <th>Day 30</th>
+          <th>Day 90</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Лиды / неделя</td><td>X (не измеряется)</td><td class="grow">X × 2</td><td class="grow">X × 4–5</td></tr>
+        <tr><td>Платных консультаций / мес</td><td>0</td><td class="grow">20–40</td><td class="grow">60–100</td></tr>
+        <tr><td>Закрытых Premium-сделок / мес</td><td>X</td><td class="grow">X + 3</td><td class="grow">X + 10–15</td></tr>
+        <tr><td>Закрытых Visa-сделок / мес</td><td>X</td><td class="grow">X + 15</td><td class="grow">X + 40</td></tr>
+        <tr><td>Активных партнёров</td><td>0 формально</td><td class="grow">20–30</td><td class="grow">60–80</td></tr>
+        <tr><td>% лидов от партнёров</td><td>—</td><td class="grow">15–25%</td><td class="grow">30–40%</td></tr>
+        <tr><td>CPL (Google Ads)</td><td>—</td><td class="grow">≤ $30</td><td class="grow">стабильно</td></tr>
+        <tr><td>Подписчики TG-канала</td><td>0</td><td>—</td><td class="grow">2 000–5 000</td></tr>
+        <tr><td>LTV / CAC</td><td>—</td><td>&gt; 1</td><td class="grow">≥ 3</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <h3>Один артефакт. Один план. Один WhatsApp, который больше не протекает.</h3>
+
+  <div class="fgrid">
+    <div>
+      <b>Source of truth</b>
+      <a href="https://github.com/TimmyZinin/vosmerki/blob/main/RESEARCH.md" target="_blank" rel="noopener">RESEARCH.md</a><br>
+      <a href="https://github.com/TimmyZinin/vosmerki/blob/main/EXPERT_PANEL.md" target="_blank" rel="noopener">EXPERT_PANEL.md</a><br>
+      <a href="https://github.com/TimmyZinin/vosmerki/blob/main/STRATEGY.md" target="_blank" rel="noopener">STRATEGY.md</a>
+    </div>
+    <div>
+      <b>Автор</b>
+      Tim Zinin<br>
+      <a href="https://timzinin.com">timzinin.com</a><br>
+      2026-04-13
+    </div>
+    <div>
+      <b>Для кого</b>
+      Владельцу VSE VOSMERKI<br>
+      Партнёрам и агентам<br>
+      Performance-фрилансерам
+    </div>
+    <div>
+      <b>Статус</b>
+      v1.0 · Draft<br>
+      Требует: поток лидов,<br>средний чек, маржа, архив кейсов
+    </div>
+  </div>
+
+  <div class="fmeta">© 2026 · Generated by expert-panel workflow · Repo timmyzinin/vosmerki (private) · Visualized on timzinin.com/vosmerki/</div>
+</footer>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold: 0.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Smooth section highlight on nav (subtle)
+const navLinks = document.querySelectorAll('.nav a');
+const sections = [...document.querySelectorAll('section')];
+const nio = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      navLinks.forEach(a => a.style.color = a.getAttribute('href') === '#'+id ? 'var(--bordeaux)' : '');
+    }
+  });
+}, {threshold: 0.4});
+sections.forEach(s => nio.observe(s));
+</script>
+</body>
+</html>
