@@ -919,6 +919,7 @@
   function openChat(contactId) {
     var contact = STATE.contacts.find(function (c) { return c.id === contactId; });
     if (!contact) return;
+    var wasUnread = contact.unread > 0;
     contact.unread = 0;
     STATE.current_chat = contactId;
     Bubbles.renderContacts(STATE);
@@ -928,6 +929,7 @@
     Bubbles.clearChipsArea();
     renderThreadContextActions(contactId);
     save();
+    track('chat_opened', { contact: contactId, day: STATE.day, unread_before: wasUnread ? 1 : 0 });
   }
 
   // BLOCK D — Bank balance pinned card
@@ -2254,6 +2256,7 @@
           var payment = p.final_due || p.final_payment || 0;
           STATE.cash += payment;
           p.status = 'delivered';
+          track('project_delivered', { project_id: p.id, client: p.client || 'n/a', payment: payment, day: STATE.day, delivered_total: STATE.delivered_projects });
           spawnParticle({ from: 'work_on_project', to: 'cash', kind: 'money', icon: '$', duration: 800 });
           setTimeout(function () {
             postSystem('scratch', 'проект #' + p.id + ' сдан · клиент принял');
@@ -2413,14 +2416,16 @@
           postSystem('scratch', 'проект #' + p.id + ' · +1.5 units' + unitsTxt + ' · −15⚡ ночной режим · завтра будет тяжело');
         }
         if (p.work_units_done >= (p.work_units_total || 3)) {
-          // Delivered
+          // Delivered (via night work)
           STATE.active_projects.shift();
           STATE.delivered_projects += 1;
-          STATE.cash += p.final_due || p.final_payment || 0;
+          var nightPayment = p.final_due || p.final_payment || 0;
+          STATE.cash += nightPayment;
           p.status = 'delivered';
+          track('project_delivered', { project_id: p.id, client: p.client || 'n/a', payment: nightPayment, day: STATE.day, delivered_total: STATE.delivered_projects, night: true });
           setTimeout(function () {
             postSystem('scratch', 'проект #' + p.id + ' сдан · клиент принял');
-            postBank(p.final_due || p.final_payment || 0, 'финал по проекту #' + p.id);
+            postBank(nightPayment, 'финал по проекту #' + p.id);
             save(); renderDock();
           }, 500);
         }
@@ -4673,6 +4678,7 @@
       save();
       $('#intro-overlay').fadeOut(300);
       if (window.MarinaAudio) window.MarinaAudio.unlock();
+      track('intro_dismissed', { day: STATE.day });
     });
 
     // Win / lose overlay buttons
@@ -4714,6 +4720,7 @@
       if (isBusy) return;
       if (window.MarinaAudio) { window.MarinaAudio.unlock(); window.MarinaAudio.click(); }
       var name = $(this).attr('data-action');
+      track('action_used', { action: name, day: STATE.day, hours: STATE.hours_left });
       switch (name) {
         case 'lamp': actLamp(); break;
         case 'reach_out': actReachOut(); break;
@@ -4907,6 +4914,7 @@
     init: init,
     version: VERSION,
     _state: function () { return STATE; },
+    state: function () { return STATE; },
     _reset: function () { clearState(); location.reload(); },
     _actLamp: actLamp,
     currentChat: currentChat

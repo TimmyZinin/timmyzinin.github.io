@@ -23,8 +23,8 @@
   <link rel="stylesheet" type="text/css" href="css/landing.css?v=2.7.0"/>
 
   <!-- MPL-2.0 · fork of A Dark Room (doublespeakgames/adarkroom) -->
-  <!-- SPRINT 22 — Umami analytics (privacy-respecting, no cookies) -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script>
+  <!-- SPRINT 43 — Umami analytics (self-hosted, privacy-respecting, no cookies) -->
+  <script defer src="https://stats.timzinin.com/script.js" data-website-id="f739d8de-d6a7-4cc2-a1de-54f733935192" data-host-url="https://stats.timzinin.com"></script>
 </head>
 <body id="top">
 
@@ -36,7 +36,7 @@
       <a href="#characters">персонажи</a>
       <a href="#features">фичи</a>
       <a href="#faq">faq</a>
-      <a href="play.html" class="nav-cta">играть →</a>
+      <a href="play.html" class="nav-cta" data-umami-event="landing_cta_clicked" data-umami-event-source="nav">играть →</a>
     </div>
   </nav>
 
@@ -58,7 +58,7 @@
         <span class="tag">🎧 со своим саундтреком</span>
       </div>
       <div class="hero-actions">
-        <a href="play.html" class="cta-btn">
+        <a href="play.html" class="cta-btn" data-umami-event="landing_cta_clicked" data-umami-event-source="hero">
           начать игру
           <span class="arrow">→</span>
         </a>

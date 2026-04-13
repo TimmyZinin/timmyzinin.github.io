@@ -325,6 +325,17 @@
       if (opt.disabled) $chip.attr('disabled', 'disabled');
       $chip.on('click', function (e) {
         e.preventDefault();
+        // SPRINT 43 — track which reply player chose
+        try {
+          if (window.umami && typeof window.umami.track === 'function') {
+            var state = (window.Marina && window.Marina.state && window.Marina.state()) || {};
+            window.umami.track('reply_chosen', {
+              contact: state.current_chat || 'unknown',
+              option: opt.id || opt.label || 'n/a',
+              day: state.day || 0
+            });
+          }
+        } catch (err) {}
         if (typeof onClick === 'function') onClick(opt);
       });
       $ca.append($chip);
