@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.5.4';
+  var APP_VERSION = '2.5.5';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -453,7 +453,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -834,15 +834,18 @@
       return 'crit';
     }
 
-    // SPRINT 24 — show actual clock time (game starts 9:00, ends 17:00)
-    // hours=8 -> "9:00", hours=0 -> "17:00"
+    // SPRINT 31 — realistic founder day 9:00 → 23:00 (14h real, 8 game hours)
+    // each game-hour = 1.75 real hours. hours=8 -> 9:00, hours=0 -> 23:00
     var hoursLeft = Math.max(0, STATE.hours);
-    var clockHour = 9 + (HOURS_PER_DAY - hoursLeft); // 9..17
-    var clockStr = (clockHour < 10 ? '0' : '') + clockHour + ':00';
+    var realHourFloat = 9 + (HOURS_PER_DAY - hoursLeft) * 1.75;
+    var clockH = Math.floor(realHourFloat) % 24;
+    var clockM = Math.round((realHourFloat - Math.floor(realHourFloat)) * 60);
+    if (clockM === 60) { clockM = 0; clockH = (clockH + 1) % 24; }
+    var clockStr = (clockH < 10 ? '0' : '') + clockH + ':' + (clockM < 10 ? '0' : '') + clockM;
 
     var parts = [];
     parts.push('<div class="r-pill r-day" title="День ' + STATE.day + ' из ' + FINALE_DAY + '. Месяц закончится на ' + FINALE_DAY + '-й день — нужно сдать ≥3 проекта, иметь cash≥0, энергию≥25, голод≥30, комфорт≥20."><span class="r-icon">🗓️</span><span class="r-val">' + STATE.day + '</span><span class="r-max">/' + FINALE_DAY + '</span></div>');
-    parts.push('<div class="r-pill r-hours" title="Сейчас ' + clockStr + '. День длится с 9:00 до 17:00 (8 часов). Каждое действие тратит часы. Когда часы кончатся — нажми «лечь спать»."><span class="r-icon">⏱️</span><span class="r-val">' + clockStr + '</span><span class="r-max">·' + hoursLeft + 'ч</span></div>');
+    parts.push('<div class="r-pill r-hours" title="Сейчас ' + clockStr + '. День Марины: 9:00 → 23:00 (14 реальных часов = 8 рабочих слотов). Когда слоты кончатся — нажми «лечь спать»."><span class="r-icon">⏱️</span><span class="r-val">' + clockStr + '</span><span class="r-max">·' + hoursLeft + 'ч</span></div>');
     var cashCls = STATE.cash < 0 ? 'crit' : (STATE.cash < 200 ? 'warn' : 'ok');
     parts.push('<div class="r-pill r-cash ' + cashCls + '" title="Деньги Марины. Старт $500. Каждый день −$45 пассив + аренда $500 (день 10/20) + неизбежные траты ($60/$80/$150/$100). Если падёт ниже −$1500 — выселение."><span class="r-icon">💰</span><span class="r-val">$' + STATE.cash + '</span></div>');
 
@@ -855,9 +858,11 @@
       var daysLeft = rentDay - STATE.day;
       var rentCls = daysLeft <= 2 ? 'crit' : (daysLeft <= 5 ? 'warn' : 'ok');
       var canPay = STATE.cash >= 500;
+      // SPRINT 31 — progress bar: countdown from 10 days to 0, fill grows as deadline approaches
+      var rentFill = Math.max(0, Math.min(100, (10 - daysLeft) * 10));
       var rentTitle = 'Следующая аренда: $500 на день ' + rentDay + '. Осталось ' + daysLeft + ' дн. ' +
                       (canPay ? '✓ хватает.' : 'Не хватает $' + (500 - STATE.cash) + ' — заработай или продай услугу.');
-      parts.push('<div class="r-pill r-rent ' + rentCls + '" title="' + rentTitle + '"><span class="r-icon">🏠</span><span class="r-val">$500</span><span class="r-max">·' + daysLeft + 'дн</span></div>');
+      parts.push('<div class="r-pill r-rent ' + rentCls + '" title="' + rentTitle + '"><span class="r-icon">🏠</span><span class="r-val">$500</span><span class="r-max">·' + daysLeft + 'дн</span><div class="r-bar"><div class="r-fill" style="width:' + rentFill + '%"></div></div></div>');
     }
     var e = STATE.energy;
     parts.push('<div class="r-pill r-energy ' + colorClass(e) + '" title="Энергия (0-100). Падает от работы и плохого сна. Восстанавливается ночью (полностью только если поела). Если ниже 25 на финале — проигрыш."><span class="r-icon">⚡</span><span class="r-val">' + e + '</span><div class="r-bar"><div class="r-fill" style="width:' + e + '%"></div></div></div>');

@@ -1256,6 +1256,10 @@ body.dock-collapsed #action-dock {
   color: #ff9873;
   animation: critPulse 1.8s ease-in-out infinite;
 }
+/* SPRINT 31 — rent bar inverted color (fill = urgency, not health) */
+.r-pill.r-rent .r-fill { background: var(--warn); }
+.r-pill.r-rent.warn .r-fill { background: var(--warn); }
+.r-pill.r-rent.crit .r-fill { background: var(--accent); }
 
 .crisis-banner-chat {
   margin: 6px 18px 4px;
