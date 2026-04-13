@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.6.5';
+  var APP_VERSION = '2.6.7';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -358,6 +358,8 @@
       _mama6_pending: false,
       _mama17_pending: false,
       _olya_pending: false,
+      _olya_retry_pending: false, // SPRINT 39
+      _olya_final_pending: false, // SPRINT 39
       _pavel_pending: false,
       _pavel_d17_pending: false, // SPRINT 38b
       _sosed_pending: false,
@@ -459,7 +461,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.6.6', '2.6.7', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -962,6 +964,9 @@
   }
 
   function renderThreadContextActions(contactId) {
+    // SPRINT 38c — Anna intro + referral chips routed via openChat too
+    if (contactId === 'anna' && STATE._anna_pending) { renderAnnaChoice(); return; }
+    if (contactId === 'anna' && STATE._anna_referral_pending) { renderAnnaReferralChoice(); return; }
     // Tim creator 4th wall break: lead form chip
     if (contactId === 'tim' && STATE.beat_tim_creator_fired && !STATE.lead_submitted) {
       Bubbles.renderReplyChips([
@@ -1391,6 +1396,56 @@
           STATE.hours = Math.max(0, STATE.hours - 1);
         } else {
           postMessage('scratch', { kind: 'system', text: 'Оля удалена из контактов' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // SPRINT 39 — Оля retry (day 17) chip
+    if (contactId === 'olya' && STATE._olya_retry_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'invest400', label: 'вложить $400 в новый уровень (риск)' },
+        { id: 'block',     label: '🚫 заблокировать Олю · больше не пишет' },
+        { id: 'ignore',    label: 'игнор · она напишет снова через неделю' }
+      ], function (opt) {
+        STATE._olya_retry_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'invest400') {
+          postOutgoing('olya', 'Оля, перевожу $400. в последний раз.');
+          STATE.cash -= 400;
+          STATE.comfort = Math.max(0, STATE.comfort - 20);
+          postBank(-400, 'Оля · клуб новый уровень · 0 возврата');
+          postMessage('scratch', { kind: 'system', text: '−$400 · −20 комфорт · клуб Оли всё ещё пирамида' });
+        } else if (opt.id === 'block') {
+          postMessage('scratch', { kind: 'system', text: '🚫 Оля заблокирована · больше не пишет' });
+          STATE.beat_olya_final = true; // suppress final
+          STATE.comfort = Math.min(100, STATE.comfort + 3);
+        } else {
+          postMessage('scratch', { kind: 'system', text: 'Оля проигнорирована' });
+        }
+        save(); renderDock();
+      });
+      return;
+    }
+    // SPRINT 39 — Оля final (day 24) chip
+    if (contactId === 'olya' && STATE._olya_final_pending) {
+      Bubbles.renderReplyChips([
+        { id: 'pity150', label: 'дать $150 чтобы отстала' },
+        { id: 'no',      label: '«Оля, нет. на этом всё»' }
+      ], function (opt) {
+        STATE._olya_final_pending = false;
+        Bubbles.clearChipsArea();
+        bumpInteraction();
+        if (opt.id === 'pity150') {
+          postOutgoing('olya', '$150 последние. больше не пиши.');
+          STATE.cash -= 150;
+          postBank(-150, 'Оля · последняя жалость');
+          STATE.comfort = Math.max(0, STATE.comfort - 5);
+        } else {
+          postOutgoing('olya', 'Оля, нет. на этом всё.');
+          STATE.comfort = Math.min(100, STATE.comfort + 5);
+          postMessage('scratch', { kind: 'system', text: '✓ закрыла тему с Олей · +5💚' });
         }
         save(); renderDock();
       });
@@ -2784,6 +2839,8 @@
       photoAlt: 'продукт клуба',
       text: 'Мариночка, как ты? Я тут обновление по нашему клубу — мы запускаем НОВЫЙ уровень. Всего $400, но ты получаешь в три раза больше активаций. Подумай, я верю в тебя!'
     });
+    STATE._olya_retry_pending = true; // SPRINT 39 — chip
+    postMessage('scratch', { kind: 'system', text: 'Оля Петрова снова пишет · открой чат' });
   }
 
   function beatOlyaFinal() {
@@ -2795,6 +2852,7 @@
       senderName: 'Оля Петрова',
       text: 'Марина, я понимаю что ты сомневаешься. Но вот скриншот моего дохода за месяц: $3200 чистыми. И это не предел. Последнее предложение: $150, заходишь бесплатным уровнем и начинаешь зарабатывать.'
     });
+    STATE._olya_final_pending = true; // SPRINT 39 — chip
   }
 
   function beatKryptaRetry() {
@@ -3006,14 +3064,28 @@
     { src: 'img/events/svetka_taro.webp', alt: 'карты таро' }
   ];
 
+  // SPRINT 38c — pick unique gossip per beat (no repeats — Tim screenshot showed dup)
+  function pickUnused(arr, usedKey) {
+    STATE[usedKey] = STATE[usedKey] || [];
+    var available = arr.filter(function (_, i) { return STATE[usedKey].indexOf(i) === -1; });
+    if (available.length === 0) {
+      STATE[usedKey] = []; // reset cycle if all used
+      available = arr.slice();
+    }
+    var idx = Math.floor(Math.random() * available.length);
+    var realIdx = arr.indexOf(available[idx]);
+    STATE[usedKey].push(realIdx);
+    return available[idx];
+  }
+
   function svetkaBeat(key) {
     if (STATE[key]) return;
     STATE[key] = true;
     var c = findContact('svetka'); if (c) c.visible = true;
     var deck = SVETKA_GOSSIP[0];
-    var voiceLabel = pick(deck.intros);
-    var gossip = pick(deck.gossip);
-    var photo = pick(SVETKA_PHOTOS);
+    var voiceLabel = pickUnused(deck.intros, '_svetka_intros_used');
+    var gossip = pickUnused(deck.gossip, '_svetka_gossip_used');
+    var photo = pickUnused(SVETKA_PHOTOS, '_svetka_photos_used');
     postMessage('svetka', {
       kind: 'incoming',
       senderName: 'Светка',
@@ -4361,6 +4433,50 @@
 
   // ========== Anna pending answer (choice when opening Anna chat) ==========
 
+  // SPRINT 38c — Anna referral (day 21) — second project chip
+  function renderAnnaReferralChoice() {
+    if (!STATE._anna_referral_pending) return;
+    Bubbles.renderReplyChips([
+      { id: 'take',    label: 'взять второй проект ($350 upfront + $450 final, 7 дн)' },
+      { id: 'decline', label: 'отказать (не вытяну)' }
+    ], function (opt) {
+      STATE._anna_referral_pending = false;
+      Bubbles.clearChipsArea();
+      bumpInteraction();
+      if (opt.id === 'take') {
+        postOutgoing('anna', 'беру. скидывай договор');
+        setTimeout(function () {
+          postIncoming('anna', 'ура, отправила', 'Анна');
+          var project = {
+            id: STATE.active_projects.length + STATE.delivered_projects + 1,
+            clientId: 'anna',
+            client: 'email-серия для Анны #2',
+            progress: 0,
+            work_units_done: 0,
+            work_units_total: 6,
+            upfront_paid: 350,
+            final_due: 450,
+            final_payment: 450,
+            started_day: STATE.day,
+            deadline_day: STATE.day + 7,
+            status: 'active'
+          };
+          STATE.active_projects.push(project);
+          STATE.cash += 350;
+          postBank(350, 'upfront · второй проект Анны');
+          postMessage('scratch', { kind: 'system', text: '+$350 upfront · проект #' + project.id + ' (Анна #2)' });
+          save(); renderDock();
+        }, 700);
+      } else {
+        postOutgoing('anna', 'Аня, не сейчас. не вытяну второй параллельно.');
+        setTimeout(function () {
+          postIncoming('anna', 'поняла, береги себя. найду другого.', 'Анна');
+          save(); renderDock();
+        }, 600);
+      }
+    });
+  }
+
   function renderAnnaChoice() {
     if (!STATE._anna_pending) return;
     Bubbles.renderReplyChips([
@@ -4464,6 +4580,10 @@
       openChat(id);
       if (id === 'anna' && STATE._anna_pending) {
         renderAnnaChoice();
+      }
+      // SPRINT 38c — Anna referral (day 21) also needs chip
+      if (id === 'anna' && STATE._anna_referral_pending) {
+        renderAnnaReferralChoice();
       }
       // Mobile: slide chat view in
       if (window.innerWidth <= 640) {
@@ -4596,20 +4716,29 @@
       var t = $(this).attr('data-tip');
       if (t && !$(this).attr('title')) $(this).attr('title', t);
     });
-    // Touch — tap shows tooltip for 4s, tap elsewhere hides
-    $(document).on('click', '.r-pill[title], .r-pill[data-tip]', function (e) {
+    // SPRINT 38c — Touch tap on HUD pill (Tim: 'на мобильном не работает').
+    // Use click on document, find closest .r-pill (handles children .r-icon/.r-val/.r-bar taps).
+    // Also fire on touchstart for fast feedback before browser synthesizes click.
+    function showPillTooltip(pill) {
       if (window.innerWidth > 640) return; // desktop uses hover
-      var t = $(this).attr('data-tip') || $(this).attr('title');
+      var $p = $(pill);
+      var t = $p.attr('data-tip') || $p.attr('title');
       if (!t) return;
-      $(this).attr('data-tip', t).removeAttr('title');
-      e.stopPropagation();
-      showHudTooltip(this, t);
+      $p.attr('data-tip', t).removeAttr('title');
+      showHudTooltip(pill, t);
       clearTimeout(hudTooltipTimer);
-      hudTooltipTimer = setTimeout(hideHudTooltip, 4000);
+      hudTooltipTimer = setTimeout(hideHudTooltip, 4500);
+    }
+    $(document).on('click touchstart', function (e) {
+      var pill = $(e.target).closest('.r-pill').get(0);
+      if (pill && (pill.hasAttribute('title') || pill.hasAttribute('data-tip'))) {
+        e.stopPropagation();
+        showPillTooltip(pill);
+      } else if (!$(e.target).closest('#hud-tooltip').length) {
+        hideHudTooltip();
+      }
     });
-    $(document).on('click', function (e) {
-      if (!$(e.target).closest('.r-pill, #hud-tooltip').length) hideHudTooltip();
-    });
+    // (old standalone click-outside handler removed — merged into combined click/touchstart above)
     // Restore rescue overlay on reload (player closed tab during crisis)
     if (STATE._rescue_active && STATE._rescue_type) {
       showRescue(STATE._rescue_type);
@@ -4641,17 +4770,10 @@
         }
         return;
       }
-      // Space or Enter — end day (primary accessible action)
-      // SPRINT 17 rev2 — skip if focus is on button/link/input to avoid
-      // overriding native activation on focused elements
-      if (e.key === ' ' || e.key === 'Enter') {
-        var tag = e.target && e.target.tagName;
-        if (tag === 'BUTTON' || tag === 'A' || tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-        var $end = $('.dock-btn[data-action="end_day"]:not([disabled]):visible');
-        if ($end.length) {
-          e.preventDefault();
-          $end.click();
-        }
+      // SPRINT 38c — REMOVED Space/Enter end_day shortcut.
+      // Tim feedback: 'день случайно закончился, ничего не нажимал'.
+      // Space/Enter too easy to hit accidentally. End day requires deliberate click on dock button.
+      if (false && (e.key === ' ' || e.key === 'Enter')) {
         return;
       }
       // Arrow keys — navigate contacts list
