@@ -522,20 +522,28 @@ html, body {
 .bubble.bank .bank-amount.neg { color: var(--accent); }
 
 .bubble-photo {
+  /* SPRINT 32 — bigger photos, native aspect ratio preserved */
   margin: 2px 0 6px 0;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  max-width: 240px;
+  max-width: 100%;
+  width: 280px;
   background: var(--panel-2);
-  line-height: 0;
 }
 
 .bubble-photo img {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 420px;
+  object-fit: cover;
   filter: brightness(0.96) contrast(1.02);
   transition: filter 160ms, transform 160ms;
+}
+
+@media (max-width: 640px) {
+  .bubble-photo { width: 100%; max-width: 86vw; }
+  .bubble-photo img { max-height: 360px; }
 }
 
 .bubble-photo img:hover {
@@ -1275,10 +1283,12 @@ body.dock-collapsed #action-dock {
   color: #ff9873;
   animation: critPulse 1.8s ease-in-out infinite;
 }
-/* SPRINT 31 — rent bar inverted color (fill = urgency, not health) */
-.r-pill.r-rent .r-fill { background: var(--warn); }
-.r-pill.r-rent.warn .r-fill { background: var(--warn); }
-.r-pill.r-rent.crit .r-fill { background: var(--accent); }
+/* SPRINT 31 — rent bar inverted color (fill = urgency, not health).
+   SPRINT 32 fix: !important to override later generic .r-pill.ok .r-fill rule
+   that wins on equal specificity. */
+.r-pill.r-rent .r-fill { background: var(--warn) !important; }
+.r-pill.r-rent.warn .r-fill { background: var(--warn) !important; }
+.r-pill.r-rent.crit .r-fill { background: var(--accent) !important; }
 
 .crisis-banner-chat {
   margin: 6px 18px 4px;
