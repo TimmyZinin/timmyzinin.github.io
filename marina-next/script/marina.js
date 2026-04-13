@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.3.9';
+  var APP_VERSION = '2.4.0';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -445,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -921,15 +921,16 @@
       return;
     }
     // Tim tier 1 — auto_reach_out
+    // SPRINT 26 — keep pending if cash insufficient so player can retry later
     if (contactId === 'tim' && STATE._tim_consult_pending && !STATE.auto_reach_out) {
       Bubbles.renderReplyChips([
         { id: 'buy', label: 'купить автофарминг ($200)' },
         { id: 'later', label: 'подумаю позже' }
       ], function (opt) {
-        STATE._tim_consult_pending = false;
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'buy' && STATE.cash >= 200 && !STATE.bank_locked) {
+          STATE._tim_consult_pending = false; // success — clear pending
           STATE.cash -= 200;
           STATE.auto_reach_out = true;
           postBank(-200, 'Тим · автофарминг лидов');
@@ -938,8 +939,14 @@
             postIncoming('tim', 'отлично, настроил. с завтрашнего дня +1 лид в день автоматом.', 'Тим');
           }, 900);
         } else if (opt.id === 'buy') {
-          postOutgoing('tim', 'не хватает денег пока.');
+          // Insufficient — keep pending, Tim follows up
+          postOutgoing('tim', 'денег пока не хватает. вернусь когда будет.');
+          setTimeout(function () {
+            var why = STATE.bank_locked ? 'когда счёт разблокируют' : ('когда будет $200, у тебя сейчас $' + STATE.cash);
+            postIncoming('tim', 'без проблем. предложение в силе — пиши ' + why + '.', 'Тим');
+          }, 900);
         } else {
+          STATE._tim_consult_pending = false; // explicit "later" — clear pending
           postOutgoing('tim', 'хорошо, пока не сейчас.');
         }
         save(); renderDock();
@@ -952,10 +959,10 @@
         { id: 'buy', label: 'купить авто-созвоны ($300)' },
         { id: 'later', label: 'нет' }
       ], function (opt) {
-        STATE._tim_tier2_pending = false;
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'buy' && STATE.cash >= 300 && !STATE.bank_locked) {
+          STATE._tim_tier2_pending = false;
           STATE.cash -= 300;
           STATE.auto_brief_lead = true;
           postBank(-300, 'Тим · AI созвоны');
@@ -963,8 +970,15 @@
           setTimeout(function () {
             postIncoming('tim', 'готово. AI будет квалифицировать лиды каждое утро.', 'Тим');
           }, 900);
+        } else if (opt.id === 'buy') {
+          // Keep pending for retry
+          postOutgoing('tim', 'не хватает $' + Math.max(0, 300 - STATE.cash) + '. вернусь позже.');
+          setTimeout(function () {
+            postIncoming('tim', 'предложение остаётся. как накопишь — пиши.', 'Тим');
+          }, 900);
         } else {
-          postOutgoing('tim', opt.id === 'buy' ? 'не хватает денег' : 'пока нет.');
+          STATE._tim_tier2_pending = false;
+          postOutgoing('tim', 'пока нет.');
         }
         save(); renderDock();
       });
@@ -976,10 +990,10 @@
         { id: 'buy', label: 'купить AI-оффер ($400)' },
         { id: 'later', label: 'нет' }
       ], function (opt) {
-        STATE._tim_tier3_pending = false;
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'buy' && STATE.cash >= 400 && !STATE.bank_locked) {
+          STATE._tim_tier3_pending = false;
           STATE.cash -= 400;
           STATE.auto_send_offer = true;
           postBank(-400, 'Тим · AI оффер');
@@ -987,8 +1001,14 @@
           setTimeout(function () {
             postIncoming('tim', 'настроил. AI будет сам отправлять офферы и принимать контракты.', 'Тим');
           }, 900);
+        } else if (opt.id === 'buy') {
+          postOutgoing('tim', 'не хватает $' + Math.max(0, 400 - STATE.cash) + '.');
+          setTimeout(function () {
+            postIncoming('tim', 'когда подкопишь — напиши, оставлю слот.', 'Тим');
+          }, 900);
         } else {
-          postOutgoing('tim', opt.id === 'buy' ? 'не хватает денег' : 'нет.');
+          STATE._tim_tier3_pending = false;
+          postOutgoing('tim', 'нет.');
         }
         save(); renderDock();
       });
