@@ -1207,6 +1207,17 @@ body.dock-collapsed #action-dock {
   padding-bottom: 4px;
 }
 
+/* SPRINT 29 — rescue overlay accent */
+.rescue-card {
+  border-left: 4px solid var(--accent);
+}
+.rescue-card .overlay-kicker {
+  color: var(--accent);
+}
+.rescue-card .overlay-actions button {
+  width: 100%;
+}
+
 /* SPRINT 28 — beautiful ending hero images */
 .ending-hero {
   display: block;

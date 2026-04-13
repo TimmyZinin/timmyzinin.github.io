@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.5.1';
+  var APP_VERSION = '2.5.2';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -295,6 +295,9 @@
       rescue_hospital_used: false,
       rescue_lena_breakdown_used: false,
       rescue_father_used: false,
+      // SPRINT 29 — rescue overlay choice state
+      _rescue_active: false,
+      _rescue_type: null,
       // beat flags (30-day arc)
       beat_lena_intro: false,
       beat_anna_offer: false,
@@ -450,7 +453,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -3846,72 +3849,22 @@
    */
   function checkEndings(forceOnFinaleDay) {
     if (STATE.ending_seen) return;
+    if (STATE._rescue_active) return; // already showing rescue overlay
 
-    // SPRINT 28 — mid-game rescue mechanics (game is one-shot, can't lose mid-month).
-    // Each rescue type fires ONCE; subsequent crisis pushes to next rescue type.
-    // Day 30+ remains the only true lose check (in finale block below).
-
-    // Cash crash → mama wires money + appears (once)
-    if (STATE.cash < -800 && !STATE.rescue_mama_money_used && STATE.day < FINALE_DAY) {
-      STATE.rescue_mama_money_used = true;
-      STATE.cash += 700;
-      STATE.hours = 0; // lose remainder of day
-      STATE.comfort = Math.min(100, STATE.comfort + 20);
-      postBank(700, 'мама перевела · «ничего не объясняй»');
-      postMessage('mama', {
-        kind: 'incoming',
-        senderName: 'мама',
-        text: 'доча, увидела что у тебя плохо. перевела $700. не возражай. поешь, отдохни. я люблю тебя.'
-      });
-      postMessage('scratch', { kind: 'system', text: '💌 мама спасла · +$700 +20 комфорт · день потерян на звонок' });
-      return;
-    }
-
-    // SPRINT 28 rev2 — rescues set hours=0 only (player presses end_day → normal day flow).
-    // Day count advances naturally via actEndDay; we don't skip processPassive/fireDayBeats.
-    // Hunger starvation → мама + хозяйка вызывают скорую (once)
+    // SPRINT 29 — pick first applicable rescue type (player choice via overlay).
+    // True lose only at FINALE_DAY+ when all rescues exhausted or finale check.
+    var rescueType = null;
     if (STATE.hunger !== undefined && STATE.hunger <= 5 && STATE.day >= 4 && !STATE.rescue_hospital_used && STATE.day < FINALE_DAY) {
-      STATE.rescue_hospital_used = true;
-      STATE.hunger = 80;
-      STATE.energy = Math.max(40, STATE.energy);
-      STATE.comfort = Math.min(100, STATE.comfort + 25);
-      STATE.hours = 0; // forces end_day soon — player presses, day advances normally
-      postMessage('mama', {
-        kind: 'incoming',
-        senderName: 'мама',
-        text: 'я тебя нашла. наталья валерьевна позвонила, у тебя тут полная катастрофа. сейчас приеду. ничего не делай.'
-      });
-      postMessage('scratch', { kind: 'system', text: '🏥 свалилась → день в больнице · мама приехала · +80 голод +25 комфорт · нажми «конец дня»' });
-      return;
+      rescueType = 'hospital';
+    } else if (STATE.comfort !== undefined && STATE.comfort <= 3 && STATE.day >= 8 && !STATE.rescue_lena_breakdown_used && STATE.day < FINALE_DAY) {
+      rescueType = 'lena_breakdown';
+    } else if (STATE.cash < -1500 && !STATE.rescue_father_used && STATE.day < FINALE_DAY) {
+      rescueType = 'father';
+    } else if (STATE.cash < -800 && !STATE.rescue_mama_money_used && STATE.day < FINALE_DAY) {
+      rescueType = 'mama_money';
     }
-
-    // Comfort breakdown → Лена забирает к себе на сутки (once)
-    if (STATE.comfort !== undefined && STATE.comfort <= 3 && STATE.day >= 8 && !STATE.rescue_lena_breakdown_used && STATE.day < FINALE_DAY) {
-      STATE.rescue_lena_breakdown_used = true;
-      STATE.comfort = 70;
-      STATE.energy = Math.min(100, STATE.energy + 30);
-      STATE.hours = 0;
-      postMessage('lena', {
-        kind: 'incoming',
-        senderName: 'Лена',
-        text: 'марин, ты странно отвечала. я еду к тебе. собирай сумку, переночуешь у меня. без споров.'
-      });
-      postMessage('scratch', { kind: 'system', text: '🛋 ночёвка у Лены · +30⚡ +70 комфорт · нажми «конец дня»' });
-      return;
-    }
-
-    // Final fallback: cash deep negative AND mama already saved → father comes
-    if (STATE.cash < -1500 && !STATE.rescue_father_used && STATE.day < FINALE_DAY) {
-      STATE.rescue_father_used = true;
-      STATE.cash = 200;
-      STATE.hours = 0;
-      STATE.comfort = Math.min(100, STATE.comfort + 15);
-      postMessage('mama', {
-        kind: 'incoming',
-        senderName: 'мама',
-        text: 'папа выехал. забирает тебя к нам на пару дней. это не провал, это пауза. ничего не говори, просто собирай вещи.'
-      });
-      postMessage('scratch', { kind: 'system', text: '🏡 родители забрали · cash сброшен до $200 · +15 комфорт · нажми «конец дня»' });
+    if (rescueType) {
+      showRescue(rescueType);
       return;
     }
 
@@ -3933,6 +3886,109 @@
     } else {
       showLose('burnout', 'месяц закончился · проектов не добила');
     }
+  }
+
+  // SPRINT 29 — Rescue overlay with player choice (call OR restart)
+  var RESCUE_CONFIG = {
+    mama_money: {
+      kicker: 'денег почти не осталось',
+      reason: 'счёт ушёл в красную зону. дальше будет тяжелее.',
+      body: 'у тебя минус $800. ещё пара дней — и не на что будет даже хлеб купить. кому позвонить?',
+      caller: 'мама',
+      callBtn: '📞 позвонить маме',
+      hero: 'img/endings/lose_parents.webp',
+      onApply: function () {
+        STATE.cash += 700;
+        STATE.comfort = Math.min(100, STATE.comfort + 20);
+        STATE.hours = 0;
+        postBank(700, 'мама перевела');
+        postMessage('mama', { kind: 'incoming', senderName: 'мама', text: 'доча, я перевела $700. не возражай. поешь, отдохни. я люблю тебя.' });
+        postMessage('scratch', { kind: 'system', text: '💌 мама прислала $700 + 20 комфорт · ты в строю' });
+      }
+    },
+    hospital: {
+      kicker: 'марина свалилась',
+      reason: 'четыре дня без нормальной еды. голова кружится.',
+      body: 'хозяйка увидела как ты вошла в подъезд держась за стену. вызвала скорую. ты в больнице. кому позвонить?',
+      caller: 'мама',
+      callBtn: '📞 позвонить маме',
+      hero: 'img/endings/lose_hospital.webp',
+      onApply: function () {
+        STATE.hunger = 80;
+        STATE.energy = Math.max(40, STATE.energy);
+        STATE.comfort = Math.min(100, STATE.comfort + 25);
+        STATE.hours = 0;
+        postMessage('mama', { kind: 'incoming', senderName: 'мама', text: 'я приехала. ничего не говори. ешь суп. потом поспишь. наталья валерьевна молодец что позвонила.' });
+        postMessage('scratch', { kind: 'system', text: '🏥 мама с супом + 80 голод + 25 комфорт · день потерян' });
+      }
+    },
+    lena_breakdown: {
+      kicker: 'комфорт обнулился',
+      reason: 'нервы сдают. ты сидишь и не можешь начать ничего делать.',
+      body: 'если сейчас не сделать паузу — будет хуже. кому позвонить?',
+      caller: 'Лена',
+      callBtn: '📞 позвонить Лене',
+      hero: 'img/endings/lose_hospital.webp',
+      onApply: function () {
+        STATE.comfort = 70;
+        STATE.energy = Math.min(100, STATE.energy + 30);
+        STATE.hours = 0;
+        postMessage('lena', { kind: 'incoming', senderName: 'Лена', text: 'еду к тебе. собирай сумку, переночуешь у меня. без споров.' });
+        postMessage('scratch', { kind: 'system', text: '🛋 Лена забрала к себе · +30⚡ +70 комфорт · день потерян' });
+      }
+    },
+    father: {
+      kicker: 'деньги в глубоком минусе',
+      reason: 'минус $1500. это уже не «тяжёлый месяц», это катастрофа.',
+      body: 'нужно срочно стабилизироваться. кому позвонить?',
+      caller: 'родители',
+      callBtn: '📞 позвонить родителям',
+      hero: 'img/endings/lose_parents.webp',
+      onApply: function () {
+        STATE.cash = 200;
+        STATE.comfort = Math.min(100, STATE.comfort + 15);
+        STATE.hours = 0;
+        postMessage('mama', { kind: 'incoming', senderName: 'мама', text: 'папа выехал. забирает тебя на пару дней. это не провал, это пауза.' });
+        postMessage('scratch', { kind: 'system', text: '🏡 родители помогли · cash $200 · +15 комфорт · ты в безопасности' });
+      }
+    }
+  };
+
+  function showRescue(type) {
+    var cfg = RESCUE_CONFIG[type];
+    if (!cfg) return;
+    STATE._rescue_active = true;
+    STATE._rescue_type = type;
+    save();
+    var $card = $('#rescue-overlay .overlay-card');
+    $card.find('.ending-hero').remove();
+    if (cfg.hero) {
+      $('<img class="ending-hero" />').attr('src', cfg.hero).attr('alt', 'кризис').prependTo($card);
+    }
+    $('#rescue-kicker').text(cfg.kicker);
+    $('#rescue-reason').text(cfg.reason);
+    $('#rescue-body').empty().append($('<p>').text(cfg.body));
+    $('#rescue-call').text(cfg.callBtn);
+    $('#rescue-overlay').show();
+    track('rescue_offered', { type: type, day: STATE.day });
+  }
+
+  function applyRescue() {
+    var type = STATE._rescue_type;
+    var cfg = RESCUE_CONFIG[type];
+    if (!cfg) return;
+    // Mark used flag
+    if (type === 'mama_money') STATE.rescue_mama_money_used = true;
+    else if (type === 'hospital') STATE.rescue_hospital_used = true;
+    else if (type === 'lena_breakdown') STATE.rescue_lena_breakdown_used = true;
+    else if (type === 'father') STATE.rescue_father_used = true;
+    cfg.onApply();
+    STATE._rescue_active = false;
+    STATE._rescue_type = null;
+    track('rescue_accepted', { type: type, day: STATE.day });
+    save();
+    $('#rescue-overlay').hide();
+    renderDock();
   }
 
   function showWin() {
@@ -4249,6 +4305,18 @@
       sessionStorage.removeItem(SESSION_KEY);
       location.reload();
     });
+
+    // SPRINT 29 — rescue overlay handlers
+    $('#rescue-call').on('click', function () { applyRescue(); });
+    $('#rescue-restart').on('click', function () {
+      clearState();
+      sessionStorage.removeItem(SESSION_KEY);
+      location.reload();
+    });
+    // Restore rescue overlay on reload (player closed tab during crisis)
+    if (STATE._rescue_active && STATE._rescue_type) {
+      showRescue(STATE._rescue_type);
+    }
 
     // SPRINT 17 — Desktop keyboard shortcuts
     // Only active on desktop (>640px) to avoid conflicts with mobile keyboards
