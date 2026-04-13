@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.5';
+  var VERSION = '2.2.6';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -407,7 +407,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -1371,12 +1371,12 @@
                 client: 'Артур',
                 progress: 0,
                 work_units_done: 0,
-                work_units_total: 4,
+                work_units_total: 6, // SPRINT 15 — match standard
                 upfront_paid: 400,
                 final_due: 400,
                 final_payment: 400,
                 started_day: STATE.day,
-                deadline_day: STATE.day + 10,
+                deadline_day: STATE.day + 12, // SPRINT 15 — bigger Artur project, slightly longer
                 status: 'active'
               });
             } else {
@@ -3665,10 +3665,17 @@
           postIncoming('anna', 'ура, отправила', 'Анна');
           var project = {
             id: STATE.active_projects.length + STATE.delivered_projects + 1,
+            clientId: 'anna',
             client: 'лендинг анны',
             progress: 0,
+            work_units_done: 0,
+            work_units_total: 6, // SPRINT 15 — was missing, project never tracked completion
+            upfront_paid: 250,
+            final_due: 300,
             final_payment: 300,
-            started_day: STATE.day
+            started_day: STATE.day,
+            deadline_day: STATE.day + 10, // SPRINT 15 — was missing, project never expired
+            status: 'active'
           };
           STATE.active_projects.push(project);
           STATE.cash += 250;
