@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.4';
+  var VERSION = '2.2.5';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -407,7 +407,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -1756,12 +1756,12 @@
           client: pick(['лендинг saas','бриф dtc','email-серия','кейс-стади','reels-пакет']),
           progress: 0,
           work_units_done: 0,
-          work_units_total: 4, // SPRINT 15 — was 3, increased to slow snowball economy
+          work_units_total: 6, // SPRINT 15 rev2 — 3→4→6: real playtest needed deeper nerf
           upfront_paid: upfront,
           final_due: finalPayment,
           final_payment: finalPayment,
           started_day: STATE.day,
-          deadline_day: STATE.day + 7, // 7-day deadline
+          deadline_day: STATE.day + 10, // SPRINT 15 — 7→10 to match 6 work units
           status: 'active'
         };
         STATE.active_projects.push(project);
@@ -3478,12 +3478,12 @@
         client: pick(['ai lead saas','ai d2c','ai b2b','ai study']),
         progress: 0,
         work_units_done: 0,
-        work_units_total: 4, // SPRINT 15 — same as manual, slow snowball
+        work_units_total: 6, // SPRINT 15 rev2 — same as manual
         upfront_paid: autoUpfront,
         final_due: autoFinal,
         final_payment: autoFinal,
         started_day: STATE.day,
-        deadline_day: STATE.day + 7,
+        deadline_day: STATE.day + 10, // SPRINT 15 — match manual deadline
         status: 'active'
       });
       postBank(autoUpfront, 'AI оффер принят · upfront');
