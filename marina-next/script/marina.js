@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.3.8';
+  var APP_VERSION = '2.3.9';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -445,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -999,7 +999,7 @@
     if (contactId === 'khozyaika' && STATE._khozyaika1_pending) {
       Bubbles.renderReplyChips([
         { id: 'send', label: 'отправить показания (−1h)' },
-        { id: 'ignore', label: 'забить (−$100 штраф day+2)' }
+        { id: 'ignore', label: 'забить (−$100 штраф через 3 дня)' }
       ], function (opt) {
         STATE._khozyaika1_pending = false;
         Bubbles.clearChipsArea();
@@ -1010,7 +1010,8 @@
           postMessage('scratch', { kind: 'system', text: '−1h · счётчики' });
         } else {
           postOutgoing('khozyaika', 'ок.');
-          STATE.pending_callbacks.push({ trigger_day: STATE.day + 2, type: 'khozyaika_fine' });
+          // SPRINT 25 rev2 — align with auto-fine deadline (day+3, was day+2)
+          STATE.pending_callbacks.push({ trigger_day: STATE.day + 3, type: 'khozyaika_fine' });
         }
         save(); renderDock();
       });
@@ -3458,8 +3459,8 @@
             text: 'Я же предупреждала про счётчики. Штраф $100 списан. Будьте ответственнее.'
           });
         } else if (cb.type === 'khozyaika_unanswered_water') {
-          // SPRINT 25 — auto-fine if water meters request still unanswered after deadline
-          if (STATE._khozyaika1_pending) {
+          // SPRINT 25 rev2 — auto-fine if pending; suppress after khozyaika rescue (sweet phase)
+          if (STATE._khozyaika1_pending && !STATE.beat_khozyaika_rescue) {
             STATE._khozyaika1_pending = false;
             STATE.cash -= 100;
             postBank(-100, 'штраф · нет показаний воды');
@@ -3469,9 +3470,12 @@
               text: 'Марина, дедлайн прошёл. Показания не получены. Штраф $100 списан с депозита. Очень разочарована.'
             });
             postMessage('scratch', { kind: 'system', text: '🔻 −$100 · хозяйка не дождалась показаний' });
+          } else if (STATE._khozyaika1_pending && STATE.beat_khozyaika_rescue) {
+            // Rescue already happened — clear pending silently, no penalty
+            STATE._khozyaika1_pending = false;
           }
         } else if (cb.type === 'khozyaika_unanswered_electric') {
-          if (STATE._khozyaika_electric_pending) {
+          if (STATE._khozyaika_electric_pending && !STATE.beat_khozyaika_rescue) {
             STATE._khozyaika_electric_pending = false;
             STATE.cash -= 80;
             postBank(-80, 'штраф · нет показаний электро');
@@ -3481,9 +3485,11 @@
               text: 'Электросчётчик ждала три дня. Штраф $80. И розетку на кухне всё-таки проверьте.'
             });
             postMessage('scratch', { kind: 'system', text: '🔻 −$80 · электросчётчик не отправлен' });
+          } else if (STATE._khozyaika_electric_pending && STATE.beat_khozyaika_rescue) {
+            STATE._khozyaika_electric_pending = false;
           }
         } else if (cb.type === 'khozyaika_unanswered_chain') {
-          if (STATE._khozyaika_chain_pending) {
+          if (STATE._khozyaika_chain_pending && !STATE.beat_khozyaika_rescue) {
             STATE._khozyaika_chain_pending = false;
             STATE.comfort = Math.max(0, STATE.comfort - 8);
             postMessage('khozyaika', {
@@ -3492,6 +3498,8 @@
               text: 'Не переслали письмо. Я же говорила про карму. Теперь не удивляйтесь.'
             });
             postMessage('scratch', { kind: 'system', text: '🔻 −8 комфорт · хозяйка обиделась' });
+          } else if (STATE._khozyaika_chain_pending && STATE.beat_khozyaika_rescue) {
+            STATE._khozyaika_chain_pending = false;
           }
         } else if (cb.type === 'sosed_retry') {
           postMessage('sosed', {
