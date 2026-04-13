@@ -1142,7 +1142,15 @@
     "t1_price": "$250",
     "t2_price": "от $3,500",
     "t3_price": "Индивидуально",
-    "chat_status": "AI Transformation Expert"
+    "chat_status": "AI Transformation Expert",
+    "cert_label": "Академия Anthropic",
+    "cert_title": "Сертифицирован создателями Claude",
+    "cert_1_title": "Разработка с Claude API",
+    "cert_2_title": "Claude Code в действии",
+    "cert_3_title": "Введение в Agent Skills",
+    "cert_4_title": "Введение в MCP",
+    "cert_sub": "Образование Anthropic",
+    "cert_note": "Каждый сертификат проверяется через Skilljar — нажмите для проверки"
   },
   "de": {
     "nav_services": "Leistungen",
