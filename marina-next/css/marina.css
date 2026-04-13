@@ -1174,8 +1174,27 @@ html, body {
      (between chat-pinned and chat-thread, so user sees it without looking up)
    - Mobile (≤640px): hide #crisis-banner-chat (saves chat space), use top banner */
 /* SPRINT 24 — HUD pill cursor signal that tooltips exist */
-.r-pill[title] {
+.r-pill[title], .r-pill[data-tip] {
   cursor: help;
+}
+
+/* SPRINT 32 — Custom tooltip popup (replaces native title — works on touch) */
+.hud-tooltip {
+  position: fixed;
+  z-index: 500;
+  max-width: 280px;
+  padding: 10px 14px;
+  background: rgba(20, 28, 38, 0.97);
+  color: #fff;
+  border: 1px solid rgba(255, 107, 61, 0.4);
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  letter-spacing: 0.01em;
 }
 
 /* SPRINT 28 — dock collapse button (rotation icon next to audio) */
