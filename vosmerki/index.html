@@ -700,6 +700,96 @@ footer h3{
   transition: background .2s, color .2s;
 }
 .work-final .btn:hover{background: var(--cream); color: var(--bordeaux)}
+
+/* Personal hello letter */
+.hello{
+  padding: clamp(50px, 7vw, 110px) clamp(20px, 5vw, 80px);
+  border-bottom: 1.5px solid var(--line);
+  background: var(--cream);
+  position: relative;
+}
+.hello-grid{
+  display:grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: clamp(30px, 5vw, 70px);
+  align-items: start;
+}
+@media(max-width:780px){.hello-grid{grid-template-columns:1fr}}
+.hello-photo{
+  display:flex; flex-direction:column; gap: 18px;
+}
+.hello-photo .frame{
+  position:relative;
+  border: 2px solid var(--line);
+  background: var(--bg);
+  padding: 14px;
+  max-width: 320px;
+}
+.hello-photo .frame::before{
+  content:"";
+  position:absolute; top:-10px; left:-10px;
+  width: 60px; height: 60px;
+  border-top: 2px solid var(--bordeaux);
+  border-left: 2px solid var(--bordeaux);
+}
+.hello-photo .frame::after{
+  content:"";
+  position:absolute; bottom:-10px; right:-10px;
+  width: 60px; height: 60px;
+  border-bottom: 2px solid var(--bordeaux);
+  border-right: 2px solid var(--bordeaux);
+}
+.hello-photo img{
+  display:block;
+  width: 100%;
+  height: auto;
+  filter: grayscale(0.15) contrast(1.05);
+}
+.hello-sig{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+  line-height: 1.7;
+}
+.hello-sig b{
+  font-family:'DM Serif Display', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0;
+  text-transform:none;
+  display:block;
+  margin-bottom: 2px;
+}
+.hello-text h2{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.hello-text h2 em{
+  font-style: italic;
+  color: var(--bordeaux);
+}
+.hello-text p{
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.55;
+  max-width: 60ch;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.hello-text p b{font-weight:600}
+.hello-text p.kicker{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+  margin-top: 30px;
+}
 </style>
 </head>
 <body>
@@ -747,6 +837,43 @@ footer h3{
   </div>
 </header>
 
+<section id="hello" class="hello reveal">
+  <div class="hello-grid">
+    <div class="hello-photo">
+      <div class="frame">
+        <img src="https://timzinin.com/tim-zinin.jpg" alt="Тим Зинин" />
+      </div>
+      <div class="hello-sig">
+        <b>— Тим Зинин</b>
+        ИИ-маркетолог · 13 апреля 2026
+      </div>
+    </div>
+
+    <div class="hello-text">
+      <span class="eyebrow">Личное письмо</span>
+      <h2>Здравствуйте,<br><em>Василий.</em></h2>
+      <p>
+        Это моё <b>персональное предложение</b> по работе с вашим продуктом
+        <b>vosmerki.com</b>. Я провёл исследование бизнеса, собрал панель из
+        <b>шести экспертов на базе искусственного интеллекта</b> — у каждого
+        свой бэкграунд, свой уклон и своя слепая зона — и упаковал результат
+        в этот единый документ.
+      </p>
+      <p>
+        Ниже на странице — что я нашёл в текущей воронке, что советует
+        панель ИИ-экспертов, как я предлагаю двигаться по неделям и какие
+        три формата работы со мной я предлагаю на выбор.
+      </p>
+      <p>
+        Если хотя бы один пункт отзовётся — внизу страницы есть кнопка
+        бесплатной 30-минутной диагностики. Этого хватит, чтобы понять,
+        стоит ли нам идти дальше.
+      </p>
+      <p class="kicker">↓ Начнём с того, что я увидел на сайте</p>
+    </div>
+  </div>
+</section>
+
 <section id="snapshot" class="reveal">
   <span class="sec-num">01</span>
   <span class="eyebrow">Срез бизнеса</span>
@@ -792,9 +919,9 @@ footer h3{
 
 <section id="panel" class="reveal">
   <span class="sec-num">03</span>
-  <span class="eyebrow">Панель экспертов · 6 голосов</span>
-  <h2 class="sec-title">Что сказали шесть экспертов.</h2>
-  <p class="lead">Прогнали бизнес через панель: директор по маркетингу, специалист по платному трафику, специалист по конверсии, ветеран миграционной отрасли, специалист по партнёркам, операционный директор продаж. У каждого — своя оценка, свой риск, своя рекомендация.</p>
+  <span class="eyebrow">Панель ИИ-экспертов · 6 голосов</span>
+  <h2 class="sec-title">Что сказали шесть ИИ-экспертов.</h2>
+  <p class="lead">Я собрал панель из <b>шести агентов на базе искусственного интеллекта</b>, каждый — со своей ролью, своим бэкграундом и своей слепой зоной: директор по маркетингу, специалист по платному трафику, специалист по конверсии, ветеран миграционной отрасли, специалист по партнёркам, операционка продаж. Они разобрали ваш бизнес параллельно, каждый под своим углом. Голоса я свёл в один план.</p>
 
   <div class="panel-grid">
     <article class="panel-card" data-index="// 01">
@@ -1097,9 +1224,8 @@ footer h3{
     </div>
     <div>
       <b>Для кого</b>
-      Владельцу ВСЕ ВОСЬМЁРКИ<br>
-      Партнёрам и агентам<br>
-      Маркетологам-фрилансерам
+      Лично для Василия,<br>
+      владельца ВСЕ ВОСЬМЁРКИ
     </div>
     <div>
       <b>Статус</b>
