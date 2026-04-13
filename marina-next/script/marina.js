@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.6';
+  var VERSION = '2.2.7';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -407,7 +407,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -448,6 +448,19 @@
           for (var tid in d.threads) {
             if (!Array.isArray(parsed.threads[tid])) parsed.threads[tid] = [];
           }
+        }
+        // SPRINT 15 — normalize legacy projects missing work_units_total/deadline_day
+        // (Anna projects pre-SPRINT 15 had no completion criteria; without this they
+        // would never expire and could be exploited)
+        if (Array.isArray(parsed.active_projects)) {
+          parsed.active_projects.forEach(function (p) {
+            if (p && typeof p === 'object') {
+              if (typeof p.work_units_total !== 'number') p.work_units_total = 6;
+              if (typeof p.deadline_day !== 'number') p.deadline_day = (parsed.day || 1) + 7;
+              if (typeof p.work_units_done !== 'number') p.work_units_done = 0;
+              if (!p.status) p.status = 'active';
+            }
+          });
         }
         return parsed;
       }
