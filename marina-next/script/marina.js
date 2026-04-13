@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.3.3';
+  var APP_VERSION = '2.3.4';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -445,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -3006,7 +3006,7 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'марина. я видел что ты отвечала Павлу в 2 часа ночи. три дня подряд. я не ревную, я просто спрашиваю.'
+      text: 'марина. я слышал что тебе пишет Павел — твой бывший. не спрашиваю подробностей, просто — скажи честно: он в твоей жизни сейчас или нет?'
     });
     setTimeout(function () {
       postMessage('kirill', {
@@ -3022,8 +3022,9 @@
   function beatKirillResolution19() {
     if (STATE.beat_kirill_resolution19) return;
     if (!STATE.kirill_unlocked || STATE.kirill_blocked) return;
-    // Resolution triggers only if affection survived conflict (>=4)
-    if ((STATE.kirill_affection || 0) < 4) return;
+    // SPRINT 20 rev2 — threshold 4→3 so defensive path doesn't create dead-end
+    // (pre-conflict aff max is 5, defensive -2 leaves 3 → must still reach resolution)
+    if ((STATE.kirill_affection || 0) < 3) return;
     STATE.beat_kirill_resolution19 = true;
     var c = findContact('kirill'); if (c) c.visible = true;
     postMessage('kirill', {
