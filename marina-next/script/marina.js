@@ -3704,6 +3704,9 @@
 
     STATE = loadState();
 
+    // SPRINT 14.4 rev3 — populate footer version dynamically (single source = VERSION)
+    $('#footer-version').text('v' + VERSION + ' survival');
+
     // Render initial state
     Bubbles.renderContacts(STATE);
     openChat(STATE.current_chat || 'scratch');
