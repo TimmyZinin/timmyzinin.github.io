@@ -200,6 +200,8 @@
 
       var $item = $('<div class="contact-item">').attr('data-contact', c.id);
       if (state.current_chat === c.id) $item.addClass('active');
+      // SPRINT 37 — pin scratch ('себе') as Telegram-style sticky chat
+      if (c.id === 'scratch') $item.addClass('pinned');
 
       var $avatar = $('<div class="contact-avatar">').addClass(c.id).text(c.avatar || c.name[0]);
       if (c.online) $avatar.addClass('online');

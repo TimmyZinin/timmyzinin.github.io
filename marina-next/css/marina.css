@@ -260,6 +260,24 @@ html, body {
   border-left-color: var(--accent);
 }
 
+/* SPRINT 37 — pinned scratch chat (Telegram-style sticky to top) */
+.contact-item.pinned {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(180deg, var(--panel) 0%, rgba(23, 33, 43, 0.96) 100%);
+  border-bottom: 1px solid rgba(255, 107, 61, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.contact-item.pinned .contact-name::after {
+  content: ' 📌';
+  font-size: 11px;
+  opacity: 0.65;
+}
+.contact-item.pinned.active {
+  background: linear-gradient(90deg, rgba(255, 107, 61, 0.16) 0%, rgba(23, 33, 43, 0.96) 80%);
+}
+
 .contact-item + .contact-item {
   border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
