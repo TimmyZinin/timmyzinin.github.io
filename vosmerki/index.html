@@ -543,6 +543,163 @@ footer h3{
 
 .small{font-size:13px;color:var(--ink-soft)}
 .mark{background: var(--ochre); padding: 0 6px}
+
+/* Subscription / Cooperation */
+.work-intro{
+  display:grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(30px, 5vw, 70px);
+  margin-bottom: 50px;
+  align-items:end;
+}
+@media(max-width:880px){.work-intro{grid-template-columns:1fr}}
+.work-rate{
+  border: 2px solid var(--line);
+  background: var(--cream);
+  padding: 28px 30px;
+  display:grid; gap: 6px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform:uppercase;
+}
+.work-rate .num{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(60px, 9vw, 110px);
+  line-height: 0.9;
+  color: var(--bordeaux);
+  letter-spacing: -0.02em;
+  text-transform:none;
+}
+.tiers{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 2px solid var(--line);
+  border-left: 2px solid var(--line);
+}
+@media(max-width:980px){.tiers{grid-template-columns:1fr}}
+.tier{
+  border-right: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  padding: 36px 32px 32px;
+  display:flex; flex-direction:column; gap: 18px;
+  background: var(--cream);
+  position:relative;
+  transition: background .2s, transform .2s;
+}
+.tier:hover{background: var(--peach); transform: translateY(-4px)}
+.tier-2{background: var(--peach)}
+.tier-2:hover{background: var(--ochre)}
+.tier-3{background: var(--ink); color: var(--cream)}
+.tier-3 .tier-name, .tier-3 .tier-price b, .tier-3 .tier-hours{color: var(--ochre)}
+.tier-3 ul li::before{color: var(--ochre)}
+.tier-3:hover{background: oklch(22% 0.04 35); transform: translateY(-4px)}
+.tier-tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+}
+.tier-3 .tier-tag{color: var(--ochre)}
+.tier-name{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1;
+}
+.tier-price{
+  display:flex; align-items:baseline; gap: 12px;
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 14px;
+}
+.tier-price b{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight:400;
+  color: var(--bordeaux);
+  letter-spacing: -0.02em;
+}
+.tier-price .pp{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform:uppercase;
+  opacity: 0.75;
+}
+.tier-hours{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform:uppercase;
+  color: var(--bordeaux);
+}
+.tier ul{
+  list-style:none; padding:0; margin:0;
+  display:grid; gap: 10px;
+  font-size: 14.5px; line-height: 1.4;
+  flex: 1;
+}
+.tier ul li{padding-left: 22px; position:relative}
+.tier ul li::before{content:"▸";position:absolute;left:0;color:var(--bordeaux);font-weight:700}
+.tier-fit{
+  font-size: 13.5px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.45);
+  border-left: 3px solid var(--bordeaux);
+  font-style: italic;
+}
+.tier-3 .tier-fit{background: rgba(255,255,255,0.08); border-left-color: var(--ochre)}
+.tier-cta{
+  display:block;
+  text-align:center;
+  padding: 16px 18px;
+  border: 2px solid currentColor;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform:uppercase;
+  font-weight: 600;
+  text-decoration:none;
+  color: inherit;
+  transition: background .2s, color .2s;
+}
+.tier-cta:hover{background: var(--bordeaux); color: var(--cream); border-color: var(--bordeaux)}
+.tier-3 .tier-cta:hover{background: var(--ochre); color: var(--ink); border-color: var(--ochre)}
+
+.work-final{
+  margin-top: 60px;
+  padding: 40px clamp(28px, 4vw, 60px);
+  border: 2px solid var(--line);
+  background: var(--bg-2);
+  display:grid;
+  grid-template-columns: 1.5fr auto;
+  gap: 30px;
+  align-items:center;
+}
+@media(max-width:780px){.work-final{grid-template-columns:1fr}}
+.work-final .h{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(28px, 3.5vw, 46px);
+  line-height: 1.05;
+}
+.work-final .h em{color: var(--bordeaux); font-style: italic}
+.work-final .btn{
+  display:inline-block;
+  padding: 18px 28px;
+  background: var(--bordeaux);
+  color: var(--cream);
+  text-decoration:none;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform:uppercase;
+  font-weight:600;
+  border: 2px solid var(--bordeaux);
+  white-space: nowrap;
+  transition: background .2s, color .2s;
+}
+.work-final .btn:hover{background: var(--cream); color: var(--bordeaux)}
 </style>
 </head>
 <body>
@@ -554,9 +711,9 @@ footer h3{
   <a href="#panel">03 Панель</a>
   <a href="#conflicts">04 Споры</a>
   <a href="#plan">05 План</a>
-  <a href="#budget">06 Бюджет</a>
-  <a href="#zero">07 Без бюджета</a>
-  <a href="#metrics">08 Метрики</a>
+  <a href="#zero">06 Без бюджета</a>
+  <a href="#metrics">07 Метрики</a>
+  <a href="#work">08 Сотрудничество</a>
 </nav>
 
 <header class="hero">
@@ -586,7 +743,7 @@ footer h3{
     <div><b>Домен</b>vosmerki.com</div>
     <div><b>Вход</b>ВатсАп +7 777 575-49-95</div>
     <div><b>Горизонт</b>0–7 · 8–30 · 31–90</div>
-    <div><b>Бюджет</b>$24 300 за 90 дней</div>
+    <div><b>Старт</b>30 минут бесплатно</div>
   </div>
 </header>
 
@@ -751,7 +908,7 @@ footer h3{
         <li>Лендинг для партнёров + чат в Телеграме</li>
       </ul>
       <div class="fm">
-        <div>Бюджет<b>$1 000</b></div>
+        <div>Время Тима<b>~6 часов</b></div>
         <div>Метрика<b>База замеров</b></div>
       </div>
     </div>
@@ -770,7 +927,7 @@ footer h3{
         <li>Платная стратегическая консультация $150–300</li>
       </ul>
       <div class="fm">
-        <div>Бюджет<b>$5 300</b></div>
+        <div>Время Тима<b>~12 часов</b></div>
         <div>Лидов в неделю<b>× 2</b></div>
       </div>
     </div>
@@ -789,53 +946,15 @@ footer h3{
         <li>Новый продукт «ВОСЬМЁРКИ Работодатель» (от $2K)</li>
       </ul>
       <div class="fm">
-        <div>Бюджет<b>$18 000</b></div>
+        <div>Время Тима<b>~24 часа</b></div>
         <div>Лидов в месяц<b>× 4–5</b></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="budget" class="reveal">
-  <span class="sec-num">06</span>
-  <span class="eyebrow">Раскладка бюджета · 90 дней</span>
-  <h2 class="sec-title">Куда уходят 24 300 долларов.</h2>
-  <p class="lead">Главные статьи: переверстка сайта и производство контента во второй половине, платный трафик по ходу, СРМ и инфраструктура ВатсАпа — копейки.</p>
-
-  <div class="budget">
-    <div class="budget-total">
-      <div class="sub">Капвложения за 90 дней</div>
-      <div class="big">$24,3K</div>
-      <div class="sub">+ ~$80 в месяц на операционку</div>
-      <p class="small" style="color:rgba(255,255,255,0.75);margin-top:30px;line-height:1.5">
-        90 дней разделены на три бюджетные волны. Фаза 1 — минимум инфраструктуры,
-        фаза 2 — первые эксперименты с трафиком и партнёрками,
-        фаза 3 — бренд и масштаб.
-      </p>
-    </div>
-
-    <div class="budget-bars">
-      <div class="b-row">
-        <div class="b-label"><span>Фаза 01 · Основа · 7 дней</span><b>$1 000</b></div>
-        <div class="b-bar"><div class="b-fill b-fill-1">4,1%</div></div>
-        <div class="b-bar-items"><span>Подписка СРМ</span><span>Деловой ВатсАп</span><span>Разработчик квиза и лендинга для партнёров</span></div>
-      </div>
-      <div class="b-row">
-        <div class="b-label"><span>Фаза 02 · Быстрые победы · 23 дня</span><b>$5 300</b></div>
-        <div class="b-bar"><div class="b-fill b-fill-2">21,8%</div></div>
-        <div class="b-bar-items"><span>Гугл-реклама $1 500</span><span>Ретаргет в Мете $500</span><span>Видеопродакшн $800</span><span>Кейсы и лид-магнит $400</span><span>Менеджер обхода $600</span><span>Комиссии партнёрам $1 500</span></div>
-      </div>
-      <div class="b-row">
-        <div class="b-label"><span>Фаза 03 · Масштаб · 60 дней</span><b>$18 000</b></div>
-        <div class="b-bar"><div class="b-fill b-fill-3">74,1%</div></div>
-        <div class="b-bar-items"><span>Переверстка $2 500</span><span>Производство контента $3 000</span><span>Масштабирование рекламы $6 000</span><span>Кабинет партнёра $2 500</span><span>Публикации в прессе $2 000</span><span>Вебинар и приз $2 000</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="zero" class="reveal">
-  <span class="sec-num">07</span>
+  <span class="sec-num">06</span>
   <span class="eyebrow">Если бюджет = 0</span>
   <h2 class="sec-title">Восемь шагов за неделю. Бесплатно.</h2>
   <p class="lead">Даже без копейки вложений, 80% эффекта достигается этими восемью шагами за 5–7 дней.</p>
@@ -853,7 +972,7 @@ footer h3{
 </section>
 
 <section id="metrics" class="reveal">
-  <span class="sec-num">08</span>
+  <span class="sec-num">07</span>
   <span class="eyebrow">Метрики · было → стало</span>
   <h2 class="sec-title">Куда двигаем цифры.</h2>
   <p class="lead">X — текущий неизмеренный уровень. Первая задача фазы 1 — поставить учёт и узнать X.</p>
@@ -880,6 +999,83 @@ footer h3{
         <tr><td>Доход на клиента к стоимости привлечения</td><td>—</td><td>&gt; 1</td><td class="grow">≥ 3</td></tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<section id="work" class="reveal">
+  <span class="sec-num">08</span>
+  <span class="eyebrow">Сотрудничество · от $1000 в месяц</span>
+  <h2 class="sec-title">Как мы будем работать вместе.</h2>
+
+  <div class="work-intro">
+    <p class="lead" style="margin-bottom:0">
+      Я — Тим Зинин. Сначала проводим полное исследование бизнеса и принимаем
+      решения на цифрах. Бюджеты на подрядчиков и рекламу планируем уже после —
+      когда понятно, что и зачем делаем. Ниже три способа взять моё время
+      и направить его на ваш бизнес.
+    </p>
+    <div class="work-rate">
+      <div>Час моего времени</div>
+      <div class="num">$250</div>
+      <div>Тарифы — это часы, не подрядчики</div>
+    </div>
+  </div>
+
+  <div class="tiers">
+
+    <article class="tier tier-1">
+      <div class="tier-tag">Тариф 01</div>
+      <div class="tier-name">Старт</div>
+      <div class="tier-price"><b>$1 000</b><span class="pp">в месяц</span></div>
+      <div class="tier-hours">4 часа моего времени</div>
+      <ul>
+        <li>Полная диагностика: сайт, воронка, аналитика, конкуренты</li>
+        <li>Дорожная карта на ближайший месяц</li>
+        <li>Один созвон 60 минут в неделю</li>
+        <li>Письменные ответы и разборы в Телеграме</li>
+        <li>Расстановка приоритетов: что делать первым</li>
+      </ul>
+      <div class="tier-fit">Подходит, если нужно понять, что вообще делать прямо сейчас.</div>
+      <a class="tier-cta" href="https://wa.me/77775754995?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D1%82%D0%B0%D1%80%D0%B8%D1%84%20%D0%A1%D1%82%D0%B0%D1%80%D1%82" target="_blank" rel="noopener">Начать со старта →</a>
+    </article>
+
+    <article class="tier tier-2">
+      <div class="tier-tag">Тариф 02 · популярный</div>
+      <div class="tier-name">Рост</div>
+      <div class="tier-price"><b>$2 000</b><span class="pp">в месяц</span></div>
+      <div class="tier-hours">8 часов моего времени</div>
+      <ul>
+        <li>Всё, что входит в «Старт»</li>
+        <li>Технические задания подрядчикам: квиз, лендинг, реклама</li>
+        <li>Поиск, отбор и контроль фрилансеров</li>
+        <li>Еженедельный анализ метрик и отчёт</li>
+        <li>Два созвона в неделю</li>
+      </ul>
+      <div class="tier-fit">Подходит, если хотите запустить «Быстрые победы» руками подрядчиков под моим контролем.</div>
+      <a class="tier-cta" href="https://wa.me/77775754995?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D1%82%D0%B0%D1%80%D0%B8%D1%84%20%D0%A0%D0%BE%D1%81%D1%82" target="_blank" rel="noopener">Запустить рост →</a>
+    </article>
+
+    <article class="tier tier-3">
+      <div class="tier-tag">Тариф 03 · максимальный</div>
+      <div class="tier-name">Партнёр</div>
+      <div class="tier-price"><b>$3 000</b><span class="pp">в месяц</span></div>
+      <div class="tier-hours">12 часов моего времени</div>
+      <ul>
+        <li>Всё, что входит в «Рост»</li>
+        <li>Я лично вхожу в работу: партнёрка, контент, сценарии звонков</li>
+        <li>Прямые переговоры с топ-каналами в Телеграме</li>
+        <li>Глубокая стратегия и переверстка ключевых страниц</li>
+        <li>Доступ ко мне в Телеграме как к части вашей команды</li>
+      </ul>
+      <div class="tier-fit">Подходит, если хотите видеть меня частью команды и двигаться плотно.</div>
+      <a class="tier-cta" href="https://wa.me/77775754995?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D1%82%D0%B0%D1%80%D0%B8%D1%84%20%D0%9F%D0%B0%D1%80%D1%82%D0%BD%D1%91%D1%80" target="_blank" rel="noopener">Стать партнёром →</a>
+    </article>
+
+  </div>
+
+  <div class="work-final">
+    <div class="h">Не уверены, какой тариф?<br><em>Начнём с 30 минут — бесплатно.</em></div>
+    <a class="btn" href="https://wa.me/77775754995?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D0%B4%D0%B8%D0%B0%D0%B3%D0%BD%D0%BE%D1%81%D1%82%D0%B8%D0%BA%D1%83" target="_blank" rel="noopener">Записаться на диагностику →</a>
   </div>
 </section>
 
