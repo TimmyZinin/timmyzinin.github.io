@@ -1218,6 +1218,17 @@ body.dock-collapsed #action-dock {
   width: 100%;
 }
 
+/* SPRINT 30 — Telegram CTA secondary variant (rescue overlay) */
+.rescue-card .tg-cta.secondary-btn {
+  border-color: #2b5278;
+  color: #7cc4ff;
+}
+.rescue-card .tg-cta.secondary-btn:hover {
+  background: rgba(43, 82, 120, 0.18);
+  border-color: #57a3ff;
+  color: #fff;
+}
+
 /* SPRINT 28 — beautiful ending hero images */
 .ending-hero {
   display: block;
