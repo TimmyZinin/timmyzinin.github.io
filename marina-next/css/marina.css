@@ -1173,6 +1173,11 @@ html, body {
    - Desktop (>640px): hide top #crisis-banner, show in-chat #crisis-banner-chat
      (between chat-pinned and chat-thread, so user sees it without looking up)
    - Mobile (≤640px): hide #crisis-banner-chat (saves chat space), use top banner */
+/* SPRINT 24 — HUD pill cursor signal that tooltips exist */
+.r-pill[title] {
+  cursor: help;
+}
+
 .crisis-banner-chat {
   margin: 6px 18px 4px;
   border-radius: 8px;

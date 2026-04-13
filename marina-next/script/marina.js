@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.3.6';
+  var APP_VERSION = '2.3.7';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -445,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -826,21 +826,27 @@
       return 'crit';
     }
 
+    // SPRINT 24 — show actual clock time (game starts 9:00, ends 17:00)
+    // hours=8 -> "9:00", hours=0 -> "17:00"
+    var hoursLeft = Math.max(0, STATE.hours);
+    var clockHour = 9 + (HOURS_PER_DAY - hoursLeft); // 9..17
+    var clockStr = (clockHour < 10 ? '0' : '') + clockHour + ':00';
+
     var parts = [];
-    parts.push('<div class="r-pill r-day"><span class="r-icon">🗓️</span><span class="r-val">' + STATE.day + '</span><span class="r-max">/' + FINALE_DAY + '</span></div>');
-    parts.push('<div class="r-pill r-hours"><span class="r-icon">⏱️</span><span class="r-val">' + STATE.hours + '</span><span class="r-max">h</span></div>');
+    parts.push('<div class="r-pill r-day" title="День ' + STATE.day + ' из ' + FINALE_DAY + '. Месяц закончится на ' + FINALE_DAY + '-й день — нужно сдать ≥3 проекта, иметь cash≥0, энергию≥25, голод≥30, комфорт≥20."><span class="r-icon">🗓️</span><span class="r-val">' + STATE.day + '</span><span class="r-max">/' + FINALE_DAY + '</span></div>');
+    parts.push('<div class="r-pill r-hours" title="Сейчас ' + clockStr + '. День длится с 9:00 до 17:00 (8 часов). Каждое действие тратит часы. Когда часы кончатся — нажми «лечь спать»."><span class="r-icon">⏱️</span><span class="r-val">' + clockStr + '</span><span class="r-max">·' + hoursLeft + 'ч</span></div>');
     var cashCls = STATE.cash < 0 ? 'crit' : (STATE.cash < 200 ? 'warn' : 'ok');
-    parts.push('<div class="r-pill r-cash ' + cashCls + '"><span class="r-icon">💰</span><span class="r-val">$' + STATE.cash + '</span></div>');
+    parts.push('<div class="r-pill r-cash ' + cashCls + '" title="Деньги Марины. Старт $500. Каждый день −$45 пассив + аренда $500 (день 10/20) + неизбежные траты ($60/$80/$150/$100). Если падёт ниже −$1500 — выселение."><span class="r-icon">💰</span><span class="r-val">$' + STATE.cash + '</span></div>');
     var e = STATE.energy;
-    parts.push('<div class="r-pill r-energy ' + colorClass(e) + '"><span class="r-icon">⚡</span><span class="r-val">' + e + '</span><div class="r-bar"><div class="r-fill" style="width:' + e + '%"></div></div></div>');
+    parts.push('<div class="r-pill r-energy ' + colorClass(e) + '" title="Энергия (0-100). Падает от работы и плохого сна. Восстанавливается ночью (полностью только если поела). Если ниже 25 на финале — проигрыш."><span class="r-icon">⚡</span><span class="r-val">' + e + '</span><div class="r-bar"><div class="r-fill" style="width:' + e + '%"></div></div></div>');
     var h = STATE.hunger || 100;
-    parts.push('<div class="r-pill r-hunger ' + colorClass(h) + '"><span class="r-icon">🍔</span><span class="r-val">' + h + '</span><div class="r-bar"><div class="r-fill" style="width:' + h + '%"></div></div></div>');
+    parts.push('<div class="r-pill r-hunger ' + colorClass(h) + '" title="Голод (0-100). Каждый день −30. Ниже 50 — работа замедляется, ниже 30 — энергия падает. Голод=0 на день 4+ — Марина свалилась. Поешь дома (−$15) или в кафе (−$35)."><span class="r-icon">🍔</span><span class="r-val">' + h + '</span><div class="r-bar"><div class="r-fill" style="width:' + h + '%"></div></div></div>');
     var m = STATE.comfort || 0;
-    parts.push('<div class="r-pill r-comfort ' + colorClass(m) + '"><span class="r-icon">💚</span><span class="r-val">' + m + '</span><div class="r-bar"><div class="r-fill" style="width:' + m + '%"></div></div></div>');
+    parts.push('<div class="r-pill r-comfort ' + colorClass(m) + '" title="Комфорт / настроение (0-100). Каждый день −10. Ниже 35 — импульсивные покупки. Ниже 5 на день 15+ — нервы могут сдать. Шопинг, кафе, друзья (Денис) поднимают."><span class="r-icon">💚</span><span class="r-val">' + m + '</span><div class="r-bar"><div class="r-fill" style="width:' + m + '%"></div></div></div>');
 
     if (STATE.bank_locked) {
       var daysLeft = Math.max(0, (STATE.bank_locked_until || STATE.day) - STATE.day);
-      parts.push('<div class="r-pill r-locked"><span class="r-icon">🔒</span><span class="r-val">115-ФЗ</span><span class="r-max">· ' + daysLeft + 'д</span></div>');
+      parts.push('<div class="r-pill r-locked" title="Счёт заблокирован по 115-ФЗ (подозрительная транзакция). Все траты невозможны: еда, оффер, шопинг. Ждать ' + daysLeft + ' дней до разблокировки."><span class="r-icon">🔒</span><span class="r-val">115-ФЗ</span><span class="r-max">· ' + daysLeft + 'д</span></div>');
     }
 
     var html = parts.join('');
