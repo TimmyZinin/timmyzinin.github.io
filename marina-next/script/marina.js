@@ -14,7 +14,12 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.3.0';
+  // SPRINT 18 — split versions
+  // APP_VERSION: cache-bust + UI display, changes every deploy
+  // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
+  var APP_VERSION = '2.3.1';
+  var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
+  var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -315,6 +320,32 @@
       _denis9_pending: false,
       _denis15_pending: false,
       _denis27_pending: false,
+      // SPRINT 18 — all _*_pending flags explicit-init policy
+      _anna_pending: false,
+      _anna_referral_pending: false,
+      _artur_pending: false,
+      _khozyaika1_pending: false,
+      _khozyaika2_pending: false,
+      _khozyaika3_pending: false,
+      _khozyaika4_pending: false,
+      _khozyaika_chain_pending: false,
+      _khozyaika_electric_pending: false,
+      _kirill_complaint_pending: false,
+      _kirill_love1_pending: false,
+      _kirill_love2_pending: false,
+      _kirill_love_final_pending: false,
+      _kirill_pending: false,
+      _krypta_pending: false,
+      _mama6_pending: false,
+      _mama17_pending: false,
+      _olya_pending: false,
+      _pavel_pending: false,
+      _sosed_pending: false,
+      _svetka_pending: false,
+      _tim_consult_pending: false,
+      _tim_tier2_pending: false,
+      _tim_tier3_pending: false,
+      _vera_pending: false,
       // recurring spam intros (BLOCK A)
       beat_olya: false,
       beat_kirill: false,
@@ -407,7 +438,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
