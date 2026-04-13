@@ -11,13 +11,15 @@
 
   /**
    * Generate pseudo-timestamp based on in-game day + hour-in-day.
-   * Day 1 starts at 09:00. Each in-game hour advances 1h of display clock.
+   * SPRINT 46 — unified with HUD clock: Marina's day is 9:00 → 23:00
+   * (14 real hours = 8 game slots, so 1 game-hour = 1.75 real hours).
    * hours: 8 (start of day) → 0 (end of day)
    */
   function formatTimestamp(gameDay, hoursLeft) {
     var baseHour = 9; // 9 AM start
     var hoursIntoDay = 8 - hoursLeft;
-    var totalMinutes = baseHour * 60 + hoursIntoDay * 60 + Math.floor(Math.random() * 15);
+    // 1 game-hour = 1.75 real hours = 105 min; small jitter 0-8 min to avoid desync
+    var totalMinutes = baseHour * 60 + Math.floor(hoursIntoDay * 105) + Math.floor(Math.random() * 8);
     var h = Math.floor(totalMinutes / 60) % 24;
     var m = totalMinutes % 60;
     return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
