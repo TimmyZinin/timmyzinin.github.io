@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.6.9';
+  var APP_VERSION = '2.7.0';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -463,7 +463,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.6.6', '2.6.7', '2.6.8', '2.6.9', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.6.6', '2.6.7', '2.6.8', '2.6.9', '2.7.0', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -1916,6 +1916,46 @@
     return el.getBoundingClientRect();
   }
 
+  // SPRINT 42 — confetti burst for win overlay (CSS-only, GPU-friendly)
+  function spawnConfetti(count) {
+    var n = count || 80;
+    var colors = ['#ff6b3d', '#ffd166', '#65c77e', '#7cc4ff', '#ff6b95', '#c197ff', '#ffffff'];
+    for (var i = 0; i < n; i++) {
+      (function (idx) {
+        var $c = $('<div class="confetti">');
+        var startX = window.innerWidth * (0.1 + Math.random() * 0.8);
+        var startY = -20 - Math.random() * 80;
+        var endX = startX + (Math.random() - 0.5) * 400;
+        var endY = window.innerHeight + 60;
+        var rotEnd = (Math.random() - 0.5) * 1080;
+        var size = 6 + Math.random() * 8;
+        var color = colors[idx % colors.length];
+        $c.css({
+          left: startX + 'px',
+          top: startY + 'px',
+          width: size + 'px',
+          height: (size * (0.5 + Math.random() * 1.2)) + 'px',
+          background: color,
+          transform: 'rotate(0deg)',
+          opacity: '1'
+        });
+        $(document.body).append($c);
+        var dur = 2200 + Math.random() * 1800;
+        var delay = idx * 18;
+        setTimeout(function () {
+          $c.css({
+            transition: 'transform ' + dur + 'ms cubic-bezier(0.2, 0.7, 0.4, 1), top ' + dur + 'ms cubic-bezier(0.3, 0.6, 0.5, 1), left ' + dur + 'ms ease-out, opacity ' + (dur - 400) + 'ms ease-in',
+            top: endY + 'px',
+            left: endX + 'px',
+            transform: 'rotate(' + rotEnd + 'deg)',
+            opacity: '0.85'
+          });
+        }, delay);
+        setTimeout(function () { $c.remove(); }, dur + delay + 400);
+      })(i);
+    }
+  }
+
   function spawnParticle(opts) {
     // opts: { from: {x,y} OR actionId, to: {x,y} OR actionId OR 'cash', kind, icon, duration }
     if (_particleCount >= 14) return;
@@ -2471,7 +2511,7 @@
         // Check mid-month hard-fail conditions (hunger starvation / comfort breakdown / cash crash)
         try { checkEndings(false); } catch (e) {}
         // SPRINT 02 — Finale track kicks in on last 2 days
-        if (STATE.day >= 29 && window.MarinaAudio && window.MarinaAudio.playFinaleTrack) {
+        if (STATE.day >= 27 && window.MarinaAudio && window.MarinaAudio.playFinaleTrack) { // SPRINT 42 — earlier finale music
           try { window.MarinaAudio.playFinaleTrack(); } catch (e) {}
         }
       } catch (e) {
@@ -4399,12 +4439,14 @@
     $card.find('.ending-hero').remove();
     var winHero = STATE.love_ending_unlocked ? 'img/endings/win_love.webp' : 'img/endings/win_main.webp';
     $('<img class="ending-hero" />').attr('src', winHero).attr('alt', 'победа').prependTo($card);
+    // SPRINT 42 — confetti burst on win
+    try { spawnConfetti(120); } catch (e) {}
     if (STATE.love_ending_unlocked) {
       var $love = $('<div class="love-bonus">').html(
         '<div class="love-kicker">❤️ LOVE ENDING UNLOCKED</div>' +
         '<p>ты не только дожила до конца месяца — ты ещё и влюбилась.</p>' +
-        '<p>Кирилл не был персонажем. он был человеком. и ты это увидела.</p>' +
-        '<p class="love-quiet">в следующем месяце он рядом.</p>'
+        '<p>с Кириллом всё стало просто: он рядом, ты дома, и работа больше не одна.</p>' +
+        '<p class="love-quiet">впереди — следующий месяц, и он точно будет другим.</p>'
       );
       $card.find('.overlay-body').after($love);
     }

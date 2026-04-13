@@ -1274,6 +1274,16 @@ body.dock-collapsed #action-dock {
   color: #fff;
 }
 
+/* SPRINT 42 — win overlay confetti burst */
+.confetti {
+  position: fixed;
+  z-index: 1100;
+  pointer-events: none;
+  border-radius: 2px;
+  will-change: transform, top, left, opacity;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.18);
+}
+
 /* SPRINT 28 — beautiful ending hero images */
 .ending-hero {
   display: block;
