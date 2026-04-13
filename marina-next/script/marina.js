@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.3.5';
+  var APP_VERSION = '2.3.6';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -445,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -791,7 +791,8 @@
     } else if (m != null && m < 15) {
       msg = '💔 КОМФОРТ ОБНУЛИЛСЯ · ты сгораешь · шопинг/еда/друзья';
       cls = 'crit';
-    } else if (h != null && h < 30) {
+    } else if (h != null && h < 50) {
+      // SPRINT 23 — earlier hunger warn so daily food becomes mandatory
       msg = '🍔 голодно · хочется настоящей еды';
       cls = 'warn';
     } else if (e < 30) {
@@ -799,10 +800,15 @@
       cls = 'warn';
     }
 
+    // SPRINT 23 — render to BOTH banners (mobile top + desktop in-chat).
+    // CSS hides the irrelevant one per breakpoint.
+    var $bannerChat = $('#crisis-banner-chat');
     if (msg) {
       $banner.text(msg).attr('class', 'crisis-banner ' + cls).show();
+      if ($bannerChat.length) $bannerChat.text(msg).attr('class', 'crisis-banner crisis-banner-chat ' + cls).show();
     } else {
       $banner.hide();
+      if ($bannerChat.length) $bannerChat.hide();
     }
   }
 
@@ -3543,7 +3549,7 @@
     STATE.cash -= 45; // daily: метро + кофе + подписки + мелочи + вайбы
     if (STATE.hunger == null) STATE.hunger = 100;
     if (STATE.comfort == null) STATE.comfort = 60;
-    STATE.hunger = Math.max(0, STATE.hunger - 25); // SPRINT 14 — even more punishing
+    STATE.hunger = Math.max(0, STATE.hunger - 30); // SPRINT 23 — daily food required (was 25)
     STATE.comfort = Math.max(0, STATE.comfort - 10); // SPRINT 14 — increased decay
 
     // Low hunger → sharp energy drain (stronger v2.1.1)

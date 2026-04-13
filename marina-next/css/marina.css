@@ -1169,6 +1169,25 @@ html, body {
   50%      { opacity: 0.72; }
 }
 
+/* SPRINT 23 — Crisis banner placement responsive policy:
+   - Desktop (>640px): hide top #crisis-banner, show in-chat #crisis-banner-chat
+     (between chat-pinned and chat-thread, so user sees it without looking up)
+   - Mobile (≤640px): hide #crisis-banner-chat (saves chat space), use top banner */
+.crisis-banner-chat {
+  margin: 6px 18px 4px;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+@media (min-width: 641px) {
+  /* Desktop: top banner hidden, in-chat banner active */
+  #crisis-banner { display: none !important; }
+}
+@media (max-width: 640px) {
+  /* Mobile: in-chat banner hidden (top banner stays) */
+  #crisis-banner-chat { display: none !important; }
+}
+
 /* ========== Mobile ≤640px — navigation stack: list view ↔ chat view ========== */
 
 @media (max-width: 640px) {
