@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.3';
+  var VERSION = '2.2.4';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -407,7 +407,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -1654,7 +1654,7 @@
     } else {
       var roll = Math.random();
       var e = STATE.energy;
-      var hitChance = e >= 70 ? 0.65 : (e >= 40 ? 0.50 : 0.30);
+      var hitChance = e >= 70 ? 0.50 : (e >= 40 ? 0.40 : 0.25); // SPRINT 15 — was 0.65/0.50/0.30
       hit = roll < hitChance;
       if (hit) STATE.reach_out_misses = 0;
       else STATE.reach_out_misses += 1;
@@ -1756,7 +1756,7 @@
           client: pick(['лендинг saas','бриф dtc','email-серия','кейс-стади','reels-пакет']),
           progress: 0,
           work_units_done: 0,
-          work_units_total: 3, // 3 work sessions needed
+          work_units_total: 4, // SPRINT 15 — was 3, increased to slow snowball economy
           upfront_paid: upfront,
           final_due: finalPayment,
           final_payment: finalPayment,
@@ -3478,7 +3478,7 @@
         client: pick(['ai lead saas','ai d2c','ai b2b','ai study']),
         progress: 0,
         work_units_done: 0,
-        work_units_total: 3,
+        work_units_total: 4, // SPRINT 15 — same as manual, slow snowball
         upfront_paid: autoUpfront,
         final_due: autoFinal,
         final_payment: autoFinal,
