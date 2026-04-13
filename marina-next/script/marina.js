@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.6.0';
+  var APP_VERSION = '2.6.1';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -453,7 +453,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -618,18 +618,22 @@
         hideOnMobile: STATE.active_projects.length === 0 || STATE.day < 3
       });
       // Еда + отдых + шопинг
+      // SPRINT 35 — eating allowed even when hours=0 (evening meal, free of work hours)
       actions.push({
-        id: 'eat_home', label: '🍝 поесть дома', cost: '1ч · −$15',
+        id: 'eat_home',
+        label: '🍝 поесть дома',
+        cost: STATE.hours >= 1 ? '1ч · −$15' : 'ужин · −$15',
         badge: STATE.hunger < 30 ? '!' : null,
         badgePulse: STATE.hunger < 30,
-        disabled: STATE.cash < COST.eat_home.c || STATE.hours < COST.eat_home.h || STATE.bank_locked,
-        reason: STATE.bank_locked ? 'счёт заблокирован' : (STATE.cash < COST.eat_home.c ? 'не хватает денег' : 'нет часов'),
-        hideOnMobile: STATE.hours < COST.eat_home.h && STATE.hunger >= 30
+        disabled: STATE.cash < COST.eat_home.c || STATE.bank_locked,
+        reason: STATE.bank_locked ? 'счёт заблокирован' : 'не хватает денег'
       });
       actions.push({
-        id: 'eat_out', label: '🥗 кафе', cost: '1ч · −$35',
-        disabled: STATE.cash < COST.eat_out.c || STATE.hours < COST.eat_out.h || STATE.bank_locked,
-        reason: STATE.bank_locked ? 'счёт заблокирован' : (STATE.cash < COST.eat_out.c ? 'не хватает денег' : 'нет часов')
+        id: 'eat_out',
+        label: '🥗 кафе',
+        cost: STATE.hours >= 1 ? '1ч · −$35' : 'ужин · −$35',
+        disabled: STATE.cash < COST.eat_out.c || STATE.bank_locked,
+        reason: STATE.bank_locked ? 'счёт заблокирован' : 'не хватает денег'
       });
       actions.push({
         id: 'rest', label: '☕ перерыв', cost: '1ч · +30⚡',
@@ -2018,11 +2022,13 @@
 
   // ===== BLOCK B new actions: food / comfort / dates =====
 
+  // SPRINT 35 — eating allowed even when hours=0 (evening meal doesn't cost work hours)
   function actEatHome() {
     if (STATE.bank_locked) return;
     if (STATE.cash < COST.eat_home.c) return;
-    if (STATE.hours < COST.eat_home.h) return;
-    STATE.hours -= COST.eat_home.h;
+    // Eating in the evening is free of work-hour cost (only deducts during work day)
+    var hCost = STATE.hours >= COST.eat_home.h ? COST.eat_home.h : 0;
+    STATE.hours = Math.max(0, STATE.hours - hCost);
     STATE.cash -= COST.eat_home.c;
     STATE.hunger = Math.min(100, STATE.hunger + COST.eat_home.f);
     STATE.comfort = Math.min(100, STATE.comfort + COST.eat_home.m);
@@ -2030,7 +2036,8 @@
     runAction(function () {
       postOutgoing('scratch', pick(EAT_HOME_TEXT));
       setTimeout(function () {
-        postSystem('scratch', '+' + COST.eat_home.f + ' сытости · −$' + COST.eat_home.c);
+        var hint = hCost === 0 ? ' · ужин перед сном' : '';
+        postSystem('scratch', '+' + COST.eat_home.f + ' сытости · −$' + COST.eat_home.c + hint);
       }, 400);
     });
   }
@@ -2038,8 +2045,8 @@
   function actEatOut() {
     if (STATE.bank_locked) return;
     if (STATE.cash < COST.eat_out.c) return;
-    if (STATE.hours < COST.eat_out.h) return;
-    STATE.hours -= COST.eat_out.h;
+    var hCost2 = STATE.hours >= COST.eat_out.h ? COST.eat_out.h : 0;
+    STATE.hours = Math.max(0, STATE.hours - hCost2);
     STATE.cash -= COST.eat_out.c;
     STATE.hunger = Math.min(100, STATE.hunger + COST.eat_out.f);
     STATE.comfort = Math.min(100, STATE.comfort + COST.eat_out.m);
@@ -2047,7 +2054,8 @@
     runAction(function () {
       postOutgoing('scratch', pick(EAT_OUT_TEXT));
       setTimeout(function () {
-        postSystem('scratch', '+' + COST.eat_out.f + ' сытости · +' + COST.eat_out.m + ' комфорт · −$' + COST.eat_out.c);
+        var hint2 = hCost2 === 0 ? ' · ужин в кафе перед сном' : '';
+        postSystem('scratch', '+' + COST.eat_out.f + ' сытости · +' + COST.eat_out.m + ' комфорт · −$' + COST.eat_out.c + hint2);
         postBank(-COST.eat_out.c, 'кафе на углу');
       }, 400);
     });
