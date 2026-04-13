@@ -1434,6 +1434,18 @@ html, body {
   .dock-btn.mobile-hide {
     display: none !important;
   }
+  /* SPRINT 17 — hide desktop keyboard shortcut hint on mobile */
+  .desktop-hint {
+    display: none !important;
+  }
+}
+
+/* SPRINT 17 — Desktop keyboard shortcut hint */
+.desktop-hint {
+  color: var(--subtle);
+  font-size: 10px;
+  cursor: help;
+  border-bottom: 1px dotted var(--subtle);
 }
 
 @media (max-width: 380px) {

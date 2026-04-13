@@ -14,7 +14,7 @@
 
   // ========== constants ==========
 
-  var VERSION = '2.2.8';
+  var VERSION = '2.2.9';
   var STATE_KEY = 'marina-fire:v2.0:state';
   var VERSION_KEY = 'marina-fire:v2.0:version';
   var OLD_KEYS = [
@@ -407,7 +407,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -3838,6 +3838,53 @@
         clearState();
         sessionStorage.removeItem(SESSION_KEY);
         location.reload();
+      }
+    });
+
+    // SPRINT 17 — Desktop keyboard shortcuts
+    // Only active on desktop (>640px) to avoid conflicts with mobile keyboards
+    $(document).on('keydown', function (e) {
+      if (window.innerWidth <= 640) return;
+      // Ignore shortcuts while typing in form inputs
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      // Ignore if any overlay is visible (intro/win/lose)
+      if ($('#intro-overlay').is(':visible') || $('#win-overlay').is(':visible') || $('#lose-overlay').is(':visible')) return;
+
+      // Digits 1-9 — click Nth visible non-disabled dock button
+      var dig = parseInt(e.key, 10);
+      if (dig >= 1 && dig <= 9) {
+        e.preventDefault();
+        var $btns = $('#dock-buttons .dock-btn:not([disabled])');
+        var $btn = $btns.eq(dig - 1);
+        if ($btn.length) $btn.click();
+        return;
+      }
+      // Esc — close chat (mobile) or do nothing on desktop
+      if (e.key === 'Escape') {
+        if (document.body.classList.contains('chat-open')) {
+          document.body.classList.remove('chat-open');
+        }
+        return;
+      }
+      // Space or Enter — end day (primary accessible action)
+      if (e.key === ' ' || e.key === 'Enter') {
+        var $end = $('.dock-btn[data-action="end_day"]:not([disabled])');
+        if ($end.length) {
+          e.preventDefault();
+          $end.click();
+        }
+        return;
+      }
+      // Arrow keys — navigate contacts list
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        var $list = $('#contacts-list .contact-item');
+        if ($list.length === 0) return;
+        var $active = $list.filter('.active');
+        var idx = $active.length ? $list.index($active) : -1;
+        idx = (e.key === 'ArrowDown') ? (idx + 1) % $list.length
+                                       : (idx - 1 + $list.length) % $list.length;
+        $list.eq(idx).click();
       }
     });
   }
