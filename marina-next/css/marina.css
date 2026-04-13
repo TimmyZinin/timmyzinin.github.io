@@ -1178,6 +1178,23 @@ html, body {
   cursor: help;
 }
 
+/* SPRINT 27 — rent countdown pill */
+.r-pill.r-rent {
+  background: rgba(255, 181, 71, 0.10);
+  border-color: rgba(255, 181, 71, 0.35);
+}
+.r-pill.r-rent.warn {
+  background: rgba(255, 181, 71, 0.18);
+  border-color: rgba(255, 181, 71, 0.55);
+  color: #ffd07a;
+}
+.r-pill.r-rent.crit {
+  background: rgba(255, 69, 32, 0.18);
+  border-color: rgba(255, 69, 32, 0.6);
+  color: #ff9873;
+  animation: critPulse 1.8s ease-in-out infinite;
+}
+
 .crisis-banner-chat {
   margin: 6px 18px 4px;
   border-radius: 8px;

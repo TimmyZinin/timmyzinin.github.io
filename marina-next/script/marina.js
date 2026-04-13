@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.4.1';
+  var APP_VERSION = '2.4.2';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -445,7 +445,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -837,6 +837,20 @@
     parts.push('<div class="r-pill r-hours" title="Сейчас ' + clockStr + '. День длится с 9:00 до 17:00 (8 часов). Каждое действие тратит часы. Когда часы кончатся — нажми «лечь спать»."><span class="r-icon">⏱️</span><span class="r-val">' + clockStr + '</span><span class="r-max">·' + hoursLeft + 'ч</span></div>');
     var cashCls = STATE.cash < 0 ? 'crit' : (STATE.cash < 200 ? 'warn' : 'ok');
     parts.push('<div class="r-pill r-cash ' + cashCls + '" title="Деньги Марины. Старт $500. Каждый день −$45 пассив + аренда $500 (день 10/20) + неизбежные траты ($60/$80/$150/$100). Если падёт ниже −$1500 — выселение."><span class="r-icon">💰</span><span class="r-val">$' + STATE.cash + '</span></div>');
+
+    // SPRINT 27 — rent countdown pill: показывает следующую аренду + сколько дней
+    var rentDay = null;
+    if (STATE.day < 10 && !STATE.beat_rent_10) rentDay = 10;
+    else if (STATE.day < 20 && !STATE.beat_rent_20 && !STATE.beat_khozyaika_rescue) rentDay = 20;
+    // After rescue (day 12), khozyaika forgives second rent — no rent pill
+    if (rentDay !== null) {
+      var daysLeft = rentDay - STATE.day;
+      var rentCls = daysLeft <= 2 ? 'crit' : (daysLeft <= 5 ? 'warn' : 'ok');
+      var canPay = STATE.cash >= 500;
+      var rentTitle = 'Следующая аренда: $500 на день ' + rentDay + '. Осталось ' + daysLeft + ' дн. ' +
+                      (canPay ? '✓ хватает.' : 'Не хватает $' + (500 - STATE.cash) + ' — заработай или продай услугу.');
+      parts.push('<div class="r-pill r-rent ' + rentCls + '" title="' + rentTitle + '"><span class="r-icon">🏠</span><span class="r-val">$500</span><span class="r-max">·' + daysLeft + 'дн</span></div>');
+    }
     var e = STATE.energy;
     parts.push('<div class="r-pill r-energy ' + colorClass(e) + '" title="Энергия (0-100). Падает от работы и плохого сна. Восстанавливается ночью (полностью только если поела). Если ниже 25 на финале — проигрыш."><span class="r-icon">⚡</span><span class="r-val">' + e + '</span><div class="r-bar"><div class="r-fill" style="width:' + e + '%"></div></div></div>');
     var h = STATE.hunger || 100;
