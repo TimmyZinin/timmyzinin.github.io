@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.5.8';
+  var APP_VERSION = '2.6.0';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -453,7 +453,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -579,7 +579,8 @@
         auto: STATE.auto_reach_out,
         disabled: STATE.auto_reach_out || STATE.hours < COST.reach_out.h || STATE.energy < COST.reach_out.e,
         reason: STATE.auto_reach_out ? 'AI автоматизирован' : (STATE.hours < COST.reach_out.h ? 'нет часов' : 'нет энергии'),
-        primary: !STATE.auto_reach_out
+        primary: !STATE.auto_reach_out && STATE.hours > 0,
+        hideOnMobile: STATE.hours < COST.reach_out.h
       });
       actions.push({
         id: 'brief_lead',
@@ -589,7 +590,8 @@
         badge: !STATE.auto_brief_lead && STATE.leads > 0 ? STATE.leads : null,
         badgeHot: STATE.leads > 0,
         disabled: STATE.auto_brief_lead || STATE.leads < 1 || STATE.hours < COST.brief_lead.h || STATE.energy < COST.brief_lead.e,
-        reason: STATE.auto_brief_lead ? 'AI автоматизирован' : (STATE.leads < 1 ? 'нет лидов' : (STATE.hours < COST.brief_lead.h ? 'нет часов' : 'нет энергии'))
+        reason: STATE.auto_brief_lead ? 'AI автоматизирован' : (STATE.leads < 1 ? 'нет лидов' : (STATE.hours < COST.brief_lead.h ? 'нет часов' : 'нет энергии')),
+        hideOnMobile: STATE.hours < COST.brief_lead.h
       });
       actions.push({
         id: 'send_offer',
@@ -599,13 +601,15 @@
         badge: !STATE.auto_send_offer && STATE.qualified_leads > 0 ? STATE.qualified_leads : null,
         badgeHot: STATE.qualified_leads > 0,
         disabled: STATE.auto_send_offer || STATE.qualified_leads < 1 || STATE.hours < COST.send_offer.h || STATE.bank_locked,
-        reason: STATE.auto_send_offer ? 'AI автоматизирован' : (STATE.bank_locked ? 'счёт заблокирован' : (STATE.qualified_leads < 1 ? 'нет брифов' : 'нет часов'))
+        reason: STATE.auto_send_offer ? 'AI автоматизирован' : (STATE.bank_locked ? 'счёт заблокирован' : (STATE.qualified_leads < 1 ? 'нет брифов' : 'нет часов')),
+        hideOnMobile: STATE.hours < COST.send_offer.h
       });
       actions.push({
         id: 'work_on_project', label: 'делать работу', cost: '2ч · −5⚡',
         badge: STATE.active_projects.length > 0 ? STATE.active_projects.length : null,
         disabled: STATE.active_projects.length === 0 || STATE.hours < COST.work_on_project.h || STATE.energy < COST.work_on_project.e,
-        reason: STATE.active_projects.length === 0 ? 'нет проектов' : (STATE.hours < COST.work_on_project.h ? 'нет часов' : 'нет энергии')
+        reason: STATE.active_projects.length === 0 ? 'нет проектов' : (STATE.hours < COST.work_on_project.h ? 'нет часов' : 'нет энергии'),
+        hideOnMobile: STATE.hours < COST.work_on_project.h
       });
       actions.push({
         id: 'work_night', label: '🌙 ночная работа', cost: '−15⚡ · −15💚',
@@ -619,7 +623,8 @@
         badge: STATE.hunger < 30 ? '!' : null,
         badgePulse: STATE.hunger < 30,
         disabled: STATE.cash < COST.eat_home.c || STATE.hours < COST.eat_home.h || STATE.bank_locked,
-        reason: STATE.bank_locked ? 'счёт заблокирован' : (STATE.cash < COST.eat_home.c ? 'не хватает денег' : 'нет часов')
+        reason: STATE.bank_locked ? 'счёт заблокирован' : (STATE.cash < COST.eat_home.c ? 'не хватает денег' : 'нет часов'),
+        hideOnMobile: STATE.hours < COST.eat_home.h && STATE.hunger >= 30
       });
       actions.push({
         id: 'eat_out', label: '🥗 кафе', cost: '1ч · −$35',
@@ -665,9 +670,15 @@
           hideOnMobile: !hasDenisPending
         });
       }
+      // SPRINT 34 — when hours=0, end_day becomes the only meaningful action.
+      // Force-primary + bigger label to make it obvious.
+      var hoursOver = STATE.hours <= 0;
       actions.push({
-        id: 'end_day', label: '🌙 лечь спать', cost: 'конец дня',
-        disabled: false
+        id: 'end_day',
+        label: hoursOver ? '🌙 лечь спать — день закончен' : '🌙 лечь спать',
+        cost: 'конец дня',
+        disabled: false,
+        primary: hoursOver
       });
     }
 
@@ -850,10 +861,11 @@
     parts.push('<div class="r-pill r-cash ' + cashCls + '" title="Деньги Марины. Старт $500. Каждый день −$45 пассив + аренда $500 (день 10/20) + неизбежные траты ($60/$80/$150/$100). Если падёт ниже −$1500 — выселение."><span class="r-icon">💰</span><span class="r-val">$' + STATE.cash + '</span></div>');
 
     // SPRINT 27 — rent countdown pill: показывает следующую аренду + сколько дней
+    // SPRINT 34 — after rescue, next payment is end-of-month (day 30) not hidden
     var rentDay = null;
     if (STATE.day < 10 && !STATE.beat_rent_10) rentDay = 10;
     else if (STATE.day < 20 && !STATE.beat_rent_20 && !STATE.beat_khozyaika_rescue) rentDay = 20;
-    // After rescue (day 12), khozyaika forgives second rent — no rent pill
+    else if (STATE.beat_khozyaika_rescue && STATE.day < FINALE_DAY) rentDay = FINALE_DAY;
     if (rentDay !== null) {
       var daysLeft = rentDay - STATE.day;
       var rentCls = daysLeft <= 2 ? 'crit' : (daysLeft <= 5 ? 'warn' : 'ok');
@@ -1818,7 +1830,7 @@
     } else {
       var roll = Math.random();
       var e = STATE.energy;
-      var hitChance = e >= 70 ? 0.50 : (e >= 40 ? 0.40 : 0.25); // SPRINT 15 — was 0.65/0.50/0.30
+      var hitChance = e >= 70 ? 0.60 : (e >= 40 ? 0.48 : 0.30); // SPRINT 34 — eased back +10%
       hit = roll < hitChance;
       if (hit) STATE.reach_out_misses = 0;
       else STATE.reach_out_misses += 1;
@@ -1967,7 +1979,9 @@
         if (STATE.hunger < 30) extra = ' · 🍔 голод снижает прогресс';
         else if (STATE.hunger < 50) extra = ' · 🍔 голодно';
         if (STATE._hangover_active) extra += ' · ☕ похмелье';
-        postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '%' + extra);
+        // SPRINT 34 — show units progress explicitly so player sees movement
+        var totalU = p.work_units_total || 3;
+        postSystem('scratch', 'проект #' + p.id + ' · ' + (p.work_units_done || 0).toFixed(1) + '/' + totalU + ' units · ' + Math.floor(p.progress) + '%' + extra);
         if (p.work_units_done >= (p.work_units_total || 3)) {
           // Delivered — money particle flies to cash pill
           STATE.active_projects.shift();
@@ -2109,6 +2123,8 @@
       if (STATE.hunger < 30) nightProgress = 22;
       else if (STATE.hunger < 50) nightProgress = 37;
       // SPRINT 19 — fatigue bug: instead of +progress, lose 0.5 work_units
+      // SPRINT 34 — show explicit work_units in system message (Tim: 'progress не идёт')
+      var totalUnits = p.work_units_total || 3;
       if (fatigueBug) {
         p.work_units_done = Math.max(0, (p.work_units_done || 0) - 0.5);
         postOutgoing('scratch', 'опять баг в коде ночью · переделала утром то что сломала');
@@ -2118,10 +2134,11 @@
         postOutgoing('scratch', pick(WORK_NIGHT_TEXT));
       }
       setTimeout(function () {
+        var unitsTxt = ' · ' + p.work_units_done.toFixed(1) + '/' + totalUnits + ' units';
         if (fatigueBug) {
-          postSystem('scratch', '⚠ ночная работа · усталость · прогресс -0.5 unit');
+          postSystem('scratch', '⚠ ночная работа · усталость · −0.5 unit' + unitsTxt);
         } else {
-          postSystem('scratch', 'проект #' + p.id + ' · прогресс ' + Math.floor(p.progress) + '% · −15⚡ ночной режим · завтра будет тяжело');
+          postSystem('scratch', 'проект #' + p.id + ' · +1.5 units' + unitsTxt + ' · −15⚡ ночной режим · завтра будет тяжело');
         }
         if (p.work_units_done >= (p.work_units_total || 3)) {
           // Delivered
@@ -2148,7 +2165,17 @@
     // Show night overlay first
     var $overlay = $('#night-overlay');
     var $text = $overlay.find('.night-text');
-    $text.text('ночь · день ' + prevDay + ' позади');
+    // SPRINT 34 — show next-rent countdown on night overlay
+    var nextRentDay = null;
+    if (prevDay < 10 && !STATE.beat_rent_10) nextRentDay = 10;
+    else if (prevDay < 20 && !STATE.beat_rent_20 && !STATE.beat_khozyaika_rescue) nextRentDay = 20;
+    else if (STATE.beat_khozyaika_rescue && prevDay < FINALE_DAY) nextRentDay = FINALE_DAY; // post-rescue: next pay = end of month
+    var rentLine = '';
+    if (nextRentDay !== null) {
+      var dl = nextRentDay - prevDay;
+      rentLine = ' · 🏠 аренда через ' + dl + ' дн (день ' + nextRentDay + ')';
+    }
+    $text.text('ночь · день ' + prevDay + ' позади' + rentLine);
     $overlay.addClass('active');
     renderDock();
 
@@ -3664,7 +3691,8 @@
 
   function processPassive(day) {
     // Base daily drains (survival economy v2.1.1 — tightened per playtest feedback)
-    STATE.cash -= 45; // daily: метро + кофе + подписки + мелочи + вайбы
+    // SPRINT 34 — eased $45 -> $35 (Tim feedback: 'не получается в ноль вырулить')
+    STATE.cash -= 35; // daily: метро + кофе + подписки + мелочи + вайбы
     if (STATE.hunger == null) STATE.hunger = 100;
     if (STATE.comfort == null) STATE.comfort = 60;
     STATE.hunger = Math.max(0, STATE.hunger - 30); // SPRINT 23 — daily food required (was 25)
