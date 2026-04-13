@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.6.7';
+  var APP_VERSION = '2.6.8';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -461,7 +461,7 @@
     });
     // SPRINT 14.1 rev3 — forward-merge compatible saves across 2.x minor versions
     // (Codex decision audit BLOCKER #2: don't reset player progress on every bump)
-    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.6.6', '2.6.7', '2.1.1'];
+    var COMPATIBLE_VERSIONS = ['2.2.0', '2.2.1', '2.2.2', '2.2.3', '2.2.4', '2.2.5', '2.2.6', '2.2.7', '2.2.8', '2.2.9', '2.3.0', '2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '2.3.8', '2.3.9', '2.4.0', '2.4.1', '2.4.2', '2.4.3', '2.5.0', '2.5.1', '2.5.2', '2.5.3', '2.5.4', '2.5.5', '2.5.6', '2.5.7', '2.5.8', '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.6.6', '2.6.7', '2.6.8', '2.1.1'];
     try {
       var raw = localStorage.getItem(STATE_KEY);
       var ver = localStorage.getItem(VERSION_KEY);
@@ -619,11 +619,16 @@
         reason: STATE.active_projects.length === 0 ? 'нет проектов' : (STATE.hours < COST.work_on_project.h ? 'нет часов' : 'нет энергии'),
         hideOnMobile: STATE.hours < COST.work_on_project.h
       });
+      // SPRINT 40 — night work mutually exclusive with day work.
+      // Available ONLY when work day is over (hours < required for day work).
+      // Day mode: 'делать работу' enabled, 'ночная работа' hidden.
+      // Night mode (no hours left): 'делать работу' hidden, 'ночная работа' enabled.
+      var dayWorkAvail = STATE.hours >= COST.work_on_project.h;
       actions.push({
         id: 'work_night', label: '🌙 ночная работа', cost: '−15⚡ · −15💚',
-        disabled: STATE.active_projects.length === 0 || STATE.day < 3 || STATE.energy < COST.work_night.e,
-        reason: STATE.day < 3 ? 'доступно с дня 3' : (STATE.active_projects.length === 0 ? 'нет проектов' : 'мало энергии'),
-        hideOnMobile: STATE.active_projects.length === 0 || STATE.day < 3
+        disabled: STATE.active_projects.length === 0 || STATE.day < 3 || STATE.energy < COST.work_night.e || dayWorkAvail,
+        reason: STATE.day < 3 ? 'доступно с дня 3' : (STATE.active_projects.length === 0 ? 'нет проектов' : (dayWorkAvail ? 'сначала рабочий день' : 'мало энергии')),
+        hideOnMobile: STATE.active_projects.length === 0 || STATE.day < 3 || dayWorkAvail
       });
       // Еда + отдых + шопинг
       // SPRINT 35 — eating allowed even when hours=0 (evening meal, free of work hours)
@@ -2312,7 +2317,10 @@
     if (STATE.active_projects.length === 0) return;
     if (STATE.day < 3) return;
     if (STATE.energy < COST.work_night.e) return;
-    // No hours check — night work happens AFTER the day's 8 hours
+    // SPRINT 40 — block night work if there are still day-work hours.
+    // Mutually exclusive with actWorkOnProject (Tim: 'одновременно работать не должны').
+    if (STATE.hours >= COST.work_on_project.h) return;
+    // No hours check beyond mutual exclusion — night work happens AFTER the day's hours
     STATE.energy = Math.max(0, STATE.energy - COST.work_night.e);
     STATE.comfort = Math.max(0, STATE.comfort + COST.work_night.m); // .m is negative
     STATE.worked_night_last_day = STATE.day; // SPRINT 14 — triggers hangover
