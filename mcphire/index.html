@@ -1,0 +1,1258 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MCPHire 2.0 — Reshape — дизайн-видение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: oklch(96% 0.02 80);
+    --ink: oklch(14% 0.02 40);
+    --ink-soft: oklch(30% 0.02 40);
+    --mute: oklch(55% 0.01 60);
+    --line: oklch(14% 0.02 40 / 0.18);
+    --line-hard: oklch(14% 0.02 40);
+    --paper: oklch(98% 0.015 85);
+    --panel: oklch(92% 0.02 80);
+    --accent: oklch(58% 0.19 35);        /* coral / burnt */
+    --accent-2: oklch(78% 0.14 75);       /* amber */
+    --accent-3: oklch(80% 0.09 55);       /* peach */
+    --accent-ink: oklch(22% 0.06 35);
+    --danger: oklch(45% 0.18 25);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  body{
+    font-family:'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-weight:400;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ---- Grain overlay (SVG feTurbulence) ---- */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    pointer-events:none;
+    z-index:999;
+    mix-blend-mode:multiply;
+    opacity:.35;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0 0.04  0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ---- Structural rules ---- */
+  .wrap{max-width:1380px; margin:0 auto; padding:0 48px;}
+  @media (max-width:760px){ .wrap{padding:0 22px;} }
+
+  .rule{height:1px;background:var(--line-hard);opacity:.85;width:100%}
+  .rule-thick{height:2px;background:var(--line-hard);width:100%}
+  .rule-dash{height:1px; background:repeating-linear-gradient(to right, var(--line-hard) 0 6px, transparent 6px 12px); }
+
+  section{padding:120px 0; position:relative}
+  @media (max-width:760px){ section{padding:72px 0} }
+
+  /* ---- Typography ---- */
+  .display, h1, h2, h3{
+    font-family:'Instrument Serif', 'Times New Roman', serif;
+    font-weight:400;
+    letter-spacing:-0.02em;
+    line-height:0.95;
+    color:var(--ink);
+    margin:0;
+  }
+  .display{ font-size: clamp(56px, 9.4vw, 180px); }
+  h2{ font-size: clamp(44px, 6.6vw, 110px); letter-spacing:-0.025em;}
+  h3{ font-size: clamp(28px, 3vw, 46px); letter-spacing:-0.018em; }
+
+  .mono{font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; letter-spacing:0.02em;}
+  .eyebrow{
+    font-family:'Space Grotesk', sans-serif;
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:0.22em;
+    font-weight:600;
+    color:var(--ink-soft);
+  }
+  .eyebrow .dot{display:inline-block;width:7px;height:7px;background:var(--accent);margin-right:10px;transform:translateY(-2px)}
+
+  .tag{
+    display:inline-block;
+    border:1px solid var(--line-hard);
+    padding:5px 10px 4px;
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    font-weight:600;
+    margin-right:6px;
+  }
+
+  .lead{ font-size: clamp(19px, 1.55vw, 24px); line-height:1.45; max-width:60ch; color:var(--ink-soft); }
+  .italic{font-style:italic;}
+  strike{ text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--danger); }
+
+  /* ================== HERO ================== */
+  .hero{
+    min-height: 100vh;
+    padding: 48px 0 100px;
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .hero-top{
+    display:grid; grid-template-columns: 1fr auto 1fr;
+    align-items:center; gap:24px;
+    padding-bottom: 22px;
+    border-bottom:1px solid var(--line-hard);
+  }
+  .hero-top .col{font-size:12px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600}
+  .hero-top .col.center{text-align:center}
+  .hero-top .col.right{text-align:right}
+  .hero-top .dot{display:inline-block;width:9px;height:9px;background:var(--accent);border-radius:50%;margin-right:8px;vertical-align:middle}
+
+  .hero-body{
+    margin-top: 70px;
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
+    align-items: end;
+  }
+  @media (max-width:1000px){.hero-body{grid-template-columns:1fr; gap:40px}}
+
+  .hero-title{
+    font-family:'Instrument Serif', serif;
+    font-size: clamp(72px, 12.5vw, 240px);
+    line-height:0.88;
+    letter-spacing:-0.035em;
+  }
+  .hero-title em{ font-style: italic; color:var(--accent); }
+  .hero-title .cross{
+    position:relative;
+    display:inline-block;
+  }
+  .hero-title .cross::after{
+    content:"";
+    position:absolute; left:-4%; right:-4%; top:58%;
+    height:8px; background:var(--danger);
+    transform: rotate(-3deg);
+  }
+
+  .hero-side{
+    border-left: 1px solid var(--line-hard);
+    padding-left: 28px;
+    align-self:end;
+    padding-bottom: 10px;
+  }
+  .hero-side p{margin:0 0 14px; font-size:16px; line-height:1.5}
+  .hero-side .kicker{font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600; margin-bottom:16px; color:var(--ink-soft)}
+
+  .hero-foot{
+    margin-top:auto;
+    padding-top:60px;
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:20px;
+    border-top: 1px solid var(--line-hard);
+    padding-top:22px;
+  }
+  @media (max-width:900px){.hero-foot{grid-template-columns:repeat(2,1fr)}}
+  .hero-foot .cell .k{font-size:10px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600; color:var(--mute); margin-bottom:4px}
+  .hero-foot .cell .v{font-family:'Instrument Serif', serif; font-size:30px; line-height:1; letter-spacing:-0.02em}
+
+  /* Marquee subhead */
+  .marq{
+    margin-top: 54px;
+    border-top:1px solid var(--line-hard);
+    border-bottom:1px solid var(--line-hard);
+    padding: 18px 0;
+    overflow:hidden;
+    white-space:nowrap;
+    font-family:'Instrument Serif', serif;
+    font-size: clamp(28px, 3.4vw, 54px);
+    letter-spacing:-0.02em;
+  }
+  .marq span{display:inline-block; padding-right:60px;}
+  .marq .sep{color:var(--accent); padding:0 40px; font-style:italic;}
+
+  /* ================== SECTION HEADERS ================== */
+  .sec-head{
+    display:grid; grid-template-columns: 200px 1fr; gap:40px;
+    align-items:start; margin-bottom: 56px;
+  }
+  @media (max-width:800px){.sec-head{grid-template-columns:1fr; gap:14px}}
+  .sec-head .num{
+    font-family:'Instrument Serif',serif;
+    font-style:italic;
+    font-size: 56px;
+    line-height:0.9;
+    color: var(--accent);
+  }
+  .sec-head .num small{display:block;font-style:normal; font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:0.22em; color:var(--ink-soft); margin-top:10px; font-weight:600;}
+
+  /* ================== HONEST SETUP ================== */
+  .setup{
+    background: var(--paper);
+    border-top:2px solid var(--line-hard);
+    border-bottom:2px solid var(--line-hard);
+  }
+  .setup-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    border-left:1px solid var(--line-hard);
+  }
+  @media (max-width:900px){.setup-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.setup-grid{grid-template-columns:1fr}}
+  .setup-grid .cell{
+    border-right:1px solid var(--line-hard);
+    border-bottom:1px solid var(--line-hard);
+    padding:34px 26px 40px;
+    min-height: 300px;
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .setup-grid .cell .idx{
+    font-family:'Instrument Serif',serif;
+    font-size:60px; line-height:0.9;
+    letter-spacing:-0.03em;
+    color: var(--ink-soft);
+    font-style:italic;
+  }
+  .setup-grid .cell h4{
+    font-family:'Instrument Serif',serif; font-size:26px; line-height:1.05; margin:14px 0 12px; font-weight:400; letter-spacing:-0.015em;
+  }
+  .setup-grid .cell p{margin:0; font-size:15px; color:var(--ink-soft); line-height:1.5;}
+  .setup-grid .cell .stamp{
+    margin-top:auto; padding-top:18px;
+    font-family:ui-monospace,monospace;
+    font-size:11px; letter-spacing:0.15em;
+    color:var(--danger);
+    text-transform:uppercase;
+  }
+
+  /* ================== COMPETITORS ================== */
+  .competitors{background:var(--bg)}
+  .chan-table{
+    border:1px solid var(--line-hard);
+    background: var(--paper);
+    margin-top: 20px;
+    overflow:hidden;
+  }
+  .chan-row{
+    display:grid; grid-template-columns: 50px 1.1fr 1fr 0.9fr 0.9fr;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+  }
+  .chan-row:last-child{border-bottom:none}
+  .chan-row.head{
+    background: var(--ink);
+    color: var(--paper);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px; letter-spacing:0.22em;
+    text-transform:uppercase; font-weight:600;
+  }
+  .chan-row.head .c{padding:14px 16px;}
+  .chan-row .c{padding:18px 16px; font-size:15px;}
+  .chan-row .c.num{
+    font-family:'Instrument Serif',serif;
+    font-style:italic;
+    font-size: 26px;
+    color:var(--accent);
+    text-align:center;
+    padding:14px 8px;
+  }
+  .chan-row .c.handle{ font-family:ui-monospace,monospace; font-size:14px; font-weight:500; }
+  .chan-row .c.size{ font-family:'Instrument Serif',serif; font-size: 28px; line-height:1; }
+  .chan-row .c.rate{ font-size:13px; color: var(--ink-soft); letter-spacing:0.02em;}
+  .chan-row .c.note{ font-size:13px; color: var(--ink-soft); }
+  @media (max-width:900px){
+    .chan-row{grid-template-columns:40px 1fr 1fr; font-size:13px}
+    .chan-row .c.rate, .chan-row .c.note{display:none}
+  }
+
+  .comp-two{
+    display:grid; grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 40px;
+    border:1px solid var(--line-hard);
+  }
+  @media (max-width:900px){.comp-two{grid-template-columns:1fr}}
+  .comp-two .box{
+    padding: 36px 30px;
+    border-right: 1px solid var(--line-hard);
+    background: var(--paper);
+  }
+  .comp-two .box:last-child{border-right:none; background: var(--panel);}
+  .comp-two h4{
+    font-family:'Instrument Serif',serif;
+    font-size:32px; font-weight:400; margin:0 0 10px; letter-spacing:-0.018em;
+  }
+  .comp-two .tag-row{margin: 6px 0 18px}
+  .comp-two ul{margin:0; padding-left:18px; font-size:15px; color:var(--ink-soft); line-height:1.6;}
+  .comp-two ul li{margin-bottom:6px}
+
+  .transport-note{
+    margin-top: 46px;
+    font-family:'Instrument Serif',serif;
+    font-style:italic;
+    font-size: clamp(24px, 2.6vw, 40px);
+    line-height:1.2; letter-spacing:-0.015em;
+    max-width: 26ch;
+    color:var(--ink);
+  }
+  .transport-note span{background: var(--accent); color: var(--paper); padding:0 8px; font-style:normal;}
+
+  /* ================== WEDGE (big numbers) ================== */
+  .wedge{
+    background: var(--ink);
+    color: var(--paper);
+    position:relative;
+    overflow:hidden;
+  }
+  .wedge .rule{background: var(--paper); opacity:.25}
+  .wedge .eyebrow{color: var(--accent-2)}
+  .wedge .sec-head .num{color:var(--accent-2)}
+  .wedge .sec-head .num small{color: oklch(75% 0.02 60)}
+  .wedge h2{color: var(--paper)}
+  .wedge .lead{color: oklch(82% 0.02 60);}
+
+  .wedge-nums{
+    display:grid; grid-template-columns: repeat(3, 1fr);
+    gap:0;
+    margin-top: 70px;
+    border-top:1px solid oklch(98% 0.015 85 / .25);
+    border-bottom:1px solid oklch(98% 0.015 85 / .25);
+  }
+  @media (max-width:900px){.wedge-nums{grid-template-columns:1fr; border-bottom:none}}
+  .wedge-nums .cell{
+    padding: 44px 24px 44px;
+    border-right:1px solid oklch(98% 0.015 85 / .25);
+    position:relative;
+  }
+  @media (max-width:900px){.wedge-nums .cell{border-right:none; border-bottom:1px solid oklch(98% 0.015 85 / .25)}}
+  .wedge-nums .cell:last-child{border-right:none}
+  .wedge-nums .k{font-size:10px; letter-spacing:0.24em; text-transform:uppercase; font-weight:600; color: var(--accent-2); margin-bottom:14px;}
+  .wedge-nums .before{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(56px, 7.4vw, 120px);
+    letter-spacing:-0.03em; line-height:0.9;
+    position:relative; display:inline-block;
+    opacity:.55;
+  }
+  .wedge-nums .before::after{
+    content:""; position:absolute;
+    left:-4%; right:-4%; top:52%;
+    height:6px; background: var(--accent);
+    transform: rotate(-4deg);
+  }
+  .wedge-nums .arrow{
+    display:inline-block; margin: 8px 12px 8px 0;
+    font-family:'Instrument Serif',serif; font-style:italic;
+    color: var(--accent-2); font-size:34px; line-height:0.9;
+  }
+  .wedge-nums .after{
+    display:block; margin-top:14px;
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(72px, 9vw, 150px);
+    letter-spacing:-0.03em; line-height:0.85;
+    color: var(--paper);
+  }
+  .wedge-nums .after em{font-style:italic; color:var(--accent-2)}
+  .wedge-nums .exp{
+    margin-top:18px;
+    font-size:14px; line-height:1.55;
+    color: oklch(82% 0.02 60);
+    max-width: 32ch;
+  }
+
+  /* ================== ONBOARDING (chat) ================== */
+  .onb{ background: var(--bg);}
+  .onb-grid{
+    display:grid; grid-template-columns: 1.1fr 1fr;
+    gap: 56px; align-items:start;
+  }
+  @media (max-width:1000px){.onb-grid{grid-template-columns:1fr}}
+
+  .fields{
+    border:1px solid var(--line-hard);
+    background: var(--paper);
+  }
+  .fields .head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:16px 20px; border-bottom:1px solid var(--line-hard);
+    background: var(--panel);
+    font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600;
+  }
+  .fields ol{
+    margin:0; padding:0; list-style:none;
+    counter-reset: f;
+  }
+  .fields li{
+    counter-increment:f;
+    display:grid; grid-template-columns: 70px 1fr;
+    padding:20px 22px;
+    border-bottom: 1px solid var(--line);
+    gap:18px;
+    align-items:baseline;
+  }
+  .fields li:last-child{border-bottom:none}
+  .fields li::before{
+    content: counter(f, decimal-leading-zero);
+    font-family:'Instrument Serif',serif;
+    font-size: 30px; line-height:1;
+    color: var(--accent);
+    font-style: italic;
+  }
+  .fields li .lbl{font-weight:600; font-size:16px; margin-bottom:4px;}
+  .fields li .sub{font-size:13px; color: var(--ink-soft); line-height:1.45;}
+
+  .chat{
+    background: var(--ink);
+    color: var(--paper);
+    padding: 22px;
+    font-family: ui-monospace,'SF Mono',monospace;
+    font-size: 13.5px; line-height:1.65;
+    border:1px solid var(--line-hard);
+  }
+  .chat .title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+    color: var(--accent-2); font-weight:600;
+    margin-bottom: 14px;
+    display:flex; justify-content:space-between;
+  }
+  .chat .msg{margin-bottom:14px}
+  .chat .msg .who{color: var(--accent-2); font-weight:600;}
+  .chat .msg .you{color: var(--accent-3); font-weight:600}
+  .chat .ghost{opacity:.55}
+  .chat .blink{
+    display:inline-block; width:8px; height:14px;
+    background: var(--accent-2); vertical-align:-2px;
+    animation: blink 1s steps(2) infinite;
+    margin-left:2px;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  /* ================== RECRUITER FLOW ================== */
+  .rec{
+    background: var(--paper);
+    border-top: 2px solid var(--line-hard);
+    border-bottom:2px solid var(--line-hard);
+  }
+  .rec-steps{
+    display:grid; grid-template-columns: repeat(5, 1fr);
+    border-left:1px solid var(--line-hard);
+    margin-top: 40px;
+  }
+  @media (max-width:1000px){.rec-steps{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.rec-steps{grid-template-columns:1fr}}
+  .rec-steps .step{
+    border-right:1px solid var(--line-hard);
+    border-bottom:1px solid var(--line-hard);
+    padding: 28px 22px 32px;
+    display:flex; flex-direction:column;
+    min-height: 280px;
+    background: var(--bg);
+  }
+  .rec-steps .step .idx{
+    font-family:ui-monospace,monospace; font-size:12px;
+    letter-spacing:0.22em; color:var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .rec-steps .step h4{
+    font-family:'Instrument Serif',serif;
+    font-size: 30px; font-weight:400; letter-spacing:-0.02em;
+    margin: 0 0 10px; line-height:1.02;
+  }
+  .rec-steps .step p{margin:0; font-size:14px; color:var(--ink-soft); line-height:1.5;}
+  .rec-steps .step .timer{
+    margin-top:auto; padding-top:18px;
+    font-family:ui-monospace,monospace;
+    font-size:11px; letter-spacing:0.18em;
+    color: var(--accent);
+  }
+
+  .rec-outcome{
+    display:flex; align-items:baseline; gap: 24px;
+    margin-top: 40px; flex-wrap:wrap;
+  }
+  .rec-outcome .big{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(56px, 7vw, 120px);
+    letter-spacing:-0.03em; line-height:0.9;
+  }
+  .rec-outcome .big em{font-style:italic; color:var(--accent)}
+  .rec-outcome .cap{font-size:14px; color: var(--ink-soft); max-width: 28ch;}
+
+  /* ================== MATCHING / MANUAL OPS ================== */
+  .match{background: var(--bg)}
+  .match-grid{
+    display:grid; grid-template-columns: 1.1fr 1fr;
+    gap: 50px;
+    align-items:start;
+  }
+  @media (max-width:900px){.match-grid{grid-template-columns:1fr}}
+
+  .match-claim{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(38px, 4.4vw, 74px);
+    line-height:0.98; letter-spacing:-0.025em;
+  }
+  .match-claim em{font-style:italic; color:var(--accent)}
+  .match-claim .hi{background:var(--accent-2); padding:0 10px;}
+
+  .cut-list{
+    border:1px solid var(--line-hard);
+    background: var(--panel);
+    padding: 26px 28px 30px;
+  }
+  .cut-list .hd{
+    font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+    font-weight:600; color: var(--danger);
+    margin-bottom:14px;
+  }
+  .cut-list ul{list-style:none; margin:0; padding:0;}
+  .cut-list ul li{
+    font-family:'Instrument Serif',serif;
+    font-size: 22px; letter-spacing:-0.015em;
+    line-height:1.3;
+    padding: 10px 0;
+    border-bottom:1px dashed var(--line);
+    color: var(--ink-soft);
+  }
+  .cut-list ul li:last-child{border-bottom:none}
+  .cut-list ul li strike{color:var(--ink); text-decoration-color: var(--danger);}
+
+  /* ================== UNIT ECONOMICS ================== */
+  .unit{
+    background: var(--accent-2);
+    color: var(--ink);
+    position:relative;
+    overflow:hidden;
+  }
+  .unit .sec-head .num{color:var(--accent-ink)}
+  .unit .sec-head .num small{color: var(--ink)}
+
+  .unit-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr);
+    gap:0;
+    margin-top: 60px;
+    border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+  }
+  @media (max-width:900px){.unit-grid{grid-template-columns:1fr}}
+  .unit-grid .cell{
+    padding: 36px 26px 40px;
+    border-right:2px solid var(--ink);
+    position:relative;
+  }
+  .unit-grid .cell:last-child{border-right:none}
+  @media (max-width:900px){.unit-grid .cell{border-right:none; border-bottom:2px solid var(--ink)} .unit-grid .cell:last-child{border-bottom:none}}
+  .unit-grid .k{font-size:10px; letter-spacing:0.24em; text-transform:uppercase; font-weight:700; margin-bottom:12px;}
+  .unit-grid .big{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(64px, 8.2vw, 140px);
+    letter-spacing:-0.03em; line-height:0.88;
+  }
+  .unit-grid .big em{font-style:italic; color:var(--accent)}
+  .unit-grid .sub{margin-top:12px; font-size:14px; line-height:1.5; max-width: 30ch;}
+  .unit-grid .sub strike{text-decoration-color: var(--danger);}
+
+  .break-even{
+    margin-top: 50px;
+    display:flex; align-items:baseline; gap: 22px; flex-wrap:wrap;
+  }
+  .break-even .label{
+    font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:700;
+  }
+  .break-even .eq{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(32px, 4vw, 56px);
+    letter-spacing:-0.02em; line-height:1;
+  }
+  .break-even .eq em{font-style:italic; color:var(--accent)}
+
+  /* ================== KILL CRITERIA ================== */
+  .kill{
+    background: var(--ink);
+    color: var(--paper);
+    position:relative;
+  }
+  .kill .eyebrow{color: var(--accent)}
+  .kill h2{color: var(--paper)}
+  .kill .sec-head .num{color: var(--accent)}
+  .kill .sec-head .num small{color: oklch(70% 0.02 60)}
+
+  .kill-box{
+    margin-top: 50px;
+    border:2px solid var(--accent);
+    padding: 38px 40px 42px;
+    position:relative;
+    background: oklch(18% 0.02 40);
+  }
+  .kill-box::before{
+    content:"⚠ ЗАКРЫТИЕ";
+    position:absolute; top:-14px; left:30px;
+    background: var(--ink);
+    color: var(--accent);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px; letter-spacing:0.3em; font-weight:700;
+    padding: 4px 10px;
+  }
+  .kill-box h4{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(28px, 3.2vw, 46px);
+    letter-spacing:-0.02em; font-weight:400;
+    margin:0 0 24px;
+  }
+  .kill-box h4 em{font-style:italic; color: var(--accent)}
+  .kill-box ul{list-style:none; margin:0; padding:0}
+  .kill-box ul li{
+    display:grid; grid-template-columns: 60px 1fr;
+    gap:16px;
+    padding: 14px 0;
+    border-bottom: 1px dashed oklch(98% 0.015 85 / .2);
+    font-size:16px;
+    line-height:1.5;
+    color: oklch(90% 0.015 85);
+  }
+  .kill-box ul li:last-child{border-bottom:none}
+  .kill-box ul li .n{
+    font-family:'Instrument Serif',serif;
+    font-style:italic;
+    font-size:28px; line-height:1;
+    color: var(--accent);
+  }
+  .kill-box ul li b{color: var(--paper); font-weight:600;}
+
+  /* ================== THREAT ================== */
+  .threat{ background: var(--bg);}
+  .threat-head{
+    display:grid; grid-template-columns: 2fr 1fr; gap:50px;
+    align-items:end; margin-bottom: 60px;
+  }
+  @media (max-width:900px){.threat-head{grid-template-columns:1fr}}
+  .threat-head .killers{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(48px, 6.2vw, 110px);
+    letter-spacing:-0.03em; line-height:0.92;
+  }
+  .threat-head .killers em{font-style:italic; color:var(--accent)}
+  .threat-head .killers .cross{position:relative; display:inline-block;}
+  .threat-head .killers .cross::after{
+    content:""; position:absolute; left:-3%; right:-3%; top:55%;
+    height:6px; background: var(--accent); transform: rotate(-2deg);
+  }
+
+  .defense{
+    border:2px solid var(--line-hard);
+    padding: 36px 34px 40px;
+    background: var(--paper);
+    display:grid; grid-template-columns: 180px 1fr;
+    gap: 40px;
+    align-items:start;
+  }
+  @media (max-width:800px){.defense{grid-template-columns:1fr}}
+  .defense .tag2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size: 11px; letter-spacing:0.3em; font-weight:700;
+    color: var(--paper);
+    background: var(--accent);
+    padding: 8px 14px 7px;
+    display:inline-block; align-self:start;
+  }
+  .defense .body p{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(22px, 2.4vw, 34px);
+    line-height:1.22; letter-spacing:-0.015em;
+    margin:0 0 16px;
+  }
+  .defense .body p em{font-style:italic; color: var(--accent)}
+  .defense .body p strong{font-weight:500; background: var(--accent-2); padding:0 6px;}
+  .defense .body ul{
+    margin: 18px 0 0;
+    padding:0; list-style:none;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:15px; color: var(--ink-soft); line-height:1.6;
+  }
+  .defense .body ul li{
+    padding-left:24px; position:relative;
+    margin-bottom: 8px;
+  }
+  .defense .body ul li::before{
+    content:""; position:absolute; left:0; top:11px;
+    width:14px; height:1px; background: var(--accent);
+  }
+
+  /* ================== COLOPHON ================== */
+  footer.colophon{
+    padding: 70px 0 60px;
+    border-top: 2px solid var(--line-hard);
+    background: var(--paper);
+  }
+  .colo-grid{
+    display:grid; grid-template-columns: 2fr 1fr 1fr;
+    gap:40px;
+  }
+  @media (max-width:800px){.colo-grid{grid-template-columns:1fr}}
+  .colo-grid .big{
+    font-family:'Instrument Serif',serif;
+    font-size: clamp(30px, 3.4vw, 52px);
+    letter-spacing:-0.025em; line-height:1.02;
+  }
+  .colo-grid .big em{font-style:italic; color:var(--accent)}
+  .colo-grid .k{font-size:10px; letter-spacing:0.24em; text-transform:uppercase; font-weight:700; color: var(--ink-soft); margin-bottom:10px;}
+  .colo-grid p{font-size:14px; color: var(--ink-soft); line-height:1.55; margin:0 0 6px;}
+
+  .filebar{
+    display:flex; justify-content:space-between;
+    margin-top: 50px; padding-top: 20px;
+    border-top:1px solid var(--line);
+    font-family:ui-monospace,monospace;
+    font-size: 11px; letter-spacing:0.2em;
+    color: var(--ink-soft); text-transform:uppercase;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero wrap">
+  <div class="hero-top">
+    <div class="col"><span class="dot"></span>MCPHIRE / V2 / RESHAPE</div>
+    <div class="col center">ДИЗАЙН-ВИДЕНИЕ — ВНУТРЕННИЙ ДОКУМЕНТ</div>
+    <div class="col right">14 · IV · 2026 — KAŞ, TR</div>
+  </div>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-title">
+        Я построил <em>protocol&#8209;first</em><br>
+        джоб-борд.<br>
+        Codex <span class="cross">разнёс его</span>.<br>
+        Вот что <em>выжило</em>.
+      </div>
+    </div>
+    <aside class="hero-side">
+      <div class="kicker">ЗАМЕТКА СЕБЕ</div>
+      <p>Это не питч-дек.</p>
+      <p>Это документ, который я написал утром после того, как adversarial review вернулся с <em>вердиктом: RESHAPE</em>. Он полностью заменяет v1.</p>
+      <p>Узкий клин. Скучная операционка. Одна метрика. Четырёхнедельная дата закрытия.</p>
+      <p class="mono" style="font-size:12px;margin-top:22px;color:var(--mute)">— T. Z.</p>
+    </aside>
+  </div>
+
+  <div class="marq">
+    <span>Сузь клин.</span><span class="sep">/</span>
+    <span>Убей фантазию.</span><span class="sep">/</span>
+    <span>Запусти скучную операционку.</span><span class="sep">/</span>
+    <span>Мерь одну цифру.</span>
+  </div>
+
+  <div class="hero-foot">
+    <div class="cell"><div class="k">Архетип</div><div class="v">Курированный пул</div></div>
+    <div class="cell"><div class="k">Аудитория</div><div class="v">AI-инженеры, RU/СНГ</div></div>
+    <div class="cell"><div class="k">Размер пула</div><div class="v">20–50 вакансий</div></div>
+    <div class="cell"><div class="k">Дата закрытия</div><div class="v">Неделя 4</div></div>
+  </div>
+</header>
+
+<!-- ============================ 02 HONEST SETUP ============================ -->
+<section class="setup">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">02<small>Честный расклад</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО v1 БЫЛ НА САМОМ ДЕЛЕ</div>
+        <h2>Четыре лжи, которые v1 говорил<br>себе до встречи с Codex.</h2>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="setup-grid">
+      <div class="cell">
+        <div class="idx">i</div>
+        <h4>Форма в одежде диалога.</h4>
+        <p>19 полей × 3 слоя DNA, растянутые в чат-UI. Сеньоры закрывают вкладку на 8-м поле. Claude не полиграф — люди врут в формах, врут и в чатах.</p>
+        <div class="stamp">Вердикт: переинженеренный MVP</div>
+      </div>
+      <div class="cell">
+        <div class="idx">ii</div>
+        <h4>$15K MRR — нарратив, а не математика.</h4>
+        <p>50 × $300 без CAC, инфры, модерации, легалки, продаж. Десять рекрутеров осушат пул из 300–1000 DNA за две недели. Либо отток, либо тариф теряет смысл.</p>
+        <div class="stamp">Вердикт: фантазия юнит-экономики</div>
+      </div>
+      <div class="cell">
+        <div class="idx">iii</div>
+        <h4>74 000 вакансий как value prop.</h4>
+        <p>Vanity-метрика. Агрегация скрапленного шума с HH — не продукт, а кладбище данных. Нет владельца у вакансии, нет salary floor, нет живого контакта на той стороне.</p>
+        <div class="stamp">Вердикт: шум, проданный как сигнал</div>
+      </div>
+      <div class="cell">
+        <div class="idx">iv</div>
+        <h4>7-дневный GTM-шторм без петли.</h4>
+        <p>Охват, переодетый в привлечение. Драма ≠ смена привычки. «Вставь ссылку в Claude» — демо-трюк. После всплеска — почему рекрутер платит <em>здесь</em>?</p>
+        <div class="stamp">Вердикт: vanity-шторм</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 03 REAL COMPETITORS ============================ -->
+<section class="competitors">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">03<small>Настоящие конкуренты</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>HH ТУТ НИКОГДА НЕ БЫЛ ПРОБЛЕМОЙ</div>
+        <h2>Настоящая битва — за<br><em style="font-family:'Instrument Serif',serif;font-style:italic">внимание</em> и <em style="font-family:'Instrument Serif',serif;font-style:italic">доверие</em>.</h2>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-bottom:30px">MCP — это транспортный слой, а не единица конкуренции. В 2026 в русскоязычном мире AI-инженер и рекрутер реально встречаются в Telegram-канале, тёплом DM или alumni-чате. Никому из них не важно, что мы говорим на JSON-RPC.</p>
+
+    <div class="chan-table">
+      <div class="chan-row head">
+        <div class="c">№</div>
+        <div class="c">Канал</div>
+        <div class="c">Аудитория</div>
+        <div class="c">Частота</div>
+        <div class="c">За счёт чего выигрывают</div>
+      </div>
+      <div class="chan-row">
+        <div class="c num">01</div>
+        <div class="c handle">@datasciencejobs</div>
+        <div class="c size">70–90K</div>
+        <div class="c rate">3–10 / день · 7 лет</div>
+        <div class="c note">Доверие, скорость, мобильность</div>
+      </div>
+      <div class="chan-row">
+        <div class="c num">02</div>
+        <div class="c handle">@ai_rabota</div>
+        <div class="c size">30–50K</div>
+        <div class="c rate">5–15 / день</div>
+        <div class="c note">Фокус на AI/ML</div>
+      </div>
+      <div class="chan-row">
+        <div class="c num">03</div>
+        <div class="c handle">@datajob</div>
+        <div class="c size">40K</div>
+        <div class="c rate">3–8 / день</div>
+        <div class="c note">Кросс-пост Data + ML</div>
+      </div>
+      <div class="chan-row">
+        <div class="c num">04</div>
+        <div class="c handle">@datascienceml_jobs</div>
+        <div class="c size">20–30K</div>
+        <div class="c rate">2–6 / день</div>
+        <div class="c note">Только DS/ML</div>
+      </div>
+      <div class="chan-row">
+        <div class="c num">05</div>
+        <div class="c handle">@foranalysts</div>
+        <div class="c size">25K</div>
+        <div class="c rate">2–5 / день</div>
+        <div class="c note">AI рядом с аналитикой</div>
+      </div>
+      <div class="chan-row">
+        <div class="c num">06</div>
+        <div class="c handle">@odsjobs</div>
+        <div class="c size">15–20K</div>
+        <div class="c rate">1–3 / день, с курацией</div>
+        <div class="c note">Качество &gt; объём</div>
+      </div>
+      <div class="chan-row">
+        <div class="c num">07</div>
+        <div class="c handle">@g_jobchannel</div>
+        <div class="c size">лента getmatch</div>
+        <div class="c rate">ежедневно</div>
+        <div class="c note">Уже есть matcher-бот</div>
+      </div>
+    </div>
+
+    <div class="comp-two">
+      <div class="box">
+        <h4>LinkedIn DM + агентства</h4>
+        <div class="tag-row">
+          <span class="tag">Комиссия агентства 15–25%</span>
+          <span class="tag">Seat $900–1080 / мес</span>
+        </div>
+        <ul>
+          <li>Заблокирован в РФ с 2016, ходят через VPN.</li>
+          <li>Response rate холодного InMail: 3–7%.</li>
+          <li>Сеньор получает 20+ холодных DM / нед — mute rate растёт.</li>
+          <li>Тёплые интро обгоняют холодный DM в 5–10× для senior / staff+.</li>
+          <li>Агентства: g-mate, Lucky Hunter, New.HR, Spice IT, Devs.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h4>Реферальные сети (где сеньор реально закрывается)</h4>
+        <div class="tag-row">
+          <span class="tag">ODS.ai ~18K</span>
+          <span class="tag">Alumni Yandex / Сбер / VK</span>
+        </div>
+        <ul>
+          <li>ODS.ai Slack + TG — самое качественное русскоязычное DS-комьюнити.</li>
+          <li>Alumni-чаты (200–2000 чел.) — staff+ закрывается ДО публикации.</li>
+          <li>Data Fest / Data Elements — офлайновые тёплые интро.</li>
+          <li>Kaggle Russia — узко, но Сбер / Тинькофф / Яндекс рекрутят отсюда.</li>
+          <li>MCPHire здесь не игрок. Притворяться не будем.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="transport-note">
+      MCP — это <span>транспорт</span>, а не единица конкуренции. Мы конкурируем за внимание и доверие.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 04 THE WEDGE ============================ -->
+<section class="wedge">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">04<small>Клин</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot" style="background:var(--accent-2)"></span>ОДИН СЕГМЕНТ · ОДИН ICP · ОДИН СТЕК</div>
+        <h2>Русскоязычные AI- и<br>agent-инженеры. Больше никого.</h2>
+      </div>
+    </div>
+    <p class="lead">Не «технологии в целом». Не «весь IT в RU/СНГ». Люди, которые уже живут внутри Claude / Cursor, выкатывают LLM-ops в прод и называют свой стек в шести словах.</p>
+
+    <div class="wedge-nums">
+      <div class="cell">
+        <div class="k">Размер пула</div>
+        <span class="before">74 000</span>
+        <span class="arrow">становится</span>
+        <span class="after"><em>20&ndash;50</em></span>
+        <p class="exp">Вручную проверенные вакансии, у каждой — живой владелец. Никакого скрапленного шума с HH. 22 живые бьют 80 мёртвых.</p>
+      </div>
+      <div class="cell">
+        <div class="k">Поля онбординга</div>
+        <span class="before">19 × 3</span>
+        <span class="arrow">становится</span>
+        <span class="after"><em>7</em></span>
+        <p class="exp">Стек из закрытого списка, seniority band, salary floor, таймзона, must-not-do, целевая роль, одна proof-ссылка. Три-пять минут, честно.</p>
+      </div>
+      <div class="cell">
+        <div class="k">Целевая аудитория</div>
+        <span class="before" style="font-size:48px">«весь IT»</span>
+        <span class="arrow">сужается до</span>
+        <span class="after" style="font-size:64px;"><em>5&ndash;15K</em></span>
+        <p class="exp">Русскоязычные AI- / agent-инженеры в RU и СНГ в 2026. Сегмент растёт. Достаточно большой, чтобы иметь значение, и достаточно узкий, чтобы обслуживать руками.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 05 SEEKER ONBOARDING ============================ -->
+<section class="onb">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">05<small>Онбординг соискателя</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>5 МИН · 7 ПОЛЕЙ · БЕЗ TONE-MATCHING</div>
+        <h2>Скучно — намеренно.<br>Умнее Google Forms,<br>тусклее Typeform.</h2>
+      </div>
+    </div>
+
+    <div class="onb-grid">
+      <div class="fields">
+        <div class="head">
+          <span>7 полей · 3–5 мин</span>
+          <span>Drop-off &gt; 40% = мы сломали это</span>
+        </div>
+        <ol>
+          <li>
+            <div>
+              <div class="lbl">Основной стек</div>
+              <div class="sub">Multi-select из закрытого списка (15–20). Python, TS, LangChain, LlamaIndex, vLLM, Temporal, RAG, evals. Закрытый список убивает шум вида «js / js / Node.js / node».</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <div class="lbl">Seniority band</div>
+              <div class="sub">Junior · Middle · Senior · Staff+. Уровни, не годы. Пять лет в legacy ≠ пять лет в LLM.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <div class="lbl">Salary floor (USD/мес, net)</div>
+              <div class="sub">Порог, не диапазон. Никакого пинг-понга. Фильтр №1 у рекрутера.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <div class="lbl">Таймзона + формат работы</div>
+              <div class="sub">UTC±X · remote · hybrid-city · on-site-city. Без этого 30% интро умирают на входе.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <div class="lbl">Must-not-do · 140 символов</div>
+              <div class="sub">«без on-call», «без фронта», «без 4-часовых стендапов». Тот самый intentional-сигнал, который переинженерят в 10-минутный диалог. Одна строка.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <div class="lbl">Целевая роль + 1 строка контекста</div>
+              <div class="sub">«Senior ML engineer — строю RAG-пайплайны в проде». Не чего ты хочешь от жизни. Следующий конкретный шаг.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <div class="lbl">Proof-ссылка · обязательно</div>
+              <div class="sub">GitHub · LinkedIn · статья · прод-артефакт. Анти-фрод за 30 секунд. Нет ссылки — нет профиля.</div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div>
+        <div class="chat">
+          <div class="title"><span>/mcphire-apply · живая сессия</span><span>arseniy · 00:03:14</span></div>
+          <div class="msg"><span class="who">mcphire</span> &gt; стек? выбери до 6 (закрытый список).</div>
+          <div class="msg"><span class="you">arseniy</span> &gt; python · langgraph · pgvector · vllm · temporal · evals</div>
+          <div class="msg"><span class="who">mcphire</span> &gt; seniority band?</div>
+          <div class="msg"><span class="you">arseniy</span> &gt; senior</div>
+          <div class="msg"><span class="who">mcphire</span> &gt; salary floor, usd/мес net?</div>
+          <div class="msg"><span class="you">arseniy</span> &gt; 6000</div>
+          <div class="msg"><span class="who">mcphire</span> &gt; таймзона + формат?</div>
+          <div class="msg"><span class="you">arseniy</span> &gt; utc+3 · только remote</div>
+          <div class="msg"><span class="who">mcphire</span> &gt; must-not-do (≤140 симв.)?</div>
+          <div class="msg"><span class="you">arseniy</span> &gt; без on-call, без чистого фронта, без крипто-трейд-ботов</div>
+          <div class="msg"><span class="who">mcphire</span> &gt; целевая роль + 1 строка контекста?</div>
+          <div class="msg"><span class="you">arseniy</span> &gt; senior LLM eng — прод RAG с evals, не POC-ферма</div>
+          <div class="msg"><span class="who">mcphire</span> &gt; proof-ссылка?</div>
+          <div class="msg"><span class="you">arseniy</span> &gt; github.com/arseniy/rag-evals</div>
+          <div class="msg ghost"><span class="who">mcphire</span> &gt; отправлено. T. прочитает вручную в течение 24 ч. без скоров. без дашборда. тишина — это дефолт.<span class="blink"></span></div>
+        </div>
+
+        <p class="lead" style="font-size:15px; margin-top:28px">Никакого DNA-радара. Никакого XP-бара. Никакого tone-matching. Тишина — это фича, а не баг: если мэтча нет, мы его не производим искусственно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 06 RECRUITER FLOW ============================ -->
+<section class="rec">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">06<small>Флоу рекрутера</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>≤ 8 МИН · ВСТАВЬ JD · 3 RESCUE-ВОПРОСА</div>
+        <h2>То, что in-house<br>tech-рекрутер делает<br>за одну чашку кофе.</h2>
+      </div>
+    </div>
+
+    <div class="rec-steps">
+      <div class="step">
+        <div class="idx">ШАГ / 01</div>
+        <h4>Вставь JD</h4>
+        <p>Любой формат. Notion, Google Doc, Ashby-ссылка, черновик в Telegram. Одно textarea.</p>
+        <div class="timer">~ 00:30</div>
+      </div>
+      <div class="step">
+        <div class="idx">ШАГ / 02</div>
+        <h4>Claude вытаскивает 6 полей</h4>
+        <p>Роль, стек, seniority, salary floor, локация/формат, дата старта. Рекрутер правит inline — чинит только то, что неверно.</p>
+        <div class="timer">~ 01:30</div>
+      </div>
+      <div class="step">
+        <div class="idx">ШАГ / 03</div>
+        <h4>Три rescue-вопроса</h4>
+        <p>Кого НЕ нанимать. Что болит внутри команды. Почему сильный кандидат может сказать «нет». По одному предложению.</p>
+        <div class="timer">~ 03:00</div>
+      </div>
+      <div class="step">
+        <div class="idx">ШАГ / 04</div>
+        <h4>Пять deal-breakers</h4>
+        <p>Чекбоксы. Только да / нет. Гражданство, виза, обязательный on-site, background check, сменный график.</p>
+        <div class="timer">~ 01:00</div>
+      </div>
+      <div class="step">
+        <div class="idx">ШАГ / 05</div>
+        <h4>Submit → шорт-лист за 24ч</h4>
+        <p>«Пул из 12. Трое подходят. Шорт-лист за 24 часа». Одна строка, никакого дашборда, никакого скора.</p>
+        <div class="timer">~ 00:30</div>
+      </div>
+    </div>
+
+    <div class="rec-outcome">
+      <div class="big"><em>Меньше 8 минут.</em></div>
+      <div class="cap">Закрытый список полей. Никакой секции cover letter. Никаких «опишите идеального кандидата». Вставил JD, дал три rescue-ответа, отправил.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 07 MATCHING / MANUAL OPS ============================ -->
+<section class="match">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">07<small>Как работает матчинг</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>НЕДЕЛЯ 1–4 · ОДИН ЧЕЛОВЕК · ОДИН SQL-ЗАПРОС</div>
+        <h2>Матчинг — это человек<br>с Postgres-консолью.</h2>
+      </div>
+    </div>
+
+    <div class="match-grid">
+      <div>
+        <div class="match-claim">
+          Первые четыре недели <em>матчинг</em> — это я, читающий каждый профиль руками, гоняющий <span class="hi">SELECT</span> по stack · seniority · floor и пишущий рекрутеру два абзаца «вот почему этот человек».
+        </div>
+        <p class="lead" style="margin-top:30px">Вот и весь движок. Если он не выдаёт качественных интервью руками — никакой эмбеддинг его не спасёт. Если выдаёт — на третьем месяце инвестируем в MCP-слой как в рычаг масштаба, а не как в фундамент.</p>
+        <p class="lead" style="margin-top:18px;font-family:'Instrument Serif',serif;font-style:italic;font-size:28px;line-height:1.2;color:var(--ink)">Скучная операционка &gt; игровые механики.</p>
+      </div>
+
+      <div class="cut-list">
+        <div class="hd">Выкинуто из v1 — не возвращать</div>
+        <ul>
+          <li><strike>3-слойная DNA-онтология как публичный нарратив</strike></li>
+          <li><strike>Rarity-тиры, XP, токены, streaks</strike></li>
+          <li><strike>Advisory Mode и peer review</strike></li>
+          <li><strike>Единая сущность (соискатель = рекрутер)</strike></li>
+          <li><strike>Ежедневные ритуалы · детект DNA-дрейфа</strike></li>
+          <li><strike>Еженедельный market pulse · daily digest bot</strike></li>
+          <li><strike>7-дневный GTM-шторм</strike></li>
+          <li><strike>74K агрегированных вакансий как value prop</strike></li>
+          <li><strike>Эмбеддинг-матч с весами 1×/2×/3×</strike></li>
+          <li><strike>Нарратив $15K MRR</strike></li>
+          <li><strike>Claude-как-интерфейс вместо формы</strike></li>
+          <li><strike>DNA-портируемость в стиле ActivityPub</strike></li>
+          <li><strike>Premium-тариф для соискателя $10–20/мес</strike></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 08 UNIT ECONOMICS ============================ -->
+<section class="unit">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">08<small>Юнит-экономика v2</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot" style="background:var(--accent)"></span>ЧЕСТНАЯ МАТЕМАТИКА, А НЕ НАРРАТИВ</div>
+        <h2>Точка безубыточности — десять<br>платящих рекрутеров. Не пятьдесят.</h2>
+      </div>
+    </div>
+
+    <div class="unit-grid">
+      <div class="cell">
+        <div class="k">Цель MRR</div>
+        <div class="big"><em>$3K</em></div>
+        <div class="sub"><strike>$15K</strike> был нарративом. Десять рекрутеров × $300 = $3K. Скромно, достижимо, честно. Ниже — это не бизнес, а эксперимент.</div>
+      </div>
+      <div class="cell">
+        <div class="k">Вложено (время Тима)</div>
+        <div class="big">$17.5K</div>
+        <div class="sub">70 часов × $250/ч ручной курации за 4 недели. Инфра ~$0 (Contabo уже оплачен). Платный трафик: ноль, пока конверсия не доказана.</div>
+      </div>
+      <div class="cell">
+        <div class="k">Окупаемость</div>
+        <div class="big"><em>~6 мес</em></div>
+        <div class="sub">$300/мес легко защищаются, если 1 из 10 интро доходит до оффера — это 1,5% от агентской комиссии $10–20K. Для ленты — дорого. Для шорт-листа — дёшево.</div>
+      </div>
+    </div>
+
+    <div class="break-even">
+      <span class="label">ТОЧКА БЕЗУБЫТОЧНОСТИ</span>
+      <span class="eq">10 &times; $300 <em>&rarr;</em> $3K MRR · месяц 3+</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 09 KILL CRITERIA ============================ -->
+<section class="kill">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">09<small>Критерии закрытия</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>НЕДЕЛЯ 4 · ЛЮБОЙ ОДИН ИЗ ПЯТИ = СТОП</div>
+        <h2>Мы строим<br>четырёхнедельный эксперимент<br>с жёсткой датой закрытия.</h2>
+      </div>
+    </div>
+
+    <p class="lead" style="color:oklch(82% 0.02 60); max-width:62ch">Жизнь определяет одна метрика: <b style="color:var(--paper)">качественное интро &rarr; подтверждённое рекрутером интервью в течение 10 дней</b>. Цель к неделе 4: десять интервью из 30–50 интро. Меньше пяти = закрытие. Никаких «давайте добавим фичу и вытащим».</p>
+
+    <div class="kill-box">
+      <h4>Мы закрываем проект, если истинно <em>хотя бы одно</em> из:</h4>
+      <ul>
+        <li><span class="n">i.</span><span>Меньше <b>5 качественных интервью</b> со всех интро за четыре недели.</span></li>
+        <li><span class="n">ii.</span><span>Ни один design-partner рекрутер не готов платить даже <b>$100/мес</b> после 4 бесплатных недель.</span></li>
+        <li><span class="n">iii.</span><span>Конверсия из отправки профиля в интро <b>&lt; 15%</b> — качество соискателей — мусор.</span></li>
+        <li><span class="n">iv.</span><span>Среднее время Тима на одно качественное интро <b>&gt; 3 часов</b> — не масштабируется, не автоматизируется без доказанной ценности.</span></li>
+        <li><span class="n">v.</span><span><b>Больше 2 design-партнёров отваливаются</b> со словами «проще постить в TG напрямую».</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 10 THREAT ============================ -->
+<section class="threat">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">10<small>Главная угроза</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>НЕ WORKDAY · НЕ LINKEDIN · НЕ HH</div>
+        <h2>Это владелец канала<br>с поисковой строкой.</h2>
+      </div>
+    </div>
+
+    <div class="threat-head">
+      <div class="killers">
+        <em>@datasciencejobs</em><br>
+        или <em>getmatch.ru</em><br>
+        выкатят <span class="cross">структурированный поиск</span><br>
+        раньше нас.
+      </div>
+      <aside class="lead" style="font-size:16px">У них бесплатно есть то, за что MCPHire платит: доверие, inbox, атрибуция. PM у @datasciencejobs + парсер + простой фронт = MCPHire-killer в мейнстриме за 3–6 месяцев.<br><br>Вторичная угроза: у getmatch.ru уже есть TG matcher-бот, 250K IT-аудитории и HR-поддержка. От нашей ниши — один MCP-эндпоинт.</aside>
+    </div>
+
+    <div class="defense">
+      <div>
+        <span class="tag2">ЗАЩИТА</span>
+      </div>
+      <div class="body">
+        <p>Не конкурировать с каналами. <em>Стать слоем поверх них.</em></p>
+        <p>Подписать <strong>3–5 топовых каналов</strong> как distribution-партнёров на revshare <em>до того</em>, как они сами додумаются до структурированного поиска.</p>
+        <ul>
+          <li>Лист аутрича недели 1: @odsjobs, @ai_rabota, @datascienceml_jobs, @foranalysts, партнёрства с getmatch.</li>
+          <li>Оффер: бесплатный структурированный индекс их вакансий + revshare с платного тарифа рекрутера.</li>
+          <li>Lock-in: курированный пул AI-инженеров, который они не соберут руками за 4 недели.</li>
+          <li>Если к неделе 3 никто не сказал «да» — это сам по себе сигнал закрытия.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ COLOPHON ============================ -->
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo-grid">
+      <div class="big">MCPHire v2. Узкий клин. Одна метрика. Одна <em>дата закрытия</em>. Написано 14 апреля 2026 — утром после того, как Codex вернулся с <em>вердиктом: RESHAPE</em>.</div>
+      <div>
+        <div class="k">Следующий шаг</div>
+        <p>Неделя 1. Аутрич к 8–10 design-partner рекрутерам. Никакого кода, пока 5+ подтверждённых партнёров не готовы присылать реальные вакансии.</p>
+      </div>
+      <div>
+        <div class="k">Статус документа</div>
+        <p>Полностью заменяет MCPHire v1.<br>Внутренний. Не для распространения.<br>Владелец — T. Zinin.</p>
+      </div>
+    </div>
+    <div class="filebar">
+      <span>mcphire-vision-v2.html</span>
+      <span>KAŞ / TR · 2026-04-14</span>
+      <span>ДИЗАЙН-ВИДЕНИЕ · ВНУТРЕННЕЕ</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
