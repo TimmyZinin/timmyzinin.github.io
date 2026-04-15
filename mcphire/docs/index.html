@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MCPHire v3 — Docs & UX plan · минимальный MVP</title>
+<meta name="description" content="План документации минимального MVP MCPHire v3. UX-спецификация + бэклог документов к написанию. Референс — Moltbook-pattern.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: oklch(96% 0.02 80);
+    --ink: oklch(14% 0.02 40);
+    --ink-soft: oklch(30% 0.02 40);
+    --mute: oklch(55% 0.01 60);
+    --line: oklch(14% 0.02 40 / 0.18);
+    --line-hard: oklch(14% 0.02 40);
+    --paper: oklch(98% 0.015 85);
+    --panel: oklch(92% 0.02 80);
+    --accent: oklch(58% 0.19 35);
+    --accent-2: oklch(78% 0.14 75);
+    --accent-3: oklch(80% 0.09 55);
+    --accent-ink: oklch(22% 0.06 35);
+    --danger: oklch(45% 0.18 25);
+    --ok: oklch(52% 0.14 150);
+    --info: oklch(62% 0.13 240);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{
+    font-family:'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-weight:400; font-size:17px; line-height:1.55;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden; position:relative;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  ::selection{background:var(--accent); color:var(--paper);}
+  body::before{
+    content:""; position:fixed; inset:0;
+    pointer-events:none; z-index:999; mix-blend-mode:multiply; opacity:.32;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0 0.04  0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .wrap{max-width:1380px; margin:0 auto; padding:0 48px;}
+  @media (max-width:760px){ .wrap{padding:0 22px;} }
+
+  section{padding:96px 0; position:relative}
+  @media (max-width:760px){ section{padding:60px 0} }
+  @media (max-width:480px){ section{padding:44px 0} }
+
+  h1, h2, h3, h4{font-family:'Instrument Serif', 'Times New Roman', serif; font-weight:400; letter-spacing:-0.02em; color:var(--ink); margin:0; line-height:0.98;}
+  h2{ font-size: clamp(38px, 5.8vw, 88px); letter-spacing:-0.025em;}
+  h3{ font-size: clamp(24px, 2.8vw, 40px); letter-spacing:-0.018em; }
+  h4{font-size:24px; line-height:1.1; letter-spacing:-0.015em;}
+
+  .eyebrow{font-family:'Space Grotesk',sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:0.22em; font-weight:600; color:var(--ink-soft);}
+  .eyebrow .dot{display:inline-block;width:7px;height:7px;background:var(--accent);margin-right:10px;transform:translateY(-2px)}
+
+  .tag{display:inline-block; border:1px solid var(--line-hard); padding:4px 9px 3px; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; margin-right:4px;}
+  .tag.ok{background: var(--ok); color: var(--paper); border-color:var(--ok)}
+  .tag.warn{background: var(--accent); color: var(--paper); border-color:var(--accent)}
+  .tag.hot{background: var(--accent-2); color: var(--ink); border-color:var(--line-hard)}
+  .tag.cold{color: var(--mute)}
+  .tag.info{background: var(--info); color: var(--paper); border-color:var(--info)}
+
+  .lead{ font-size: clamp(18px, 1.5vw, 22px); line-height:1.5; max-width:64ch; color:var(--ink-soft); }
+
+  a{color:var(--accent); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{background:var(--accent); color:var(--paper); text-decoration:none;}
+
+  .mono{font-family:ui-monospace,'SF Mono',monospace; font-size:13px; background:var(--panel); padding:1px 6px; border:1px solid var(--line);}
+
+  /* ================== HERO ================== */
+  .hero{ padding:40px 0 60px; display:flex; flex-direction:column; position:relative; }
+  @media (max-width:700px){ .hero{padding: 24px 0 44px;} }
+  .hero-top{ display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; gap:24px; padding-bottom:18px; border-bottom:1px solid var(--line-hard);}
+  @media (max-width:700px){.hero-top{grid-template-columns:1fr 1fr; gap:6px 14px; padding-bottom:14px;} .hero-top .col.center{grid-column:1 / -1; order:3; text-align:left; font-size:10px; opacity:.7; margin-top:4px;}}
+  .hero-top .col{font-size:12px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600}
+  .hero-top .col.center{text-align:center}
+  .hero-top .col.right{text-align:right}
+  .hero-top .col a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px;}
+  .hero-top .col a:hover{background:transparent; color:var(--accent);}
+
+  .hero-body{margin-top:40px; display:grid; grid-template-columns:1.4fr 1fr; gap:56px; align-items:end;}
+  @media (max-width:1000px){.hero-body{grid-template-columns:1fr; gap:28px;}}
+  .hero-title{font-family:'Instrument Serif', serif; font-size: clamp(44px, 9vw, 160px); line-height:0.92; letter-spacing:-0.035em;}
+  .hero-title em{font-style:italic; color:var(--accent)}
+  .hero-title .mark{background:var(--accent-2); padding:0 8px;}
+
+  .hero-side{border-left:1px solid var(--line-hard); padding-left:24px; padding-bottom:10px;}
+  @media (max-width:1000px){.hero-side{border-left:none; border-top:1px solid var(--line-hard); padding-left:0; padding-top:22px; max-width:58ch;}}
+  .hero-side p{margin:0 0 10px; font-size:15.5px; line-height:1.5}
+  .hero-side .kicker{font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600; margin-bottom:12px; color:var(--ink-soft)}
+
+  .hero-meta{margin-top:50px; padding-top:18px; border-top:1px solid var(--line-hard); display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  @media (max-width:900px){.hero-meta{grid-template-columns:repeat(2,1fr)}}
+  .hero-meta .cell .k{font-size:10px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600; color:var(--mute); margin-bottom:4px}
+  .hero-meta .cell .v{font-family:'Instrument Serif',serif; font-size:clamp(22px, 2.4vw, 30px); line-height:1.05;}
+
+  /* ================== SEC HEAD ================== */
+  .sec-head{display:grid; grid-template-columns:180px 1fr; gap:32px; align-items:start; margin-bottom:36px;}
+  @media (max-width:800px){.sec-head{grid-template-columns:1fr; gap:10px}}
+  .sec-head .num{font-family:'Instrument Serif',serif; font-style:italic; font-size:clamp(42px, 4.4vw, 56px); line-height:0.9; color:var(--accent);}
+  .sec-head .num small{display:block; font-style:normal; font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:0.22em; color:var(--ink-soft); margin-top:8px; font-weight:600;}
+
+  /* ================== AUDIT TABLE ================== */
+  .audit{background:var(--paper); border-top:2px solid var(--line-hard); border-bottom:2px solid var(--line-hard);}
+  .audit-table{margin-top:28px; border:1px solid var(--line-hard); background:var(--paper); overflow-x:auto;}
+  .audit-row{display:grid; grid-template-columns:1.5fr 1fr 1.2fr 1.2fr; border-bottom:1px solid var(--line);}
+  .audit-row:last-child{border-bottom:none}
+  .audit-row.head{background:var(--ink); color:var(--paper); font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600;}
+  .audit-row .c{padding:14px 16px; font-size:14px; border-right:1px solid var(--line);}
+  .audit-row.head .c{padding:12px 16px;}
+  .audit-row .c:last-child{border-right:none}
+  .audit-row .c.file{font-family:ui-monospace,monospace; font-size:13px; font-weight:500;}
+  .audit-row .c.status{font-size:10.5px; letter-spacing:0.15em; text-transform:uppercase; font-weight:600;}
+  .audit-row .c.status.miss{color:var(--danger)}
+  .audit-row .c.status.part{color:var(--accent)}
+  .audit-row .c.status.okk{color:var(--ok)}
+  @media (max-width:760px){
+    .audit-row{grid-template-columns:1fr 0.8fr; font-size:13px;}
+    .audit-row .c:nth-child(3), .audit-row .c:nth-child(4){display:none;}
+  }
+
+  /* ================== UX FLOW ================== */
+  .ux{background:var(--ink); color:var(--paper);}
+  .ux .eyebrow{color:var(--accent-2)}
+  .ux .sec-head .num{color:var(--accent-2)}
+  .ux .sec-head .num small{color: oklch(75% 0.02 60)}
+  .ux h2{color:var(--paper)}
+  .ux .lead{color:oklch(82% 0.02 60);}
+
+  .ux-steps{margin-top:44px; display:flex; flex-direction:column; gap:22px;}
+  .ux-step{display:grid; grid-template-columns:90px 1fr; gap:26px; padding:24px 28px 28px; background:oklch(18% 0.02 40); border:1px solid oklch(98% 0.015 85 / .15); position:relative;}
+  @media (max-width:760px){.ux-step{grid-template-columns:1fr; gap:12px; padding:20px;}}
+  .ux-step .idx{font-family:'Instrument Serif',serif; font-style:italic; font-size:48px; line-height:0.9; color:var(--accent); letter-spacing:-0.02em;}
+  .ux-step h4{color:var(--paper); font-size:26px; margin:0 0 10px;}
+  .ux-step .time{display:inline-block; font-family:ui-monospace,monospace; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-2); margin-bottom:14px; padding:2px 8px; border:1px solid var(--accent-2);}
+  .ux-step p{margin:0 0 10px; font-size:15px; line-height:1.55; color:oklch(88% 0.02 60);}
+  .ux-step p b{color:var(--paper); font-weight:500;}
+  .ux-step .verb{display:block; margin-top:10px; font-family:ui-monospace,monospace; font-size:12.5px; line-height:1.6; color:oklch(76% 0.02 60); background:oklch(10% 0.02 40); padding:12px 14px; border-left:2px solid var(--accent);}
+  .ux-step .verb b{color:var(--accent-2); font-weight:500;}
+  .ux-step .verb em{color:var(--accent-3); font-style:normal;}
+
+  .wow-box{margin-top:48px; padding:28px 32px 32px; border:2px solid var(--accent); background:oklch(15% 0.04 35);}
+  .wow-box h4{font-size:30px; line-height:1.05; color:var(--paper); margin-bottom:14px;}
+  .wow-box h4 em{font-style:italic; color:var(--accent-2)}
+  .wow-box p{font-size:15.5px; line-height:1.55; color:oklch(88% 0.02 60); margin:0 0 10px;}
+  .wow-box ul{margin:12px 0 0; padding-left:20px; font-size:14.5px; line-height:1.55; color:oklch(85% 0.02 60);}
+  .wow-box ul li{margin-bottom:4px}
+
+  /* ================== BACKLOG ================== */
+  .backlog{background:var(--bg)}
+
+  .sprint-head{margin-top:30px; margin-bottom:24px; padding:20px 24px; border:2px solid var(--line-hard); background:var(--accent-2);}
+  .sprint-head .num{font-family:'Instrument Serif',serif; font-style:italic; font-size:32px; color:var(--accent); line-height:1; margin-bottom:6px;}
+  .sprint-head .nm{font-size:13px; letter-spacing:0.22em; text-transform:uppercase; font-weight:700;}
+  .sprint-head .dur{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
+  .sprint-head .gate{margin-top:10px; font-size:14px;}
+
+  .epic{border:1px solid var(--line-hard); margin-bottom:16px; background:var(--paper);}
+  .epic .epic-head{display:grid; grid-template-columns:90px 1fr auto; align-items:center; padding:16px 22px; gap:18px; border-bottom:1px solid var(--line-hard); background:var(--panel);}
+  @media (max-width:760px){.epic .epic-head{grid-template-columns:60px 1fr; gap:12px} .epic .epic-head .rt{grid-column:1/-1; justify-self:start; margin-top:4px}}
+  .epic .epic-head .id{font-family:'Instrument Serif',serif; font-style:italic; font-size:30px; color:var(--accent); line-height:1;}
+  .epic .epic-head .title{font-family:'Instrument Serif',serif; font-size:24px; line-height:1.05; letter-spacing:-0.015em;}
+  .epic .epic-head .title small{display:block; font-family:'Space Grotesk',sans-serif; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--mute); margin-top:4px;}
+  .epic .epic-head .rt{display:flex; gap:6px; flex-wrap:wrap}
+  .epic .epic-body{padding:20px 22px 24px;}
+  .epic .goal{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0 0 14px; max-width:80ch;}
+  .epic .goal b{color:var(--ink); font-weight:600}
+
+  .task{margin:10px 0; padding:14px 16px; background:var(--bg); border-left:2px solid var(--accent);}
+  .task .t-head{display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:6px;}
+  .task .t-head .tid{font-family:'Instrument Serif',serif; font-style:italic; font-size:20px; color:var(--accent); line-height:1;}
+  .task .t-head .path{font-family:ui-monospace,monospace; font-size:13px; font-weight:500; background:var(--panel); padding:2px 7px; border:1px solid var(--line);}
+  .task .t-head .act{font-size:10px; letter-spacing:0.22em; text-transform:uppercase; font-weight:700; padding:2px 7px;}
+  .task .t-head .act.create{background:var(--ok); color:var(--paper);}
+  .task .t-head .act.update{background:var(--info); color:var(--paper);}
+  .task .t-head .time{font-size:11px; color:var(--mute); letter-spacing:0.1em;}
+  .task .desc{font-size:14.5px; line-height:1.5; color:var(--ink); margin:6px 0 6px;}
+  .task .what, .task .ac{font-size:13.5px; line-height:1.5; color:var(--ink-soft); margin:4px 0;}
+  .task .what b, .task .ac b{color:var(--ink); font-weight:600; text-transform:uppercase; letter-spacing:0.08em; font-size:10.5px; margin-right:6px;}
+
+  /* ================== API SPECS ================== */
+  .specs{background:var(--paper); border-top:2px solid var(--line-hard); border-bottom:2px solid var(--line-hard);}
+  .spec-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:36px;}
+  @media (max-width:900px){.spec-grid{grid-template-columns:1fr}}
+  .spec{border:1px solid var(--line-hard); background:var(--bg); padding:24px 26px 28px;}
+  .spec h4{font-size:22px; margin-bottom:4px;}
+  .spec .sub{font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:14px;}
+  .spec .purpose{font-size:14.5px; line-height:1.5; color:var(--ink-soft); margin:0 0 14px;}
+  .spec .purpose b{color:var(--ink); font-weight:600}
+  .spec pre{margin:8px 0 12px; font-family:ui-monospace,monospace; font-size:12.5px; line-height:1.55; background:var(--ink); color:oklch(90% 0.015 85); padding:14px 16px; overflow-x:auto; border:1px solid var(--line-hard);}
+  .spec pre b{color:var(--accent-2); font-weight:500;}
+  .spec pre em{color:var(--accent-3); font-style:normal;}
+  .spec .errs{margin-top:10px; font-size:13px;}
+  .spec .errs ul{margin:6px 0 0; padding-left:18px;}
+  .spec .errs li{font-size:13px; color:var(--ink-soft); margin-bottom:3px;}
+  .spec .errs code{font-family:ui-monospace,monospace; font-size:12px; background:var(--panel); padding:0 4px;}
+
+  /* ================== SCOPE ================== */
+  .scope{background:var(--bg)}
+  .scope-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:36px; border:1px solid var(--line-hard);}
+  @media (max-width:800px){.scope-grid{grid-template-columns:1fr}}
+  .scope-grid .col{padding:28px 30px 32px; border-right:1px solid var(--line-hard); background:var(--paper);}
+  @media (max-width:800px){.scope-grid .col{border-right:none; border-bottom:1px solid var(--line-hard);} .scope-grid .col:last-child{border-bottom:none;}}
+  .scope-grid .col:last-child{border-right:none; background:var(--panel);}
+  .scope-grid h4{font-size:28px; margin-bottom:14px;}
+  .scope-grid ul{margin:0; padding-left:20px; font-size:14.5px; line-height:1.6; color:var(--ink);}
+  .scope-grid ul li{margin-bottom:6px;}
+  .scope-grid ul li b{font-weight:500}
+  .scope-grid.in ul li{color:var(--ink);}
+  .scope-grid.in .col:first-child h4{color:var(--ok);}
+  .scope-grid.in .col:last-child h4{color:var(--danger);}
+
+  /* ================== OPEN QUESTIONS ================== */
+  .open{background:var(--paper); border-top:2px solid var(--line-hard);}
+  .open-list{margin-top:28px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  @media (max-width:800px){.open-list{grid-template-columns:1fr}}
+  .open-list .q{padding:22px 24px 24px; background:var(--accent-2); color:var(--ink); border:1px solid var(--line-hard);}
+  .open-list .q .num{font-family:'Instrument Serif',serif; font-style:italic; font-size:32px; line-height:0.9; color:var(--accent); margin-bottom:8px; display:block}
+  .open-list .q h4{font-size:20px; margin:0 0 6px; letter-spacing:-0.015em;}
+  .open-list .q p{margin:0; font-size:14px; line-height:1.5;}
+
+  /* ================== COLOPHON ================== */
+  footer.colophon{padding:56px 0 52px; border-top:2px solid var(--line-hard); background:var(--paper);}
+  .colo{display:grid; grid-template-columns:2fr 1fr 1fr; gap:36px;}
+  @media (max-width:800px){.colo{grid-template-columns:1fr}}
+  .colo .big{font-family:'Instrument Serif',serif; font-size:clamp(26px,3vw,42px); letter-spacing:-0.02em; line-height:1.05;}
+  .colo .big em{font-style:italic; color:var(--accent)}
+  .colo .k{font-size:10px; letter-spacing:0.24em; text-transform:uppercase; font-weight:700; color:var(--ink-soft); margin-bottom:8px;}
+  .colo p{font-size:14px; color:var(--ink-soft); line-height:1.5; margin:0 0 6px;}
+  .filebar{display:flex; justify-content:space-between; margin-top:40px; padding-top:18px; border-top:1px solid var(--line); font-family:ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; color:var(--ink-soft); text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero wrap">
+  <div class="hero-top">
+    <div class="col"><a href="../roadmap/">← roadmap</a></div>
+    <div class="col center">MCPHIRE / V3 / DOCS + UX PLAN</div>
+    <div class="col right">15 · IV · 2026</div>
+  </div>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-title">
+        Нашёл <em>mcphire</em>.<br>
+        Вставил в <span class="mark">Claude</span>.<br>
+        Закрыл.<br>
+        Через день в <em>Telegram</em>:<br>
+        «3 вакансии».
+      </div>
+    </div>
+    <aside class="hero-side">
+      <div class="kicker">назначение</div>
+      <p>Документация минимального MVP. Пишем специ, не код. Задача — понять, какие файлы нужны и что конкретно в них, прежде чем начинать коммитить.</p>
+      <p>Один спринт, 4 эпика документации, 14 задач. Плюс детальная UX-спека до первого «вау».</p>
+      <p>Референс-pattern: Moltbook (skill-manifest + claim-через-bio). Целевой канал уведомлений: Telegram, раз в сутки.</p>
+    </aside>
+  </div>
+
+  <div class="hero-meta">
+    <div class="cell"><div class="k">Спринт</div><div class="v">1</div></div>
+    <div class="cell"><div class="k">Эпиков доков</div><div class="v">4</div></div>
+    <div class="cell"><div class="k">Задач</div><div class="v">14</div></div>
+    <div class="cell"><div class="k">Дней до первого вау</div><div class="v">≤ 1</div></div>
+  </div>
+</header>
+
+<!-- ============================ 02 AUDIT ============================ -->
+<section class="audit">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">02<small>Аудит текущей документации</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО УЖЕ НАПИСАНО, ЧТО ПРИДЁТСЯ ДОБАВИТЬ</div>
+        <h2>В проекте 6 файлов документации. Пяти не хватает.</h2>
+      </div>
+    </div>
+
+    <div class="audit-table">
+      <div class="audit-row head">
+        <div class="c">Файл</div>
+        <div class="c">Статус</div>
+        <div class="c">Что там сейчас</div>
+        <div class="c">Что надо</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-frontend/public/llms.txt</div>
+        <div class="c status part">partial</div>
+        <div class="c">llmstxt.org формат, 5 tools, quick facts, FAQ на 10 вопросов</div>
+        <div class="c">Добавить 2 новых tool-а, обновить FAQ про «heartbeat», убрать устаревшие цифры</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">public/llms-full.txt</div>
+        <div class="c status part">partial</div>
+        <div class="c">Расширенный гайд с Python/TS/Claude Desktop setup</div>
+        <div class="c">Добавить секцию «Agent onboarding via skill-manifest» + примеры вызовов новых tools</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">public/.well-known/mcp/server.json</div>
+        <div class="c status part">partial</div>
+        <div class="c">v1.1.0, 6 tools (search/get/salary/trends/apply/my-apps)</div>
+        <div class="c">→ v1.2.0, +2 tools (register_profile, list_my_matches), bump rate-limits, authentication block</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/mcp-server/smithery.yaml</div>
+        <div class="c status part">partial</div>
+        <div class="c">v1.0.0, 5 tools в YAML-схеме</div>
+        <div class="c">→ v1.1.0, добавить register_profile/list_my_matches + опубликовать на smithery.ai</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">public/docs/mcp/index.html</div>
+        <div class="c status part">partial</div>
+        <div class="c">TechArticle Schema, setup Claude Desktop/Cursor/Cline</div>
+        <div class="c">Новый блок «/mcphire-join flow» с кодом скилла, TL;DR по heartbeat</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/README.md</div>
+        <div class="c status okk">ok</div>
+        <div class="c">Базовый README с tool-таблицей</div>
+        <div class="c">Обновить changelog, добавить ссылку на USER_FLOW.md</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/RUNBOOK.md</div>
+        <div class="c status okk">ok</div>
+        <div class="c">Rollback procedures per sprint</div>
+        <div class="c">Добавить раздел про TG-бот (перезапуск, сброс webhook)</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">public/skill/mcphire-join.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать skill-manifest, основной артефакт MVP</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/docs/USER_FLOW.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: end-to-end путь пользователя в 7 шагах</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/docs/MVP_SCOPE.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: что в MVP, что за скобками, kill-gate</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/docs/API.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: I/O-схемы новых MCP-tools с примерами и ошибками</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/docs/TELEGRAM.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: бот, deep-link привязка, формат daily digest</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/docs/DATA_MODEL.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: схема таблицы agent_profiles + правила матчинга из jobs</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/CHANGELOG.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: история версий, запись v3-MVP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 03 UX SPEC ============================ -->
+<section class="ux">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">03<small>UX-спецификация</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО ЧЕЛОВЕК ВИДИТ · 7 ШАГОВ</div>
+        <h2>От ссылки в ленте до Telegram-уведомления.</h2>
+        <p class="lead" style="margin-top:16px">Это не технический флоу, это опыт пользователя. Что он делает, что видит, сколько занимает. Живой герой: Марина, middle-ML-инженер, 4 года опыта, ищет подряд. Нашла mcphire в LinkedIn-посте.</p>
+      </div>
+    </div>
+
+    <div class="ux-steps">
+
+      <div class="ux-step">
+        <div class="idx">01</div>
+        <div>
+          <h4>Discovery · LinkedIn-пост в ленте</h4>
+          <div class="time">~ 15 секунд</div>
+          <p>Марина листает LinkedIn. Видит пост: «HH меня забанил. Я сделал MCPHire. Скорми адрес Клоду — он найдёт вакансии за тебя». Есть скрин с чатом в Claude и TG-уведомление на втором скрине.</p>
+          <p>Кликает на ссылку <b>mcphire.com</b>.</p>
+          <span class="verb"><b>Что видит на сайте:</b> лаконичный лендинг с одной строкой — «Кинь этот адрес в Claude: <em>mcphire.com/skill</em>» + 3-минутный GIF демонстрации.</span>
+        </div>
+      </div>
+
+      <div class="ux-step">
+        <div class="idx">02</div>
+        <div>
+          <h4>Entry · вставка адреса в Claude</h4>
+          <div class="time">~ 20 секунд</div>
+          <p>Марина открывает Claude Desktop. Пишет: <b>«сходи на mcphire.com/skill»</b>. Claude fetchит markdown, понимает это инструкция-скилл, и читает её.</p>
+          <span class="verb"><b>В Claude видно:</b><br><em>&gt; User:</em> сходи на mcphire.com/skill<br><em>&gt; Claude:</em> Прочитал. Это онбординг MCPHire — маркетплейс работы для AI-native людей. Могу зарегистрировать тебя. Это 5 вопросов и 2 минуты.</span>
+        </div>
+      </div>
+
+      <div class="ux-step">
+        <div class="idx">03</div>
+        <div>
+          <h4>Registration · 5 вопросов, живой диалог</h4>
+          <div class="time">~ 2 минуты</div>
+          <p>Claude задаёт по одному вопросу. Марина отвечает естественно, не в форму. Вопросы: (1) роль/уровень, (2) основной стек, (3) что ищешь — найм или подряд или оба, (4) floor по деньгам, (5) ссылка на proof (GitHub / LinkedIn / сайт).</p>
+          <span class="verb"><b>Последняя реплика Claude:</b><br><em>&gt;</em> Профиль собран. Отправляю в mcphire.com.<br><em>&gt;</em> [<b>register_profile</b>] → profile_id: <em>prof_7b2f</em>, claim_token: <em>mcphire-verify-k8s3f</em>.<br><em>&gt;</em> Вставь строку <em>mcphire-verify-k8s3f</em> в любое публичное место — GitHub bio или LinkedIn headline. Я проверю через 15 минут.</span>
+        </div>
+      </div>
+
+      <div class="ux-step">
+        <div class="idx">04</div>
+        <div>
+          <h4>Claim · вставка токена в bio</h4>
+          <div class="time">~ 30 секунд</div>
+          <p>Марина открывает GitHub в соседней вкладке, редактирует свой bio, добавляет <b>mcphire-verify-k8s3f</b>, сохраняет. Возвращается в Claude.</p>
+          <p>Claude: <em>«Готово. Скажи когда вставила — я дёрну MCP проверить».</em> Марина: «вставила». Claude зовёт <span class="mono">get_verification_status</span> → verified. Claude: <em>«Профиль подтверждён. Следующий шаг — привяжи Telegram чтобы получать уведомления».</em></p>
+        </div>
+      </div>
+
+      <div class="ux-step">
+        <div class="idx">05</div>
+        <div>
+          <h4>Telegram binding · один клик</h4>
+          <div class="time">~ 15 секунд</div>
+          <p>Claude даёт deep-link: <b>t.me/mcphire_match_bot?start=link_7b2f_k8s3f</b>. Марина кликает. Открывается Telegram, бот пишет: <em>«Привет. Я буду присылать вакансии под твой профиль раз в сутки. Первые матчи придут завтра в 10:00 по твоему времени».</em></p>
+          <span class="verb"><b>Что видит:</b> два сообщения от бота<br><em>1.</em> «Telegram привязан к профилю prof_7b2f ✓»<br><em>2.</em> «Первый дайджест — завтра. Чтобы получить сейчас, напиши /matches. Чтобы отписаться, /stop.»</span>
+        </div>
+      </div>
+
+      <div class="ux-step">
+        <div class="idx">06</div>
+        <div>
+          <h4>Daily digest · утреннее уведомление</h4>
+          <div class="time">раз в сутки · 10:00 local</div>
+          <p>На следующее утро в TG от <b>@mcphire_match_bot</b>:</p>
+          <span class="verb"><em>&gt; 🔔 Утренний дайджест · 3 матча</em><br><br><b>1.</b> Senior ML · Avito · 5500$ · remote<br>Совпал стек: Python, LangGraph, vLLM<br>[Открыть] [Пропустить]<br><br><b>2.</b> Contract · AI Content Engine · 8000$ · 3 мес<br>Совпало: Python, n8n, LLM prompting<br>[Открыть] [Пропустить]<br><br><b>3.</b> Staff AI Eng · Poolside · 6500$ · remote EU<br>Совпал стек: ML research + production<br>[Открыть] [Пропустить]</span>
+          <p style="margin-top:12px">Марина жмёт «Открыть» на втором → бот в TG открывает ссылку на mcphire.com/jobs/ai-content-engine-xxx. Там описание и контакт.</p>
+        </div>
+      </div>
+
+      <div class="ux-step">
+        <div class="idx">07</div>
+        <div>
+          <h4>Follow-up · тишина если нечего сказать</h4>
+          <div class="time">следующие сутки</div>
+          <p>Если новых матчей нет — бот молчит. Это правило. «Дайджест каждый день» — ложь, которая ломает доверие за неделю. Правда: <b>дайджест при наличии новых матчей, максимум раз в сутки</b>.</p>
+          <p>Через 7 дней Марина получает второй дайджест (если появились новые jobs в её стеке). Через 30 — бот пишет: «Ты не открывал матчи 30 дней. Поставить на паузу? /pause».</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="wow-box">
+      <h4>Что делает этот флоу <em>wow</em>, а не очередной job-board</h4>
+      <p>Одна ссылка в ленте → нулевой UI онбординг → регистрация через разговор в Claude → ежедневная лента в TG. Пользователь ни разу не заполнял форму, не регистрировался, не подтверждал email. Вместо этого:</p>
+      <ul>
+        <li>Claude работает как интерфейс, не сайт</li>
+        <li>Клейм через публичную bio — публичное доказательство владения без KYC и email</li>
+        <li>TG как attention-канал — там всегда открыт, не нужно возвращаться на сайт</li>
+        <li>Первый матч — в течение 24 часов. Это короче чем любой classic job-board, где матч приходит через неделю холодных откликов</li>
+      </ul>
+      <p style="margin-top:14px; color:var(--accent-2); font-weight:500">Анти-wow: если <u>первый дайджест пустой</u>, продукт мёртв. Значит supply не собран. На этот случай первые 20 регистраций сопровождаются hand-crafted выборкой из 72K HH-вакансий — чтобы в первом утре что-то точно было.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 04 MVP SCOPE ============================ -->
+<section class="scope">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">04<small>MVP scope</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО В · ЧТО НЕ В MVP</div>
+        <h2>Минимум для проверки одной гипотезы.</h2>
+        <p class="lead" style="margin-top:14px">Гипотеза: <b>AI-native юзеры готовы отдать Claude адрес сайта и ждать 24 часа вместо того, чтобы заполнять форму</b>. Всё, что не нужно для проверки этой гипотезы — за скобками.</p>
+      </div>
+    </div>
+
+    <div class="scope-grid in">
+      <div class="col">
+        <h4>В MVP</h4>
+        <ul>
+          <li><b>Skill-manifest</b> <span class="mono">/skill/mcphire-join.md</span></li>
+          <li><b>2 MCP-tool:</b> <span class="mono">register_profile</span>, <span class="mono">list_my_matches</span></li>
+          <li><b>1 admin MCP-tool:</b> <span class="mono">get_verification_status</span></li>
+          <li><b>Claim-cron</b> — чекает GitHub/LinkedIn bio раз в 15 минут</li>
+          <li><b>TG-бот</b> с 3 командами: <span class="mono">/start</span>, <span class="mono">/matches</span>, <span class="mono">/pause</span></li>
+          <li><b>Daily-digest cron</b> — раз в сутки в 10:00 local, формирует match-ы из <span class="mono">jobs</span> по JSONB-overlap со стеком профиля</li>
+          <li><b>Одна новая таблица</b> <span class="mono">agent_profiles</span> + attaching к существующей <span class="mono">jobs</span></li>
+          <li><b>Telemetry</b> — Umami events на каждый шаг воронки</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Не в MVP</h4>
+        <ul>
+          <li><strike>M2M-negotiation</strike> — Фаза 2, после доказательства гипотезы</li>
+          <li><strike>Buyer-сторона</strike> — первые 14 дней только seller</li>
+          <li><strike>Dashboard /me/</strike> — TG покрывает всё</li>
+          <li><strike>Dual позиционирование</strike> (найм vs подряд) — одна форма, один флаг <span class="mono">modes: ["hire","contract","both"]</span></li>
+          <li><strike>Rule-based auto-matching</strike> — SQL по JSONB overlap достаточно</li>
+          <li><strike>Embedding similarity</strike> — не нужно до 500 профилей</li>
+          <li><strike>Escrow, payments</strike> — не собираем деньги, всё бесплатно</li>
+          <li><strike>Reputation/review</strike> — нечего ревьюить, сделок пока ноль</li>
+          <li><strike>Public feed или leaderboard</strike> — Moltbook-паттерн нам не нужен, мы private-match</li>
+          <li><strike>TG-push при каждом новом job</strike> — только раз в сутки, иначе бот spammer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 05 BACKLOG ============================ -->
+<section class="backlog">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">05<small>Документационный бэклог</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>1 СПРИНТ · 4 ЭПИКА · 14 ЗАДАЧ</div>
+        <h2>Только документация.<br>Никакого кода.</h2>
+      </div>
+    </div>
+
+    <div class="sprint-head">
+      <div class="num">S1</div>
+      <div class="nm">Documentation-only sprint</div>
+      <div class="dur">3-4 дня · 2-3 часа в день · соло</div>
+      <div class="gate">Gate: все 14 документов написаны, прогнаны через проверку друг на друга (skill ↔ API ↔ data-model не противоречат). После gate — можно стартовать implementation-спринт.</div>
+    </div>
+
+    <!-- EPIC D1 — SKILL + ENTRY -->
+    <div class="epic">
+      <div class="epic-head">
+        <div class="id">D1</div>
+        <div class="title">Точка входа<small>Skill-manifest + первый экран</small></div>
+        <div class="rt"><span class="tag warn">critical path</span><span class="tag hot">wow</span></div>
+      </div>
+      <div class="epic-body">
+        <p class="goal"><b>Goal.</b> Описать артефакт, который пользователь даёт Claude. Эта документация = сам продукт в момент онбординга. Должен читаться и людьми, и машиной.</p>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D1.1</span>
+            <span class="path">public/skill/mcphire-join.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 45 мин</span>
+          </div>
+          <p class="desc">Markdown-скилл. Claude читает и начинает вести диалог регистрации + запускает heartbeat/daily-check.</p>
+          <p class="what"><b>что внутри</b>Pre-amble (описание что это), Registration protocol (5 вопросов + порядок), Verification protocol (claim-token workflow), Heartbeat protocol (при открытии conversation — вызов list_my_matches), Commands (<span class="mono">/matches</span>, <span class="mono">/pause</span>, <span class="mono">/profile</span>).</p>
+          <p class="ac"><b>acceptance</b>Файл &lt; 4KB, читается Claude Desktop за 1 секунду, содержит 3 code-block-а с JSON-примерами tool-вызовов, MCP-endpoint захардкожен, язык — русский с английскими именами tool-ов.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D1.2</span>
+            <span class="path">public/index.html (hero)</span>
+            <span class="act update">update</span>
+            <span class="time">~ 30 мин</span>
+          </div>
+          <p class="desc">Заменить текущий hero сайта на минималистичный entry-экран — одна строка с CTA «Кинь адрес в Claude».</p>
+          <p class="what"><b>что внутри</b>Одна фраза poster-style, три шага инструкции («1. mcphire.com/skill 2. вставь в Claude 3. жди 24ч»), GIF/screencast-заглушка. Старый SSG-контент прячется за fold.</p>
+          <p class="ac"><b>acceptance</b>Lighthouse mobile ≥ 85, LCP ≤ 2.5s, Schema.org JobBoardMarketplace + FAQPage. Старые 72K /jobs/ живы для SEO.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D1.3</span>
+            <span class="path">docs/mcp/index.html</span>
+            <span class="act update">update</span>
+            <span class="time">~ 40 мин</span>
+          </div>
+          <p class="desc">Страница /docs/mcp переписана под новый flow. Убираем старый setup Claude Desktop (он теперь прямо в skill-manifest), добавляем секцию «Agent onboarding via skill».</p>
+          <p class="what"><b>что внутри</b>TL;DR-блок 60 слов, полный диалог-пример (воспроизведение UX из секции 03), две картинки (первый экран Claude + TG-сообщение), ссылки на skill-manifest и llms.txt.</p>
+          <p class="ac"><b>acceptance</b>Schema.org TechArticle валиден, рендерится без JS (SSG), 0 emoji-иконок, breadcrumbs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EPIC D2 — API / MCP TOOLS -->
+    <div class="epic">
+      <div class="epic-head">
+        <div class="id">D2</div>
+        <div class="title">API спецификация<small>MCP-tools · I/O · ошибки</small></div>
+        <div class="rt"><span class="tag warn">critical path</span></div>
+      </div>
+      <div class="epic-body">
+        <p class="goal"><b>Goal.</b> Описать новые MCP-tools так, чтобы любой dev (или сам Claude) мог реализовать/интегрировать без вопросов. Без реализации — только схемы и контракты.</p>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D2.1</span>
+            <span class="path">docs/API.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 60 мин</span>
+          </div>
+          <p class="desc">Reference для всех MCP-tools проекта (5 старых + 3 новых). По каждому: назначение, input schema, output schema, примеры, error codes, rate-limits.</p>
+          <p class="what"><b>что внутри</b>Секции: existing tools (refresh), new tools (<span class="mono">register_profile</span>, <span class="mono">list_my_matches</span>, <span class="mono">get_verification_status</span>). Для каждого нового — JSON-example request + response, список возможных ошибок, ссылки на DATA_MODEL.md.</p>
+          <p class="ac"><b>acceptance</b>Покрывает 100% tool-ов server.py. JSON-примеры валидируются (jq). Error-codes пронумерованы (E100-E199 для profile, E200-E299 для matches).</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D2.2</span>
+            <span class="path">.well-known/mcp/server.json</span>
+            <span class="act update">update</span>
+            <span class="time">~ 20 мин</span>
+          </div>
+          <p class="desc">Bump версии → v1.2.0. Добавить 3 новых tool в массив tools. Поправить rate-limits под новую нагрузку.</p>
+          <p class="what"><b>что внутри</b>Новые entries в tools[] с description, example. Обновлённые data_freshness. Секция authentication: read=none, write=bearer (для register_profile).</p>
+          <p class="ac"><b>acceptance</b>Валидный JSON, проходит jsonschema по MCP-spec. curl возвращает application/json; charset=utf-8.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D2.3</span>
+            <span class="path">mcp-server/smithery.yaml</span>
+            <span class="act update">update</span>
+            <span class="time">~ 20 мин</span>
+          </div>
+          <p class="desc">Синхронизация с server.json — bump до 1.1.0, добавить 3 tool. Нужно для публикации на smithery.ai.</p>
+          <p class="what"><b>что внутри</b>YAML entries для register_profile (inputSchema с enum modes/side, JSON fields), list_my_matches (pagination params), get_verification_status (simple profile_id).</p>
+          <p class="ac"><b>acceptance</b>yamllint чистый, поля соответствуют Smithery tool-spec.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D2.4</span>
+            <span class="path">docs/DATA_MODEL.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 40 мин</span>
+          </div>
+          <p class="desc">Схема новой таблицы agent_profiles + связи с существующими (jobs, users, telegram_links). Описание JSONB-полей, индексов, FK.</p>
+          <p class="what"><b>что внутри</b>Postgres DDL (без выполнения) для <span class="mono">agent_profiles</span> и <span class="mono">claim_tokens</span>. GIN-индексы на JSONB stack. ERD-диаграмма (Mermaid). Правила матчинга в SQL-псевдокоде.</p>
+          <p class="ac"><b>acceptance</b>DDL валидный SQL (psql --dry-run), все FK совпадают с существующей схемой, Mermaid рендерится на GitHub.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EPIC D3 — TELEGRAM + NOTIFICATIONS -->
+    <div class="epic">
+      <div class="epic-head">
+        <div class="id">D3</div>
+        <div class="title">Канал уведомлений<small>TG-бот · daily digest · formatting</small></div>
+        <div class="rt"><span class="tag info">UX</span></div>
+      </div>
+      <div class="epic-body">
+        <p class="goal"><b>Goal.</b> Описать поведение TG-бота: команды, формат уведомлений, тон, анти-спам. Этот файл — источник правды для копирайта бота и для dev-реализации.</p>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D3.1</span>
+            <span class="path">docs/TELEGRAM.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 50 мин</span>
+          </div>
+          <p class="desc">Полная спека TG-бота — @mcphire_match_bot. Команды, deep-link привязка, формат daily digest, правила анти-спам, runbook для восстановления.</p>
+          <p class="what"><b>что внутри</b>(1) Команды: <span class="mono">/start</span>, <span class="mono">/matches</span> (manual pull), <span class="mono">/pause</span>, <span class="mono">/resume</span>, <span class="mono">/profile</span>, <span class="mono">/help</span>. (2) Deep-link формат <span class="mono">link_&lt;profile_id&gt;_&lt;claim_token&gt;</span>. (3) Daily digest template (Markdown-сообщение). (4) Частота: max 1 сообщение в сутки, ноль если нечего сказать, уведомление о паузе через 30 дней неактивности.</p>
+          <p class="ac"><b>acceptance</b>Все команды с примерами сообщений. Тексты копирайта — финальные, ни одного лорема. Анти-спам правила явно сформулированы.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D3.2</span>
+            <span class="path">docs/TELEGRAM.md (appendix)</span>
+            <span class="act create">create</span>
+            <span class="time">~ 20 мин</span>
+          </div>
+          <p class="desc">Шаблоны сообщений с переменными: первое приветствие, daily digest 1-5 матчей, ноль-матчей уведомление, pause-confirmation.</p>
+          <p class="what"><b>что внутри</b>6 шаблонов с плейсхолдерами (<span class="mono">{first_name}</span>, <span class="mono">{matches_count}</span>, <span class="mono">{top_match_title}</span>, etc). Формат inline-кнопок [Открыть]/[Пропустить]/[Пауза].</p>
+          <p class="ac"><b>acceptance</b>Все шаблоны копипастятся в код aiogram без правок. Проверены на Markdown-escape edge cases (подчёркивания в username).</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D3.3</span>
+            <span class="path">RUNBOOK.md (append)</span>
+            <span class="act update">update</span>
+            <span class="time">~ 15 мин</span>
+          </div>
+          <p class="desc">Секция «TG-бот operations» — как перезапускать, как сбросить webhook, как отозвать токен BotFather, как почистить pending updates.</p>
+          <p class="what"><b>что внутри</b>4 процедуры с командами. Rollback: что делать если бот массово шлёт неверные матчи (kill switch через env-var MATCH_BOT_DISABLED=1).</p>
+          <p class="ac"><b>acceptance</b>Каждая процедура с явной командой Bash или Python, без «посмотрите в docs».</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EPIC D4 — SCOPE / LLMS / CHANGELOG -->
+    <div class="epic">
+      <div class="epic-head">
+        <div class="id">D4</div>
+        <div class="title">Meta-документы<small>scope, release, machine-readable</small></div>
+        <div class="rt"><span class="tag cold">secondary</span></div>
+      </div>
+      <div class="epic-body">
+        <p class="goal"><b>Goal.</b> Всё, что нужно чтобы другой человек (или Claude) мог быстро войти в проект: scope, changelog, обновлённые llms-файлы.</p>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D4.1</span>
+            <span class="path">docs/USER_FLOW.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 30 мин</span>
+          </div>
+          <p class="desc">Тот же flow, что в секции 03 этой страницы, но в отдельном md-файле. Для внутренней передачи или для любого человека, который присоединится.</p>
+          <p class="what"><b>что внутри</b>7 шагов пользователя, каждый с: что делает, что видит, сколько занимает, failure mode. Mermaid sequenceDiagram для ключевых переходов.</p>
+          <p class="ac"><b>acceptance</b>Один md-файл ≤ 500 строк, Mermaid валиден, ссылки на API.md и TELEGRAM.md.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D4.2</span>
+            <span class="path">docs/MVP_SCOPE.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 25 мин</span>
+          </div>
+          <p class="desc">Что делаем / не делаем / критерии закрытия гипотезы. Файл, который открывается при каждом споре «а давайте добавим фичу».</p>
+          <p class="what"><b>что внутри</b>IN-list и OUT-list (см. секция 04). Hypothesis statement. Kill-gate: 3 метрики + значения для go/no-go на день 14. Measurement plan: какие Umami events отслеживаем.</p>
+          <p class="ac"><b>acceptance</b>3 конкретные метрики с числами (например: ≥ 20 register_profile calls за 48ч, ≥ 5 verified, ≥ 1 клик в TG на матч).</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D4.3</span>
+            <span class="path">public/llms.txt</span>
+            <span class="act update">update</span>
+            <span class="time">~ 15 мин</span>
+          </div>
+          <p class="desc">Обновить quick facts: убрать устаревшие цифры медиан (актуализируй текущие), добавить упоминание skill-manifest и register_profile.</p>
+          <p class="what"><b>что внутри</b>Секция «For agents: onboarding via skill-manifest» с URL /skill/mcphire-join.md. Обновить FAQ 11-й вопрос «Как зарегистрироваться как соискатель?».</p>
+          <p class="ac"><b>acceptance</b>llmstxt.org парсер видит валидно, длина &lt; 3KB, без broken links.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D4.4</span>
+            <span class="path">public/llms-full.txt</span>
+            <span class="act update">update</span>
+            <span class="time">~ 25 мин</span>
+          </div>
+          <p class="desc">Добавить секцию «Agent onboarding via skill-manifest» с полным примером диалога и JSON-ответами MCP. Нужно для AI-engines (Perplexity, Gemini), которые fetch-ят llms-full.</p>
+          <p class="what"><b>что внутри</b>Python/TS/Claude Desktop примеры вызова register_profile + list_my_matches. 3 FAQ добавить.</p>
+          <p class="ac"><b>acceptance</b>Файл &lt; 20KB, код-примеры проверены на синтаксическую корректность.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D4.5</span>
+            <span class="path">CHANGELOG.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 10 мин</span>
+          </div>
+          <p class="desc">Первая запись changelog — версия v3-MVP-DOCS. Начало истории релизов.</p>
+          <p class="what"><b>что внутри</b>Keep-a-changelog формат. Запись 0.3.0-mvp-docs — «added: skill-manifest spec, register_profile API, daily digest TG bot spec». Ссылки на каждый документ.</p>
+          <p class="ac"><b>acceptance</b>Валидный markdown, запись датирована, все внутренние линки резолвятся.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D4.6</span>
+            <span class="path">README.md</span>
+            <span class="act update">update</span>
+            <span class="time">~ 10 мин</span>
+          </div>
+          <p class="desc">Добавить в корневой README.md ссылки на новые документы + краткое описание v3-MVP-флоу (3 предложения).</p>
+          <p class="what"><b>что внутри</b>Секция «v3 MVP (April 2026)» с TL;DR + список ссылок на 7 новых файлов + диаграмма потока (ASCII или Mermaid).</p>
+          <p class="ac"><b>acceptance</b>Читается за 2 минуты, первые 10 строк передают концепт.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ 06 API SPECS PREVIEW ============================ -->
+<section class="specs">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">06<small>API preview</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО В НОВЫХ MCP-TOOLS · I/O КОНТРАКТ</div>
+        <h2>Три новых tool.</h2>
+        <p class="lead" style="margin-top:14px">Не реализация — только спецификация, которая ляжет в D2.1/D2.2/D2.3. Здесь она предварительно сведена, чтобы в спринте документации не было вопросов «а что именно в API».</p>
+      </div>
+    </div>
+
+    <div class="spec-grid">
+      <div class="spec">
+        <h4>register_profile</h4>
+        <div class="sub">WRITE · auth none in MVP</div>
+        <p class="purpose"><b>Назначение.</b> Вызывается Claude после 5-вопросного диалога. Создаёт/обновляет профиль соискателя, возвращает claim_token и magic dashboard URL.</p>
+<pre><b>INPUT</b>
+{
+  "side": "seller",               // enum: seller | buyer | both
+  "modes": ["hire", "contract"],  // multi-select
+  "stack": ["python","llm","n8n"],
+  "seniority": "senior",          // junior|middle|senior|lead|staff
+  "floor_usd_monthly": 5000,
+  "timezone": "UTC+3",
+  "proof_url": <em>"https://github.com/marina"</em>,
+  "must_not": "no on-call, no crypto"   // optional
+}
+
+<b>OUTPUT</b>
+{
+  "profile_id": "prof_7b2f",
+  "claim_token": "mcphire-verify-k8s3f",
+  "claim_instructions": "Вставь в публичный bio (GitHub/LinkedIn).",
+  "verify_check_at": "2026-04-15T14:45:00Z",
+  "dashboard_url": null   // нет в MVP
+}</pre>
+        <div class="errs">
+          <b>Errors:</b>
+          <ul>
+            <li><code>E101 invalid_stack</code> — стек пустой или &gt; 20 эл.</li>
+            <li><code>E102 proof_url_unreachable</code> — URL 4xx/5xx</li>
+            <li><code>E103 duplicate_proof</code> — proof_url уже зарегистрирован</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="spec">
+        <h4>list_my_matches</h4>
+        <div class="sub">READ · auth none in MVP</div>
+        <p class="purpose"><b>Назначение.</b> Вызывается Claude-скиллом при открытии conversation. Возвращает матчи, которые появились с <code>since</code>. Основа heartbeat-логики (и источник для daily digest).</p>
+<pre><b>INPUT</b>
+{
+  "profile_id": "prof_7b2f",
+  "since": "2026-04-14T10:00:00Z",  // optional
+  "limit": 10                       // default 10, max 50
+}
+
+<b>OUTPUT</b>
+{
+  "matches": [
+    {
+      "match_id": "m_8821",
+      "job_id": "hh_abc123",
+      "title": <em>"Senior ML · Avito"</em>,
+      "salary_monthly_usd": 5500,
+      "location": "Москва / remote",
+      "why_match": ["stack: python,llm",
+                    "floor OK: 5500 ≥ 5000"],
+      "url": "https://mcphire.com/jobs/hh_abc123",
+      "status": "notified",
+      "created_at": "..."
+    }
+  ],
+  "total_new": 3,
+  "next_check_after": "2026-04-16T10:00:00Z"
+}</pre>
+        <div class="errs">
+          <b>Errors:</b>
+          <ul>
+            <li><code>E201 profile_not_verified</code> — сначала claim-верификация</li>
+            <li><code>E202 profile_paused</code> — /pause активен</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="spec" style="grid-column: 1 / -1;">
+        <h4>get_verification_status</h4>
+        <div class="sub">READ · auth none in MVP</div>
+        <p class="purpose"><b>Назначение.</b> Claude зовёт когда юзер сказал «вставил токен в bio». Быстрая проверка — готов ли claim к следующему шагу. Также триггерит немедленную (не-cron) проверку URL.</p>
+<pre><b>INPUT</b>  { "profile_id": "prof_7b2f" }
+
+<b>OUTPUT</b>
+{
+  "profile_id": "prof_7b2f",
+  "status": <em>"verified"</em>,           // pending | verified | expired | failed
+  "proof_url": "https://github.com/marina",
+  "last_checked_at": "2026-04-15T14:43:00Z",
+  "token_expires_at": "2026-04-17T14:30:00Z",
+  "next_step": "link_telegram"     // или "wait_first_digest" или "re_register"
+}</pre>
+        <div class="errs">
+          <b>Errors:</b>
+          <ul>
+            <li><code>E301 profile_not_found</code></li>
+            <li><code>E302 token_expired</code> — прошло &gt; 48ч с register_profile</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 07 OPEN QUESTIONS ============================ -->
+<section class="open">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">07<small>Открытые вопросы</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>РЕШИТЬ ДО СТАРТА СПРИНТА ДОКОВ</div>
+        <h2>Пять развилок копирайта и поведения.</h2>
+      </div>
+    </div>
+
+    <div class="open-list">
+      <div class="q">
+        <span class="num">i</span>
+        <h4>Имя TG-бота</h4>
+        <p>Варианты: <span class="mono">@mcphire_match_bot</span> / <span class="mono">@mcphire_jobs_bot</span> / <span class="mono">@hire_bot</span>. Проверю занятость. Финальный выбор нужен до D3.1.</p>
+      </div>
+      <div class="q">
+        <span class="num">ii</span>
+        <h4>Время daily digest</h4>
+        <p>10:00 local-time профиля (как в mock-флоу), или 9:00, или 8:00? Влияет на copy в D3.1 («утренний дайджест»).</p>
+      </div>
+      <div class="q">
+        <span class="num">iii</span>
+        <h4>Claim-source — только GitHub или любой URL</h4>
+        <p>GitHub bio (строже, dev-only), LinkedIn headline (шире, но parsing сложнее), любой публичный URL (универсально, легче обойти)? Решает D1.1 и D2.4.</p>
+      </div>
+      <div class="q">
+        <span class="num">iv</span>
+        <h4>Язык первого релиза</h4>
+        <p>Skill и копирайт TG — русский (аудитория-RU) или двуязычно (EN + RU)? Bi-lang = двойной объём копирайта.</p>
+      </div>
+      <div class="q">
+        <span class="num">v</span>
+        <h4>Модель по-умолчанию — seller или both</h4>
+        <p>Первая регистрация: сразу предлагаем оба режима (seller+buyer-готов-быть), или только seller? Buyer-сторона появится в следующем спринте — предварительная регистрация сейчас упростит launch поста.</p>
+      </div>
+      <div class="q">
+        <span class="num">vi</span>
+        <h4>Объём первого дайджеста</h4>
+        <p>Сколько матчей в первом утреннем TG-сообщении: 3 (компактно), 5 (больше выбора), или adaptive (столько сколько нашли, max 5)? Влияет на шаблоны в D3.2.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ COLOPHON ============================ -->
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo">
+      <div class="big">MCPHire v3. Документационный спринт на <em>3-4 дня</em>.<br>Четыре эпика. Четырнадцать файлов. Один <em>wow-flow</em>.</div>
+      <div>
+        <div class="k">Смежные документы</div>
+        <p><a href="../">v2 vision</a></p>
+        <p><a href="../roadmap/">v3 roadmap (10 эпиков)</a></p>
+        <p><a href="https://mcphire.com/llms.txt">llms.txt (current)</a></p>
+      </div>
+      <div>
+        <div class="k">Следующий шаг</div>
+        <p>Закрыть 6 открытых вопросов.</p>
+        <p>Начать спринт с D1.1 — skill-manifest.</p>
+      </div>
+    </div>
+    <div class="filebar">
+      <span>mcphire · v3 · docs-plan</span>
+      <span>t.z. / kaş · tr</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
