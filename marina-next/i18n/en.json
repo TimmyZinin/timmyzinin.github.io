@@ -158,6 +158,9 @@
     "scratch": {
       "name": "yourself",
       "subtitle": "personal notes"
+    },
+    "heroine": {
+      "firstname": "Marina"
     }
   },
   "text": {
@@ -514,6 +517,168 @@
       "client_label": "email series for Anna #2",
       "decline_outgoing": "Anna, not right now. can't handle a second one in parallel.",
       "decline_reply": "got it, take care. i'll find someone else."
+    },
+    "tim_creator": {
+      "subscribed": "subscribed 👍",
+      "thanks": "thanks! see you in the channel.",
+      "later": "i'll subscribe later."
+    },
+    "payment": {
+      "tim_tier1": "Tim · AI lead farming",
+      "tim_tier2": "Tim · AI calls",
+      "tim_tier3": "Tim · AI offers",
+      "pavel_loan": "loan · to Paul",
+      "mama_medicine": "Mum · medicine",
+      "denis": "with Denis",
+      "olya_club": "Lily MLM · 0 refund",
+      "olya_400": "Lily · MLM tier 2 · 0 refund",
+      "olya_150": "Lily · last pity",
+      "krypta_100": "transfer · «crypto»",
+      "krypta_50": "crypto bro · second round",
+      "krypta_30": "crypto bro · last pity",
+      "upfront": "incoming · contract #{id}",
+      "project_final": "final · project #{id}",
+      "eat_out": "corner cafe",
+      "shopping": "small shopping spree",
+      "mama_rescue": "Mum sent it"
+    },
+    "tim_tier1": {
+      "yes": "i'm in. sending $200.",
+      "confirmed": "perfect, set it up. starting tomorrow +1 lead per day, on autopilot.",
+      "no_funds": "not enough cash right now. i'll come back.",
+      "no_funds_reply": "no worries. offer stands — ping me when {why}.",
+      "later": "ok, not right now."
+    },
+    "tim_tier2": {
+      "yes": "i'm in. set it up.",
+      "confirmed": "done. AI will qualify leads every morning.",
+      "bank_locked": "account's frozen, can't transfer.",
+      "bank_locked_reply": "ok, ping me when it unlocks.",
+      "short_cash": "short ${shortage}. i'll come back.",
+      "short_cash_reply": "offer stays. when you save up, ping me.",
+      "no": "not yet."
+    },
+    "tim_tier3": {
+      "yes": "in.",
+      "confirmed": "set up. AI will send offers and close contracts on its own.",
+      "bank_locked": "account's frozen.",
+      "bank_locked_reply": "waiting on unlock. slot's yours.",
+      "short_cash": "short ${shortage}.",
+      "short_cash_reply": "ping me when you save up. slot reserved.",
+      "no": "no."
+    },
+    "khozyaika": {
+      "water_sent": "sent the meter readings, photo attached.",
+      "ok": "ok.",
+      "tiktok_yes": "followed, liked. good luck with Saturn.",
+      "tiktok_no": "Mrs. Dagmar, sorry, i don't follow TikToks.",
+      "cat_help": "coming down to help.",
+      "cat_found": "Whiskers turned up! was sleeping under the sofa. thanks!",
+      "cat_busy": "sorry, can't right now. work.",
+      "horoscope": "thanks Mrs. Dagmar. astrology's not my thing.",
+      "electric_sent": "sent the meter photo. outlet's fine.",
+      "electric_later": "Mrs. Dagmar, i'll send later.",
+      "chain_yes": "ok, forwarded.",
+      "chain_thanks": "THANK YOU! the home's karma is restored! 🙏✨",
+      "chain_no": "Mrs. Dagmar, i don't believe in this.",
+      "chain_no_reply": "as you wish. but if anything happens — i warned you."
+    },
+    "pavel": {
+      "loan_yes": "fine. here.",
+      "loan_no": "not now, sorry.",
+      "busy": "not now Paul. genuinely deep in founder-month crunch.",
+      "busy_reply": "got it. good luck.",
+      "stop": "no. please stop texting.",
+      "stop_reply": "ok. won't."
+    },
+    "mama": {
+      "medicine_yes": "sent it, Mum. take care.",
+      "medicine_no": "Mum, can't right now. next time. promise.",
+      "pies_yes": "i'll come Sunday. miss you.",
+      "pies_no": "Mum, project's on fire. later, ok?"
+    },
+    "denis": {
+      "skip": "look, not now. can't — {reason}.",
+      "go": "alright, let's go. work can wait.",
+      "no": "not today. work."
+    },
+    "olya": {
+      "invest_200": "ok, sending $200.",
+      "invest_thanks": "thank you babe! you're on the path to a new life 🌸",
+      "listen": "got 5 mins. shoot.",
+      "invest_400": "sending $400. last time.",
+      "final_no": "no. that's it."
+    },
+    "kirill": {
+      "meet": "fine, let's meet. nothing serious though.",
+      "not_type": "sorry, not my type.",
+      "honest": "thank you. it's hard right now, but i hear you. and it matters that you see.",
+      "deflect": "oh personal, save it for later. i'm in the middle of stuff.",
+      "walk": "ok. just a walk.",
+      "busy": "can't now. projects are on fire.",
+      "me_too": "yes. me too.",
+      "try_us": "i'm scared. but i want to try being with you.",
+      "sorry_look": "i'm sorry. i know how it looks.",
+      "bank_excuse": "my account was frozen. i had nothing.",
+      "honest_him": "no. he just texts. i reply short and sleep. i'm here with you.",
+      "defensive": "who i text isn't your business.",
+      "time": "maybe we really did rush. i need time."
+    },
+    "nastya": {
+      "partner_yes": "i'll take half. send details.",
+      "partner_thanks": "amazing, thanks. brief incoming via email, we start tomorrow.",
+      "partner_think": "give me a day to think.",
+      "partner_think_reply": "ok, but not long — client's pushing.",
+      "partner_no": "thanks for the offer. i'll handle it.",
+      "partner_no_reply": "ok, good luck. i'll find someone else."
+    },
+    "krypta": {
+      "invest_100": "bro, sending $100. don't fuck this up.",
+      "bot_check": "are you a bot?",
+      "not_bot": "BRO NOT BOT IM REAL BRO",
+      "invest_50": "fine, $50. last time.",
+      "invest_30": "for hosting. good luck.",
+      "final_no": "no, Bro. that's it."
+    },
+    "artur": {
+      "meet_yes": "ok, tomorrow at 10.",
+      "project_offer": "{name}, got an $800 project — serious client, 10 days.",
+      "pass": "sorry, understood we're not interested now.",
+      "not_ready": "sorry, not ready."
+    },
+    "vera": {
+      "help_yes": "of course i'll help. send me the poems.",
+      "help_no": "i'm sorry — buried in work right now."
+    },
+    "svetka": {
+      "gossip_yes": "ahhh tell me more",
+      "gossip_thanks": "YOURE THE BEST i love you 💕 telling everything over coffee Sunday",
+      "busy": "can't, project on fire. later"
+    },
+    "sosed": {
+      "check": "coming down to check.",
+      "false": "turned out it wasn't you. sorry for bothering."
+    },
+    "scratch": {
+      "send_offer": "sending the offer",
+      "client_pass": "ok, find someone else",
+      "client_signed": "great, signing the contract · 1 week deadline",
+      "contract_signed": "contract · upfront ${upfront} · deadline: day {deadline}",
+      "negotiate": "let's think and talk",
+      "client_decline": "sorry, doesn't work for us",
+      "deal_lost": "deal fell through · lead burned",
+      "project_progress": "project #{id} · {done}/{total} units · {pct}%",
+      "project_delivered": "project #{id} delivered · client accepted",
+      "coffee_overdose": "coffee overdose · +{gain} energy",
+      "night_bug": "another bug in the code at night · rewrote what i broke this morning",
+      "night_units": "project #{id} · +1.5 units{extra} · −15⚡ night mode · tomorrow's gonna hurt",
+      "morning": "day {day} · 8 hours ahead · ${cash}",
+      "last_workday": "this is the last workday of the month · time to wrap up projects",
+      "last_day": "last day of the month · everything decides today"
+    },
+    "anna_referral": {
+      "yes": "i'm in. send the contract",
+      "sent": "yay, sent it"
     }
   },
   "ui": {

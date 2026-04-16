@@ -158,6 +158,9 @@
     "scratch": {
       "name": "kendine",
       "subtitle": "kişisel notlar"
+    },
+    "heroine": {
+      "firstname": "Melis"
     }
   },
   "text": {
@@ -514,6 +517,168 @@
       "client_label": "Ayşe #2 için email serisi",
       "decline_outgoing": "Ayşecim, şu an olmaz. ikisini paralel kaldıramam.",
       "decline_reply": "anladım, kendine iyi bak. başkasını bulurum."
+    },
+    "tim_creator": {
+      "subscribed": "abone oldum 👍",
+      "thanks": "teşekkürler! kanalda görüşürüz.",
+      "later": "sonra abone olurum."
+    },
+    "payment": {
+      "tim_tier1": "Tim · AI lead farming",
+      "tim_tier2": "Tim · AI görüşmeler",
+      "tim_tier3": "Tim · AI teklif",
+      "pavel_loan": "borç · Kemal'e",
+      "mama_medicine": "anneme · ilaç",
+      "denis": "Deniz ile",
+      "olya_club": "Elif MLM · 0 iade",
+      "olya_400": "Elif · MLM seviye 2 · 0 iade",
+      "olya_150": "Elif · son acıma",
+      "krypta_100": "transfer · «kripto»",
+      "krypta_50": "kripto kanka · ikinci tur",
+      "krypta_30": "kripto kanka · son acıma",
+      "upfront": "gelir · kontrat #{id}",
+      "project_final": "final · proje #{id}",
+      "eat_out": "köşedeki kafe",
+      "shopping": "küçük alışveriş",
+      "mama_rescue": "annem gönderdi"
+    },
+    "tim_tier1": {
+      "yes": "aldım. $200 gönderiyorum.",
+      "confirmed": "tamam, kurdum. yarından itibaren günde +1 lead, otomatik.",
+      "no_funds": "şu an param yetmiyor. olunca dönerim.",
+      "no_funds_reply": "sorun değil. teklif geçerli — {why} olduğunda yaz.",
+      "later": "tamam, şimdi değil."
+    },
+    "tim_tier2": {
+      "yes": "aldım, kur.",
+      "confirmed": "hazır. AI her sabah lead'leri kalifiye edecek.",
+      "bank_locked": "hesap donduruldu, transfer edemiyorum.",
+      "bank_locked_reply": "tamam, açılınca yaz.",
+      "short_cash": "{shortage}$ eksik. sonra dönerim.",
+      "short_cash_reply": "teklif geçerli. biriktirince yaz.",
+      "no": "şimdilik hayır."
+    },
+    "tim_tier3": {
+      "yes": "aldım.",
+      "confirmed": "kurdum. AI kendi başına teklif gönderecek ve kontratları imzalayacak.",
+      "bank_locked": "hesap donduruldu.",
+      "bank_locked_reply": "açılmasını bekliyorum. slot senin.",
+      "short_cash": "{shortage}$ eksik.",
+      "short_cash_reply": "biriktirince yaz, slot saklı.",
+      "no": "hayır."
+    },
+    "khozyaika": {
+      "water_sent": "sayaç okumalarını gönderdim, fotoğraf ekli.",
+      "ok": "tamam.",
+      "tiktok_yes": "takip ettim, beğendim. Saturn ile bol şans.",
+      "tiktok_no": "Neriman Hanım, kusura bakmayın, TikTok'ta takip etmiyorum.",
+      "cat_help": "iniyorum, yardım ederim.",
+      "cat_found": "Pamuk bulundu! kanepenin altında uyuyormuş. teşekkürler!",
+      "cat_busy": "kusura bakma, şimdi olmaz. iş var.",
+      "horoscope": "teşekkürler Neriman Hanım. astroloji bana göre değil.",
+      "electric_sent": "sayaç fotosunu gönderdim. priz normal.",
+      "electric_later": "Neriman Hanım, sonra gönderirim.",
+      "chain_yes": "tamam, ilettim.",
+      "chain_thanks": "TEŞEKKÜRLER! evin karması restore edildi! 🙏✨",
+      "chain_no": "Neriman Hanım, ben buna inanmıyorum.",
+      "chain_no_reply": "siz bilirsiniz. ama bir şey olursa — ben uyardım."
+    },
+    "pavel": {
+      "loan_yes": "tamam. al.",
+      "loan_no": "şimdi olmaz, kusura bakma.",
+      "busy": "şimdi olmaz Kemal. gerçekten kurucu ayında boğulmuş haldeyim.",
+      "busy_reply": "anladım. iyi şanslar.",
+      "stop": "hayır. lütfen artık yazma.",
+      "stop_reply": "tamam. yazmayacağım."
+    },
+    "mama": {
+      "medicine_yes": "anneciğim, gönderdim. kendine iyi bak.",
+      "medicine_no": "anneciğim, şimdi olmaz. bir dahaki sefere. söz.",
+      "pies_yes": "pazar geliyorum. seni özledim.",
+      "pies_no": "anneciğim, proje yanıyor. sonra olur mu?"
+    },
+    "denis": {
+      "skip": "bak, şimdi olmaz. yapamam — {reason}.",
+      "go": "tamam, hadi. iş bekler.",
+      "no": "bugün olmaz. iş."
+    },
+    "olya": {
+      "invest_200": "tamam, $200 gönderiyorum.",
+      "invest_thanks": "teşekkürler tatlım! yeni bir hayatın yolundasın 🌸",
+      "listen": "beş dakikam var. anlat.",
+      "invest_400": "$400 gönderiyorum. son.",
+      "final_no": "hayır. bu kadar."
+    },
+    "kirill": {
+      "meet": "tamam, buluşalım. ciddi bir şey vaat etmiyorum.",
+      "not_type": "kusura bakma, tipim değilsin.",
+      "honest": "teşekkürler. şu an zor ama seni duyuyorum. gördüğün önemli.",
+      "deflect": "oh kişisel, sonraya sakla. şu an iş içindeyim.",
+      "walk": "tamam. sadece yürüyüş.",
+      "busy": "şimdi olmaz. projeler yanıyor.",
+      "me_too": "evet. ben de.",
+      "try_us": "korkuyorum. ama seninle olmayı denemek istiyorum.",
+      "sorry_look": "özür dilerim. nasıl göründüğünü biliyorum.",
+      "bank_excuse": "hesabım donduruldu. hiçbir şeyim yoktu.",
+      "honest_him": "hayır. sadece yazıyor. kısa cevap verip uyuyorum. ben buradayım, seninle.",
+      "defensive": "kiminle yazıştığım seni ilgilendirmez.",
+      "time": "belki gerçekten acele ettik. zamana ihtiyacım var."
+    },
+    "nastya": {
+      "partner_yes": "yarısını alıyorum. detayları gönder.",
+      "partner_thanks": "harika, teşekkürler. brief'i mail atıyorum, yarın başlıyoruz.",
+      "partner_think": "bir gün düşünmem lazım.",
+      "partner_think_reply": "bekliyorum ama uzun değil — müşteri sıkıştırıyor.",
+      "partner_no": "teklif için teşekkürler. kendim hallederim.",
+      "partner_no_reply": "tamam, iyi şanslar. başka birini bulurum."
+    },
+    "krypta": {
+      "invest_100": "kanka, $100 gönderiyorum. yüzüstü bırakma.",
+      "bot_check": "bot musun?",
+      "not_bot": "KANKA BOT DEĞİL GERÇEK KANKA",
+      "invest_50": "tamam, $50. son.",
+      "invest_30": "hosting için. iyi şanslar.",
+      "final_no": "hayır, kanka. bu kadar."
+    },
+    "artur": {
+      "meet_yes": "tamam, yarın 10'da.",
+      "project_offer": "{name}, $800'lık bir proje var — ciddi müşteri, 10 gün.",
+      "pass": "kusura bakma, şu an ilgilenmediğimizi anladım.",
+      "not_ready": "kusura bakma, hazır değilim."
+    },
+    "vera": {
+      "help_yes": "elbette yardım ederim. şiirleri gönderin.",
+      "help_no": "kusura bakmayın — şu an çok işim var."
+    },
+    "svetka": {
+      "gossip_yes": "aaa anlat anlat",
+      "gossip_thanks": "EN İYİSİSİN seni seviyorum 💕 pazar kahve içerken her şeyi anlatacağım",
+      "busy": "olmaz, proje yanıyor. sonra"
+    },
+    "sosed": {
+      "check": "iniyorum, bakarız.",
+      "false": "sizden değilmiş. rahatsız ettiğim için kusura bakmayın."
+    },
+    "scratch": {
+      "send_offer": "teklifi gönderiyorum",
+      "client_pass": "tamam, başkasını bulun",
+      "client_signed": "harika, kontratı imzalıyoruz · 1 hafta deadline",
+      "contract_signed": "kontrat · ön ödeme ${upfront} · deadline: gün {deadline}",
+      "negotiate": "düşünüp konuşalım",
+      "client_decline": "kusura bakmayın, bize uymuyor",
+      "deal_lost": "anlaşma bozuldu · lead yandı",
+      "project_progress": "proje #{id} · {done}/{total} units · {pct}%",
+      "project_delivered": "proje #{id} teslim edildi · müşteri kabul etti",
+      "coffee_overdose": "kahve fazla kaçtı · +{gain} enerji",
+      "night_bug": "yine gecе kodda bug · sabah kırdığımı yeniden yaptım",
+      "night_units": "proje #{id} · +1.5 units{extra} · −15⚡ gece modu · yarın zor olacak",
+      "morning": "gün {day} · önümde 8 saat · ${cash}",
+      "last_workday": "bu ayın son iş günü · projeleri kapatma vakti",
+      "last_day": "ayın son günü · bugün her şey belli olacak"
+    },
+    "anna_referral": {
+      "yes": "aldım. kontratı gönder",
+      "sent": "yaşasın, gönderdim"
     }
   },
   "ui": {

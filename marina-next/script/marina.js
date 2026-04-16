@@ -1025,12 +1025,12 @@
           // Open Telegram channel in new tab
           var w = window.open('https://t.me/timofeyzinin', '_blank', 'noopener');
           if (!w) { /* popup blocked — link still visible in chat */ }
-          postOutgoing('tim', 'подписалась 👍');
+          postOutgoing('tim', tStr('system.tim_creator.subscribed', 'подписалась 👍'));
           setTimeout(function () {
-            postIncoming('tim', 'спасибо! увидимся в канале.', 'Тим');
+            postIncoming('tim', tStr('system.tim_creator.thanks', 'спасибо! увидимся в канале.'), Bubbles.localizedContactName(findContact('tim')));
           }, 900);
         } else {
-          postOutgoing('tim', 'позже подпишусь.');
+          postOutgoing('tim', tStr('system.tim_creator.later', 'позже подпишусь.'));
         }
         save(); renderDock();
       });
@@ -1049,21 +1049,21 @@
           STATE._tim_consult_pending = false; // success — clear pending
           STATE.cash -= 200;
           STATE.auto_reach_out = true;
-          postBank(-200, 'Тим · автофарминг лидов');
-          postOutgoing('tim', 'беру. переведу $200.');
+          postBank(-200, tStr('system.payment.tim_tier1', 'Тим · автофарминг лидов'));
+          postOutgoing('tim', tStr('system.tim_tier1.yes', 'беру. переведу $200.'));
           setTimeout(function () {
-            postIncoming('tim', 'отлично, настроил. с завтрашнего дня +1 лид в день автоматом.', 'Тим');
+            postIncoming('tim', tStr('system.tim_tier1.confirmed', 'отлично, настроил. с завтрашнего дня +1 лид в день автоматом.'), Bubbles.localizedContactName(findContact('tim')));
           }, 900);
         } else if (opt.id === 'buy') {
           // Insufficient — keep pending, Tim follows up
-          postOutgoing('tim', 'денег пока не хватает. вернусь когда будет.');
+          postOutgoing('tim', tStr('system.tim_tier1.no_funds', 'денег пока не хватает. вернусь когда будет.'));
           setTimeout(function () {
             var why = STATE.bank_locked ? 'когда счёт разблокируют' : ('когда будет $200, у тебя сейчас $' + STATE.cash);
-            postIncoming('tim', 'без проблем. предложение в силе — пиши ' + why + '.', 'Тим');
+            postIncoming('tim', tStr('system.tim_tier1.no_funds_reply', 'без проблем. предложение в силе — пиши {why}.').replace('{why}', why), Bubbles.localizedContactName(findContact('tim')));
           }, 900);
         } else {
           STATE._tim_consult_pending = false; // explicit "later" — clear pending
-          postOutgoing('tim', 'хорошо, пока не сейчас.');
+          postOutgoing('tim', tStr('system.tim_tier1.later', 'хорошо, пока не сейчас.'));
         }
         save(); renderDock();
       });
@@ -1081,27 +1081,27 @@
           STATE._tim_tier2_pending = false;
           STATE.cash -= 300;
           STATE.auto_brief_lead = true;
-          postBank(-300, 'Тим · AI созвоны');
-          postOutgoing('tim', 'беру, настраивай.');
+          postBank(-300, tStr('system.payment.tim_tier2', 'Тим · AI созвоны'));
+          postOutgoing('tim', tStr('system.tim_tier2.yes', 'беру, настраивай.'));
           setTimeout(function () {
-            postIncoming('tim', 'готово. AI будет квалифицировать лиды каждое утро.', 'Тим');
+            postIncoming('tim', tStr('system.tim_tier2.confirmed', 'готово. AI будет квалифицировать лиды каждое утро.'), Bubbles.localizedContactName(findContact('tim')));
           }, 900);
         } else if (opt.id === 'buy') {
           // Keep pending for retry — distinguish bank_locked vs low cash
           if (STATE.bank_locked) {
-            postOutgoing('tim', 'счёт заблокирован, не могу перевести.');
+            postOutgoing('tim', tStr('system.tim_tier2.bank_locked', 'счёт заблокирован, не могу перевести.'));
             setTimeout(function () {
-              postIncoming('tim', 'ок, как разблокируют — напиши.', 'Тим');
+              postIncoming('tim', tStr('system.tim_tier2.bank_locked_reply', 'ок, как разблокируют — напиши.'), Bubbles.localizedContactName(findContact('tim')));
             }, 900);
           } else {
-            postOutgoing('tim', 'не хватает $' + (300 - STATE.cash) + '. вернусь позже.');
+            postOutgoing('tim', tStr('system.tim_tier2.short_cash', 'не хватает ${shortage}. вернусь позже.').replace('{shortage}', (300 - STATE.cash)));
             setTimeout(function () {
-              postIncoming('tim', 'предложение остаётся. как накопишь — пиши.', 'Тим');
+              postIncoming('tim', tStr('system.tim_tier2.short_cash_reply', 'предложение остаётся. как накопишь — пиши.'), Bubbles.localizedContactName(findContact('tim')));
             }, 900);
           }
         } else {
           STATE._tim_tier2_pending = false;
-          postOutgoing('tim', 'пока нет.');
+          postOutgoing('tim', tStr('system.tim_tier2.no', 'пока нет.'));
         }
         save(); renderDock();
       });
@@ -1119,26 +1119,26 @@
           STATE._tim_tier3_pending = false;
           STATE.cash -= 400;
           STATE.auto_send_offer = true;
-          postBank(-400, 'Тим · AI оффер');
-          postOutgoing('tim', 'беру.');
+          postBank(-400, tStr('system.payment.tim_tier3', 'Тим · AI оффер'));
+          postOutgoing('tim', tStr('system.tim_tier3.yes', 'беру.'));
           setTimeout(function () {
-            postIncoming('tim', 'настроил. AI будет сам отправлять офферы и принимать контракты.', 'Тим');
+            postIncoming('tim', tStr('system.tim_tier3.confirmed', 'настроил. AI будет сам отправлять офферы и принимать контракты.'), Bubbles.localizedContactName(findContact('tim')));
           }, 900);
         } else if (opt.id === 'buy') {
           if (STATE.bank_locked) {
-            postOutgoing('tim', 'счёт заблокирован.');
+            postOutgoing('tim', tStr('system.tim_tier3.bank_locked', 'счёт заблокирован.'));
             setTimeout(function () {
-              postIncoming('tim', 'жду пока разблокируют. слот за тобой.', 'Тим');
+              postIncoming('tim', tStr('system.tim_tier3.bank_locked_reply', 'жду пока разблокируют. слот за тобой.'), Bubbles.localizedContactName(findContact('tim')));
             }, 900);
           } else {
-            postOutgoing('tim', 'не хватает $' + (400 - STATE.cash) + '.');
+            postOutgoing('tim', tStr('system.tim_tier3.short_cash', 'не хватает ${shortage}.').replace('{shortage}', (400 - STATE.cash)));
             setTimeout(function () {
-              postIncoming('tim', 'когда подкопишь — напиши, оставлю слот.', 'Тим');
+              postIncoming('tim', tStr('system.tim_tier3.short_cash_reply', 'когда подкопишь — напиши, оставлю слот.'), Bubbles.localizedContactName(findContact('tim')));
             }, 900);
           }
         } else {
           STATE._tim_tier3_pending = false;
-          postOutgoing('tim', 'нет.');
+          postOutgoing('tim', tStr('system.tim_tier3.no', 'нет.'));
         }
         save(); renderDock();
       });
@@ -1155,11 +1155,11 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'send') {
-          postOutgoing('khozyaika', 'отправила показания, фото прикреплено.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.water_sent', 'отправила показания, фото прикреплено.'));
           STATE.hours = Math.max(0, STATE.hours - 1);
           postMessage('scratch', { kind: 'system', text: '−1h · счётчики' });
         } else {
-          postOutgoing('khozyaika', 'ок.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.ok', 'ок.'));
           // SPRINT 25 rev2 — align with auto-fine deadline (day+3, was day+2)
           STATE.pending_callbacks.push({ trigger_day: STATE.day + 3, type: 'khozyaika_fine' });
         }
@@ -1177,10 +1177,10 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'like') {
-          postOutgoing('khozyaika', 'подписалась, лайкнула. удачи с Сатурном.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.tiktok_yes', 'подписалась, лайкнула. удачи с Сатурном.'));
           STATE.hours = Math.max(0, STATE.hours - 1);
         } else {
-          postOutgoing('khozyaika', 'Наталья Валерьевна, простите, не подписываюсь на тиктоках.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.tiktok_no', 'хозяйка, простите, не подписываюсь на тиктоках.'));
           STATE.comfort = Math.max(0, STATE.comfort - 5);
         }
         save(); renderDock();
@@ -1197,15 +1197,15 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'help') {
-          postOutgoing('khozyaika', 'сейчас спущусь, помогу.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.cat_help', 'сейчас спущусь, помогу.'));
           STATE.hours = Math.max(0, STATE.hours - 2);
           STATE.comfort = Math.min(100, STATE.comfort + 10);
           setTimeout(function () {
-            postIncoming('khozyaika', 'Мурка нашлась! спала под диваном. спасибо!', 'Наталья В.');
+            postIncoming('khozyaika', tStr('system.khozyaika.cat_found', 'кошка нашлась! спала под диваном. спасибо!'), Bubbles.localizedContactName(findContact('khozyaika')));
             save();
           }, 1500);
         } else {
-          postOutgoing('khozyaika', 'извините, я сейчас не могу. работа.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.cat_busy', 'извините, я сейчас не могу. работа.'));
           STATE.comfort = Math.max(0, STATE.comfort - 5);
         }
         save(); renderDock();
@@ -1220,7 +1220,7 @@
         STATE._khozyaika4_pending = false;
         Bubbles.clearChipsArea();
         bumpInteraction();
-        postOutgoing('khozyaika', 'спасибо Наталья Валерьевна. весы в очках — мимо меня.');
+        postOutgoing('khozyaika', tStr('system.khozyaika.horoscope', 'спасибо хозяйка. астрология — мимо меня.'));
         STATE.comfort = Math.min(100, STATE.comfort + 2);
         save(); renderDock();
       });
@@ -1236,10 +1236,10 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'send') {
-          postOutgoing('khozyaika', 'отправила фото счётчика. розетка нормальная.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.electric_sent', 'отправила фото счётчика. розетка нормальная.'));
           STATE.hours = Math.max(0, STATE.hours - 1);
         } else {
-          postOutgoing('khozyaika', 'Наталья Валерьевна, отправлю позже.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.electric_later', 'хозяйка, отправлю позже.'));
           STATE.comfort = Math.max(0, STATE.comfort - 5);
         }
         save(); renderDock();
@@ -1256,16 +1256,16 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'forward') {
-          postOutgoing('khozyaika', 'хорошо, переслала.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.chain_yes', 'хорошо, переслала.'));
           STATE.hours = Math.max(0, STATE.hours - 1);
           setTimeout(function () {
-            postIncoming('khozyaika', 'СПАСИБО Марина! Карма дома восстановлена! 🙏✨', 'Наталья В.');
+            postIncoming('khozyaika', tStr('system.khozyaika.chain_thanks', 'СПАСИБО! карма дома восстановлена! 🙏✨'), Bubbles.localizedContactName(findContact('khozyaika')));
           }, 800);
         } else {
-          postOutgoing('khozyaika', 'Наталья Валерьевна, я не верю в это.');
+          postOutgoing('khozyaika', tStr('system.khozyaika.chain_no', 'хозяйка, я не верю в это.'));
           STATE.comfort = Math.max(0, STATE.comfort - 5);
           setTimeout(function () {
-            postIncoming('khozyaika', 'Ну как хотите. Но если что случится — я предупреждала.', 'Наталья В.');
+            postIncoming('khozyaika', tStr('system.khozyaika.chain_no_reply', 'ну как хотите. но если что случится — я предупреждала.'), Bubbles.localizedContactName(findContact('khozyaika')));
           }, 800);
         }
         save(); renderDock();
@@ -1282,15 +1282,15 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'lend') {
-          postOutgoing('pavel', 'ладно. держи.');
+          postOutgoing('pavel', tStr('system.pavel.loan_yes', 'ладно. держи.'));
           STATE.cash -= 300;
-          postBank(-300, 'в долг · Павлу');
+          postBank(-300, tStr('system.payment.pavel_loan', 'в долг · Павлу'));
           postMessage('scratch', { kind: 'system', text: '−$300 · отданы Павлу' });
           // Delayed callback
           STATE.pending_callbacks = STATE.pending_callbacks || [];
           STATE.pending_callbacks.push({ trigger_day: STATE.day + 3, type: 'pavel_return' });
         } else {
-          postOutgoing('pavel', 'не сейчас, извини.');
+          postOutgoing('pavel', tStr('system.pavel.loan_no', 'не сейчас, извини.'));
           postMessage('scratch', { kind: 'system', text: 'Павлу отказала' });
         }
         save(); renderDock();
@@ -1307,19 +1307,19 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'soft') {
-          postOutgoing('pavel', 'Паш, не сейчас. правда занята месяцем-фаундером.');
+          postOutgoing('pavel', tStr('system.pavel.busy', 'не сейчас. правда занята месяцем-фаундером.'));
           STATE.comfort = Math.max(0, STATE.comfort - 3);
           setTimeout(function () {
-            postIncoming('pavel', 'понял. удачи тебе.', 'Павел');
+            postIncoming('pavel', tStr('system.pavel.busy_reply', 'понял. удачи тебе.'), Bubbles.localizedContactName(findContact('pavel')));
           }, 1000);
         } else {
-          postOutgoing('pavel', 'нет, Паш. больше не пиши, пожалуйста.');
+          postOutgoing('pavel', tStr('system.pavel.stop', 'нет. больше не пиши, пожалуйста.'));
           STATE.comfort = Math.min(100, STATE.comfort + 5); // closure feels good
           // Block further Pavel beats — он отстаёт
           STATE.beat_pavel_d21 = true;
           STATE.beat_pavel_d25 = true;
           setTimeout(function () {
-            postIncoming('pavel', 'ок. больше не буду.', 'Павел');
+            postIncoming('pavel', tStr('system.pavel.stop_reply', 'ок. больше не буду.'), Bubbles.localizedContactName(findContact('pavel')));
           }, 1000);
           postMessage('scratch', { kind: 'system', text: 'Павел больше не пишет · +5💚 закрытый гештальт' });
         }
@@ -1337,12 +1337,12 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'send') {
-          postOutgoing('mama', 'перевела, мам. береги себя.');
+          postOutgoing('mama', tStr('system.mama.medicine_yes', 'перевела, мам. береги себя.'));
           STATE.cash -= 200;
-          postBank(-200, 'маме · лекарства');
+          postBank(-200, tStr('system.payment.mama_medicine', 'маме · лекарства'));
           postMessage('scratch', { kind: 'system', text: '−$200 · маме' });
         } else {
-          postOutgoing('mama', 'мам, сейчас не могу. в следующий раз. обещаю.');
+          postOutgoing('mama', tStr('system.mama.medicine_no', 'мам, сейчас не могу. в следующий раз. обещаю.'));
           STATE.energy = Math.max(0, STATE.energy - 5);
           postMessage('scratch', { kind: 'system', text: '−5⚡ · эмоциональный вес' });
         }
@@ -1360,11 +1360,11 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'come') {
-          postOutgoing('mama', 'буду в воскресенье. соскучилась.');
+          postOutgoing('mama', tStr('system.mama.pies_yes', 'буду в воскресенье. соскучилась.'));
           STATE.energy = Math.min(100, STATE.energy + 40);
           postMessage('scratch', { kind: 'system', text: '+40⚡ · пироги работают' });
         } else {
-          postOutgoing('mama', 'мам, проект горит. позже, ладно?');
+          postOutgoing('mama', tStr('system.mama.pies_no', 'мам, проект горит. позже, ладно?'));
           STATE.energy = Math.max(0, STATE.energy - 10);
           postMessage('scratch', { kind: 'system', text: '−10⚡ · эмоциональный долг' });
         }
@@ -1402,7 +1402,7 @@
             if (liveBankLocked || liveCash < dCost || liveHours < 2) {
               var reason = liveBankLocked ? 'счёт заблокирован' :
                            (liveCash < dCost ? 'не хватает $' + (dCost - liveCash) : 'нет 2 часов');
-              postOutgoing('denis', 'слушай, не сейчас. не могу — ' + reason + '.');
+              postOutgoing('denis', tStr('system.denis.skip', 'слушай, не сейчас. не могу — {reason}.').replace('{reason}', reason));
               // Do NOT clear pending — let player come back when ready.
               // Re-render chips so UI reflects current resource state.
               Bubbles.clearChipsArea();
@@ -1414,16 +1414,16 @@
           Bubbles.clearChipsArea();
           bumpInteraction();
           if (opt.id === 'go') {
-            postOutgoing('denis', 'ладно, поехали. работа подождёт.');
+            postOutgoing('denis', tStr('system.denis.go', 'ладно, поехали. работа подождёт.'));
             STATE.cash -= dCost;
             STATE.energy = Math.min(100, STATE.energy + 60);
             STATE.comfort = Math.min(100, STATE.comfort + 25); // SPRINT 33 — Denis raises comfort too
             STATE.hours = Math.max(0, STATE.hours - 2);
-            postBank(-dCost, 'с Денисом');
+            postBank(-dCost, tStr('system.payment.denis', 'с Денисом'));
             postMessage('scratch', { kind: 'outgoing', text: tPickOr('text.hangout_denis', HANGOUT_DENIS_TEXT) });
             postMessage('scratch', { kind: 'system', text: '−$' + dCost + ' · +60⚡ · +25💚 · −2h · день ожил' });
           } else {
-            postOutgoing('denis', 'не сегодня. работа.');
+            postOutgoing('denis', tStr('system.denis.no', 'не сегодня. работа.'));
             postMessage('scratch', { kind: 'system', text: 'Денису отказала' });
           }
           save(); renderDock();
@@ -1445,16 +1445,16 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'invest') {
-          postOutgoing('olya', 'ок, перевожу $200.');
+          postOutgoing('olya', tStr('system.olya.invest_200', 'ок, перевожу $200.'));
           STATE.cash -= 200;
           STATE.comfort = Math.max(0, STATE.comfort - 15);
-          postBank(-200, 'Оля «клуб женщин» · 0 возврата');
+          postBank(-200, tStr('system.payment.olya_club', 'Оля «клуб женщин» · 0 возврата'));
           postMessage('scratch', { kind: 'system', text: '−$200 · −15 комфорт · клуб Оли сгорел' });
           setTimeout(function () {
-            postIncoming('olya', 'спасибо дорогая! ты на пути к новой жизни 🌸', 'Оля Петрова');
+            postIncoming('olya', tStr('system.olya.invest_thanks', 'спасибо дорогая! ты на пути к новой жизни 🌸'), Bubbles.localizedContactName(findContact('olya')));
           }, 1500);
         } else if (opt.id === 'listen') {
-          postOutgoing('olya', 'оля, у меня 5 минут. рассказывай.');
+          postOutgoing('olya', tStr('system.olya.listen', 'у меня 5 минут. рассказывай.'));
           STATE.hours = Math.max(0, STATE.hours - 1);
         } else {
           postMessage('scratch', { kind: 'system', text: 'Оля удалена из контактов' });
@@ -1474,10 +1474,10 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'invest400') {
-          postOutgoing('olya', 'Оля, перевожу $400. в последний раз.');
+          postOutgoing('olya', tStr('system.olya.invest_400', 'перевожу $400. в последний раз.'));
           STATE.cash -= 400;
           STATE.comfort = Math.max(0, STATE.comfort - 20);
-          postBank(-400, 'Оля · клуб новый уровень · 0 возврата');
+          postBank(-400, tStr('system.payment.olya_400', 'Оля · клуб новый уровень · 0 возврата'));
           postMessage('scratch', { kind: 'system', text: '−$400 · −20 комфорт · клуб Оли всё ещё пирамида' });
         } else if (opt.id === 'block') {
           postMessage('scratch', { kind: 'system', text: '🚫 Оля заблокирована · больше не пишет' });
@@ -1502,10 +1502,10 @@
         if (opt.id === 'pity150') {
           postOutgoing('olya', '$150 последние. больше не пиши.');
           STATE.cash -= 150;
-          postBank(-150, 'Оля · последняя жалость');
+          postBank(-150, tStr('system.payment.olya_150', 'Оля · последняя жалость'));
           STATE.comfort = Math.max(0, STATE.comfort - 5);
         } else {
-          postOutgoing('olya', 'Оля, нет. на этом всё.');
+          postOutgoing('olya', tStr('system.olya.final_no', 'нет. на этом всё.'));
           STATE.comfort = Math.min(100, STATE.comfort + 5);
           postMessage('scratch', { kind: 'system', text: '✓ закрыла тему с Олей · +5💚' });
         }
@@ -1524,7 +1524,7 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'yes') {
-          postOutgoing('kirill', 'хорошо, давай встретимся. не обещаю ничего серьёзного.');
+          postOutgoing('kirill', tStr('system.kirill.meet', 'хорошо, давай встретимся. не обещаю ничего серьёзного.'));
           STATE.kirill_unlocked = true;
           STATE.kirill_affection = (STATE.kirill_affection || 0) + 3;
           // Activate date invitation window (expires in 2 days)
@@ -1532,7 +1532,7 @@
           STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
           postMessage('scratch', { kind: 'system', text: 'Кирилл разблокировал свидания · ⏳ окно 2 дня' });
         } else {
-          postOutgoing('kirill', 'извини, ты не мой типаж.');
+          postOutgoing('kirill', tStr('system.kirill.not_type', 'извини, ты не мой типаж.'));
           STATE.kirill_blocked = true;
         }
         save(); renderDock();
@@ -1550,11 +1550,11 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'warm') {
-          postOutgoing('kirill', 'спасибо. мне сейчас сложно, но я тебя слышу. и мне важно что ты видишь.');
+          postOutgoing('kirill', tStr('system.kirill.honest', 'спасибо. мне сейчас сложно, но я тебя слышу. и мне важно что ты видишь.'));
           STATE.kirill_affection = (STATE.kirill_affection || 0) + 2;
           STATE.comfort = Math.min(100, STATE.comfort + 5);
         } else {
-          postOutgoing('kirill', 'ох лично, сохрани на потом. я в процессе.');
+          postOutgoing('kirill', tStr('system.kirill.deflect', 'ох лично, сохрани на потом. я в процессе.'));
           STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 2);
         }
         save(); renderDock();
@@ -1570,12 +1570,12 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'yes') {
-          postOutgoing('kirill', 'давай. просто погуляем.');
+          postOutgoing('kirill', tStr('system.kirill.walk', 'давай. просто погуляем.'));
           STATE.hours = Math.max(0, STATE.hours - 3);
           STATE.comfort = Math.min(100, STATE.comfort + 15);
           STATE.kirill_affection = (STATE.kirill_affection || 0) + 2;
         } else {
-          postOutgoing('kirill', 'Кирилл, сейчас не могу. проекты горят.');
+          postOutgoing('kirill', tStr('system.kirill.busy', 'сейчас не могу. проекты горят.'));
           STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 1);
         }
         save(); renderDock();
@@ -1591,9 +1591,9 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'yes_love') {
-          postOutgoing('kirill', 'да. я тоже.');
+          postOutgoing('kirill', tStr('system.kirill.me_too', 'да. я тоже.'));
         } else {
-          postOutgoing('kirill', 'Кирилл, я боюсь. но я хочу попробовать быть с тобой.');
+          postOutgoing('kirill', tStr('system.kirill.try_us', 'я боюсь. но я хочу попробовать быть с тобой.'));
         }
         STATE.love_ending_unlocked = true;
         postMessage('scratch', { kind: 'system', text: '❤️ love ending подтверждён' });
@@ -1612,10 +1612,10 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'sorry') {
-          postOutgoing('kirill', 'прости, Кирилл. я понимаю как это выглядит.');
+          postOutgoing('kirill', tStr('system.kirill.sorry_look', 'прости. я понимаю как это выглядит.'));
           STATE.comfort = Math.max(0, STATE.comfort - 15);
         } else {
-          postOutgoing('kirill', 'Кирилл, у меня был счёт заблокирован. мне было нечем.');
+          postOutgoing('kirill', tStr('system.kirill.bank_excuse', 'у меня был счёт заблокирован. мне было нечем.'));
           STATE.comfort = Math.max(0, STATE.comfort - 10);
         }
         save(); renderDock();
@@ -1633,7 +1633,7 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'join') {
-          postOutgoing('nastya', 'беру половину. скидывай детали.');
+          postOutgoing('nastya', tStr('system.nastya.partner_yes', 'беру половину. скидывай детали.'));
           STATE.cash += 200;
           postBank(200, 'upfront · партнёрство с Настей');
           // Add a project: shared work, 4 units, 7-day deadline, $200 final
@@ -1654,20 +1654,20 @@
           STATE.comfort = Math.min(100, STATE.comfort + 10);
           postMessage('scratch', { kind: 'system', text: '🤝 партнёрство с Настей · +$200 + новый проект (4 units, 7 дн) · +10💚' });
           setTimeout(function () {
-            postIncoming('nastya', 'кайф, спасибо. закидываю бриф в почту, начинаем завтра.', 'Настя');
+            postIncoming('nastya', tStr('system.nastya.partner_thanks', 'кайф, спасибо. закидываю бриф в почту, начинаем завтра.'), Bubbles.localizedContactName(findContact('nastya')));
           }, 1000);
         } else if (opt.id === 'maybe') {
-          postOutgoing('nastya', 'дай мне сутки подумать.');
+          postOutgoing('nastya', tStr('system.nastya.partner_think', 'дай мне сутки подумать.'));
           // Keep visible for re-trigger possibility — re-set pending so chip stays
           // (simple version: just acknowledge; lost forever — Nastya finds another partner)
           setTimeout(function () {
-            postIncoming('nastya', 'жду, но недолго — клиент торопит.', 'Настя');
+            postIncoming('nastya', tStr('system.nastya.partner_think_reply', 'жду, но недолго — клиент торопит.'), Bubbles.localizedContactName(findContact('nastya')));
           }, 900);
         } else {
-          postOutgoing('nastya', 'спасибо что предложила. сама справлюсь.');
+          postOutgoing('nastya', tStr('system.nastya.partner_no', 'спасибо что предложила. сама справлюсь.'));
           STATE.kirill_affection = STATE.kirill_affection; // no-op marker
           setTimeout(function () {
-            postIncoming('nastya', 'ок, удачи. найду кого-нибудь ещё.', 'Настя');
+            postIncoming('nastya', tStr('system.nastya.partner_no_reply', 'ок, удачи. найду кого-нибудь ещё.'), Bubbles.localizedContactName(findContact('nastya')));
           }, 900);
         }
         save(); renderDock();
@@ -1686,14 +1686,14 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'honest') {
-          postOutgoing('kirill', 'нет. он просто пишет. я отвечаю коротко и сплю. я тут, с тобой.');
+          postOutgoing('kirill', tStr('system.kirill.honest_him', 'нет. он просто пишет. я отвечаю коротко и сплю. я тут, с тобой.'));
           STATE.kirill_affection = (STATE.kirill_affection || 0) + 2;
           STATE.comfort = Math.max(0, STATE.comfort - 5);
         } else if (opt.id === 'defensive') {
-          postOutgoing('kirill', 'Кирилл, это не твоё дело с кем я переписываюсь.');
+          postOutgoing('kirill', tStr('system.kirill.defensive', 'это не твоё дело с кем я переписываюсь.'));
           STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 2);
         } else {
-          postOutgoing('kirill', 'может мы правда поторопились. мне нужно время.');
+          postOutgoing('kirill', tStr('system.kirill.time', 'может мы правда поторопились. мне нужно время.'));
           STATE.kirill_affection = Math.max(0, (STATE.kirill_affection || 0) - 3);
           STATE.kirill_blocked = true;
         }
@@ -1713,16 +1713,16 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'send') {
-          postOutgoing('krypta', 'брат, перевожу $100. не подведи.');
+          postOutgoing('krypta', tStr('system.krypta.invest_100', 'брат, перевожу $100. не подведи.'));
           STATE.cash -= 100;
-          postBank(-100, 'перевод на «крипту»');
+          postBank(-100, tStr('system.payment.krypta_100', 'перевод на «крипту»'));
           // Schedule 115-ФЗ bank lock for next day
           STATE.pending_callbacks.push({ trigger_day: STATE.day + 1, type: 'bank_lock_115' });
           postMessage('scratch', { kind: 'system', text: 'подозрительная транзакция · жди последствий' });
         } else if (opt.id === 'bot') {
-          postOutgoing('krypta', 'ты бот?');
+          postOutgoing('krypta', tStr('system.krypta.bot_check', 'ты бот?'));
           setTimeout(function () {
-            postIncoming('krypta', 'БРАТ НЕ БОТ Я РЕАЛЬНЫЙ БРАТ', 'БРАТ крипта');
+            postIncoming('krypta', tStr('system.krypta.not_bot', 'БРАТ НЕ БОТ Я РЕАЛЬНЫЙ БРАТ'), Bubbles.localizedContactName(findContact('krypta')));
           }, 800);
         } else {
           postMessage('scratch', { kind: 'system', text: 'БРАТ проигнорирован' });
@@ -1743,9 +1743,9 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'send_50') {
-          postOutgoing('krypta', 'ладно, $50. последний раз.');
+          postOutgoing('krypta', tStr('system.krypta.invest_50', 'ладно, $50. последний раз.'));
           STATE.cash -= 50;
-          postBank(-50, 'БРАТ крипта · второй заход');
+          postBank(-50, tStr('system.payment.krypta_50', 'БРАТ крипта · второй заход'));
           STATE.pending_callbacks.push({ trigger_day: STATE.day + 1, type: 'bank_lock_115' });
           postMessage('scratch', { kind: 'system', text: '⚠ ещё одна подозрительная транзакция — жди последствий' });
         } else if (opt.id === 'block') {
@@ -1770,12 +1770,12 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'pity_30') {
-          postOutgoing('krypta', 'на хостинг. удачи.');
+          postOutgoing('krypta', tStr('system.krypta.invest_30', 'на хостинг. удачи.'));
           STATE.cash -= 30;
-          postBank(-30, 'БРАТ крипта · последняя жалость');
+          postBank(-30, tStr('system.payment.krypta_30', 'БРАТ крипта · последняя жалость'));
           STATE.comfort = Math.max(0, STATE.comfort - 3);
         } else {
-          postOutgoing('krypta', 'нет, Брат. на этом всё.');
+          postOutgoing('krypta', tStr('system.krypta.final_no', 'нет, Брат. на этом всё.'));
           STATE.comfort = Math.min(100, STATE.comfort + 5);
           postMessage('scratch', { kind: 'system', text: '✓ закрыла тему с БРАТОМ · +5💚' });
         }
@@ -1794,12 +1794,12 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'visit') {
-          postOutgoing('artur', 'хорошо, завтра в 10.');
+          postOutgoing('artur', tStr('system.artur.meet_yes', 'хорошо, завтра в 10.'));
           STATE.hours = Math.max(0, STATE.hours - 4);
           setTimeout(function () {
             if (Math.random() < 0.40) {
               // Hit — $800 project offer
-              postIncoming('artur', 'марина, есть проект на $800 — серьёзный клиент, 10 дней.', 'Артур');
+              postIncoming('artur', tStr('system.artur.project_offer', '{name}, есть проект на $800 — серьёзный клиент, 10 дней.').replace('{name}', tStr('contact.heroine.firstname', 'Марина')), Bubbles.localizedContactName(findContact('artur')));
               STATE.cash += 400;
               postBank(400, 'upfront от Артура');
               STATE.active_projects.push({
@@ -1818,13 +1818,13 @@
               });
             } else {
               // Wasted — nothing happens
-              postIncoming('artur', 'извини, понял что мы сейчас не заинтересованы.', 'Артур');
+              postIncoming('artur', tStr('system.artur.pass', 'извини, понял что мы сейчас не заинтересованы.'), Bubbles.localizedContactName(findContact('artur')));
               postMessage('scratch', { kind: 'system', text: 'Артур зря вызвал · потеряла 4 часа' });
             }
             save(); renderDock();
           }, 1500);
         } else {
-          postOutgoing('artur', 'Артур, извини, не готова.');
+          postOutgoing('artur', tStr('system.artur.not_ready', 'извини, не готова.'));
         }
         save(); renderDock();
       });
@@ -1841,11 +1841,11 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'help') {
-          postOutgoing('vera', 'Вера Николаевна, да конечно помогу. скиньте стихи.');
+          postOutgoing('vera', tStr('system.vera.help_yes', 'да конечно помогу. скиньте стихи.'));
           STATE.hours = Math.max(0, STATE.hours - 2);
           STATE.comfort = Math.min(100, STATE.comfort + 10);
         } else {
-          postOutgoing('vera', 'Вера Николаевна, простите — у меня сейчас много работы.');
+          postOutgoing('vera', tStr('system.vera.help_no', 'простите — у меня сейчас много работы.'));
           STATE.comfort = Math.max(0, STATE.comfort - 3);
         }
         save(); renderDock();
@@ -1863,14 +1863,14 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'listen') {
-          postOutgoing('svetka', 'ааа рассказывай подробнее');
+          postOutgoing('svetka', tStr('system.svetka.gossip_yes', 'ааа рассказывай подробнее'));
           STATE.hours = Math.max(0, STATE.hours - 1);
           STATE.comfort = Math.min(100, STATE.comfort + 15);
           setTimeout(function () {
-            postIncoming('svetka', 'ТЫ ЛУЧШАЯ я тебя обожаю 💕 расскажу всё на кофе в воскресенье', 'Светка');
+            postIncoming('svetka', tStr('system.svetka.gossip_thanks', 'ТЫ ЛУЧШАЯ я тебя обожаю 💕 расскажу всё на кофе в воскресенье'), Bubbles.localizedContactName(findContact('svetka')));
           }, 1000);
         } else {
-          postOutgoing('svetka', 'света я не могу, проект горит. позже');
+          postOutgoing('svetka', tStr('system.svetka.busy', 'не могу, проект горит. позже'));
           STATE.comfort = Math.max(0, STATE.comfort - 5);
         }
         save(); renderDock();
@@ -1887,10 +1887,10 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'come') {
-          postOutgoing('sosed', 'сейчас спущусь, посмотрим.');
+          postOutgoing('sosed', tStr('system.sosed.check', 'сейчас спущусь, посмотрим.'));
           STATE.hours = Math.max(0, STATE.hours - 1);
           setTimeout(function () {
-            postIncoming('sosed', 'оказалось не от вас. извините за беспокойство.', 'сосед');
+            postIncoming('sosed', tStr('system.sosed.false', 'оказалось не от вас. извините за беспокойство.'), Bubbles.localizedContactName(findContact('sosed')));
           }, 1200);
         } else {
           STATE.pending_callbacks.push({ trigger_day: STATE.day + 1, type: 'sosed_retry' });
@@ -2185,7 +2185,7 @@
     runAction(function () {
       STATE.qualified_leads -= 1;
       var baseBudget = 200 + Math.floor(Math.random() * 101); // 200-300
-      postOutgoing('scratch', 'отправляю предложение');
+      postOutgoing('scratch', tStr('system.scratch.send_offer', 'отправляю предложение'));
       setTimeout(function () {
         postIncoming('scratch',
           'клиент пишет: «у меня бюджет $' + baseBudget + ', сроки — неделя»',
@@ -2216,7 +2216,7 @@
       finalPrice = baseBudget + 350;
     } else if (choice === 'decline') {
       // Refuse — lead goes cold
-      postIncoming('scratch', 'ок, ищите других', 'клиент');
+      postIncoming('scratch', tStr('system.scratch.client_pass', 'ок, ищите других'), tStr('system.scratch.client_label', 'клиент'));
       save(); renderDock();
       return;
     }
@@ -2224,7 +2224,7 @@
     if (accepted) {
       postOutgoing('scratch', choice === 'accept' ? 'окей, беру' : 'давайте на этих условиях');
       setTimeout(function () {
-        postIncoming('scratch', 'отлично, договор подписываем · срок неделя', 'клиент');
+        postIncoming('scratch', tStr('system.scratch.client_signed', 'отлично, договор подписываем · срок неделя'), tStr('system.scratch.client_label', 'клиент'));
         // Create project with upfront + final + deadline (BLOCK K)
         var upfront = Math.floor(finalPrice * 0.4);
         var finalPayment = finalPrice - upfront;
@@ -2244,15 +2244,15 @@
         };
         STATE.active_projects.push(project);
         STATE.cash += upfront;
-        postBank(upfront, 'поступление по договору #' + project.id);
-        postSystem('scratch', 'контракт · upfront $' + upfront + ' · срок: день ' + project.deadline_day);
+        postBank(upfront, tStr('system.payment.upfront', 'поступление по договору #{id}').replace('{id}', project.id));
+        postSystem('scratch', tStr('system.scratch.contract_signed', 'контракт · upfront ${upfront} · срок: день {deadline}').replace('{upfront}', upfront).replace('{deadline}', project.deadline_day));
         save(); renderDock();
       }, 800);
     } else {
-      postOutgoing('scratch', 'давайте подумаем и обсудим');
+      postOutgoing('scratch', tStr('system.scratch.negotiate', 'давайте подумаем и обсудим'));
       setTimeout(function () {
-        postIncoming('scratch', 'извините, нам это не подходит', 'клиент');
-        postSystem('scratch', 'сделка сорвалась · лид сгорел');
+        postIncoming('scratch', tStr('system.scratch.client_decline', 'извините, нам это не подходит'), tStr('system.scratch.client_label', 'клиент'));
+        postSystem('scratch', tStr('system.scratch.deal_lost', 'сделка сорвалась · лид сгорел'));
         save(); renderDock();
       }, 800);
     }
@@ -2283,7 +2283,7 @@
         if (STATE._hangover_active) extra += ' · ☕ похмелье';
         // SPRINT 34 — show units progress explicitly so player sees movement
         var totalU = p.work_units_total || 3;
-        postSystem('scratch', 'проект #' + p.id + ' · ' + (p.work_units_done || 0).toFixed(1) + '/' + totalU + ' units · ' + Math.floor(p.progress) + '%' + extra);
+        postSystem('scratch', tStr('system.scratch.project_progress', 'проект #{id} · {done}/{total} units · {pct}%').replace('{id}', p.id).replace('{done}', (p.work_units_done || 0).toFixed(1)).replace('{total}', totalU).replace('{pct}', Math.floor(p.progress)) + extra);
         if (p.work_units_done >= (p.work_units_total || 3)) {
           // Delivered — money particle flies to cash pill
           STATE.active_projects.shift();
@@ -2294,8 +2294,8 @@
           track('project_delivered', { project_id: p.id, client: p.client || 'n/a', payment: payment, day: STATE.day, delivered_total: STATE.delivered_projects });
           spawnParticle({ from: 'work_on_project', to: 'cash', kind: 'money', icon: '$', duration: 800 });
           setTimeout(function () {
-            postSystem('scratch', 'проект #' + p.id + ' сдан · клиент принял');
-            postBank(payment, 'финал по проекту #' + p.id);
+            postSystem('scratch', tStr('system.scratch.project_delivered', 'проект #{id} сдан · клиент принял').replace('{id}', p.id));
+            postBank(payment, tStr('system.payment.project_final', 'финал по проекту #{id}').replace('{id}', p.id));
             save(); renderDock();
             // SPRINT 51 — share moment on FIRST project delivered (~45% player reach)
             if (STATE.delivered_projects === 1 && window.MarinaViral) {
@@ -2326,7 +2326,7 @@
       postOutgoing('scratch', tPickOr('text.rest', REST_TEXT));
       setTimeout(function () {
         if (gain >= 30) postSystem('scratch', '+' + gain + ' энергии');
-        else postSystem('scratch', 'кофе перелит · +' + gain + ' энергии');
+        else postSystem('scratch', tStr('system.scratch.coffee_overdose', 'кофе перелит · +{gain} энергии').replace('{gain}', gain));
       }, 500);
     });
   }
@@ -2367,7 +2367,7 @@
       setTimeout(function () {
         var hint2 = hCost2 === 0 ? ' · ужин в кафе перед сном' : '';
         postSystem('scratch', '+' + COST.eat_out.f + ' сытости · +' + COST.eat_out.m + ' комфорт · −$' + COST.eat_out.c + hint2);
-        postBank(-COST.eat_out.c, 'кафе на углу');
+        postBank(-COST.eat_out.c, tStr('system.payment.eat_out', 'кафе на углу'));
       }, 400);
     });
   }
@@ -2385,7 +2385,7 @@
       postOutgoing('scratch', tPickOr('text.shopping', SHOPPING_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+' + COST.shopping.m + ' комфорт · −$' + COST.shopping.c);
-        postBank(-COST.shopping.c, 'маленький шопинг');
+        postBank(-COST.shopping.c, tStr('system.payment.shopping', 'маленький шопинг'));
       }, 400);
     });
   }
@@ -2449,7 +2449,7 @@
       var totalUnits = p.work_units_total || 3;
       if (fatigueBug) {
         p.work_units_done = Math.max(0, (p.work_units_done || 0) - 0.5);
-        postOutgoing('scratch', 'опять баг в коде ночью · переделала утром то что сломала');
+        postOutgoing('scratch', tStr('system.scratch.night_bug', 'опять баг в коде ночью · переделала утром то что сломала'));
       } else {
         p.progress = Math.min(100, (p.progress || 0) + nightProgress);
         p.work_units_done = (p.work_units_done || 0) + 1.5; // night = 1.5 units
@@ -2460,7 +2460,7 @@
         if (fatigueBug) {
           postSystem('scratch', '⚠ ночная работа · усталость · −0.5 unit' + unitsTxt);
         } else {
-          postSystem('scratch', 'проект #' + p.id + ' · +1.5 units' + unitsTxt + ' · −15⚡ ночной режим · завтра будет тяжело');
+          postSystem('scratch', tStr('system.scratch.night_units', 'проект #{id} · +1.5 units{extra} · −15⚡ ночной режим · завтра будет тяжело').replace('{id}', p.id).replace('{extra}', unitsTxt));
         }
         if (p.work_units_done >= (p.work_units_total || 3)) {
           // Delivered (via night work)
@@ -2555,13 +2555,13 @@
         }
 
         postSystem('scratch', '— конец дня ' + prevDay + ' · новый день начался —');
-        postSystem('scratch', 'день ' + STATE.day + ' · 8 часов впереди · $' + STATE.cash);
+        postSystem('scratch', tStr('system.scratch.morning', 'день {day} · 8 часов впереди · ${cash}').replace('{day}', STATE.day).replace('{cash}', STATE.cash));
 
         if (STATE.day === FINALE_DAY - 1) {
-          postSystem('scratch', 'это последний рабочий день этого месяца · пора заканчивать проекты');
+          postSystem('scratch', tStr('system.scratch.last_workday', 'это последний рабочий день этого месяца · пора заканчивать проекты'));
         }
         if (STATE.day === FINALE_DAY) {
-          postSystem('scratch', 'последний день месяца · сегодня всё решится');
+          postSystem('scratch', tStr('system.scratch.last_day', 'последний день месяца · сегодня всё решится'));
         }
 
         try { processPassive(STATE.day); } catch (e) { console.error('passive error', e); }
@@ -2605,7 +2605,7 @@
     lena.online = true;
     postMessage('lena', {
       kind: 'incoming',
-      senderName: 'Лена',
+      senderName: Bubbles.localizedContactName(findContact('lena')),
       photo: 'img/events/lena_coffee.webp',
       photoAlt: 'кофейня',
       text: tStr('beat.lena_intro.message', 'эй, подруга. услышала что ты ушла из агентства.\n\nпервая неделя всегда самая тяжёлая — я была там. через пару дней скину контакты. держись.')
@@ -2619,7 +2619,7 @@
     var c = findContact('anna'); if (c) c.visible = true;
     postMessage('anna', {
       kind: 'incoming',
-      senderName: 'Анна',
+      senderName: Bubbles.localizedContactName(findContact('anna')),
       photo: 'img/events/anna_landing_sketch.webp',
       photoAlt: 'wireframe лендинга',
       text: tStr('beat.anna_offer.intro', 'привет. лена про тебя рассказала.\n\nу меня небольшой проект — двустраничник, $200 upfront + $250 на сдаче. срок 6 дней. если готова быстро — берём?')
@@ -2635,7 +2635,7 @@
     if (STATE.delivered_projects >= 1) {
       postMessage('anna', {
         kind: 'incoming',
-        senderName: 'Анна',
+        senderName: Bubbles.localizedContactName(findContact('anna')),
         text: tStr('beat.anna_referral.intro', 'марина, привет. мне понравилось как ты сделала. у меня второй проект — email-последовательность для другого клиента. $350 upfront + $450 на сдаче. 7 дней. берёшь?')
       });
       postMessage('scratch', { kind: 'system', text: tStr('beat.anna_referral.scratch_cue', 'Анна с новым проектом · открой чат') });
@@ -2648,7 +2648,7 @@
     STATE.beat_lena_day9 = true;
     postMessage('lena', {
       kind: 'incoming',
-      senderName: 'Лена',
+      senderName: Bubbles.localizedContactName(findContact('lena')),
       text: tStr('beat.lena_day9.message', 'как держишься? я тут смотрю новости — обнимаю. скину тебе пару контактов днями если найду что-то стоящее.')
     });
   }
@@ -2672,7 +2672,7 @@
 
     postMessage('tim', {
       kind: 'incoming',
-      senderName: 'Тим',
+      senderName: Bubbles.localizedContactName(findContact('tim')),
       photo: 'img/events/tim_kas_view.webp',
       photoAlt: 'вид из каша',
       text: tStr('beat.tim_consult_intro.msg1', 'привет, марина. лена мне про тебя рассказала. я консультант по автоматизации и AI.')
@@ -2680,14 +2680,14 @@
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
-        senderName: 'Тим',
+        senderName: Bubbles.localizedContactName(findContact('tim')),
         text: tStr('beat.tim_consult_intro.msg2', 'смотри: я могу прикрутить ИИ к твоему процессу поиска клиентов. ты заплатишь один раз, и я настрою систему которая будет искать клиентов за тебя, пока ты спишь.')
       });
     }, 1200);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
-        senderName: 'Тим',
+        senderName: Bubbles.localizedContactName(findContact('tim')),
         text: tStr('beat.tim_consult_intro.msg3', 'первый уровень — автофарминг холодки. $200. каждый день +1 лид без твоего участия. хочешь попробовать?')
       });
     }, 2400);
@@ -2700,7 +2700,7 @@
     STATE.beat_tim_tier2_offer = true;
     postMessage('tim', {
       kind: 'incoming',
-      senderName: 'Тим',
+      senderName: Bubbles.localizedContactName(findContact('tim')),
       text: tStr('beat.tim_tier2_offer.message', 'смотрю твоя система работает. теперь могу автоматизировать созвоны — AI делает brief за тебя. $300. +1 квалифицированный лид в день.')
     });
     STATE._tim_tier2_pending = true;
@@ -2711,7 +2711,7 @@
     STATE.beat_tim_tier3_offer = true;
     postMessage('tim', {
       kind: 'incoming',
-      senderName: 'Тим',
+      senderName: Bubbles.localizedContactName(findContact('tim')),
       text: tStr('beat.tim_tier3_offer.message', 'третий уровень: AI сам отправляет офферы и торгуется по базовой стратегии. $400. +1 оффер отправлен в день.')
     });
     STATE._tim_tier3_pending = true;
@@ -2729,34 +2729,34 @@
 
     postMessage('tim', {
       kind: 'incoming',
-      senderName: 'Тим',
+      senderName: Bubbles.localizedContactName(findContact('tim')),
       text: tStr('beat.tim_creator_fired.msg1', 'Привет. Спасибо большое, что играешь в мою игру.')
     });
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
-        senderName: 'Тим',
+        senderName: Bubbles.localizedContactName(findContact('tim')),
         text: tStr('beat.tim_creator_fired.msg2', 'Я не просто персонаж этой игры — я её создатель. И да, я действительно занимаюсь автоматизацией, связанной с искусственным интеллектом.')
       });
     }, 1500);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
-        senderName: 'Тим',
+        senderName: Bubbles.localizedContactName(findContact('tim')),
         text: tStr('beat.tim_creator_fired.msg3', 'Если тебе понравилась моя игра — не забудь, пожалуйста, лайкнуть её, подписаться на мои соцсети и посоветовать игру друзьям.')
       });
     }, 3000);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
-        senderName: 'Тим',
+        senderName: Bubbles.localizedContactName(findContact('tim')),
         text: tStr('beat.tim_creator_fired.msg4', 'А если тебе или кому-то из знакомых для бизнеса потребуется автоматизация — ну, ты поняла, к кому обращаться 😉')
       });
     }, 4500);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
-        senderName: 'Тим',
+        senderName: Bubbles.localizedContactName(findContact('tim')),
         text: tStr('beat.tim_creator_fired.msg5', 'Удачи. До конца месяца осталось совсем немного. Подписывайся на меня в Telegram — кнопка ниже 👇')
       });
     }, 6000);
@@ -2775,13 +2775,13 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       text: tStr('beat.khozyaika_day1_rent.msg1', 'Марина, добрый день! На всякий случай напоминаю: оплата за квартиру $500 первого числа каждой декады — 10, 20 и 30. Поздравляю с новой главой в жизни!')
     });
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
-        senderName: 'Наталья Валерьевна',
+        senderName: Bubbles.localizedContactName(findContact('khozyaika')),
         text: tStr('beat.khozyaika_day1_rent.msg2', 'И если вдруг задержка — дайте знать. Я приду с ключами уже со своим дворником. У него характер.')
       });
     }, 1200);
@@ -2794,13 +2794,13 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       text: tStr('beat.khozyaika_day2_komod.msg1', 'Марина, мне сегодня приснилось что вы поцарапали комод в прихожей. Комод этот от дедушки, ручная работа, ему 60 лет. Я его берегу.')
     });
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
-        senderName: 'Наталья Валерьевна',
+        senderName: Bubbles.localizedContactName(findContact('khozyaika')),
         text: tStr('beat.khozyaika_day2_komod.msg2', 'Ничего страшного, конечно, просто на всякий случай — осмотрите его, пожалуйста. И напишите мне фото. Я волнуюсь.')
       });
     }, 1000);
@@ -2812,7 +2812,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       photo: 'img/events/khozyaika_water_meters.webp',
       photoAlt: 'счётчики воды',
       text: tStr('beat.khozyaika_1_water.message', 'Марина, добрый день! Не забудьте передать показания счётчиков горячей и холодной воды до 10 числа. ВАЖНО: обязательно с фотографией сертифицированного образца. Иначе штраф $100. Наталья В.')
@@ -2829,7 +2829,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       text: tStr('beat.khozyaika_2_tiktok.message', 'Мариночка, я сняла видео с нашим домом для тиктока. Можете лайкнуть и подписаться на @natalya_vmore? Мне важно как бабе-стрельцу, я сейчас на сатурновом транзите и дом это моя точка опоры.')
     });
     postMessage('scratch', { kind: 'system', text: tStr('beat.khozyaika_2_tiktok.scratch_cue', 'хозяйка про тикток · открой чат') });
@@ -2842,7 +2842,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       photo: 'img/events/khozyaika_cat.webp',
       photoAlt: 'кошка Мурка',
       text: tStr('beat.khozyaika_3_cat.message', 'SOS МАРИНА! Кошка Мурка сбежала из квартиры на восьмом этаже. Помогите расклеить объявления по району, вы же дома работаете? У вас время есть. Срочно пожалуйста.')
@@ -2857,7 +2857,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       photo: 'img/events/khozyaika_tarot.webp',
       photoAlt: 'карты таро',
       text: tStr('beat.khozyaika_4_horoscope.message', 'Марина, читала ваш гороскоп на месяц. Скорпионы в этом месяце в огне. Деньги НЕ давайте Весам (особенно Весам в очках). Это важно для кармы дома, я переживаю как за родную.')
@@ -2875,20 +2875,20 @@
 
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       text: tStr('beat.khozyaika_rescue.msg1', 'Марина, добрый день. У меня к вам разговор важный и странный.')
     });
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
-        senderName: 'Наталья Валерьевна',
+        senderName: Bubbles.localizedContactName(findContact('khozyaika')),
         text: tStr('beat.khozyaika_rescue.msg2', 'Я вчера перед сном смотрела видео одной блогерши из Таиланда — она там про карму дома рассказывала. И знаете что? Она сказала что если собственница жилья помогает молодой фаундерше в первый месяц — у неё третий глаз открывается. А мне надо открыть, я уже кукушку на птичьем рынке спрашивала про своё будущее.')
       });
     }, 1200);
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
-        senderName: 'Наталья Валерьевна',
+        senderName: Bubbles.localizedContactName(findContact('khozyaika')),
         text: tStr('beat.khozyaika_rescue.msg3', 'Короче. Аренду за первую половину месяца — я вам прощаю. Перевела обратно. До конца месяца — живите спокойно, думайте о деле. У меня высшие задачи, не подведите — у меня третий глаз на кону.')
       });
     }, 2400);
@@ -2910,7 +2910,7 @@
     var c = findContact('pavel'); if (c) c.visible = true;
     postMessage('pavel', {
       kind: 'incoming',
-      senderName: 'Павел',
+      senderName: Bubbles.localizedContactName(findContact('pavel')),
       photo: 'img/events/bank_sms.webp',
       photoAlt: 'скриншот — обещаю вернуть',
       text: tStr('beat.pavel_intro.message', 'слушай, у меня жёсткая ситуация — нужно $300 на пару недель. верну $450, честно. помоги, пожалуйста.')
@@ -2924,16 +2924,16 @@
     if (STATE.beat_pavel_night_day2) return;
     STATE.beat_pavel_night_day2 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: tStr('beat.pavel_night_day2.message', 'привет, спишь?') });
+    postMessage('pavel', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('pavel')), text: tStr('beat.pavel_night_day2.message', 'привет, спишь?') });
   }
 
   function beatPavelDay5() {
     if (STATE.beat_pavel_day5) return;
     STATE.beat_pavel_day5 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', photo: 'img/events/pavel_roof.webp', photoAlt: 'крыша', text: tStr('beat.pavel_day5.msg1', 'я тут вспомнил, как мы с тобой в Питере сидели на Мойке. помнишь?') });
+    postMessage('pavel', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('pavel')), photo: 'img/events/pavel_roof.webp', photoAlt: 'крыша', text: tStr('beat.pavel_day5.msg1', 'я тут вспомнил, как мы с тобой в Питере сидели на Мойке. помнишь?') });
     setTimeout(function () {
-      postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: tStr('beat.pavel_day5.msg2', 'тебе было 23, мне 27. я был дурак и не понимал ничего. прости если что.') });
+      postMessage('pavel', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('pavel')), text: tStr('beat.pavel_day5.msg2', 'тебе было 23, мне 27. я был дурак и не понимал ничего. прости если что.') });
     }, 1200);
   }
 
@@ -2941,7 +2941,7 @@
     if (STATE.beat_pavel_day7) return;
     STATE.beat_pavel_day7 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: tStr('beat.pavel_day7.message', 'слушай, ты сейчас одна? в смысле по жизни.') });
+    postMessage('pavel', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('pavel')), text: tStr('beat.pavel_day7.message', 'слушай, ты сейчас одна? в смысле по жизни.') });
   }
 
   // ========== SPRINT 07 — Late-game density beats ==========
@@ -2952,7 +2952,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       text: tStr('beat.khozyaika_d22.message', 'Марина, я вчера видела сон будто у нас в подъезде появился домовой в форме кошки. Мурка теперь на подоконнике смотрит в одну точку третий день. Вы не против если я загляну освятить квартиру батюшкой?')
     });
   }
@@ -2963,7 +2963,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       text: tStr('beat.khozyaika_d27.message', 'Марина, на следующей неделе полнолуние в Раке. В это время комоды особенно уязвимы. Пожалуйста, не ставьте на него горячие чашки и не включайте китайских мантр рядом. И вообще лучше выйти из квартиры между 23:00 и 01:00.')
     });
   }
@@ -2974,7 +2974,7 @@
     var c = findContact('olya'); if (c) c.visible = true;
     postMessage('olya', {
       kind: 'incoming',
-      senderName: 'Оля Петрова',
+      senderName: Bubbles.localizedContactName(findContact('olya')),
       photo: 'img/events/olya_product.webp',
       photoAlt: 'продукт клуба',
       text: tStr('beat.olya_retry.message', 'Мариночка, как ты? Я тут обновление по нашему клубу — мы запускаем НОВЫЙ уровень. Всего $400, но ты получаешь в три раза больше активаций. Подумай, я верю в тебя!')
@@ -2989,7 +2989,7 @@
     var c = findContact('olya'); if (c) c.visible = true;
     postMessage('olya', {
       kind: 'incoming',
-      senderName: 'Оля Петрова',
+      senderName: Bubbles.localizedContactName(findContact('olya')),
       text: tStr('beat.olya_final.message', 'Марина, я понимаю что ты сомневаешься. Но вот скриншот моего дохода за месяц: $3200 чистыми. И это не предел. Последнее предложение: $150, заходишь бесплатным уровнем и начинаешь зарабатывать.')
     });
     STATE._olya_final_pending = true; // SPRINT 39 — chip
@@ -3001,7 +3001,7 @@
     var c = findContact('krypta'); if (c) c.visible = true;
     postMessage('krypta', {
       kind: 'incoming',
-      senderName: 'БРАТ крипта',
+      senderName: Bubbles.localizedContactName(findContact('krypta')),
       photo: 'img/events/krypta_wallet.webp',
       photoAlt: 'крипто-кошелёк',
       text: tStr('beat.krypta_retry.message', 'БРАТ алё ты жива? смотри SOLANA х3 за неделю я говорил! у меня есть ещё 1 слот. $50 минимум, на следующей неделе $500. не упусти')
@@ -3017,7 +3017,7 @@
     var c = findContact('krypta'); if (c) c.visible = true;
     postMessage('krypta', {
       kind: 'incoming',
-      senderName: 'БРАТ крипта',
+      senderName: Bubbles.localizedContactName(findContact('krypta')),
       text: tStr('beat.krypta_final.message', 'сестра, скажу честно. у меня не было $100. они пошли на оплату хостинга для моего блога. но завтра реально точно ракета. прости брат. больше не будет. $30?')
     });
     // SPRINT 38b — chip for final retry too
@@ -3030,7 +3030,7 @@
     var c = findContact('pavel'); if (c) c.visible = true;
     postMessage('pavel', {
       kind: 'incoming',
-      senderName: 'Павел',
+      senderName: Bubbles.localizedContactName(findContact('pavel')),
       photo: 'img/events/pavel_bridge.webp',
       photoAlt: 'мост ночью',
       text: tStr('beat.pavel_d13.message', 'марина я вчера был в твоём доме. просто проходил. вспомнил крышу куда мы поднимались в мае 2022. помнишь?')
@@ -3043,7 +3043,7 @@
     var c = findContact('pavel'); if (c) c.visible = true;
     postMessage('pavel', {
       kind: 'incoming',
-      senderName: 'Павел',
+      senderName: Bubbles.localizedContactName(findContact('pavel')),
       text: tStr('beat.pavel_d17.message', 'слушай. а если я серьёзно. давай встретимся на чашку кофе. без возврата денег, без истории. как старые знакомые.')
     });
     // SPRINT 38b — два варианта отказа (Тим: 'нужно два варианта ответа, оба отказ')
@@ -3057,7 +3057,7 @@
     var c = findContact('pavel'); if (c) c.visible = true;
     postMessage('pavel', {
       kind: 'incoming',
-      senderName: 'Павел',
+      senderName: Bubbles.localizedContactName(findContact('pavel')),
       text: tStr('beat.pavel_d21.message', 'марин, слышал у тебя кто-то появился. может не стоит? ты меня лучше знаешь.')
     });
   }
@@ -3068,7 +3068,7 @@
     var c = findContact('pavel'); if (c) c.visible = true;
     postMessage('pavel', {
       kind: 'incoming',
-      senderName: 'Павел',
+      senderName: Bubbles.localizedContactName(findContact('pavel')),
       text: tStr('beat.pavel_d25.message', 'ну и ладно. удачи. я всегда был рядом когда тебе было сложно. помни.')
     });
   }
@@ -3079,7 +3079,7 @@
     var c = findContact('mama'); if (c) c.visible = true;
     postMessage('mama', {
       kind: 'incoming',
-      senderName: 'мама',
+      senderName: Bubbles.localizedContactName(findContact('mama')),
       text: tStr('beat.mama_d20.message', 'доча, соседка спрашивает какой у тебя бизнес. я сказала что ты творческая, всё пишешь. она говорит это хорошо. у её дочки такой же бизнес, но та получает зарплату в мвд. но я тебя не сравниваю.')
     });
   }
@@ -3090,7 +3090,7 @@
     var c = findContact('denis'); if (c) c.visible = true;
     postMessage('denis', {
       kind: 'incoming',
-      senderName: 'Денис',
+      senderName: Bubbles.localizedContactName(findContact('denis')),
       text: tStr('beat.denis_d22.message', 'марин, слышал про тебя от общих. гордимся. держись. кстати — парус-тур на выходных, присоединяйся.')
     });
   }
@@ -3102,7 +3102,7 @@
     var c = findContact('nastya'); if (c) c.visible = true;
     postMessage('nastya', {
       kind: 'incoming',
-      senderName: 'Настя',
+      senderName: Bubbles.localizedContactName(findContact('nastya')),
       photo: 'img/events/nastya_desk.webp',
       photoAlt: 'рабочий стол',
       text: tStr('beat.nastya_d6.msg1', 'привет! я Настя, тоже фрилансер, мы вроде в одном чате в telegram были. хотела спросить — как ты справляешься с первыми неделями без офиса?')
@@ -3110,7 +3110,7 @@
     setTimeout(function () {
       postMessage('nastya', {
         kind: 'incoming',
-        senderName: 'Настя',
+        senderName: Bubbles.localizedContactName(findContact('nastya')),
         text: tStr('beat.nastya_d6.msg2', 'у меня прям паника каждое утро. но я вот начала выписывать три задачи в день вместо десяти. помогает.')
       });
     }, 1100);
@@ -3122,7 +3122,7 @@
     var c = findContact('nastya'); if (c) c.visible = true;
     postMessage('nastya', {
       kind: 'incoming',
-      senderName: 'Настя',
+      senderName: Bubbles.localizedContactName(findContact('nastya')),
       text: tStr('beat.nastya_d11.message', 'ооо я сегодня закрыла второй проект. чувствую себя богиней. и одновременно засыпаю стоя. как оно у тебя?')
     });
   }
@@ -3133,7 +3133,7 @@
     var c = findContact('nastya'); if (c) c.visible = true;
     postMessage('nastya', {
       kind: 'incoming',
-      senderName: 'Настя',
+      senderName: Bubbles.localizedContactName(findContact('nastya')),
       photo: 'img/events/nastya_coworking.webp',
       photoAlt: 'коворкинг',
       text: tStr('beat.nastya_d16.message', 'слушай, думала. нам надо объединяться. одна хорошо, но вдвоём быстрее. может посидим, обсудим?')
@@ -3147,7 +3147,7 @@
     var c = findContact('nastya'); if (c) c.visible = true;
     postMessage('nastya', {
       kind: 'incoming',
-      senderName: 'Настя',
+      senderName: Bubbles.localizedContactName(findContact('nastya')),
       text: tStr('beat.nastya_d20.message', 'у меня проект на двух, клиент крупный. половину могу тебе отдать. $200 upfront прямо сейчас + $200 на сдаче через неделю. только делай хорошо. интересно?')
     });
     postMessage('scratch', { kind: 'system', text: tStr('beat.nastya_d20.scratch_cue', 'Настя предлагает партнёрство · открой чат') });
@@ -3160,7 +3160,7 @@
     var c = findContact('nastya'); if (c) c.visible = true;
     postMessage('nastya', {
       kind: 'incoming',
-      senderName: 'Настя',
+      senderName: Bubbles.localizedContactName(findContact('nastya')),
       text: tStr('beat.nastya_d25.message', 'марин, я серьёзно думаю о партнёрстве. давай после месяца встретимся и обсудим. у меня есть план.')
     });
   }
@@ -3171,7 +3171,7 @@
     var c = findContact('nastya'); if (c) c.visible = true;
     postMessage('nastya', {
       kind: 'incoming',
-      senderName: 'Настя',
+      senderName: Bubbles.localizedContactName(findContact('nastya')),
       text: tStr('beat.nastya_d30.message', 'ты дожила. я горжусь. давай встретимся в воскресенье, я принесу вино и план на следующий месяц.')
     });
   }
@@ -3228,13 +3228,13 @@
     var photo = pickUnused(SVETKA_PHOTOS, '_svetka_photos_used');
     postMessage('svetka', {
       kind: 'incoming',
-      senderName: 'Светка',
+      senderName: Bubbles.localizedContactName(findContact('svetka')),
       text: voiceLabel + '\n\n' + tStr('beat.svetka.no_audio_note', '(не слушается)')
     });
     setTimeout(function () {
       postMessage('svetka', {
         kind: 'incoming',
-        senderName: 'Светка',
+        senderName: Bubbles.localizedContactName(findContact('svetka')),
         photo: photo.src,
         photoAlt: photo.alt,
         text: gossip
@@ -3247,7 +3247,7 @@
     if (STATE.beat_pavel_day9) return;
     STATE.beat_pavel_day9 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: tStr('beat.pavel_day9.message', 'марина, если честно — я думаю о тебе каждый день уже которую неделю. я знаю что ты не хочешь. но ты должна это услышать.') });
+    postMessage('pavel', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('pavel')), text: tStr('beat.pavel_day9.message', 'марина, если честно — я думаю о тебе каждый день уже которую неделю. я знаю что ты не хочешь. но ты должна это услышать.') });
   }
 
   function beatMama6() {
@@ -3256,7 +3256,7 @@
     var c = findContact('mama'); if (c) c.visible = true;
     postMessage('mama', {
       kind: 'incoming',
-      senderName: 'мама',
+      senderName: Bubbles.localizedContactName(findContact('mama')),
       photo: 'img/events/cat_window.webp',
       photoAlt: 'кошка у окна',
       text: tStr('beat.mama6.message', 'доча, я на лекарства не могу накопить в этом месяце. если можешь помочь — $200 скинь. если нет — я понимаю, у тебя и так сложно.')
@@ -3271,7 +3271,7 @@
     var c = findContact('mama'); if (c) c.visible = true;
     postMessage('mama', {
       kind: 'incoming',
-      senderName: 'мама',
+      senderName: Bubbles.localizedContactName(findContact('mama')),
       photo: 'img/events/mama_pie.webp',
       photoAlt: 'мамины пироги',
       text: tStr('beat.mama17.message', 'ты там живая? звонков нет уже неделю. пирогов наготовила, приезжай в субботу.')
@@ -3285,7 +3285,7 @@
     var c = findContact('mama'); if (c) c.visible = true;
     postMessage('mama', {
       kind: 'incoming',
-      senderName: 'мама',
+      senderName: Bubbles.localizedContactName(findContact('mama')),
       photo: 'img/events/mama_letter.webp',
       photoAlt: 'мамино письмо',
       text: tStr('beat.mama24.message', 'доча, я скучаю. звони когда сможешь. хоть на 5 минут.')
@@ -3298,7 +3298,7 @@
     var c = findContact('mama'); if (c) c.visible = true;
     postMessage('mama', {
       kind: 'incoming',
-      senderName: 'мама',
+      senderName: Bubbles.localizedContactName(findContact('mama')),
       text: tStr('beat.mama_final.message', 'доча. я всё это время не знала как ты. завтра последний день месяца. я просто скажу: горжусь тобой. что бы ни было. позвони когда сможешь.')
     });
   }
@@ -3314,20 +3314,20 @@
 
     postMessage('kirill', {
       kind: 'incoming',
-      senderName: 'Кирилл',
+      senderName: Bubbles.localizedContactName(findContact('kirill')),
       text: tStr('beat.kirill_love1.msg1', 'слушай, я тут подумал. я понимаю что звучит странно, но ты мне нравишься не только на ужинах.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_love1.msg2', 'у тебя в глазах что-то такое — как будто ты сражаешься с драконом и никому не рассказываешь. я это вижу. и мне хочется просто сидеть рядом.')
       });
     }, 1200);
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_love1.msg3', 'как ты вообще?')
       });
     }, 2400);
@@ -3346,13 +3346,13 @@
 
     postMessage('kirill', {
       kind: 'incoming',
-      senderName: 'Кирилл',
+      senderName: Bubbles.localizedContactName(findContact('kirill')),
       text: tStr('beat.kirill_love2.msg1', 'марин, давай встретимся. не ради ужина. просто пройдёмся, я хочу с тобой поговорить.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_love2.msg2', 'у меня нет плана, нет повода. просто хочу быть рядом пару часов. как тебе?')
       });
     }, 1100);
@@ -3371,20 +3371,20 @@
 
     postMessage('kirill', {
       kind: 'incoming',
-      senderName: 'Кирилл',
+      senderName: Bubbles.localizedContactName(findContact('kirill')),
       text: tStr('beat.kirill_love_final.msg1', 'марина. я за эти недели понял одну штуку.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_love_final.msg2', 'ты не лёгкая. ты не ангел. ты иногда уставшая и злая. но когда ты говоришь о своей работе — у тебя в голосе огонь. и я хочу быть тем, кто этот огонь слушает, когда ты приходишь домой.')
       });
     }, 1200);
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_love_final.msg3', 'я не прошу переехать. я не прошу обещаний. я прошу только разрешения. быть.')
       });
     }, 2400);
@@ -3426,7 +3426,7 @@
     };
     postMessage('denis', {
       kind: 'incoming',
-      senderName: 'Денис',
+      senderName: Bubbles.localizedContactName(findContact('denis')),
       photo: photos[day] || 'img/events/street_window.webp',
       photoAlt: tStr('beat.denis.day' + day + '.photo_alt', 'гулянка с денисом') || tStr('beat.denis.fallback_alt', 'гулянка'),
       text: texts[day] || tStr('beat.denis.fallback_text', 'привет, как ты там?')
@@ -3444,12 +3444,12 @@
     if (STATE.beat_olya) return;
     STATE.beat_olya = true;
     var c = findContact('olya'); if (c) c.visible = true;
-    postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', photo: 'img/events/olya_pyramid.webp', photoAlt: 'клуб женщин', text: tStr('beat.olya_intro.msg1', 'Мариночка приветик! Это Оля Петрова, мы учились вместе в 11-Б. Помнишь меня?') });
+    postMessage('olya', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('olya')), photo: 'img/events/olya_pyramid.webp', photoAlt: 'клуб женщин', text: tStr('beat.olya_intro.msg1', 'Мариночка приветик! Это Оля Петрова, мы учились вместе в 11-Б. Помнишь меня?') });
     setTimeout(function () {
-      postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', text: tStr('beat.olya_intro.msg2', 'У меня появилась уникальная возможность для женщин которые хотят изменить жизнь и финансы. Можно я расскажу 5 минут?') });
+      postMessage('olya', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('olya')), text: tStr('beat.olya_intro.msg2', 'У меня появилась уникальная возможность для женщин которые хотят изменить жизнь и финансы. Можно я расскажу 5 минут?') });
     }, 900);
     setTimeout(function () {
-      postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', text: tStr('beat.olya_intro.msg3', 'Это не пирамида, это клуб ✨ инвестиция всего $200, возвращается х3 за 2 месяца гарантированно') });
+      postMessage('olya', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('olya')), text: tStr('beat.olya_intro.msg3', 'Это не пирамида, это клуб ✨ инвестиция всего $200, возвращается х3 за 2 месяца гарантированно') });
     }, 1800);
     STATE._olya_pending = true;
     postMessage('scratch', { kind: 'system', text: tStr('beat.olya_intro.scratch_cue', 'одноклассница пишет · открой чат') });
@@ -3468,7 +3468,7 @@
     var text = hadDate
       ? tStr('beat.kirill_scene11.variant_had_date', 'вчера ты странно себя вела на ужине. три раза сказала «я в порядке». это обычно значит обратное. я не давлю — просто, если что, я тут.')
       : tStr('beat.kirill_scene11.variant_no_date', 'привет. знаю, ты в работе и времени нет. я не пропадаю, просто хочу чтобы ты знала: я тут. как ты вообще?');
-    postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: text });
+    postMessage('kirill', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('kirill')), text: text });
   }
 
   // SPRINT 38 — Scene13 gated: this is intimate, requires earned trust.
@@ -3483,13 +3483,13 @@
       // Original intimate journal beat
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_scene13.trust_msg1', 'покажу тебе одну штуку. я с 17 лет пишу в блокноты, никогда не показывал никому. вот страница 47 из прошлого года.')
       });
       setTimeout(function () {
         postMessage('kirill', {
           kind: 'incoming',
-          senderName: 'Кирилл',
+          senderName: Bubbles.localizedContactName(findContact('kirill')),
           text: tStr('beat.kirill_scene13.trust_msg2', '«все настоящее — тихое. и когда я найду её, я её узнаю по тишине.»\n\nэто я писал когда мне было 28. тебе — не говорю зачем показываю.')
         });
       }, 1100);
@@ -3497,7 +3497,7 @@
       // Light surface-level beat — gauge interest before opening up
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_scene13.light_msg', 'слушай, расскажи когда у тебя получится выдохнуть на час. я в кафе на лиговке зайду — кофе хороший, тишина. без обязательств.')
       });
     }
@@ -3518,13 +3518,13 @@
     var c = findContact('kirill'); if (c) c.visible = true;
     postMessage('kirill', {
       kind: 'incoming',
-      senderName: 'Кирилл',
+      senderName: Bubbles.localizedContactName(findContact('kirill')),
       text: tStr('beat.kirill_conflict16.msg1', 'марина. я слышал что тебе пишет Павел — твой бывший. не спрашиваю подробностей, просто — скажи честно: он в твоей жизни сейчас или нет?')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_conflict16.msg2', 'если ты возвращаешься туда — скажи сейчас. я не буду мешать.')
       });
     }, 1200);
@@ -3542,13 +3542,13 @@
     var c = findContact('kirill'); if (c) c.visible = true;
     postMessage('kirill', {
       kind: 'incoming',
-      senderName: 'Кирилл',
+      senderName: Bubbles.localizedContactName(findContact('kirill')),
       text: tStr('beat.kirill_resolution19.msg1', 'прости за тот вопрос про Павла. я не имел права. просто испугался что теряю тебя раньше чем узнал.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_resolution19.msg2', 'я учусь доверять. медленно, но учусь.')
       });
     }, 1200);
@@ -3564,7 +3564,7 @@
     var c = findContact('kirill'); if (c) c.visible = true;
     postMessage('kirill', {
       kind: 'incoming',
-      senderName: 'Кирилл',
+      senderName: Bubbles.localizedContactName(findContact('kirill')),
       text: tStr('beat.kirill_prefinale24.message', 'через неделю закончится этот твой первый месяц. ты устанешь, я знаю. я просто хочу сказать — мне всё равно сдашь ты три проекта или один. я с тобой.')
     });
   }
@@ -3580,13 +3580,13 @@
     var c = findContact('kirill'); if (c) c.visible = true;
     postMessage('kirill', {
       kind: 'incoming',
-      senderName: 'Кирилл',
+      senderName: Bubbles.localizedContactName(findContact('kirill')),
       text: tStr('beat.kirill_food_delivery.msg1', 'не отвечаешь, не выходишь. знаю, ты в работе. оставил у двери пакет — суп из «Чебурашки», два хачапури, баклава. поешь, ладно? я не буду заходить.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_food_delivery.msg2', 'когда сможешь — напиши, что доела. это я для своего спокойствия.')
       });
     }, 1500);
@@ -3600,12 +3600,12 @@
     if (STATE.beat_kirill) return;
     STATE.beat_kirill = true;
     var c = findContact('kirill'); if (c) c.visible = true;
-    postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: tStr('beat.kirill_intro.msg1', 'ну привет') });
+    postMessage('kirill', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('kirill')), text: tStr('beat.kirill_intro.msg1', 'ну привет') });
     setTimeout(function () {
-      postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: tStr('beat.kirill_intro.msg2', 'я тебя на тиндере лайкнул три недели назад. ты молчала. я всё-таки настойчивый') });
+      postMessage('kirill', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('kirill')), text: tStr('beat.kirill_intro.msg2', 'я тебя на тиндере лайкнул три недели назад. ты молчала. я всё-таки настойчивый') });
     }, 900);
     setTimeout(function () {
-      postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: tStr('beat.kirill_intro.msg3', 'может встретимся? я угощаю ужином. любое кафе на выбор') });
+      postMessage('kirill', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('kirill')), text: tStr('beat.kirill_intro.msg3', 'может встретимся? я угощаю ужином. любое кафе на выбор') });
     }, 1800);
     STATE._kirill_pending = true;
     postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_intro.scratch_cue', 'Кирилл пишет · открой чат') });
@@ -3615,12 +3615,12 @@
     if (STATE.beat_krypta) return;
     STATE.beat_krypta = true;
     var c = findContact('krypta'); if (c) c.visible = true;
-    postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', photo: 'img/events/krypta_moon.webp', photoAlt: 'крипто-луна', text: tStr('beat.krypta_intro.msg1', 'БРАТ') });
+    postMessage('krypta', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('krypta')), photo: 'img/events/krypta_moon.webp', photoAlt: 'крипто-луна', text: tStr('beat.krypta_intro.msg1', 'БРАТ') });
     setTimeout(function () {
-      postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', text: tStr('beat.krypta_intro.msg2', 'СОЛАНА ЛЕТИТ 🚀🚀🚀 1000X ЭТОТ МЕСЯЦ') });
+      postMessage('krypta', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('krypta')), text: tStr('beat.krypta_intro.msg2', 'СОЛАНА ЛЕТИТ 🚀🚀🚀 1000X ЭТОТ МЕСЯЦ') });
     }, 700);
     setTimeout(function () {
-      postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', text: tStr('beat.krypta_intro.msg3', 'скидываешь $100 на кошелёк — делаешь $100000. проверено. ловлю момент один. решай быстрее') });
+      postMessage('krypta', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('krypta')), text: tStr('beat.krypta_intro.msg3', 'скидываешь $100 на кошелёк — делаешь $100000. проверено. ловлю момент один. решай быстрее') });
     }, 1500);
     STATE._krypta_pending = true;
     postMessage('scratch', { kind: 'system', text: tStr('beat.krypta_intro.scratch_cue', 'какой-то брат-крипта пишет · открой чат') });
@@ -3630,9 +3630,9 @@
     if (STATE.beat_artur) return;
     STATE.beat_artur = true;
     var c = findContact('artur'); if (c) c.visible = true;
-    postMessage('artur', { kind: 'incoming', senderName: 'Артур', text: tStr('beat.artur.msg1', 'марина привет. я понимаю что ты ушла не на лучшей ноте') });
+    postMessage('artur', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('artur')), text: tStr('beat.artur.msg1', 'марина привет. я понимаю что ты ушла не на лучшей ноте') });
     setTimeout(function () {
-      postMessage('artur', { kind: 'incoming', senderName: 'Артур', text: tStr('beat.artur.msg2', 'но у меня есть тема. подойди завтра в 10 в старый офис, объясню лично. это взаимовыгодно') });
+      postMessage('artur', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('artur')), text: tStr('beat.artur.msg2', 'но у меня есть тема. подойди завтра в 10 в старый офис, объясню лично. это взаимовыгодно') });
     }, 1000);
     STATE._artur_pending = true;
     postMessage('scratch', { kind: 'system', text: tStr('beat.artur.scratch_cue', 'бывший босс написал · открой чат') });
@@ -3642,9 +3642,9 @@
     if (STATE.beat_vera) return;
     STATE.beat_vera = true;
     var c = findContact('vera'); if (c) c.visible = true;
-    postMessage('vera', { kind: 'incoming', senderName: 'Вера Николаевна', text: tStr('beat.vera.msg1', 'Марина Сергеевна, здравствуйте! Это Вера Николаевна, ваша учительница по литературе.') });
+    postMessage('vera', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('vera')), text: tStr('beat.vera.msg1', 'Марина Сергеевна, здравствуйте! Это Вера Николаевна, ваша учительница по литературе.') });
     setTimeout(function () {
-      postMessage('vera', { kind: 'incoming', senderName: 'Вера Николаевна', text: tStr('beat.vera.msg2', 'Я в одноклассниках увидела что вы открыли своё дело. Горжусь вами! У меня есть внучка Алиса. Она пишет стихи. Не могли бы вы помочь ей продвинуться в интернете?') });
+      postMessage('vera', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('vera')), text: tStr('beat.vera.msg2', 'Я в одноклассниках увидела что вы открыли своё дело. Горжусь вами! У меня есть внучка Алиса. Она пишет стихи. Не могли бы вы помочь ей продвинуться в интернете?') });
     }, 1100);
     STATE._vera_pending = true;
   }
@@ -3653,9 +3653,9 @@
     if (STATE.beat_sosed) return;
     STATE.beat_sosed = true;
     var c = findContact('sosed'); if (c) c.visible = true;
-    postMessage('sosed', { kind: 'incoming', senderName: 'сосед снизу', text: tStr('beat.sosed_intro.msg1', 'здравствуйте. это ваш сосед снизу, квартира 23') });
+    postMessage('sosed', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('sosed')), text: tStr('beat.sosed_intro.msg1', 'здравствуйте. это ваш сосед снизу, квартира 23') });
     setTimeout(function () {
-      postMessage('sosed', { kind: 'incoming', senderName: 'сосед снизу', text: tStr('beat.sosed_intro.msg2', 'у меня на потолке появилось пятно. я думаю это от вас. спустите поговорить?') });
+      postMessage('sosed', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('sosed')), text: tStr('beat.sosed_intro.msg2', 'у меня на потолке появилось пятно. я думаю это от вас. спустите поговорить?') });
     }, 900);
     STATE._sosed_pending = true;
   }
@@ -3814,7 +3814,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       photo: 'img/events/khozyaika_noise.webp',
       photoAlt: 'хозяйка у двери',
       text: tStr('beat.khozyaika_day3_noise.message', 'Марина, соседи с первого этажа жаловались на шум. Вы работаете после 23:00? Пожалуйста, тише печатайте на клавиатуре. У нас дом 1978 года, слышимость как в коммуналке. Я серьёзно.')
@@ -3829,7 +3829,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       photo: 'img/events/khozyaika_meters.webp',
       photoAlt: 'электросчётчик',
       text: tStr('beat.khozyaika_day5_electric.message', 'Марина, вы сегодня снимаете показания электросчётчика? Я за ваш свет плачу, мне надо знать сколько. Скиньте фото. И сразу: почему розетка на кухне воняет? Вы что-то включали кроме чайника?')
@@ -3845,7 +3845,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       photo: 'img/events/khozyaika_damage.webp',
       photoAlt: 'царапина на линолеуме',
       text: tStr('beat.khozyaika_day7_damage.msg1', 'Марина, я тут была у вас пока вы на работе. Обнаружила ЦАРАПИНУ на линолеуме в прихожей. Это было до вас или после? Мне важно для страховки.')
@@ -3853,7 +3853,7 @@
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
-        senderName: 'Наталья Валерьевна',
+        senderName: Bubbles.localizedContactName(findContact('khozyaika')),
         text: tStr('beat.khozyaika_day7_damage.msg2', 'И ещё — в ванной потёк кран. Вызовите сантехника сами, $50 за выезд. Я не обязана.')
       });
     }, 1000);
@@ -3868,7 +3868,7 @@
     var c = findContact('khozyaika'); if (c) c.visible = true;
     postMessage('khozyaika', {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       photo: 'img/events/khozyaika_chain.webp',
       photoAlt: 'письмо счастья',
       text: tStr('beat.khozyaika_day9_chain.message', 'Марина, это ОЧЕНЬ ВАЖНО. Перешлите это сообщение пяти людям: «квартира, в которой живёт женщина-фаундер, накапливает карму неудач если не распространять энергию благодарности». Мне так психолог-астролог сказал. Она раньше работала в МЧС.')
@@ -3892,7 +3892,7 @@
     // Photo only for quote2 ("свечку поставила") — matches khozyaika_sweet aesthetic
     var msg = {
       kind: 'incoming',
-      senderName: 'Наталья Валерьевна',
+      senderName: Bubbles.localizedContactName(findContact('khozyaika')),
       text: texts[variant] || texts.flowers
     };
     if (variant === 'quote2') {
@@ -3915,14 +3915,14 @@
             STATE.cash += 450;
             postMessage('pavel', {
               kind: 'incoming',
-              senderName: 'Павел',
+              senderName: Bubbles.localizedContactName(findContact('pavel')),
               text: tStr('system.callback.pavel_return_text', 'спасибо что выручила. держу слово — вернул $450. без задержек.')
             });
             postBank(450, tStr('system.callback.pavel_return_bank', 'возврат от Павла (с процентом)'));
           } else {
             postMessage('pavel', {
               kind: 'incoming',
-              senderName: 'Павел',
+              senderName: Bubbles.localizedContactName(findContact('pavel')),
               text: tStr('system.callback.pavel_delay', 'привет. у меня тут затяжка. через неделю-две.')
             });
             postMessage('scratch', { kind: 'system', text: tStr('system.callback.pavel_week_note', 'Павел обещает через неделю...') });
@@ -3934,7 +3934,7 @@
         } else if (cb.type === 'pavel_silence') {
           postMessage('pavel', {
             kind: 'incoming',
-            senderName: 'Павел',
+            senderName: Bubbles.localizedContactName(findContact('pavel')),
             text: tStr('system.callback.pavel_broken_promise', 'прости. не получилось.')
           });
           postMessage('scratch', { kind: 'system', text: tStr('system.callback.pavel_no_return_note', 'Павел не вернул деньги') });
@@ -3954,7 +3954,7 @@
               var k = findContact('kirill'); if (k) k.visible = true;
               postMessage('kirill', {
                 kind: 'incoming',
-                senderName: 'Кирилл',
+                senderName: Bubbles.localizedContactName(findContact('kirill')),
                 text: tStr('system.callback.kirill_free_dinner', 'привет. хочешь в кафе вечером? я угощаю, тебе ничего не надо')
               });
               STATE.kirill_invite_active = true;
@@ -3966,7 +3966,7 @@
           postBank(-100, tStr('system.callback.khozyaika_fine_meters_bank', 'штраф за счётчики · хозяйка'));
           postMessage('khozyaika', {
             kind: 'incoming',
-            senderName: 'Наталья Валерьевна',
+            senderName: Bubbles.localizedContactName(findContact('khozyaika')),
             text: tStr('system.callback.khozyaika_fine_meters', 'Я же предупреждала про счётчики. Штраф $100 списан. Будьте ответственнее.')
           });
         } else if (cb.type === 'khozyaika_unanswered_water') {
@@ -3977,7 +3977,7 @@
             postBank(-100, tStr('system.callback.khozyaika_water_fine_bank', 'штраф · нет показаний воды'));
             postMessage('khozyaika', {
               kind: 'incoming',
-              senderName: 'Наталья Валерьевна',
+              senderName: Bubbles.localizedContactName(findContact('khozyaika')),
               text: tStr('system.callback.khozyaika_water_fine_msg', 'Марина, дедлайн прошёл. Показания не получены. Штраф $100 списан с депозита. Очень разочарована.')
             });
             postMessage('scratch', { kind: 'system', text: tStr('system.callback.khozyaika_water_fine_scratch', '🔻 −$100 · хозяйка не дождалась показаний') });
@@ -3992,7 +3992,7 @@
             postBank(-80, tStr('system.callback.khozyaika_electric_fine_bank', 'штраф · нет показаний электро'));
             postMessage('khozyaika', {
               kind: 'incoming',
-              senderName: 'Наталья Валерьевна',
+              senderName: Bubbles.localizedContactName(findContact('khozyaika')),
               text: tStr('system.callback.khozyaika_electric_fine_msg', 'Электросчётчик ждала три дня. Штраф $80. И розетку на кухне всё-таки проверьте.')
             });
             postMessage('scratch', { kind: 'system', text: tStr('system.callback.khozyaika_electric_fine_scratch', '🔻 −$80 · электросчётчик не отправлен') });
@@ -4005,7 +4005,7 @@
             STATE.comfort = Math.max(0, STATE.comfort - 8);
             postMessage('khozyaika', {
               kind: 'incoming',
-              senderName: 'Наталья Валерьевна',
+              senderName: Bubbles.localizedContactName(findContact('khozyaika')),
               text: tStr('system.callback.khozyaika_chain_fine_msg', 'Не переслали письмо. Я же говорила про карму. Теперь не удивляйтесь.')
             });
             postMessage('scratch', { kind: 'system', text: tStr('system.callback.khozyaika_chain_fine_scratch', '🔻 −8 комфорт · хозяйка обиделась') });
@@ -4015,7 +4015,7 @@
         } else if (cb.type === 'sosed_retry') {
           postMessage('sosed', {
             kind: 'incoming',
-            senderName: 'сосед снизу',
+            senderName: Bubbles.localizedContactName(findContact('sosed')),
             text: tStr('system.callback.sosed_retry', 'вы где? я жду уже сутки. пятно стало больше.')
           });
           STATE._sosed_pending = true;
@@ -4152,7 +4152,7 @@
       if (STATE.beat_khozyaika_rescue) {
         postMessage('khozyaika', {
           kind: 'incoming',
-          senderName: 'Наталья Валерьевна',
+          senderName: Bubbles.localizedContactName(findContact('khozyaika')),
           text: tStr('system.passive.khozyaika_rent_forgive', 'Мариночка, помните я обещала — аренда до конца месяца не нужна. Не забудьте 🌸')
         });
         postMessage('scratch', { kind: 'system', text: tStr('system.passive.khozyaika_rent_forgive_scratch', '🏠 хозяйка простила вторую декаду · −$0') });
@@ -4174,7 +4174,7 @@
       postBank(0, tStr('system.bank_unlock.memo', 'блокировка снята · счёт разморожен'));
       postMessage('bank', {
         kind: 'incoming',
-        senderName: 'Т-Банк',
+        senderName: Bubbles.localizedContactName(findContact('bank')),
         text: tStr('system.bank_unlock.msg', 'Блокировка снята. Спасибо за ожидание. Операции доступны.')
       });
       // Кирилл пишет про тарелочницу если были свидания при блокировке
@@ -4182,12 +4182,12 @@
         setTimeout(function () {
           postMessage('kirill', {
             kind: 'incoming',
-            senderName: 'Кирилл',
+            senderName: Bubbles.localizedContactName(findContact('kirill')),
             text: tStr('system.kirill_plate_girl.msg1_prefix', 'слушай. я за последние 2 недели угостил тебя ужином ') + STATE.plate_girl_count + tStr('system.kirill_plate_girl.msg1_suffix', ' раз. ты ни разу не предложила свой счёт.')
           });
           postMessage('kirill', {
             kind: 'incoming',
-            senderName: 'Кирилл',
+            senderName: Bubbles.localizedContactName(findContact('kirill')),
             text: tStr('system.kirill_plate_girl.msg2', 'ты тарелочница. я не в обиде, но давай на этом закончим.')
           });
           STATE.kirill_blocked = true;
@@ -4292,20 +4292,20 @@
     var c = findContact('kirill'); if (c) { c.visible = true; c.online = true; }
     postMessage('kirill', {
       kind: 'incoming',
-      senderName: 'Кирилл',
+      senderName: Bubbles.localizedContactName(findContact('kirill')),
       text: tStr('beat.kirill_day29_morning.msg1', 'доброе утро. кофе на кухне, свежий. ушёл тихо, чтобы не будить.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_day29_morning.msg2', 'спасибо что вчера. редко бывает так спокойно.')
       });
     }, 1400);
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
-        senderName: 'Кирилл',
+        senderName: Bubbles.localizedContactName(findContact('kirill')),
         text: tStr('beat.kirill_day29_morning.msg3', 'если что — я тут. без давления. просто здесь.')
       });
     }, 2800);
@@ -4325,7 +4325,7 @@
       STATE.cash += 300;
       postMessage('lena', {
         kind: 'incoming',
-        senderName: 'Лена',
+        senderName: Bubbles.localizedContactName(findContact('lena')),
         text: tStr('system.passive.lena_lifeline_msg', 'подруга, у меня есть $300 наличкой на пару недель. не спорь. отдашь как сможешь.')
       });
       postBank(300, tStr('system.passive.lena_lifeline_bank', 'перевод от Лены · lifeline'));
@@ -4395,8 +4395,8 @@
         STATE.cash += 700;
         STATE.comfort = Math.min(100, STATE.comfort + 20);
         STATE.hours = 0;
-        postBank(700, 'мама перевела');
-        postMessage('mama', { kind: 'incoming', senderName: 'мама', text: 'доча, я перевела $700. не возражай. поешь, отдохни. я люблю тебя.' });
+        postBank(700, tStr('system.payment.mama_rescue', 'мама перевела'));
+        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: 'доча, я перевела $700. не возражай. поешь, отдохни. я люблю тебя.' });
         postMessage('scratch', { kind: 'system', text: '💌 мама прислала $700 + 20 комфорт · ты в строю' });
       }
     },
@@ -4412,7 +4412,7 @@
         STATE.energy = Math.max(40, STATE.energy);
         STATE.comfort = Math.min(100, STATE.comfort + 25);
         STATE.hours = 0;
-        postMessage('mama', { kind: 'incoming', senderName: 'мама', text: 'я приехала. ничего не говори. ешь суп. потом поспишь. наталья валерьевна молодец что позвонила.' });
+        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: 'я приехала. ничего не говори. ешь суп. потом поспишь. наталья валерьевна молодец что позвонила.' });
         postMessage('scratch', { kind: 'system', text: '🏥 мама с супом + 80 голод + 25 комфорт · день потерян' });
       }
     },
@@ -4427,7 +4427,7 @@
         STATE.comfort = 70;
         STATE.energy = Math.min(100, STATE.energy + 30);
         STATE.hours = 0;
-        postMessage('lena', { kind: 'incoming', senderName: 'Лена', text: 'еду к тебе. собирай сумку, переночуешь у меня. без споров.' });
+        postMessage('lena', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('lena')), text: 'еду к тебе. собирай сумку, переночуешь у меня. без споров.' });
         postMessage('scratch', { kind: 'system', text: '🛋 Лена забрала к себе · +30⚡ +70 комфорт · день потерян' });
       }
     },
@@ -4442,7 +4442,7 @@
         STATE.cash = 200;
         STATE.comfort = Math.min(100, STATE.comfort + 15);
         STATE.hours = 0;
-        postMessage('mama', { kind: 'incoming', senderName: 'мама', text: 'папа выехал. забирает тебя на пару дней. это не провал, это пауза.' });
+        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: 'папа выехал. забирает тебя на пару дней. это не провал, это пауза.' });
         postMessage('scratch', { kind: 'system', text: '🏡 родители помогли · cash $200 · +15 комфорт · ты в безопасности' });
       }
     }
@@ -4621,7 +4621,7 @@
 
         postMessage('tim', {
           kind: 'incoming',
-          senderName: 'Тим',
+          senderName: Bubbles.localizedContactName(findContact('tim')),
           text: tStr('system.lead_form.tim_message', 'прочитал. спасибо что без фильтров.\n\nтри вещи на завтра утром:\n1. разложить почту по воронке (cold / качественный / в работе / сдано)\n2. срезать одну мёртвую задачу — ту, что откладываешь четвёртый день\n3. забронировать два часа без чата, писать одно дело\n\nзакину шаблоны — увидишь эффект.')
         });
         postBank(200, tStr('system.lead_form.bank_memo', 'Тим закинул шаблоны · оплата от клиента который ждал'));
@@ -4690,9 +4690,9 @@
     ], function (opt) {
       STATE._anna_pending = false;
       if (opt.id === 'anna_take') {
-        postOutgoing('anna', 'беру. скидывай договор');
+        postOutgoing('anna', tStr('system.anna_referral.yes', 'беру. скидывай договор'));
         setTimeout(function () {
-          postIncoming('anna', 'ура, отправила', 'Анна');
+          postIncoming('anna', tStr('system.anna_referral.sent', 'ура, отправила'), Bubbles.localizedContactName(findContact('anna')));
           var project = {
             id: STATE.active_projects.length + STATE.delivered_projects + 1,
             clientId: 'anna',

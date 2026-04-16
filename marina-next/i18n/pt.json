@@ -158,6 +158,9 @@
     "scratch": {
       "name": "para você",
       "subtitle": "notas pessoais"
+    },
+    "heroine": {
+      "firstname": "Marina"
     }
   },
   "text": {
@@ -514,6 +517,168 @@
       "client_label": "sequência de email pra Beatriz #2",
       "decline_outgoing": "Bia, agora não. não rola carregar um segundo em paralelo.",
       "decline_reply": "entendi, se cuida. acho outro."
+    },
+    "tim_creator": {
+      "subscribed": "assinei 👍",
+      "thanks": "valeu! a gente se vê no canal.",
+      "later": "assino depois."
+    },
+    "payment": {
+      "tim_tier1": "Tim · AI lead farming",
+      "tim_tier2": "Tim · ligações AI",
+      "tim_tier3": "Tim · oferta AI",
+      "pavel_loan": "empréstimo · Pedro",
+      "mama_medicine": "mãe · remédios",
+      "denis": "com Diego",
+      "olya_club": "Letícia MLM · sem retorno",
+      "olya_400": "Letícia · MLM nível 2 · sem retorno",
+      "olya_150": "Letícia · pena final",
+      "krypta_100": "transferência · «cripto»",
+      "krypta_50": "mano cripto · segunda rodada",
+      "krypta_30": "mano cripto · pena final",
+      "upfront": "entrada · contrato #{id}",
+      "project_final": "final · projeto #{id}",
+      "eat_out": "café da esquina",
+      "shopping": "shoppinginho",
+      "mama_rescue": "mãe mandou"
+    },
+    "tim_tier1": {
+      "yes": "fechado. te pago $200.",
+      "confirmed": "beleza, configurei. a partir de amanhã +1 lead por dia, no automático.",
+      "no_funds": "sem grana agora. volto quando rolar.",
+      "no_funds_reply": "tranquilo. oferta de pé — me chama quando {why}.",
+      "later": "beleza, agora não."
+    },
+    "tim_tier2": {
+      "yes": "fechado, manda ver.",
+      "confirmed": "feito. a AI vai qualificar leads toda manhã.",
+      "bank_locked": "conta bloqueada, não consigo transferir.",
+      "bank_locked_reply": "beleza, me avisa quando desbloquear.",
+      "short_cash": "faltam ${shortage}. volto depois.",
+      "short_cash_reply": "a oferta fica. quando juntar, me chama.",
+      "no": "agora não."
+    },
+    "tim_tier3": {
+      "yes": "fechado.",
+      "confirmed": "configurado. a AI vai mandar propostas e fechar contratos sozinha.",
+      "bank_locked": "conta bloqueada.",
+      "bank_locked_reply": "aguardando desbloqueio. a vaga é tua.",
+      "short_cash": "faltam ${shortage}.",
+      "short_cash_reply": "me chama quando juntar. vaga reservada.",
+      "no": "não."
+    },
+    "khozyaika": {
+      "water_sent": "mandei a leitura, foto anexa.",
+      "ok": "ok.",
+      "tiktok_yes": "segui, curti. boa sorte com Saturno.",
+      "tiktok_no": "Dona Lúcia, desculpa, não sigo no TikTok.",
+      "cat_help": "tô descendo, ajudo.",
+      "cat_found": "a Mimi apareceu! tava dormindo embaixo do sofá. valeu!",
+      "cat_busy": "desculpa, agora não dá. trampo.",
+      "horoscope": "valeu Dona Lúcia. astrologia não é minha praia.",
+      "electric_sent": "mandei foto do medidor. tomada tá ok.",
+      "electric_later": "Dona Lúcia, mando depois.",
+      "chain_yes": "beleza, encaminhei.",
+      "chain_thanks": "OBRIGADA! o karma da casa foi restaurado! 🙏✨",
+      "chain_no": "Dona Lúcia, eu não acredito nisso.",
+      "chain_no_reply": "como quiser. mas se algo acontecer — eu avisei."
+    },
+    "pavel": {
+      "loan_yes": "ok. toma.",
+      "loan_no": "agora não, foi mal.",
+      "busy": "agora não Pedro. tô afundada no mês de fundadora mesmo.",
+      "busy_reply": "entendi. boa sorte.",
+      "stop": "não. para de escrever, por favor.",
+      "stop_reply": "ok. paro."
+    },
+    "mama": {
+      "medicine_yes": "mandei, mãe. te cuida.",
+      "medicine_no": "mãe, agora não dá. da próxima. prometo.",
+      "pies_yes": "apareço domingo. saudade.",
+      "pies_no": "mãe, projeto pegando fogo. depois, ok?"
+    },
+    "denis": {
+      "skip": "olha, agora não. não dá — {reason}.",
+      "go": "beleza, bora. trampo espera.",
+      "no": "hoje não. trampo."
+    },
+    "olya": {
+      "invest_200": "ok, mandando $200.",
+      "invest_thanks": "obrigada amiga! você tá na trilha da nova vida 🌸",
+      "listen": "tenho 5 min. fala.",
+      "invest_400": "mandando $400. última vez.",
+      "final_no": "não. acabou."
+    },
+    "kirill": {
+      "meet": "ok, vamos sair. mas nada sério.",
+      "not_type": "foi mal, não faz meu tipo.",
+      "honest": "obrigada. agora tá difícil, mas te ouço. e importa que você veja.",
+      "deflect": "pessoal demais, guarda pra depois. tô no meio das coisas.",
+      "walk": "beleza. só uma caminhada.",
+      "busy": "agora não dá. projetos pegando fogo.",
+      "me_too": "sim. eu também.",
+      "try_us": "tô com medo. mas quero tentar ficar contigo.",
+      "sorry_look": "desculpa. sei como parece.",
+      "bank_excuse": "minha conta tava bloqueada. eu não tinha nada.",
+      "honest_him": "não. ele só escreve. respondo curto e durmo. tô aqui, contigo.",
+      "defensive": "com quem eu falo não é da tua conta.",
+      "time": "talvez a gente tenha apressado. preciso de tempo."
+    },
+    "nastya": {
+      "partner_yes": "pego metade. manda os detalhes.",
+      "partner_thanks": "maneiro, valeu. mando o brief no email, começamos amanhã.",
+      "partner_think": "me dá um dia pra pensar.",
+      "partner_think_reply": "espero, mas pouco — cliente cobrando.",
+      "partner_no": "valeu pela oferta. eu dou conta.",
+      "partner_no_reply": "ok, boa sorte. acho outra pessoa."
+    },
+    "krypta": {
+      "invest_100": "mano, mandando $100. não me decepciona.",
+      "bot_check": "você é bot?",
+      "not_bot": "MANO NÃO É BOT TÔ REAL MANO",
+      "invest_50": "ok, $50. última.",
+      "invest_30": "pro hosting. boa sorte.",
+      "final_no": "não, mano. acabou."
+    },
+    "artur": {
+      "meet_yes": "ok, amanhã às 10.",
+      "project_offer": "{name}, tenho um projeto de $800 — cliente sério, 10 dias.",
+      "pass": "foi mal, entendi que não vamos.",
+      "not_ready": "desculpa, não tô pronta."
+    },
+    "vera": {
+      "help_yes": "claro que ajudo. manda os poemas.",
+      "help_no": "desculpa — tô atolada de trampo."
+    },
+    "svetka": {
+      "gossip_yes": "aaaa fala mais",
+      "gossip_thanks": "VC É A MELHOR te amo 💕 conto tudo no café domingo",
+      "busy": "não dá, projeto pegando fogo. depois"
+    },
+    "sosed": {
+      "check": "tô descendo, vamos ver.",
+      "false": "não era você. desculpa o incômodo."
+    },
+    "scratch": {
+      "send_offer": "mandando a proposta",
+      "client_pass": "ok, procura outro",
+      "client_signed": "ótimo, assinando o contrato · prazo 1 semana",
+      "contract_signed": "contrato · sinal ${upfront} · prazo: dia {deadline}",
+      "negotiate": "vamos pensar e conversar",
+      "client_decline": "foi mal, não rola pra gente",
+      "deal_lost": "deal furou · lead perdido",
+      "project_progress": "projeto #{id} · {done}/{total} units · {pct}%",
+      "project_delivered": "projeto #{id} entregue · cliente aceitou",
+      "coffee_overdose": "café demais · +{gain} energia",
+      "night_bug": "mais um bug à noite · refiz de manhã o que quebrei",
+      "night_units": "projeto #{id} · +1.5 units{extra} · −15⚡ modo noturno · amanhã vai doer",
+      "morning": "dia {day} · 8 horas pela frente · ${cash}",
+      "last_workday": "último dia útil do mês · hora de fechar os projetos",
+      "last_day": "último dia do mês · hoje decide tudo"
+    },
+    "anna_referral": {
+      "yes": "fechado. manda o contrato",
+      "sent": "eba, mandei"
     }
   },
   "ui": {
