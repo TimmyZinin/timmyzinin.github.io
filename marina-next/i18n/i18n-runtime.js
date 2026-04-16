@@ -175,7 +175,7 @@
     var loaded = 0;
     var total = SUPPORTED.length;
     // Cache-bust via window.MARINA_I18N_VERSION (set by host page) or fallback timestamp
-    var cacheBust = (typeof window !== 'undefined' && window.MARINA_I18N_VERSION) || '2.10.2';
+    var cacheBust = (typeof window !== 'undefined' && window.MARINA_I18N_VERSION) || '2.10.3';
     SUPPORTED.forEach(function (lang) {
       var url = 'i18n/' + lang + '.json?v=' + cacheBust;
       try {

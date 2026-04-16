@@ -28,15 +28,22 @@
   }
   // Sequential playlist: main → «потолок не падает» → «обычный вторник» → repeat
   // Filenames are stable across locales — only the directory prefix changes.
+  // SPRINT 53.2: append ?v= cache-bust to mp3 URLs (Audio() URLs lack the
+  // query that script/css/json have — without it, browser+CDN keep stale mp3
+  // when files change in place). Reuses MARINA_I18N_VERSION set by host page.
+  function audioCacheVer() {
+    return (typeof window !== 'undefined' && window.MARINA_I18N_VERSION) || '0';
+  }
   function buildPlaylist() {
     var base = audioBase();
+    var v = audioCacheVer();
     return [
-      base + 'soundtrack.mp3',    // 1. main loop
-      base + 'soundtrack_2.mp3',  // 2. relief
-      base + 'soundtrack_3.mp3'   // 3. focus / mundane
+      base + 'soundtrack.mp3?v=' + v,    // 1. main loop
+      base + 'soundtrack_2.mp3?v=' + v,  // 2. relief
+      base + 'soundtrack_3.mp3?v=' + v   // 3. focus / mundane
     ];
   }
-  function finaleTrackUrl() { return audioBase() + 'soundtrack_4.mp3'; }
+  function finaleTrackUrl() { return audioBase() + 'soundtrack_4.mp3?v=' + audioCacheVer(); }
   var PLAYLIST = buildPlaylist();
   // Finale track — interrupts rotation starting day 29+
   var FINALE_TRACK = finaleTrackUrl();
