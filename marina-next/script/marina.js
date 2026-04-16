@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.7.0';
+  var APP_VERSION = '2.8.0-i18n-wip';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -551,11 +551,39 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  // SPRINT 49 — i18n shim helpers
+  // tStr(key, fallback): resolve string via MarinaI18n.t() with literal fallback
+  // tPickOr(key, fallbackArr): resolve random-pick text bank via i18n with constant array fallback
+  // currentLang(): get active locale, default 'ru'
+  function tStr(key, fallback) {
+    if (window.MarinaI18n && typeof window.MarinaI18n.t === 'function') {
+      var v = window.MarinaI18n.t(key);
+      if (typeof v === 'string' && v.indexOf('[MISSING:') !== 0) return v;
+    }
+    return fallback;
+  }
+  function tPickOr(key, fallbackArr) {
+    if (window.MarinaI18n && typeof window.MarinaI18n.tPick === 'function') {
+      var v = window.MarinaI18n.tPick(key);
+      if (typeof v === 'string' && v.indexOf('[MISSING:') !== 0) return v;
+    }
+    return pick(fallbackArr);
+  }
+  function currentLang() {
+    if (window.MarinaI18n && typeof window.MarinaI18n.getLang === 'function') {
+      return window.MarinaI18n.getLang() || 'ru';
+    }
+    return 'ru';
+  }
+
   // SPRINT 22 — Umami custom event tracking (privacy-respecting)
+  // SPRINT 49 — auto-injects {lang} into every event payload
   function track(event, data) {
     try {
+      var d = data || {};
+      d.lang = currentLang();
       if (window.umami && typeof window.umami.track === 'function') {
-        window.umami.track(event, data || {});
+        window.umami.track(event, d);
       }
     } catch (e) {}
   }
@@ -579,88 +607,85 @@
     var $buttons = $('#dock-buttons').empty();
 
     // v2.1 — все кнопки ВСЕГДА видимы. disabled если недоступны. Badges счётчики.
+    // SPRINT 49 — labels/costs/reasons via tStr() with RU literal fallback
     var actions = [];
     if (STATE.lamp_on) {
       // Воронка: искать → созвон → оффер → работать → ночная работа
       actions.push({
         id: 'reach_out',
-        label: (STATE.auto_reach_out ? '🤖 ' : '') + 'искать клиентов',
-        cost: STATE.auto_reach_out ? 'AI делает' : '1ч · −5⚡',
+        label: (STATE.auto_reach_out ? '🤖 ' : '') + tStr('action.reach_out.label', 'искать клиентов'),
+        cost: STATE.auto_reach_out ? tStr('action.reach_out.cost_auto', 'AI делает') : tStr('action.reach_out.cost', '1ч · −5⚡'),
         auto: STATE.auto_reach_out,
         disabled: STATE.auto_reach_out || STATE.hours < COST.reach_out.h || STATE.energy < COST.reach_out.e,
-        reason: STATE.auto_reach_out ? 'AI автоматизирован' : (STATE.hours < COST.reach_out.h ? 'нет часов' : 'нет энергии'),
+        reason: STATE.auto_reach_out ? tStr('action.reach_out.reason_auto', 'AI автоматизирован') : (STATE.hours < COST.reach_out.h ? tStr('action.reach_out.reason_no_hours', 'нет часов') : tStr('action.reach_out.reason_no_energy', 'нет энергии')),
         primary: !STATE.auto_reach_out && STATE.hours > 0,
         hideOnMobile: STATE.hours < COST.reach_out.h
       });
       actions.push({
         id: 'brief_lead',
-        label: (STATE.auto_brief_lead ? '🤖 ' : '') + 'созвон с лидом',
-        cost: STATE.auto_brief_lead ? 'AI делает' : '1ч · −3⚡',
+        label: (STATE.auto_brief_lead ? '🤖 ' : '') + tStr('action.brief_lead.label', 'созвон с лидом'),
+        cost: STATE.auto_brief_lead ? tStr('action.brief_lead.cost_auto', 'AI делает') : tStr('action.brief_lead.cost', '1ч · −3⚡'),
         auto: STATE.auto_brief_lead,
         badge: !STATE.auto_brief_lead && STATE.leads > 0 ? STATE.leads : null,
         badgeHot: STATE.leads > 0,
         disabled: STATE.auto_brief_lead || STATE.leads < 1 || STATE.hours < COST.brief_lead.h || STATE.energy < COST.brief_lead.e,
-        reason: STATE.auto_brief_lead ? 'AI автоматизирован' : (STATE.leads < 1 ? 'нет лидов' : (STATE.hours < COST.brief_lead.h ? 'нет часов' : 'нет энергии')),
+        reason: STATE.auto_brief_lead ? tStr('action.brief_lead.reason_auto', 'AI автоматизирован') : (STATE.leads < 1 ? tStr('action.brief_lead.reason_no_leads', 'нет лидов') : (STATE.hours < COST.brief_lead.h ? tStr('action.brief_lead.reason_no_hours', 'нет часов') : tStr('action.brief_lead.reason_no_energy', 'нет энергии'))),
         hideOnMobile: STATE.hours < COST.brief_lead.h
       });
       actions.push({
         id: 'send_offer',
-        label: (STATE.auto_send_offer ? '🤖 ' : '') + 'отправить оффер',
-        cost: STATE.auto_send_offer ? 'AI делает' : '1ч',
+        label: (STATE.auto_send_offer ? '🤖 ' : '') + tStr('action.send_offer.label', 'отправить оффер'),
+        cost: STATE.auto_send_offer ? tStr('action.send_offer.cost_auto', 'AI делает') : tStr('action.send_offer.cost', '1ч'),
         auto: STATE.auto_send_offer,
         badge: !STATE.auto_send_offer && STATE.qualified_leads > 0 ? STATE.qualified_leads : null,
         badgeHot: STATE.qualified_leads > 0,
         disabled: STATE.auto_send_offer || STATE.qualified_leads < 1 || STATE.hours < COST.send_offer.h || STATE.bank_locked,
-        reason: STATE.auto_send_offer ? 'AI автоматизирован' : (STATE.bank_locked ? 'счёт заблокирован' : (STATE.qualified_leads < 1 ? 'нет брифов' : 'нет часов')),
+        reason: STATE.auto_send_offer ? tStr('action.send_offer.reason_auto', 'AI автоматизирован') : (STATE.bank_locked ? tStr('action.send_offer.reason_bank_locked', 'счёт заблокирован') : (STATE.qualified_leads < 1 ? tStr('action.send_offer.reason_no_qualified', 'нет брифов') : tStr('action.send_offer.reason_no_hours', 'нет часов'))),
         hideOnMobile: STATE.hours < COST.send_offer.h
       });
       actions.push({
-        id: 'work_on_project', label: 'делать работу', cost: '2ч · −5⚡',
+        id: 'work_on_project', label: tStr('action.work_on_project.label', 'делать работу'), cost: tStr('action.work_on_project.cost', '2ч · −5⚡'),
         badge: STATE.active_projects.length > 0 ? STATE.active_projects.length : null,
         disabled: STATE.active_projects.length === 0 || STATE.hours < COST.work_on_project.h || STATE.energy < COST.work_on_project.e,
-        reason: STATE.active_projects.length === 0 ? 'нет проектов' : (STATE.hours < COST.work_on_project.h ? 'нет часов' : 'нет энергии'),
+        reason: STATE.active_projects.length === 0 ? tStr('action.work_on_project.reason_no_projects', 'нет проектов') : (STATE.hours < COST.work_on_project.h ? tStr('action.work_on_project.reason_no_hours', 'нет часов') : tStr('action.work_on_project.reason_no_energy', 'нет энергии')),
         hideOnMobile: STATE.hours < COST.work_on_project.h
       });
       // SPRINT 40 — night work mutually exclusive with day work.
-      // Available ONLY when work day is over (hours < required for day work).
-      // Day mode: 'делать работу' enabled, 'ночная работа' hidden.
-      // Night mode (no hours left): 'делать работу' hidden, 'ночная работа' enabled.
       var dayWorkAvail = STATE.hours >= COST.work_on_project.h;
       actions.push({
-        id: 'work_night', label: '🌙 ночная работа', cost: '−15⚡ · −15💚',
+        id: 'work_night', label: tStr('action.work_night.label', '🌙 ночная работа'), cost: tStr('action.work_night.cost', '−15⚡ · −15💚'),
         disabled: STATE.active_projects.length === 0 || STATE.day < 3 || STATE.energy < COST.work_night.e || dayWorkAvail,
-        reason: STATE.day < 3 ? 'доступно с дня 3' : (STATE.active_projects.length === 0 ? 'нет проектов' : (dayWorkAvail ? 'сначала рабочий день' : 'мало энергии')),
+        reason: STATE.day < 3 ? tStr('action.work_night.reason_too_early', 'доступно с дня 3') : (STATE.active_projects.length === 0 ? tStr('action.work_night.reason_no_projects', 'нет проектов') : (dayWorkAvail ? tStr('action.work_night.reason_day_work_first', 'сначала рабочий день') : tStr('action.work_night.reason_no_energy', 'мало энергии'))),
         hideOnMobile: STATE.active_projects.length === 0 || STATE.day < 3 || dayWorkAvail
       });
-      // Еда + отдых + шопинг
-      // SPRINT 35 — eating allowed even when hours=0 (evening meal, free of work hours)
+      // Еда + отдых + шопинг — SPRINT 35 — eating allowed even when hours=0
       actions.push({
         id: 'eat_home',
-        label: '🍝 поесть дома',
-        cost: STATE.hours >= 1 ? '1ч · −$15' : 'ужин · −$15',
+        label: tStr('action.eat_home.label', '🍝 поесть дома'),
+        cost: STATE.hours >= 1 ? tStr('action.eat_home.cost_day', '1ч · −$15') : tStr('action.eat_home.cost_evening', 'ужин · −$15'),
         badge: STATE.hunger < 30 ? '!' : null,
         badgePulse: STATE.hunger < 30,
         disabled: STATE.cash < COST.eat_home.c || STATE.bank_locked,
-        reason: STATE.bank_locked ? 'счёт заблокирован' : 'не хватает денег'
+        reason: STATE.bank_locked ? tStr('action.eat_home.reason_bank_locked', 'счёт заблокирован') : tStr('action.eat_home.reason_no_money', 'не хватает денег')
       });
       actions.push({
         id: 'eat_out',
-        label: '🥗 кафе',
-        cost: STATE.hours >= 1 ? '1ч · −$35' : 'ужин · −$35',
+        label: tStr('action.eat_out.label', '🥗 кафе'),
+        cost: STATE.hours >= 1 ? tStr('action.eat_out.cost_day', '1ч · −$35') : tStr('action.eat_out.cost_evening', 'ужин · −$35'),
         disabled: STATE.cash < COST.eat_out.c || STATE.bank_locked,
-        reason: STATE.bank_locked ? 'счёт заблокирован' : 'не хватает денег'
+        reason: STATE.bank_locked ? tStr('action.eat_out.reason_bank_locked', 'счёт заблокирован') : tStr('action.eat_out.reason_no_money', 'не хватает денег')
       });
       actions.push({
-        id: 'rest', label: '☕ перерыв', cost: '1ч · +30⚡',
+        id: 'rest', label: tStr('action.rest.label', '☕ перерыв'), cost: tStr('action.rest.cost', '1ч · +30⚡'),
         badge: STATE.energy < 30 ? '!' : null,
         badgePulse: STATE.energy < 30,
         disabled: STATE.hours < COST.rest.h || STATE.energy >= 100 || STATE.coffee_stacks >= 4,
-        reason: STATE.energy >= 100 ? 'энергия максимум' : (STATE.coffee_stacks >= 4 ? 'кофе перелит' : 'нет часов')
+        reason: STATE.energy >= 100 ? tStr('action.rest.reason_max_energy', 'энергия максимум') : (STATE.coffee_stacks >= 4 ? tStr('action.rest.reason_too_much_coffee', 'кофе перелит') : tStr('action.rest.reason_no_hours', 'нет часов'))
       });
       actions.push({
-        id: 'shopping', label: '🛍 шопинг', cost: '2ч · −$80',
+        id: 'shopping', label: tStr('action.shopping.label', '🛍 шопинг'), cost: tStr('action.shopping.cost', '2ч · −$80'),
         disabled: STATE.day < 5 || STATE.cash < COST.shopping.c || STATE.hours < COST.shopping.h || STATE.bank_locked,
-        reason: STATE.day < 5 ? 'с дня 5' : (STATE.bank_locked ? 'счёт заблокирован' : 'не хватает ресурсов'),
+        reason: STATE.day < 5 ? tStr('action.shopping.reason_too_early', 'с дня 5') : (STATE.bank_locked ? tStr('action.shopping.reason_bank_locked', 'счёт заблокирован') : tStr('action.shopping.reason_no_resources', 'не хватает ресурсов')),
         hideOnMobile: STATE.day < 5 || STATE.cash < COST.shopping.c || STATE.bank_locked
       });
       // Social actions — только если анлокнуты
@@ -668,34 +693,33 @@
         var kirillInviteActive = !!STATE.kirill_invite_active;
         actions.push({
           id: 'date_kirill',
-          label: '💔 свидание (Кирилл)',
-          cost: '3ч · −10⚡',
+          label: tStr('action.date_kirill.label', '💔 свидание (Кирилл)'),
+          cost: tStr('action.date_kirill.cost', '3ч · −10⚡'),
           badge: kirillInviteActive ? '!' : null,
           badgePulse: kirillInviteActive,
           disabled: !kirillInviteActive || STATE.hours < COST.date_kirill.h || STATE.energy < COST.date_kirill.e || (STATE.kirill_date_count >= 4 && !STATE.bank_locked),
-          reason: !kirillInviteActive ? 'Кирилл сейчас не зовёт' : (STATE.energy < COST.date_kirill.e ? 'нет энергии' : 'не хватает часов'),
+          reason: !kirillInviteActive ? tStr('action.date_kirill.reason_no_invite', 'Кирилл сейчас не зовёт') : (STATE.energy < COST.date_kirill.e ? tStr('action.date_kirill.reason_no_energy', 'нет энергии') : tStr('action.date_kirill.reason_no_hours', 'не хватает часов')),
           hideOnMobile: !kirillInviteActive
         });
       }
       if (STATE.beat_denis3 || STATE.beat_denis6 || STATE.beat_denis9 || STATE.beat_denis15) {
-        // Denis actions only via reply chips in chat (per-event pricing)
         var hasDenisPending = STATE._denis3_pending || STATE._denis6_pending || STATE._denis9_pending || STATE._denis15_pending || STATE._denis27_pending;
         actions.push({
-          id: 'hangout_denis', label: '🎉 с Денисом', cost: hasDenisPending ? 'ответь в чат' : 'ждёт приглашения',
+          id: 'hangout_denis', label: tStr('action.hangout_denis.label', '🎉 с Денисом'),
+          cost: hasDenisPending ? tStr('action.hangout_denis.cost_pending', 'ответь в чат') : tStr('action.hangout_denis.cost_waiting', 'ждёт приглашения'),
           badge: hasDenisPending ? '!' : null,
           badgePulse: hasDenisPending,
           disabled: !hasDenisPending,
-          reason: 'ответь на приглашение Дениса в чате',
+          reason: tStr('action.hangout_denis.reason_no_invite', 'ответь на приглашение Дениса в чате'),
           hideOnMobile: !hasDenisPending
         });
       }
       // SPRINT 34 — when hours=0, end_day becomes the only meaningful action.
-      // Force-primary + bigger label to make it obvious.
       var hoursOver = STATE.hours <= 0;
       actions.push({
         id: 'end_day',
-        label: hoursOver ? '🌙 лечь спать — день закончен' : '🌙 лечь спать',
-        cost: 'конец дня',
+        label: hoursOver ? tStr('action.end_day.label_forced', '🌙 лечь спать — день закончен') : tStr('action.end_day.label', '🌙 лечь спать'),
+        cost: tStr('action.end_day.cost', 'конец дня'),
         disabled: false,
         primary: hoursOver
       });
@@ -735,7 +759,7 @@
     });
 
     if (!STATE.lamp_on) {
-      var $lamp = $('<button class="dock-btn">').attr('data-action', 'lamp').text('включить компьютер');
+      var $lamp = $('<button class="dock-btn">').attr('data-action', 'lamp').text(tStr('action.lamp.label', 'включить компьютер'));
       $buttons.append($lamp);
     }
 
@@ -752,9 +776,9 @@
         kind: 'outgoing',
         photo: 'img/events/hangover_desk.webp',
         photoAlt: 'утро после ночной работы',
-        text: pick(HANGOVER_MORNINGS)
+        text: tPickOr('text.morning.hangover', HANGOVER_MORNINGS)
       });
-      postSystem('scratch', '☕ после ночной работы · энергия не восстановилась');
+      postSystem('scratch', tStr('system.hangover_note', '☕ после ночной работы · энергия не восстановилась'));
       return;
     }
     var h = STATE.hunger, e = STATE.energy, m = STATE.comfort;
@@ -765,21 +789,21 @@
         kind: 'outgoing',
         photo: h < 15 ? 'img/events/marina_hungry.webp' : undefined,
         photoAlt: 'пустой холодильник',
-        text: pick(HUNGRY_MORNINGS)
+        text: tPickOr('text.morning.hungry', HUNGRY_MORNINGS)
       });
       return;
     }
     if (m != null && m < 25) {
-      postMessage('scratch', { kind: 'outgoing', text: pick(SAD_MORNINGS) });
+      postMessage('scratch', { kind: 'outgoing', text: tPickOr('text.morning.sad', SAD_MORNINGS) });
       return;
     }
     if (e < 30) {
-      postMessage('scratch', { kind: 'outgoing', text: pick(TIRED_MORNINGS) });
+      postMessage('scratch', { kind: 'outgoing', text: tPickOr('text.morning.tired', TIRED_MORNINGS) });
       return;
     }
     // Fine morning — only 25% chance (not every day)
     if (Math.random() < 0.25) {
-      postMessage('scratch', { kind: 'outgoing', text: pick(FINE_MORNINGS) });
+      postMessage('scratch', { kind: 'outgoing', text: tPickOr('text.morning.fine', FINE_MORNINGS) });
     }
   }
 
@@ -790,12 +814,12 @@
     var h = STATE.hunger || 100;
     var e = STATE.energy || 100;
     var m = STATE.comfort || 60;
-    var status = 'теледрам v' + VERSION;
-    if (STATE.bank_locked) status = '🔒 счёт заблокирован';
-    else if (h < 20) status = '🍔 очень голодна';
-    else if (e < 20) status = '⚡ на пределе';
-    else if (m < 20) status = '💔 грустит';
-    else if (h < 35 || e < 35 || m < 30) status = '😮‍💨 устала';
+    var status = tStr('brand.version_prefix', 'теледрам v') + VERSION;
+    if (STATE.bank_locked) status = tStr('brand.status.bank_locked', '🔒 счёт заблокирован');
+    else if (h < 20) status = tStr('brand.status.very_hungry', '🍔 очень голодна');
+    else if (e < 20) status = tStr('brand.status.exhausted', '⚡ на пределе');
+    else if (m < 20) status = tStr('brand.status.sad', '💔 грустит');
+    else if (h < 35 || e < 35 || m < 30) status = tStr('brand.status.tired', '😮‍💨 устала');
     $sub.text(status);
 
     // Avatar grayscale when comfort low
@@ -815,26 +839,26 @@
 
     if (STATE.bank_locked) {
       var daysLeft = Math.max(0, (STATE.bank_locked_until || STATE.day) - STATE.day);
-      msg = '🔒 СЧЁТ ЗАБЛОКИРОВАН ПО 115-ФЗ · ещё ' + daysLeft + ' дн.';
+      msg = tStr('crisis.bank_locked', '🔒 СЧЁТ ЗАБЛОКИРОВАН ПО 115-ФЗ · ещё {daysLeft} дн.').replace('{daysLeft}', daysLeft);
       cls = 'crit';
     } else if (h != null && h < 15) {
-      msg = '🍔 МАРИНА ГОЛОДАЕТ · энергия падает быстро · поешь';
+      msg = tStr('crisis.starving', '🍔 МАРИНА ГОЛОДАЕТ · энергия падает быстро · поешь');
       cls = 'crit';
     } else if (e < 15) {
-      msg = '⚡ МАРИНА НА ПРЕДЕЛЕ · перерыв срочно';
+      msg = tStr('crisis.burnout', '⚡ МАРИНА НА ПРЕДЕЛЕ · перерыв срочно');
       cls = 'crit';
     } else if (c < -500) {
-      msg = '💰 БАЛАНС КРИТИЧЕСКИЙ · −$' + Math.abs(c) + ' · сдай проект или теряешь квартиру';
+      msg = tStr('crisis.broke', '💰 БАЛАНС КРИТИЧЕСКИЙ · −${absCash} · сдай проект или теряешь квартиру').replace('{absCash}', Math.abs(c));
       cls = 'crit';
     } else if (m != null && m < 15) {
-      msg = '💔 КОМФОРТ ОБНУЛИЛСЯ · ты сгораешь · шопинг/еда/друзья';
+      msg = tStr('crisis.comfort_zero', '💔 КОМФОРТ ОБНУЛИЛСЯ · ты сгораешь · шопинг/еда/друзья');
       cls = 'crit';
     } else if (h != null && h < 50) {
       // SPRINT 23 — earlier hunger warn so daily food becomes mandatory
-      msg = '🍔 голодно · хочется настоящей еды';
+      msg = tStr('crisis.hungry_warn', '🍔 голодно · хочется настоящей еды');
       cls = 'warn';
     } else if (e < 30) {
-      msg = '⚡ устала · пора отдохнуть';
+      msg = tStr('crisis.tired_warn', '⚡ устала · пора отдохнуть');
       cls = 'warn';
     }
 
@@ -1385,7 +1409,7 @@
             STATE.comfort = Math.min(100, STATE.comfort + 25); // SPRINT 33 — Denis raises comfort too
             STATE.hours = Math.max(0, STATE.hours - 2);
             postBank(-dCost, 'с Денисом');
-            postMessage('scratch', { kind: 'outgoing', text: pick(HANGOUT_DENIS_TEXT) });
+            postMessage('scratch', { kind: 'outgoing', text: tPickOr('text.hangout_denis', HANGOUT_DENIS_TEXT) });
             postMessage('scratch', { kind: 'system', text: '−$' + dCost + ' · +60⚡ · +25💚 · −2h · день ожил' });
           } else {
             postOutgoing('denis', 'не сегодня. работа.');
@@ -2107,17 +2131,17 @@
     funnelBurstReachOut(hit);
 
     runAction(function () {
-      postOutgoing('scratch', pick(REACH_OUT_TEXT.outgoing));
+      postOutgoing('scratch', tPickOr('text.reach_out.outgoing', REACH_OUT_TEXT.outgoing));
 
       if (hit) {
         STATE.leads += 1;
         setTimeout(function () {
           postSystem('scratch', '+1 лид · кто-то ответил');
-          postIncoming('scratch', pick(REACH_OUT_TEXT.hit_reply), 'незнакомый контакт');
+          postIncoming('scratch', tPickOr('text.reach_out.hit_reply', REACH_OUT_TEXT.hit_reply), tStr('system.reach_out.unknown_contact', 'незнакомый контакт'));
         }, 600);
       } else {
         setTimeout(function () {
-          postSystem('scratch', pick(REACH_OUT_TEXT.miss_silence));
+          postSystem('scratch', tPickOr('text.reach_out.miss_silence', REACH_OUT_TEXT.miss_silence));
         }, 600);
       }
     });
@@ -2133,7 +2157,7 @@
     spawnParticle({ from: 'brief_lead', to: 'send_offer', kind: 'red', icon: '📞', duration: 700 });
 
     runAction(function () {
-      postOutgoing('scratch', pick(BRIEF_TEXT));
+      postOutgoing('scratch', tPickOr('text.brief', BRIEF_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+1 квалифицированный лид · можно отправить оффер');
       }, 600);
@@ -2240,7 +2264,7 @@
       if (STATE._hangover_active) workProgress = Math.floor(workProgress * 0.75);
       p.progress = Math.min(100, (p.progress || 0) + workProgress);
       p.work_units_done = (p.work_units_done || 0) + 1; // daytime = 1 unit
-      postOutgoing('scratch', STATE.hunger < 50 ? pick(WORK_TEXT_HUNGRY) : pick(WORK_TEXT));
+      postOutgoing('scratch', STATE.hunger < 50 ? tPickOr('text.work_hungry', WORK_TEXT_HUNGRY) : tPickOr('text.work', WORK_TEXT));
       setTimeout(function () {
         var extra = '';
         if (STATE.hunger < 30) extra = ' · 🍔 голод снижает прогресс';
@@ -2262,6 +2286,18 @@
             postSystem('scratch', 'проект #' + p.id + ' сдан · клиент принял');
             postBank(payment, 'финал по проекту #' + p.id);
             save(); renderDock();
+            // SPRINT 51 — share moment on FIRST project delivered (~45% player reach)
+            if (STATE.delivered_projects === 1 && window.MarinaViral) {
+              try {
+                var $scratchThread = document.getElementById('chat-thread');
+                if ($scratchThread && STATE.current_chat === 'scratch') {
+                  var shareBlock = document.createElement('div');
+                  shareBlock.className = 'bubble system viral-first-project-inline';
+                  $scratchThread.appendChild(shareBlock);
+                  window.MarinaViral.renderCardForSurface('first_project', STATE, shareBlock);
+                }
+              } catch (e) {}
+            }
           }, 500);
         }
         save(); renderDock();
@@ -2276,7 +2312,7 @@
     STATE.energy = Math.min(100, STATE.energy + gain);
 
     runAction(function () {
-      postOutgoing('scratch', pick(REST_TEXT));
+      postOutgoing('scratch', tPickOr('text.rest', REST_TEXT));
       setTimeout(function () {
         if (gain >= 30) postSystem('scratch', '+' + gain + ' энергии');
         else postSystem('scratch', 'кофе перелит · +' + gain + ' энергии');
@@ -2298,7 +2334,7 @@
     STATE.comfort = Math.min(100, STATE.comfort + COST.eat_home.m);
 
     runAction(function () {
-      postOutgoing('scratch', pick(EAT_HOME_TEXT));
+      postOutgoing('scratch', tPickOr('text.eat_home', EAT_HOME_TEXT));
       setTimeout(function () {
         var hint = hCost === 0 ? ' · ужин перед сном' : '';
         postSystem('scratch', '+' + COST.eat_home.f + ' сытости · −$' + COST.eat_home.c + hint);
@@ -2316,7 +2352,7 @@
     STATE.comfort = Math.min(100, STATE.comfort + COST.eat_out.m);
 
     runAction(function () {
-      postOutgoing('scratch', pick(EAT_OUT_TEXT));
+      postOutgoing('scratch', tPickOr('text.eat_out', EAT_OUT_TEXT));
       setTimeout(function () {
         var hint2 = hCost2 === 0 ? ' · ужин в кафе перед сном' : '';
         postSystem('scratch', '+' + COST.eat_out.f + ' сытости · +' + COST.eat_out.m + ' комфорт · −$' + COST.eat_out.c + hint2);
@@ -2335,7 +2371,7 @@
     STATE.comfort = Math.min(100, STATE.comfort + COST.shopping.m);
 
     runAction(function () {
-      postOutgoing('scratch', pick(SHOPPING_TEXT));
+      postOutgoing('scratch', tPickOr('text.shopping', SHOPPING_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+' + COST.shopping.m + ' комфорт · −$' + COST.shopping.c);
         postBank(-COST.shopping.c, 'маленький шопинг');
@@ -2364,7 +2400,7 @@
     }
 
     runAction(function () {
-      postOutgoing('scratch', pick(DATE_KIRILL_TEXT));
+      postOutgoing('scratch', tPickOr('text.date_kirill', DATE_KIRILL_TEXT));
       setTimeout(function () {
         postSystem('scratch', '+' + COST.date_kirill.f + ' сытости · +' + COST.date_kirill.m + ' комфорт · −3h · −10⚡');
       }, 400);
@@ -2406,7 +2442,7 @@
       } else {
         p.progress = Math.min(100, (p.progress || 0) + nightProgress);
         p.work_units_done = (p.work_units_done || 0) + 1.5; // night = 1.5 units
-        postOutgoing('scratch', pick(WORK_NIGHT_TEXT));
+        postOutgoing('scratch', tPickOr('text.work_night', WORK_NIGHT_TEXT));
       }
       setTimeout(function () {
         var unitsTxt = ' · ' + p.work_units_done.toFixed(1) + '/' + totalUnits + ' units';
@@ -2472,6 +2508,18 @@
         // SPRINT 22 — milestone events every 5 days
         if (STATE.day % 5 === 0 && STATE.day <= 30) {
           track('day_reached', { day: STATE.day, cash: STATE.cash, delivered: STATE.delivered_projects });
+          // SPRINT 51 — end-of-day share opportunity at 5/10/15/20/25 (soft, non-modal)
+          if (window.MarinaViral && STATE.day >= 5 && STATE.day < 30) {
+            try {
+              var $scratchForShare = document.getElementById('chat-thread');
+              if ($scratchForShare && STATE.current_chat === 'scratch') {
+                var dayShareBlock = document.createElement('div');
+                dayShareBlock.className = 'bubble system viral-day-milestone-inline';
+                $scratchForShare.appendChild(dayShareBlock);
+                window.MarinaViral.renderCardForSurface('end_of_day', STATE, dayShareBlock);
+              }
+            } catch (e) {}
+          }
         }
         // SPRINT 14 — overnight energy recovery depends on hunger + hangover
         var overnightRecovery = 20;
@@ -2549,7 +2597,7 @@
       senderName: 'Лена',
       photo: 'img/events/lena_coffee.webp',
       photoAlt: 'кофейня',
-      text: 'эй, подруга. услышала что ты ушла из агентства.\n\nпервая неделя всегда самая тяжёлая — я была там. через пару дней скину контакты. держись.'
+      text: tStr('beat.lena_intro.message', 'эй, подруга. услышала что ты ушла из агентства.\n\nпервая неделя всегда самая тяжёлая — я была там. через пару дней скину контакты. держись.')
     });
     Bubbles.renderContacts(STATE);
   }
@@ -2563,9 +2611,9 @@
       senderName: 'Анна',
       photo: 'img/events/anna_landing_sketch.webp',
       photoAlt: 'wireframe лендинга',
-      text: 'привет. лена про тебя рассказала.\n\nу меня небольшой проект — двустраничник, $200 upfront + $250 на сдаче. срок 6 дней. если готова быстро — берём?'
+      text: tStr('beat.anna_offer.intro', 'привет. лена про тебя рассказала.\n\nу меня небольшой проект — двустраничник, $200 upfront + $250 на сдаче. срок 6 дней. если готова быстро — берём?')
     });
-    postMessage('scratch', { kind: 'system', text: 'Анна написала · ответь ей' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.anna_offer.scratch_cue', 'Анна написала · ответь ей') });
     STATE._anna_pending = true;
   }
 
@@ -2577,9 +2625,9 @@
       postMessage('anna', {
         kind: 'incoming',
         senderName: 'Анна',
-        text: 'марина, привет. мне понравилось как ты сделала. у меня второй проект — email-последовательность для другого клиента. $350 upfront + $450 на сдаче. 7 дней. берёшь?'
+        text: tStr('beat.anna_referral.intro', 'марина, привет. мне понравилось как ты сделала. у меня второй проект — email-последовательность для другого клиента. $350 upfront + $450 на сдаче. 7 дней. берёшь?')
       });
-      postMessage('scratch', { kind: 'system', text: 'Анна с новым проектом · открой чат' });
+      postMessage('scratch', { kind: 'system', text: tStr('beat.anna_referral.scratch_cue', 'Анна с новым проектом · открой чат') });
       STATE._anna_referral_pending = true;
     }
   }
@@ -2590,7 +2638,7 @@
     postMessage('lena', {
       kind: 'incoming',
       senderName: 'Лена',
-      text: 'как держишься? я тут смотрю новости — обнимаю. скину тебе пару контактов днями если найду что-то стоящее.'
+      text: tStr('beat.lena_day9.message', 'как держишься? я тут смотрю новости — обнимаю. скину тебе пару контактов днями если найду что-то стоящее.')
     });
   }
 
@@ -2616,24 +2664,24 @@
       senderName: 'Тим',
       photo: 'img/events/tim_kas_view.webp',
       photoAlt: 'вид из каша',
-      text: 'привет, марина. лена мне про тебя рассказала. я консультант по автоматизации и AI.'
+      text: tStr('beat.tim_consult_intro.msg1', 'привет, марина. лена мне про тебя рассказала. я консультант по автоматизации и AI.')
     });
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'смотри: я могу прикрутить ИИ к твоему процессу поиска клиентов. ты заплатишь один раз, и я настрою систему которая будет искать клиентов за тебя, пока ты спишь.'
+        text: tStr('beat.tim_consult_intro.msg2', 'смотри: я могу прикрутить ИИ к твоему процессу поиска клиентов. ты заплатишь один раз, и я настрою систему которая будет искать клиентов за тебя, пока ты спишь.')
       });
     }, 1200);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'первый уровень — автофарминг холодки. $200. каждый день +1 лид без твоего участия. хочешь попробовать?'
+        text: tStr('beat.tim_consult_intro.msg3', 'первый уровень — автофарминг холодки. $200. каждый день +1 лид без твоего участия. хочешь попробовать?')
       });
     }, 2400);
     STATE._tim_consult_pending = true;
-    postMessage('scratch', { kind: 'system', text: 'Тим предлагает автоматизацию · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.tim_consult_intro.scratch_cue', 'Тим предлагает автоматизацию · открой чат') });
   }
 
   function beatTimTier2Offer() {
@@ -2642,7 +2690,7 @@
     postMessage('tim', {
       kind: 'incoming',
       senderName: 'Тим',
-      text: 'смотрю твоя система работает. теперь могу автоматизировать созвоны — AI делает brief за тебя. $300. +1 квалифицированный лид в день.'
+      text: tStr('beat.tim_tier2_offer.message', 'смотрю твоя система работает. теперь могу автоматизировать созвоны — AI делает brief за тебя. $300. +1 квалифицированный лид в день.')
     });
     STATE._tim_tier2_pending = true;
   }
@@ -2653,7 +2701,7 @@
     postMessage('tim', {
       kind: 'incoming',
       senderName: 'Тим',
-      text: 'третий уровень: AI сам отправляет офферы и торгуется по базовой стратегии. $400. +1 оффер отправлен в день.'
+      text: tStr('beat.tim_tier3_offer.message', 'третий уровень: AI сам отправляет офферы и торгуется по базовой стратегии. $400. +1 оффер отправлен в день.')
     });
     STATE._tim_tier3_pending = true;
   }
@@ -2671,37 +2719,37 @@
     postMessage('tim', {
       kind: 'incoming',
       senderName: 'Тим',
-      text: 'Привет. Спасибо большое, что играешь в мою игру.'
+      text: tStr('beat.tim_creator_fired.msg1', 'Привет. Спасибо большое, что играешь в мою игру.')
     });
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'Я не просто персонаж этой игры — я её создатель. И да, я действительно занимаюсь автоматизацией, связанной с искусственным интеллектом.'
+        text: tStr('beat.tim_creator_fired.msg2', 'Я не просто персонаж этой игры — я её создатель. И да, я действительно занимаюсь автоматизацией, связанной с искусственным интеллектом.')
       });
     }, 1500);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'Если тебе понравилась моя игра — не забудь, пожалуйста, лайкнуть её, подписаться на мои соцсети и посоветовать игру друзьям.'
+        text: tStr('beat.tim_creator_fired.msg3', 'Если тебе понравилась моя игра — не забудь, пожалуйста, лайкнуть её, подписаться на мои соцсети и посоветовать игру друзьям.')
       });
     }, 3000);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'А если тебе или кому-то из знакомых для бизнеса потребуется автоматизация — ну, ты поняла, к кому обращаться 😉'
+        text: tStr('beat.tim_creator_fired.msg4', 'А если тебе или кому-то из знакомых для бизнеса потребуется автоматизация — ну, ты поняла, к кому обращаться 😉')
       });
     }, 4500);
     setTimeout(function () {
       postMessage('tim', {
         kind: 'incoming',
         senderName: 'Тим',
-        text: 'Удачи. До конца месяца осталось совсем немного. Подписывайся на меня в Telegram — кнопка ниже 👇'
+        text: tStr('beat.tim_creator_fired.msg5', 'Удачи. До конца месяца осталось совсем немного. Подписывайся на меня в Telegram — кнопка ниже 👇')
       });
     }, 6000);
-    postMessage('scratch', { kind: 'system', text: '❕ сообщение от Тима (реального) · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.tim_creator_fired.scratch_cue', '❕ сообщение от Тима (реального) · открой чат') });
   }
 
   function bumpInteraction() {
@@ -2717,16 +2765,16 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
-      text: 'Марина, добрый день! На всякий случай напоминаю: оплата за квартиру $500 первого числа каждой декады — 10, 20 и 30. Поздравляю с новой главой в жизни!'
+      text: tStr('beat.khozyaika_day1_rent.msg1', 'Марина, добрый день! На всякий случай напоминаю: оплата за квартиру $500 первого числа каждой декады — 10, 20 и 30. Поздравляю с новой главой в жизни!')
     });
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
         senderName: 'Наталья Валерьевна',
-        text: 'И если вдруг задержка — дайте знать. Я приду с ключами уже со своим дворником. У него характер.'
+        text: tStr('beat.khozyaika_day1_rent.msg2', 'И если вдруг задержка — дайте знать. Я приду с ключами уже со своим дворником. У него характер.')
       });
     }, 1200);
-    postMessage('scratch', { kind: 'system', text: 'хозяйка напомнила про аренду · 10/20/30 число · $500' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.khozyaika_day1_rent.scratch_cue', 'хозяйка напомнила про аренду · 10/20/30 число · $500') });
   }
 
   function beatKhozyaikaDay2Komod() {
@@ -2736,13 +2784,13 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
-      text: 'Марина, мне сегодня приснилось что вы поцарапали комод в прихожей. Комод этот от дедушки, ручная работа, ему 60 лет. Я его берегу.'
+      text: tStr('beat.khozyaika_day2_komod.msg1', 'Марина, мне сегодня приснилось что вы поцарапали комод в прихожей. Комод этот от дедушки, ручная работа, ему 60 лет. Я его берегу.')
     });
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
         senderName: 'Наталья Валерьевна',
-        text: 'Ничего страшного, конечно, просто на всякий случай — осмотрите его, пожалуйста. И напишите мне фото. Я волнуюсь.'
+        text: tStr('beat.khozyaika_day2_komod.msg2', 'Ничего страшного, конечно, просто на всякий случай — осмотрите его, пожалуйста. И напишите мне фото. Я волнуюсь.')
       });
     }, 1000);
   }
@@ -2756,9 +2804,9 @@
       senderName: 'Наталья Валерьевна',
       photo: 'img/events/khozyaika_water_meters.webp',
       photoAlt: 'счётчики воды',
-      text: 'Марина, добрый день! Не забудьте передать показания счётчиков горячей и холодной воды до 10 числа. ВАЖНО: обязательно с фотографией сертифицированного образца. Иначе штраф $100. Наталья В.'
+      text: tStr('beat.khozyaika_1_water.message', 'Марина, добрый день! Не забудьте передать показания счётчиков горячей и холодной воды до 10 числа. ВАЖНО: обязательно с фотографией сертифицированного образца. Иначе штраф $100. Наталья В.')
     });
-    postMessage('scratch', { kind: 'system', text: 'хозяйка требует счётчики · открой чат · дедлайн +3 дня' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.khozyaika_1_water.scratch_cue', 'хозяйка требует счётчики · открой чат · дедлайн +3 дня') });
     STATE._khozyaika1_pending = true;
     // SPRINT 25 — auto-fine if unanswered after 3 days
     STATE.pending_callbacks.push({ trigger_day: STATE.day + 3, type: 'khozyaika_unanswered_water' });
@@ -2771,9 +2819,9 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
-      text: 'Мариночка, я сняла видео с нашим домом для тиктока. Можете лайкнуть и подписаться на @natalya_vmore? Мне важно как бабе-стрельцу, я сейчас на сатурновом транзите и дом это моя точка опоры.'
+      text: tStr('beat.khozyaika_2_tiktok.message', 'Мариночка, я сняла видео с нашим домом для тиктока. Можете лайкнуть и подписаться на @natalya_vmore? Мне важно как бабе-стрельцу, я сейчас на сатурновом транзите и дом это моя точка опоры.')
     });
-    postMessage('scratch', { kind: 'system', text: 'хозяйка про тикток · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.khozyaika_2_tiktok.scratch_cue', 'хозяйка про тикток · открой чат') });
     STATE._khozyaika2_pending = true;
   }
 
@@ -2786,9 +2834,9 @@
       senderName: 'Наталья Валерьевна',
       photo: 'img/events/khozyaika_cat.webp',
       photoAlt: 'кошка Мурка',
-      text: 'SOS МАРИНА! Кошка Мурка сбежала из квартиры на восьмом этаже. Помогите расклеить объявления по району, вы же дома работаете? У вас время есть. Срочно пожалуйста.'
+      text: tStr('beat.khozyaika_3_cat.message', 'SOS МАРИНА! Кошка Мурка сбежала из квартиры на восьмом этаже. Помогите расклеить объявления по району, вы же дома работаете? У вас время есть. Срочно пожалуйста.')
     });
-    postMessage('scratch', { kind: 'system', text: 'хозяйка потеряла кошку · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.khozyaika_3_cat.scratch_cue', 'хозяйка потеряла кошку · открой чат') });
     STATE._khozyaika3_pending = true;
   }
 
@@ -2801,7 +2849,7 @@
       senderName: 'Наталья Валерьевна',
       photo: 'img/events/khozyaika_tarot.webp',
       photoAlt: 'карты таро',
-      text: 'Марина, читала ваш гороскоп на месяц. Скорпионы в этом месяце в огне. Деньги НЕ давайте Весам (особенно Весам в очках). Это важно для кармы дома, я переживаю как за родную.'
+      text: tStr('beat.khozyaika_4_horoscope.message', 'Марина, читала ваш гороскоп на месяц. Скорпионы в этом месяце в огне. Деньги НЕ давайте Весам (особенно Весам в очках). Это важно для кармы дома, я переживаю как за родную.')
     });
     STATE._khozyaika4_pending = true;
   }
@@ -2817,29 +2865,29 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
-      text: 'Марина, добрый день. У меня к вам разговор важный и странный.'
+      text: tStr('beat.khozyaika_rescue.msg1', 'Марина, добрый день. У меня к вам разговор важный и странный.')
     });
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
         senderName: 'Наталья Валерьевна',
-        text: 'Я вчера перед сном смотрела видео одной блогерши из Таиланда — она там про карму дома рассказывала. И знаете что? Она сказала что если собственница жилья помогает молодой фаундерше в первый месяц — у неё третий глаз открывается. А мне надо открыть, я уже кукушку на птичьем рынке спрашивала про своё будущее.'
+        text: tStr('beat.khozyaika_rescue.msg2', 'Я вчера перед сном смотрела видео одной блогерши из Таиланда — она там про карму дома рассказывала. И знаете что? Она сказала что если собственница жилья помогает молодой фаундерше в первый месяц — у неё третий глаз открывается. А мне надо открыть, я уже кукушку на птичьем рынке спрашивала про своё будущее.')
       });
     }, 1200);
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
         senderName: 'Наталья Валерьевна',
-        text: 'Короче. Аренду за первую половину месяца — я вам прощаю. Перевела обратно. До конца месяца — живите спокойно, думайте о деле. У меня высшие задачи, не подведите — у меня третий глаз на кону.'
+        text: tStr('beat.khozyaika_rescue.msg3', 'Короче. Аренду за первую половину месяца — я вам прощаю. Перевела обратно. До конца месяца — живите спокойно, думайте о деле. У меня высшие задачи, не подведите — у меня третий глаз на кону.')
       });
     }, 2400);
     setTimeout(function () {
       // Mechanical effect: +$500 refund + comfort relief
       STATE.cash += 500;
       STATE.comfort = Math.min(100, (STATE.comfort || 60) + 15);
-      postBank(500, 'возврат аренды от хозяйки · карма дома');
-      postMessage('scratch', { kind: 'system', text: 'хозяйка вернула аренду · +$500 · месяц продлён' });
-      postMessage('scratch', { kind: 'system', text: '━━━ половина месяца позади ━━━' });
+      postBank(500, tStr('beat.khozyaika_rescue.bank_memo', 'возврат аренды от хозяйки · карма дома'));
+      postMessage('scratch', { kind: 'system', text: tStr('beat.khozyaika_rescue.scratch_refund', 'хозяйка вернула аренду · +$500 · месяц продлён') });
+      postMessage('scratch', { kind: 'system', text: tStr('beat.khozyaika_rescue.scratch_half_month', '━━━ половина месяца позади ━━━') });
       save();
       renderDock();
     }, 3400);
@@ -2854,9 +2902,9 @@
       senderName: 'Павел',
       photo: 'img/events/bank_sms.webp',
       photoAlt: 'скриншот — обещаю вернуть',
-      text: 'слушай, у меня жёсткая ситуация — нужно $300 на пару недель. верну $450, честно. помоги, пожалуйста.'
+      text: tStr('beat.pavel_intro.message', 'слушай, у меня жёсткая ситуация — нужно $300 на пару недель. верну $450, честно. помоги, пожалуйста.')
     });
-    postMessage('scratch', { kind: 'system', text: 'бывший просит денег · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.pavel_intro.scratch_cue', 'бывший просит денег · открой чат') });
     STATE._pavel_pending = true;
   }
 
@@ -2865,16 +2913,16 @@
     if (STATE.beat_pavel_night_day2) return;
     STATE.beat_pavel_night_day2 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'привет, спишь?' });
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: tStr('beat.pavel_night_day2.message', 'привет, спишь?') });
   }
 
   function beatPavelDay5() {
     if (STATE.beat_pavel_day5) return;
     STATE.beat_pavel_day5 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', photo: 'img/events/pavel_roof.webp', photoAlt: 'крыша', text: 'я тут вспомнил, как мы с тобой в Питере сидели на Мойке. помнишь?' });
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', photo: 'img/events/pavel_roof.webp', photoAlt: 'крыша', text: tStr('beat.pavel_day5.msg1', 'я тут вспомнил, как мы с тобой в Питере сидели на Мойке. помнишь?') });
     setTimeout(function () {
-      postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'тебе было 23, мне 27. я был дурак и не понимал ничего. прости если что.' });
+      postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: tStr('beat.pavel_day5.msg2', 'тебе было 23, мне 27. я был дурак и не понимал ничего. прости если что.') });
     }, 1200);
   }
 
@@ -2882,7 +2930,7 @@
     if (STATE.beat_pavel_day7) return;
     STATE.beat_pavel_day7 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'слушай, ты сейчас одна? в смысле по жизни.' });
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: tStr('beat.pavel_day7.message', 'слушай, ты сейчас одна? в смысле по жизни.') });
   }
 
   // ========== SPRINT 07 — Late-game density beats ==========
@@ -2894,7 +2942,7 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
-      text: 'Марина, я вчера видела сон будто у нас в подъезде появился домовой в форме кошки. Мурка теперь на подоконнике смотрит в одну точку третий день. Вы не против если я загляну освятить квартиру батюшкой?'
+      text: tStr('beat.khozyaika_d22.message', 'Марина, я вчера видела сон будто у нас в подъезде появился домовой в форме кошки. Мурка теперь на подоконнике смотрит в одну точку третий день. Вы не против если я загляну освятить квартиру батюшкой?')
     });
   }
 
@@ -2905,7 +2953,7 @@
     postMessage('khozyaika', {
       kind: 'incoming',
       senderName: 'Наталья Валерьевна',
-      text: 'Марина, на следующей неделе полнолуние в Раке. В это время комоды особенно уязвимы. Пожалуйста, не ставьте на него горячие чашки и не включайте китайских мантр рядом. И вообще лучше выйти из квартиры между 23:00 и 01:00.'
+      text: tStr('beat.khozyaika_d27.message', 'Марина, на следующей неделе полнолуние в Раке. В это время комоды особенно уязвимы. Пожалуйста, не ставьте на него горячие чашки и не включайте китайских мантр рядом. И вообще лучше выйти из квартиры между 23:00 и 01:00.')
     });
   }
 
@@ -2918,10 +2966,10 @@
       senderName: 'Оля Петрова',
       photo: 'img/events/olya_product.webp',
       photoAlt: 'продукт клуба',
-      text: 'Мариночка, как ты? Я тут обновление по нашему клубу — мы запускаем НОВЫЙ уровень. Всего $400, но ты получаешь в три раза больше активаций. Подумай, я верю в тебя!'
+      text: tStr('beat.olya_retry.message', 'Мариночка, как ты? Я тут обновление по нашему клубу — мы запускаем НОВЫЙ уровень. Всего $400, но ты получаешь в три раза больше активаций. Подумай, я верю в тебя!')
     });
     STATE._olya_retry_pending = true; // SPRINT 39 — chip
-    postMessage('scratch', { kind: 'system', text: 'Оля Петрова снова пишет · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.olya_retry.scratch_cue', 'Оля Петрова снова пишет · открой чат') });
   }
 
   function beatOlyaFinal() {
@@ -2931,7 +2979,7 @@
     postMessage('olya', {
       kind: 'incoming',
       senderName: 'Оля Петрова',
-      text: 'Марина, я понимаю что ты сомневаешься. Но вот скриншот моего дохода за месяц: $3200 чистыми. И это не предел. Последнее предложение: $150, заходишь бесплатным уровнем и начинаешь зарабатывать.'
+      text: tStr('beat.olya_final.message', 'Марина, я понимаю что ты сомневаешься. Но вот скриншот моего дохода за месяц: $3200 чистыми. И это не предел. Последнее предложение: $150, заходишь бесплатным уровнем и начинаешь зарабатывать.')
     });
     STATE._olya_final_pending = true; // SPRINT 39 — chip
   }
@@ -2945,11 +2993,11 @@
       senderName: 'БРАТ крипта',
       photo: 'img/events/krypta_wallet.webp',
       photoAlt: 'крипто-кошелёк',
-      text: 'БРАТ алё ты жива? смотри SOLANA х3 за неделю я говорил! у меня есть ещё 1 слот. $50 минимум, на следующей неделе $500. не упусти'
+      text: tStr('beat.krypta_retry.message', 'БРАТ алё ты жива? смотри SOLANA х3 за неделю я говорил! у меня есть ещё 1 слот. $50 минимум, на следующей неделе $500. не упусти')
     });
     // SPRINT 38b — open chip so player can decline / engage (was no reply path)
     STATE._krypta_retry_pending = true;
-    postMessage('scratch', { kind: 'system', text: 'БРАТ крипта снова пишет · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.krypta_retry.scratch_cue', 'БРАТ крипта снова пишет · открой чат') });
   }
 
   function beatKryptaFinal() {
@@ -2959,7 +3007,7 @@
     postMessage('krypta', {
       kind: 'incoming',
       senderName: 'БРАТ крипта',
-      text: 'сестра, скажу честно. у меня не было $100. они пошли на оплату хостинга для моего блога. но завтра реально точно ракета. прости брат. больше не будет. $30?'
+      text: tStr('beat.krypta_final.message', 'сестра, скажу честно. у меня не было $100. они пошли на оплату хостинга для моего блога. но завтра реально точно ракета. прости брат. больше не будет. $30?')
     });
     // SPRINT 38b — chip for final retry too
     STATE._krypta_final_pending = true;
@@ -2974,7 +3022,7 @@
       senderName: 'Павел',
       photo: 'img/events/pavel_bridge.webp',
       photoAlt: 'мост ночью',
-      text: 'марина я вчера был в твоём доме. просто проходил. вспомнил крышу куда мы поднимались в мае 2022. помнишь?'
+      text: tStr('beat.pavel_d13.message', 'марина я вчера был в твоём доме. просто проходил. вспомнил крышу куда мы поднимались в мае 2022. помнишь?')
     });
   }
 
@@ -2985,11 +3033,11 @@
     postMessage('pavel', {
       kind: 'incoming',
       senderName: 'Павел',
-      text: 'слушай. а если я серьёзно. давай встретимся на чашку кофе. без возврата денег, без истории. как старые знакомые.'
+      text: tStr('beat.pavel_d17.message', 'слушай. а если я серьёзно. давай встретимся на чашку кофе. без возврата денег, без истории. как старые знакомые.')
     });
     // SPRINT 38b — два варианта отказа (Тим: 'нужно два варианта ответа, оба отказ')
     STATE._pavel_d17_pending = true;
-    postMessage('scratch', { kind: 'system', text: 'Павел зовёт на кофе · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.pavel_d17.scratch_cue', 'Павел зовёт на кофе · открой чат') });
   }
 
   function beatPavelD21() {
@@ -2999,7 +3047,7 @@
     postMessage('pavel', {
       kind: 'incoming',
       senderName: 'Павел',
-      text: 'марин, слышал у тебя кто-то появился. может не стоит? ты меня лучше знаешь.'
+      text: tStr('beat.pavel_d21.message', 'марин, слышал у тебя кто-то появился. может не стоит? ты меня лучше знаешь.')
     });
   }
 
@@ -3010,7 +3058,7 @@
     postMessage('pavel', {
       kind: 'incoming',
       senderName: 'Павел',
-      text: 'ну и ладно. удачи. я всегда был рядом когда тебе было сложно. помни.'
+      text: tStr('beat.pavel_d25.message', 'ну и ладно. удачи. я всегда был рядом когда тебе было сложно. помни.')
     });
   }
 
@@ -3021,7 +3069,7 @@
     postMessage('mama', {
       kind: 'incoming',
       senderName: 'мама',
-      text: 'доча, соседка спрашивает какой у тебя бизнес. я сказала что ты творческая, всё пишешь. она говорит это хорошо. у её дочки такой же бизнес, но та получает зарплату в мвд. но я тебя не сравниваю.'
+      text: tStr('beat.mama_d20.message', 'доча, соседка спрашивает какой у тебя бизнес. я сказала что ты творческая, всё пишешь. она говорит это хорошо. у её дочки такой же бизнес, но та получает зарплату в мвд. но я тебя не сравниваю.')
     });
   }
 
@@ -3032,7 +3080,7 @@
     postMessage('denis', {
       kind: 'incoming',
       senderName: 'Денис',
-      text: 'марин, слышал про тебя от общих. гордимся. держись. кстати — парус-тур на выходных, присоединяйся.'
+      text: tStr('beat.denis_d22.message', 'марин, слышал про тебя от общих. гордимся. держись. кстати — парус-тур на выходных, присоединяйся.')
     });
   }
 
@@ -3046,13 +3094,13 @@
       senderName: 'Настя',
       photo: 'img/events/nastya_desk.webp',
       photoAlt: 'рабочий стол',
-      text: 'привет! я Настя, тоже фрилансер, мы вроде в одном чате в telegram были. хотела спросить — как ты справляешься с первыми неделями без офиса?'
+      text: tStr('beat.nastya_d6.msg1', 'привет! я Настя, тоже фрилансер, мы вроде в одном чате в telegram были. хотела спросить — как ты справляешься с первыми неделями без офиса?')
     });
     setTimeout(function () {
       postMessage('nastya', {
         kind: 'incoming',
         senderName: 'Настя',
-        text: 'у меня прям паника каждое утро. но я вот начала выписывать три задачи в день вместо десяти. помогает.'
+        text: tStr('beat.nastya_d6.msg2', 'у меня прям паника каждое утро. но я вот начала выписывать три задачи в день вместо десяти. помогает.')
       });
     }, 1100);
   }
@@ -3064,7 +3112,7 @@
     postMessage('nastya', {
       kind: 'incoming',
       senderName: 'Настя',
-      text: 'ооо я сегодня закрыла второй проект. чувствую себя богиней. и одновременно засыпаю стоя. как оно у тебя?'
+      text: tStr('beat.nastya_d11.message', 'ооо я сегодня закрыла второй проект. чувствую себя богиней. и одновременно засыпаю стоя. как оно у тебя?')
     });
   }
 
@@ -3077,7 +3125,7 @@
       senderName: 'Настя',
       photo: 'img/events/nastya_coworking.webp',
       photoAlt: 'коворкинг',
-      text: 'слушай, думала. нам надо объединяться. одна хорошо, но вдвоём быстрее. может посидим, обсудим?'
+      text: tStr('beat.nastya_d16.message', 'слушай, думала. нам надо объединяться. одна хорошо, но вдвоём быстрее. может посидим, обсудим?')
     });
   }
 
@@ -3089,9 +3137,9 @@
     postMessage('nastya', {
       kind: 'incoming',
       senderName: 'Настя',
-      text: 'у меня проект на двух, клиент крупный. половину могу тебе отдать. $200 upfront прямо сейчас + $200 на сдаче через неделю. только делай хорошо. интересно?'
+      text: tStr('beat.nastya_d20.message', 'у меня проект на двух, клиент крупный. половину могу тебе отдать. $200 upfront прямо сейчас + $200 на сдаче через неделю. только делай хорошо. интересно?')
     });
-    postMessage('scratch', { kind: 'system', text: 'Настя предлагает партнёрство · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.nastya_d20.scratch_cue', 'Настя предлагает партнёрство · открой чат') });
     STATE._nastya_partnership_pending = true;
   }
 
@@ -3102,7 +3150,7 @@
     postMessage('nastya', {
       kind: 'incoming',
       senderName: 'Настя',
-      text: 'марин, я серьёзно думаю о партнёрстве. давай после месяца встретимся и обсудим. у меня есть план.'
+      text: tStr('beat.nastya_d25.message', 'марин, я серьёзно думаю о партнёрстве. давай после месяца встретимся и обсудим. у меня есть план.')
     });
   }
 
@@ -3113,7 +3161,7 @@
     postMessage('nastya', {
       kind: 'incoming',
       senderName: 'Настя',
-      text: 'ты дожила. я горжусь. давай встретимся в воскресенье, я принесу вино и план на следующий месяц.'
+      text: tStr('beat.nastya_d30.message', 'ты дожила. я горжусь. давай встретимся в воскресенье, я принесу вино и план на следующий месяц.')
     });
   }
 
@@ -3170,7 +3218,7 @@
     postMessage('svetka', {
       kind: 'incoming',
       senderName: 'Светка',
-      text: voiceLabel + '\n\n(не слушается)'
+      text: voiceLabel + '\n\n' + tStr('beat.svetka.no_audio_note', '(не слушается)')
     });
     setTimeout(function () {
       postMessage('svetka', {
@@ -3188,7 +3236,7 @@
     if (STATE.beat_pavel_day9) return;
     STATE.beat_pavel_day9 = true;
     var c = findContact('pavel'); if (c) c.visible = true;
-    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: 'марина, если честно — я думаю о тебе каждый день уже которую неделю. я знаю что ты не хочешь. но ты должна это услышать.' });
+    postMessage('pavel', { kind: 'incoming', senderName: 'Павел', text: tStr('beat.pavel_day9.message', 'марина, если честно — я думаю о тебе каждый день уже которую неделю. я знаю что ты не хочешь. но ты должна это услышать.') });
   }
 
   function beatMama6() {
@@ -3200,9 +3248,9 @@
       senderName: 'мама',
       photo: 'img/events/cat_window.webp',
       photoAlt: 'кошка у окна',
-      text: 'доча, я на лекарства не могу накопить в этом месяце. если можешь помочь — $200 скинь. если нет — я понимаю, у тебя и так сложно.'
+      text: tStr('beat.mama6.message', 'доча, я на лекарства не могу накопить в этом месяце. если можешь помочь — $200 скинь. если нет — я понимаю, у тебя и так сложно.')
     });
-    postMessage('scratch', { kind: 'system', text: 'мама написала · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.mama6.scratch_cue', 'мама написала · открой чат') });
     STATE._mama6_pending = true;
   }
 
@@ -3215,7 +3263,7 @@
       senderName: 'мама',
       photo: 'img/events/mama_pie.webp',
       photoAlt: 'мамины пироги',
-      text: 'ты там живая? звонков нет уже неделю. пирогов наготовила, приезжай в субботу.'
+      text: tStr('beat.mama17.message', 'ты там живая? звонков нет уже неделю. пирогов наготовила, приезжай в субботу.')
     });
     STATE._mama17_pending = true;
   }
@@ -3229,7 +3277,7 @@
       senderName: 'мама',
       photo: 'img/events/mama_letter.webp',
       photoAlt: 'мамино письмо',
-      text: 'доча, я скучаю. звони когда сможешь. хоть на 5 минут.'
+      text: tStr('beat.mama24.message', 'доча, я скучаю. звони когда сможешь. хоть на 5 минут.')
     });
   }
 
@@ -3240,7 +3288,7 @@
     postMessage('mama', {
       kind: 'incoming',
       senderName: 'мама',
-      text: 'доча. я всё это время не знала как ты. завтра последний день месяца. я просто скажу: горжусь тобой. что бы ни было. позвони когда сможешь.'
+      text: tStr('beat.mama_final.message', 'доча. я всё это время не знала как ты. завтра последний день месяца. я просто скажу: горжусь тобой. что бы ни было. позвони когда сможешь.')
     });
   }
 
@@ -3256,23 +3304,23 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'слушай, я тут подумал. я понимаю что звучит странно, но ты мне нравишься не только на ужинах.'
+      text: tStr('beat.kirill_love1.msg1', 'слушай, я тут подумал. я понимаю что звучит странно, но ты мне нравишься не только на ужинах.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'у тебя в глазах что-то такое — как будто ты сражаешься с драконом и никому не рассказываешь. я это вижу. и мне хочется просто сидеть рядом.'
+        text: tStr('beat.kirill_love1.msg2', 'у тебя в глазах что-то такое — как будто ты сражаешься с драконом и никому не рассказываешь. я это вижу. и мне хочется просто сидеть рядом.')
       });
     }, 1200);
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'как ты вообще?'
+        text: tStr('beat.kirill_love1.msg3', 'как ты вообще?')
       });
     }, 2400);
-    postMessage('scratch', { kind: 'system', text: 'Кирилл написал что-то странное · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_love1.scratch_cue', 'Кирилл написал что-то странное · открой чат') });
     STATE._kirill_love1_pending = true;
     STATE.kirill_invite_active = true;
     STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
@@ -3288,19 +3336,19 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'марин, давай встретимся. не ради ужина. просто пройдёмся, я хочу с тобой поговорить.'
+      text: tStr('beat.kirill_love2.msg1', 'марин, давай встретимся. не ради ужина. просто пройдёмся, я хочу с тобой поговорить.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'у меня нет плана, нет повода. просто хочу быть рядом пару часов. как тебе?'
+        text: tStr('beat.kirill_love2.msg2', 'у меня нет плана, нет повода. просто хочу быть рядом пару часов. как тебе?')
       });
     }, 1100);
     STATE._kirill_love2_pending = true;
     STATE.kirill_invite_active = true;
     STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
-    postMessage('scratch', { kind: 'system', text: 'Кирилл зовёт без повода · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_love2.scratch_cue', 'Кирилл зовёт без повода · открой чат') });
   }
 
   function beatKirillLoveFinal() {
@@ -3313,35 +3361,35 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'марина. я за эти недели понял одну штуку.'
+      text: tStr('beat.kirill_love_final.msg1', 'марина. я за эти недели понял одну штуку.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'ты не лёгкая. ты не ангел. ты иногда уставшая и злая. но когда ты говоришь о своей работе — у тебя в голосе огонь. и я хочу быть тем, кто этот огонь слушает, когда ты приходишь домой.'
+        text: tStr('beat.kirill_love_final.msg2', 'ты не лёгкая. ты не ангел. ты иногда уставшая и злая. но когда ты говоришь о своей работе — у тебя в голосе огонь. и я хочу быть тем, кто этот огонь слушает, когда ты приходишь домой.')
       });
     }, 1200);
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'я не прошу переехать. я не прошу обещаний. я прошу только разрешения. быть.'
+        text: tStr('beat.kirill_love_final.msg3', 'я не прошу переехать. я не прошу обещаний. я прошу только разрешения. быть.')
       });
     }, 2400);
     setTimeout(function () {
-      postMessage('scratch', { kind: 'system', text: '────── строчка в блокнот ──────' });
+      postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_love_final.notebook_separator', '────── строчка в блокнот ──────') });
     }, 3600);
     setTimeout(function () {
-      postOutgoing('scratch', 'я не ожидала. вообще. от него, от себя, от этого месяца.');
+      postOutgoing('scratch', tStr('beat.kirill_love_final.marina_journal1', 'я не ожидала. вообще. от него, от себя, от этого месяца.'));
     }, 4000);
     setTimeout(function () {
-      postOutgoing('scratch', 'кажется я влюбилась. и самое странное — мне не страшно.');
+      postOutgoing('scratch', tStr('beat.kirill_love_final.marina_journal2', 'кажется я влюбилась. и самое странное — мне не страшно.'));
     }, 4800);
     setTimeout(function () {
       STATE.love_ending_unlocked = true;
       save();
-      postMessage('scratch', { kind: 'system', text: '❤️ love ending разблокирован' });
+      postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_love_final.love_unlock_note', '❤️ love ending разблокирован') });
     }, 5600);
     STATE._kirill_love_final_pending = true;
   }
@@ -3352,11 +3400,11 @@
     STATE[flag] = true;
     var c = findContact('denis'); if (c) c.visible = true;
     var texts = {
-      3: 'марин, задолбал сидеть дома. поехали на регату в субботу? море, ветер, никаких писем',
-      6: 'слушай, давай на кофе сходим? нашёл новое место на углу, тебе понравится. час, не больше',
-      9: 'перестань работать хоть на день. гулять поехали на набережную? я занесу вино',
-      15: 'марина, парус-тур в субботу. 5 человек, яхта, вечер. место есть для тебя',
-      27: 'новый год через 3 дня. у меня на квартире посиделки, не пропусти'
+      3: tStr('beat.denis.day3.text', 'марин, задолбал сидеть дома. поехали на регату в субботу? море, ветер, никаких писем'),
+      6: tStr('beat.denis.day6.text', 'слушай, давай на кофе сходим? нашёл новое место на углу, тебе понравится. час, не больше'),
+      9: tStr('beat.denis.day9.text', 'перестань работать хоть на день. гулять поехали на набережную? я занесу вино'),
+      15: tStr('beat.denis.day15.text', 'марина, парус-тур в субботу. 5 человек, яхта, вечер. место есть для тебя'),
+      27: tStr('beat.denis.day27.text', 'новый год через 3 дня. у меня на квартире посиделки, не пропусти')
     };
     var photos = {
       3: 'img/events/regatta.webp',
@@ -3369,10 +3417,10 @@
       kind: 'incoming',
       senderName: 'Денис',
       photo: photos[day] || 'img/events/street_window.webp',
-      photoAlt: day === 3 ? 'регата' : day === 6 ? 'кофейня' : day === 15 ? 'яхта' : day === 27 ? 'новый год' : 'гулянка',
-      text: texts[day] || 'привет, как ты там?'
+      photoAlt: tStr('beat.denis.day' + day + '.photo_alt', 'гулянка с денисом') || tStr('beat.denis.fallback_alt', 'гулянка'),
+      text: texts[day] || tStr('beat.denis.fallback_text', 'привет, как ты там?')
     });
-    postMessage('scratch', { kind: 'system', text: 'Денис зовёт гулять · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.denis.scratch_cue', 'Денис зовёт гулять · открой чат') });
     STATE['_denis' + day + '_pending'] = true;
   }
 
@@ -3385,15 +3433,15 @@
     if (STATE.beat_olya) return;
     STATE.beat_olya = true;
     var c = findContact('olya'); if (c) c.visible = true;
-    postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', photo: 'img/events/olya_pyramid.webp', photoAlt: 'клуб женщин', text: 'Мариночка приветик! Это Оля Петрова, мы учились вместе в 11-Б. Помнишь меня?' });
+    postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', photo: 'img/events/olya_pyramid.webp', photoAlt: 'клуб женщин', text: tStr('beat.olya_intro.msg1', 'Мариночка приветик! Это Оля Петрова, мы учились вместе в 11-Б. Помнишь меня?') });
     setTimeout(function () {
-      postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', text: 'У меня появилась уникальная возможность для женщин которые хотят изменить жизнь и финансы. Можно я расскажу 5 минут?' });
+      postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', text: tStr('beat.olya_intro.msg2', 'У меня появилась уникальная возможность для женщин которые хотят изменить жизнь и финансы. Можно я расскажу 5 минут?') });
     }, 900);
     setTimeout(function () {
-      postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', text: 'Это не пирамида, это клуб ✨ инвестиция всего $200, возвращается х3 за 2 месяца гарантированно' });
+      postMessage('olya', { kind: 'incoming', senderName: 'Оля Петрова', text: tStr('beat.olya_intro.msg3', 'Это не пирамида, это клуб ✨ инвестиция всего $200, возвращается х3 за 2 месяца гарантированно') });
     }, 1800);
     STATE._olya_pending = true;
-    postMessage('scratch', { kind: 'system', text: 'одноклассница пишет · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.olya_intro.scratch_cue', 'одноклассница пишет · открой чат') });
   }
 
   // SPRINT 20 — Kirill arc expansion: 5 new scenes + conflict beat
@@ -3407,8 +3455,8 @@
     // Variant B: just intro'd, no dates yet — just check in
     var hadDate = (STATE.kirill_date_count || 0) > 0;
     var text = hadDate
-      ? 'вчера ты странно себя вела на ужине. три раза сказала «я в порядке». это обычно значит обратное. я не давлю — просто, если что, я тут.'
-      : 'привет. знаю, ты в работе и времени нет. я не пропадаю, просто хочу чтобы ты знала: я тут. как ты вообще?';
+      ? tStr('beat.kirill_scene11.variant_had_date', 'вчера ты странно себя вела на ужине. три раза сказала «я в порядке». это обычно значит обратное. я не давлю — просто, если что, я тут.')
+      : tStr('beat.kirill_scene11.variant_no_date', 'привет. знаю, ты в работе и времени нет. я не пропадаю, просто хочу чтобы ты знала: я тут. как ты вообще?');
     postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: text });
   }
 
@@ -3425,13 +3473,13 @@
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'покажу тебе одну штуку. я с 17 лет пишу в блокноты, никогда не показывал никому. вот страница 47 из прошлого года.'
+        text: tStr('beat.kirill_scene13.trust_msg1', 'покажу тебе одну штуку. я с 17 лет пишу в блокноты, никогда не показывал никому. вот страница 47 из прошлого года.')
       });
       setTimeout(function () {
         postMessage('kirill', {
           kind: 'incoming',
           senderName: 'Кирилл',
-          text: '«все настоящее — тихое. и когда я найду её, я её узнаю по тишине.»\n\nэто я писал когда мне было 28. тебе — не говорю зачем показываю.'
+          text: tStr('beat.kirill_scene13.trust_msg2', '«все настоящее — тихое. и когда я найду её, я её узнаю по тишине.»\n\nэто я писал когда мне было 28. тебе — не говорю зачем показываю.')
         });
       }, 1100);
     } else {
@@ -3439,7 +3487,7 @@
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'слушай, расскажи когда у тебя получится выдохнуть на час. я в кафе на лиговке зайду — кофе хороший, тишина. без обязательств.'
+        text: tStr('beat.kirill_scene13.light_msg', 'слушай, расскажи когда у тебя получится выдохнуть на час. я в кафе на лиговке зайду — кофе хороший, тишина. без обязательств.')
       });
     }
   }
@@ -3460,16 +3508,16 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'марина. я слышал что тебе пишет Павел — твой бывший. не спрашиваю подробностей, просто — скажи честно: он в твоей жизни сейчас или нет?'
+      text: tStr('beat.kirill_conflict16.msg1', 'марина. я слышал что тебе пишет Павел — твой бывший. не спрашиваю подробностей, просто — скажи честно: он в твоей жизни сейчас или нет?')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'если ты возвращаешься туда — скажи сейчас. я не буду мешать.'
+        text: tStr('beat.kirill_conflict16.msg2', 'если ты возвращаешься туда — скажи сейчас. я не буду мешать.')
       });
     }, 1200);
-    postMessage('scratch', { kind: 'system', text: '⚠ Кирилл конфликт · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_conflict16.scratch_cue', '⚠ Кирилл конфликт · открой чат') });
     STATE._kirill_conflict_pending = true;
   }
 
@@ -3484,13 +3532,13 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'прости за тот вопрос про Павла. я не имел права. просто испугался что теряю тебя раньше чем узнал.'
+      text: tStr('beat.kirill_resolution19.msg1', 'прости за тот вопрос про Павла. я не имел права. просто испугался что теряю тебя раньше чем узнал.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'я учусь доверять. медленно, но учусь.'
+        text: tStr('beat.kirill_resolution19.msg2', 'я учусь доверять. медленно, но учусь.')
       });
     }, 1200);
     STATE.kirill_affection = (STATE.kirill_affection || 0) + 1;
@@ -3506,7 +3554,7 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'через неделю закончится этот твой первый месяц. ты устанешь, я знаю. я просто хочу сказать — мне всё равно сдашь ты три проекта или один. я с тобой.'
+      text: tStr('beat.kirill_prefinale24.message', 'через неделю закончится этот твой первый месяц. ты устанешь, я знаю. я просто хочу сказать — мне всё равно сдашь ты три проекта или один. я с тобой.')
     });
   }
 
@@ -3522,18 +3570,18 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'не отвечаешь, не выходишь. знаю, ты в работе. оставил у двери пакет — суп из «Чебурашки», два хачапури, баклава. поешь, ладно? я не буду заходить.'
+      text: tStr('beat.kirill_food_delivery.msg1', 'не отвечаешь, не выходишь. знаю, ты в работе. оставил у двери пакет — суп из «Чебурашки», два хачапури, баклава. поешь, ладно? я не буду заходить.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'когда сможешь — напиши, что доела. это я для своего спокойствия.'
+        text: tStr('beat.kirill_food_delivery.msg2', 'когда сможешь — напиши, что доела. это я для своего спокойствия.')
       });
     }, 1500);
     STATE.hunger = 100;
     STATE.comfort = 100;
-    postMessage('scratch', { kind: 'system', text: '🥡 Кирилл оставил ужин у двери · +100 голод · +100 комфорт' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_food_delivery.scratch_cue', '🥡 Кирилл оставил ужин у двери · +100 голод · +100 комфорт') });
     STATE.kirill_affection = (STATE.kirill_affection || 0) + 1;
   }
 
@@ -3541,51 +3589,51 @@
     if (STATE.beat_kirill) return;
     STATE.beat_kirill = true;
     var c = findContact('kirill'); if (c) c.visible = true;
-    postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: 'ну привет' });
+    postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: tStr('beat.kirill_intro.msg1', 'ну привет') });
     setTimeout(function () {
-      postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: 'я тебя на тиндере лайкнул три недели назад. ты молчала. я всё-таки настойчивый' });
+      postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: tStr('beat.kirill_intro.msg2', 'я тебя на тиндере лайкнул три недели назад. ты молчала. я всё-таки настойчивый') });
     }, 900);
     setTimeout(function () {
-      postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: 'может встретимся? я угощаю ужином. любое кафе на выбор' });
+      postMessage('kirill', { kind: 'incoming', senderName: 'Кирилл', text: tStr('beat.kirill_intro.msg3', 'может встретимся? я угощаю ужином. любое кафе на выбор') });
     }, 1800);
     STATE._kirill_pending = true;
-    postMessage('scratch', { kind: 'system', text: 'Кирилл пишет · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_intro.scratch_cue', 'Кирилл пишет · открой чат') });
   }
 
   function beatKrypta() {
     if (STATE.beat_krypta) return;
     STATE.beat_krypta = true;
     var c = findContact('krypta'); if (c) c.visible = true;
-    postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', photo: 'img/events/krypta_moon.webp', photoAlt: 'крипто-луна', text: 'БРАТ' });
+    postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', photo: 'img/events/krypta_moon.webp', photoAlt: 'крипто-луна', text: tStr('beat.krypta_intro.msg1', 'БРАТ') });
     setTimeout(function () {
-      postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', text: 'СОЛАНА ЛЕТИТ 🚀🚀🚀 1000X ЭТОТ МЕСЯЦ' });
+      postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', text: tStr('beat.krypta_intro.msg2', 'СОЛАНА ЛЕТИТ 🚀🚀🚀 1000X ЭТОТ МЕСЯЦ') });
     }, 700);
     setTimeout(function () {
-      postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', text: 'скидываешь $100 на кошелёк — делаешь $100000. проверено. ловлю момент один. решай быстрее' });
+      postMessage('krypta', { kind: 'incoming', senderName: 'БРАТ крипта', text: tStr('beat.krypta_intro.msg3', 'скидываешь $100 на кошелёк — делаешь $100000. проверено. ловлю момент один. решай быстрее') });
     }, 1500);
     STATE._krypta_pending = true;
-    postMessage('scratch', { kind: 'system', text: 'какой-то брат-крипта пишет · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.krypta_intro.scratch_cue', 'какой-то брат-крипта пишет · открой чат') });
   }
 
   function beatArtur() {
     if (STATE.beat_artur) return;
     STATE.beat_artur = true;
     var c = findContact('artur'); if (c) c.visible = true;
-    postMessage('artur', { kind: 'incoming', senderName: 'Артур', text: 'марина привет. я понимаю что ты ушла не на лучшей ноте' });
+    postMessage('artur', { kind: 'incoming', senderName: 'Артур', text: tStr('beat.artur.msg1', 'марина привет. я понимаю что ты ушла не на лучшей ноте') });
     setTimeout(function () {
-      postMessage('artur', { kind: 'incoming', senderName: 'Артур', text: 'но у меня есть тема. подойди завтра в 10 в старый офис, объясню лично. это взаимовыгодно' });
+      postMessage('artur', { kind: 'incoming', senderName: 'Артур', text: tStr('beat.artur.msg2', 'но у меня есть тема. подойди завтра в 10 в старый офис, объясню лично. это взаимовыгодно') });
     }, 1000);
     STATE._artur_pending = true;
-    postMessage('scratch', { kind: 'system', text: 'бывший босс написал · открой чат' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.artur.scratch_cue', 'бывший босс написал · открой чат') });
   }
 
   function beatVera() {
     if (STATE.beat_vera) return;
     STATE.beat_vera = true;
     var c = findContact('vera'); if (c) c.visible = true;
-    postMessage('vera', { kind: 'incoming', senderName: 'Вера Николаевна', text: 'Марина Сергеевна, здравствуйте! Это Вера Николаевна, ваша учительница по литературе.' });
+    postMessage('vera', { kind: 'incoming', senderName: 'Вера Николаевна', text: tStr('beat.vera.msg1', 'Марина Сергеевна, здравствуйте! Это Вера Николаевна, ваша учительница по литературе.') });
     setTimeout(function () {
-      postMessage('vera', { kind: 'incoming', senderName: 'Вера Николаевна', text: 'Я в одноклассниках увидела что вы открыли своё дело. Горжусь вами! У меня есть внучка Алиса. Она пишет стихи. Не могли бы вы помочь ей продвинуться в интернете?' });
+      postMessage('vera', { kind: 'incoming', senderName: 'Вера Николаевна', text: tStr('beat.vera.msg2', 'Я в одноклассниках увидела что вы открыли своё дело. Горжусь вами! У меня есть внучка Алиса. Она пишет стихи. Не могли бы вы помочь ей продвинуться в интернете?') });
     }, 1100);
     STATE._vera_pending = true;
   }
@@ -3594,9 +3642,9 @@
     if (STATE.beat_sosed) return;
     STATE.beat_sosed = true;
     var c = findContact('sosed'); if (c) c.visible = true;
-    postMessage('sosed', { kind: 'incoming', senderName: 'сосед снизу', text: 'здравствуйте. это ваш сосед снизу, квартира 23' });
+    postMessage('sosed', { kind: 'incoming', senderName: 'сосед снизу', text: tStr('beat.sosed_intro.msg1', 'здравствуйте. это ваш сосед снизу, квартира 23') });
     setTimeout(function () {
-      postMessage('sosed', { kind: 'incoming', senderName: 'сосед снизу', text: 'у меня на потолке появилось пятно. я думаю это от вас. спустите поговорить?' });
+      postMessage('sosed', { kind: 'incoming', senderName: 'сосед снизу', text: tStr('beat.sosed_intro.msg2', 'у меня на потолке появилось пятно. я думаю это от вас. спустите поговорить?') });
     }, 900);
     STATE._sosed_pending = true;
   }
@@ -3693,28 +3741,28 @@
     if (STATE.beat_drain_charger) return;
     STATE.beat_drain_charger = true;
     STATE.cash -= 60;
-    postBank(-60, 'зарядка для ноутбука');
+    postBank(-60, tStr('beat.drain_charger.bank_memo', 'зарядка для ноутбука'));
     postMessage('scratch', {
       kind: 'outgoing',
       photo: 'img/events/charger_broken.webp',
       photoAlt: 'сломанная зарядка',
-      text: 'зарядка сдохла. прямо посреди работы. новая — $60. без неё никак.'
+      text: tStr('beat.drain_charger.marina_note', 'зарядка сдохла. прямо посреди работы. новая — $60. без неё никак.')
     });
-    postSystem('scratch', '⚡ −$60 · зарядка для ноутбука');
+    postSystem('scratch', tStr('beat.drain_charger.system_line', '⚡ −$60 · зарядка для ноутбука'));
   }
 
   function beatDrainPhone() {
     if (STATE.beat_drain_phone) return;
     STATE.beat_drain_phone = true;
     STATE.cash -= 80;
-    postBank(-80, 'ремонт экрана телефона');
+    postBank(-80, tStr('beat.drain_phone.bank_memo', 'ремонт экрана телефона'));
     postMessage('scratch', {
       kind: 'outgoing',
       photo: 'img/events/phone_cracked.webp',
       photoAlt: 'треснувший экран',
-      text: 'уронила телефон. экран в паутине. без него нет связи с клиентами. ремонт $80.'
+      text: tStr('beat.drain_phone.marina_note', 'уронила телефон. экран в паутине. без него нет связи с клиентами. ремонт $80.')
     });
-    postSystem('scratch', '📱 −$80 · ремонт экрана');
+    postSystem('scratch', tStr('beat.drain_phone.system_line', '📱 −$80 · ремонт экрана'));
   }
 
   function beatDrainDentist() {
@@ -3722,28 +3770,28 @@
     STATE.beat_drain_dentist = true;
     STATE.cash -= 150;
     STATE.hours = Math.max(0, STATE.hours - 2);
-    postBank(-150, 'стоматолог · срочный');
+    postBank(-150, tStr('beat.drain_dentist.bank_memo', 'стоматолог · срочный'));
     postMessage('scratch', {
       kind: 'outgoing',
       photo: 'img/events/dentist_receipt.webp',
       photoAlt: 'чек стоматолога',
-      text: 'зуб. проснулась от боли в 5 утра. стоматолог $150, без вариантов. полдня потеряно.'
+      text: tStr('beat.drain_dentist.marina_note', 'зуб. проснулась от боли в 5 утра. стоматолог $150, без вариантов. полдня потеряно.')
     });
-    postSystem('scratch', '🦷 −$150 · −2h · стоматолог');
+    postSystem('scratch', tStr('beat.drain_dentist.system_line', '🦷 −$150 · −2h · стоматолог'));
   }
 
   function beatDrainElectric() {
     if (STATE.beat_drain_electric) return;
     STATE.beat_drain_electric = true;
     STATE.cash -= 100;
-    postBank(-100, 'электричество + интернет');
+    postBank(-100, tStr('beat.drain_electric.bank_memo', 'электричество + интернет'));
     postMessage('scratch', {
       kind: 'outgoing',
       photo: 'img/events/electric_bill.webp',
       photoAlt: 'квитанция',
-      text: 'пришёл счёт за электричество и интернет. $100. автосписание. ничего не сделаешь.'
+      text: tStr('beat.drain_electric.marina_note', 'пришёл счёт за электричество и интернет. $100. автосписание. ничего не сделаешь.')
     });
-    postSystem('scratch', '💡 −$100 · коммуналка');
+    postSystem('scratch', tStr('beat.drain_electric.system_line', '💡 −$100 · коммуналка'));
   }
 
   // ========== SPRINT 14 — Khozyaika arc enhancement ==========
@@ -3758,10 +3806,10 @@
       senderName: 'Наталья Валерьевна',
       photo: 'img/events/khozyaika_noise.webp',
       photoAlt: 'хозяйка у двери',
-      text: 'Марина, соседи с первого этажа жаловались на шум. Вы работаете после 23:00? Пожалуйста, тише печатайте на клавиатуре. У нас дом 1978 года, слышимость как в коммуналке. Я серьёзно.'
+      text: tStr('beat.khozyaika_day3_noise.message', 'Марина, соседи с первого этажа жаловались на шум. Вы работаете после 23:00? Пожалуйста, тише печатайте на клавиатуре. У нас дом 1978 года, слышимость как в коммуналке. Я серьёзно.')
     });
     STATE.comfort = Math.max(0, STATE.comfort - 5);
-    postSystem('scratch', '−5 комфорт · хозяйка жалуется на шум');
+    postSystem('scratch', tStr('beat.khozyaika_day3_noise.system_line', '−5 комфорт · хозяйка жалуется на шум'));
   }
 
   function beatKhozyaikaDay5Electric() {
@@ -3773,7 +3821,7 @@
       senderName: 'Наталья Валерьевна',
       photo: 'img/events/khozyaika_meters.webp',
       photoAlt: 'электросчётчик',
-      text: 'Марина, вы сегодня снимаете показания электросчётчика? Я за ваш свет плачу, мне надо знать сколько. Скиньте фото. И сразу: почему розетка на кухне воняет? Вы что-то включали кроме чайника?'
+      text: tStr('beat.khozyaika_day5_electric.message', 'Марина, вы сегодня снимаете показания электросчётчика? Я за ваш свет плачу, мне надо знать сколько. Скиньте фото. И сразу: почему розетка на кухне воняет? Вы что-то включали кроме чайника?')
     });
     STATE._khozyaika_electric_pending = true;
     // SPRINT 25 — auto-fine if unanswered after 3 days
@@ -3789,18 +3837,18 @@
       senderName: 'Наталья Валерьевна',
       photo: 'img/events/khozyaika_damage.webp',
       photoAlt: 'царапина на линолеуме',
-      text: 'Марина, я тут была у вас пока вы на работе. Обнаружила ЦАРАПИНУ на линолеуме в прихожей. Это было до вас или после? Мне важно для страховки.'
+      text: tStr('beat.khozyaika_day7_damage.msg1', 'Марина, я тут была у вас пока вы на работе. Обнаружила ЦАРАПИНУ на линолеуме в прихожей. Это было до вас или после? Мне важно для страховки.')
     });
     setTimeout(function () {
       postMessage('khozyaika', {
         kind: 'incoming',
         senderName: 'Наталья Валерьевна',
-        text: 'И ещё — в ванной потёк кран. Вызовите сантехника сами, $50 за выезд. Я не обязана.'
+        text: tStr('beat.khozyaika_day7_damage.msg2', 'И ещё — в ванной потёк кран. Вызовите сантехника сами, $50 за выезд. Я не обязана.')
       });
     }, 1000);
     STATE.cash -= 50;
-    postBank(-50, 'сантехник по требованию хозяйки');
-    postSystem('scratch', '🔧 −$50 · хозяйка заставила вызвать сантехника');
+    postBank(-50, tStr('beat.khozyaika_day7_damage.bank_memo', 'сантехник по требованию хозяйки'));
+    postSystem('scratch', tStr('beat.khozyaika_day7_damage.system_line', '🔧 −$50 · хозяйка заставила вызвать сантехника'));
   }
 
   function beatKhozyaikaDay9Chain() {
@@ -3812,7 +3860,7 @@
       senderName: 'Наталья Валерьевна',
       photo: 'img/events/khozyaika_chain.webp',
       photoAlt: 'письмо счастья',
-      text: 'Марина, это ОЧЕНЬ ВАЖНО. Перешлите это сообщение пяти людям: «квартира, в которой живёт женщина-фаундер, накапливает карму неудач если не распространять энергию благодарности». Мне так психолог-астролог сказал. Она раньше работала в МЧС.'
+      text: tStr('beat.khozyaika_day9_chain.message', 'Марина, это ОЧЕНЬ ВАЖНО. Перешлите это сообщение пяти людям: «квартира, в которой живёт женщина-фаундер, накапливает карму неудач если не распространять энергию благодарности». Мне так психолог-астролог сказал. Она раньше работала в МЧС.')
     });
     STATE._khozyaika_chain_pending = true;
     // SPRINT 25 — comfort drop if unanswered after 3 days
@@ -3838,7 +3886,7 @@
     };
     if (variant === 'quote2') {
       msg.photo = 'img/events/khozyaika_sweet.webp';
-      msg.photoAlt = 'свечка и фото Мурки';
+      msg.photoAlt = tStr('beat.khozyaika_post12.photo_alt_quote2', 'свечка и фото Мурки');
     }
     postMessage('khozyaika', msg);
   }
@@ -3857,16 +3905,16 @@
             postMessage('pavel', {
               kind: 'incoming',
               senderName: 'Павел',
-              text: 'спасибо что выручила. держу слово — вернул $450. без задержек.'
+              text: tStr('system.callback.pavel_return_text', 'спасибо что выручила. держу слово — вернул $450. без задержек.')
             });
-            postBank(450, 'возврат от Павла (с процентом)');
+            postBank(450, tStr('system.callback.pavel_return_bank', 'возврат от Павла (с процентом)'));
           } else {
             postMessage('pavel', {
               kind: 'incoming',
               senderName: 'Павел',
-              text: 'привет. у меня тут затяжка. через неделю-две.'
+              text: tStr('system.callback.pavel_delay', 'привет. у меня тут затяжка. через неделю-две.')
             });
-            postMessage('scratch', { kind: 'system', text: 'Павел обещает через неделю...' });
+            postMessage('scratch', { kind: 'system', text: tStr('system.callback.pavel_week_note', 'Павел обещает через неделю...') });
             // Reschedule once
             if (!cb.retried) {
               keep.push({ trigger_day: day + 4, type: 'pavel_silence', retried: true });
@@ -3876,9 +3924,9 @@
           postMessage('pavel', {
             kind: 'incoming',
             senderName: 'Павел',
-            text: 'прости. не получилось.'
+            text: tStr('system.callback.pavel_broken_promise', 'прости. не получилось.')
           });
-          postMessage('scratch', { kind: 'system', text: 'Павел не вернул деньги' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.callback.pavel_no_return_note', 'Павел не вернул деньги') });
         } else if (cb.type === 'bank_lock_115') {
           // BLOCK I — 115-ФЗ bank block activates
           STATE.bank_locked = true;
@@ -3886,9 +3934,9 @@
           postMessage('bank', {
             kind: 'bank',
             meta: { bank_name: 'Т-Банк', amount: 0 },
-            text: 'Счёт ВРЕМЕННО ЗАБЛОКИРОВАН по 115-ФЗ. Подозрительная транзакция на криптобиржу. До выяснения — операции недоступны.'
+            text: tStr('system.callback.bank_115_lock', 'Счёт ВРЕМЕННО ЗАБЛОКИРОВАН по 115-ФЗ. Подозрительная транзакция на криптобиржу. До выяснения — операции недоступны.')
           });
-          postMessage('scratch', { kind: 'system', text: '🔒 счёт заблокирован · 6 дней · не можешь тратить деньги' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.callback.bank_lock_note', '🔒 счёт заблокирован · 6 дней · не можешь тратить деньги') });
           // Кирилл пишет приглашение на свидание (free food, plate girl loop)
           if (!STATE.kirill_blocked) {
             setTimeout(function () {
@@ -3896,7 +3944,7 @@
               postMessage('kirill', {
                 kind: 'incoming',
                 senderName: 'Кирилл',
-                text: 'привет. хочешь в кафе вечером? я угощаю, тебе ничего не надо'
+                text: tStr('system.callback.kirill_free_dinner', 'привет. хочешь в кафе вечером? я угощаю, тебе ничего не надо')
               });
               STATE.kirill_invite_active = true;
               STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
@@ -3904,24 +3952,24 @@
           }
         } else if (cb.type === 'khozyaika_fine') {
           STATE.cash -= 100;
-          postBank(-100, 'штраф за счётчики · хозяйка');
+          postBank(-100, tStr('system.callback.khozyaika_fine_meters_bank', 'штраф за счётчики · хозяйка'));
           postMessage('khozyaika', {
             kind: 'incoming',
             senderName: 'Наталья Валерьевна',
-            text: 'Я же предупреждала про счётчики. Штраф $100 списан. Будьте ответственнее.'
+            text: tStr('system.callback.khozyaika_fine_meters', 'Я же предупреждала про счётчики. Штраф $100 списан. Будьте ответственнее.')
           });
         } else if (cb.type === 'khozyaika_unanswered_water') {
           // SPRINT 25 rev2 — auto-fine if pending; suppress after khozyaika rescue (sweet phase)
           if (STATE._khozyaika1_pending && !STATE.beat_khozyaika_rescue) {
             STATE._khozyaika1_pending = false;
             STATE.cash -= 100;
-            postBank(-100, 'штраф · нет показаний воды');
+            postBank(-100, tStr('system.callback.khozyaika_water_fine_bank', 'штраф · нет показаний воды'));
             postMessage('khozyaika', {
               kind: 'incoming',
               senderName: 'Наталья Валерьевна',
-              text: 'Марина, дедлайн прошёл. Показания не получены. Штраф $100 списан с депозита. Очень разочарована.'
+              text: tStr('system.callback.khozyaika_water_fine_msg', 'Марина, дедлайн прошёл. Показания не получены. Штраф $100 списан с депозита. Очень разочарована.')
             });
-            postMessage('scratch', { kind: 'system', text: '🔻 −$100 · хозяйка не дождалась показаний' });
+            postMessage('scratch', { kind: 'system', text: tStr('system.callback.khozyaika_water_fine_scratch', '🔻 −$100 · хозяйка не дождалась показаний') });
           } else if (STATE._khozyaika1_pending && STATE.beat_khozyaika_rescue) {
             // Rescue already happened — clear pending silently, no penalty
             STATE._khozyaika1_pending = false;
@@ -3930,13 +3978,13 @@
           if (STATE._khozyaika_electric_pending && !STATE.beat_khozyaika_rescue) {
             STATE._khozyaika_electric_pending = false;
             STATE.cash -= 80;
-            postBank(-80, 'штраф · нет показаний электро');
+            postBank(-80, tStr('system.callback.khozyaika_electric_fine_bank', 'штраф · нет показаний электро'));
             postMessage('khozyaika', {
               kind: 'incoming',
               senderName: 'Наталья Валерьевна',
-              text: 'Электросчётчик ждала три дня. Штраф $80. И розетку на кухне всё-таки проверьте.'
+              text: tStr('system.callback.khozyaika_electric_fine_msg', 'Электросчётчик ждала три дня. Штраф $80. И розетку на кухне всё-таки проверьте.')
             });
-            postMessage('scratch', { kind: 'system', text: '🔻 −$80 · электросчётчик не отправлен' });
+            postMessage('scratch', { kind: 'system', text: tStr('system.callback.khozyaika_electric_fine_scratch', '🔻 −$80 · электросчётчик не отправлен') });
           } else if (STATE._khozyaika_electric_pending && STATE.beat_khozyaika_rescue) {
             STATE._khozyaika_electric_pending = false;
           }
@@ -3947,9 +3995,9 @@
             postMessage('khozyaika', {
               kind: 'incoming',
               senderName: 'Наталья Валерьевна',
-              text: 'Не переслали письмо. Я же говорила про карму. Теперь не удивляйтесь.'
+              text: tStr('system.callback.khozyaika_chain_fine_msg', 'Не переслали письмо. Я же говорила про карму. Теперь не удивляйтесь.')
             });
-            postMessage('scratch', { kind: 'system', text: '🔻 −8 комфорт · хозяйка обиделась' });
+            postMessage('scratch', { kind: 'system', text: tStr('system.callback.khozyaika_chain_fine_scratch', '🔻 −8 комфорт · хозяйка обиделась') });
           } else if (STATE._khozyaika_chain_pending && STATE.beat_khozyaika_rescue) {
             STATE._khozyaika_chain_pending = false;
           }
@@ -3957,7 +4005,7 @@
           postMessage('sosed', {
             kind: 'incoming',
             senderName: 'сосед снизу',
-            text: 'вы где? я жду уже сутки. пятно стало больше.'
+            text: tStr('system.callback.sosed_retry', 'вы где? я жду уже сутки. пятно стало больше.')
           });
           STATE._sosed_pending = true;
         }
@@ -4074,7 +4122,7 @@
     if (STATE.comfort < 35 && Math.random() < 0.60) { // SPRINT 14 — more impulse
       var impulse = 50 + Math.floor(Math.random() * 50);
       STATE.cash -= impulse;
-      postBank(-impulse, 'импульсивная покупка · комфорт низкий');
+      postBank(-impulse, tStr('system.passive.impulse_memo', 'импульсивная покупка · комфорт низкий'));
     }
     // High comfort → energy regen
     if (STATE.comfort >= 70) {
@@ -4085,7 +4133,7 @@
     if (day === 10 && !STATE.beat_rent_10) {
       STATE.beat_rent_10 = true;
       STATE.cash -= 500;
-      postBank(-500, 'аренда · первая декада');
+      postBank(-500, tStr('system.passive.rent_1_memo', 'аренда · первая декада'));
     }
     if (day === 20 && !STATE.beat_rent_20) {
       STATE.beat_rent_20 = true;
@@ -4094,29 +4142,29 @@
         postMessage('khozyaika', {
           kind: 'incoming',
           senderName: 'Наталья Валерьевна',
-          text: 'Мариночка, помните я обещала — аренда до конца месяца не нужна. Не забудьте 🌸'
+          text: tStr('system.passive.khozyaika_rent_forgive', 'Мариночка, помните я обещала — аренда до конца месяца не нужна. Не забудьте 🌸')
         });
-        postMessage('scratch', { kind: 'system', text: '🏠 хозяйка простила вторую декаду · −$0' });
+        postMessage('scratch', { kind: 'system', text: tStr('system.passive.khozyaika_rent_forgive_scratch', '🏠 хозяйка простила вторую декаду · −$0') });
       } else {
         STATE.cash -= 500;
-        postBank(-500, 'аренда · вторая декада');
+        postBank(-500, tStr('system.passive.rent_2_memo', 'аренда · вторая декада'));
       }
     }
     if (day === 7 && !STATE.beat_food) {
       STATE.beat_food = true;
       STATE.cash -= 150;
-      postBank(-150, 'продукты · базовая закупка');
+      postBank(-150, tStr('system.passive.food_basic_memo', 'продукты · базовая закупка'));
     }
 
     // 115-ФЗ bank lock tick (BLOCK I)
     if (STATE.bank_locked && STATE.bank_locked_until && STATE.day >= STATE.bank_locked_until) {
       STATE.bank_locked = false;
       STATE.bank_locked_until = null;
-      postBank(0, 'блокировка снята · счёт разморожен');
+      postBank(0, tStr('system.bank_unlock.memo', 'блокировка снята · счёт разморожен'));
       postMessage('bank', {
         kind: 'incoming',
         senderName: 'Т-Банк',
-        text: 'Блокировка снята. Спасибо за ожидание. Операции доступны.'
+        text: tStr('system.bank_unlock.msg', 'Блокировка снята. Спасибо за ожидание. Операции доступны.')
       });
       // Кирилл пишет про тарелочницу если были свидания при блокировке
       if (STATE.plate_girl_count >= 2) {
@@ -4124,12 +4172,12 @@
           postMessage('kirill', {
             kind: 'incoming',
             senderName: 'Кирилл',
-            text: 'слушай. я за последние 2 недели угостил тебя ужином ' + STATE.plate_girl_count + ' раз. ты ни разу не предложила свой счёт.'
+            text: tStr('system.kirill_plate_girl.msg1_prefix', 'слушай. я за последние 2 недели угостил тебя ужином ') + STATE.plate_girl_count + tStr('system.kirill_plate_girl.msg1_suffix', ' раз. ты ни разу не предложила свой счёт.')
           });
           postMessage('kirill', {
             kind: 'incoming',
             senderName: 'Кирилл',
-            text: 'ты тарелочница. я не в обиде, но давай на этом закончим.'
+            text: tStr('system.kirill_plate_girl.msg2', 'ты тарелочница. я не в обиде, но давай на этом закончим.')
           });
           STATE.kirill_blocked = true;
           STATE._kirill_complaint_pending = true;
@@ -4147,7 +4195,7 @@
             p.status = 'delivered';
             STATE.delivered_projects = (STATE.delivered_projects || 0) + 1;
             STATE.cash += (p.final_due || 0);
-            postBank(p.final_due || 0, p.client + ' · финал за проект');
+            postBank(p.final_due || 0, p.client + tStr('system.contracts.finished_bank_memo_suffix', ' · финал за проект'));
           } else {
             // Missed deadline
             var roll = Math.random();
@@ -4156,11 +4204,11 @@
               p.status = 'clawback';
               STATE.cash -= (p.upfront_paid || 0);
               STATE.comfort = Math.max(0, STATE.comfort - 15);
-              postBank(-(p.upfront_paid || 0), p.client + ' · возврат аванса (срыв сроков)');
+              postBank(-(p.upfront_paid || 0), p.client + tStr('system.contracts.clawback_bank_memo_suffix', ' · возврат аванса (срыв сроков)'));
               postMessage(p.clientId || 'anna', {
                 kind: 'incoming',
                 senderName: p.client,
-                text: 'Марина, мы договаривались на ' + p.deadline_day + ' день. Я жду уже неделю. Верни аванс — я больше не могу ждать.'
+                text: tStr('system.contracts.clawback_client_msg_prefix', 'Марина, мы договаривались на ') + p.deadline_day + tStr('system.contracts.clawback_client_msg_suffix', ' день. Я жду уже неделю. Верни аванс — я больше не могу ждать.')
               });
             } else {
               p.status = 'missed';
@@ -4168,7 +4216,7 @@
               postMessage(p.clientId || 'anna', {
                 kind: 'incoming',
                 senderName: p.client,
-                text: 'ничего. найдём другого. извини.'
+                text: tStr('system.contracts.missed_client_msg', 'ничего. найдём другого. извини.')
               });
             }
           }
@@ -4179,7 +4227,7 @@
     // SPRINT 13 — Tim automation tiers (3 tiers, narrative as Marina POV)
     if (STATE.auto_reach_out) {
       STATE.leads = (STATE.leads || 0) + 1;
-      postMessage('scratch', { kind: 'outgoing', text: pick(AUTO_REACH_NARRATIVE) });
+      postMessage('scratch', { kind: 'outgoing', text: tPickOr('text.auto.reach_narrative', AUTO_REACH_NARRATIVE) });
       // Visual: ghost-fire reach_out button with particle burst
       setTimeout(function () {
         try { funnelBurstReachOut(true); } catch (e) {}
@@ -4188,7 +4236,7 @@
     if (STATE.auto_brief_lead && STATE.leads > 0) {
       STATE.leads -= 1;
       STATE.qualified_leads = (STATE.qualified_leads || 0) + 1;
-      postMessage('scratch', { kind: 'outgoing', text: pick(AUTO_BRIEF_NARRATIVE) });
+      postMessage('scratch', { kind: 'outgoing', text: tPickOr('text.auto.brief_narrative', AUTO_BRIEF_NARRATIVE) });
       setTimeout(function () {
         try { spawnParticle({ from: 'brief_lead', to: 'send_offer', kind: 'red', icon: '📞', duration: 700 }); } catch (e) {}
       }, 900);
@@ -4203,7 +4251,7 @@
       STATE.active_projects.push({
         id: (STATE.active_projects.length + STATE.delivered_projects + 100),
         clientId: 'scratch',
-        client: pick(['ai lead saas','ai d2c','ai b2b','ai study']),
+        client: pick(tPickOr('system.auto_project_clients', ['ai lead saas','ai d2c','ai b2b','ai study'])),
         progress: 0,
         work_units_done: 0,
         work_units_total: 6, // SPRINT 15 rev2 — same as manual
@@ -4214,8 +4262,8 @@
         deadline_day: STATE.day + 10, // SPRINT 15 — match manual deadline
         status: 'active'
       });
-      postBank(autoUpfront, 'AI оффер принят · upfront');
-      postMessage('scratch', { kind: 'outgoing', text: pick(AUTO_OFFER_NARRATIVE) });
+      postBank(autoUpfront, tStr('system.passive.auto_offer_bank_memo', 'AI оффер принят · upfront'));
+      postMessage('scratch', { kind: 'outgoing', text: tPickOr('text.auto.offer_narrative', AUTO_OFFER_NARRATIVE) });
       setTimeout(function () {
         try { spawnParticle({ from: 'send_offer', to: 'work_on_project', kind: 'red', icon: '📄', duration: 700 }); } catch (e) {}
       }, 1200);
@@ -4234,25 +4282,25 @@
     postMessage('kirill', {
       kind: 'incoming',
       senderName: 'Кирилл',
-      text: 'доброе утро. кофе на кухне, свежий. ушёл тихо, чтобы не будить.'
+      text: tStr('beat.kirill_day29_morning.msg1', 'доброе утро. кофе на кухне, свежий. ушёл тихо, чтобы не будить.')
     });
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'спасибо что вчера. редко бывает так спокойно.'
+        text: tStr('beat.kirill_day29_morning.msg2', 'спасибо что вчера. редко бывает так спокойно.')
       });
     }, 1400);
     setTimeout(function () {
       postMessage('kirill', {
         kind: 'incoming',
         senderName: 'Кирилл',
-        text: 'если что — я тут. без давления. просто здесь.'
+        text: tStr('beat.kirill_day29_morning.msg3', 'если что — я тут. без давления. просто здесь.')
       });
     }, 2800);
     STATE.kirill_affection = (STATE.kirill_affection || 0) + 1;
     STATE.comfort = Math.min(100, STATE.comfort + 10);
-    postMessage('scratch', { kind: 'system', text: '☕ +10💚 утро начинается тихо' });
+    postMessage('scratch', { kind: 'system', text: tStr('beat.kirill_day29_morning.system_line', '☕ +10💚 утро начинается тихо') });
   }
 
   // SPRINT 36 — Kirill brings dinner if Marina ignored him + is hungry (once)
@@ -4267,9 +4315,9 @@
       postMessage('lena', {
         kind: 'incoming',
         senderName: 'Лена',
-        text: 'подруга, у меня есть $300 наличкой на пару недель. не спорь. отдашь как сможешь.'
+        text: tStr('system.passive.lena_lifeline_msg', 'подруга, у меня есть $300 наличкой на пару недель. не спорь. отдашь как сможешь.')
       });
-      postBank(300, 'перевод от Лены · lifeline');
+      postBank(300, tStr('system.passive.lena_lifeline_bank', 'перевод от Лены · lifeline'));
     }
   }
 
@@ -4317,9 +4365,9 @@
     if (meetsWin) {
       showWin();
     } else if (STATE.delivered_projects === 0) {
-      showLose('no_traction', '30 дней · ни одного закрытого проекта');
+      showLose('no_traction', tStr('ending.win.reason_no_traction', '30 дней · ни одного закрытого проекта'));
     } else {
-      showLose('burnout', 'месяц закончился · проектов не добила');
+      showLose('burnout', tStr('ending.win.reason_burnout', 'месяц закончился · проектов не добила'));
     }
   }
 
@@ -4398,7 +4446,7 @@
     var $card = $('#rescue-overlay .overlay-card');
     $card.find('.ending-hero').remove();
     if (cfg.hero) {
-      $('<img class="ending-hero" />').attr('src', cfg.hero).attr('alt', 'кризис').prependTo($card);
+      $('<img class="ending-hero" />').attr('src', cfg.hero).attr('alt', tStr('rescue.overlay_alt', 'кризис')).prependTo($card);
     }
     $('#rescue-kicker').text(cfg.kicker);
     $('#rescue-reason').text(cfg.reason);
@@ -4424,6 +4472,13 @@
     save();
     $('#rescue-overlay').hide();
     renderDock();
+    // SPRINT 51 — inject viral share card on rescue (primary surface)
+    try {
+      if (window.MarinaViral) {
+        var $rescueCard = $('#rescue-overlay .overlay-card')[0];
+        if ($rescueCard) window.MarinaViral.renderCardForSurface('rescue', STATE, $rescueCard);
+      }
+    } catch (e) {}
   }
 
   function showWin() {
@@ -4443,7 +4498,7 @@
     // SPRINT 28 — hero image based on win type
     $card.find('.ending-hero').remove();
     var winHero = STATE.love_ending_unlocked ? 'img/endings/win_love.webp' : 'img/endings/win_main.webp';
-    $('<img class="ending-hero" />').attr('src', winHero).attr('alt', 'победа').prependTo($card);
+    $('<img class="ending-hero" />').attr('src', winHero).attr('alt', tStr('ending.win.hero_alt', 'победа')).prependTo($card);
     // SPRINT 42 — confetti burst on win
     try { spawnConfetti(120); } catch (e) {}
     if (STATE.love_ending_unlocked) {
@@ -4461,6 +4516,13 @@
       );
       $card.find('.overlay-body').after($love);
     }
+    // SPRINT 51 — inject viral share card on win (secondary surface)
+    try {
+      if (window.MarinaViral) {
+        $card.find('.viral-share-block').remove();
+        window.MarinaViral.renderCardForSurface('win', STATE, $card[0]);
+      }
+    } catch (e) {}
     $('#win-overlay').show();
   }
 
@@ -4469,6 +4531,14 @@
     save();
     track('game_lost', { reason: reason, day: STATE.day });
     $('#lose-reason').text(reasonText);
+    // SPRINT 51 — inject viral share card on lose (PRIMARY surface — highest reach)
+    try {
+      if (window.MarinaViral) {
+        var $loseCard = $('#lose-overlay .overlay-card');
+        $loseCard.find('.viral-share-block').remove();
+        window.MarinaViral.renderCardForSurface('lose', STATE, $loseCard[0]);
+      }
+    } catch (e) {}
 
     // SPRINT 28 — set hero image based on lose reason
     var $card = $('#lose-overlay .overlay-card');
@@ -4478,7 +4548,7 @@
     else if (reason === 'no_traction') heroSrc = 'img/endings/lose_empty_inbox.webp';
     else heroSrc = 'img/endings/lose_hospital.webp'; // burnout default
     if (heroSrc) {
-      $('<img class="ending-hero" />').attr('src', heroSrc).attr('alt', 'финал')
+      $('<img class="ending-hero" />').attr('src', heroSrc).attr('alt', tStr('ending.lose.hero_alt', 'финал'))
         .prependTo($card);
     }
 
@@ -4510,7 +4580,7 @@
         ''
       ];
     } else {
-      lines = ['бывает.'];
+      lines = [tStr('ending.lose.fallback.0', 'бывает.')];
     }
     lines.forEach(function (l) {
       $body.append($('<p>').text(l));
@@ -4541,10 +4611,10 @@
         postMessage('tim', {
           kind: 'incoming',
           senderName: 'Тим',
-          text: 'прочитал. спасибо что без фильтров.\n\nтри вещи на завтра утром:\n1. разложить почту по воронке (cold / качественный / в работе / сдано)\n2. срезать одну мёртвую задачу — ту, что откладываешь четвёртый день\n3. забронировать два часа без чата, писать одно дело\n\nзакину шаблоны — увидишь эффект.'
+          text: tStr('system.lead_form.tim_message', 'прочитал. спасибо что без фильтров.\n\nтри вещи на завтра утром:\n1. разложить почту по воронке (cold / качественный / в работе / сдано)\n2. срезать одну мёртвую задачу — ту, что откладываешь четвёртый день\n3. забронировать два часа без чата, писать одно дело\n\nзакину шаблоны — увидишь эффект.')
         });
-        postBank(200, 'Тим закинул шаблоны · оплата от клиента который ждал');
-        postMessage('scratch', { kind: 'system', text: '+2 лида · +$200 · +15 энергии · automation on' });
+        postBank(200, tStr('system.lead_form.bank_memo', 'Тим закинул шаблоны · оплата от клиента который ждал'));
+        postMessage('scratch', { kind: 'system', text: tStr('system.lead_form.scratch_cue', '+2 лида · +$200 · +15 энергии · automation on') });
         save();
         Bubbles.clearChipsArea();
         renderDock();
@@ -4561,20 +4631,20 @@
   function renderAnnaReferralChoice() {
     if (!STATE._anna_referral_pending) return;
     Bubbles.renderReplyChips([
-      { id: 'take',    label: 'взять второй проект ($350 upfront + $450 final, 7 дн)' },
-      { id: 'decline', label: 'отказать (не вытяну)' }
+      { id: 'take',    label: tStr('beat.anna_referral.chip_take', 'взять второй проект ($350 upfront + $450 final, 7 дн)') },
+      { id: 'decline', label: tStr('beat.anna_referral.chip_decline', 'отказать (не вытяну)') }
     ], function (opt) {
       STATE._anna_referral_pending = false;
       Bubbles.clearChipsArea();
       bumpInteraction();
       if (opt.id === 'take') {
-        postOutgoing('anna', 'беру. скидывай договор');
+        postOutgoing('anna', tStr('system.anna_referral_choice.take_outgoing', tStr('system.anna_choice.take_outgoing', 'беру. скидывай договор')));
         setTimeout(function () {
-          postIncoming('anna', 'ура, отправила', 'Анна');
+          postIncoming('anna', tStr('system.anna_referral_choice.take_reply', tStr('system.anna_choice.take_reply', 'ура, отправила')), 'Анна');
           var project = {
             id: STATE.active_projects.length + STATE.delivered_projects + 1,
             clientId: 'anna',
-            client: 'email-серия для Анны #2',
+            client: tStr('system.anna_referral_choice.client_label', 'email-серия для Анны #2'),
             progress: 0,
             work_units_done: 0,
             work_units_total: 6,
@@ -4587,14 +4657,14 @@
           };
           STATE.active_projects.push(project);
           STATE.cash += 350;
-          postBank(350, 'upfront · второй проект Анны');
-          postMessage('scratch', { kind: 'system', text: '+$350 upfront · проект #' + project.id + ' (Анна #2)' });
+          postBank(350, tStr('system.anna_referral_choice.take_bank_memo', 'upfront · второй проект Анны'));
+          postMessage('scratch', { kind: 'system', text: tStr('system.anna_referral_choice.take_scratch_prefix', '+$350 upfront · проект #') + project.id + tStr('system.anna_referral_choice.take_scratch_suffix', ' (Анна #2)') });
           save(); renderDock();
         }, 700);
       } else {
-        postOutgoing('anna', 'Аня, не сейчас. не вытяну второй параллельно.');
+        postOutgoing('anna', tStr('system.anna_referral_choice.decline_outgoing', 'Аня, не сейчас. не вытяну второй параллельно.'));
         setTimeout(function () {
-          postIncoming('anna', 'поняла, береги себя. найду другого.', 'Анна');
+          postIncoming('anna', tStr('system.anna_referral_choice.decline_reply', 'поняла, береги себя. найду другого.'), 'Анна');
           save(); renderDock();
         }, 600);
       }
@@ -4604,8 +4674,8 @@
   function renderAnnaChoice() {
     if (!STATE._anna_pending) return;
     Bubbles.renderReplyChips([
-      { id: 'anna_take', label: 'взять проект ($250 upfront + $300 final)' },
-      { id: 'anna_decline', label: 'отказать (слишком быстро)' }
+      { id: 'anna_take', label: tStr('beat.anna_offer.chip_take', 'взять проект ($250 upfront + $300 final)') },
+      { id: 'anna_decline', label: tStr('beat.anna_offer.chip_decline', 'отказать (слишком быстро)') }
     ], function (opt) {
       STATE._anna_pending = false;
       if (opt.id === 'anna_take') {
@@ -4615,7 +4685,7 @@
           var project = {
             id: STATE.active_projects.length + STATE.delivered_projects + 1,
             clientId: 'anna',
-            client: 'лендинг анны',
+            client: tStr('system.anna_choice.client_label', 'лендинг анны'),
             progress: 0,
             work_units_done: 0,
             work_units_total: 6, // SPRINT 15 — was missing, project never tracked completion
@@ -4628,15 +4698,15 @@
           };
           STATE.active_projects.push(project);
           STATE.cash += 250;
-          postBank(250, 'upfront · проект анны');
-          postMessage('scratch', { kind: 'system', text: '+$250 upfront · проект #' + project.id + ' в работе' });
+          postBank(250, tStr('system.anna_choice.take_bank_memo', 'upfront · проект анны'));
+          postMessage('scratch', { kind: 'system', text: tStr('system.anna_choice.take_scratch_prefix', '+$250 upfront · проект #') + project.id + tStr('system.anna_choice.take_scratch_suffix', ' в работе') });
           Bubbles.clearChipsArea();
           save(); renderDock();
         }, 600);
       } else {
-        postOutgoing('anna', 'прости, не сейчас');
+        postOutgoing('anna', tStr('system.anna_choice.decline_outgoing', 'прости, не сейчас'));
         setTimeout(function () {
-          postIncoming('anna', 'поняла. удачи', 'Анна');
+          postIncoming('anna', tStr('system.anna_choice.decline_reply', 'поняла. удачи'), 'Анна');
           Bubbles.clearChipsArea();
           save(); renderDock();
         }, 500);

@@ -1902,3 +1902,146 @@ body.dock-collapsed #action-dock {
   .bb-value { font-size: 24px; }
   .love-bonus { margin: 14px 0 4px; padding: 14px 16px; }
 }
+
+/* SPRINT 51 — viral share mechanic */
+.viral-share-block {
+  margin: 16px 0;
+  padding: 14px 16px;
+  background: rgba(255, 90, 30, 0.08);
+  border: 1px solid rgba(255, 90, 30, 0.25);
+  border-radius: 8px;
+}
+.viral-tim-message {
+  font-size: 14px;
+  color: #d4d4d4;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.viral-card-inline {
+  background: rgba(0, 0, 0, 0.35);
+  color: #e8e8e8;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 0 0 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.viral-share-btn {
+  background: #ff5a1e;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+.viral-share-btn:hover { background: #ff7a3e; }
+
+.viral-modal {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+}
+.viral-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+}
+.viral-modal-card {
+  position: relative;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 520px;
+  width: calc(100% - 32px);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.viral-modal-close {
+  position: absolute; top: 12px; right: 12px;
+  background: none; border: none;
+  color: #999; font-size: 20px;
+  cursor: pointer; padding: 4px 8px;
+}
+.viral-modal-close:hover { color: white; }
+.viral-modal-title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  color: white;
+}
+.viral-card-preview {
+  background: #0a0a0a;
+  color: #e8e8e8;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 14px;
+  border-radius: 6px;
+  margin: 0 0 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-height: 35vh;
+  overflow-y: auto;
+}
+.viral-share-buttons {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.viral-platform-btn {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  flex: 1 1 auto;
+  min-width: 100px;
+}
+.viral-platform-btn:hover { background: #3a3a3a; border-color: #666; }
+
+.viral-toast {
+  position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 10001;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+.viral-toast.fade-out { opacity: 0; }
+
+/* Language overlay (SPRINT 49) */
+.lang-card {
+  max-width: 420px;
+  text-align: center;
+}
+.lang-overlay-title {
+  font-size: 16px;
+  color: #c0c0c0;
+  margin: 0 0 20px;
+  font-weight: normal;
+  line-height: 1.5;
+}
+.lang-overlay-buttons {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.lang-btn {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.lang-btn:hover { background: #3a3a3a; border-color: #ff5a1e; }

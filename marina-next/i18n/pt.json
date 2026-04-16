@@ -1,0 +1,1221 @@
+{
+  "_meta": {
+    "lang": "pt",
+    "name": "Português (BR)",
+    "name_native": "Português",
+    "version": "2.8.0",
+    "_note": "Locale PT-BR — adaptado culturalmente para o contexto de founder em São Paulo. Marina = Vila Madalena/Pinheiros, Nubank, revisão COAF, Tinder, rolês na Faria Lima. Traduzido de ru.json (source of truth)."
+  },
+  "lead": {
+    "header": {
+      "finale": "──── mandar dm pro tim (30 seg) ────",
+      "default": "──── bloco de notas ────"
+    },
+    "field": {
+      "name_label": "como posso te chamar",
+      "handle_label": "@telegram (3-32 caracteres: letras, dígitos, _)",
+      "handle_placeholder": "@username",
+      "pain_label": "o que tá pegando fogo agora"
+    },
+    "button": {
+      "submit": "save",
+      "cancel": "cancel",
+      "sending": "sending..."
+    },
+    "error": {
+      "name_required": "nome é obrigatório, até 60 caracteres.",
+      "handle_invalid": "telegram: 3-32 caracteres, letras/dígitos/underscores.",
+      "pain_required": "escreve o que tá pegando fogo. até 500 caracteres.",
+      "session_short": "sessão curta demais. espera mais um pouco.",
+      "delivery_failed": "não foi. tenta de novo daqui a um minuto.",
+      "rate_limit": "tentativas demais. tenta daqui a uma hora.",
+      "bad_data": "tem algo estranho nos dados. confere seu @handle.",
+      "cors_blocked": "bloqueado pelo cors. manda dm pro tim direto."
+    }
+  },
+  "bubble": {
+    "bank_default_name": "Nubank",
+    "photo_alt": "anexo",
+    "photo_error": "[📷 anexo indisponível]",
+    "empty": {
+      "team": "time ainda não montado · continua atrás de cliente",
+      "money": "só o banco na pasta «dinheiro» por enquanto",
+      "spam": "silêncio por enquanto · spam ainda não chegou",
+      "all": "vazio · continua jogando",
+      "fallback": "vazio"
+    },
+    "funnel": {
+      "cold_label": "cold",
+      "cold_desc": "leads frios",
+      "qualified_label": "qualified",
+      "qualified_desc": "passaram no discovery",
+      "in_progress_label": "em andamento",
+      "in_progress_desc": "projetos ativos",
+      "delivered_label": "entregue",
+      "delivered_desc": "esse mês · meta 3",
+      "empty": "— vazio —"
+    },
+    "chat": {
+      "no_contact_placeholder": "—",
+      "status_online": " · online",
+      "status_recent": " · ativo recentemente"
+    },
+    "lamp_cta": "💻 ligar o notebook"
+  },
+  "contact": {
+    "lena": {
+      "name": "Camila",
+      "subtitle": "ex-colega · rio"
+    },
+    "anna": {
+      "name": "Beatriz",
+      "subtitle": "primeira cliente"
+    },
+    "tim": {
+      "name": "Tim",
+      "subtitle": "criador do jogo · kaş, turquia"
+    },
+    "bank": {
+      "name": "Nubank",
+      "subtitle": "Nubank · notificações da conta"
+    },
+    "khozyaika": {
+      "name": "Dona Lúcia",
+      "subtitle": "senhoria"
+    },
+    "pavel": {
+      "name": "Pedro (ex)",
+      "subtitle": "ex · 4 meses de silêncio"
+    },
+    "mama": {
+      "name": "Mãe",
+      "subtitle": "mãe · sempre no pé"
+    },
+    "denis": {
+      "name": "Diego",
+      "subtitle": "Diego · festeiro"
+    },
+    "olya": {
+      "name": "Letícia (turma '18)",
+      "subtitle": "turma '18 · círculo feminino"
+    },
+    "kirill": {
+      "name": "Caio (Tinder)",
+      "subtitle": "Tinder · ele que paga"
+    },
+    "krypta": {
+      "name": "mano cripto",
+      "subtitle": "nem sabe teu nome"
+    },
+    "artur": {
+      "name": "Arthur (ex-chefe)",
+      "subtitle": "ex-chefe"
+    },
+    "vera": {
+      "name": "Profª Vera",
+      "subtitle": "professora aposentada · facebook"
+    },
+    "sosed": {
+      "name": "vizinho de baixo",
+      "subtitle": "apto 23"
+    },
+    "svetka": {
+      "name": "Sofia (amiga)",
+      "subtitle": ""
+    },
+    "nastya": {
+      "name": "Natália (colega)",
+      "subtitle": ""
+    },
+    "lyuda": {
+      "name": "Ludmila (não é você)",
+      "subtitle": "número errado"
+    },
+    "ozon": {
+      "name": "iFood entregador",
+      "subtitle": "seu pedido?"
+    },
+    "taxi": {
+      "name": "motorista 99",
+      "subtitle": "motorista aleatório"
+    },
+    "student": {
+      "name": "aluno USP",
+      "subtitle": "tcc pegando fogo"
+    },
+    "katya": {
+      "name": "Kátia dos cavalos",
+      "subtitle": "Kátia do antigo trabalho"
+    },
+    "teshcha": {
+      "name": "número desconhecido",
+      "subtitle": "sogra de alguém"
+    },
+    "marathon": {
+      "name": "Círculo Feminino",
+      "subtitle": "grupo de empoderamento"
+    },
+    "scratch": {
+      "name": "para você",
+      "subtitle": "notas pessoais"
+    }
+  },
+  "text": {
+    "reach_out": {
+      "outgoing": [
+        "mandando cold outreach. 20 endereços. linkedin + email",
+        "prospectando no slack de founders. 7 dms",
+        "garimpando twitter: gente reclamando de agência",
+        "rodando discovery pelo sales navigator",
+        "sacudindo ex-colegas atrás de intro",
+        "fuçando wellfound, gravando cold looms"
+      ],
+      "hit_reply": [
+        "«interessante, vamos marcar uma call amanhã 14h»",
+        "«oi! me conta mais dos preços»",
+        "«a gente tá lançando um produto novo, me chama»",
+        "«não sou eu quem decide, mas passo pra colega — ela te chama»",
+        "«dá pra conversar, tenho 15 min quinta»"
+      ],
+      "miss_silence": [
+        "silêncio. zero resposta",
+        "um «não temos interesse, boa sorte»",
+        "três auto-reply, o resto ghostou",
+        "mod apagou o post no slack",
+        "todos os 20 emails — visualizados, sem resposta"
+      ]
+    },
+    "work": [
+      "escrevendo landing page. h1, sub, 3 blocos de dor",
+      "montando sequência de email no mailchimp",
+      "comendo revisão. terceira rodada. metade igual à anterior",
+      "em call com cliente: «o que mais dói agora?»",
+      "escrevendo roteiros de reels. 5 × 30 seg",
+      "no figma: moodboard, primeiro wireframe",
+      "passando pelos feedbacks de ontem, reescrevendo headline",
+      "exportando final, zipando, mandando entrega"
+    ],
+    "brief": [
+      "perguntando sobre orçamento e prazo",
+      "descobrindo quem decide: quem assina",
+      "checando atividade: eles têm produto rodando agora?",
+      "testando fit: «se não engrenar em uma semana — e aí?»"
+    ],
+    "rest": [
+      "coei café, deixei a água esfriar. olhando pela janela",
+      "fui pra sacada. em pé como se fumasse, sem fumar",
+      "deitei 20 min com o celular",
+      "desci até a padaria pegar pão",
+      "botei a chaleira, esqueci, botei de novo"
+    ],
+    "eat_home": [
+      "macarrão com queijo. não é restaurante, mas pelo menos algo quente",
+      "arroz com feijão e ovo. esquema da vó. funciona",
+      "ovos mexidos, três ovos. café. olhando pra parede",
+      "comendo iogurte com banana direto do pote. preguiça de tigela",
+      "congelando metade da lasanha do Pão de Açúcar. tranquilo"
+    ],
+    "eat_out": [
+      "pedi bowl de salmão e café pelo iFood · dopamine hit",
+      "entrei num bistrô da esquina. carbonara. sozinha na mesa da janela",
+      "restaurante com vista pro rio. filé, taça de vinho. me sinto meio humana de novo",
+      "lugar de dim sum no shopping. sozinha, com livro. silêncio bom",
+      "combo de sushi com cupom. romantismo tristinho mas satisfaz"
+    ],
+    "shopping": [
+      "comprei um casaquinho gostoso na Renner. coisinha, mas humor +50",
+      "tênis novo em promoção. com ele sinto que corro mais rápido (não vou)",
+      "aquele vestido que eu queria há séculos. ainda não é meu tamanho, mas é meu. felicidade",
+      "haul na Sephora. paleta de sombra e batom. vou pintar a cara amanhã",
+      "caderno moleskine + caneca térmica. kit de trabalho renovado"
+    ],
+    "work_night": [
+      "virei até as 4 da manhã · tela queimando os olhos · projeto andando",
+      "chá da terceira infusão, ventoinha do notebook no máximo, vizinhos dormindo",
+      "amanhecer azul na janela. não dormi. mas o trabalho quase pronto",
+      "beliscada da madrugada: castanha, miojo, chá. botão save apertado 47 vezes",
+      "fone, lofi hip hop, mãos no piloto automático. 3:47 da manhã"
+    ],
+    "date_kirill": [
+      "encontro com o Caio · jantar tristinho, mas ele paga",
+      "com o Caio num café. ele falando de cripto trading. eu concordo e como salada",
+      "com o Caio num bar. ele pediu drink com guarda-chuvinha. eu pedi filé. tranquilo",
+      "jantar com o Caio. ele tenta segurar minha mão. eu não afasto. estranho e quentinho",
+      "Caio me levou no cinema e café depois. até me acompanhou no metrô. talvez ele não seja tão ruim"
+    ],
+    "hangout_denis": [
+      "com o Diego na orla · vinho, risada, mar, 4 horas voaram que nem 40 min",
+      "festinha na casa do Diego. violão, vinho, 12 pessoas, ri até chorar",
+      "Parque Ibirapuera com o Diego. bike, guaraná, churrasco, pôr do sol",
+      "balada com o Diego. abafado, alto, caro, mas dancei três horas seguidas",
+      "catamarã em Ilhabela. vento, respingo de água, Diego no leme, rindo que nem criança"
+    ],
+    "morning": {
+      "hungry": [
+        "perdi o despertador. estômago queimando — três dias só café e miojo",
+        "acordei com vontade de carne de verdade. não soja. nada na geladeira",
+        "cabeça roda quando levanto. preciso comer comida de verdade ou não aguento",
+        "esqueci meu nome por uns segundos. isso é normal? é a fome?",
+        "manhã. sentada na cozinha, olhando pra geladeira vazia, planejando compra otimizada de $10"
+      ],
+      "tired": [
+        "despertador 8:30. 10:45 ainda na cama. braço que nem gelatina",
+        "acordei com sensação de ter corrido maratona em sonho. não fiz nada a semana toda",
+        "café da terceira infusão. olho fechando sozinho. preciso de um dia de silêncio e não tenho",
+        "alguém me sugou. fisicamente. deitada, olhando pro teto, contando as rachaduras",
+        "quanto tempo dá pra acordar cansada. isso já não é cansaço — é metamorfose"
+      ],
+      "sad": [
+        "acordei às 5 da manhã sem motivo. tudo calmo e eu triste e não sei por quê",
+        "queria ligar pra mãe e não consigo. não sei o que dizer além de «tá tudo mal»",
+        "lendo meus posts antigos no telegram e não reconheço a menina que escreveu. quando virei isso",
+        "chorando no banho. não aconteceu nada. só acumulou",
+        "manhã. olhando no espelho. quem é essa pessoa. sério"
+      ],
+      "fine": [
+        "acordei antes do despertador. que tipo de milagre",
+        "café, sol na janela, três pensamentos na cabeça em vez de cem. manhã rara",
+        "me sinto viva hoje. graças ao jantar de ontem",
+        "daquelas manhãs em que eu consigo",
+        "hoje vai dar certo. tô sentindo"
+      ],
+      "hangover": [
+        "acordei 11h. cabeça de concreto. café não ajuda. preço de trabalhar de madrugada",
+        "despertador 8h. notebook ainda quente da noite passada. eu tô gelada. mãos não obedecem",
+        "metade da noite trabalhando, metade olhando pro teto. resultado: meio dia perdido",
+        "amanhecer. tela cegando. dormi no notebook. pescoço dói, costas doem, tudo dói"
+      ]
+    },
+    "work_hungry": [
+      "tentando escrever. letras borrando. quando foi que comi pela última vez?",
+      "editando. relendo a mesma frase três vezes. cérebro offline",
+      "trabalho andando na metade da velocidade. estômago roncando que nem trator",
+      "sentada, olhando pra tela. pensamento não engata. preciso comer"
+    ],
+    "auto": {
+      "reach_narrative": [
+        "abri o notebook · na caixa de entrada já tem resposta de um dos cold outreach em background. o bot AI do Tim trabalhou de madrugada",
+        "fui dormir — inbox vazia. acordei — três respostas. uma real, duas visualizadas. não entendo como funciona, mas funciona",
+        "bot do Tim mandou 20 cold outreach enquanto eu dormia. um respondeu. só tomo café e leio. estranho",
+        "notificação 7:12 da manhã: «novo lead». a AI fez o trabalho dela. nem sei o que responder — vejo depois",
+        "acordando num mundo onde meu cold farming roda sem mim. não sei onde isso vai parar, mas por enquanto funciona"
+      ],
+      "brief_narrative": [
+        "AI do Tim conduziu a call por mim. mandou a transcrição: cliente sensato, budget $200+, precisa de landing page. lead qualificado",
+        "abrindo transcript AI: «cliente disse, quero lançar em uma semana, topo pagar». qualificado. nem falei com ele",
+        "bot fechou o primeiro contato no discovery, direto pra qualified. li as pipeline-notes e percebi que não preciso ligar",
+        "AI caller: 23 minutos, 4 follow-ups, fechou pro próximo passo. nesse tempo tomei café e olhei pela janela",
+        "primeira vez na vida que alguém rodou uma call por mim. mistura estranha de gratidão e uma pontada de culpa"
+      ],
+      "offer_narrative": [
+        "AI mandou a proposta e negociou. cliente topou upfront. acabei de ler o diálogo — negociação decente, não forçou demais",
+        "notificação: «contrato assinado». AI fez tudo. upfront já no banco. confiro três vezes, não acredito",
+        "bot mandou a proposta, cliente topou em 4 horas. eu tava passeando nessa hora. dinheiro chegou sozinho",
+        "AI barganhando: começou com $280, cliente recuou, AI contra-ofertou $240, aceitou. eu teria cedido",
+        "o funil inteiro roda sem mim. primeiro contato → discovery → oferta → upfront. só falta fazer o projeto. assusta e liberta ao mesmo tempo"
+      ]
+    }
+  },
+  "action": {
+    "reach_out": {
+      "label": "prospectar clientes",
+      "label_auto": "🤖 prospectar clientes",
+      "cost": "1h · −5⚡",
+      "cost_auto": "AI faz",
+      "reason_auto": "AI automatizado",
+      "reason_no_hours": "sem horas",
+      "reason_no_energy": "sem energia"
+    },
+    "brief_lead": {
+      "label": "call de discovery",
+      "label_auto": "🤖 call de discovery",
+      "cost": "1h · −3⚡",
+      "cost_auto": "AI faz",
+      "reason_auto": "AI automatizado",
+      "reason_no_leads": "sem leads",
+      "reason_no_hours": "sem horas",
+      "reason_no_energy": "sem energia"
+    },
+    "send_offer": {
+      "label": "enviar proposta",
+      "label_auto": "🤖 enviar proposta",
+      "cost": "1h",
+      "cost_auto": "AI faz",
+      "reason_auto": "AI automatizado",
+      "reason_bank_locked": "conta bloqueada",
+      "reason_no_qualified": "sem discovery",
+      "reason_no_hours": "sem horas"
+    },
+    "work_on_project": {
+      "label": "fazer o trabalho",
+      "cost": "2h · −5⚡",
+      "reason_no_projects": "sem projetos",
+      "reason_no_hours": "sem horas",
+      "reason_no_energy": "sem energia"
+    },
+    "work_night": {
+      "label": "🌙 virada",
+      "cost": "−15⚡ · −15💚",
+      "reason_too_early": "disponível a partir do dia 3",
+      "reason_no_projects": "sem projetos",
+      "reason_day_work_first": "faz o trabalho do dia primeiro",
+      "reason_no_energy": "energia baixa"
+    },
+    "eat_home": {
+      "label": "🍝 comer em casa",
+      "cost_day": "1h · −$15",
+      "cost_evening": "jantar · −$15",
+      "reason_bank_locked": "conta bloqueada",
+      "reason_no_money": "sem dinheiro"
+    },
+    "eat_out": {
+      "label": "🥗 restaurante",
+      "cost_day": "1h · −$35",
+      "cost_evening": "jantar · −$35",
+      "reason_bank_locked": "conta bloqueada",
+      "reason_no_money": "sem dinheiro"
+    },
+    "rest": {
+      "label": "☕ pausa",
+      "cost": "1h · +30⚡",
+      "reason_max_energy": "energia no máximo",
+      "reason_too_much_coffee": "cafeína demais",
+      "reason_no_hours": "sem horas"
+    },
+    "shopping": {
+      "label": "🛍 compras",
+      "cost": "2h · −$80",
+      "reason_too_early": "a partir do dia 5",
+      "reason_bank_locked": "conta bloqueada",
+      "reason_no_resources": "recursos insuficientes"
+    },
+    "date_kirill": {
+      "label": "💔 encontro (Caio)",
+      "cost": "3h · −10⚡",
+      "reason_no_invite": "Caio não tá chamando agora",
+      "reason_no_energy": "sem energia",
+      "reason_no_hours": "sem horas"
+    },
+    "hangout_denis": {
+      "label": "🎉 com o Diego",
+      "cost_pending": "responde no chat",
+      "cost_waiting": "esperando convite",
+      "reason_no_invite": "responde o convite do Diego no chat"
+    },
+    "end_day": {
+      "label": "🌙 dormir",
+      "label_forced": "🌙 dormir — dia acabou",
+      "cost": "fim do dia"
+    },
+    "lamp": {
+      "label": "ligar o notebook"
+    }
+  },
+  "brand": {
+    "version_prefix": "teledram v",
+    "status": {
+      "bank_locked": "🔒 conta bloqueada",
+      "very_hungry": "🍔 com muita fome",
+      "exhausted": "⚡ no limite",
+      "sad": "💔 triste",
+      "tired": "😮‍💨 cansada"
+    }
+  },
+  "crisis": {
+    "bank_locked": "🔒 CONTA EM REVISÃO COAF · faltam {daysLeft} dias",
+    "starving": "🍔 MARINA COM FOME · energia caindo rápido · come alguma coisa",
+    "burnout": "⚡ MARINA NO LIMITE · pausa urgente",
+    "broke": "💰 SALDO CRÍTICO · −${absCash} · entrega um projeto ou perde o apê",
+    "comfort_zero": "💔 CONFORTO ZERADO · tá queimando · compra/come/amigos",
+    "hungry_warn": "🍔 com fome · vontade de comida de verdade",
+    "tired_warn": "⚡ cansada · hora de descansar"
+  },
+  "system": {
+    "hangover_note": "☕ depois da virada · energia não recuperou",
+    "reach_out": {
+      "unknown_contact": "contato desconhecido"
+    },
+    "callback": {
+      "pavel_return_text": "valeu por me salvar. tô honrando a palavra — devolvi $450. sem atraso.",
+      "pavel_return_bank": "devolução do Pedro (com juros)",
+      "pavel_delay": "oi. tô apertado aqui. mais uma ou duas semanas.",
+      "pavel_week_note": "Pedro prometendo semana que vem...",
+      "pavel_broken_promise": "foi mal. não consegui.",
+      "pavel_no_return_note": "Pedro não devolveu o dinheiro",
+      "bank_115_lock": "Sua conta está TEMPORARIAMENTE EM REVISÃO COAF. Transferência pra exchange de cripto foi marcada como movimento atípico. Operações pausadas até a apuração.",
+      "bank_lock_note": "🔒 conta bloqueada · 6 dias · não pode gastar",
+      "kirill_free_dinner": "oi. bora jantar hoje? eu pago, você só aparece",
+      "khozyaika_fine_meters": "Eu avisei sobre os medidores. Multa de $100 descontada. Seja mais responsável.",
+      "khozyaika_fine_meters_bank": "multa dos medidores · senhoria",
+      "khozyaika_water_fine_msg": "Marina, o prazo passou. Não recebi a leitura da água. Multa de $100 descontada do depósito. Muito decepcionada.",
+      "khozyaika_water_fine_bank": "multa · sem leitura de água",
+      "khozyaika_water_fine_scratch": "🔻 −$100 · senhoria não recebeu leitura de água",
+      "khozyaika_electric_fine_msg": "Esperei três dias pela leitura de luz. Multa $80. E olha aquela tomada da cozinha, por favor.",
+      "khozyaika_electric_fine_bank": "multa · sem leitura de luz",
+      "khozyaika_electric_fine_scratch": "🔻 −$80 · leitura de luz não enviada",
+      "khozyaika_chain_fine_msg": "Não repassou a mensagem. Eu avisei sobre carma. Agora não se surpreenda.",
+      "khozyaika_chain_fine_scratch": "🔻 −8 conforto · senhoria ofendida",
+      "sosed_retry": "cadê você? já esperei um dia inteiro. a mancha aumentou."
+    },
+    "bank_unlock": {
+      "memo": "bloqueio removido · conta desbloqueada",
+      "msg": "Revisão concluída. Obrigado pela paciência. Operações liberadas."
+    },
+    "kirill_plate_girl": {
+      "msg1_prefix": "escuta. nas últimas 2 semanas eu paguei teu jantar ",
+      "msg1_suffix": " vezes. você nem uma vez ofereceu dividir.",
+      "msg2": "você tá me usando. sem mágoa, mas vamos parar por aqui."
+    },
+    "contracts": {
+      "finished_bank_memo_suffix": " · final do projeto",
+      "clawback_client_msg_prefix": "Marina, a gente combinou ",
+      "clawback_client_msg_suffix": " dias. Já faz uma semana. Devolve o upfront — não dá mais pra esperar.",
+      "clawback_bank_memo_suffix": " · upfront devolvido (prazo perdido)",
+      "missed_client_msg": "tranquilo. a gente acha outro. desculpa."
+    },
+    "passive": {
+      "rent_1_memo": "aluguel · primeira quinzena",
+      "rent_2_memo": "aluguel · segunda quinzena",
+      "food_basic_memo": "mercado · compra básica",
+      "khozyaika_rent_forgive": "Marininha, lembra que eu prometi — aluguel até o fim do mês não precisa. Não esqueça 🌸",
+      "khozyaika_rent_forgive_scratch": "🏠 senhoria perdoou a segunda quinzena · −$0",
+      "impulse_memo": "compra impulsiva · conforto baixo",
+      "auto_offer_bank_memo": "proposta AI aceita · upfront",
+      "lena_lifeline_msg": "amiga, tenho $300 em espécie por umas duas semanas. não discute. devolve quando puder.",
+      "lena_lifeline_bank": "transferência da Camila · lifeline"
+    },
+    "auto_project_clients": [
+      "ai lead saas",
+      "ai d2c",
+      "ai b2b",
+      "ai study"
+    ],
+    "lead_form": {
+      "tim_message": "li. valeu por não filtrar.\n\ntrês coisas pra amanhã de manhã:\n1. organizar o inbox no funil (cold / qualified / em andamento / entregue)\n2. cortar uma tarefa morta — aquela que você tá empurrando há quatro dias\n3. bloquear duas horas sem chat, uma coisa só\n\nvou te mandar os templates — você vai ver o efeito.",
+      "bank_memo": "Tim mandou os templates · pagamento de cliente que esperava",
+      "scratch_cue": "+2 leads · +$200 · +15 energia · automation on"
+    },
+    "anna_choice": {
+      "take_outgoing": "tô dentro. manda o contrato",
+      "take_reply": "eba, enviei",
+      "take_bank_memo": "upfront · projeto da bia",
+      "take_scratch_prefix": "+$250 upfront · projeto #",
+      "take_scratch_suffix": " em andamento",
+      "client_label": "landing da beatriz",
+      "decline_outgoing": "foi mal, agora não",
+      "decline_reply": "entendi. boa sorte"
+    },
+    "anna_referral_choice": {
+      "take_outgoing": "tô dentro. manda o contrato",
+      "take_reply": "eba, enviei",
+      "take_bank_memo": "upfront · segundo projeto da Beatriz",
+      "take_scratch_prefix": "+$350 upfront · projeto #",
+      "take_scratch_suffix": " (Beatriz #2)",
+      "client_label": "sequência de email pra Beatriz #2",
+      "decline_outgoing": "Bia, agora não. não rola carregar um segundo em paralelo.",
+      "decline_reply": "entendi, se cuida. acho outro."
+    }
+  },
+  "ui": {
+    "brand": {
+      "title": "🔥 Marina em Chamas",
+      "subtitle": "teledram"
+    },
+    "folder": {
+      "all": "todos",
+      "funnel": "🎯 funil",
+      "team": "👥 time",
+      "money": "💰 dinheiro"
+    },
+    "chat": {
+      "back_aria": "voltar",
+      "typing": "marina digitando"
+    },
+    "dock": {
+      "actions": "ações",
+      "collapse_title": "recolher/expandir painel",
+      "collapse_aria": "recolher",
+      "audio_title": "música on/off",
+      "audio_aria": "música"
+    },
+    "footer": {
+      "version": "survival",
+      "reset_title": "começar de novo",
+      "shortcuts_title": "atalhos",
+      "shortcuts_text": "⌨ 1–9 ações · Space fim do dia · ↑↓ contatos",
+      "change_lang": "🌐 idioma",
+      "terminal_link": "terminal v1.6a",
+      "archive_link": "archive"
+    }
+  },
+  "overlay": {
+    "intro": {
+      "title": "Marina em Chamas",
+      "subtitle": "dia 1. março 2026.",
+      "body": {
+        "0": "Marina acabou de sair da agência. Três anos escrevendo copy de marca, rodando clientes.",
+        "1": "Duas semanas atrás decidiu: vou tentar sozinha. Alugou um estúdio em Vila Madalena. Disse pros pais «tô bem». Abriu o notebook.",
+        "2": "Nada acontece. Inbox vazia. Ninguém escreve. Bateria em 20%.",
+        "3": "Ela tem 12 dias e $500 na conta. Precisa fechar 3 projetos até o fim do mês, ou o aluguel come tudo.",
+        "hint": "o celular dela se abre. as mensagens caem nos chats. responde, planeja, trabalha."
+      },
+      "cta": "começar o jogo"
+    },
+    "win": {
+      "kicker": "PRIMEIRO MÊS CONCLUÍDO",
+      "body": {
+        "0": "30 dias na bagagem. um mês inteiro na tua.",
+        "1": "você fechou teu primeiro mês como fundadora.",
+        "2": "isso não é o fim — é só o começo.",
+        "3": "mês dois tá chegando."
+      },
+      "cta_tg": "🔔 seguir @timofeyzinin no Telegram",
+      "cta_restart": "🔄 jogar de novo"
+    },
+    "lose": {
+      "kicker": "O MÊS NÃO CHEGOU AO FIM",
+      "body_default": "acontece.",
+      "cta_tg": "🔔 seguir @timofeyzinin no Telegram",
+      "cta_restart": "🔄 começar de novo"
+    },
+    "rescue": {
+      "kicker": "CRISE",
+      "cta_call": "📞 ligar",
+      "cta_restart": "🔄 começar de novo",
+      "cta_tg": "🔔 seguir o criador no Telegram"
+    },
+    "lang": {
+      "title": "Choose language · Выберите язык · Dil seçin · Escolha o idioma"
+    }
+  },
+  "meta": {
+    "play": {
+      "title": "🔥 Marina em Chamas — sim de sobrevivência de fundadora no mensageiro",
+      "description": "Jogo de texto no navegador. 30 dias, $500, três projetos, uma senhoria absurda e um Caio-Tinder. Sobreviva seu primeiro mês como fundadora. 15-20 min, de graça.",
+      "og_title": "🔥 Marina em Chamas — survival sobre os 30 dias de uma fundadora",
+      "og_description": "Jogo de texto no navegador. 30 dias, $500, três projetos. Senhoria absurda, Caio do Tinder insistente, conta pode ser bloqueada pelo COAF. 15-20 min.",
+      "og_image_alt": "Marina no notebook num apartamento à noite — key art",
+      "twitter_title": "🔥 Marina em Chamas — sim de sobrevivência no mensageiro",
+      "twitter_description": "30 dias, $500, três projetos. Sobreviva seu primeiro mês como fundadora. 15-20 min, de graça."
+    },
+    "brand": {
+      "avatar_alt": "Marina"
+    },
+    "landing": {
+      "title": "🔥 Marina em Chamas — sim de sobrevivência de fundadora no mensageiro",
+      "description": "Jogo de texto no navegador. 30 dias, $500, três projetos, senhoria absurda e Caio-Tinder. Sobreviva seu primeiro mês como fundadora. 15-20 min, de graça.",
+      "og_title": "🔥 Marina em Chamas — sim de sobrevivência de fundadora no mensageiro",
+      "og_description": "30 dias, $500, três projetos. Senhoria absurda, Caio do Tinder insistente, conta pode ser bloqueada pelo COAF. 15-20 min, de graça. Do Tim Zinin.",
+      "og_image_alt": "Marina no notebook num apartamento à noite — cinematic key art",
+      "twitter_title": "🔥 Marina em Chamas — sim de sobrevivência no mensageiro",
+      "twitter_description": "30 dias, $500, três projetos. Sobreviva seu primeiro mês como fundadora. 15-20 min, de graça."
+    }
+  },
+  "landing": {
+    "nav": {
+      "about": "sobre",
+      "characters": "personagens",
+      "features": "features",
+      "faq": "faq",
+      "play_cta": "jogar →"
+    },
+    "hero": {
+      "eyebrow": "🔥 jogo no navegador · de graça",
+      "title_line1": "Marina",
+      "title_line2": "em Chamas",
+      "tagline": "jogo de texto dentro de um mensageiro sobre o primeiro mês de uma fundadora. 12 dias, $500 na conta, três projetos até o deadline — ou o aluguel come tudo.",
+      "tag_time": "⏱️ 12–15 minutos",
+      "tag_format": "💬 texto + mensageiro",
+      "tag_devices": "📱 desktop + mobile",
+      "tag_audio": "🎧 com trilha própria",
+      "cta_primary": "começar o jogo",
+      "cta_secondary": "o que tem dentro"
+    },
+    "gallery": {
+      "alt_1": "Marina olhando pro celular · noite",
+      "alt_2": "mesa de trabalho da Marina · noite",
+      "alt_3": "Marina na janela · cidade à noite",
+      "caption_1": "as mensagens não param de chegar",
+      "caption_2": "três da manhã · faltam dois projetos",
+      "caption_3": "amanhã é o último dia do mês"
+    },
+    "about": {
+      "heading": "o que tá rolando aqui",
+      "p1_html": "Marina acabou de sair da agência. Três anos escrevendo copy de marca, rodando clientes. Duas semanas atrás decidiu: <b>vou tentar sozinha</b>. Alugou um estúdio em Vila Madalena. Disse pros pais «tô bem». Abriu o notebook.",
+      "p2": "Nada acontece. Inbox vazia. Ninguém escreve. Bateria em 20%.",
+      "p3_html": "Ela tem <b>12 dias</b> e <b>$500</b> na conta. Precisa fechar <b>3 projetos</b> até o fim do mês — ou o aluguel come tudo.",
+      "p4_html": "As mensagens caem no mensageiro «Teledram». Camila dá apoio. Beatriz oferece um job. Tim escreve de Kaş. Uma senhoria surreal ameaça aumentar o aluguel. Mãe pede dinheiro de remédio. O ex — quer pegar emprestado «por umas semanas». Diego chama pra regata. Você tem <b>8 horas por dia</b>. O que dá pra fazer?"
+    },
+    "features": {
+      "messenger": {
+        "title": "mensageiro como UI",
+        "desc": "tudo em chat. sem menu, sem tabela. só mensagem."
+      },
+      "contacts": {
+        "title": "24 contatos",
+        "desc": "7 principais, 6 spams recorrentes, 7 one-shots. cada um com seu tom."
+      },
+      "economy": {
+        "title": "economia em tempo real",
+        "desc": "horas, energia, dinheiro, fome, conforto. cada escolha custa um recurso."
+      },
+      "love": {
+        "title": "love arc",
+        "desc": "Caio não é só um match de Tinder. 8 beats, conflito, resolução, possível love ending."
+      },
+      "night": {
+        "title": "virada",
+        "desc": "depois das 8 horas do dia dá pra virar a noite. +progresso, −conforto, 20% de bug, ressaca de manhã."
+      },
+      "funnel": {
+        "title": "funil de vendas",
+        "desc": "reach_out → discovery → proposta → trabalho. Tim vende AI-automation em tiers."
+      }
+    },
+    "chars": {
+      "heading": "quem escreve pra Marina",
+      "lena_role": "ex-colega · Rio",
+      "lena_desc": "dá força. escreve primeiro. manda contato de cliente.",
+      "anna_role": "primeira cliente",
+      "anna_desc": "landing de duas páginas por $200 upfront + $250 na entrega. deadline dia 15.",
+      "tim_role": "consultor de automação · Kaş",
+      "tim_desc": "3 tiers de AI-automation: farming de leads / calls de discovery / propostas.",
+      "khozyaika_role": "senhoria",
+      "khozyaika_desc": "até o dia 12 — exigências absurdas. depois — do nada perdoa o aluguel.",
+      "kirill_role": "match do Tinder · jantares",
+      "kirill_desc": "insistente. pode virar love ending se você jogar na base da confiança.",
+      "pavel_role": "ex · 4 meses de silêncio",
+      "pavel_desc": "pede $300 emprestado. flerta. manda memória de madrugada.",
+      "denis_role": "amigo festeiro",
+      "denis_desc": "chama pra regata, cinema, iate. $200-350 por noite, mas +60 de energia.",
+      "mama_role": "sempre no pé",
+      "mama_desc": "liga pra falar de remédio. convida pra feijoada. não compara. quase."
+    },
+    "faq": {
+      "heading": "dúvidas frequentes",
+      "q1": "quanto tempo dura uma partida?",
+      "a1": "30 dias de jogo ≈ 20-25 minutos reais. Dá pra parar a qualquer hora — save automático.",
+      "q2": "dá pra perder?",
+      "a2": "Sim. Ficar sem dinheiro (<-$1500), não comer por 4 dias (fome=0), ou conforto quase zero depois do dia 15 — o jogo pode acabar. Chance não é 100%, mas é real.",
+      "q3": "isso é lead magnet — e aí o quê?",
+      "a3": "No dia 28 o Tim (o Tim Zinin real) escreve de dentro do jogo. Dá pra preencher um formulário e receber um AI audit pessoal.",
+      "q4": "por que messenger UI?",
+      "a4": "Porque fundador vive em chat. Email, slack, telegram, discord — tudo pelo mensageiro. O jogo é sobre o agora.",
+      "q5": "tem versão pra desktop?",
+      "a5": "Roda no navegador de qualquer aparelho. No desktop — atalhos de teclado (1-9 pras ações, Space = fim do dia).",
+      "q6": "é de graça?",
+      "a6": "Sim. Open source (MPL-2.0), fork de A Dark Room. Sem microtransação, sem assinatura."
+    },
+    "footer": {
+      "versions_html": "v2.8.0 survival · <a href=\"/marina-terminal/\">versão terminal</a> · <a href=\"/marina/\">v1.6a live</a>",
+      "author_html": "jogo-lead-magnet por <a href=\"https://t.me/timofeyzinin\" target=\"_blank\" rel=\"noopener\">@timofeyzinin</a>",
+      "license_html": "MPL-2.0 · fork de <a href=\"https://github.com/doublespeakgames/adarkroom\" target=\"_blank\" rel=\"noopener\">A Dark Room</a> · <a href=\"https://github.com/TimmyZinin/marina-v-ogne\" target=\"_blank\" rel=\"noopener\">source</a>"
+    }
+  },
+  "beat": {
+    "lena_intro": {
+      "message": "e aí, amiga. soube que você saiu da agência.\n\nprimeira semana é sempre a pior — já passei por isso. daqui a uns dias te mando uns contatos. segura."
+    },
+    "anna_offer": {
+      "intro": "oi. a camila falou de você.\n\ntenho um projetinho — landing de duas páginas, $200 upfront + $250 na entrega. prazo 6 dias. se consegue fechar rápido — topa?",
+      "scratch_cue": "Beatriz escreveu · responde ela",
+      "chip_take": "aceitar o projeto ($250 upfront + $300 final)",
+      "chip_decline": "recusar (muito rápido)"
+    },
+    "anna_referral": {
+      "intro": "marina, oi. gostei do que você fez. tenho um segundo projeto — sequência de email pra outro cliente. $350 upfront + $450 na entrega. 7 dias. topa?",
+      "scratch_cue": "Beatriz com um projeto novo · abre o chat",
+      "chip_take": "aceitar o segundo projeto ($350 upfront + $450 final, 7 dias)",
+      "chip_decline": "recusar (não aguento)"
+    },
+    "lena_day9": {
+      "message": "como você tá? tô acompanhando as notícias — te mando um abraço. te mando uns contatos nos próximos dias se achar algo que presta."
+    },
+    "tim_consult_intro": {
+      "msg1": "oi, marina. a camila me falou de você. sou consultor de automação e AI.",
+      "msg2": "olha: posso plugar AI no teu processo de buscar cliente. você paga uma vez e eu monto um sistema que busca cliente pra você enquanto você dorme.",
+      "msg3": "primeiro tier — auto-farming de cold outreach. $200. todo dia +1 lead sem você mexer. topa testar?",
+      "scratch_cue": "Tim oferecendo automação · abre o chat"
+    },
+    "tim_tier2_offer": {
+      "message": "vejo que teu sistema tá rodando. agora posso automatizar as calls — AI faz o brief por você. $300. +1 lead qualificado por dia."
+    },
+    "tim_tier3_offer": {
+      "message": "terceiro tier: AI manda as propostas e negocia com estratégia básica. $400. +1 proposta enviada por dia."
+    },
+    "tim_creator_fired": {
+      "msg1": "Oi. Muito obrigado por jogar o meu jogo.",
+      "msg2": "Eu não sou só um personagem desse jogo — sou o criador. E sim, eu faço automação com inteligência artificial de verdade.",
+      "msg3": "Se você curtiu o jogo — por favor, curte, me segue nas redes e indica pra amigos.",
+      "msg4": "E se você ou alguém que conhece precisar de automação pro negócio — bom, você sabe com quem falar 😉",
+      "msg5": "Boa sorte. Falta pouco pro fim do mês. Me segue no Telegram — botão aqui embaixo 👇",
+      "scratch_cue": "❕ mensagem do Tim (o real) · abre o chat"
+    },
+    "khozyaika_day1_rent": {
+      "msg1": "Marina, boa tarde! Só lembrando: o aluguel é $500 todo dia 1 de cada decêndio — dia 10, 20 e 30. Parabéns pela nova fase!",
+      "msg2": "E se atrasar — me avisa. Vou com as chaves junto do meu zelador. Ele tem um gênio.",
+      "scratch_cue": "senhoria lembrou do aluguel · dia 10/20/30 · $500"
+    },
+    "khozyaika_day2_komod": {
+      "msg1": "Marina, sonhei hoje que você arranhou a cômoda do corredor. Essa cômoda é do meu avô, feita à mão, tem 60 anos. Eu cuido muito dela.",
+      "msg2": "Nada demais, claro, só pra garantir — dá uma olhada nela, por favor. E me manda uma foto. Tô ansiosa."
+    },
+    "khozyaika_1_water": {
+      "message": "Marina, boa tarde! Não esquece de enviar as leituras do hidrômetro de água quente e fria até dia 10. IMPORTANTE: tem que ser foto com qualidade certificada. Senão multa de $100. Lúcia.",
+      "scratch_cue": "senhoria exigindo leitura de água · abre o chat · prazo +3 dias"
+    },
+    "khozyaika_2_tiktok": {
+      "message": "Marininha, gravei um vídeo no tiktok com o nosso prédio. Pode curtir e seguir o @dona_lucia_cosmica? Isso importa pra mim como sagitariana, tô num trânsito de saturno e a casa é meu ponto de apoio.",
+      "scratch_cue": "senhoria falando de tiktok · abre o chat"
+    },
+    "khozyaika_3_cat": {
+      "message": "SOS MARINA! Minha gata Mimi fugiu do apartamento do oitavo andar. Ajuda a colar cartazinhos pela rua, você trabalha em casa, né? Tem tempo. Urgente por favor.",
+      "scratch_cue": "senhoria perdeu a gata · abre o chat"
+    },
+    "khozyaika_4_horoscope": {
+      "message": "Marina, li seu horóscopo do mês. Escorpianos em chamas esse mês. NÃO empresta dinheiro pra librianos (principalmente librianos de óculos). Isso importa pro carma da casa, tô preocupada como se fosse da família."
+    },
+    "khozyaika_rescue": {
+      "msg1": "Marina, boa tarde. Preciso te contar uma coisa importante e estranha.",
+      "msg2": "Ontem antes de dormir vi um vídeo de uma blogueira da Tailândia — ela falava sobre carma da casa. E sabe o que ela disse? Que se a proprietária ajudar uma fundadora mulher jovem no primeiro mês — o terceiro olho dela se abre. E eu preciso abrir o meu, já consultei cartomante no mercado sobre o meu futuro.",
+      "msg3": "Resumindo. Aluguel da primeira metade do mês — eu perdoo. Devolvi pra você. Até o fim do mês — fica tranquila, foca no trabalho. Tenho metas elevadas, não me decepciona — meu terceiro olho tá em jogo.",
+      "bank_memo": "devolução de aluguel da senhoria · carma da casa",
+      "scratch_refund": "senhoria devolveu aluguel · +$500 · mês estendido",
+      "scratch_half_month": "━━━ metade do mês pra trás ━━━"
+    },
+    "pavel_intro": {
+      "message": "escuta, tô numa situação complicada — preciso de $300 por umas semanas. devolvo $450, juro. me ajuda, por favor.",
+      "scratch_cue": "ex pedindo grana · abre o chat"
+    },
+    "pavel_night_day2": {
+      "message": "oi, tá acordada?"
+    },
+    "pavel_day5": {
+      "msg1": "lembrei de quando a gente sentou na beira da lagoa. lembra?",
+      "msg2": "você tinha 23, eu 27. eu era idiota e não entendia nada. desculpa, se algo."
+    },
+    "pavel_day7": {
+      "message": "escuta, tá sozinha agora? tipo, na vida."
+    },
+    "pavel_day9": {
+      "message": "marina, sendo honesto — penso em você todo dia já faz semanas. sei que você não quer. mas você precisa ouvir."
+    },
+    "pavel_d13": {
+      "message": "marina, passei na frente do teu prédio ontem. só passando. lembrei do terraço onde a gente subia em maio de 2022. lembra?"
+    },
+    "pavel_d17": {
+      "message": "escuta. e se eu for sério. vamos tomar um café. sem papo de grana, sem história. como velhos amigos.",
+      "scratch_cue": "Pedro chamando pra um café · abre o chat"
+    },
+    "pavel_d21": {
+      "message": "marin, soube que tem alguém novo. será que é boa ideia? você me conhece melhor."
+    },
+    "pavel_d25": {
+      "message": "tá bom então. boa sorte. eu sempre tava por perto quando as coisas pesavam. lembra disso."
+    },
+    "khozyaika_d22": {
+      "message": "Marina, sonhei ontem que apareceu um duende no nosso prédio em forma de gato. A Mimi tá no parapeito olhando pra um ponto fixo faz três dias. Você se importa se eu passar com o padre pra benzer o apartamento?"
+    },
+    "khozyaika_d27": {
+      "message": "Marina, semana que vem tem lua cheia em Câncer. Nessa época as cômodas ficam especialmente vulneráveis. Por favor, não põe xícara quente em cima e não toca mantra chinês perto. Aliás melhor sair do apartamento entre 23h e 1h."
+    },
+    "olya_retry": {
+      "message": "Marininha, como vai? Tenho uma atualização do nosso clube — a gente tá lançando um NÍVEL NOVO. Só $400, mas você recebe três vezes mais ativações. Pensa no caso, acredito em você!",
+      "scratch_cue": "Letícia escrevendo de novo · abre o chat"
+    },
+    "olya_final": {
+      "message": "Marina, entendo que você tá na dúvida. Mas aqui vai o print da minha renda do mês: $3200 líquidos. E não é o teto. Última oferta: $150, você entra no nível free e começa a ganhar."
+    },
+    "krypta_retry": {
+      "message": "MANO alô tá viva? olha SOLANA x3 essa semana eu falei! tem 1 vaga sobrando. mínimo $50, semana que vem $500. não perde",
+      "scratch_cue": "mano cripto escrevendo de novo · abre o chat"
+    },
+    "krypta_final": {
+      "message": "irmã, vou falar verdade. eu não tinha $100. foi pra pagar o host do meu blog. mas amanhã é foguete de verdade. desculpa mana. sem próxima. $30?"
+    },
+    "mama_d20": {
+      "message": "filha, a vizinha perguntou que tipo de negócio é o teu. falei que você é criativa, escreve coisa. ela disse que é bom. a filha dela tem o mesmo negócio, mas recebe salário na prefeitura. mas não tô comparando."
+    },
+    "denis_d22": {
+      "message": "marin, soube de você por conhecidos. a gente tá orgulhoso. segura. aliás — tour de vela no fim de semana, vem."
+    },
+    "nastya_d6": {
+      "msg1": "oi! sou a Natália, também freelancer, acho que a gente tava no mesmo grupo do telegram. queria perguntar — como você tá encarando as primeiras semanas sem escritório?",
+      "msg2": "eu tenho puro pânico toda manhã. mas comecei a anotar três tarefas por dia em vez de dez. ajuda."
+    },
+    "nastya_d11": {
+      "message": "aiii fechei o segundo projeto hoje. me sinto uma deusa. e caindo de sono em pé. como tá aí do teu lado?"
+    },
+    "nastya_d16": {
+      "message": "ó, tava pensando. a gente tem que se juntar. sozinha é bom, mas em dupla é mais rápido. bora sentar pra conversar?"
+    },
+    "nastya_d20": {
+      "message": "tenho um projeto pra dois, cliente grande. posso te passar metade. $200 upfront agora + $200 na entrega daqui uma semana. só faz bem feito. topa?",
+      "scratch_cue": "Natália oferecendo parceria · abre o chat"
+    },
+    "nastya_d25": {
+      "message": "marin, tô pensando sério em parceria. vamos marcar depois do mês e conversar. tenho um plano."
+    },
+    "nastya_d30": {
+      "message": "você chegou até o fim. tô orgulhosa. bora marcar domingo, levo vinho e um plano pro mês que vem."
+    },
+    "svetka": {
+      "voice_labels": [
+        "🎤 áudio · 47 minutos",
+        "🎤 áudio · 52 minutos",
+        "🎤 áudio · 38 minutos",
+        "🎤 áudio · 1 hora e 2 minutos",
+        "🎤 áudio · 44 minutos"
+      ],
+      "gossip": [
+        "marin! você NÃO vai acreditar. A Laura do trabalho tá saindo com AQUELE! lembra o que era casado com a Natasha que tá de licença maternidade? o que faz yoga no estúdio onde meu personal de pilates trabalha agora? pois é AQUELA Natasha — ela tá grávida do SEGUNDO do novo namorado que tava no meu tinder há 2 anos! marina isso é uma catástrofe não sei pra quem ligar. me liga agora por favor SÓ PRA VOCÊ POSSO CONTAR 😭",
+        "marina você não acredita no que rolou ontem. fui numa abertura de galeria e encontrei AQUELE Oliver, lembra a gente sentou com ele no aniversário da Cris e ele falou que tinha um startup? pois é DESCOBRI que ele dirige pra 99, e o startup é que ele vende narguilé online. narguilé cara. e enquanto ele explicava dos narguilé ELE ME BEIJOU tô chocada",
+        "escuta tô com um dramão. transei com o Antônio — lembra ele apresentou a gente naquele rolê em dezembro? o mestre de yoga que na real é contador da adidas. então. descobri que ele tem NAMORADA e ela tá em Portugal agora e a gente tava saindo a semana inteira e ele ME FALOU que tava solteiro e EU SINTO que destruí um relacionamento. marina o que eu faço, ligo pra ela??",
+        "você tá SENTADA? marin-querida minha tia descobriu que meu primo se separou da Carina porque ela traiu ele com o VIZINHO! cara! o vizinho! que tem um gato que mora no apartamento deles enquanto ele viaja a trabalho! então durante os três anos que ela traiu eles tinham um tipo de esquema de quando o gato vinha e quando ia!!! é o fim do mundo me fala que é!!",
+        "marina joguei cartas de tarô ontem e tirei a torre na posição de futuro próximo tô em pânico o que significa?? googlei a noite inteira dizem que é rompimento com alguém que eu nem conheci ainda como eu me preparo pra isso?? tô em pânico comprei um batom novo mas não tá ajudando"
+      ],
+      "photo_alts": {
+        "phone": "sofia ligando",
+        "drama": "drama",
+        "taro": "cartas de tarô"
+      },
+      "no_audio_note": "(não escutado)"
+    },
+    "mama6": {
+      "message": "filha, não consigo juntar pra remédio esse mês. se puder ajudar — manda $200 via pix. se não — eu entendo, você já tá sobrecarregada.",
+      "scratch_cue": "mãe escreveu · abre o chat"
+    },
+    "mama17": {
+      "message": "você tá viva aí? nenhuma ligação faz uma semana. fiz bolo de fubá, vem no sábado."
+    },
+    "mama24": {
+      "message": "filha, tô com saudade. liga quando puder. nem que seja 5 minutos."
+    },
+    "mama_final": {
+      "message": "filha. esse tempo todo eu não sabia como você tava. amanhã é o último dia do mês. só vou dizer: tô orgulhosa de você. independente do que for. liga quando puder."
+    },
+    "kirill_love1": {
+      "msg1": "escuta, tava pensando. sei que soa estranho, mas gosto de você fora dos jantares também.",
+      "msg2": "tem algo nos teus olhos — como se você tivesse lutando com um dragão e não contasse pra ninguém. eu vejo. e só quero sentar do teu lado.",
+      "msg3": "como você tá de verdade?",
+      "scratch_cue": "Caio mandou algo estranho · abre o chat"
+    },
+    "kirill_love2": {
+      "msg1": "marin, bora se encontrar. não pra jantar. só dar uma volta, quero conversar com você.",
+      "msg2": "sem plano, sem motivo. só quero ficar do teu lado por umas horas. topa?",
+      "scratch_cue": "Caio chamando sem motivo · abre o chat"
+    },
+    "kirill_love_final": {
+      "msg1": "marina. essas semanas me fizeram entender uma coisa.",
+      "msg2": "você não é fácil. você não é um anjo. às vezes você tá cansada e brava. mas quando fala do teu trabalho — tem fogo na tua voz. e eu quero ser o cara que escuta esse fogo quando você chega em casa.",
+      "msg3": "não tô pedindo pra morar junto. não tô pedindo promessa. só tô pedindo permissão. pra estar.",
+      "notebook_separator": "────── anotação no bloco ──────",
+      "marina_journal1": "não esperava. nem um pouco. nem dele, nem de mim, nem desse mês.",
+      "marina_journal2": "acho que me apaixonei. e o mais estranho — não tô com medo.",
+      "love_unlock_note": "❤️ love ending desbloqueado"
+    },
+    "denis": {
+      "day3": {
+        "text": "marin, cansei de ficar em casa. bora regata no sábado? mar, vento, zero email",
+        "photo_alt": "regata"
+      },
+      "day6": {
+        "text": "escuta, bora um café? achei um lugar novo na esquina, você vai gostar. uma hora, não mais",
+        "photo_alt": "cafeteria"
+      },
+      "day9": {
+        "text": "para de trabalhar pelo menos um dia. bora andar na orla? eu levo vinho",
+        "photo_alt": "rolê"
+      },
+      "day15": {
+        "text": "marina, iate em Ilhabela sábado. 5 pessoas, noite. tem vaga pra você",
+        "photo_alt": "iate"
+      },
+      "day27": {
+        "text": "réveillon em 3 dias. rolê em casa, não perde",
+        "photo_alt": "réveillon"
+      },
+      "fallback_text": "oi, como você tá?",
+      "fallback_alt": "rolê",
+      "scratch_cue": "Diego chamando pra sair · abre o chat"
+    },
+    "olya_intro": {
+      "msg1": "Marininha oiiii! É a Letícia, a gente estudou junto no 3º ano. Turma 2018. Lembra de mim?",
+      "msg2": "Apareceu uma oportunidade única pra mulheres que querem mudar de vida e financeiramente. Posso te contar em 5 minutos?",
+      "msg3": "Não é pirâmide, é um clube ✨ investimento de só $200, retorno 3x em 2 meses garantido",
+      "scratch_cue": "colega de escola escrevendo · abre o chat"
+    },
+    "kirill_scene11": {
+      "variant_had_date": "você tava estranha ontem no jantar. falou «tô bem» três vezes. normalmente significa o oposto. não tô forçando — só, se precisar, tô aqui.",
+      "variant_no_date": "oi. sei que você tá atolada no trabalho. não tô sumindo, só quero que você saiba: tô aqui. como você tá de verdade?"
+    },
+    "kirill_scene13": {
+      "trust_msg1": "vou te mostrar uma coisa. escrevo em caderno desde os 17, nunca mostrei pra ninguém. essa é a página 47 do ano passado.",
+      "trust_msg2": "«tudo que é de verdade é silencioso. e quando eu achar ela, vou reconhecer pelo silêncio.»\n\nescrevi isso aos 28. não vou te contar por que tô mostrando.",
+      "light_msg": "escuta, me fala quando der pra respirar por uma hora. vou num café em Pinheiros — café bom, silêncio. sem compromisso."
+    },
+    "kirill_conflict16": {
+      "msg1": "marina. soube que o Pedro — teu ex — tá escrevendo pra você. não pergunto detalhes, só — me fala direto: ele tá na tua vida agora ou não?",
+      "msg2": "se você tá voltando pra lá — me fala agora. não vou atrapalhar.",
+      "scratch_cue": "⚠ Caio com conflito · abre o chat"
+    },
+    "kirill_resolution19": {
+      "msg1": "desculpa aquela pergunta sobre o Pedro. não tinha o direito. só tive medo de te perder antes de te conhecer.",
+      "msg2": "tô aprendendo a confiar. devagar, mas aprendendo."
+    },
+    "kirill_prefinale24": {
+      "message": "daqui uma semana acaba esse teu primeiro mês. você vai tá cansada, eu sei. só quero dizer — tanto faz se você entrega três projetos ou um. eu tô com você."
+    },
+    "kirill_food_delivery": {
+      "msg1": "não tá respondendo, não sai de casa. sei, você tá mergulhada. deixei um saco na tua porta — sopa do botequim, dois pães de queijo, doce. come, tá? não vou entrar.",
+      "msg2": "quando der — me avisa que comeu. pra eu ficar tranquilo.",
+      "scratch_cue": "🥡 Caio deixou jantar na porta · +100 fome · +100 conforto"
+    },
+    "kirill_intro": {
+      "msg1": "oi, tudo bem",
+      "msg2": "te dei like no tinder três semanas atrás. você ficou em silêncio. eu sou insistente",
+      "msg3": "bora marcar? eu pago o jantar. você escolhe o lugar",
+      "scratch_cue": "Caio escrevendo · abre o chat"
+    },
+    "krypta_intro": {
+      "msg1": "MANO",
+      "msg2": "SOLANA PRA LUA 🚀🚀🚀 1000X ESSE MÊS",
+      "msg3": "você manda $100 pra carteira — faz $100000. comprovado. peguei o momento único. decide rápido",
+      "scratch_cue": "um mano cripto escrevendo · abre o chat"
+    },
+    "artur": {
+      "msg1": "marina oi. entendo que a gente não terminou no melhor clima",
+      "msg2": "mas tenho uma parada. aparece amanhã às 10 no antigo escritório, explico pessoalmente. é interessante pros dois",
+      "scratch_cue": "ex-chefe escreveu · abre o chat"
+    },
+    "vera": {
+      "msg1": "Marina, boa tarde! Aqui é a Professora Vera, sua professora de literatura.",
+      "msg2": "Vi no facebook que você abriu o seu negócio. Orgulho de você! Tenho uma neta, a Alice. Ela escreve poesia. Você podia ajudar ela a crescer na internet?"
+    },
+    "sosed_intro": {
+      "msg1": "boa tarde. aqui é o vizinho de baixo, apto 23",
+      "msg2": "apareceu uma mancha no meu teto. acho que veio de você. desce pra conversar?"
+    },
+    "spam_oneshot": {
+      "lyuda": [
+        "Ludmila, você esqueceu o bolo no meu forno 🥧",
+        "Não sei o que fazer com ele. Já tá aí há 4 horas. Ainda tá vivo?",
+        "Alô? Ludmila é você??"
+      ],
+      "ozon": [
+        "Oi! Seu pedido \"Rodo Telescópico 3x1 Premium\" saiu pra entrega",
+        "Qual o melhor horário? O endereço no pedido tá certo?"
+      ],
+      "taxi": [
+        "oi aqui é o motorista. você fez uma corrida quarta vindo do aeroporto",
+        "você esqueceu um livro no meu carro, «a revolta de atlas» volume 2",
+        "posso devolver por R$25 como a gente combinou"
+      ],
+      "student": [
+        "oi. tô escrevendo tcc sobre pós-positivismo",
+        "posso fazer 12 perguntas? leva 5 minutos",
+        "primeira pergunta: você acha que consciência é computação?"
+      ],
+      "katya": [
+        "Marin, você por acaso sabe onde alugar um cavalo pro dia?",
+        "Aniversário do Mikinho sábado. Tem que ser vivo, pode ser com sela",
+        "urgente"
+      ],
+      "teshcha": [
+        "E aí, você achou que eu não ia descobrir??",
+        "A Sônia me contou tudo. Não vou fazer cena",
+        "Vem sábado — a gente conversa como adulto. Ainda sou tua mãe"
+      ],
+      "marathon": [
+        "VOCÊ TÁ PRONTA PRO BREAKTHROUGH??? 🔥🔥🔥",
+        "maratona «DESPERTANDO SEU PODER» · 21 dias · de graça · só hoje",
+        "🌸 mulher verdadeira não trabalha — ela atrai 🌸"
+      ]
+    },
+    "drain_charger": {
+      "marina_note": "carregador morreu. no meio do trabalho. novo — $60. sem ele não dá.",
+      "bank_memo": "carregador do notebook",
+      "system_line": "⚡ −$60 · carregador do notebook"
+    },
+    "drain_phone": {
+      "marina_note": "derrubei o celular. tela rachou toda. sem ele não tem contato com cliente. conserto $80.",
+      "bank_memo": "conserto de tela",
+      "system_line": "📱 −$80 · conserto de tela"
+    },
+    "drain_dentist": {
+      "marina_note": "dente. acordei de dor às 5 da manhã. dentista $150, sem opção. meio dia perdido.",
+      "bank_memo": "dentista · emergência",
+      "system_line": "🦷 −$150 · −2h · dentista"
+    },
+    "drain_electric": {
+      "marina_note": "chegou conta de luz e internet. $100. débito automático. não dá pra fugir.",
+      "bank_memo": "luz + internet",
+      "system_line": "💡 −$100 · contas"
+    },
+    "khozyaika_day3_noise": {
+      "message": "Marina, os vizinhos do primeiro andar reclamaram de barulho. Você tá trabalhando depois das 23h? Por favor, digita mais baixinho no teclado. O prédio é de 1978, parede fina que nem cortiço. Falo sério.",
+      "system_line": "−5 conforto · senhoria reclamando de barulho"
+    },
+    "khozyaika_day5_electric": {
+      "message": "Marina, você tá tirando a leitura de luz hoje? Eu pago pela tua luz, preciso saber quanto. Manda foto. E de quebra: por que a tomada da cozinha tá com cheiro? Você ligou algo além da chaleira?"
+    },
+    "khozyaika_day7_damage": {
+      "msg1": "Marina, passei aí enquanto você tava no trabalho. Achei um RISCO no piso do corredor. Foi antes ou depois de você? Preciso pro seguro.",
+      "msg2": "E ainda — a torneira do banheiro tá pingando. Chama o encanador você mesma, $50 a visita. Não sou obrigada.",
+      "bank_memo": "encanador por ordem da senhoria",
+      "system_line": "🔧 −$50 · senhoria obrigou a chamar encanador"
+    },
+    "khozyaika_day9_chain": {
+      "message": "Marina, isso é MUITO IMPORTANTE. Encaminha essa mensagem pra cinco pessoas: «apartamento onde mora uma mulher fundadora acumula carma ruim se a energia de gratidão não circular». Foi minha psicóloga-astróloga que falou. Ela trabalhou nos bombeiros antes."
+    },
+    "khozyaika_post12": {
+      "flowers": "Marininha, espero que você tenha comido hoje. 🌸 Ontem fiz bolo de repolho, tava pensando em você. A Mimi também tá ronronando — sente que você é boa pessoa. Segura, querida!",
+      "quote1": "Marina, vi um post motivacional: «Mulher forte não é a que não chora, é a que chora e faz mesmo assim». Isso é você. 💪🌸 Você vai vencer, eu sinto.",
+      "quote2": "Marininha, como vai? Acendi uma vela pra você na igreja. Não pelo apartamento — por você pessoalmente. A Mimi manda lembrança 🐱 P.S. a cômoda tá ok, não se preocupa.",
+      "photo_alt_quote2": "vela e foto da Mimi"
+    },
+    "kirill_day29_morning": {
+      "msg1": "bom dia. café fresco na cozinha. saí devagar pra não acordar você.",
+      "msg2": "obrigado por ontem. raro sentir essa paz.",
+      "msg3": "se precisar — tô aqui. sem pressão. só aqui.",
+      "system_line": "☕ +10💚 manhã começa tranquila"
+    }
+  },
+  "rescue": {
+    "mama_money": {
+      "kicker": "quase não sobrou dinheiro",
+      "reason": "conta foi pro vermelho. daqui pra frente fica pior.",
+      "body": "você tá em menos $800. mais uns dias — e nem pra pão tem. pra quem você liga?",
+      "caller": "mãe",
+      "callBtn": "📞 ligar pra mãe",
+      "bank_memo": "mãe mandou pix",
+      "mama_msg": "filha, mandei $700 via pix. não discute. come, descansa. te amo.",
+      "scratch_note": "💌 mãe mandou $700 + 20 conforto · você tá de volta"
+    },
+    "hospital": {
+      "kicker": "marina desmaiou",
+      "reason": "quatro dias sem comida de verdade. cabeça rodando.",
+      "body": "a senhoria te viu entrando no prédio segurando na parede. chamou o SAMU. você tá na UPA olhando pra conta de R$2k. pra quem você liga?",
+      "caller": "mãe",
+      "callBtn": "📞 ligar pra mãe",
+      "mama_msg": "tô aqui. não fala nada. come a sopa. depois dorme. dona lúcia fez bem em ligar.",
+      "scratch_note": "🏥 mãe com sopa + 80 fome + 25 conforto · dia perdido"
+    },
+    "lena_breakdown": {
+      "kicker": "conforto zerou",
+      "reason": "nervos à flor da pele. você senta e não consegue começar nada.",
+      "body": "se não der uma pausa agora — piora. pra quem você liga?",
+      "caller": "Camila",
+      "callBtn": "📞 ligar pra Camila",
+      "lena_msg": "tô comprando passagem pro rio hoje. faz a mala, você fica comigo uma semana. sem discussão.",
+      "scratch_note": "🛋 Camila comprou passagem · +30⚡ +70 conforto · dia perdido"
+    },
+    "father": {
+      "kicker": "dinheiro no vermelho fundo",
+      "reason": "menos $1500. isso já não é «mês difícil», é crise.",
+      "body": "precisa estabilizar urgente. pra quem você liga?",
+      "caller": "pais",
+      "callBtn": "📞 ligar pros pais",
+      "mama_msg": "pai já tá na estrada. te pega por uns dias, vamos pra BH. não é fracasso, é pausa.",
+      "scratch_note": "🏡 pais ajudaram · cash $200 · +15 conforto · você tá segura"
+    },
+    "overlay_alt": "crise"
+  },
+  "ending": {
+    "win": {
+      "hero_alt": "vitória",
+      "stats_template": "{delivered} projetos entregues · ${cash} · energia {energy}/100",
+      "stats_template_fallback": "{delivered} projetos entregues · ${cash} · energy {energy}",
+      "reason_no_traction": "30 dias · zero projeto fechado",
+      "reason_burnout": "mês acabou · projetos não terminados"
+    },
+    "love": {
+      "kicker": "❤️ LOVE ENDING — DOIS ANOS DEPOIS",
+      "paragraphs": [
+        "na primeira semana o Caio te deu match no Tinder. insistente, um pouco demais — mas embaixo dos convites pra jantar tinha paciência real.",
+        "você ficou no silêncio um tempo, depois foi «só pra ver». só que não era só.",
+        "ele trazia comida quando você não conseguia sair de casa. escutava quando você desabafava sobre a senhoria, a revisão do COAF, os projetos pegando fogo. não tentava salvar — só ficava perto.",
+        "seis meses depois vocês foram morar junto. ele disse «vamos tentar». você disse «vamos».",
+        "um ano depois você abriu um estúdio chamado «Marina AI» — automação pra pequenos negócios: leads, funis, inbound, AI de atendimento. a Camila trouxe os três primeiros clientes. a Beatriz transformou a landing de duas páginas num site completo — você pegou o projeto. Tim te passou a metodologia dos tiers e ajudou a montar um time.",
+        "dois anos depois — escritório em Pinheiros, seis pessoas no time, $40k/mês de MRR, três clientes corporativos fixos. Caio saiu do CLT e virou CTO do teu estúdio. vocês pararam de dividir «meu» e «teu» — agora é tudo junto.",
+        "hoje é sábado. vocês tão no café favorito de vocês, na mesa da janela em Vila Madalena. peônias na mesa — dele, sem motivo. ele tá rindo de algo teu, você tá rindo de volta.",
+        "você lembra daquele dia 1 quando a bateria tava em 20% e ninguém escrevia. agora a bateria tá cheia, escreve todo mundo, e você escolhe pra quem responder."
+      ],
+      "quiet_line": "isso não é o fim. isso é a tua vida, que virou ela de verdade."
+    },
+    "lose": {
+      "hero_alt": "final",
+      "eviction": [
+        "no fim do mês o dinheiro não deu. o pai foi te buscar, te levou pra casa em BH.",
+        "a mãe te recebeu com bolo de fubá e abraço. não falou nada do trabalho.",
+        "na cozinha a velha cortina da infância. você chorou pela primeira vez no mês todo.",
+        "isso não é fracasso — é pausa. na próxima você vai ser mais esperta."
+      ],
+      "no_traction": [
+        "30 dias passaram. nenhum projeto fechado.",
+        "talvez o formato de estúdio de conteúdo não seja a tua. ou o timing não ajudou.",
+        "a mãe ligou: «vem pra casa, descansa, reinicia».",
+        "isso não é fracasso — é informação. sobre você, sobre o mercado, sobre o que não funciona."
+      ],
+      "burnout": [
+        "você chegou no dia 30, mas não entregou os projetos.",
+        "conforto zerou, corpo entregou a rapadura. a Camila te levou pro Rio por um dia.",
+        "de manhã a mãe mandou: «sei que você tá cansada. tô aqui».",
+        "o primeiro mês é sempre o mais brutal. você sobreviveu. isso já é vitória."
+      ],
+      "fallback": [
+        "acontece."
+      ]
+    }
+  },
+  "viral": {
+    "card": {
+      "title": "🔥 Marina em Chamas",
+      "win_title": "Marina chegou no fim",
+      "lose_title": "o estúdio queimou",
+      "rescue_title": "salva no último segundo",
+      "first_project": "primeiro projeto entregue",
+      "surviving": "Marina segurando",
+      "projects": "projetos",
+      "love": "amor",
+      "burnout": "burnout",
+      "rare": "1 em 20.",
+      "this_is_fine": "tá tudo bem. normal."
+    },
+    "cta": {
+      "share_button": "compartilhar",
+      "share_friend": "mostra pra uma amiga"
+    },
+    "toast": {
+      "copied": "copiado pra área de transferência",
+      "copy_failed": "não copiou — seleciona manual"
+    },
+    "modal": {
+      "title": "mostra pra uma amiga"
+    },
+    "platform": {
+      "copy": "Copiar",
+      "native": "Compartilhar"
+    },
+    "prompt": {
+      "name": "Como te chamar no link? (opcional)"
+    },
+    "tim": {
+      "share_lose": "isso não é o fim. mostra pra quem vai se reconhecer.",
+      "share_rescue": "você tá segurando. mostra pra uma pessoa só.",
+      "share_win": "você passou. caso raro. mostra.",
+      "share_first_project": "primeiro projeto entregue. mostra pra uma amiga — ela precisa ver isso agora.",
+      "share_end_of_day": "o dia passou. mostra pra uma amiga — ela também vai conseguir.",
+      "share_default": "mostra isso pra uma amiga. não pro feed. uma pessoa."
+    },
+    "referral": {
+      "hero_eyebrow": "🎁 {name} te convidou · jogo de graça"
+    },
+    "challenge": {
+      "hero_win": "🏆 {name} chegou no dia 30. caso raro. você consegue?",
+      "hero_lose": "🔥 {name} queimou no dia {d}. aguenta mais?",
+      "hero_rescue": "🚨 {name} foi salva no dia {d}. te salvam também?",
+      "hero_default": "🎁 {name} chegou até o dia {d}. vai mais longe?"
+    }
+  }
+}

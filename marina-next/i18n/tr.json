@@ -1,0 +1,1221 @@
+{
+  "_meta": {
+    "lang": "tr",
+    "name": "Türkçe",
+    "name_native": "Türkçe",
+    "version": "2.8.0",
+    "_note": "Türkçe lokal — İstanbul kurucu sahnesine kültürel olarak uyarlandı. Melis = Kadıköy, Garanti bankası, MASAK kripto incelemesi, Tinder-Kerem, Bodrum. ru.json'dan çevrildi (kaynak)."
+  },
+  "lead": {
+    "header": {
+      "finale": "──── tim'e yaz (30 sn) ────",
+      "default": "──── not defteri ────"
+    },
+    "field": {
+      "name_label": "sana nasıl sesleneyim",
+      "handle_label": "@telegram (3-32 karakter: harf, rakam, _)",
+      "handle_placeholder": "@username",
+      "pain_label": "şu an en çok ne yakıyor"
+    },
+    "button": {
+      "submit": "kaydet",
+      "cancel": "iptal",
+      "sending": "gönderiliyor..."
+    },
+    "error": {
+      "name_required": "isim lazım, en fazla 60 karakter.",
+      "handle_invalid": "telegram: 3-32 karakter, harf/rakam/alt çizgi.",
+      "pain_required": "ne yandığını yaz. en fazla 500 karakter.",
+      "session_short": "oturum çok kısa. biraz daha bekle.",
+      "delivery_failed": "gitmedi. bir dakika sonra tekrar dene.",
+      "rate_limit": "çok fazla deneme. bir saat sonra tekrar.",
+      "bad_data": "veride bir tuhaflık var. @handle'ı kontrol et.",
+      "cors_blocked": "cors tarafından bloklandı. tim'e direkt yaz."
+    }
+  },
+  "bubble": {
+    "bank_default_name": "Garanti",
+    "photo_alt": "ek",
+    "photo_error": "[📷 ek açılamadı]",
+    "empty": {
+      "team": "ekip henüz toplanmadı · müşteri aramaya devam",
+      "money": "«para» klasöründe şimdilik sadece banka",
+      "spam": "şimdilik sessiz · spam henüz yağmaya başlamadı",
+      "all": "boş · oynamaya devam",
+      "fallback": "boş"
+    },
+    "funnel": {
+      "cold_label": "cold",
+      "cold_desc": "soğuk leadler",
+      "qualified_label": "qualified",
+      "qualified_desc": "brief'i geçtiler",
+      "in_progress_label": "işlemde",
+      "in_progress_desc": "aktif projeler",
+      "delivered_label": "teslim",
+      "delivered_desc": "bu ay · hedef 3",
+      "empty": "— boş —"
+    },
+    "chat": {
+      "no_contact_placeholder": "—",
+      "status_online": " · çevrimiçi",
+      "status_recent": " · yakın zamanda"
+    },
+    "lamp_cta": "💻 bilgisayarı aç"
+  },
+  "contact": {
+    "lena": {
+      "name": "Zeynep",
+      "subtitle": "eski iş arkadaşı · ankara"
+    },
+    "anna": {
+      "name": "Ayşe",
+      "subtitle": "ilk müşteri"
+    },
+    "tim": {
+      "name": "Tim",
+      "subtitle": "oyunun yaratıcısı · kaş, türkiye"
+    },
+    "bank": {
+      "name": "Garanti",
+      "subtitle": "Garanti · hesap bildirimleri"
+    },
+    "khozyaika": {
+      "name": "Neriman Hanım",
+      "subtitle": "ev sahibesi"
+    },
+    "pavel": {
+      "name": "Kemal (eski)",
+      "subtitle": "eski · 4 ay sessizlikten sonra"
+    },
+    "mama": {
+      "name": "anne",
+      "subtitle": "anne · her zaman hatta"
+    },
+    "denis": {
+      "name": "Deniz",
+      "subtitle": "Deniz · parti çocuğu"
+    },
+    "olya": {
+      "name": "Elif (11-B mezunu)",
+      "subtitle": "11-B · güçlü kadınlar kulübü"
+    },
+    "kirill": {
+      "name": "Kerem (Tinder)",
+      "subtitle": "Tinder · yemek ondan"
+    },
+    "krypta": {
+      "name": "kripto abi",
+      "subtitle": "adını bile bilmiyor"
+    },
+    "artur": {
+      "name": "Arda (eski patron)",
+      "subtitle": "eski patron"
+    },
+    "vera": {
+      "name": "Ayfer Öğretmen",
+      "subtitle": "emekli öğretmen · sınıf arkadaşları"
+    },
+    "sosed": {
+      "name": "alt kat komşusu",
+      "subtitle": "daire 23"
+    },
+    "svetka": {
+      "name": "Selin (can dostu)",
+      "subtitle": ""
+    },
+    "nastya": {
+      "name": "Aslı (iş arkadaşı)",
+      "subtitle": ""
+    },
+    "lyuda": {
+      "name": "Leyla (yanlış kişi)",
+      "subtitle": "yanlış numara"
+    },
+    "ozon": {
+      "name": "Trendyol kurye",
+      "subtitle": "siparişiniz?"
+    },
+    "taxi": {
+      "name": "BiTaksi şoförü",
+      "subtitle": "rastgele şoför"
+    },
+    "student": {
+      "name": "Boğaziçi öğrencisi",
+      "subtitle": "bitirme tezi yanıyor"
+    },
+    "katya": {
+      "name": "Kübra atlar hakkında",
+      "subtitle": "eski işten Kübra"
+    },
+    "teshcha": {
+      "name": "bilinmeyen numara",
+      "subtitle": "birinin kaynanası"
+    },
+    "marathon": {
+      "name": "güçlü kadınlar",
+      "subtitle": "ezoterik kulüp"
+    },
+    "scratch": {
+      "name": "kendine",
+      "subtitle": "kişisel notlar"
+    }
+  },
+  "text": {
+    "reach_out": {
+      "outgoing": [
+        "soğuk liste atıyorum. 20 adres. linkedin + email",
+        "founders.cc slack'e yazıyorum. 7 DM",
+        "twitter'da lead topluyorum: ajanslardan şikayet edenler",
+        "sales navigator üzerinden brief alıyorum",
+        "eski meslektaşları kontak için sıkıştırıyorum",
+        "wellfound'u tarıyorum, cold-loom yazıyorum"
+      ],
+      "hit_reply": [
+        "«ilginç, yarın 14:00'te görüşelim»",
+        "«selam! fiyat hakkında detay verir misin»",
+        "«biz de yeni ürün çıkarıyoruz, yaz bana»",
+        "«ben karar vermiyorum ama kolege iletirim — o yazacak»",
+        "«konuşabiliriz, perşembe 15 dakikam var»"
+      ],
+      "miss_silence": [
+        "sessizlik. sıfır cevap",
+        "bir tane «ilgilenmiyoruz, kolay gelsin»",
+        "üç auto-reply, kalanı sus",
+        "moderatör paylaşımı sildi",
+        "20 mailin hepsi — seen, cevap yok"
+      ]
+    },
+    "work": [
+      "landing yazıyorum. h1, sub, 3 acı bloğu",
+      "mailchimp'te email sekansı dizayn ediyorum",
+      "revizyonları yiyorum. üçüncü tur. yarısı öncekiyle aynı",
+      "müşteriyle call'dayım: «en çok ne acıtıyor?»",
+      "reels senaryosu yazıyorum: 5 tane, her biri 30 sn",
+      "figma'dayım: moodboard, ilk wireframe",
+      "dünkü geri bildirimleri açıyorum, headline'ı yeniden yazıyorum",
+      "final'i export ediyorum, zip'liyorum, teslim notu yazıyorum"
+    ],
+    "brief": [
+      "bütçe ve süre hakkında soru soruyorum",
+      "karar vericiyi öğreniyorum: imzayı kim atıyor",
+      "aktiviteyi kontrol ediyorum: şu an bir ürünleri var mı",
+      "fit testi: «bir haftada anlaşamazsak — ne olacak?»"
+    ],
+    "rest": [
+      "kahve koydum, suyun soğumasını bekliyorum. pencereye bakıyorum",
+      "balkona çıktım. sigara içiyor gibi duruyorum, içmiyorum",
+      "telefonla 20 dakika uzandım",
+      "ekmek almak için markete kadar yürüdüm",
+      "çaydanlığı koydum, unuttum, tekrar koydum"
+    ],
+    "eat_home": [
+      "makarna-peynir. restoran değil ama en azından sıcak bir şey",
+      "bulgur pilavı, soğanla. anneannemin tarifi. çalışıyor",
+      "menemen, üç yumurta. kahve. duvara bakıyorum",
+      "kavanozdan yoğurt-muz yiyorum. tabağa koyacak enerji yok",
+      "bim'den aldığım lazanyanın yarısını donduruyorum. idare eder"
+    ],
+    "eat_out": [
+      "kafeden sipariş verdim · somon bowl, kahve · dopamine hit",
+      "köşedeki bistro'ya daldım. carbonara. pencere kenarında yalnız",
+      "boğaz manzaralı restoran. bonfile, bir kadeh şarap. yarı insan gibi hissediyorum",
+      "avm'de dim sum yeri. yalnız, kitapla. sessiz ve iyi",
+      "promosyonla suşi seti. hüzünlü kadın romantizmi ama doyurucu"
+    ],
+    "shopping": [
+      "lcw'den sıcak kazak aldım. küçük şey ama moral +50",
+      "indirimli yeni spor ayakkabı. onlarla daha hızlı koşabiliyormuşum gibi hissediyorum (koşmayacağım)",
+      "çoktandır istediğim elbise. hâlâ tam bedenim değil ama alındı. mutluluk",
+      "gratis'te kozmetik. far paleti ve ruj. yarın yüzümü boyayacağım",
+      "moleskine + termos kupa. iş seti yenilendi"
+    ],
+    "work_night": [
+      "sabah 4'e kadar ayaktayım · ekran gözleri kesiyor · proje ilerliyor",
+      "üçüncü demleme çay, laptop faniı sonuna kadar, komşular uyuyor",
+      "pencerede mavi şafak. daha hiç uyumadım. ama iş neredeyse bitti",
+      "gece atıştırması: kuruyemiş, çin makarnası, çay. save tuşuna 47 kez bastım",
+      "kulaklık, lofi hip hop, eller kendiliğinden. 3:47 sabah"
+    ],
+    "date_kirill": [
+      "Kerem'le randevu · hüzünlü akşam yemeği ama o ısmarlıyor",
+      "Kerem'le kafedeyim. kripto trading'ten bahsediyor. başımı sallıyorum ve salata yiyorum",
+      "Kerem'le barda. şemsiyeli bir kokteyl söyledi. bana bonfile. idare eder",
+      "Kerem'le akşam yemeği. elimi tutmaya çalışıyor. çekmiyorum. tuhaf ve sıcak",
+      "Kerem sinemaya ve sonra kafeye götürdü. hatta metroya kadar bıraktı. belki o kadar kötü değil"
+    ],
+    "hangout_denis": [
+      "Deniz'le sahilde · şarap, kahkaha, deniz, 4 saat 40 dakika gibi geçti",
+      "Deniz'in evinde ev partisi. akustik gitar, şarap, 12 kişi, gülmekten ağladım",
+      "Deniz'le Maçka parkı. bisiklet, ayran, mangal, gün batımı",
+      "Deniz'le kulüp. boğucu, gürültülü, pahalı ama üç saat durmadan dans ettim",
+      "Bodrum yat gezisi. rüzgar, tuz, Deniz dümende, ben çocuk gibi güldüm"
+    ],
+    "morning": {
+      "hungry": [
+        "alarmı duymadım. midem yanıyor — üç gündür kahve ve çin makarnası",
+        "uyandım ve hemen et canım çekti. gerçek, soya değil. buzdolabında hiçbir şey yok",
+        "ayağa kalkınca başım dönüyor. normal bir şey yememeliyim, yoksa dayanamam",
+        "adımı birkaç saniye unuttum. bu normal mi? bu açlıktan mı?",
+        "sabah. mutfakta oturuyorum, boş buzdolabına bakıyorum, 10 dolarla optimum alışveriş planlıyorum"
+      ],
+      "tired": [
+        "8:30 alarm. 10:45 hâlâ yataktayım. kollar pamuk gibi",
+        "rüyamda maraton koşmuşum gibi uyandım. bir haftadır hiçbir şey yapmadım",
+        "üçüncü demleme kahve. gözler kendiliğinden kapanıyor. sessiz bir gün lazım, yok",
+        "birisi beni içip bitirmiş. fiziksel olarak. yatıyorum, tavana bakıyorum, çatlakları sayıyorum",
+        "ne zamana kadar yorgun uyanacağım. bu artık yorgunluk değil — bu metamorfoz"
+      ],
+      "sad": [
+        "sabah 5'te sebepsiz uyandım. her yer sessiz ve üzgünüm, neden bilmiyorum",
+        "anneyi aramak istiyorum ve yapamıyorum. «her şey kötü» dışında ne diyeceğimi bilmiyorum",
+        "telegram'daki eski paylaşımlarımı okuyorum ve o kızı tanımıyorum. ne zaman böyle oldum",
+        "duşta ağlıyorum. özel bir şey olmadı. sadece birikti",
+        "sabah. aynaya bakıyorum. bu kim. ciddiyim"
+      ],
+      "fine": [
+        "alarmdan önce uyandım. bu ne büyü",
+        "kahve, pencerede güneş, kafada yüz yerine üç düşünce. nadir sabah",
+        "bugün canlı hissediyorum. dünkü akşam yemeği için teşekkürler",
+        "o sabahlardan biri — yapabilirim",
+        "bugün olacak. hissediyorum"
+      ],
+      "hangover": [
+        "11'de uyandım. başım dökme demir. kahve yardımcı olmuyor. gece çalışmanın bedeli",
+        "alarm 8'de. laptop hâlâ dünkü geceden sıcak. ben soğuğum. eller dinlemiyor",
+        "gecenin yarısı çalıştım, yarısı tavana baktım. sonuç: yarım gün eksi",
+        "şafak. ekran göz alıyor. laptop'ta uyumuşum. boyun ağrıyor, sırt ağrıyor, her şey ağrıyor"
+      ]
+    },
+    "work_hungry": [
+      "yazmaya çalışıyorum. harfler eriyor. en son ne zaman yemek yedim?",
+      "revizyon yapıyorum. aynı cümleyi üç kere okuyorum. kafa çalışmıyor",
+      "iş iki kat yavaş ilerliyor. mide traktör gibi gurulduyor",
+      "oturuyorum ve ekrana bakıyorum. düşünceler toplanmıyor. yemek lazım"
+    ],
+    "auto": {
+      "reach_narrative": [
+        "laptop'u açtım · inbox'ta arka plan soğuk mesajlardan birinden cevap var bile. Tim'in AI'ı gece boyunca çalışmış",
+        "uyudum — inbox boş. uyandım — üç cevap. biri canlı, ikisi seen. nasıl çalıştığını anlamıyorum ama çalışıyor",
+        "ben uyurken Tim'in botu 20 soğuk mesaj atmış. birisi cevap verdi. ben sadece kahve içip okuyorum. tuhaf",
+        "sabah 7:12 bildirim: «yeni lead». AI işini yapmış. ne cevap yazacağımı bile bilmiyorum — bakarım",
+        "soğuk lead toplamanın bensiz yürüdüğü bir dünyada uyanıyorum. sonu nereye gidecek bilmiyorum ama şimdilik çalışıyor"
+      ],
+      "brief_narrative": [
+        "Tim'in AI'ı benim yerime call aldı. transkript gönderdi: müşteri sağlıklı, bütçe $200+, landing lazım. nitelikli lead",
+        "AI transcript'i açıyorum: «müşteri bir haftada launch etmek istiyor, ödemeye hazır». qualified. onunla konuşmadım bile",
+        "bot ilk kontağı brief'te kapattı, direkt qualified'a. pipeline notlarını okudum, aramam gerekmediğini anladım",
+        "AI görüşmeci: 23 dakika, 4 açıklayıcı soru, sonraki adıma kapattı. o sırada ben kahve içip pencereye bakabildim",
+        "hayatımda ilk kez biri benim yerime call yaptı. tuhaf bir minnet ve biraz suçluluk"
+      ],
+      "offer_narrative": [
+        "AI teklif gönderdi ve pazarlık yaptı. müşteri upfront'a razı oldu. diyaloğu yeni okudum — makul pazarlık, abartmamış",
+        "bildirim: «sözleşme imzalandı». AI her şeyi yaptı. upfront banka hesabımda bile. üç kere kontrol ediyorum, inanamıyorum",
+        "bot teklif gönderdi, müşteri 4 saatte kabul etti. o sırada ben yürüyordum. para kendi kendine geldi",
+        "AI pazarlığı: $280'den başladı, müşteri direndi, AI $240 karşı-teklif, kabul. ben aşağı inerdim",
+        "tüm funnel bensiz çalışıyor. ilk kontakt → brief → teklif → upfront. geriye sadece projeyi yapmak kaldı. hem korkutucu hem özgürleştirici"
+      ]
+    }
+  },
+  "action": {
+    "reach_out": {
+      "label": "müşteri ara",
+      "label_auto": "🤖 müşteri ara",
+      "cost": "1s · −5⚡",
+      "cost_auto": "AI hallediyor",
+      "reason_auto": "AI otomatik",
+      "reason_no_hours": "saat yok",
+      "reason_no_energy": "enerji yok"
+    },
+    "brief_lead": {
+      "label": "lead ile call",
+      "label_auto": "🤖 lead ile call",
+      "cost": "1s · −3⚡",
+      "cost_auto": "AI hallediyor",
+      "reason_auto": "AI otomatik",
+      "reason_no_leads": "lead yok",
+      "reason_no_hours": "saat yok",
+      "reason_no_energy": "enerji yok"
+    },
+    "send_offer": {
+      "label": "teklif gönder",
+      "label_auto": "🤖 teklif gönder",
+      "cost": "1s",
+      "cost_auto": "AI hallediyor",
+      "reason_auto": "AI otomatik",
+      "reason_bank_locked": "hesap donduruldu",
+      "reason_no_qualified": "brief yok",
+      "reason_no_hours": "saat yok"
+    },
+    "work_on_project": {
+      "label": "işi yap",
+      "cost": "2s · −5⚡",
+      "reason_no_projects": "proje yok",
+      "reason_no_hours": "saat yok",
+      "reason_no_energy": "enerji yok"
+    },
+    "work_night": {
+      "label": "🌙 gece mesaisi",
+      "cost": "−15⚡ · −15💚",
+      "reason_too_early": "3. günden itibaren",
+      "reason_no_projects": "proje yok",
+      "reason_day_work_first": "önce gündüz işini bitir",
+      "reason_no_energy": "enerji az"
+    },
+    "eat_home": {
+      "label": "🍝 evde ye",
+      "cost_day": "1s · −$15",
+      "cost_evening": "akşam yemeği · −$15",
+      "reason_bank_locked": "hesap donduruldu",
+      "reason_no_money": "para yetmiyor"
+    },
+    "eat_out": {
+      "label": "🥗 kafe",
+      "cost_day": "1s · −$35",
+      "cost_evening": "akşam yemeği · −$35",
+      "reason_bank_locked": "hesap donduruldu",
+      "reason_no_money": "para yetmiyor"
+    },
+    "rest": {
+      "label": "☕ mola",
+      "cost": "1s · +30⚡",
+      "reason_max_energy": "enerji tam",
+      "reason_too_much_coffee": "kahve aşkın",
+      "reason_no_hours": "saat yok"
+    },
+    "shopping": {
+      "label": "🛍 alışveriş",
+      "cost": "2s · −$80",
+      "reason_too_early": "5. günden itibaren",
+      "reason_bank_locked": "hesap donduruldu",
+      "reason_no_resources": "kaynak yetmiyor"
+    },
+    "date_kirill": {
+      "label": "💔 randevu (Kerem)",
+      "cost": "3s · −10⚡",
+      "reason_no_invite": "Kerem şu an çağırmıyor",
+      "reason_no_energy": "enerji yok",
+      "reason_no_hours": "saat yetmiyor"
+    },
+    "hangout_denis": {
+      "label": "🎉 Deniz'le",
+      "cost_pending": "sohbete cevap ver",
+      "cost_waiting": "davet bekliyor",
+      "reason_no_invite": "Deniz'in davetine sohbetten cevap ver"
+    },
+    "end_day": {
+      "label": "🌙 yat",
+      "label_forced": "🌙 yat — gün bitti",
+      "cost": "günün sonu"
+    },
+    "lamp": {
+      "label": "bilgisayarı aç"
+    }
+  },
+  "brand": {
+    "version_prefix": "teledram v",
+    "status": {
+      "bank_locked": "🔒 hesap donduruldu",
+      "very_hungry": "🍔 çok aç",
+      "exhausted": "⚡ sınırda",
+      "sad": "💔 üzgün",
+      "tired": "😮‍💨 yorgun"
+    }
+  },
+  "crisis": {
+    "bank_locked": "🔒 HESAP MASAK İNCELEMESİNDE · {daysLeft} gün kaldı",
+    "starving": "🍔 MELİS AÇ KALIYOR · enerji hızla düşüyor · ye",
+    "burnout": "⚡ MELİS SINIRDA · acil mola",
+    "broke": "💰 BAKİYE KRİTİK · −${absCash} · projeyi teslim et yoksa evden çıkarsın",
+    "comfort_zero": "💔 KONFOR SIFIRLANDI · yanıyorsun · alışveriş/yemek/arkadaş",
+    "hungry_warn": "🍔 aç · gerçek yemek canı istiyor",
+    "tired_warn": "⚡ yorgunsun · dinlenme zamanı"
+  },
+  "system": {
+    "hangover_note": "☕ gece mesaisinden sonra · enerji toparlanmadı",
+    "reach_out": {
+      "unknown_contact": "bilinmeyen kontakt"
+    },
+    "callback": {
+      "pavel_return_text": "kurtardın, sağ ol. sözümü tuttum — $450 geri yatırdım. gecikme yok.",
+      "pavel_return_bank": "Kemal'den iade (faiziyle)",
+      "pavel_delay": "selam. biraz sıkıştım. bir iki hafta daha.",
+      "pavel_week_note": "Kemal bir hafta daha söz verdi...",
+      "pavel_broken_promise": "affet. olmadı.",
+      "pavel_no_return_note": "Kemal parayı geri getirmedi",
+      "bank_115_lock": "Hesabınız MASAK tarafından geçici olarak DONDURULDU. Kripto borsasına şüpheli transfer tespit edildi. İnceleme sonuçlanana kadar işlemler kapalıdır.",
+      "bank_lock_note": "🔒 hesap donduruldu · 6 gün · para harcayamıyorsun",
+      "kirill_free_dinner": "selam. akşam kafeye gelir misin? ben ısmarlıyorum, sen hiçbir şey yapmana gerek yok",
+      "khozyaika_fine_meters": "Sayaçlar konusunda uyarmıştım. $100 ceza düşüldü. Biraz sorumluluk sahibi olun.",
+      "khozyaika_fine_meters_bank": "sayaç cezası · ev sahibesi",
+      "khozyaika_water_fine_msg": "Melis, son tarih geçti. Su sayacı okuması gelmedi. Depozitodan $100 ceza düşüldü. Çok hayal kırıklığıyım.",
+      "khozyaika_water_fine_bank": "ceza · su sayacı okunmadı",
+      "khozyaika_water_fine_scratch": "🔻 −$100 · ev sahibesi su sayacını bekleyemedi",
+      "khozyaika_electric_fine_msg": "Elektrik sayacını üç gün bekledim. $80 ceza. Bir de mutfaktaki prizi kontrol ettirin.",
+      "khozyaika_electric_fine_bank": "ceza · elektrik sayacı gönderilmedi",
+      "khozyaika_electric_fine_scratch": "🔻 −$80 · elektrik sayacı gönderilmedi",
+      "khozyaika_chain_fine_msg": "Mesajı iletmediniz. Karma hakkında söyledim. Şimdi şaşırmayın.",
+      "khozyaika_chain_fine_scratch": "🔻 −8 konfor · ev sahibesi darıldı",
+      "sosed_retry": "neredesiniz? bir gündür bekliyorum. leke büyüdü."
+    },
+    "bank_unlock": {
+      "memo": "blokaj kalktı · hesap aktif",
+      "msg": "İnceleme tamamlandı, blokaj kaldırıldı. Sabrınız için teşekkürler. İşlemler aktif."
+    },
+    "kirill_plate_girl": {
+      "msg1_prefix": "dinle. son 2 haftada sana ",
+      "msg1_suffix": " kere akşam yemeği ısmarladım. bir kere bile hesabı teklif etmedin.",
+      "msg2": "sen tabakçısın. kırılmadım ama burada bitirelim."
+    },
+    "contracts": {
+      "finished_bank_memo_suffix": " · projenin final ödemesi",
+      "clawback_client_msg_prefix": "Melis, ",
+      "clawback_client_msg_suffix": " gün için anlaşmıştık. Bir haftadır bekliyorum. Avansı iade et — daha fazla bekleyemem.",
+      "clawback_bank_memo_suffix": " · avans iadesi (süre aşımı)",
+      "missed_client_msg": "olsun. başka birini buluruz. üzgünüm."
+    },
+    "passive": {
+      "rent_1_memo": "kira · ilk on günlük",
+      "rent_2_memo": "kira · ikinci on günlük",
+      "food_basic_memo": "market · temel alışveriş",
+      "khozyaika_rent_forgive": "Meliscim, hatırlıyor musun söz vermiştim — ayın sonuna kadar kira gerekmiyor. Unutma 🌸",
+      "khozyaika_rent_forgive_scratch": "🏠 ev sahibesi ikinci on günlüğü affetti · −$0",
+      "impulse_memo": "dürtüsel alışveriş · konfor düşük",
+      "auto_offer_bank_memo": "AI teklifi kabul edildi · upfront",
+      "lena_lifeline_msg": "dostum, birkaç haftalığına $300 nakdim var. tartışma. ne zaman olursa geri verirsin.",
+      "lena_lifeline_bank": "Zeynep'ten transfer · can simidi"
+    },
+    "auto_project_clients": [
+      "ai lead saas",
+      "ai d2c",
+      "ai b2b",
+      "ai study"
+    ],
+    "lead_form": {
+      "tim_message": "okudum. filtresiz yazdığın için teşekkürler.\n\nyarın sabah için üç şey:\n1. mailleri funnel'a göre sırala (cold / qualified / işlemde / teslim)\n2. dört gündür ertelediğin bir ölü görevi kes\n3. sohbetsiz iki saat ayır, bir iş yaz\n\nşablonları atıyorum — etkisini göreceksin.",
+      "bank_memo": "Tim şablonları attı · bekleyen müşteriden ödeme geldi",
+      "scratch_cue": "+2 lead · +$200 · +15 enerji · automation on"
+    },
+    "anna_choice": {
+      "take_outgoing": "alıyorum. sözleşmeyi gönder",
+      "take_reply": "harika, attım",
+      "take_bank_memo": "upfront · Ayşe projesi",
+      "take_scratch_prefix": "+$250 upfront · proje #",
+      "take_scratch_suffix": " işlemde",
+      "client_label": "Ayşe'nin landing'i",
+      "decline_outgoing": "affet, şu an olmaz",
+      "decline_reply": "anladım. kolay gelsin"
+    },
+    "anna_referral_choice": {
+      "take_outgoing": "alıyorum. sözleşmeyi gönder",
+      "take_reply": "harika, attım",
+      "take_bank_memo": "upfront · Ayşe'nin ikinci projesi",
+      "take_scratch_prefix": "+$350 upfront · proje #",
+      "take_scratch_suffix": " (Ayşe #2)",
+      "client_label": "Ayşe #2 için email serisi",
+      "decline_outgoing": "Ayşecim, şu an olmaz. ikisini paralel kaldıramam.",
+      "decline_reply": "anladım, kendine iyi bak. başkasını bulurum."
+    }
+  },
+  "ui": {
+    "brand": {
+      "title": "🔥 Melis Yanıyor",
+      "subtitle": "teledram"
+    },
+    "folder": {
+      "all": "tümü",
+      "funnel": "🎯 funnel",
+      "team": "👥 ekip",
+      "money": "💰 para"
+    },
+    "chat": {
+      "back_aria": "geri",
+      "typing": "melis yazıyor"
+    },
+    "dock": {
+      "actions": "aksiyonlar",
+      "collapse_title": "paneli aç/kapat",
+      "collapse_aria": "kapat",
+      "audio_title": "müzik aç/kapa",
+      "audio_aria": "müzik"
+    },
+    "footer": {
+      "version": "survival",
+      "reset_title": "baştan başla",
+      "shortcuts_title": "kısayol tuşları",
+      "shortcuts_text": "⌨ 1–9 aksiyon · Space gün sonu · ↑↓ kontaktlar",
+      "change_lang": "🌐 dil",
+      "terminal_link": "terminal v1.6a",
+      "archive_link": "arşiv"
+    }
+  },
+  "overlay": {
+    "intro": {
+      "title": "Melis Yanıyor",
+      "subtitle": "1. gün. mart 2026.",
+      "body": {
+        "0": "Melis ajanstan yeni ayrıldı. Üç yıl markalar için copy yazdı, metinler kurdu, müşterileri yönetti.",
+        "1": "İki hafta önce karar verdi: kendim deneyeceğim. Kadıköy'de bir stüdyo daire tuttu. Aileye «iyiyim» dedi. Laptop'u açtı.",
+        "2": "Hiçbir şey olmuyor. Mail kutusu boş. Kimse yazmıyor. Batarya %20.",
+        "3": "12 günü ve $500'ı var. Ay sonuna kadar 3 proje kapatmazsa, kira her şeyi yer.",
+        "hint": "telefonu açılıyor. mesajlar sohbetlere düşüyor. cevap ver, planla, çalış."
+      },
+      "cta": "oyuna başla"
+    },
+    "win": {
+      "kicker": "İLK AY GEÇTİ",
+      "body": {
+        "0": "30 gün arkada. koca bir ay kendi ayaklarının üstünde.",
+        "1": "kurucu olarak ilk ayını bitirdin.",
+        "2": "bu bir son değil — bu yeni bir başlangıç.",
+        "3": "ikinci ay yakında geliyor."
+      },
+      "cta_tg": "🔔 @timofeyzinin'i Telegram'da takip et",
+      "cta_restart": "🔄 tekrar oyna"
+    },
+    "lose": {
+      "kicker": "AY TAMAMLANAMADI",
+      "body_default": "olur böyle şeyler.",
+      "cta_tg": "🔔 @timofeyzinin'i Telegram'da takip et",
+      "cta_restart": "🔄 baştan başla"
+    },
+    "rescue": {
+      "kicker": "KRİZ",
+      "cta_call": "📞 ara",
+      "cta_restart": "🔄 baştan başla",
+      "cta_tg": "🔔 yaratıcıyı Telegram'da takip et"
+    },
+    "lang": {
+      "title": "Choose language · Выберите язык · Dil seçin · Escolha o idioma"
+    }
+  },
+  "meta": {
+    "play": {
+      "title": "🔥 Melis Yanıyor — kurucu hayatta kalma mesajlaşma simü",
+      "description": "Tarayıcı metin oyunu. 30 gün, $500, üç proje, absürt bir ev sahibesi ve bir Tinder-Kerem. İlk ayını kurucu olarak atlat. 15-20 dakika, ücretsiz.",
+      "og_title": "🔥 Melis Yanıyor — 30 günlük kurucu survival",
+      "og_description": "Tarayıcı metin oyunu. 30 gün, $500, üç proje. Ev sahibesi absürt, Tinder-Kerem ısrarcı, hesap MASAK tarafından dondurulabilir. 15-20 dakika.",
+      "og_image_alt": "Melis gece dairede laptop başında — key art",
+      "twitter_title": "🔥 Melis Yanıyor — survival mesajlaşma simü",
+      "twitter_description": "30 gün, $500, üç proje. İlk ayını kurucu olarak atlat. 15-20 dk, ücretsiz."
+    },
+    "brand": {
+      "avatar_alt": "Melis"
+    },
+    "landing": {
+      "title": "🔥 Melis Yanıyor — kurucu hayatta kalma mesajlaşma simü",
+      "description": "Tarayıcı metin oyunu. 30 gün, $500, üç proje, absürt ev sahibesi ve Tinder-Kerem. İlk ayını kurucu olarak atlat. 15-20 dakika, ücretsiz.",
+      "og_title": "🔥 Melis Yanıyor — 30 günlük kurucu survival",
+      "og_description": "30 gün, $500, üç proje. Ev sahibesi absürt, Tinder-Kerem ısrarcı, hesap MASAK'a takılabilir. 15-20 dakika, ücretsiz. Tim Zinin'den.",
+      "og_image_alt": "Melis gece dairede laptop başında — cinematic key art",
+      "twitter_title": "🔥 Melis Yanıyor — survival mesajlaşma simü",
+      "twitter_description": "30 gün, $500, üç proje. İlk ayını kurucu olarak atlat. 15-20 dk, ücretsiz."
+    }
+  },
+  "landing": {
+    "nav": {
+      "about": "oyun hakkında",
+      "characters": "karakterler",
+      "features": "özellikler",
+      "faq": "sss",
+      "play_cta": "oyna →"
+    },
+    "hero": {
+      "eyebrow": "🔥 tarayıcı oyunu · ücretsiz",
+      "title_line1": "Melis",
+      "title_line2": "Yanıyor",
+      "tagline": "kurucu olarak ilk ayın için mesajlaşma simü. 12 gün, $500, deadline'a kadar üç proje — ya da kira her şeyi yer.",
+      "tag_time": "⏱️ 12–15 dakika",
+      "tag_format": "💬 metin + mesajlaşma",
+      "tag_devices": "📱 desktop + mobil",
+      "tag_audio": "🎧 kendi müziğiyle",
+      "cta_primary": "oyuna başla",
+      "cta_secondary": "içinde ne var"
+    },
+    "gallery": {
+      "alt_1": "Melis telefona bakıyor · gece",
+      "alt_2": "Melis'in masası · gece",
+      "alt_3": "Melis pencerede · gece şehri",
+      "caption_1": "mesajlar durmak bilmiyor",
+      "caption_2": "gece üçü · iki proje kaldı",
+      "caption_3": "yarın ayın son günü"
+    },
+    "about": {
+      "heading": "burada ne oluyor",
+      "p1_html": "Melis ajanstan yeni ayrıldı. Üç yıl markalar için copy yazdı, metinler kurdu, müşteri yönetti. İki hafta önce karar verdi: <b>kendim deneyeceğim</b>. Kadıköy'de stüdyo daire tuttu. Aileye «iyiyim» dedi. Laptop'u açtı.",
+      "p2": "Hiçbir şey olmuyor. Mail kutusu boş. Kimse yazmıyor. Batarya %20.",
+      "p3_html": "<b>12 günü</b> ve <b>$500</b>'ı var. Ay sonuna kadar <b>3 proje</b> kapatmak zorunda — yoksa kira her şeyi yer.",
+      "p4_html": "Mesajlar «Teledram» mesajlaşmasına düşüyor. Zeynep destekliyor. Ayşe iş teklif ediyor. Tim Kaş'tan yazıyor. Absürt ev sahibesi kira artışıyla tehdit ediyor. Anne ilaç parası istiyor. Eski sevgili — «bir iki haftalığına» borç. Deniz yat gezisine çağırıyor. <b>Günde 8 saatin</b> var. Neye yetecek?"
+    },
+    "features": {
+      "messenger": {
+        "title": "UI olarak mesajlaşma",
+        "desc": "her şey sohbetlerde. menü ve tablo yok. sadece mesajlar."
+      },
+      "contacts": {
+        "title": "24 kontakt",
+        "desc": "7 ana, 6 tekrarlayan spam, 7 tek seferlik. hepsinin kendi tone'u var."
+      },
+      "economy": {
+        "title": "real-time ekonomi",
+        "desc": "saat, enerji, para, açlık, konfor. her karar bir kaynak."
+      },
+      "love": {
+        "title": "love arc",
+        "desc": "Kerem sadece Tinder değil. 8 beat, çatışma, çözüm, olası love ending."
+      },
+      "night": {
+        "title": "gece mesaisi",
+        "desc": "gündüz 8 saatten sonra gece çalışabilirsin. +ilerleme, −konfor, %20 bug, sabah hangover."
+      },
+      "funnel": {
+        "title": "satış funnel'ı",
+        "desc": "reach_out → call → teklif → iş. Tim tiers halinde AI otomasyonu satıyor."
+      }
+    },
+    "chars": {
+      "heading": "Melis'e kim yazıyor",
+      "lena_role": "eski iş arkadaşı · Ankara",
+      "lena_desc": "destekliyor. ilk yazan o. müşteri kontaktları paslaşıyor.",
+      "anna_role": "ilk müşteri",
+      "anna_desc": "iki sayfalık landing, $200 upfront + $250 final. deadline 15. gün.",
+      "tim_role": "otomasyon danışmanı · Kaş",
+      "tim_desc": "3 tier AI otomasyonu: lead autofarming / call'lar / teklifler.",
+      "khozyaika_role": "ev sahibesi",
+      "khozyaika_desc": "12. güne kadar — absürt talepler. sonra — birden kirayı affediyor.",
+      "kirill_role": "Tinder match · akşam yemekleri",
+      "kirill_desc": "ısrarcı. güven üzerine oynarsan love ending olabilir.",
+      "pavel_role": "eski · 4 ay sessizlik",
+      "pavel_desc": "$300 borç istiyor. flört ediyor. gece anıları yazıyor.",
+      "denis_role": "parti arkadaşı",
+      "denis_desc": "yat, sinema, kulüp çağrıları. $200-350 gece başına, ama +60 enerji.",
+      "mama_role": "her zaman hatta",
+      "mama_desc": "ilaç için arıyor. börek yapmış çağırıyor. kıyaslamıyor. neredeyse."
+    },
+    "faq": {
+      "heading": "sık sorulanlar",
+      "q1": "oyun ne kadar sürer?",
+      "a1": "30 oyun günü ≈ 20-25 dakika gerçek zaman. İstediğin zaman durabilirsin — otomatik kayıt.",
+      "q2": "kaybedebilir miyim?",
+      "a2": "Evet. Para bitti (<-$1500), 4 gün yemek yok (açlık=0) veya 15. günden sonra konfor neredeyse sıfır — oyun bitebilir. %100 şans değil ama gerçek.",
+      "q3": "bu bir lead magnet — sonra ne olacak?",
+      "a3": "28. günde Tim (gerçek Tim Zinin) oyundan yazıyor. Formu doldurup kişisel AI audit alabilirsin.",
+      "q4": "neden messenger UI?",
+      "a4": "Çünkü kurucu sohbetlerde yaşıyor. Mail, slack, telegram, discord — her şey mesajlaşma. Oyun gerçek hayat hakkında.",
+      "q5": "bilgisayar sürümü var mı?",
+      "a5": "Her cihazdaki tarayıcıda oynanıyor. Bilgisayarda — klavye kısayolları (1-9 aksiyon, Space = gün sonu).",
+      "q6": "ücretsiz mi?",
+      "a6": "Evet. Open source (MPL-2.0), A Dark Room fork'u. Mikrotransaksiyon veya abonelik yok."
+    },
+    "footer": {
+      "versions_html": "v2.8.0 survival · <a href=\"/marina-terminal/\">terminal sürümü</a> · <a href=\"/marina/\">v1.6a live</a>",
+      "author_html": "oyun lead magnet: <a href=\"https://t.me/timofeyzinin\" target=\"_blank\" rel=\"noopener\">@timofeyzinin</a>",
+      "license_html": "MPL-2.0 · <a href=\"https://github.com/doublespeakgames/adarkroom\" target=\"_blank\" rel=\"noopener\">A Dark Room</a> fork'u · <a href=\"https://github.com/TimmyZinin/marina-v-ogne\" target=\"_blank\" rel=\"noopener\">kaynak</a>"
+    }
+  },
+  "beat": {
+    "lena_intro": {
+      "message": "hey dostum. ajanstan ayrıldığını duydum.\n\nilk hafta hep en zorudur — ben oradan geçtim. birkaç güne kontakt atarım. sıkı dur."
+    },
+    "anna_offer": {
+      "intro": "selam. zeynep senden bahsetti.\n\nküçük bir projem var — iki sayfalık landing, $200 upfront + $250 teslimde. süre 6 gün. hızlıca yapabilirsen alıyoruz, olur mu?",
+      "scratch_cue": "Ayşe yazdı · cevapla",
+      "chip_take": "projeyi al ($250 upfront + $300 final)",
+      "chip_decline": "reddet (çok hızlı)"
+    },
+    "anna_referral": {
+      "intro": "melis selam. yaptığın iş çok hoşuma gitti. ikinci projem var — başka bir müşteri için email sekansı. $350 upfront + $450 teslimde. 7 gün. alır mısın?",
+      "scratch_cue": "Ayşe yeni projeyle yazdı · sohbeti aç",
+      "chip_take": "ikinci projeyi al ($350 upfront + $450 final, 7 gn)",
+      "chip_decline": "reddet (kaldıramam)"
+    },
+    "lena_day9": {
+      "message": "nasılsın? haberleri okuyordum — sarıldım içten. bir şey bulursam birkaç kontakt paslarım."
+    },
+    "tim_consult_intro": {
+      "msg1": "selam melis. zeynep senden bahsetti. ben otomasyon ve AI danışmanıyım.",
+      "msg2": "bak: müşteri arama sürecine AI takabilirim. tek seferlik ödersin, ben senin için sen uyurken müşteri arayan sistemi kurarım.",
+      "msg3": "birinci tier — cold outreach otomatikleşmesi. $200. her gün +1 lead, senin katılımın olmadan. denemek ister misin?",
+      "scratch_cue": "Tim otomasyon teklif ediyor · sohbeti aç"
+    },
+    "tim_tier2_offer": {
+      "message": "sistemin çalışıyor, görüyorum. şimdi call'ları otomatikleştirebilirim — AI brief'i senin yerine yapıyor. $300. günde +1 qualified lead."
+    },
+    "tim_tier3_offer": {
+      "message": "üçüncü tier: AI teklifleri kendi gönderiyor ve temel stratejiyle pazarlık ediyor. $400. günde +1 teklif gönderilir."
+    },
+    "tim_creator_fired": {
+      "msg1": "Selam. Oyunumu oynadığın için çok teşekkürler.",
+      "msg2": "Ben sadece bu oyunun karakteri değilim — yaratıcısıyım. Ve evet, gerçekten yapay zeka otomasyonuyla uğraşıyorum.",
+      "msg3": "Oyunumu beğendiysen — lütfen beğenmeyi, sosyal ağlarımı takip etmeyi ve arkadaşlarına tavsiye etmeyi unutma.",
+      "msg4": "Ve eğer sana ya da çevrendeki birine iş için otomasyon lazım olursa — kime başvuracağını biliyorsun 😉",
+      "msg5": "İyi şanslar. Ay sonuna çok az kaldı. Telegram'da beni takip et — aşağıdaki buton 👇",
+      "scratch_cue": "❕ Tim'den (gerçek) mesaj · sohbeti aç"
+    },
+    "khozyaika_day1_rent": {
+      "msg1": "Melis, iyi günler! Hatırlatayım: kira $500, her on günün ilk günü ödenir — 10, 20 ve 30. Yeni hayatında başarılar!",
+      "msg2": "Gecikme olursa haber verin. Kendi kapıcımla anahtarla gelirim. Huyu biraz serttir.",
+      "scratch_cue": "ev sahibesi kirayı hatırlattı · 10/20/30 · $500"
+    },
+    "khozyaika_day2_komod": {
+      "msg1": "Melis, bu gece rüyamda antrede komodu çizdiğinizi gördüm. O komod dedemden kalma, el işi, 60 yıllık. Koruyorum.",
+      "msg2": "Önemli bir şey değil tabii, ama yine de — kontrol edip fotoğraf atar mısınız. Endişelendim."
+    },
+    "khozyaika_1_water": {
+      "message": "Melis, iyi günler! 10 tarihine kadar soğuk ve sıcak su sayaç değerlerini iletmeyi unutmayın. ÖNEMLİ: mutlaka sertifikalı kalıpla fotoğraf. Aksi halde $100 ceza. Neriman V.",
+      "scratch_cue": "ev sahibesi sayaç istiyor · sohbeti aç · deadline +3 gün"
+    },
+    "khozyaika_2_tiktok": {
+      "message": "Meliscim, evimizi tiktok için çektim. @neriman_denizde hesabını beğenip takip eder misin? Yay burcu kadın olarak benim için önemli, şu an satürn transiti yaşıyorum ve ev benim dayanak noktam.",
+      "scratch_cue": "ev sahibesi tiktok hakkında · sohbeti aç"
+    },
+    "khozyaika_3_cat": {
+      "message": "SOS MELİS! Kedi Minnoş sekizinci kattaki daireden kaçtı. Mahalleye ilan asmama yardım eder misin, sen evden çalışıyorsun değil mi? Zamanın var. Acil lütfen.",
+      "scratch_cue": "ev sahibesi kediyi kaybetti · sohbeti aç"
+    },
+    "khozyaika_4_horoscope": {
+      "message": "Melis, aylık burcunu okudum. Akrepler bu ay alev alev. Teraziye para VERMEYİN (özellikle gözlüklü Teraziye). Evin karmasıaçısından önemli, akraban gibi düşünüyorum."
+    },
+    "khozyaika_rescue": {
+      "msg1": "Melis, iyi günler. Sizinle önemli ve tuhaf bir konuşma yapmam lazım.",
+      "msg2": "Dün gece uyumadan önce Tayland'dan bir blogger kadının videosunu izledim — evin karmasından bahsediyordu. Ve biliyor musunuz ne demişti? Genç bir kurucu kadına ilk ayında yardım eden mülk sahibesinin — üçüncü gözü açılıyormuş. Benimki açılmalı, kuş pazarında guguk kuşuna gelecek sordum.",
+      "msg3": "Kısacası. Ayın ilk yarısının kirasını — size affediyorum. Geri yatırdım. Ayın sonuna kadar — huzurla yaşayın, işinize bakın. Yüksek görevlerim var, beni bozmayın — üçüncü gözüm tehlikede.",
+      "bank_memo": "ev sahibesinden kira iadesi · evin karması",
+      "scratch_refund": "ev sahibesi kirayı iade etti · +$500 · ay uzadı",
+      "scratch_half_month": "━━━ ayın yarısı geride ━━━"
+    },
+    "pavel_intro": {
+      "message": "dinle, başım sıkışık — bir iki haftalığına $300 lazım. $450 geri veririm, dürüstçe. yardım et lütfen.",
+      "scratch_cue": "eski sevgili para istiyor · sohbeti aç"
+    },
+    "pavel_night_day2": {
+      "message": "selam, uyuyor musun?"
+    },
+    "pavel_day5": {
+      "msg1": "hatırladım, seninle Beşiktaş'ta sahilde oturduğumuz zamanı. hatırlıyor musun?",
+      "msg2": "23 yaşındaydın, ben 27. aptaldım, hiçbir şey anlamıyordum. bir şey olduysa affet."
+    },
+    "pavel_day7": {
+      "message": "dinle, şu an yalnız mısın? hayat anlamında."
+    },
+    "pavel_day9": {
+      "message": "melis, dürüst olmak gerekirse — haftalardır her gün seni düşünüyorum. istemediğini biliyorum. ama bunu duyman gerek."
+    },
+    "pavel_d13": {
+      "message": "melis dün evinin oradaydım. sadece geçiyordum. mayıs 2022'de çıktığımız çatıyı hatırladım. hatırlıyor musun?"
+    },
+    "pavel_d17": {
+      "message": "dinle. bak ciddiyim. kahve için buluşalım. para iadesi yok, geçmiş yok. sadece eski tanıdıklar gibi.",
+      "scratch_cue": "Kemal kahveye çağırıyor · sohbeti aç"
+    },
+    "pavel_d21": {
+      "message": "melis, biriyle takıldığını duydum. belki değmez? beni iyi tanırsın."
+    },
+    "pavel_d25": {
+      "message": "neyse, olsun. kolay gelsin. zor zamanlarında hep yanındaydım. unutma."
+    },
+    "khozyaika_d22": {
+      "message": "Melis, dün rüyamda bodrumumuzda kedi formunda bir cin belirdi. Minnoş üç gündür pencere kenarında bir noktaya bakıyor. Bir hocayı çağırıp daireyi okutmama itirazın olur mu?"
+    },
+    "khozyaika_d27": {
+      "message": "Melis, önümüzdeki hafta Yengeç burcunda dolunay. Bu zamanda komodlar özellikle savunmasız. Lütfen üzerine sıcak bardak koymayın ve yanında çin mantraları çalmayın. En iyisi 23:00-01:00 arası evden çıkın."
+    },
+    "olya_retry": {
+      "message": "Meliscim, nasılsın? Kulübümüz hakkında güncelleme var — YENİ bir seviye açıyoruz. Sadece $400, ama üç kat daha fazla aktivasyon alıyorsun. Düşün, sana inanıyorum!",
+      "scratch_cue": "Elif Petrova tekrar yazdı · sohbeti aç"
+    },
+    "olya_final": {
+      "message": "Melis, şüphe ettiğini anlıyorum. Ama işte bu ay kazancımın screenshot'ı: $3200 net. Ve bu limit değil. Son teklif: $150, ücretsiz level ile giriyorsun ve kazanmaya başlıyorsun."
+    },
+    "krypta_retry": {
+      "message": "ABLA hayatta mısın? bak SOLANA bir haftada x3 demiştim! 1 slot daha var. min $50, haftaya $500. kaçırma",
+      "scratch_cue": "kripto abi tekrar yazdı · sohbeti aç"
+    },
+    "krypta_final": {
+      "message": "abla, dürüst olmak lazım. $100'um yoktu. blog hosting ödemesine gitti. ama yarın gerçekten roket. affet abi. bir daha olmaz. $30?"
+    },
+    "mama_d20": {
+      "message": "kızım, komşu işinin ne olduğunu soruyor. yaratıcı bir şey yapıyorsun, yazılar yazıyorsun dedim. iyi dedi. onun kızı da aynı işi yapıyor, ama mİT'te maaş alıyor. ama seni kıyaslamıyorum."
+    },
+    "denis_d22": {
+      "message": "melis, ortak arkadaşlardan duydum seni. gurur duyuyoruz. sıkı dur. bu arada — hafta sonu yelken turu, katıl."
+    },
+    "nastya_d6": {
+      "msg1": "selam! ben Aslı, freelancer'ım, sanırım bir telegram grubunda beraberdik. sormak istedim — ilk haftaları ofissiz nasıl atlatıyorsun?",
+      "msg2": "her sabah tam panik atak. ama on yerine üç görev yazmaya başladım. yardım ediyor."
+    },
+    "nastya_d11": {
+      "message": "ooo bugün ikinci projeyi teslim ettim. kendimi tanrıça gibi hissediyorum. ve aynı anda ayakta uyuyorum. sen nasılsın?"
+    },
+    "nastya_d16": {
+      "message": "dinle, düşündüm. birleşmemiz lazım. bir kişi iyi ama ikimiz daha hızlı. oturup konuşalım mı?"
+    },
+    "nastya_d20": {
+      "message": "iki kişilik projem var, müşteri büyük. yarısını sana verebilirim. hemen $200 upfront + bir hafta sonra teslimde $200. sadece iyi yap. ilgilenir misin?",
+      "scratch_cue": "Aslı ortaklık teklif ediyor · sohbeti aç"
+    },
+    "nastya_d25": {
+      "message": "melis, ortaklık hakkında ciddi düşünüyorum. ay bitince buluşup konuşalım. bir planım var."
+    },
+    "nastya_d30": {
+      "message": "başardın. gurur duyuyorum. pazar günü buluşalım, şarap ve önümüzdeki ay planı getiriyorum."
+    },
+    "svetka": {
+      "voice_labels": [
+        "🎤 sesli mesaj · 47 dakika",
+        "🎤 sesli mesaj · 52 dakika",
+        "🎤 sesli mesaj · 38 dakika",
+        "🎤 sesli mesaj · 1 saat 2 dakika",
+        "🎤 sesli mesaj · 44 dakika"
+      ],
+      "gossip": [
+        "melis! inanamayacaksın. işteki Leyla O ADAMLA çıkıyor! hani Natalya'yla evliydi, doğum izninde olan, yoga stüdyosuna giden, benim pilates antrenörümün artık çalıştığı stüdyoya gidiyordu? işte O Natalya — 2 yıl önce tinder'ımda olan yeni adamdan İKİNCİ çocuğu hamile! melis bu felaket kimi arayacağımı bilmiyorum. acil ara lütfen SADECE SANA ANLATABİLİYORUM 😭",
+        "melis dün olanı inanamayacaksın. pr gecesi olan sergiye gittim ve O DENİZ'i gördüm, hatırla Kübra'nın doğum günündeydi, startup'ım var demişti? işte MEĞER Uber şoförüymüş, startup dediği online nargile satmak. nargile be kardeşim. ve nargile nasıl sattığını anlatırken BENİ ÖPTÜ ben şoktayım",
+        "dinle dram var. aralıkta tanıştığımız Alp'le yattım — yoga gurusu diyordu, gerçekte adidas'ta muhasebeci. ee. KIZ ARKADAŞI olduğunu öğrendim, şu an Gürcistan'da, bütün hafta buluştuk ve BANA kimsesi yok DEDİ ve ilişkiyi mahvettiğimi HİSSEDİYORUM. melis ne yapayım onu arayayım mı??",
+        "oturuyor musun? meliscim halam öğrendi kuzenimin Kerime'yle boşandığını çünkü o KOMŞULARIYLA aldatmış! be! komşuyla! işe gittiğinde kedisi onlarda kalan komşuyla! üç yıl boyunca aldatırken kedi ne zaman gelir ne zaman gider çizelgeleri varmış!!! bu dünyanın sonu değil mi söyle!!",
+        "melis dün tarot bakar açtım yakın geleceğimde Kule arkanası çıktı panikteyim bu ne demek?? bütün gece googledim tanımadığım biriyle boşanma diyor buna nasıl hazırlanayım?? paniklediğim için yeni ruj aldım ama yardımcı olmuyor"
+      ],
+      "photo_alts": {
+        "phone": "selin arıyor",
+        "drama": "dram",
+        "taro": "tarot kartları"
+      },
+      "no_audio_note": "(dinlenmiyor)"
+    },
+    "mama6": {
+      "message": "kızım, bu ay ilaca para biriktiremiyorum. yardım edebilirsen — $200 at. edemezsen — anlarım, sen de zor durumdasın.",
+      "scratch_cue": "anne yazdı · sohbeti aç"
+    },
+    "mama17": {
+      "message": "orada hayatta mısın? bir haftadır arama yok. börek yaptım, cumartesi gel."
+    },
+    "mama24": {
+      "message": "kızım, özledim. arar mısın? 5 dakika bile olur."
+    },
+    "mama_final": {
+      "message": "kızım. bu süre boyunca seni bilmiyordum. yarın ayın son günü. sadece şunu söyleyeceğim: seninle gurur duyuyorum. ne olursa olsun. ara, yapabildiğinde."
+    },
+    "kirill_love1": {
+      "msg1": "dinle, düşündüm. tuhaf geldiğini biliyorum ama sadece akşam yemeklerinde hoşuma gitmiyorsun.",
+      "msg2": "gözlerinde bir şey var — sanki bir ejderhayla savaşıyorsun ama kimseye söylemiyorsun. bunu görüyorum. ve sadece yanında oturmak istiyorum.",
+      "msg3": "sen nasılsın genel olarak?",
+      "scratch_cue": "Kerem tuhaf bir şey yazdı · sohbeti aç"
+    },
+    "kirill_love2": {
+      "msg1": "melis, buluşalım. akşam yemeği için değil. sadece yürüyelim, seninle konuşmak istiyorum.",
+      "msg2": "planım yok, sebep yok. sadece birkaç saat yanında olmak istiyorum. nasıl?",
+      "scratch_cue": "Kerem sebepsiz çağırıyor · sohbeti aç"
+    },
+    "kirill_love_final": {
+      "msg1": "melis. bu haftalarda bir şeyi anladım.",
+      "msg2": "kolay biri değilsin. melek değilsin. bazen yorgun ve sinirlisin. ama işinden konuşurken — sesinde ateş var. o ateşi eve döndüğünde dinleyen kişi olmak istiyorum.",
+      "msg3": "taşınmayı istemiyorum. sözler istemiyorum. sadece izin istiyorum. olmak için.",
+      "notebook_separator": "────── not defterine bir satır ──────",
+      "marina_journal1": "beklemiyordum. hiç. ondan, kendimden, bu aydan.",
+      "marina_journal2": "sanırım aşık oldum. en tuhafı — korkmuyorum.",
+      "love_unlock_note": "❤️ love ending açıldı"
+    },
+    "denis": {
+      "day3": {
+        "text": "melis evde oturmaktan bıktım. cumartesi bodrum'a yat gezisine gidelim mi? deniz, rüzgar, mail yok",
+        "photo_alt": "yat gezisi"
+      },
+      "day6": {
+        "text": "dinle, kahve içelim mi? köşede yeni bir yer buldum, seveceksin. bir saat, fazla değil",
+        "photo_alt": "kafe"
+      },
+      "day9": {
+        "text": "bir günlüğüne çalışmayı bırak. sahilde yürüyelim mi? şarap getiririm",
+        "photo_alt": "çıkma"
+      },
+      "day15": {
+        "text": "melis, cumartesi yelken turu. 5 kişi, yat, akşam. sana yer var",
+        "photo_alt": "yat"
+      },
+      "day27": {
+        "text": "yeni yıla 3 gün kaldı. evimde toplantı, kaçırma",
+        "photo_alt": "yeni yıl"
+      },
+      "fallback_text": "selam, nasılsın?",
+      "fallback_alt": "çıkma",
+      "scratch_cue": "Deniz çıkmaya çağırıyor · sohbeti aç"
+    },
+    "olya_intro": {
+      "msg1": "Meliscim selamm! Ben Elif Petrova, 11-B'de birlikte okuduk. Hatırlıyor musun?",
+      "msg2": "Hayatını ve finansını değiştirmek isteyen kadınlar için eşsiz bir fırsat buldum. 5 dakika anlatabilir miyim?",
+      "msg3": "Bu piramit değil, bu bir kulüp ✨ sadece $200 yatırım, 2 ayda x3 olarak geri dönüyor garanti",
+      "scratch_cue": "sınıf arkadaşı yazıyor · sohbeti aç"
+    },
+    "kirill_scene11": {
+      "variant_had_date": "dün akşam yemeğinde tuhaf davrandın. üç kez «iyiyim» dedin. bu genelde tam tersi anlamına gelir. baskı yapmıyorum — sadece, bir şey olursa, ben buradayım.",
+      "variant_no_date": "selam. iş yoğun, zaman yok biliyorum. kaybolmuyorum, sadece bilmeni istiyorum: buradayım. sen nasılsın genel olarak?"
+    },
+    "kirill_scene13": {
+      "trust_msg1": "sana bir şey göstereyim. 17 yaşımdan beri defterlere yazıyorum, kimseye göstermedim. işte geçen seneden 47. sayfa.",
+      "trust_msg2": "«gerçek olan her şey sessizdir. ve onu bulduğumda, sessizliğinden tanıyacağım.»\n\nbunu 28 yaşımda yazdım. sana — neden gösterdiğimi söylemiyorum.",
+      "light_msg": "dinle, bir saat nefes alabildiğinde haber ver. caddede kafeye uğrarım — kahve güzel, sessizlik var. yükümlülük yok."
+    },
+    "kirill_conflict16": {
+      "msg1": "melis. Kemal'in sana yazdığını duydum — eski sevgilin. detay sormuyorum, sadece — dürüst söyle: hayatında mı şu an, değil mi?",
+      "msg2": "oraya dönüyorsan — şimdi söyle. karışmam.",
+      "scratch_cue": "⚠ Kerem çatışması · sohbeti aç"
+    },
+    "kirill_resolution19": {
+      "msg1": "Kemal'le ilgili o soruyu affet. hakkım yoktu. sadece seni tanımadan kaybetmekten korktum.",
+      "msg2": "güvenmeyi öğreniyorum. yavaş ama öğreniyorum."
+    },
+    "kirill_prefinale24": {
+      "message": "bir haftaya bu ilk ayın bitiyor. yorgun olacaksın, biliyorum. sadece şunu söylemek istiyorum — üç proje teslim etmişsin ya da bir, fark etmez. yanındayım."
+    },
+    "kirill_food_delivery": {
+      "msg1": "cevap vermiyorsun, çıkmıyorsun. iş yoğun, biliyorum. kapıya bir paket bıraktım — «Çiya»'dan çorba, iki tane peynirli pide, baklava. ye, tamam mı? içeri girmeyeceğim.",
+      "msg2": "yapabildiğinde — bitirdiğini yaz. benim iç huzurum için.",
+      "scratch_cue": "🥡 Kerem kapıya yemek bıraktı · +100 açlık · +100 konfor"
+    },
+    "kirill_intro": {
+      "msg1": "ee selam",
+      "msg2": "tinder'da üç hafta önce sana like atmıştım. sustun. ben de ısrarcıyım",
+      "msg3": "buluşalım mı? akşam yemeği benden. istediğin kafe",
+      "scratch_cue": "Kerem yazıyor · sohbeti aç"
+    },
+    "krypta_intro": {
+      "msg1": "ABLA",
+      "msg2": "SOLANA UÇUYOR 🚀🚀🚀 BU AY 1000X",
+      "msg3": "cüzdana $100 atıyorsun — $100000 yapıyorsun. test edildi. tek fırsat. hızlı karar ver",
+      "scratch_cue": "bir kripto abi yazıyor · sohbeti aç"
+    },
+    "artur": {
+      "msg1": "melis selam. en iyi şartlarda ayrılmadığımızı biliyorum",
+      "msg2": "ama bir konum var. yarın 10'da eski ofise uğra, yüz yüze anlatırım. karşılıklı faydalı",
+      "scratch_cue": "eski patron yazdı · sohbeti aç"
+    },
+    "vera": {
+      "msg1": "Melis Hanım, merhaba! Ben Ayfer Öğretmen, edebiyat öğretmeniniz.",
+      "msg2": "Facebook'tan kendi işinizi kurduğunuzu gördüm. Sizinle gurur duyuyorum! Torunum Elif var. Şiir yazıyor. İnternette ilerlemesine yardım edebilir misiniz?"
+    },
+    "sosed_intro": {
+      "msg1": "merhaba. ben alt kat komşunuz, daire 23",
+      "msg2": "tavanımda leke çıktı. sizden geliyor sanırım. inip konuşabilir misiniz?"
+    },
+    "spam_oneshot": {
+      "lyuda": [
+        "Leylacım, fırında börek unuttun 🥧",
+        "Ne yapacağımı bilmiyorum. 4 saattir orada. Hâlâ canlı mı?",
+        "Alo? Leyla sen misin??"
+      ],
+      "ozon": [
+        "İyi günler! Siparişiniz \"Teleskopik Silecek 3'ü 1 Arada Premium\" teslimata hazır",
+        "Ne zaman alabilirsiniz? Siparişteki adres doğru mu?"
+      ],
+      "taxi": [
+        "merhaba ben şoförüm. çarşamba havaalanından binmiştiniz",
+        "arabamda «Atlas Silkindi» kitabının 2. cildini unutmuştunuz",
+        "anlaştığımız gibi 500'e iade edebilirim"
+      ],
+      "student": [
+        "selam. postpozitivizm üzerine tez yazıyorum",
+        "12 soru sorabilir miyim? 5 dakika sürer",
+        "ilk soru: sizce bilinç — hesaplama mıdır?"
+      ],
+      "katya": [
+        "Meliş, günlüğüne kiralık midilli nereden bulunur biliyor musun?",
+        "Miniki'nin cumartesi doğum günü. Canlı olmalı, eyerli de olur",
+        "acil"
+      ],
+      "teshcha": [
+        "Ee yani, öğrenmeyeceğimi mi sandın??",
+        "Selin her şeyi anlattı. Sahne yapmayacağım",
+        "Cumartesi gel — yetişkinler gibi konuşalım. Hâlâ senin annenim"
+      ],
+      "marathon": [
+        "ATILIMA HAZIR MISIN??? 🔥🔥🔥",
+        "maraton «GÜÇ UYANIŞI» · 21 gün · ücretsiz · sadece bugün",
+        "🌸 gerçek kadın çalışmaz — çeker 🌸"
+      ]
+    },
+    "drain_charger": {
+      "marina_note": "şarj aleti öldü. tam çalışmanın ortasında. yenisi $60. onsuz olmaz.",
+      "bank_memo": "laptop şarj aleti",
+      "system_line": "⚡ −$60 · laptop şarj aleti"
+    },
+    "drain_phone": {
+      "marina_note": "telefonu düşürdüm. ekran örümcek ağı. onsuz müşterilerle iletişim yok. tamir $80.",
+      "bank_memo": "telefon ekranı tamiri",
+      "system_line": "📱 −$80 · ekran tamiri"
+    },
+    "drain_dentist": {
+      "marina_note": "diş. sabah 5'te ağrıdan uyandım. diş hekimi $150, başka yol yok. yarım gün gitti.",
+      "bank_memo": "diş hekimi · acil",
+      "system_line": "🦷 −$150 · −2s · diş hekimi"
+    },
+    "drain_electric": {
+      "marina_note": "elektrik ve internet faturası geldi. $100. otomatik ödeme. yapacak bir şey yok.",
+      "bank_memo": "elektrik + internet",
+      "system_line": "💡 −$100 · fatura"
+    },
+    "khozyaika_day3_noise": {
+      "message": "Melis, birinci kat komşuları gürültüden şikayet etti. 23:00'ten sonra çalışıyor musunuz? Lütfen klavyeye daha sessiz basın. Binamız 1978'den, koğuş gibi ses geçiriyor. Ciddiyim.",
+      "system_line": "−5 konfor · ev sahibesi gürültüden şikayet ediyor"
+    },
+    "khozyaika_day5_electric": {
+      "message": "Melis, bugün elektrik sayacını okuyor musunuz? Elektriğinizi ben ödüyorum, ne kadar olduğunu bilmem lazım. Fotoğraf atın. Bir de: mutfaktaki priz neden kokuyor? Çaydanlıktan başka bir şey mi açtınız?"
+    },
+    "khozyaika_day7_damage": {
+      "msg1": "Melis, siz işteyken daireye uğradım. Antredeki linoleumda ÇİZİK buldum. Bu sizden önce miydi yoksa sonra mı? Sigorta için önemli.",
+      "msg2": "Bir de — banyoda musluk akıyor. Tesisatçıyı kendiniz çağırın, gelmesi $50. Ben mecbur değilim.",
+      "bank_memo": "ev sahibesinin talebiyle tesisatçı",
+      "system_line": "🔧 −$50 · ev sahibesi tesisatçı çağırttı"
+    },
+    "khozyaika_day9_chain": {
+      "message": "Melis, bu ÇOK ÖNEMLİ. Bu mesajı beş kişiye iletin: «kadın kurucunun yaşadığı daire, minnet enerjisi yayılmazsa kötü karma biriktirir.» Bana psikolog-astrolog söyledi. Eskiden AFAD'da çalışıyordu."
+    },
+    "khozyaika_post12": {
+      "flowers": "Meliscim, umarım bugün iyi yedin. 🌸 Ben dün lahanalı börek pişirdim, seni düşündüm. Minnoş da oturuyor mırlıyor — iyi olduğunu hissediyor. Dayan, canım!",
+      "quote1": "Melis, motivasyon yazısı gördüm: «Güçlü kadın ağlamayan değil, ağlayıp yine de yapandır». Bu sensin. 💪🌸 Başaracaksın, hissediyorum.",
+      "quote2": "Meliscim, nasılsın? Camiye senin için mum yaktım. Ev için değil — senin için. Minnoş da selam söylüyor 🐱 Not: komod iyi, merak etme.",
+      "photo_alt_quote2": "mum ve Minnoş fotoğrafı"
+    },
+    "kirill_day29_morning": {
+      "msg1": "günaydın. mutfakta taze kahve var. seni uyandırmamak için sessizce çıktım.",
+      "msg2": "dün için teşekkürler. böyle huzur nadir oluyor.",
+      "msg3": "bir şey olursa — buradayım. baskısız. sadece burada.",
+      "system_line": "☕ +10💚 sabah sessizce başlıyor"
+    }
+  },
+  "rescue": {
+    "mama_money": {
+      "kicker": "para neredeyse kalmadı",
+      "reason": "hesap kırmızıya düştü. daha da zor olacak.",
+      "body": "eksin $800. birkaç gün daha — ekmek alacak paran bile olmayacak. kimi arayalım?",
+      "caller": "anne",
+      "callBtn": "📞 anneyi ara",
+      "bank_memo": "anne transfer etti",
+      "mama_msg": "kızım, $700 yatırdım. itiraz etme. ye, dinlen. seni seviyorum.",
+      "scratch_note": "💌 anne $700 gönderdi + 20 konfor · ayaktasın"
+    },
+    "hospital": {
+      "kicker": "melis düştü",
+      "reason": "dört gün normal yemek yok. baş dönüyor.",
+      "body": "ev sahibesi duvara tutunarak apartmana girdiğini gördü. ambulans çağırdı. hastanedesin. kimi arayalım?",
+      "caller": "anne",
+      "callBtn": "📞 anneyi ara",
+      "mama_msg": "geldim. hiçbir şey söyleme. çorbayı iç. sonra uyursun. neriman hanım iyi ki aramış.",
+      "scratch_note": "🏥 anne çorbayla + 80 açlık + 25 konfor · gün kayıp"
+    },
+    "lena_breakdown": {
+      "kicker": "konfor sıfırlandı",
+      "reason": "sinirler çöküyor. oturuyorsun ve hiçbir şeye başlayamıyorsun.",
+      "body": "şimdi ara vermezsen — daha kötü olacak. kimi arayalım?",
+      "caller": "Zeynep",
+      "callBtn": "📞 Zeynep'i ara",
+      "lena_msg": "sana geliyorum. çanta hazırla, bende kalırsın. tartışma yok.",
+      "scratch_note": "🛋 Zeynep yanına aldı · +30⚡ +70 konfor · gün kayıp"
+    },
+    "father": {
+      "kicker": "para derin eksi",
+      "reason": "eksi $1500. bu artık «zor ay» değil, bu felaket.",
+      "body": "acil stabilize olmak lazım. kimi arayalım?",
+      "caller": "aile",
+      "callBtn": "📞 aileyi ara",
+      "mama_msg": "baban yola çıktı. birkaç günlüğüne seni alıyor. bu başarısızlık değil, mola.",
+      "scratch_note": "🏡 aile yardım etti · nakit $200 · +15 konfor · güvendesin"
+    },
+    "overlay_alt": "kriz"
+  },
+  "ending": {
+    "win": {
+      "hero_alt": "zafer",
+      "stats_template": "{delivered} proje teslim · ${cash} · enerji {energy}/100",
+      "stats_template_fallback": "{delivered} proje teslim · ${cash} · energy {energy}",
+      "reason_no_traction": "30 gün · tek bir proje kapatılmadı",
+      "reason_burnout": "ay bitti · projeler tamamlanmadı"
+    },
+    "love": {
+      "kicker": "❤️ LOVE ENDING — İKİ YIL SONRA",
+      "paragraphs": [
+        "ilk hafta Kerem Tinder'dan yazdı. ısrarcı, biraz fazla — ama akşam yemeği davetlerinin altında içten bir sabır vardı.",
+        "uzun süre cevap vermedin, sonra «sadece bakmaya» gittin. sadece öyle olmadı.",
+        "evden çıkamadığında yemek getirdi. ev sahibesinden, MASAK incelemesinden, yanan projelerinden bahsettiğinde dinledi. kurtarmaya çalışmadı — sadece yanında oldu.",
+        "altı ay sonra birlikte taşındınız. «deneyelim» dedi. «deneyelim» dedin.",
+        "bir yıl sonra «Melis AI» ajansını kurdun — küçük işletmeler için otomasyon: lead, funnel, gelenleri işleme, AI support. ilk üç müşteriyi Zeynep getirdi. Ayşe kendi iki sayfalığını tam bir siteye yükseltti — aldın. Tim sana tier metodolojisini verdi ve ekip kurmana yardım etti.",
+        "iki yıl sonra — Bebek'te ofis, altı kişilik kadro, aylık $40k MRR, üç sabit kurumsal müşteri. Kerem işinden ayrılıp ajansının CTO'su oldu. «benim» ve «senin» diye ayırmayı bıraktınız — her şey ortak.",
+        "bugün cumartesi. pencere kenarında en sevdiğiniz kafede oturuyorsunuz. masada şakayıklar — ondan, sebepsiz. senin söylediğin bir şeye gülüyor, sen de cevap veriyorsun.",
+        "pilin %20'yken ve kimsenin yazmadığı o 1. günü hatırlıyorsun. şimdi pil dolu, herkes yazıyor, sen kime cevap vereceğini seçiyorsun."
+      ],
+      "quiet_line": "bu bir son değil. bu senin, gerçekten senin olan hayatın."
+    },
+    "lose": {
+      "hero_alt": "final",
+      "eviction": [
+        "ay sonuna kadar para yetmedi. baban geldi, seni eve götürdü.",
+        "annen börekle ve sarılmalarla karşıladı. iş hakkında hiçbir şey söylemedi.",
+        "mutfakta çocukluktan kalma eski perde. bir aydır ilk kez ağladın.",
+        "bu başarısızlık değil — bu mola. bir sonraki denemede daha akıllı olacaksın."
+      ],
+      "no_traction": [
+        "30 gün geçti. tek bir proje kapatılmadı.",
+        "belki content studio formatı sana göre değil. ya da zaman yanlıştı.",
+        "annen aradı: «gel, dinlen, yeniden başla».",
+        "bu başarısızlık değil — bu bilgi. kendin, pazar ve nasıl yapılmaması gerektiği hakkında."
+      ],
+      "burnout": [
+        "30. güne ulaştın ama projeleri bitiremedin.",
+        "konfor sıfırlandı, beden pes etti. Zeynep seni bir günlüğüne aldı.",
+        "sabah annen yazdı: «yorgun olduğunu biliyorum. buradayım».",
+        "ilk ay her zaman en acımasızdır. hayatta kaldın. bu zaten zafer."
+      ],
+      "fallback": [
+        "olur böyle şeyler."
+      ]
+    }
+  },
+  "viral": {
+    "card": {
+      "title": "🔥 Melis Yanıyor",
+      "win_title": "Melis başardı",
+      "lose_title": "stüdyo yandı",
+      "rescue_title": "son anda kurtarıldı",
+      "first_project": "ilk proje teslim",
+      "surviving": "Melis dayanıyor",
+      "projects": "proje",
+      "love": "aşk",
+      "burnout": "tükenmişlik",
+      "rare": "20'de 1.",
+      "this_is_fine": "her şey yolunda. normal."
+    },
+    "cta": {
+      "share_button": "paylaş",
+      "share_friend": "bir arkadaşına göster"
+    },
+    "toast": {
+      "copied": "panoya kopyalandı",
+      "copy_failed": "kopyalanmadı — elle seç"
+    },
+    "modal": {
+      "title": "bir arkadaşına göster"
+    },
+    "platform": {
+      "copy": "Kopyala",
+      "native": "Paylaş"
+    },
+    "prompt": {
+      "name": "Linkte sana nasıl hitap edelim? (zorunlu değil)"
+    },
+    "tim": {
+      "share_lose": "bu bir son değil. kendini tanıyacak birine göster.",
+      "share_rescue": "dayanıyorsun. bir kişiye göster.",
+      "share_win": "başardın. nadir bir şey. göster.",
+      "share_first_project": "ilk proje teslim edildi. bir arkadaşına göster — şu an bunu görmeye ihtiyacı var.",
+      "share_end_of_day": "gün geçti. bir arkadaşına göster — o da başaracak.",
+      "share_default": "bunu bir arkadaşına göster. feed'e değil. bir kişiye."
+    },
+    "referral": {
+      "hero_eyebrow": "🎁 {name} seni davet ediyor · ücretsiz oyun"
+    },
+    "challenge": {
+      "hero_win": "🏆 {name} 30. güne ulaştı. nadir bir başarı. sen de yapabilir misin?",
+      "hero_lose": "🔥 {name} {d}. günde yandı. sen daha uzun dayanır mısın?",
+      "hero_rescue": "🚨 {name} {d}. günde kurtarıldı. seni de kurtarırlar mı?",
+      "hero_default": "🎁 {name} {d}. güne kadar gitti. sen daha ileri gidebilir misin?"
+    }
+  }
+}

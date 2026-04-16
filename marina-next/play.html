@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-  <title>🔥 Марина в огне — survival-мессенджер про 30 дней фаундера</title>
-  <meta name="description" content="Текстовая игра в мессенджере. 30 дней, $500, три проекта, одна абсурдная хозяйка и один Тиндер-Кирилл. Выживи первый месяц как фаундер. 15-20 минут, бесплатно."/>
+  <title data-i18n="meta.play.title">🔥 Марина в огне — survival-мессенджер про 30 дней фаундера</title>
+  <meta name="description" content="Текстовая игра в мессенджере. 30 дней, $500, три проекта, одна абсурдная хозяйка и один Тиндер-Кирилл. Выживи первый месяц как фаундер. 15-20 минут, бесплатно." data-i18n-attr="content:meta.play.description"/>
   <meta property="og:site_name" content="timzinin.com"/>
-  <meta property="og:title" content="🔥 Марина в огне — survival про 30 дней фаундера"/>
-  <meta property="og:description" content="Текстовая игра в мессенджере. 30 дней, $500, три проекта. Хозяйка абсурдная, Тиндер-Кирилл настойчивый, счёт могут заблокировать по 115-ФЗ. 15-20 минут."/>
+  <meta property="og:title" content="🔥 Марина в огне — survival про 30 дней фаундера" data-i18n-attr="content:meta.play.og_title"/>
+  <meta property="og:description" content="Текстовая игра в мессенджере. 30 дней, $500, три проекта. Хозяйка абсурдная, Тиндер-Кирилл настойчивый, счёт могут заблокировать по 115-ФЗ. 15-20 минут." data-i18n-attr="content:meta.play.og_description"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://timzinin.com/marina-next/play.html"/>
-  <meta property="og:image" content="https://timzinin.com/marina-next/img/hero/hero_main.webp"/>
+  <meta property="og:image" content="https://timzinin.com/marina-next/img/hero/hero_main.webp?v=2.8.0"/>
   <meta property="og:image:width" content="1536"/>
   <meta property="og:image:height" content="1024"/>
-  <meta property="og:image:alt" content="Марина за ноутбуком в ночной квартире — key art"/>
+  <meta property="og:image:alt" content="Марина за ноутбуком в ночной квартире — key art" data-i18n-attr="content:meta.play.og_image_alt"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="🔥 Марина в огне — survival-мессенджер"/>
-  <meta name="twitter:description" content="30 дней, $500, три проекта. Выживи первый месяц как фаундер. 15-20 мин, бесплатно."/>
-  <meta name="twitter:image" content="https://timzinin.com/marina-next/img/hero/hero_main.webp"/>
+  <meta name="twitter:title" content="🔥 Марина в огне — survival-мессенджер" data-i18n-attr="content:meta.play.twitter_title"/>
+  <meta name="twitter:description" content="30 дней, $500, три проекта. Выживи первый месяц как фаундер. 15-20 мин, бесплатно." data-i18n-attr="content:meta.play.twitter_description"/>
+  <meta name="twitter:image" content="https://timzinin.com/marina-next/img/hero/hero_main.webp?v=2.8.0"/>
   <link rel="icon" href="favicon.ico"/>
-  <link rel="stylesheet" type="text/css" href="css/marina.css?v=2.7.0"/>
+  <link rel="stylesheet" type="text/css" href="css/marina.css?v=2.8.0"/>
 
   <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. -->
   <!-- Forked from A Dark Room by Michael Townsend (doublespeakgames/adarkroom). -->
@@ -27,40 +27,56 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <!-- SPRINT 43 — Umami analytics (self-hosted, privacy-respecting, no cookies) -->
   <script defer src="https://stats.timzinin.com/script.js" data-website-id="f739d8de-d6a7-4cc2-a1de-54f733935192" data-host-url="https://stats.timzinin.com"></script>
+
+  <!-- SPRINT 49 — i18n: load runtime + per-locale dictionaries (lazy-fetched JSON) -->
+  <script src="i18n/i18n-runtime.js?v=2.8.0"></script>
 </head>
 <body>
   <div id="app">
 
+    <!-- SPRINT 49 — Language picker overlay (shown on first entry if no stored preference) -->
+    <div id="lang-overlay" class="overlay" aria-live="polite" style="display:none;">
+      <div class="overlay-card lang-card">
+        <h2 class="lang-overlay-title">Choose language · Выберите язык · Dil seçin · Escolha o idioma</h2>
+        <div class="lang-overlay-buttons">
+          <button class="lang-btn" data-lang="ru" type="button">🇷🇺 Русский</button>
+          <button class="lang-btn" data-lang="en" type="button">🇺🇸 English</button>
+          <button class="lang-btn" data-lang="tr" type="button">🇹🇷 Türkçe</button>
+          <button class="lang-btn" data-lang="pt" type="button">🇧🇷 Português</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Intro overlay (shown once on first load) -->
     <div id="intro-overlay" class="overlay" aria-live="polite" style="display:none;">
       <div class="overlay-card">
-        <h1 class="intro-title">Марина в огне</h1>
-        <div class="intro-sub">день 1. март 2026.</div>
+        <h1 class="intro-title" data-i18n="overlay.intro.title">Марина в огне</h1>
+        <div class="intro-sub" data-i18n="overlay.intro.subtitle">день 1. март 2026.</div>
         <div class="intro-body">
-          <p>Марина только что ушла из агентства. Три года копирайтила бренды, писала тексты, вела клиентов.</p>
-          <p>Две недели назад решила: попробую сама. Сняла квартиру-студию. Сказала родителям «я в порядке». Открыла ноутбук.</p>
-          <p>Ничего не происходит. Почта пуста. Никто не пишет. Батарейка на 20%.</p>
-          <p>У неё 12 дней и $500 на счету. Нужно закрыть 3 проекта до конца месяца, иначе аренда съест всё.</p>
-          <p class="intro-hint">открывается её телефон. сообщения приходят в чаты. отвечай, планируй, работай.</p>
+          <p data-i18n="overlay.intro.body.0">Марина только что ушла из агентства. Три года копирайтила бренды, писала тексты, вела клиентов.</p>
+          <p data-i18n="overlay.intro.body.1">Две недели назад решила: попробую сама. Сняла квартиру-студию. Сказала родителям «я в порядке». Открыла ноутбук.</p>
+          <p data-i18n="overlay.intro.body.2">Ничего не происходит. Почта пуста. Никто не пишет. Батарейка на 20%.</p>
+          <p data-i18n="overlay.intro.body.3">У неё 12 дней и $500 на счету. Нужно закрыть 3 проекта до конца месяца, иначе аренда съест всё.</p>
+          <p class="intro-hint" data-i18n="overlay.intro.body.hint">открывается её телефон. сообщения приходят в чаты. отвечай, планируй, работай.</p>
         </div>
-        <button id="intro-start" class="primary-btn">начать игру</button>
+        <button id="intro-start" class="primary-btn" data-i18n="overlay.intro.cta">начать игру</button>
       </div>
     </div>
 
     <!-- Win overlay -->
     <div id="win-overlay" class="overlay" aria-live="polite" style="display:none;">
       <div class="overlay-card win-card">
-        <div class="overlay-kicker">ПЕРВЫЙ МЕСЯЦ ПРОЙДЕН</div>
+        <div class="overlay-kicker" data-i18n="overlay.win.kicker">ПЕРВЫЙ МЕСЯЦ ПРОЙДЕН</div>
         <div class="overlay-stats" id="win-stats"></div>
         <div class="overlay-body">
-          <p>30 дней позади. целый месяц на своих ногах.</p>
-          <p>ты завершила свой первый месяц как фаундер.</p>
-          <p>это не конец — это только начало.</p>
-          <p>второй месяц приходит скоро.</p>
+          <p data-i18n="overlay.win.body.0">30 дней позади. целый месяц на своих ногах.</p>
+          <p data-i18n="overlay.win.body.1">ты завершила свой первый месяц как фаундер.</p>
+          <p data-i18n="overlay.win.body.2">это не конец — это только начало.</p>
+          <p data-i18n="overlay.win.body.3">второй месяц приходит скоро.</p>
         </div>
         <div class="overlay-actions">
-          <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="primary-btn tg-cta" data-overlay="win">🔔 подписаться на @timofeyzinin в Telegram</a>
-          <button id="win-restart" class="secondary-btn" type="button">🔄 сыграть ещё раз</button>
+          <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="primary-btn tg-cta" data-overlay="win" data-i18n="overlay.win.cta_tg">🔔 подписаться на @timofeyzinin в Telegram</a>
+          <button id="win-restart" class="secondary-btn" type="button" data-i18n="overlay.win.cta_restart">🔄 сыграть ещё раз</button>
         </div>
       </div>
     </div>
@@ -68,14 +84,14 @@
     <!-- Lose overlay -->
     <div id="lose-overlay" class="overlay" aria-live="polite" style="display:none;">
       <div class="overlay-card lose-card">
-        <div class="overlay-kicker">МЕСЯЦ НЕ ДОШЁЛ</div>
+        <div class="overlay-kicker" data-i18n="overlay.lose.kicker">МЕСЯЦ НЕ ДОШЁЛ</div>
         <div class="overlay-reason" id="lose-reason"></div>
         <div class="overlay-body" id="lose-body">
-          <p>бывает.</p>
+          <p data-i18n="overlay.lose.body_default">бывает.</p>
         </div>
         <div class="overlay-actions">
-          <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="primary-btn tg-cta" data-overlay="lose">🔔 подписаться на @timofeyzinin в Telegram</a>
-          <button id="lose-restart" class="secondary-btn" type="button">🔄 начать заново</button>
+          <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="primary-btn tg-cta" data-overlay="lose" data-i18n="overlay.lose.cta_tg">🔔 подписаться на @timofeyzinin в Telegram</a>
+          <button id="lose-restart" class="secondary-btn" type="button" data-i18n="overlay.lose.cta_restart">🔄 начать заново</button>
         </div>
       </div>
     </div>
@@ -83,13 +99,13 @@
     <!-- SPRINT 29 — Rescue choice overlay (call for help OR restart) -->
     <div id="rescue-overlay" class="overlay" aria-live="polite" style="display:none;">
       <div class="overlay-card rescue-card">
-        <div class="overlay-kicker" id="rescue-kicker">КРИЗИС</div>
+        <div class="overlay-kicker" id="rescue-kicker" data-i18n="overlay.rescue.kicker">КРИЗИС</div>
         <div class="overlay-reason" id="rescue-reason"></div>
         <div class="overlay-body" id="rescue-body"></div>
         <div class="overlay-actions">
-          <button id="rescue-call" type="button" class="primary-btn">📞 позвонить</button>
-          <button id="rescue-restart" type="button" class="secondary-btn">🔄 начать заново</button>
-          <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="secondary-btn tg-cta" data-overlay="rescue">🔔 подписаться на создателя в Telegram</a>
+          <button id="rescue-call" type="button" class="primary-btn" data-i18n="overlay.rescue.cta_call">📞 позвонить</button>
+          <button id="rescue-restart" type="button" class="secondary-btn" data-i18n="overlay.rescue.cta_restart">🔄 начать заново</button>
+          <a href="https://t.me/timofeyzinin" target="_blank" rel="noopener" class="secondary-btn tg-cta" data-overlay="rescue" data-i18n="overlay.rescue.cta_tg">🔔 подписаться на создателя в Telegram</a>
         </div>
       </div>
     </div>
@@ -116,20 +132,20 @@
         <div id="contacts-header">
           <div class="brand-row">
             <div class="brand-circle" aria-hidden="true">
-              <img src="img/chars/marina_avatar.webp" alt="Марина" onerror="this.style.display='none'"/>
+              <img src="img/chars/marina_avatar.webp" alt="Марина" data-i18n-attr="alt:meta.brand.avatar_alt" onerror="this.style.display='none'"/>
             </div>
             <div class="brand-text">
-              <div class="brand-title">🔥 Марина в огне</div>
-              <div class="brand-subtitle">теледрам</div>
+              <div class="brand-title" data-i18n="ui.brand.title">🔥 Марина в огне</div>
+              <div class="brand-subtitle" data-i18n="ui.brand.subtitle">теледрам</div>
             </div>
           </div>
           <div id="contacts-status" class="status-mini"></div>
         </div>
         <div id="folder-tabs" role="tablist">
-          <button class="folder-tab active" data-folder="all">все</button>
-          <button class="folder-tab" data-folder="funnel">🎯 воронка</button>
-          <button class="folder-tab" data-folder="team">👥 команда</button>
-          <button class="folder-tab" data-folder="money">💰 деньги</button>
+          <button class="folder-tab active" data-folder="all" data-i18n="ui.folder.all">все</button>
+          <button class="folder-tab" data-folder="funnel" data-i18n="ui.folder.funnel">🎯 воронка</button>
+          <button class="folder-tab" data-folder="team" data-i18n="ui.folder.team">👥 команда</button>
+          <button class="folder-tab" data-folder="money" data-i18n="ui.folder.money">💰 деньги</button>
         </div>
         <div id="contacts-list"></div>
       </aside>
@@ -137,7 +153,7 @@
       <!-- Chat main pane -->
       <section id="chat">
         <div id="chat-header">
-          <button id="chat-back" type="button" aria-label="назад">‹</button>
+          <button id="chat-back" type="button" aria-label="назад" data-i18n-attr="aria-label:ui.chat.back_aria">‹</button>
           <div class="chat-header-text">
             <div id="chat-title">—</div>
             <div id="chat-subtitle"></div>
@@ -149,7 +165,7 @@
         <div id="chat-thread" aria-live="polite"></div>
         <div id="chat-typing" class="typing-indicator" style="display:none;">
           <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
-          <span class="typing-label">марина печатает</span>
+          <span class="typing-label" data-i18n="ui.chat.typing">марина печатает</span>
         </div>
         <div id="chat-actions"></div>
       </section>
@@ -159,9 +175,9 @@
     <nav id="action-dock" role="navigation">
       <div id="resource-hud" class="resource-hud"></div>
       <div class="dock-topbar">
-        <div class="dock-hint">действия</div>
-        <button id="dock-collapse" type="button" title="свернуть/развернуть панель" aria-label="свернуть">⇕</button>
-        <button id="audio-toggle" type="button" title="музыка вкл/выкл" aria-label="музыка">🔊</button>
+        <div class="dock-hint" data-i18n="ui.dock.actions">действия</div>
+        <button id="dock-collapse" type="button" title="свернуть/развернуть панель" aria-label="свернуть" data-i18n-attr="title:ui.dock.collapse_title,aria-label:ui.dock.collapse_aria">⇕</button>
+        <button id="audio-toggle" type="button" title="музыка вкл/выкл" aria-label="музыка" data-i18n-attr="title:ui.dock.audio_title,aria-label:ui.dock.audio_aria">🔊</button>
       </div>
       <div class="dock-buttons" id="dock-buttons"></div>
     </nav>
@@ -172,19 +188,64 @@
     </div>
 
     <footer id="footer">
-      <span id="footer-version">survival</span> · <a id="reset-link" href="#" title="начать заново">reset</a> ·
-      <span class="desktop-hint" title="горячие клавиши">⌨ 1–9 действия · Space конец дня · ↑↓ контакты</span> ·
-      <a href="/marina/" style="color:#7a7a7a;">terminal v1.6a</a> ·
-      <a href="/marina-terminal/" style="color:#7a7a7a;">archive</a> ·
+      <span id="footer-version" data-i18n="ui.footer.version">survival</span> · <a id="reset-link" href="#" title="начать заново" data-i18n-attr="title:ui.footer.reset_title">reset</a> ·
+      <span class="desktop-hint" title="горячие клавиши" data-i18n-attr="title:ui.footer.shortcuts_title" data-i18n="ui.footer.shortcuts_text">⌨ 1–9 действия · Space конец дня · ↑↓ контакты</span> ·
+      <a href="#" id="lang-change-link" data-i18n="ui.footer.change_lang">🌐 язык</a> ·
+      <a href="/marina/" style="color:#7a7a7a;" data-i18n="ui.footer.terminal_link">terminal v1.6a</a> ·
+      <a href="/marina-terminal/" style="color:#7a7a7a;" data-i18n="ui.footer.archive_link">archive</a> ·
       source → <a href="https://github.com/TimmyZinin/marina-v-ogne" target="_blank" rel="noopener">github</a>
       · fork of <a href="https://github.com/doublespeakgames/adarkroom" target="_blank" rel="noopener">A Dark Room</a> (MPL-2.0)
     </footer>
 
   </div>
 
-  <script src="script/lead.js?v=2.7.0"></script>
-  <script src="script/marina-audio.js?v=2.7.0"></script>
-  <script src="script/bubbles.js?v=2.7.0"></script>
-  <script src="script/marina.js?v=2.7.0"></script>
+  <!-- SPRINT 49 — Initialize i18n BEFORE game scripts (sets lang, applies DOM swap) -->
+  <script>
+    (function () {
+      function showLangOverlay() {
+        var ov = document.getElementById('lang-overlay');
+        if (!ov) return;
+        ov.style.display = 'flex';
+        var btns = ov.querySelectorAll('.lang-btn');
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].addEventListener('click', function (e) {
+            var lang = e.currentTarget.getAttribute('data-lang');
+            if (window.MarinaI18n) window.MarinaI18n.setLang(lang);
+            ov.style.display = 'none';
+          });
+        }
+      }
+      function bindLangChangeFooter() {
+        var lnk = document.getElementById('lang-change-link');
+        if (!lnk) return;
+        lnk.addEventListener('click', function (e) {
+          e.preventDefault();
+          showLangOverlay();
+        });
+      }
+      if (window.MarinaI18n) {
+        window.MarinaI18n.init({
+          autodetect: true,
+          onReady: function () {
+            // Show lang overlay if no stored preference (first visit)
+            try {
+              if (!localStorage.getItem(window.MarinaI18n.LANG_KEY)) {
+                showLangOverlay();
+              }
+            } catch (e) {}
+            bindLangChangeFooter();
+          }
+        });
+      } else {
+        bindLangChangeFooter();
+      }
+    })();
+  </script>
+
+  <script src="script/lead.js?v=2.8.0"></script>
+  <script src="script/marina-audio.js?v=2.8.0"></script>
+  <script src="script/bubbles.js?v=2.8.0"></script>
+  <script src="script/viral.js?v=2.8.0"></script>
+  <script src="script/marina.js?v=2.8.0"></script>
 </body>
 </html>
