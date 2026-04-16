@@ -174,10 +174,12 @@
   function loadFromFetch(callback) {
     var loaded = 0;
     var total = SUPPORTED.length;
+    // Cache-bust via window.MARINA_I18N_VERSION (set by host page) or fallback timestamp
+    var cacheBust = (typeof window !== 'undefined' && window.MARINA_I18N_VERSION) || '2.8.0';
     SUPPORTED.forEach(function (lang) {
-      var url = 'i18n/' + lang + '.json';
+      var url = 'i18n/' + lang + '.json?v=' + cacheBust;
       try {
-        fetch(url, { cache: 'force-cache' })
+        fetch(url, { cache: 'default' })
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(function (data) {
             if (data) _dicts[lang] = data;
