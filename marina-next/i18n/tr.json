@@ -683,7 +683,18 @@
       "olya_ignored": "Elif görmezden gelindi",
       "kirill_unlocked": "Kerem buluşmaları açtı · ⏳ 2 gün pencere",
       "krypta_ignored": "kripto kanka görmezden gelindi",
-      "artur_wasted": "Arda vakti boşa harcadı · 4 saat gitti"
+      "artur_wasted": "Arda vakti boşa harcadı · 4 saat gitti",
+      "lead_hit": "+1 lead · biri cevap verdi",
+      "qualified": "+1 kalifiye lead · teklif gönderebilirsin",
+      "energy_gain": "+{gain} enerji",
+      "eat_home": "+{food} tokluk · −${cost}",
+      "eat_out": "+{food} tokluk · +{comfort} konfor · −${cost}",
+      "shopping": "+{comfort} konfor · −${cost}",
+      "date_kirill": "+{food} tokluk · +{comfort} konfor · −3h · −10⚡",
+      "night_warn": "⚠ gece çalışması · yorgunluk · −0.5 unit",
+      "month_over": "— ay bitti. {day}. gün geride kaldı. —",
+      "day_over": "— {day}. gün bitti · yeni gün başladı —",
+      "nastya_partnership": "🤝 Aslı ile ortaklık · +$200 + yeni proje (4 unit, 7 gün) · +10💚"
     },
     "anna_referral": {
       "yes": "aldım. kontratı gönder",

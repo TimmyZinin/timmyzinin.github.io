@@ -683,7 +683,18 @@
       "olya_ignored": "Lily ignored",
       "kirill_unlocked": "Chris unlocked dates · ⏳ 2-day window",
       "krypta_ignored": "crypto bro ignored",
-      "artur_wasted": "Arthur wasted my time · lost 4 hours"
+      "artur_wasted": "Arthur wasted my time · lost 4 hours",
+      "lead_hit": "+1 lead · someone replied",
+      "qualified": "+1 qualified lead · can send offer",
+      "energy_gain": "+{gain} energy",
+      "eat_home": "+{food} fullness · −${cost}",
+      "eat_out": "+{food} fullness · +{comfort} comfort · −${cost}",
+      "shopping": "+{comfort} comfort · −${cost}",
+      "date_kirill": "+{food} fullness · +{comfort} comfort · −3h · −10⚡",
+      "night_warn": "⚠ night work · exhausted · −0.5 unit",
+      "month_over": "— month is over. day {day} behind us. —",
+      "day_over": "— end of day {day} · new day begins —",
+      "nastya_partnership": "🤝 partnership with Nadia · +$200 + new project (4 units, 7 days) · +10💚"
     },
     "anna_referral": {
       "yes": "i'm in. send the contract",

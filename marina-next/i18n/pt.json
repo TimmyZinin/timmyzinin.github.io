@@ -683,7 +683,18 @@
       "olya_ignored": "Letícia ignorada",
       "kirill_unlocked": "Caio liberou encontros · ⏳ janela 2 dias",
       "krypta_ignored": "mano cripto ignorado",
-      "artur_wasted": "Arthur me fez perder tempo · 4h perdidas"
+      "artur_wasted": "Arthur me fez perder tempo · 4h perdidas",
+      "lead_hit": "+1 lead · alguém respondeu",
+      "qualified": "+1 lead qualificado · pode enviar proposta",
+      "energy_gain": "+{gain} energia",
+      "eat_home": "+{food} saciedade · −${cost}",
+      "eat_out": "+{food} saciedade · +{comfort} conforto · −${cost}",
+      "shopping": "+{comfort} conforto · −${cost}",
+      "date_kirill": "+{food} saciedade · +{comfort} conforto · −3h · −10⚡",
+      "night_warn": "⚠ trabalho noturno · cansada · −0.5 unit",
+      "month_over": "— mês acabou. dia {day} pra trás. —",
+      "day_over": "— fim do dia {day} · novo dia começou —",
+      "nastya_partnership": "🤝 parceria com Natália · +$200 + novo projeto (4 units, 7 dias) · +10💚"
     },
     "anna_referral": {
       "yes": "fechado. manda o contrato",

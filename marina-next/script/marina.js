@@ -1652,7 +1652,7 @@
             status: 'active'
           });
           STATE.comfort = Math.min(100, STATE.comfort + 10);
-          postMessage('scratch', { kind: 'system', text: '🤝 партнёрство с Настей · +$200 + новый проект (4 units, 7 дн) · +10💚' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.nastya_partnership', '🤝 партнёрство с Настей · +$200 + новый проект (4 units, 7 дн) · +10💚') });
           setTimeout(function () {
             postIncoming('nastya', tStr('system.nastya.partner_thanks', 'кайф, спасибо. закидываю бриф в почту, начинаем завтра.'), Bubbles.localizedContactName(findContact('nastya')));
           }, 1000);
@@ -2147,7 +2147,7 @@
       if (hit) {
         STATE.leads += 1;
         setTimeout(function () {
-          postSystem('scratch', '+1 лид · кто-то ответил');
+          postSystem('scratch', tStr('system.scratch.lead_hit', '+1 лид · кто-то ответил'));
           postIncoming('scratch', tPickOr('text.reach_out.hit_reply', REACH_OUT_TEXT.hit_reply), tStr('system.reach_out.unknown_contact', 'незнакомый контакт'));
         }, 600);
       } else {
@@ -2170,7 +2170,7 @@
     runAction(function () {
       postOutgoing('scratch', tPickOr('text.brief', BRIEF_TEXT));
       setTimeout(function () {
-        postSystem('scratch', '+1 квалифицированный лид · можно отправить оффер');
+        postSystem('scratch', tStr('system.scratch.qualified', '+1 квалифицированный лид · можно отправить оффер'));
       }, 600);
     });
   }
@@ -2325,7 +2325,7 @@
     runAction(function () {
       postOutgoing('scratch', tPickOr('text.rest', REST_TEXT));
       setTimeout(function () {
-        if (gain >= 30) postSystem('scratch', '+' + gain + ' энергии');
+        if (gain >= 30) postSystem('scratch', tStr('system.scratch.energy_gain', '+{gain} энергии').replace('{gain}', gain));
         else postSystem('scratch', tStr('system.scratch.coffee_overdose', 'кофе перелит · +{gain} энергии').replace('{gain}', gain));
       }, 500);
     });
@@ -2348,7 +2348,7 @@
       postOutgoing('scratch', tPickOr('text.eat_home', EAT_HOME_TEXT));
       setTimeout(function () {
         var hint = hCost === 0 ? ' · ужин перед сном' : '';
-        postSystem('scratch', '+' + COST.eat_home.f + ' сытости · −$' + COST.eat_home.c + hint);
+        postSystem('scratch', tStr('system.scratch.eat_home', '+{food} сытости · −${cost}').replace('{food}', COST.eat_home.f).replace('{cost}', COST.eat_home.c) + hint);
       }, 400);
     });
   }
@@ -2366,7 +2366,7 @@
       postOutgoing('scratch', tPickOr('text.eat_out', EAT_OUT_TEXT));
       setTimeout(function () {
         var hint2 = hCost2 === 0 ? ' · ужин в кафе перед сном' : '';
-        postSystem('scratch', '+' + COST.eat_out.f + ' сытости · +' + COST.eat_out.m + ' комфорт · −$' + COST.eat_out.c + hint2);
+        postSystem('scratch', tStr('system.scratch.eat_out', '+{food} сытости · +{comfort} комфорт · −${cost}').replace('{food}', COST.eat_out.f).replace('{comfort}', COST.eat_out.m).replace('{cost}', COST.eat_out.c) + hint2);
         postBank(-COST.eat_out.c, tStr('system.payment.eat_out', 'кафе на углу'));
       }, 400);
     });
@@ -2384,7 +2384,7 @@
     runAction(function () {
       postOutgoing('scratch', tPickOr('text.shopping', SHOPPING_TEXT));
       setTimeout(function () {
-        postSystem('scratch', '+' + COST.shopping.m + ' комфорт · −$' + COST.shopping.c);
+        postSystem('scratch', tStr('system.scratch.shopping', '+{comfort} комфорт · −${cost}').replace('{comfort}', COST.shopping.m).replace('{cost}', COST.shopping.c));
         postBank(-COST.shopping.c, tStr('system.payment.shopping', 'маленький шопинг'));
       }, 400);
     });
@@ -2413,7 +2413,7 @@
     runAction(function () {
       postOutgoing('scratch', tPickOr('text.date_kirill', DATE_KIRILL_TEXT));
       setTimeout(function () {
-        postSystem('scratch', '+' + COST.date_kirill.f + ' сытости · +' + COST.date_kirill.m + ' комфорт · −3h · −10⚡');
+        postSystem('scratch', tStr('system.scratch.date_kirill', '+{food} сытости · +{comfort} комфорт · −3h · −10⚡').replace('{food}', COST.date_kirill.f).replace('{comfort}', COST.date_kirill.m));
       }, 400);
     });
   }
@@ -2458,7 +2458,7 @@
       setTimeout(function () {
         var unitsTxt = ' · ' + p.work_units_done.toFixed(1) + '/' + totalUnits + ' units';
         if (fatigueBug) {
-          postSystem('scratch', '⚠ ночная работа · усталость · −0.5 unit' + unitsTxt);
+          postSystem('scratch', tStr('system.scratch.night_warn', '⚠ ночная работа · усталость · −0.5 unit') + unitsTxt);
         } else {
           postSystem('scratch', tStr('system.scratch.night_units', 'проект #{id} · +1.5 units{extra} · −15⚡ ночной режим · завтра будет тяжело').replace('{id}', p.id).replace('{extra}', unitsTxt));
         }
@@ -2471,8 +2471,8 @@
           p.status = 'delivered';
           track('project_delivered', { project_id: p.id, client: p.client || 'n/a', payment: nightPayment, day: STATE.day, delivered_total: STATE.delivered_projects, night: true });
           setTimeout(function () {
-            postSystem('scratch', 'проект #' + p.id + ' сдан · клиент принял');
-            postBank(nightPayment, 'финал по проекту #' + p.id);
+            postSystem('scratch', tStr('system.scratch.project_delivered', 'проект #{id} сдан · клиент принял').replace('{id}', p.id));
+            postBank(nightPayment, tStr('system.payment.project_final', 'финал по проекту #{id}').replace('{id}', p.id));
             save(); renderDock();
           }, 500);
         }
@@ -2548,13 +2548,13 @@
 
         // Day 12 → 13 transition → finale check
         if (STATE.day > FINALE_DAY) {
-          postSystem('scratch', '— месяц закончился. день ' + FINALE_DAY + ' позади. —');
+          postSystem('scratch', tStr('system.scratch.month_over', '— месяц закончился. день {day} позади. —').replace('{day}', FINALE_DAY));
           checkEndings(true);
           STATE.day = FINALE_DAY;
           return;
         }
 
-        postSystem('scratch', '— конец дня ' + prevDay + ' · новый день начался —');
+        postSystem('scratch', tStr('system.scratch.day_over', '— конец дня {day} · новый день начался —').replace('{day}', prevDay));
         postSystem('scratch', tStr('system.scratch.morning', 'день {day} · 8 часов впереди · ${cash}').replace('{day}', STATE.day).replace('{cash}', STATE.cash));
 
         if (STATE.day === FINALE_DAY - 1) {
