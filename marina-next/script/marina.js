@@ -1291,7 +1291,7 @@
           STATE.pending_callbacks.push({ trigger_day: STATE.day + 3, type: 'pavel_return' });
         } else {
           postOutgoing('pavel', tStr('system.pavel.loan_no', 'не сейчас, извини.'));
-          postMessage('scratch', { kind: 'system', text: 'Павлу отказала' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.refused_pavel', 'Павлу отказала') });
         }
         save(); renderDock();
       });
@@ -1321,7 +1321,7 @@
           setTimeout(function () {
             postIncoming('pavel', tStr('system.pavel.stop_reply', 'ок. больше не буду.'), Bubbles.localizedContactName(findContact('pavel')));
           }, 1000);
-          postMessage('scratch', { kind: 'system', text: 'Павел больше не пишет · +5💚 закрытый гештальт' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.pavel_done', 'Павел больше не пишет · +5💚 закрытый гештальт') });
         }
         save(); renderDock();
       });
@@ -1424,7 +1424,7 @@
             postMessage('scratch', { kind: 'system', text: '−$' + dCost + ' · +60⚡ · +25💚 · −2h · день ожил' });
           } else {
             postOutgoing('denis', tStr('system.denis.no', 'не сегодня. работа.'));
-            postMessage('scratch', { kind: 'system', text: 'Денису отказала' });
+            postMessage('scratch', { kind: 'system', text: tStr('system.scratch.refused_denis', 'Денису отказала') });
           }
           save(); renderDock();
         });
@@ -1457,7 +1457,7 @@
           postOutgoing('olya', tStr('system.olya.listen', 'у меня 5 минут. рассказывай.'));
           STATE.hours = Math.max(0, STATE.hours - 1);
         } else {
-          postMessage('scratch', { kind: 'system', text: 'Оля удалена из контактов' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.olya_removed', 'Оля удалена из контактов') });
         }
         save(); renderDock();
       });
@@ -1484,7 +1484,7 @@
           STATE.beat_olya_final = true; // suppress final
           STATE.comfort = Math.min(100, STATE.comfort + 3);
         } else {
-          postMessage('scratch', { kind: 'system', text: 'Оля проигнорирована' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.olya_ignored', 'Оля проигнорирована') });
         }
         save(); renderDock();
       });
@@ -1530,7 +1530,7 @@
           // Activate date invitation window (expires in 2 days)
           STATE.kirill_invite_active = true;
           STATE.kirill_invite_expires_day = (STATE.day || 1) + 2;
-          postMessage('scratch', { kind: 'system', text: 'Кирилл разблокировал свидания · ⏳ окно 2 дня' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.kirill_unlocked', 'Кирилл разблокировал свидания · ⏳ окно 2 дня') });
         } else {
           postOutgoing('kirill', tStr('system.kirill.not_type', 'извини, ты не мой типаж.'));
           STATE.kirill_blocked = true;
@@ -1725,7 +1725,7 @@
             postIncoming('krypta', tStr('system.krypta.not_bot', 'БРАТ НЕ БОТ Я РЕАЛЬНЫЙ БРАТ'), Bubbles.localizedContactName(findContact('krypta')));
           }, 800);
         } else {
-          postMessage('scratch', { kind: 'system', text: 'БРАТ проигнорирован' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.krypta_ignored', 'БРАТ проигнорирован') });
         }
         save(); renderDock();
       });
@@ -1753,7 +1753,7 @@
           STATE.beat_krypta_final = true; // suppress final retry too
           STATE.comfort = Math.min(100, STATE.comfort + 3);
         } else {
-          postMessage('scratch', { kind: 'system', text: 'БРАТ проигнорирован' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.krypta_ignored', 'БРАТ проигнорирован') });
         }
         save(); renderDock();
       });
@@ -1819,7 +1819,7 @@
             } else {
               // Wasted — nothing happens
               postIncoming('artur', tStr('system.artur.pass', 'извини, понял что мы сейчас не заинтересованы.'), Bubbles.localizedContactName(findContact('artur')));
-              postMessage('scratch', { kind: 'system', text: 'Артур зря вызвал · потеряла 4 часа' });
+              postMessage('scratch', { kind: 'system', text: tStr('system.scratch.artur_wasted', 'Артур зря вызвал · потеряла 4 часа') });
             }
             save(); renderDock();
           }, 1500);
@@ -2100,7 +2100,7 @@
     STATE.lamp_on = true;
     track('game_started', { version: APP_VERSION });
     postMessage('scratch', {
-      text: 'день 1. 9:00. ноутбук открыт. чат пуст. кофе остыл. пора начинать.',
+      text: tStr('system.scratch.boot_day1', 'день 1. 9:00. ноутбук открыт. чат пуст. кофе остыл. пора начинать.'),
       kind: 'system'
     });
     setTimeout(function () {

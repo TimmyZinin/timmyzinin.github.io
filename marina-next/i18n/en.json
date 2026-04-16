@@ -674,7 +674,16 @@
       "night_units": "project #{id} · +1.5 units{extra} · −15⚡ night mode · tomorrow's gonna hurt",
       "morning": "day {day} · 8 hours ahead · ${cash}",
       "last_workday": "this is the last workday of the month · time to wrap up projects",
-      "last_day": "last day of the month · everything decides today"
+      "last_day": "last day of the month · everything decides today",
+      "boot_day1": "day 1. 9:00am. laptop open. chat empty. coffee cold. time to start.",
+      "refused_pavel": "refused Paul",
+      "pavel_done": "Paul stopped texting · +5💚 closure",
+      "refused_denis": "refused Denis",
+      "olya_removed": "Lily removed from contacts",
+      "olya_ignored": "Lily ignored",
+      "kirill_unlocked": "Chris unlocked dates · ⏳ 2-day window",
+      "krypta_ignored": "crypto bro ignored",
+      "artur_wasted": "Arthur wasted my time · lost 4 hours"
     },
     "anna_referral": {
       "yes": "i'm in. send the contract",

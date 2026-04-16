@@ -674,7 +674,16 @@
       "night_units": "projeto #{id} · +1.5 units{extra} · −15⚡ modo noturno · amanhã vai doer",
       "morning": "dia {day} · 8 horas pela frente · ${cash}",
       "last_workday": "último dia útil do mês · hora de fechar os projetos",
-      "last_day": "último dia do mês · hoje decide tudo"
+      "last_day": "último dia do mês · hoje decide tudo",
+      "boot_day1": "dia 1. 9:00. notebook aberto. chat vazio. café frio. hora de começar.",
+      "refused_pavel": "recusei o Pedro",
+      "pavel_done": "Pedro parou de escrever · +5💚 fechamento",
+      "refused_denis": "recusei o Diego",
+      "olya_removed": "Letícia removida dos contatos",
+      "olya_ignored": "Letícia ignorada",
+      "kirill_unlocked": "Caio liberou encontros · ⏳ janela 2 dias",
+      "krypta_ignored": "mano cripto ignorado",
+      "artur_wasted": "Arthur me fez perder tempo · 4h perdidas"
     },
     "anna_referral": {
       "yes": "fechado. manda o contrato",

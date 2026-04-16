@@ -674,7 +674,16 @@
       "night_units": "proje #{id} · +1.5 units{extra} · −15⚡ gece modu · yarın zor olacak",
       "morning": "gün {day} · önümde 8 saat · ${cash}",
       "last_workday": "bu ayın son iş günü · projeleri kapatma vakti",
-      "last_day": "ayın son günü · bugün her şey belli olacak"
+      "last_day": "ayın son günü · bugün her şey belli olacak",
+      "boot_day1": "1. gün. 09:00. laptop açık. sohbet boş. kahve soğudu. başlama vakti.",
+      "refused_pavel": "Kemal'e hayır dedim",
+      "pavel_done": "Kemal artık yazmıyor · +5💚 kapanış",
+      "refused_denis": "Deniz'e hayır dedim",
+      "olya_removed": "Elif kontaktlardan silindi",
+      "olya_ignored": "Elif görmezden gelindi",
+      "kirill_unlocked": "Kerem buluşmaları açtı · ⏳ 2 gün pencere",
+      "krypta_ignored": "kripto kanka görmezden gelindi",
+      "artur_wasted": "Arda vakti boşa harcadı · 4 saat gitti"
     },
     "anna_referral": {
       "yes": "aldım. kontratı gönder",
