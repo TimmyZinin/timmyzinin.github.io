@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MCPHire — Post-MVP Backlog · 10 sprints</title>
+<meta name="description" content="Оставшиеся задачи после MVP v3: deploy, hangovers, phase 2 (buyer-side, M2M), phase 3 (scale)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: oklch(96% 0.02 80);
+    --ink: oklch(14% 0.02 40);
+    --ink-soft: oklch(30% 0.02 40);
+    --mute: oklch(55% 0.01 60);
+    --line: oklch(14% 0.02 40 / 0.18);
+    --line-hard: oklch(14% 0.02 40);
+    --paper: oklch(98% 0.015 85);
+    --panel: oklch(92% 0.02 80);
+    --accent: oklch(58% 0.19 35);
+    --accent-2: oklch(78% 0.14 75);
+    --accent-3: oklch(80% 0.09 55);
+    --danger: oklch(45% 0.18 25);
+    --ok: oklch(52% 0.14 150);
+    --info: oklch(62% 0.13 240);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    font-family:'Space Grotesk', system-ui, sans-serif;
+    font-weight:400; font-size:17px; line-height:1.55;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden; position:relative;
+  }
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+  ::selection{background:var(--accent); color:var(--paper);}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;mix-blend-mode:multiply;opacity:.32;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0 0.04  0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+
+  .wrap{max-width:1380px; margin:0 auto; padding:0 46px;}
+  @media (max-width:760px){.wrap{padding:0 22px;}}
+
+  section{padding:96px 0; position:relative}
+  @media (max-width:760px){section{padding:64px 0}}
+  @media (max-width:480px){section{padding:48px 0}}
+
+  h1,h2,h3,h4{font-family:'Instrument Serif', serif; font-weight:400; letter-spacing:-0.02em; color:var(--ink); margin:0; line-height:0.98;}
+  h2{font-size:clamp(38px, 5.8vw, 88px); letter-spacing:-0.025em;}
+  h3{font-size:clamp(24px, 2.8vw, 40px);}
+  h4{font-size:24px; line-height:1.1; letter-spacing:-0.015em;}
+
+  .eyebrow{font-family:'Space Grotesk',sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:0.22em; font-weight:600; color:var(--ink-soft);}
+  .eyebrow .dot{display:inline-block;width:7px;height:7px;background:var(--accent);margin-right:10px;transform:translateY(-2px)}
+
+  .tag{display:inline-block; border:1px solid var(--line-hard); padding:4px 9px 3px; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; margin-right:4px;}
+  .tag.ok{background:var(--ok);color:var(--paper);border-color:var(--ok)}
+  .tag.warn{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+  .tag.hot{background:var(--accent-2);color:var(--ink);border-color:var(--line-hard)}
+  .tag.cold{color:var(--mute)}
+  .tag.info{background:var(--info);color:var(--paper);border-color:var(--info)}
+
+  .lead{font-size:clamp(18px, 1.5vw, 22px); line-height:1.5; max-width:64ch; color:var(--ink-soft);}
+  a{color:var(--accent); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{background:var(--accent); color:var(--paper); text-decoration:none;}
+  .mono{font-family:ui-monospace,monospace; font-size:13px; background:var(--panel); padding:1px 6px; border:1px solid var(--line);}
+
+  /* Hero */
+  .hero{padding:42px 0 60px}
+  .hero-top{display:grid; grid-template-columns:1fr auto 1fr; gap:22px; align-items:center; padding-bottom:16px; border-bottom:1px solid var(--line-hard);}
+  @media (max-width:700px){.hero-top{grid-template-columns:1fr 1fr; gap:6px 14px;} .hero-top .col.center{grid-column:1/-1; order:3; text-align:left; font-size:10px; opacity:.7; margin-top:4px;}}
+  .hero-top .col{font-size:12px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600}
+  .hero-top .col.center{text-align:center}
+  .hero-top .col.right{text-align:right}
+  .hero-top .col a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px;}
+  .hero-top .col a:hover{background:transparent;color:var(--accent);}
+  .hero-body{margin-top:46px; display:grid; grid-template-columns:1.4fr 1fr; gap:54px; align-items:end;}
+  @media (max-width:1000px){.hero-body{grid-template-columns:1fr; gap:28px;}}
+  .hero-title{font-family:'Instrument Serif', serif; font-size:clamp(46px, 9.2vw, 160px); line-height:0.92; letter-spacing:-0.035em;}
+  .hero-title em{font-style:italic; color:var(--accent)}
+  .hero-title .mark{background:var(--accent-2); padding:0 8px;}
+  .hero-side{border-left:1px solid var(--line-hard); padding-left:24px;}
+  @media (max-width:1000px){.hero-side{border-left:none; border-top:1px solid var(--line-hard); padding-left:0; padding-top:22px; max-width:58ch;}}
+  .hero-side p{margin:0 0 10px; font-size:15.5px; line-height:1.5}
+  .hero-side .kicker{font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600; margin-bottom:12px; color:var(--ink-soft)}
+  .hero-meta{margin-top:50px; padding-top:18px; border-top:1px solid var(--line-hard); display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  @media (max-width:900px){.hero-meta{grid-template-columns:repeat(2,1fr)}}
+  .hero-meta .cell .k{font-size:10px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600; color:var(--mute); margin-bottom:4px}
+  .hero-meta .cell .v{font-family:'Instrument Serif',serif; font-size:clamp(22px, 2.4vw, 30px); line-height:1.05;}
+
+  .sec-head{display:grid; grid-template-columns:170px 1fr; gap:30px; align-items:start; margin-bottom:36px;}
+  @media (max-width:800px){.sec-head{grid-template-columns:1fr; gap:10px}}
+  .sec-head .num{font-family:'Instrument Serif',serif; font-style:italic; font-size:clamp(42px, 4.4vw, 54px); line-height:0.9; color:var(--accent);}
+  .sec-head .num small{display:block; font-style:normal; font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:0.22em; color:var(--ink-soft); margin-top:8px; font-weight:600;}
+
+  /* Done MVP summary */
+  .done{background:var(--paper); border-top:2px solid var(--line-hard); border-bottom:2px solid var(--line-hard);}
+  .done-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:26px; border-left:1px solid var(--line-hard); border-top:1px solid var(--line-hard);}
+  @media (max-width:760px){.done-grid{grid-template-columns:repeat(2,1fr)}}
+  .done-grid .cell{border-right:1px solid var(--line-hard); border-bottom:1px solid var(--line-hard); padding:22px 22px 26px; background:var(--paper);}
+  .done-grid .cell .num{font-family:'Instrument Serif',serif; font-style:italic; font-size:32px; color:var(--ok); line-height:0.9;}
+  .done-grid .cell .nm{font-size:12.5px; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; margin-top:6px; color:var(--ink)}
+  .done-grid .cell p{margin:10px 0 0; font-size:13.5px; line-height:1.5; color:var(--ink-soft)}
+  .done-grid .cell ul{margin:8px 0 0; padding-left:16px; font-size:13px; line-height:1.45; color:var(--ink-soft)}
+  .done-grid .cell ul li{margin-bottom:3px}
+
+  /* Dependency diagram */
+  .deps{background:var(--bg)}
+  .dep-graph{margin-top:30px; padding:28px 30px 32px; background:var(--ink); color:var(--paper); font-family:ui-monospace,monospace; font-size:13px; line-height:1.7; overflow-x:auto; border:1px solid var(--line-hard);}
+  .dep-graph b{color:var(--accent-2); font-weight:500}
+  .dep-graph em{color:var(--accent); font-style:normal; font-weight:500}
+  .dep-graph .dim{color:oklch(60% 0.02 60);}
+
+  /* Phases bar */
+  .phases{background:var(--paper); border-top:2px solid var(--line-hard); border-bottom:2px solid var(--line-hard);}
+  .phase-bar{margin-top:26px; display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:2px solid var(--line-hard);}
+  @media (max-width:760px){.phase-bar{grid-template-columns:1fr}}
+  .phase-bar .ph{padding:22px 22px 26px; border-right:2px solid var(--line-hard); position:relative; background:var(--paper);}
+  .phase-bar .ph:last-child{border-right:none}
+  @media (max-width:760px){.phase-bar .ph{border-right:none;border-bottom:2px solid var(--line-hard);} .phase-bar .ph:last-child{border-bottom:none}}
+  .phase-bar .ph.active{background:var(--accent-2)}
+  .phase-bar .ph .num{font-family:'Instrument Serif',serif; font-style:italic; font-size:38px; color:var(--accent); line-height:0.9;}
+  .phase-bar .ph .nm{font-size:12.5px; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; margin-top:6px;}
+  .phase-bar .ph .dur{font-size:12.5px; color:var(--mute); margin-top:4px;}
+  .phase-bar .ph .ps{margin-top:12px; font-size:13.5px; line-height:1.45;}
+  .phase-bar .ph .ps b{font-weight:500;}
+
+  /* Sprint cards */
+  .board{background:var(--bg)}
+  .sprint-group{margin-top:32px}
+  .sprint-group-head{font-family:'Instrument Serif',serif; font-size:28px; font-style:italic; color:var(--accent); margin-bottom:14px; border-bottom:1px solid var(--line); padding-bottom:6px;}
+  .sprint{border:1px solid var(--line-hard); background:var(--paper); margin-bottom:18px;}
+  .sprint .head{display:grid; grid-template-columns:90px 1fr auto; align-items:center; padding:18px 22px; gap:20px; border-bottom:1px solid var(--line-hard); background:var(--panel);}
+  @media (max-width:760px){.sprint .head{grid-template-columns:60px 1fr; gap:12px;} .sprint .head .rt{grid-column:1/-1; justify-self:start; margin-top:4px}}
+  .sprint .head .id{font-family:'Instrument Serif',serif; font-style:italic; font-size:34px; color:var(--accent); line-height:1;}
+  .sprint .head .title{font-family:'Instrument Serif',serif; font-size:26px; line-height:1.05; letter-spacing:-0.015em;}
+  .sprint .head .title small{display:block; font-family:'Space Grotesk',sans-serif; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--mute); margin-top:4px;}
+  .sprint .head .rt{display:flex; gap:6px; flex-wrap:wrap}
+  .sprint .body{padding:22px 22px 26px;}
+  .sprint .goal{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0 0 14px; max-width:82ch;}
+  .sprint .goal b{color:var(--ink); font-weight:600}
+  .task{margin:10px 0; padding:13px 16px; background:var(--bg); border-left:2px solid var(--accent);}
+  .task .th{display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; margin-bottom:6px;}
+  .task .th .tid{font-family:'Instrument Serif',serif; font-style:italic; font-size:19px; color:var(--accent); line-height:1;}
+  .task .th .path{font-family:ui-monospace,monospace; font-size:12.5px; background:var(--panel); padding:2px 7px; border:1px solid var(--line);}
+  .task .th .time{font-size:11px; color:var(--mute); letter-spacing:0.1em;}
+  .task .desc{font-size:14px; line-height:1.5; color:var(--ink); margin:4px 0 4px;}
+  .task .ac{font-size:13px; line-height:1.45; color:var(--ink-soft); margin:2px 0;}
+  .task .ac b{color:var(--ink); font-weight:600; text-transform:uppercase; letter-spacing:0.06em; font-size:10.5px; margin-right:6px;}
+  .sprint .gate{margin-top:16px; padding:12px 16px; background:oklch(18% 0.02 40); color:var(--paper); border:1px solid var(--line-hard); font-size:13.5px; line-height:1.5;}
+  .sprint .gate b{color:var(--accent); font-weight:500; text-transform:uppercase; letter-spacing:0.08em; font-size:10.5px; margin-right:6px;}
+
+  /* Risk table */
+  .risks{background:var(--ink); color:var(--paper);}
+  .risks .eyebrow{color:var(--accent-2)}
+  .risks .sec-head .num{color:var(--accent-2)}
+  .risks .sec-head .num small{color:oklch(75% 0.02 60)}
+  .risks h2{color:var(--paper)}
+  .risks .lead{color:oklch(82% 0.02 60);}
+  .risks-table{margin-top:26px; border:1px solid oklch(98% 0.015 85 / .25); background:oklch(18% 0.02 40);}
+  .risks-row{display:grid; grid-template-columns:1.2fr 0.8fr 1.2fr 1.5fr; border-bottom:1px solid oklch(98% 0.015 85 / .15);}
+  .risks-row:last-child{border-bottom:none}
+  .risks-row.head{background:oklch(10% 0.02 40); color:var(--accent-2); font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600;}
+  .risks-row .c{padding:14px 16px; font-size:13.5px; line-height:1.4; border-right:1px solid oklch(98% 0.015 85 / .1);}
+  .risks-row .c:last-child{border-right:none}
+  @media (max-width:800px){.risks-row{grid-template-columns:1fr 1fr;} .risks-row .c:nth-child(3), .risks-row .c:nth-child(4){display:none;}}
+
+  footer.colophon{padding:56px 0 52px; border-top:2px solid var(--line-hard); background:var(--paper);}
+  .colo{display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;}
+  @media (max-width:800px){.colo{grid-template-columns:1fr}}
+  .colo .big{font-family:'Instrument Serif',serif; font-size:clamp(24px,2.8vw,40px); letter-spacing:-0.02em; line-height:1.05;}
+  .colo .big em{font-style:italic; color:var(--accent)}
+  .colo .k{font-size:10px; letter-spacing:0.24em; text-transform:uppercase; font-weight:700; color:var(--ink-soft); margin-bottom:8px;}
+  .colo p{font-size:13.5px; color:var(--ink-soft); line-height:1.5; margin:0 0 6px;}
+  .filebar{display:flex; justify-content:space-between; margin-top:36px; padding-top:16px; border-top:1px solid var(--line); font-family:ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; color:var(--ink-soft); text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <div class="hero-top">
+    <div class="col"><a href="../docs/">← mvp docs</a></div>
+    <div class="col center">MCPHIRE / POST-MVP / 10 SPRINTS</div>
+    <div class="col right">16 · IV · 2026</div>
+  </div>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-title">
+        MVP v3 <em>в коде</em>.<br>
+        Дальше — <span class="mark">deploy</span>,<br>
+        buyer-сторона,<br>
+        <em>граф</em>.
+      </div>
+    </div>
+    <aside class="hero-side">
+      <div class="kicker">что тут</div>
+      <p>19 commit-ов закрыли MVP в коде. Сайт <code>mcphire.com/cv/&lt;slug&gt;</code> генерится, MCP tools есть, TG-бот и dispatcher собраны. Дальше — 10 спринтов в 4 фазах: deploy, hangovers, phase 2 (buyer + M2M + dual positioning + rule matching), phase 3 (embedding + monetization + reputation).</p>
+      <p>Каждый спринт с явным kill-gate, чтобы не застрять.</p>
+    </aside>
+  </div>
+
+  <div class="hero-meta">
+    <div class="cell"><div class="k">Фаз</div><div class="v">4</div></div>
+    <div class="cell"><div class="k">Спринтов</div><div class="v">10</div></div>
+    <div class="cell"><div class="k">Дней до Phase 3</div><div class="v">≈ 45</div></div>
+    <div class="cell"><div class="k">MRR target v2</div><div class="v">$3K</div></div>
+  </div>
+</header>
+
+<!-- 02 DONE MVP -->
+<section class="done">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">02<small>Что закрыто в коде</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>19 COMMITS · 2 РЕПО · ~3.5K СТРОК КОДА</div>
+        <h2>MVP v3 в коде. Не в проде.</h2>
+      </div>
+    </div>
+
+    <div class="done-grid">
+      <div class="cell">
+        <div class="num">S1</div>
+        <div class="nm">Foundation</div>
+        <p>7 tasks · 4 days</p>
+        <ul>
+          <li>QUESTIONS_SCHEMA.md — 150q × 11 sections</li>
+          <li>alembic 003 + 4 models (agent_profiles + siblings)</li>
+          <li>5 MCP tools в mcp-server/server.py</li>
+          <li>/api/mcp/register + /verify-status</li>
+          <li>llms.txt v3 + server.json v1.3 + for-agents block</li>
+          <li>cv_generator service + /cv/&lt;slug&gt; router</li>
+          <li>4 reference docs (API, DATA_MODEL, USER_FLOW, OBSERVED_FACTS)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num">S2</div>
+        <div class="nm">Retention pipeline</div>
+        <p>6 tasks · 2 days</p>
+        <ul>
+          <li>alembic 004 + pg_notify trigger на jobs</li>
+          <li>notification_service — match, enqueue, deliver, log</li>
+          <li>notif_dispatcher worker с APScheduler + fallback A→B→C</li>
+          <li>claim_verifier cron (every 15min)</li>
+          <li>tg_render — unified message formatter</li>
+          <li>docker-compose: mcphire-notif + claim-verifier</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num">S3</div>
+        <div class="nm">@mcphire_bot</div>
+        <p>3 tasks · 1 day</p>
+        <ul>
+          <li>python-telegram-bot 21+ с webhook/polling</li>
+          <li>8 команд: /start /link /settings /matches /pause /resume /profile /help</li>
+          <li>Inline-клавиатура для settings</li>
+          <li>Own docker-compose + Dockerfile</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num">S4</div>
+        <div class="nm">Claude Channels</div>
+        <p>3 tasks · 1 day</p>
+        <ul>
+          <li>mcp-channels — Bun + TypeScript MCP service</li>
+          <li>open_match_channel MCP tool</li>
+          <li>/internal/push endpoint с shared secret</li>
+          <li>⚠ SSE transport requires proddeploy polish (~4h)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 DEPENDENCY GRAPH -->
+<section class="deps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">03<small>Граф зависимостей</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО ПОСЛЕ ЧЕГО · КРИТИЧЕСКИЙ ПУТЬ</div>
+        <h2>Последовательность 10 спринтов.</h2>
+      </div>
+    </div>
+
+    <div class="dep-graph">
+<b>Phase I — Deploy &amp; harden (прод, первый пост)</b>
+  <em>S5</em> Production deploy (BotFather, nginx, migrations, smoke)
+        ↓
+  <em>S6</em> Hangovers (SSE transport polish, weekly digest, CV visual)
+        ↓
+  <em>S7</em> Launch prep (Codex review, monitoring, LinkedIn post #2, seed 10)
+        ↓
+    <span class="dim">[kill gate: 20 registrations за 14 days]</span>
+
+<b>Phase II — Growth loop (buyer-сторона)</b>
+  <em>S8</em> Buyer-side registration flow (отдельные вопросы, invite-only)
+        ↓
+  <em>S9</em> M2M negotiation (buyer-Claude ↔ seller-Claude, question exchange)
+        ↓
+  <em>S10</em> Rule-based auto-matching v2 (SQL-правила, per-job proposals)
+        ↓
+  <em>S11</em> Dual positioning landing (hire × contract, SEO hooks)
+        ↓
+    <span class="dim">[kill gate: 5 closed deals + $300 MRR design partner]</span>
+
+<b>Phase III — Scale &amp; monetize</b>
+  <em>S12</em> Embedding matching (pgvector, similarity overlay)
+        ↓
+  <em>S13</em> Monetization (Stripe, paid buyer tier, $99-$299/mo)
+        ↓
+  <em>S14</em> Reputation + post-interview review (mutual)
+        ↓
+    <span class="dim">[scale threshold: 200 verified profiles + Advisory Mode]</span>
+
+<b>Параллельные маркетинговые треки</b>
+  <em>M1</em> Post #2 after S7 (auto-CV demo — main wow)
+  <em>M2</em> Post #3 after S9  (M2M-negotiation wow, наивысший hype)
+  <em>M3</em> Post #4 after S11 (dual positioning + первый платящий)
+  <em>M4</em> Product Hunt launch after S13
+    </div>
+  </div>
+</section>
+
+<!-- 04 PHASES OVERVIEW -->
+<section class="phases">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">04<small>Четыре фазы</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ВРЕМЯ · KILL-GATE · ЦЕЛЬ</div>
+        <h2>Чего добиваемся в каждой.</h2>
+      </div>
+    </div>
+
+    <div class="phase-bar">
+      <div class="ph active">
+        <div class="num">I</div>
+        <div class="nm">Deploy · S5-S7</div>
+        <div class="dur">~ 10 дней</div>
+        <div class="ps"><b>Цель:</b> живой прод, первый LinkedIn-пост, 20+ registrations, 0 critical incidents за 14 дней.</div>
+      </div>
+      <div class="ph">
+        <div class="num">II</div>
+        <div class="nm">Growth · S8-S11</div>
+        <div class="dur">~ 18 дней</div>
+        <div class="ps"><b>Цель:</b> buyer-side + M2M-negotiation + 5 закрытых сделок + $300 MRR первый design partner.</div>
+      </div>
+      <div class="ph">
+        <div class="num">III</div>
+        <div class="nm">Scale · S12-S14</div>
+        <div class="dur">~ 17 дней</div>
+        <div class="ps"><b>Цель:</b> embedding matching, Stripe, $3K MRR, Advisory Mode активен на 70% матчей.</div>
+      </div>
+      <div class="ph">
+        <div class="num">IV</div>
+        <div class="nm">Marketing · M1-M4</div>
+        <div class="dur">параллельно</div>
+        <div class="ps"><b>Цель:</b> 4 поста (LinkedIn/Substack/Habr) + Product Hunt. Треки встраиваются в фазы I-III.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 SPRINTS DETAIL -->
+<section class="board">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">05<small>10 спринтов</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>SPRINT DETAIL · TASKS · ACCEPTANCE · KILL-GATES</div>
+        <h2>Разбор по задачам.</h2>
+      </div>
+    </div>
+
+    <!-- GROUP PHASE I -->
+    <div class="sprint-group">
+      <div class="sprint-group-head">Phase I — Deploy &amp; harden</div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S5</div>
+          <div class="title">Production deploy<small>3 дня · Phase I · P0</small></div>
+          <div class="rt"><span class="tag warn">critical path</span><span class="tag hot">блокер post #2</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Вся инфра MVP v3 живёт на Contabo VPS 30. Миграции применены, 3 новых контейнера подняты, nginx проксирует, TG webhook установлен, первые smoke-tests прошли.</p>
+
+          <div class="task">
+            <div class="th"><span class="tid">S5.1</span><span class="path">BotFather @mcphire_bot</span><span class="time">~ 15 мин</span></div>
+            <p class="desc">Регистрация бота, получение токена, сохранение в SECRETS.md и .env на VPS.</p>
+            <p class="ac"><b>acceptance</b>bot отвечает на /start через Telegram напрямую (polling), токен в <code>/opt/mcphire/.env.prod</code></p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S5.2</span><span class="path">alembic upgrade 003 + 004</span><span class="time">~ 20 мин</span></div>
+            <p class="desc">SSH на Contabo, docker exec mcphire-api alembic upgrade head. Проверить агент_profiles, notification_* таблицы созданы + trigger на jobs.</p>
+            <p class="ac"><b>acceptance</b><code>SELECT table_name FROM information_schema.tables WHERE table_schema='public'</code> возвращает 4 новые + 3 новые. Трiggers tr_jobs_notify + tr_agent_profiles_updated_at + tr_notification_prefs_updated_at присутствуют.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S5.3</span><span class="path">docker-compose up новые сервисы</span><span class="time">~ 40 мин</span></div>
+            <p class="desc">Поднять mcphire-notif, claim-verifier, mcphire-tg-bot, mcphire-channels. Env vars (CHANNELS_INTERNAL_SECRET, MCPHIRE_BOT_TOKEN, WEBHOOK_URL).</p>
+            <p class="ac"><b>acceptance</b>docker ps показывает 4 новых healthy контейнера. Logs без CRITICAL errors за 5 мин.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S5.4</span><span class="path">infra/nginx/mcphire.conf</span><span class="time">~ 30 мин</span></div>
+            <p class="desc">Nginx proxy: /tg/webhook/&lt;secret&gt; → tg-bot:8080, /mcp на channels.mcphire.com → mcp-channels:8002, /cv/&lt;slug&gt; остаётся на mcphire-api (SSG-like). SSL через существующий certbot.</p>
+            <p class="ac"><b>acceptance</b><code>curl -I https://bot.mcphire.com/tg/webhook/test</code> → 200 (не 502), <code>curl https://channels.mcphire.com/health</code> → ok JSON.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S5.5</span><span class="path">Telegram setWebhook</span><span class="time">~ 10 мин</span></div>
+            <p class="desc">API call setWebhook с URL и secret_token. Проверка через getWebhookInfo.</p>
+            <p class="ac"><b>acceptance</b>getWebhookInfo возвращает URL + pending_update_count=0.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S5.6</span><span class="path">Smoke E2E</span><span class="time">~ 45 мин</span></div>
+            <p class="desc">Тим как первый юзер: Claude → mcphire.com → register → claim в GitHub bio → verify → /link в TG → /settings → insert test job → получить TG-уведомление.</p>
+            <p class="ac"><b>acceptance</b>Все 6 шагов прошли без ручной корректировки. Skrenshot flow → в session_handoff.md.</p>
+          </div>
+
+          <div class="gate"><b>kill gate</b>Если S5.6 не отрабатывает end-to-end за 1 день отладки — фикс конкретных блокеров, не откатываем спринт. Если &gt;3 дня — переоценка архитектуры.</div>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S6</div>
+          <div class="title">Hangovers &amp; polish<small>3 дня · Phase I · P0</small></div>
+          <div class="rt"><span class="tag warn">критично перед публикой</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Закрыть все "коротких хвостов" MVP v3: SSE transport в Channels работает реально, weekly digest шлётся с содержимым, CV визуально доведён до share-level.</p>
+
+          <div class="task">
+            <div class="th"><span class="tid">S6.1</span><span class="path">mcp-channels/src/index.ts SSE</span><span class="time">~ 4 ч</span></div>
+            <p class="desc">Доделать MCP SSE transport на Bun.serve. Session binding через connection lifecycle hooks. Тест: Claude Code connects → open_match_channel → curl /internal/push → Claude увидел notification.</p>
+            <p class="ac"><b>acceptance</b>E2E: insert test job → Channels push → Claude conversation показывает match за &lt;2 секунды.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S6.2</span><span class="path">workers/notif_dispatcher.py weekly</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">send_weekly_digest_for_user полноценная реализация: SELECT last-7-days queue + rendered_jobs, call tg_render.render_weekly_digest, send through Bot API.</p>
+            <p class="ac"><b>acceptance</b>APScheduler-job стреляет в понедельник 10:00 по TZ юзера → TG получает bundle 3-5 jobs. Ручной test через <code>python -c "asyncio.run(send_weekly_digest_for_user(uuid))"</code>.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S6.3</span><span class="path">services/cv_generator.py visual</span><span class="time">~ 3 ч</span></div>
+            <p class="desc">Doigrovuhat CV-template: hero-фото rounded, availability badge, chips typography, printable media query. Mobile тест на 375px viewport.</p>
+            <p class="ac"><b>acceptance</b>3 mock-profile рендерятся без visual bugs. Lighthouse mobile ≥ 90, accessibility ≥ 95.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S6.4</span><span class="path">llms-full.txt deep guide</span><span class="time">~ 1 ч</span></div>
+            <p class="desc">Update llms-full.txt с примерами Python/TS/Claude Desktop для новых tools. Сейчас этот файл только v1.1-style.</p>
+            <p class="ac"><b>acceptance</b>curl /llms-full.txt содержит секцию "Agent onboarding" с 3 code blocks.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S6.5</span><span class="path">RUNBOOK.md + SECRETS.md refresh</span><span class="time">~ 1 ч</span></div>
+            <p class="desc">Обновить RUNBOOK с процедурами deploy/rollback для 4 новых сервисов, SECRETS.md со списком новых env vars.</p>
+            <p class="ac"><b>acceptance</b>Любой future-developer (или Claude) может из RUNBOOK.md перезапустить mcphire-notif за 5 минут без вопросов.</p>
+          </div>
+
+          <div class="gate"><b>kill gate</b>Если SSE transport в Channels не заводится за 1 день → в v1.1, MVP продолжает с A-channel disabled (B → C fallback). Отложим не блокер.</div>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S7</div>
+          <div class="title">Launch prep + post #2<small>4 дня · Phase I · P0</small></div>
+          <div class="rt"><span class="tag hot">маркетинг</span><span class="tag info">codex gate</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Codex review полного MVP v3 (≥7/10), monitoring на месте, 10 seed-профилей, LinkedIn-пост готов с GIF/scrreens.</p>
+
+          <div class="task">
+            <div class="th"><span class="tid">S7.1</span><span class="path">codex exec --sandbox read-only</span><span class="time">~ 1 ч</span></div>
+            <p class="desc">Полный review MVP v3: security (SQL injection, secret leakage), correctness (race conditions в dispatcher), architecture (A/B/C fallback logic).</p>
+            <p class="ac"><b>acceptance</b>Codex score ≥ 7/10 с явным verdict APPROVED/NEEDS_FIX. Все HIGH findings устранены.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S7.2</span><span class="path">Uptime Kuma health monitors</span><span class="time">~ 1 ч</span></div>
+            <p class="desc">Добавить 4 монитора: mcphire-api/health, mcphire-channels/health, tg-bot (через TG getWebhookInfo), mcphire-notif (heartbeat-probe).</p>
+            <p class="ac"><b>acceptance</b>Uptime Kuma показывает 4 зелёных. TG-alert при падении любого теста &gt; 3 мин.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S7.3</span><span class="path">Seed: 10 тестовых профилей</span><span class="time">~ 3 ч</span></div>
+            <p class="desc">Тим лично регистрирует 10 профилей из своей сети + себя (seller модели). Проверяет TG, CV, settings. Собирает UX-feedback.</p>
+            <p class="ac"><b>acceptance</b>10 verified profiles с разной seniority/стеком. 3 получили реальные матчи из HH-пула. Feedback-issues ≤ 5.</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S7.4</span><span class="path">GIF/screen для LinkedIn</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Screencast Claude Code: "сходи на mcphire.com" → регистрация → approval → cv_url открыт. GIF 30-45 sec. Плюс 2 static screens для carousel.</p>
+            <p class="ac"><b>acceptance</b>GIF под 10MB, читается в LinkedIn preview. 2 screens 1200×627 (LinkedIn native).</p>
+          </div>
+
+          <div class="task">
+            <div class="th"><span class="tid">S7.5</span><span class="path">Post #2 draft + publish</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Draft через anti-ai-writing + scriptwriter. Опубликовать в LinkedIn Тима в оптимальное время (вт/ср 09:30-10:30 МСК). Кросс-пост в TG-канал и Substack.</p>
+            <p class="ac"><b>acceptance</b>Post опубликован, 3 канала, в первые 24ч ≥ 100 reactions + ≥ 5 DM "хочу попробовать".</p>
+          </div>
+
+          <div class="gate"><b>kill gate · day 14 post-launch</b><br>≥ 20 verified profiles • ≥ 5 clicked на cv_url • ≥ 3 TG-linked • ≥ 1 реальный матч-&gt;интервью.<br>Меньше любого из этих — pause + post-mortem.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUP PHASE II -->
+    <div class="sprint-group">
+      <div class="sprint-group-head">Phase II — Growth loop (buyer-сторона)</div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S8</div>
+          <div class="title">Buyer-side registration<small>4 дня · Phase II · P1</small></div>
+          <div class="rt"><span class="tag info">new feature</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Работодатели/предприниматели могут регистрироваться через Claude для публикации задач и поиска кандидатов. Разделение seller/buyer через <code>q_role</code> вопрос.</p>
+          <div class="task">
+            <div class="th"><span class="tid">S8.1</span><span class="path">QUESTIONS_SCHEMA buyer section</span><span class="time">~ 3 ч</span></div>
+            <p class="desc">Добавить секцию "buyer" с 30-40 вопросами: team description, ideal candidate stack, budget, timeline, must-have/nice-to-have, culture signals, interview process tolerance.</p>
+            <p class="ac"><b>acceptance</b>QUESTIONS_SCHEMA v0.4.0 c 180-190 вопросами, buyer-секция раскладывается аналогично seller.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S8.2</span><span class="path">buyer_profiles таблица + миграция 005</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Отдельная таблица от agent_profiles. Поля: company_name, role_title, budget_range, headcount, invite-only flag.</p>
+            <p class="ac"><b>acceptance</b>Alembic 005 + SQLAlchemy модель BuyerProfile в models/.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S8.3</span><span class="path">register_buyer MCP tool</span><span class="time">~ 3 ч</span></div>
+            <p class="desc">MCP-tool register_buyer (analog register_profile). Invite-only: требует invite_code который Тим выдаёт руками первые 8 недель.</p>
+            <p class="ac"><b>acceptance</b>Тест регистрации buyer с валидным и невалидным invite_code.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S8.4</span><span class="path">Landing /hire</span><span class="time">~ 3 ч</span></div>
+            <p class="desc">Отдельная landing-страница для buyer-стороны с CTA "я хочу нанять через Claude".</p>
+            <p class="ac"><b>acceptance</b>mcphire.com/hire LIVE с for-agents блок ориентированный на buyer onboarding.</p>
+          </div>
+          <div class="gate"><b>kill gate</b>Если за первые 7 дней Phase II ни один buyer не зарегистрировался несмотря на invite — пересматриваем invite-target list, не продукт.</div>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S9</div>
+          <div class="title">M2M negotiation<small>5 дней · Phase II · P1</small></div>
+          <div class="rt"><span class="tag hot">wow · post #3</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Buyer's Claude задаёт 2-3 уточняющих вопроса seller's Claude через MCP tools. Seller даёт approved-ответы. Обе стороны видят transcript, дают финальный approve — только после этого открываются контакты.</p>
+          <div class="task">
+            <div class="th"><span class="tid">S9.1</span><span class="path">negotiations таблица + миграция 006</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Схема: buyer_profile_id, seller_profile_id, status (pending|in_progress|accepted_both|declined), messages JSONB (SPO-like).</p>
+            <p class="ac"><b>acceptance</b>Миграция применяется, 3 mock-negotiations вставляются.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S9.2</span><span class="path">ask_seller + reply_to_question tools</span><span class="time">~ 4 ч</span></div>
+            <p class="desc">MCP-tools: ask_seller (buyer-Claude задаёт), reply_to_question (seller-Claude отвечает через heartbeat). Лимит 3 вопроса, 48h timeout.</p>
+            <p class="ac"><b>acceptance</b>E2E: buyer задаёт → seller получает через heartbeat → отвечает → buyer видит ответ. Transcript в negotiations.messages.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S9.3</span><span class="path">Approval gate перед контактами</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">После 3 обменов обе стороны должны approve чтобы откроются контакты. Flag user_approved в messages.</p>
+            <p class="ac"><b>acceptance</b>Контакты возвращаются только при accepted_both. Иначе — 403.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S9.4</span><span class="path">Post #3 — M2M-negotiation demo</span><span class="time">~ 3 ч</span></div>
+            <p class="desc">Screencast 2 Claude-сессий (split-screen) показывающий buyer ↔ seller negotiation. Потенциально наивысший hype-потенциал.</p>
+            <p class="ac"><b>acceptance</b>GIF опубликован, пост в 3 каналах, ≥ 200 reactions в LinkedIn за 48ч.</p>
+          </div>
+          <div class="gate"><b>kill gate</b>Если хотя бы одна из сторон в 3 из 5 первых negotiations не дошла до contacts-open — проблема в UX доверия, нужен redesign. Если дошло ≥ 60% — продолжаем в S10.</div>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S10</div>
+          <div class="title">Rule-based auto-matching<small>3 дня · Phase II · P1</small></div>
+          <div class="rt"><span class="tag info">automation</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> После ~20 ручных matches Тима переписываем его правила в SQL-функции. Dispatcher предлагает match автоматически, Тим только approve одним тапом в admin-TG.</p>
+          <div class="task">
+            <div class="th"><span class="tid">S10.1</span><span class="path">sql/match_candidates.sql</span><span class="time">~ 3 ч</span></div>
+            <p class="desc">SQL-функция: JOIN profiles × jobs через JSONB operators (stack overlap 40%+, floor match, timezone overlap, must_not exclusion).</p>
+            <p class="ac"><b>acceptance</b>Function возвращает top-5 profiles за &lt; 100ms на 1000 profiles.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S10.2</span><span class="path">workers/propose_matches.py</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Cron каждые 15 мин: для каждой новой job — зовёт match_candidates, инсертит proposed-матчи в notification_queue (status=proposed). Admin-TG получает "5 новых для approve".</p>
+            <p class="ac"><b>acceptance</b>Тест на 10 новых jobs → 25-50 pending matches, Тим approve через inline-кнопки.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S10.3</span><span class="path">Explain-by-example в match</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Автогенерация why_match note в tg_render: "Совпал стек: python, llm. Floor $5K ≤ 6K bucket."</p>
+            <p class="ac"><b>acceptance</b>tg_render.render_instant_match включает 2-строчный why-block.</p>
+          </div>
+          <div class="gate"><b>kill gate</b>Если Тим в первую неделю S10 обнаруживает что &gt; 50% auto-matches требуют его override — правила плохие, доучиваем на истории ручных матчей. Если accept-rate &gt; 70% — фича работает, двигаемся.</div>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S11</div>
+          <div class="title">Dual positioning + SEO<small>4 дня · Phase II · P2</small></div>
+          <div class="rt"><span class="tag cold">optional</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Landing дифференцируется: /jobs — найм (SSG 72K из HH), /contracts — подряд (новые buyer-posts), /hire — для нанимателей. SEO-хвост на long-tail queries.</p>
+          <div class="task">
+            <div class="th"><span class="tid">S11.1</span><span class="path">Separate sitemap-contracts.xml</span><span class="time">~ 1 ч</span></div>
+            <p class="desc">Buyer-posts имеют schema.org ServiceOffer (не JobPosting). Отдельный sitemap.</p>
+            <p class="ac"><b>acceptance</b>Google Rich Results Test проходит на sample contract-page.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S11.2</span><span class="path">Per-category landing pages</span><span class="time">~ 3 ч</span></div>
+            <p class="desc">Generic: /hire/ml-engineer, /contracts/langgraph-developer. 20-30 templates.</p>
+            <p class="ac"><b>acceptance</b>20+ new pages indexed в Google в течение 7 дней.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S11.3</span><span class="path">Admin filter по mode</span><span class="time">~ 1 ч</span></div>
+            <p class="desc">В admin-UI фильтр по seeker modes (hire/contract/both). Buyer-hire видит только seller-hire.</p>
+            <p class="ac"><b>acceptance</b>SQL-query с <code>WHERE modes @&gt; '["hire"]'::jsonb</code> фильтрует корректно.</p>
+          </div>
+          <div class="gate"><b>kill gate</b>Dual-фича опциональная. Если Phase II time отжирает другие критичные — откладываем в Phase III.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUP PHASE III -->
+    <div class="sprint-group">
+      <div class="sprint-group-head">Phase III — Scale &amp; monetize</div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S12</div>
+          <div class="title">Embedding matching<small>5 дней · Phase III · P2</small></div>
+          <div class="rt"><span class="tag info">ML</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> pgvector-overlay поверх существующих rule-based matches. Similarity по soft-полям (intent, culture, tone). Улучшает ranking в top-5.</p>
+          <div class="task">
+            <div class="th"><span class="tid">S12.1</span><span class="path">pgvector install + embed_profiles cron</span><span class="time">~ 4 ч</span></div>
+            <p class="desc">Установить pg_extension, generate embeddings (OpenAI ada или local) для 120 soft-fields каждого profile + job.description.</p>
+            <p class="ac"><b>acceptance</b>ivfflat index построен на profiles.embedding и jobs.embedding. Query &lt; 200ms для 1000 profiles.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S12.2</span><span class="path">Hybrid ranking в match_candidates</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">SQL-функция с combined score: 0.7 × rule_score + 0.3 × embedding_similarity. Конфиг в env.</p>
+            <p class="ac"><b>acceptance</b>A/B test на историю matches: accept-rate ↑ ≥ 15%.</p>
+          </div>
+          <div class="gate"><b>kill gate</b>Если embedding-overlay не улучшает accept-rate на 15%+ — откатываем. Rule-based достаточно до 500+ profiles.</div>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S13</div>
+          <div class="title">Stripe + paid buyer tier<small>4 дня · Phase III · P1</small></div>
+          <div class="rt"><span class="tag hot">MONEY</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Первый $99/mo тариф для buyer-а. Invite-only design partners переходят в paying. Stripe checkout, subscription, webhook, cancel.</p>
+          <div class="task">
+            <div class="th"><span class="tid">S13.1</span><span class="path">Stripe subscriptions setup</span><span class="time">~ 4 ч</span></div>
+            <p class="desc">Stripe account, products ($99, $299, $999), webhook на /api/stripe/webhook с signature check.</p>
+            <p class="ac"><b>acceptance</b>Test subscription в Stripe sandbox → buyer_profile.tier = "paid". Cancel работает.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S13.2</span><span class="path">Billing portal in TG bot</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">/billing команда в bot открывает Stripe customer portal link.</p>
+            <p class="ac"><b>acceptance</b>Buyer может upgrade/cancel без support-тикета.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S13.3</span><span class="path">Tier-based rate limits</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Free tier: 3 matches/week. Paid $99: 25/week. Paid $299: unlimited. Enforce в notif_dispatcher.</p>
+            <p class="ac"><b>acceptance</b>Free-buyer получает 4-е match через 7 дней, не раньше.</p>
+          </div>
+          <div class="gate"><b>kill gate</b>Если через 14 дней post-S13 нет ни одного paying — кривой pitch или wrong audience. Pause, rewrite value prop.</div>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">S14</div>
+          <div class="title">Reputation + mutual review<small>3 дня · Phase III · P2</small></div>
+          <div class="rt"><span class="tag cold">trust infra</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> После каждого состоявшегося интервью — mutual 1-вопрос review. Reputation score в notification_prefs, влияет на ranking и visibility.</p>
+          <div class="task">
+            <div class="th"><span class="tid">S14.1</span><span class="path">mutual_reviews таблица + миграция 007</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Fields: reviewer_profile_id, reviewee_profile_id, interview_id, score (1-5), one_liner (max 200).</p>
+            <p class="ac"><b>acceptance</b>Миграция + SQLAlchemy модель MutualReview.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S14.2</span><span class="path">Post-interview prompt в TG</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Через 2 часа после scheduled-interview — бот шлёт inline-buttons "Как прошло 1-5 + один liner".</p>
+            <p class="ac"><b>acceptance</b>Response rate &gt; 50% на mutual review за 24ч.</p>
+          </div>
+          <div class="task">
+            <div class="th"><span class="tid">S14.3</span><span class="path">Cross-cluster reputation</span><span class="time">~ 2 ч</span></div>
+            <p class="desc">Weighted reputation: связи между теми же A-B парами × 0.1 (anti-gaming). Score → ranking multiplier.</p>
+            <p class="ac"><b>acceptance</b>Profile с rep &gt; 80 получает 1.5x ranking в results.</p>
+          </div>
+          <div class="gate"><b>kill gate</b>Если через 14 дней rep-система не меняет ranking заметно (≥ 10% reshuffling) — упрощаем до binary "verified"/"unverified".</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKETING TRACK -->
+    <div class="sprint-group">
+      <div class="sprint-group-head">Marketing track — M1-M4</div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">M1</div>
+          <div class="title">Post #2: auto-CV demo<small>после S7 · ~1 день</small></div>
+          <div class="rt"><span class="tag hot">main launch</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> "HH меня забанил. Claude сам собрал мне резюме за 3 минуты. Вот ссылка." LinkedIn + TG + Substack одновременно.</p>
+          <p class="ac"><b>deliverable</b>30-sec GIF, 2 screens 1200×627, 800-word текст, выпущен в оптимальное окно.</p>
+          <p class="ac"><b>success metrics</b>≥ 100 reactions за 24ч, ≥ 20 DM-запросов, ≥ 30 регистраций за 7 дней.</p>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">M2</div>
+          <div class="title">Post #3: M2M-negotiation<small>после S9 · ~1 день</small></div>
+          <div class="rt"><span class="tag hot">biggest hype</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Split-screen 2 Claude-сессий переговариваются без человека до approval. Потенциально наивысший hype.</p>
+          <p class="ac"><b>success metrics</b>≥ 200 reactions LinkedIn за 48ч, ≥ 50 DM, попадание в 3 tech-TG-каналов (organic repost).</p>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">M3</div>
+          <div class="title">Post #4: first paying + case study<small>после S11 / первый customer · ~1 день</small></div>
+          <div class="rt"><span class="tag info">social proof</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Кейс: "Закрыли Staff ML за 11 дней через MCPHire". С цифрами + именем (с согласия buyer-а).</p>
+          <p class="ac"><b>success metrics</b>≥ 3 новых invite-requests от buyer-ов, ≥ 1 paying конверсия в течение 7 дней.</p>
+        </div>
+      </div>
+
+      <div class="sprint">
+        <div class="head">
+          <div class="id">M4</div>
+          <div class="title">Product Hunt launch<small>после S13 / $3K MRR · ~3 дня prep</small></div>
+          <div class="rt"><span class="tag cold">optional</span></div>
+        </div>
+        <div class="body">
+          <p class="goal"><b>Goal.</b> Maker's launch на Product Hunt, в секции AI tools. Цель — top-3 of the day для US-exposure.</p>
+          <p class="ac"><b>success metrics</b>≥ 100 upvotes, ≥ 10 international buyer-requests, top-10 of the day минимум.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 RISKS -->
+<section class="risks">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">06<small>Post-MVP рисковые точки</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО МОЖЕТ СЛОМАТЬСЯ И КАК МИТИГИРУЕМ</div>
+        <h2>Restricted kill-gates на каждой фазе.</h2>
+      </div>
+    </div>
+
+    <div class="risks-table">
+      <div class="risks-row head">
+        <div class="c">Риск</div>
+        <div class="c">Вероятность</div>
+        <div class="c">Impact</div>
+        <div class="c">Митигация</div>
+      </div>
+      <div class="risks-row">
+        <div class="c">S5 nginx/docker config ломает prod</div>
+        <div class="c">Medium</div>
+        <div class="c">1-day downtime</div>
+        <div class="c">Staging env (docker-compose.staging.yml) перед продом. Rollback через docker-compose down + git revert.</div>
+      </div>
+      <div class="risks-row">
+        <div class="c">Первый пост #2 провалится</div>
+        <div class="c">Medium</div>
+        <div class="c">Delayed Phase II</div>
+        <div class="c">Post-mortem через 7 дней. Если провал — rewrite copy + 2-nd attempt через 2 недели.</div>
+      </div>
+      <div class="risks-row">
+        <div class="c">Нет buyers-invite'ов у Тима</div>
+        <div class="c">High</div>
+        <div class="c">Phase II blocked</div>
+        <div class="c">Использовать network: Штурбин, Химич, СБОРКА, Саудовский контакт. Cold-outreach 20 AI-founder-ов.</div>
+      </div>
+      <div class="risks-row">
+        <div class="c">M2M-negotiation — technically broken</div>
+        <div class="c">Medium</div>
+        <div class="c">Main Phase II hype died</div>
+        <div class="c">Fallback: human-mediated (Тим как gatekeeper). Post #3 переносим.</div>
+      </div>
+      <div class="risks-row">
+        <div class="c">Stripe denies for RU juridiction</div>
+        <div class="c">Low</div>
+        <div class="c">Monetization pivot</div>
+        <div class="c">Alternative: LemonSqueezy (EU-friendly), Tribute (RU), или manual wire + invoice.</div>
+      </div>
+      <div class="risks-row">
+        <div class="c">Claude Code Channels API breaks</div>
+        <div class="c">Medium</div>
+        <div class="c">Channel A disabled</div>
+        <div class="c">Fallback на TG + heartbeat (B/C chain). MVP работает, просто push-latency больше.</div>
+      </div>
+      <div class="risks-row">
+        <div class="c">pgvector на Contabo умирает</div>
+        <div class="c">Low</div>
+        <div class="c">S12 откат</div>
+        <div class="c">Rule-based match достаточно до 500 profiles. Spin pgvector как отдельный Docker-сервис позже.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Colophon -->
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo">
+      <div class="big">MCPHire v3. <em>Post-MVP roadmap</em> на 45 дней.<br>10 спринтов. 4 поста. $3K MRR цель фазы 3.</div>
+      <div>
+        <div class="k">Связано</div>
+        <p><a href="../docs/">MVP docs plan</a></p>
+        <p><a href="../roadmap/">v3 roadmap</a></p>
+        <p><a href="../graph-decision/">graph decision</a></p>
+        <p><a href="../">v2 vision</a></p>
+      </div>
+      <div>
+        <div class="k">Следующий шаг</div>
+        <p>S5.1 — BotFather регистрация @mcphire_bot.</p>
+        <p>Potом S5.2-S5.6 parallel — deploy migrations + новые сервисы.</p>
+      </div>
+    </div>
+    <div class="filebar">
+      <span>mcphire · v3 · post-mvp</span>
+      <span>t.z. / kaş · tr · 16 · iv · 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
