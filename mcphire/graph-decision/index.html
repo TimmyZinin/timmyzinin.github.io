@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MCPHire — Decision: 150 questions + resume + graph</title>
+<meta name="description" content="Обоснование решения: 150 вопросов для M2M-онбординга, автогенерируемое резюме с фото, минимальный граф знаний в MVP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: oklch(96% 0.02 80);
+    --ink: oklch(14% 0.02 40);
+    --ink-soft: oklch(30% 0.02 40);
+    --mute: oklch(55% 0.01 60);
+    --line: oklch(14% 0.02 40 / 0.18);
+    --line-hard: oklch(14% 0.02 40);
+    --paper: oklch(98% 0.015 85);
+    --panel: oklch(92% 0.02 80);
+    --accent: oklch(58% 0.19 35);
+    --accent-2: oklch(78% 0.14 75);
+    --accent-3: oklch(80% 0.09 55);
+    --danger: oklch(45% 0.18 25);
+    --ok: oklch(52% 0.14 150);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    font-family:'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-weight:400; font-size:17px; line-height:1.55;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden; position:relative;
+  }
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
+  ::selection{background:var(--accent); color:var(--paper);}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;mix-blend-mode:multiply;opacity:.32;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0 0.04  0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+
+  .wrap{max-width:1240px; margin:0 auto; padding:0 44px;}
+  @media (max-width:760px){.wrap{padding:0 22px;}}
+  section{padding:86px 0; position:relative}
+  @media (max-width:760px){section{padding:58px 0}}
+
+  h1,h2,h3,h4{font-family:'Instrument Serif', serif; font-weight:400; letter-spacing:-0.02em; color:var(--ink); margin:0; line-height:0.98;}
+  h2{font-size:clamp(34px, 5.2vw, 76px); letter-spacing:-0.025em;}
+  h3{font-size:clamp(22px, 2.4vw, 34px);}
+  h4{font-size:22px; line-height:1.1; letter-spacing:-0.015em;}
+
+  .eyebrow{font-family:'Space Grotesk',sans-serif; text-transform:uppercase; font-size:11px; letter-spacing:0.22em; font-weight:600; color:var(--ink-soft);}
+  .eyebrow .dot{display:inline-block;width:7px;height:7px;background:var(--accent);margin-right:10px;transform:translateY(-2px)}
+  .mono{font-family:ui-monospace,monospace; font-size:13px; background:var(--panel); padding:1px 6px; border:1px solid var(--line);}
+  a{color:var(--accent); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{background:var(--accent); color:var(--paper); text-decoration:none;}
+
+  /* Hero */
+  .hero{padding:42px 0 66px}
+  .hero-top{display:grid; grid-template-columns:1fr auto 1fr; gap:22px; align-items:center; padding-bottom:16px; border-bottom:1px solid var(--line-hard);}
+  @media (max-width:700px){.hero-top{grid-template-columns:1fr 1fr; gap:6px 12px;} .hero-top .col.center{grid-column:1/-1; order:3; text-align:left; font-size:10px; opacity:.7; margin-top:4px;}}
+  .hero-top .col{font-size:12px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600}
+  .hero-top .col.center{text-align:center}
+  .hero-top .col.right{text-align:right}
+  .hero-top .col a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px;}
+  .hero-top .col a:hover{background:transparent;color:var(--accent);}
+  .hero-body{margin-top:42px; display:grid; grid-template-columns:1.4fr 1fr; gap:48px; align-items:end;}
+  @media (max-width:1000px){.hero-body{grid-template-columns:1fr; gap:26px;}}
+  .hero-title{font-family:'Instrument Serif',serif; font-size:clamp(42px, 9vw, 150px); line-height:0.92; letter-spacing:-0.035em;}
+  .hero-title em{font-style:italic; color:var(--accent)}
+  .hero-title .mark{background:var(--accent-2); padding:0 8px;}
+  .hero-side{border-left:1px solid var(--line-hard); padding-left:22px;}
+  @media (max-width:1000px){.hero-side{border-left:none; border-top:1px solid var(--line-hard); padding-left:0; padding-top:22px; max-width:58ch;}}
+  .hero-side p{margin:0 0 10px; font-size:15.5px; line-height:1.5}
+  .hero-side .kicker{font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600; margin-bottom:12px; color:var(--ink-soft)}
+  .hero-meta{margin-top:46px; padding-top:18px; border-top:1px solid var(--line-hard); display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  @media (max-width:900px){.hero-meta{grid-template-columns:repeat(2,1fr)}}
+  .hero-meta .cell .k{font-size:10px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600; color:var(--mute); margin-bottom:4px}
+  .hero-meta .cell .v{font-family:'Instrument Serif',serif; font-size:clamp(22px, 2.4vw, 30px); line-height:1.05;}
+
+  .sec-head{display:grid; grid-template-columns:160px 1fr; gap:28px; margin-bottom:32px;}
+  @media (max-width:800px){.sec-head{grid-template-columns:1fr; gap:10px}}
+  .sec-head .num{font-family:'Instrument Serif',serif; font-style:italic; font-size:clamp(40px, 4.2vw, 52px); line-height:0.9; color:var(--accent);}
+  .sec-head .num small{display:block;font-style:normal; font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:0.22em; color:var(--ink-soft); margin-top:8px; font-weight:600;}
+
+  /* Decision box */
+  .dec-box{margin-top:22px; padding:36px 40px 40px; background:var(--ink); color:var(--paper); border:2px solid var(--accent);}
+  @media (max-width:700px){.dec-box{padding:28px 22px 30px}}
+  .dec-box .lbl{font-size:11px; letter-spacing:0.3em; text-transform:uppercase; font-weight:700; color:var(--accent); margin-bottom:14px;}
+  .dec-box h3{color:var(--paper); margin-bottom:16px;}
+  .dec-box p{margin:0 0 12px; font-size:15.5px; line-height:1.55; color:oklch(88% 0.015 85);}
+  .dec-box ul{margin:14px 0 0; padding-left:20px; font-size:15px; line-height:1.6; color:oklch(88% 0.015 85);}
+  .dec-box ul li{margin-bottom:6px;}
+  .dec-box b{color:var(--accent-2); font-weight:500}
+
+  /* Tradeoff */
+  .tradeoff{background:var(--paper); border-top:2px solid var(--line-hard); border-bottom:2px solid var(--line-hard);}
+  .tr-table{margin-top:24px; border:1px solid var(--line-hard); background:var(--paper); overflow-x:auto;}
+  .tr-row{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; border-bottom:1px solid var(--line);}
+  .tr-row:last-child{border-bottom:none}
+  .tr-row.head{background:var(--ink); color:var(--paper); font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600;}
+  .tr-row .c{padding:13px 14px; font-size:13.5px; border-right:1px solid var(--line);}
+  .tr-row.head .c{padding:11px 14px;}
+  .tr-row .c:last-child{border-right:none}
+  .tr-row .c.pick{background:var(--accent-2); font-weight:500;}
+  @media (max-width:760px){.tr-row{grid-template-columns:1fr 1fr;}.tr-row .c:nth-child(3){display:none;}}
+
+  /* Panel */
+  .panel{background:var(--bg)}
+  .pan-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:28px; border-top:1px solid var(--line-hard); border-left:1px solid var(--line-hard);}
+  @media (max-width:900px){.pan-grid{grid-template-columns:1fr}}
+  .pan-grid .cell{padding:22px 22px 26px; border-right:1px solid var(--line-hard); border-bottom:1px solid var(--line-hard); background:var(--paper);}
+  .pan-grid .cell .role{font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:700; color:var(--accent); margin-bottom:6px;}
+  .pan-grid .cell h4{margin-bottom:10px; font-size:20px;}
+  .pan-grid .cell p{margin:0 0 8px; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
+  .pan-grid .cell p b{color:var(--ink); font-weight:600;}
+
+  .conflicts{margin-top:42px; border:1px solid var(--line-hard); background:var(--paper);}
+  .conflicts .hd{padding:12px 18px; background:var(--ink); color:var(--paper); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:600;}
+  .conflicts table{width:100%; border-collapse:collapse;}
+  .conflicts th, .conflicts td{padding:12px 14px; text-align:left; vertical-align:top; font-size:13.5px; border-bottom:1px solid var(--line);}
+  .conflicts th{font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--mute); font-weight:600;}
+  .conflicts tr:last-child td{border-bottom:none}
+  .conflicts .res{color:var(--accent); font-weight:600;}
+
+  /* Data flow */
+  .flow{background:var(--ink); color:var(--paper);}
+  .flow .eyebrow{color:var(--accent-2)}
+  .flow .sec-head .num{color:var(--accent-2)}
+  .flow .sec-head .num small{color:oklch(75% 0.02 60)}
+  .flow h2{color:var(--paper)}
+  .flow-box{margin-top:26px; padding:26px 28px 28px; background:oklch(18% 0.02 40); border:1px solid oklch(98% 0.015 85 / .2); font-family:ui-monospace,monospace; font-size:13px; line-height:1.75; overflow-x:auto;}
+  .flow-box b{color:var(--accent-2); font-weight:500}
+  .flow-box em{color:var(--accent); font-style:normal; font-weight:500}
+
+  /* Phases */
+  .phase{background:var(--paper); border-top:2px solid var(--line-hard); border-bottom:2px solid var(--line-hard);}
+  .ph-grid{display:grid; grid-template-columns:repeat(3,1fr); margin-top:22px; border:2px solid var(--line-hard);}
+  @media (max-width:760px){.ph-grid{grid-template-columns:1fr}}
+  .ph-grid .p{padding:22px 22px 26px; border-right:2px solid var(--line-hard);}
+  .ph-grid .p:last-child{border-right:none}
+  @media (max-width:760px){.ph-grid .p{border-right:none;border-bottom:2px solid var(--line-hard);}.ph-grid .p:last-child{border-bottom:none;}}
+  .ph-grid .p.active{background:var(--accent-2)}
+  .ph-grid .p .n{font-family:'Instrument Serif',serif; font-style:italic; font-size:36px; color:var(--accent); line-height:0.9;}
+  .ph-grid .p .nm{font-size:12px; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; margin-top:6px;}
+  .ph-grid .p .dur{font-size:12px; color:var(--mute); margin-top:4px;}
+  .ph-grid .p .txt{margin-top:12px; font-size:13.5px; line-height:1.5;}
+
+  /* colophon */
+  footer.colophon{padding:56px 0 52px; border-top:2px solid var(--line-hard); background:var(--paper);}
+  .colo{display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;}
+  @media (max-width:800px){.colo{grid-template-columns:1fr}}
+  .colo .big{font-family:'Instrument Serif',serif; font-size:clamp(24px,2.8vw,40px); letter-spacing:-0.02em; line-height:1.05;}
+  .colo .big em{font-style:italic; color:var(--accent)}
+  .colo .k{font-size:10px; letter-spacing:0.24em; text-transform:uppercase; font-weight:700; color:var(--ink-soft); margin-bottom:8px;}
+  .colo p{font-size:13.5px; color:var(--ink-soft); line-height:1.5; margin:0 0 6px;}
+  .filebar{display:flex; justify-content:space-between; margin-top:36px; padding-top:16px; border-top:1px solid var(--line); font-family:ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; color:var(--ink-soft); text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <div class="hero-top">
+    <div class="col"><a href="../docs/">← docs plan</a></div>
+    <div class="col center">DECISION · 150 ВОПРОСОВ + РЕЗЮМЕ + ГРАФ</div>
+    <div class="col right">16 · IV · 2026</div>
+  </div>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-title">
+        150 вопросов.<br>
+        Автосгенерированное <em>резюме</em>.<br>
+        Минимальный <span class="mark">граф</span> знаний.
+      </div>
+    </div>
+    <aside class="hero-side">
+      <div class="kicker">почему эта страница</div>
+      <p>Экспертная панель обсудила: сколько вопросов оптимально для старта, и стоит ли отказаться от резюме в пользу графа знаний. Здесь — финальное решение с обоснованием, чтобы не переобсуждать при следующих правках.</p>
+      <p>Короткий ответ: <b>150 вопросов, резюме оставляем — но генерим автоматом, граф собираем параллельно как sidecar</b>.</p>
+    </aside>
+  </div>
+
+  <div class="hero-meta">
+    <div class="cell"><div class="k">Вопросов</div><div class="v">150</div></div>
+    <div class="cell"><div class="k">Секций в approval</div><div class="v">11</div></div>
+    <div class="cell"><div class="k">Hard-matchable</div><div class="v">30</div></div>
+    <div class="cell"><div class="k">Soft (для графа)</div><div class="v">120</div></div>
+  </div>
+</header>
+
+<!-- 02 DECISION -->
+<section class="panel">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">02<small>Финальное решение</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО ДЕЛАЕМ В MVP, ЧТО В v2</div>
+        <h2>Три решения принято.</h2>
+      </div>
+    </div>
+
+    <div class="dec-box">
+      <div class="lbl">Решение 1 из 3</div>
+      <h3>Сколько вопросов — <em>150</em></h3>
+      <p>Не 20 (слишком скромно — теряем wow-момент M2M-опроса). Не 300 (approval fatigue, галлюцинации Claude у дальних полей).</p>
+      <ul>
+        <li><b>30 hard</b> — matchable SQL-фильтры: стек, уровень, floor, timezone, формат, остальные базовые.</li>
+        <li><b>120 soft</b> — богатый контекст: детальная история работы, контакты, соцсети, style, intent. Не участвуют в SQL-матчинге MVP, но наполняют резюме и граф.</li>
+        <li>Топ-10 critical (seniority, years, comp, floor, shipped_products) — с обязательным <b>provenance</b> (цитата из MD + confidence). Галлюцинации отсекаются на approval-экране.</li>
+      </ul>
+    </div>
+
+    <div class="dec-box" style="margin-top:20px">
+      <div class="lbl">Решение 2 из 3</div>
+      <h3>Резюме <em>оставляем</em>, но генерим автоматом</h3>
+      <p>Polywork закрылся в 2024, пытаясь продать «нет резюме — есть activity feed». Аудитория в найме хочет видеть CV-как-документ. Отказ = провал по прецеденту.</p>
+      <ul>
+        <li>CV генерится из 150 ответов + observed_facts. SSG-страница на <span class="mono">mcphire.com/cv/&lt;profile_id&gt;</span> с unguessable 8-char slug.</li>
+        <li>Фото, соцсети, опыт, артефакты, блок «связан с / работал над» из графа.</li>
+        <li><b>Юзер не пишет CV руками</b> — только approve автосгенерированный. Перегенерация через повторный <span class="mono">/mcphire-join</span>.</li>
+        <li>CV = артефакт, который забирает себе. Даже если матчей ноль — есть HTML-страница для шаринга. Каждый такой share = органический трафик.</li>
+      </ul>
+    </div>
+
+    <div class="dec-box" style="margin-top:20px">
+      <div class="lbl">Решение 3 из 3</div>
+      <h3>Граф знаний — <em>минимальный</em> в MVP, полноценный в v2</h3>
+      <p>Граф в чистом виде — правильное направление, но не для старта. Сложность neo4j / semantic web / entity resolution сжирает недели, при этом matching до 500+ профилей всё равно упирается в sparsity.</p>
+      <ul>
+        <li><b>Silent collection в MVP:</b> Claude параллельно с ответами пишет <em>observed facts</em> на сервер в формате subject-predicate-object (worked_at, contributed_to, shipped, mentored).</li>
+        <li>Approval-экран показывает triples юзеру. Только <b>approved_by_user=true</b> идут в публичный CV.</li>
+        <li><b>В MVP</b> граф виден как секции «связан с» / «работал над» / «знает» на CV-странице. Plain tables в PG, не neo4j.</li>
+        <li><b>В v2 (~месяц 2-3):</b> когда 200+ профилей — строим полноценный граф на базе тех же observed_facts + entity resolution. Переход без перезаписи данных.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 03 TRADEOFFS -->
+<section class="tradeoff">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">03<small>Tradeoff-матрица</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ТРИ ВАРИАНТА НА СТАРТ · ВЫБРАН B</div>
+        <h2>Какой путь победил и почему.</h2>
+      </div>
+    </div>
+
+    <div class="tr-table">
+      <div class="tr-row head">
+        <div class="c">Критерий</div>
+        <div class="c">A · 20 вопросов, классическое CV</div>
+        <div class="c">B · 150 + авто-CV + mini-граф</div>
+        <div class="c">C · 500+ вопросов, только граф, нет CV</div>
+      </div>
+      <div class="tr-row">
+        <div class="c">Время на MVP</div>
+        <div class="c">~ 2 дня</div>
+        <div class="c pick">~ 4 дня</div>
+        <div class="c">~ 3 недели</div>
+      </div>
+      <div class="tr-row">
+        <div class="c">Wow-эффект</div>
+        <div class="c">★★☆☆☆ скромно</div>
+        <div class="c pick">★★★★★ резюме-за-тебя</div>
+        <div class="c">★★★☆☆ граф звучит круто но абстрактно</div>
+      </div>
+      <div class="tr-row">
+        <div class="c">Риск галлюцинаций</div>
+        <div class="c">Низкий (мало полей)</div>
+        <div class="c pick">Средний, митигируется provenance на 10 критичных</div>
+        <div class="c">Высокий (500+ полей + 500+ edges)</div>
+      </div>
+      <div class="tr-row">
+        <div class="c">Матчинг качество</div>
+        <div class="c">Работает, базовый SQL</div>
+        <div class="c pick">30 hard-полей SQL + задел на embedding v2</div>
+        <div class="c">Слабо до 500 профилей (graph sparsity)</div>
+      </div>
+      <div class="tr-row">
+        <div class="c">Риск по прецеденту</div>
+        <div class="c">Нет рисков (проверенный паттерн)</div>
+        <div class="c pick">Низкий (CV — стандарт, wow сверху)</div>
+        <div class="c">Высокий (Polywork закрылся)</div>
+      </div>
+      <div class="tr-row">
+        <div class="c">Share-ability</div>
+        <div class="c">Только match (private)</div>
+        <div class="c pick">Public CV-ссылка = органический виральный loop</div>
+        <div class="c">Граф трудно продемонстрировать в чате/посте</div>
+      </div>
+      <div class="tr-row">
+        <div class="c">Эволюция в v2</div>
+        <div class="c">Надо пересобирать структуру данных</div>
+        <div class="c pick">Observed_facts уже есть → граф строится без миграций</div>
+        <div class="c">Уже там, но нужны 200+ юзеров чтобы работать</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 PANEL SUMMARY -->
+<section class="panel">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">04<small>Панель — короткие выводы</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ПЯТЬ РОЛЕЙ · ПЯТЬ УГЛОВ АТАКИ</div>
+        <h2>Что сказал каждый.</h2>
+      </div>
+    </div>
+
+    <div class="pan-grid">
+      <div class="cell">
+        <div class="role">Founder</div>
+        <h4>100 — слишком мало, 150 — sweet spot</h4>
+        <p>Для маркетинга «мой Claude ответил за меня 20 вопросов» слабо. 150 — достаточно для wow, но не утомляет на approval. CV-артефакт важнее графа на старте.</p>
+      </div>
+      <div class="cell">
+        <div class="role">Matching Engineer</div>
+        <h4>Граф в MVP = over-engineering</h4>
+        <p>До 500 профилей граф страдает от sparsity. SQL JSONB overlap покрывает 100% кейсов. Observed_facts — как sidecar, не как основной store.</p>
+      </div>
+      <div class="cell">
+        <div class="role">Privacy Analyst</div>
+        <h4>150 — верхняя граница без нарушений</h4>
+        <p>Не спрашиваем: возраст, пол, гражданство, семейный статус, здоровье, религия. Все остальные 150 — legitimate. Provenance защищает от hallucinated claims на критичных полях.</p>
+      </div>
+      <div class="cell">
+        <div class="role">Adversarial QA</div>
+        <h4>Graph hallucinations хуже form hallucinations</h4>
+        <p>Claude выдумает «работал под Илоном Маском», triple попадёт в публичный граф, никто не заметит среди 300 edges. Поэтому — approved_by_user обязателен для каждого triple.</p>
+      </div>
+      <div class="cell">
+        <div class="role">Researcher</div>
+        <h4>Polywork — предостережение</h4>
+        <p>Пытались «нет резюме», 50+ activity-вопросов, закрылись в 2024. Urged: CV остаётся, proof_url anchor обязателен. Граф — overlay, не replacement.</p>
+      </div>
+      <div class="cell">
+        <div class="role">UX / Philosopher</div>
+        <h4>Авторезюме = viral loop</h4>
+        <p>Люди шарят CV-ссылку в TG, в посты, друзьям. Каждый share = органический трафик. Match-only loop этого не даёт. Граф тоже — abstract, не виден в чате.</p>
+      </div>
+    </div>
+
+    <div class="conflicts">
+      <div class="hd">⚖ Конфликты и резолюции</div>
+      <table>
+        <tr><th style="width:24%">Тема</th><th style="width:28%">A</th><th style="width:28%">B</th><th style="width:20%">Решение</th></tr>
+        <tr><td>Сколько вопросов</td><td>Founder: 20-30 хватит</td><td>QA + Researcher: 100 для задела под граф</td><td class="res">150 (30 hard + 120 soft)</td></tr>
+        <tr><td>Граф в MVP</td><td>Engineer: нет, рано</td><td>UX: граф как маркетинг-дифференциация</td><td class="res">Граф silent, CV виден</td></tr>
+        <tr><td>Отказ от резюме</td><td>UX: радикал — манифест</td><td>Researcher: Polywork умер</td><td class="res">CV авто-генерится, остаётся</td></tr>
+        <tr><td>Provenance</td><td>QA: на каждом поле</td><td>Engineer: 2x схема</td><td class="res">Топ-10 critical только</td></tr>
+        <tr><td>CV URL</td><td>Privacy: защищённый</td><td>UX: share-friendly</td><td class="res">Unguessable slug (public по URL)</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 05 DATA FLOW -->
+<section class="flow">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">05<small>Архитектура данных</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>150 ВОПРОСОВ → CV + ГРАФ</div>
+        <h2>Как это собирается внутри.</h2>
+      </div>
+    </div>
+
+    <div class="flow-box">
+Юзер даёт <em>mcphire.com</em> → Claude подключается к MCP
+
+  ┌─────────────────────────────────────────────────────┐
+  │  <b>1. get_registration_questions()</b>                   │
+  │     → 150 вопросов, 11 секций                       │
+  └──────────────────────┬──────────────────────────────┘
+                         │
+  ┌──────────────────────▼──────────────────────────────┐
+  │  <b>2. Claude отвечает из контекста</b>                   │
+  │     • читает ~/.claude/memory, git log, README      │
+  │     • генерирует <em>observed_facts</em> (triples) parallel  │
+  │     • для топ-10 critical — provenance (цитата)     │
+  └──────────────────────┬──────────────────────────────┘
+                         │
+  ┌──────────────────────▼──────────────────────────────┐
+  │  <b>3. Approval-экран (11 секций + triples)</b>          │
+  │     • low-confidence — красным                      │
+  │     • юзер снимает галочки с ложных фактов          │
+  │     • одно «ок» на итог                             │
+  └──────────────────────┬──────────────────────────────┘
+                         │
+  ┌──────────────────────▼──────────────────────────────┐
+  │  <b>4. register_profile(answers, approved_facts)</b>     │
+  │     → pg: agent_profiles (150 answers, JSONB)       │
+  │     → pg: observed_facts (только approved=true)     │
+  │     → pg: cv_snapshots (HTML snapshot)              │
+  └──────────────────────┬──────────────────────────────┘
+                         │
+  ┌──────────────────────▼──────────────────────────────┐
+  │  <b>5. Response: cv_url + claim_token</b>                 │
+  │     • cv_url: mcphire.com/cv/a3f91c (SSG)           │
+  │     • claim_token: mcphire-verify-k8s3f             │
+  └─────────────────────────────────────────────────────┘
+
+<em>Таблицы:</em> agent_profiles / claim_tokens / match_history /
+         observed_facts / cv_snapshots
+
+<em>Match (30 hard полей):</em> SQL GIN overlap по JSONB stack +
+         фильтры по floor, timezone, format, seniority
+
+<em>v2 транзит к графу:</em> observed_facts уже в triples-формате.
+         Entity resolution + neo4j поверх — без миграции ядра.
+    </div>
+  </div>
+</section>
+
+<!-- 06 PHASES -->
+<section class="phase">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">06<small>Фазы</small></div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>ЧТО КОГДА И ПОЧЕМУ В ТАКОМ ПОРЯДКЕ</div>
+        <h2>Три фазы, три pitch-момента.</h2>
+      </div>
+    </div>
+
+    <div class="ph-grid">
+      <div class="p active">
+        <div class="n">I</div>
+        <div class="nm">MVP · 14 дней</div>
+        <div class="dur">hypothesis test</div>
+        <div class="txt">150 вопросов, CV автосгенерируется, observed_facts пишутся silent. <b>Pitch в LinkedIn:</b> «мой Claude сам собрал мне резюме за 3 минуты, вот ссылка». Первый wow.</div>
+      </div>
+      <div class="p">
+        <div class="n">II</div>
+        <div class="nm">v1.5 · мес 1-3</div>
+        <div class="dur">growth loop</div>
+        <div class="txt">Собираем 200+ профилей. Buyer-сторона. Embedding-слой для soft-полей. Граф видимый юзеру на <span class="mono">/me</span>. <b>Pitch #2:</b> «теперь твой профиль — не форма, а knowledge graph».</div>
+      </div>
+      <div class="p">
+        <div class="n">III</div>
+        <div class="nm">v2 · мес 3+</div>
+        <div class="dur">scale</div>
+        <div class="txt">Полноценный граф (neo4j / apache age). Multi-hop queries для buyer-агентов («кто работал с ex-Anthropic staff на LangGraph»). M2M-переговоры. <b>Pitch #3:</b> «job board умер, есть граф».</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Colophon -->
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo">
+      <div class="big">MCPHire v3. <em>150 вопросов</em>. Автосгенерированное резюме. Минимальный <em>граф</em> сейчас — полноценный через три месяца.</div>
+      <div>
+        <div class="k">Связано</div>
+        <p><a href="../docs/">MVP docs plan</a></p>
+        <p><a href="../roadmap/">roadmap v3 (10 эпиков)</a></p>
+        <p><a href="../">v2 vision</a></p>
+      </div>
+      <div>
+        <div class="k">Следующий шаг</div>
+        <p>Ответить на 8 открытых вопросов в docs.</p>
+        <p>Стартовать D2.5 — каталог 150 вопросов.</p>
+      </div>
+    </div>
+    <div class="filebar">
+      <span>mcphire · v3 · graph-decision</span>
+      <span>t.z. / kaş · tr · 16 · iv · 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -268,7 +268,7 @@
   <div class="hero-meta">
     <div class="cell"><div class="k">Спринт</div><div class="v">1</div></div>
     <div class="cell"><div class="k">Эпиков доков</div><div class="v">4</div></div>
-    <div class="cell"><div class="k">Задач</div><div class="v">14</div></div>
+    <div class="cell"><div class="k">Задач</div><div class="v">18</div></div>
     <div class="cell"><div class="k">До первого вау</div><div class="v">≤ 1 день</div></div>
   </div>
 </header>
@@ -280,7 +280,7 @@
       <div class="num">02<small>Аудит текущей документации</small></div>
       <div>
         <div class="eyebrow"><span class="dot"></span>ЧТО УЖЕ НАПИСАНО, ЧТО ПРИДЁТСЯ ДОБАВИТЬ</div>
-        <h2>Сейчас 6 файлов частично готовы. Семи нет.</h2>
+        <h2>Сейчас 6 файлов частично готовы. Восьми нет.</h2>
       </div>
     </div>
 
@@ -379,7 +379,19 @@
         <div class="c file">mcphire-mcp/docs/QUESTIONS_SCHEMA.md</div>
         <div class="c status miss">missing</div>
         <div class="c">—</div>
-        <div class="c">Создать: каталог 100 вопросов для M2M-онбординга с hints для Claude</div>
+        <div class="c">Создать: каталог 150 вопросов в 11 секциях, hints для Claude</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-frontend/public/cv/_template.html</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: шаблон авторезюме (SSG, фото, social, опыт, observed_facts блок)</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/docs/OBSERVED_FACTS.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: спека sidecar-схемы (subject-predicate-object + provenance)</div>
       </div>
       <div class="audit-row">
         <div class="c file">mcphire-mcp/CHANGELOG.md</div>
@@ -440,12 +452,12 @@
       <div class="ux-step">
         <div class="idx">04</div>
         <div>
-          <h4>Registration · 100 вопросов, M2M, approval-экран</h4>
-          <div class="time">~ 3 минуты</div>
-          <p>Claude зовёт <span class="mono">get_registration_questions</span> → получает <b>100 вопросов</b> (стек, опыт, стиль, availability, red flags, домены, артефакты, интенции, компенсация и т.д.). Один режим — никаких «выбери между dialog/MD/combo».</p>
-          <p>Claude <b>отвечает за Марину сам</b>, используя всё что он знает: локальные MD-файлы, заметки, README проектов, <span class="mono">~/.claude/memory</span>, прошлые conversations. Если данных не хватает — помечает вопрос как <span class="mono">unanswered</span> и идёт дальше, не дёргая юзера.</p>
-          <p>В конце показывает Марине <b>approval-экран</b> — 100 вопросов + ответы одним сплошным документом. Марина просматривает, исправляет что неверно, заполняет пропуски или игнорирует их, жмёт «ок». Только после этого — <span class="mono">register_profile(answers)</span>.</p>
-          <span class="verb"><em>&gt;</em> Claude: Прошёл 100 вопросов. Заполнил 78, пропустил 22 (не было данных).<br><em>&gt;</em> Вот полная сводка — проверь, скажи где поправить. После ок я отправлю в MCPHire.<br><br><em>&gt; [approval-доку из 100 пунктов]</em><br><br><em>&gt; User:</em> ок, отправляй<br><em>&gt; Claude:</em> [<b>register_profile</b>] → profile_id <em>prof_7b2f</em>, claim_token <em>mcphire-verify-k8s3f</em>.</span>
+          <h4>Registration · 150 вопросов в 11 секциях, approval</h4>
+          <div class="time">~ 3–5 минут</div>
+          <p>Claude зовёт <span class="mono">get_registration_questions</span> → получает <b>150 вопросов в 11 секциях</b>: стек (25), опыт с детальной историей работы (30), стиль (15), availability (12), соцсети и контакты (15), артефакты и фото (10), компенсация (8), интенции (10), red flags (10), домены (8), agent-native (7).</p>
+          <p>Claude <b>отвечает за Марину сам</b>, используя всё что знает: локальные MD-файлы, git log, README проектов, <span class="mono">~/.claude/memory</span>, прошлые conversations, публичные профили (GitHub, Habr) если дала ссылки. Нет данных — помечает <span class="mono">unanswered</span>, не дёргает юзера.</p>
+          <p>В конце — <b>approval-экран с 11 сворачиваемых секций</b>. Low-confidence поля подсвечены красным. Марина раскрывает где нужно проверить, сворачивает где всё ок, пропускает раздел «contacts» если хочет анонимно. Одно «ок» на итог.</p>
+          <span class="verb"><em>&gt;</em> Claude: Прошёл 150 вопросов за 90 секунд.<br><em>&gt;</em> Заполнил 118 (79%), пропустил 32, из них 4 low-confidence.<br><em>&gt;</em> Low-confidence: commercial_years, last_total_comp, managed_team_size, first_paid_coding. Подсвечу красным.<br><em>&gt;</em> Фото: нашёл твоё в GitHub avatar — использовать его или дашь другое?<br><em>&gt;</em> Social: GitHub, LinkedIn, Habr, Telegram — все подтверждены.<br><br><em>&gt; [approval — 11 секций, collapsible]</em><br><br><em>&gt; User:</em> ок<br><em>&gt; Claude:</em> [<b>register_profile</b>] → profile_id <em>prof_7b2f</em>, claim_token <em>mcphire-verify-k8s3f</em>, cv_url <em>mcphire.com/cv/prof_7b2f</em>.</span>
         </div>
       </div>
 
@@ -477,15 +489,15 @@
     </div>
 
     <div class="wow-box">
-      <h4>Что делает этот флоу <em>wow</em>, а не очередной job-board</h4>
-      <p>Одна ссылка mcphire.com в Claude. Дальше агент всё сам. Пользователь не заполнял форму, не регистрировался, не подтверждал email, ни разу не кликнул на сайте.</p>
+      <h4>Что делает этот флоу <em>wow</em> — пять моментов</h4>
       <ul>
-        <li><b>Auto-discovery:</b> даёшь домен — агент сам находит MCP-эндпоинт и onboarding-последовательность. Ничего не нужно гуглить или копипастить из инструкций.</li>
-        <li><b>M2M на 100 вопросов:</b> Claude отвечает MCPHire за тебя, используя твой контекст (MD-файлы, заметки, прошлые чаты). Ты approve одним «ok» — или правишь пункты и одобряешь после.</li>
-        <li><b>Claim с опциональным автоматом:</b> Claude через github-MCP сам вставляет токен в bio. Ничего не делаешь.</li>
-        <li><b>Heartbeat внутри Claude:</b> новые матчи появляются в том же чате, где ты регистрировался. Никакой сторонней инфры.</li>
+        <li><b>Auto-discovery:</b> юзер даёт корневой mcphire.com. Агент сам находит MCP-эндпоинт и onboarding-протокол. Никаких инструкций копипастить.</li>
+        <li><b>M2M на 150 вопросов:</b> Claude отвечает за тебя, опираясь на локальный контекст (MD, git, прошлые чаты, публичные соцсети если дал ссылки). Ты approve одним «ок».</li>
+        <li><b>Авторезюме с фото и соцсетями:</b> после approval на <span class="mono">mcphire.com/cv/&lt;profile_id&gt;</span> появляется сгенерированная HTML-страница — структурированное резюме с фото, контактами, опытом, артефактами. Кидаешь кому угодно как замену CV.pdf. <b>Это главный wow.</b></li>
+        <li><b>Минимальный граф знаний:</b> параллельно с ответами Claude пишет <em>observed facts</em> как triples (subject-predicate-object) — sidecar на сервере. Юзер видит это на CV-странице как секции «связан с» и «работал над». Задел под полноценный граф в v2.</li>
+        <li><b>Heartbeat внутри Claude:</b> новые матчи приходят в том же чате где регистрировался. Никакого TG, никакой формы.</li>
       </ul>
-      <p style="margin-top:14px; color:var(--accent-2); font-weight:500">Анти-wow: пустой первый heartbeat. Если по стеку юзера в 74K вакансий нет ни одного overlap — продукт выглядит сломанным. Страховка: первые 30 юзеров — ручная curation Тимом плюс широкий SQL-фильтр (не strict match, а «похоже»).</p>
+      <p style="margin-top:14px; color:var(--accent-2); font-weight:500">Анти-wow: пустой первый heartbeat. Страховка — первые 30 юзеров Тим руками готовит broad-фильтр. Авторезюме и граф показываются сразу после registration — даже если матчей ноль, у юзера уже есть артефакт для шаринга.</p>
     </div>
   </div>
 </section>
@@ -506,43 +518,46 @@
       <div class="col">
         <h4>В MVP</h4>
         <ul>
-          <li><b>For-agents блок</b> на <span class="mono">mcphire.com</span> (главная) — машиночитаемый, для auto-discovery. Человеку не мешает.</li>
-          <li><b>Обновлённые</b> <span class="mono">/llms.txt</span> и <span class="mono">/.well-known/mcp/server.json</span> — содержат onboarding-последовательность.</li>
-          <li><b>MCP-tools:</b> <span class="mono">get_registration_questions</span> (возвращает 100 вопросов), <span class="mono">register_profile</span> (принимает dict ответов), <span class="mono">list_my_matches</span>, <span class="mono">get_verification_status</span>.</li>
-          <li><b>Каталог 100 вопросов</b> с hint-ами для агента (какие файлы читать под каждый вопрос).</li>
-          <li><b>Claim-flow:</b> автомат через github-MCP, fallback на ручную вставку в bio. Один путь, два варианта в конце.</li>
-          <li><b>Claim-cron</b> — чекает bio каждые 15 минут (или по запросу через <span class="mono">get_verification_status</span>).</li>
-          <li><b>Heartbeat:</b> Claude-скилл зовёт <span class="mono">list_my_matches</span> при каждом открытии conversation. Новые матчи показываются в том же чате.</li>
-          <li><b>Supply:</b> 74K HH-вакансий, обновление каждые 6 часов. SQL overlap + мягкий fallback для первых 30 юзеров.</li>
-          <li><b>Новые таблицы:</b> <span class="mono">agent_profiles</span>, <span class="mono">claim_tokens</span>, <span class="mono">match_history</span>.</li>
-          <li><b>Telemetry:</b> Umami events на ключевые шаги (discover / register / verify / match_shown / match_opened).</li>
+          <li><b>For-agents блок</b> на <span class="mono">mcphire.com</span> — машиночитаемый, auto-discovery.</li>
+          <li><b>Обновлённые</b> <span class="mono">/llms.txt</span> и <span class="mono">/.well-known/mcp/server.json</span>.</li>
+          <li><b>5 MCP-tools:</b> <span class="mono">get_registration_questions</span> (150 вопросов), <span class="mono">register_profile</span> (answers dict + consent), <span class="mono">list_my_matches</span>, <span class="mono">get_verification_status</span>, <span class="mono">get_my_cv</span> (HTML snapshot).</li>
+          <li><b>Каталог 150 вопросов</b> в 11 секциях с hint-ами для агента.</li>
+          <li><b>Авторезюме:</b> после approval генерируется SSG-страница <span class="mono">mcphire.com/cv/&lt;profile_id&gt;</span> с фото, контактами, опытом, артефактами. Unguessable URL (8-char slug).</li>
+          <li><b>Граф знаний (min):</b> sidecar <span class="mono">observed_facts</span> (subject-predicate-object + provenance + confidence). На CV-странице видно как секции «связан с» / «работал над».</li>
+          <li><b>Claim-flow:</b> автомат через github-MCP или руками.</li>
+          <li><b>Claim-cron</b> каждые 15 минут + on-demand через <span class="mono">get_verification_status</span>.</li>
+          <li><b>Heartbeat:</b> Claude зовёт <span class="mono">list_my_matches</span> при каждом открытии conversation.</li>
+          <li><b>Supply:</b> 74K HH-вакансий, обновление каждые 6 часов.</li>
+          <li><b>Новые таблицы:</b> <span class="mono">agent_profiles</span>, <span class="mono">claim_tokens</span>, <span class="mono">match_history</span>, <span class="mono">observed_facts</span>, <span class="mono">cv_snapshots</span>.</li>
+          <li><b>Telemetry:</b> Umami events.</li>
         </ul>
       </div>
       <div class="col">
         <h4>Не в MVP</h4>
         <ul>
-          <li><strike>Telegram-бот</strike> — <b>под вопросом, см. рекомендацию ниже</b></li>
-          <li><strike>Notification preferences</strike> — частота уведомлений не настраивается, heartbeat при открытии Claude</li>
-          <li><strike>Personal digest cron</strike> — нет отдельного пуша, матчи приходят внутри Claude</li>
-          <li><strike>Deep-link TG</strike> — не работает в Claude Code</li>
-          <li><strike>Режимы онбординга</strike> (dialog / MD / combo) — только M2M, один путь</li>
-          <li><strike>Buyer-сторона и M2M-подряды</strike> — следующий спринт, пока только HH-supply</li>
-          <li><strike>Dashboard /me/</strike> — не нужен, матчи внутри Claude</li>
+          <li><strike>Telegram-бот</strike> — выкинут, heartbeat покрывает доставку</li>
+          <li><strike>Notification preferences</strike> — частота не настраивается, heartbeat по открытию Claude</li>
+          <li><strike>Personal digest cron</strike></li>
+          <li><strike>Deep-link TG</strike></li>
+          <li><strike>Режимы онбординга</strike> (dialog / MD / combo) — только M2M</li>
+          <li><strike>Buyer-сторона и M2M-подряды</strike> — следующий спринт</li>
+          <li><strike>Полноценный граф с multi-hop</strike> — v2, когда будет ≥ 200 профилей. В MVP — только плоский observed_facts</li>
+          <li><strike>Manually-editable CV</strike> — CV генерится из answers, обновляется через повторный /join</li>
+          <li><strike>Dashboard /me/</strike> — CV-страница эту роль выполняет</li>
           <li><strike>Rule-based auto-matching</strike> — SQL JSONB overlap достаточно</li>
-          <li><strike>Embedding similarity</strike> — не до 500 профилей</li>
+          <li><strike>Embedding similarity</strike> — до 500 профилей</li>
           <li><strike>Escrow, payments, reputation</strike></li>
           <li><strike>Public feed / leaderboard</strike></li>
-          <li><strike>Email</strike> — никаких email</li>
-          <li><strike>Отдельные skills для seller/buyer</strike> — один вход</li>
+          <li><strike>Email</strike></li>
         </ul>
       </div>
     </div>
 
     <div class="wow-box" style="margin-top:40px; border-color: var(--accent-2); background: oklch(15% 0.04 75);">
-      <h4>Моя рекомендация по <em>Telegram-боту</em></h4>
-      <p><b>Выкидываем из MVP. Не делаем.</b> Аргумент: аудитория — AI-native, живёт в Claude Desktop каждый день. Heartbeat при открытии чата доставляет матч за 10 секунд. TG добавляет бота, deep-link, команды, aiogram, привязку, preferences — это ~2 дня работы, которую можно не делать.</p>
-      <p>Когда вернёмся к TG: если пост в LinkedIn выстрелит, соберём feedback из первых 30–50 регистраций, и если &gt;40% юзеров попросят «хочу на телефон» — добавим как opt-in в v2. Пока — single channel, один путь: Claude-чат.</p>
-      <p>Что пока не закрыто: как юзер узнает о новом матче если неделю не открывает Claude? Ответ: никак. Это фича MVP, не баг. Рынок — активные Claude-юзеры, кто открывает каждый день. Остальные — не наша аудитория в первые 14 дней.</p>
+      <h4>Почему <em>авторезюме + граф</em> — главный рычаг</h4>
+      <p><b>CV-страница = артефакт который юзер забирает себе.</b> Даже если матчей в первую неделю ноль, у него на руках остаётся красиво свёрстанная HTML-страница с фото, опытом и контактами — готовая замена CV.pdf. Он шарит ссылку друзьям, в TG, в посты. Каждый такой share — органический трафик на mcphire.com.</p>
+      <p><b>observed_facts как фундамент графа.</b> Pragmatic approach: строим граф не отдельным спринтом, а silent-collection параллельно с approval. Triples пишутся на сервер. В MVP видно на CV как список «связан с Anthropic, Yandex, Avito / работал над RAG, evals, production-LLM». Через 3 месяца, когда 200+ профилей — эти facts складываются в настоящий knowledge graph. Переход на v2 — без перезаписи данных.</p>
+      <p>Важное ограничение: <b>Polywork-паттерн («нет резюме»)</b> не работает в найме. CV остаётся — просто генерится автоматом, не пишется юзером руками. Proof_url (GitHub / Habr / персональный сайт) — anchor, без него профиль не засчитывается.</p>
     </div>
   </div>
 </section>
@@ -553,7 +568,7 @@
     <div class="sec-head">
       <div class="num">05<small>Документационный бэклог</small></div>
       <div>
-        <div class="eyebrow"><span class="dot"></span>1 СПРИНТ · 4 ЭПИКА · 14 ЗАДАЧ</div>
+        <div class="eyebrow"><span class="dot"></span>1 СПРИНТ · 4 ЭПИКА · 18 ЗАДАЧ</div>
         <h2>Только документация.<br>Никакого кода.</h2>
       </div>
     </div>
@@ -607,8 +622,20 @@
             <span class="time">~ 40 мин</span>
           </div>
           <p class="desc">Страница /docs/mcp переписана под новый flow. Убираем старый setup Claude Desktop (он теперь прямо в skill-manifest), добавляем секцию «Agent onboarding via skill».</p>
-          <p class="what"><b>что внутри</b>TL;DR-блок 60 слов, полный диалог-пример (воспроизведение UX из секции 03), две картинки (первый экран Claude + TG-сообщение), ссылки на skill-manifest и llms.txt.</p>
+          <p class="what"><b>что внутри</b>TL;DR-блок 60 слов, полный диалог-пример (воспроизведение UX из секции 03), две картинки (первый экран Claude + готовое CV), ссылки на llms.txt и server.json.</p>
           <p class="ac"><b>acceptance</b>Schema.org TechArticle валиден, рендерится без JS (SSG), 0 emoji-иконок, breadcrumbs.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D1.4</span>
+            <span class="path">public/cv/_template.html + docs/CV_TEMPLATE.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 80 мин</span>
+          </div>
+          <p class="desc">Шаблон автосгенерированного резюме. Заполняется из ответов на 150 вопросов + observed_facts. Результат — красивая HTML-страница, которую юзер шарит как замену CV.pdf.</p>
+          <p class="what"><b>что внутри</b>Template: (1) hero с фото + имя + role headline + social-ссылки (icons из lucide SVG), (2) timeline опыта (30 experience-вопросов → визуальный career-timeline), (3) skills matrix (stack answers), (4) compensation block (только если юзер не прячет), (5) блок <b>«Observed facts»</b> — секции «связан с» / «работал над» / «знает» на основе sidecar triples, (6) CTA «заинтересовался? → <span class="mono">mcphire.com/cv/&lt;id&gt;/contact</span>». Тёмная/светлая тема. Schema.org Person + JSON-LD. Без JS.<br>Рядом — <span class="mono">docs/CV_TEMPLATE.md</span> с mapping «какое поле CV из какого question_id».</p>
+          <p class="ac"><b>acceptance</b>3 разных mock-юзера (senior ML, junior FE, lead DevOps) рендерятся без visual bugs. Unguessable URL (8-char slug). Mobile-first.</p>
         </div>
       </div>
     </div>
@@ -631,7 +658,7 @@
             <span class="time">~ 75 мин</span>
           </div>
           <p class="desc">Reference для всех MCP-tools проекта (5 старых + 4 новых). По каждому: назначение, input schema, output schema, примеры, error codes, rate-limits.</p>
-          <p class="what"><b>что внутри</b>Секции: existing tools (refresh), new tools:<br>— <span class="mono">get_registration_questions()</span> — возвращает массив из 100 вопросов с категориями (stack, style, availability, red_flags, ...)<br>— <span class="mono">register_profile(answers: dict)</span> — принимает словарь {question_id: answer}, валидирует, создаёт профиль<br>— <span class="mono">list_my_matches(profile_id, since, limit)</span><br>— <span class="mono">get_verification_status(profile_id)</span><br>Для каждого — JSON request+response, ошибки, ссылки на DATA_MODEL.md.</p>
+          <p class="what"><b>что внутри</b>Секции: existing tools (refresh), new tools:<br>— <span class="mono">get_registration_questions()</span> — возвращает массив из 150 вопросов с категориями (stack, style, availability, red_flags, ...)<br>— <span class="mono">register_profile(answers: dict)</span> — принимает словарь {question_id: answer}, валидирует, создаёт профиль<br>— <span class="mono">list_my_matches(profile_id, since, limit)</span><br>— <span class="mono">get_verification_status(profile_id)</span><br>Для каждого — JSON request+response, ошибки, ссылки на DATA_MODEL.md.</p>
           <p class="ac"><b>acceptance</b>Покрывает 100% tool-ов. JSON-примеры валидируются jq. Error-codes пронумерованы (E100-E199 profile, E200-E299 matches, E300-E399 verify, E400-E499 questions).</p>
         </div>
 
@@ -642,9 +669,9 @@
             <span class="act create">create</span>
             <span class="time">~ 50 мин</span>
           </div>
-          <p class="desc">Каталог из 100 вопросов, которые MCPHire задаёт через <span class="mono">get_registration_questions</span>. Это источник правды для M2M-онбординга.</p>
-          <p class="what"><b>что внутри</b>YAML/JSON структура: id, category (stack/style/availability/comp/intent/red_flags/meta), text_ru, text_en, type (enum/text/number/multiselect), options если enum, required_for_match (true/false), hint_for_agent (какие файлы имеет смысл читать — для Claude-assistance). Например: «q_stack_primary: какой твой основной стек последние 6 месяцев? hint: читай package.json, requirements.txt, pyproject.toml, Gemfile, go.mod».</p>
-          <p class="ac"><b>acceptance</b>Ровно 100 вопросов. Каждый покрывает одно поле профиля. Категории покрывают всё что нужно для матчинга. Обоснование каждой категории в шапке файла.</p>
+          <p class="desc">Каталог из 150 вопросов, которые MCPHire задаёт через <span class="mono">get_registration_questions</span>. Это источник правды для M2M-онбординга.</p>
+          <p class="what"><b>что внутри</b>150 вопросов в 11 секциях с раскладкой: stack (25), experience (30 — детальная история работы: роли, компании, периоды, outcomes), working style (15), availability (12), social &amp; contacts (15 — photo URL, GitHub, LinkedIn, Habr, Telegram, email, personal website, Medium, YouTube, preferred channel), artifacts (10 — proof-ссылки, фото), compensation (8), intent (10), red_flags (10), domain (8), agent-native (7). YAML-структура: id, section, text_ru, type (enum/text/number/multiselect/url), options, matchable (true/false), provenance_required (для топ-10 критичных), hint_for_agent.</p>
+          <p class="ac"><b>acceptance</b>Ровно 150 вопросов. 30 matchable (hard-SQL) + 120 soft (задел под граф v2). Топ-10 с provenance_required=true. Нет дискриминационных (возраст, пол, семья, здоровье). Каждый hint_for_agent указывает на конкретные файлы или API.</p>
         </div>
 
         <div class="task">
@@ -678,9 +705,21 @@
             <span class="act create">create</span>
             <span class="time">~ 40 мин</span>
           </div>
-          <p class="desc">Схема новой таблицы agent_profiles + связи с существующими (jobs, users, telegram_links). Описание JSONB-полей, индексов, FK.</p>
-          <p class="what"><b>что внутри</b>Postgres DDL (без выполнения) для <span class="mono">agent_profiles</span> и <span class="mono">claim_tokens</span>. GIN-индексы на JSONB stack. ERD-диаграмма (Mermaid). Правила матчинга в SQL-псевдокоде.</p>
-          <p class="ac"><b>acceptance</b>DDL валидный SQL (psql --dry-run), все FK совпадают с существующей схемой, Mermaid рендерится на GitHub.</p>
+          <p class="desc">Схема новых таблиц: <span class="mono">agent_profiles</span>, <span class="mono">claim_tokens</span>, <span class="mono">match_history</span>, <span class="mono">observed_facts</span>, <span class="mono">cv_snapshots</span>. Связи с существующими <span class="mono">jobs</span>, <span class="mono">users</span>.</p>
+          <p class="what"><b>что внутри</b>Postgres DDL (без выполнения) для 5 новых таблиц. GIN-индексы на JSONB stack + social_links. ERD-диаграмма (Mermaid). SQL-псевдокод правил матчинга.</p>
+          <p class="ac"><b>acceptance</b>DDL валидный SQL (psql --dry-run). Все FK совпадают. Mermaid рендерится на GitHub.</p>
+        </div>
+
+        <div class="task">
+          <div class="t-head">
+            <span class="tid">D2.6</span>
+            <span class="path">docs/OBSERVED_FACTS.md</span>
+            <span class="act create">create</span>
+            <span class="time">~ 40 мин</span>
+          </div>
+          <p class="desc">Спека sidecar-схемы observed_facts. Triples (subject-predicate-object) + provenance + confidence. Это задел под knowledge graph в v2.</p>
+          <p class="what"><b>что внутри</b>(1) Schema: <span class="mono">profile_id</span>, <span class="mono">subject</span> (обычно профиль или entity), <span class="mono">predicate</span> (enum ~30: worked_at, contributed_to, mentored, shipped, studied_at, ...), <span class="mono">object</span> (free-text или normalized entity_id), <span class="mono">source_file</span>, <span class="mono">source_excerpt</span> (max 140 chars), <span class="mono">confidence</span>, <span class="mono">collected_at</span>, <span class="mono">approved_by_user</span> (boolean). (2) Словарь predicate-ов с примерами. (3) Как triples показываются на CV-странице («связан с» берёт из predicate ∈ {worked_at, contributed_to, studied_at}, «работал над» — из {shipped, refactored, designed, owned}). (4) Constraint: не принимаем триплет без approved_by_user (иначе hallucinations попадают в публичный CV).</p>
+          <p class="ac"><b>acceptance</b>Список всех predicate-ов с примерами SPO. 3 mock-профиля с 15-20 triples каждый для тестирования. Explicit правило «no approval — no public display».</p>
         </div>
       </div>
     </div>
@@ -816,7 +855,7 @@
       <div class="num">06<small>API preview</small></div>
       <div>
         <div class="eyebrow"><span class="dot"></span>ЧТО В НОВЫХ MCP-TOOLS · I/O КОНТРАКТ</div>
-        <h2>Четыре новых tool.</h2>
+        <h2>Пять новых tool.</h2>
         <p class="lead" style="margin-top:14px">Не реализация — только спецификация, которая ляжет в D2.1/D2.2/D2.3/D2.5. Здесь она сведена, чтобы в спринте документации не было вопросов «а что именно в API».</p>
       </div>
     </div>
@@ -825,7 +864,7 @@
       <div class="spec" style="grid-column: 1 / -1;">
         <h4>get_registration_questions</h4>
         <div class="sub">READ · auth none · новый</div>
-        <p class="purpose"><b>Назначение.</b> Возвращает каталог 100 вопросов для M2M-онбординга. Claude забирает массив, читает локальные MD-файлы юзера и отвечает за него, где возможно. Источник правды — QUESTIONS_SCHEMA.md.</p>
+        <p class="purpose"><b>Назначение.</b> Возвращает каталог 150 вопросов для M2M-онбординга. Claude забирает массив, читает локальные MD-файлы юзера и отвечает за него, где возможно. Источник правды — QUESTIONS_SCHEMA.md.</p>
 <pre><b>INPUT</b>  { "side": "seller" }   // optional — возвращает только релевантные для стороны
 
 <b>OUTPUT</b>
@@ -876,7 +915,7 @@
     "q_timezone": "UTC+3",
     "q_proof_url": <em>"https://github.com/marina"</em>,
     "q_must_not": "no on-call, no crypto",
-    ... // 92 more fields
+    ... // 142 more fields
   },
   "source": "agent_m2m"   // константа — другого режима нет
 }</pre>
@@ -887,7 +926,8 @@
   "claim_token": "mcphire-verify-k8s3f",
   "claim_instructions": "Вставь в публичный bio (GitHub/LinkedIn).",
   "verify_check_at": "2026-04-15T14:45:00Z",
-  "dashboard_url": null   // нет в MVP
+  "cv_url": <em>"https://mcphire.com/cv/a3f91c"</em>,   // автосгенерированное резюме
+  "observed_facts_count": 23   // triples собранные во время онбординга
 }</pre>
         <div class="errs">
           <b>Errors:</b>
@@ -951,13 +991,46 @@
   "proof_url": "https://github.com/marina",
   "last_checked_at": "2026-04-15T14:43:00Z",
   "token_expires_at": "2026-04-17T14:30:00Z",
-  "next_step": "link_telegram"     // или "wait_first_digest" или "re_register"
+  "next_step": "open_cv"           // или "wait_first_heartbeat" или "re_register"
 }</pre>
         <div class="errs">
           <b>Errors:</b>
           <ul>
             <li><code>E301 profile_not_found</code></li>
             <li><code>E302 token_expired</code> — прошло &gt; 48ч с register_profile</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="spec" style="grid-column: 1 / -1;">
+        <h4>get_my_cv</h4>
+        <div class="sub">READ · новый · публичная страница по unguessable URL</div>
+        <p class="purpose"><b>Назначение.</b> Возвращает HTML-snapshot авторезюме + observed_facts юзера. Используется Claude чтобы показать «вот твоё готовое резюме по ссылке — забирай, шарь». Генерируется на лету из ответов профиля.</p>
+<pre><b>INPUT</b>  { "profile_id": "prof_7b2f" }
+
+<b>OUTPUT</b>
+{
+  "cv_url": <em>"https://mcphire.com/cv/a3f91c"</em>,       // 8-char slug
+  "cv_preview_text": "Senior ML Engineer · 6 years · Moscow/remote · $5K",
+  "photo_url": "https://avatars.githubusercontent.com/marina",
+  "social_links": {
+    "github": "https://github.com/marina",
+    "linkedin": "https://linkedin.com/in/marina",
+    "habr": "https://habr.com/users/marina"
+  },
+  "observed_facts_summary": {
+    "worked_at": ["Avito","Yandex"],
+    "contributed_to": ["LangGraph","vLLM"],
+    "shipped": ["RAG-prod pipeline","evals framework"]
+  },
+  "generated_at": "2026-04-15T14:48:00Z",
+  "last_regenerated_by": "register_profile"
+}</pre>
+        <div class="errs">
+          <b>Errors:</b>
+          <ul>
+            <li><code>E501 cv_not_ready</code> — profile_id не прошёл claim</li>
+            <li><code>E502 cv_private</code> — юзер выбрал privacy-mode=stealth</li>
           </ul>
         </div>
       </div>
@@ -972,40 +1045,50 @@
       <div class="num">07<small>Открытые вопросы</small></div>
       <div>
         <div class="eyebrow"><span class="dot"></span>РЕШИТЬ ДО СТАРТА СПРИНТА ДОКОВ</div>
-        <h2>Пять развилок копирайта и поведения.</h2>
+        <h2>Восемь развилок для старта.</h2>
       </div>
     </div>
 
     <div class="open-list">
       <div class="q">
         <span class="num">i</span>
-        <h4>TG-бот — выкидываем из MVP?</h4>
-        <p>Моя рекомендация: <b>не делать</b>. Heartbeat в Claude покрывает доставку матчей, TG добавляет ~2 дня работы. Вернёмся к нему в v2 если ≥40% юзеров попросят «хочу на телефон». Принимаем?</p>
+        <h4>CV — URL публичный или защищённый?</h4>
+        <p>Варианты: (a) unguessable 8-char slug <span class="mono">/cv/a3f91c</span> — public-by-URL, без auth, удобно шарить. (b) slug + requires <span class="mono">?t=claim_token</span> — безопаснее но неудобно шарить. Моя рекомендация — (a) + opt-in stealth flag через 100-й вопрос.</p>
       </div>
       <div class="q">
         <span class="num">ii</span>
-        <h4>100 вопросов — раскладка по категориям</h4>
-        <p>Предлагаю: stack (20), experience (15), style (15), availability (10), comp (10), intent (10), red_flags (10), domain (5), artifacts (5). Согласен с пропорциями?</p>
+        <h4>150 вопросов — раскладка</h4>
+        <p>Принято: stack (25), experience (30), style (15), availability (12), social &amp; contacts (15), artifacts (10), comp (8), intent (10), red_flags (10), domain (8), agent-native (7). Итого 150. OK?</p>
       </div>
       <div class="q">
         <span class="num">iii</span>
         <h4>Approval-формат</h4>
-        <p>Claude показывает 100 вопросов+ответов <b>одним сплошным документом</b> или разбить на 9 категорий с отдельным ок на каждую? Первое — читаешь за 1 проход, второе — 9 подтверждений (больше friction).</p>
+        <p>11 сворачиваемых секций, low-confidence красным, одно итоговое «ок». Так? Или одним документом (faster, но меньше контроля)?</p>
       </div>
       <div class="q">
         <span class="num">iv</span>
-        <h4>Приватность MD-чтения</h4>
-        <p>Claude читает локальные файлы и <b>формирует ответы не отправляя сами файлы на сервер</b>. Нужно ли explicit confirmation на scan, или делаем молча (стандартное поведение Claude Code)?</p>
+        <h4>Фото для CV</h4>
+        <p>Откуда брать? (a) GitHub avatar по дефолту если дал github-handle, (b) просим URL в отдельном вопросе, (c) позволяем upload в approval-экране. Моя рекомендация — (a) с опцией override в approval.</p>
       </div>
       <div class="q">
         <span class="num">v</span>
-        <h4>GitHub-автоматика claim</h4>
-        <p>Claude через github-MCP сам редактирует bio. Риск: юзер не понимает что bio изменилось. Митигация: Claude эксплицитно говорит «пишу в твой bio строку X» и ждёт approve. Согласуется?</p>
+        <h4>observed_facts — всегда собираем?</h4>
+        <p>Да / нет / opt-in. Моя рекомендация — <b>всегда собираем, публикуем только approved</b>. Юзер видит triples на approval-экране, снимает галочки с ложных. Сохраняем только approved.</p>
       </div>
       <div class="q">
         <span class="num">vi</span>
         <h4>Supply-гарантия первых 48ч</h4>
-        <p>74K HH-вакансий есть, но первый heartbeat-ответ зависит от SQL-overlap. Risk: пул широкий, но специфический стек может не матчнуться. Страховка: первые 30 юзеров — Тим руками готовит выборку за 2 мин на каждого? Или принимаем риск «повезло/не повезло»?</p>
+        <p>Risk: специфический стек юзера не матчится с 74K HH-пулом. Страховка — первые 30 юзеров Тим руками готовит broad-фильтр (2 мин/profile)? Принимаем риск «повезло/не повезло»?</p>
+      </div>
+      <div class="q">
+        <span class="num">vii</span>
+        <h4>GitHub-автоматика claim</h4>
+        <p>Claude через github-MCP сам редактирует bio. Explicit согласие перед edit-ом обязательно. Согласуется?</p>
+      </div>
+      <div class="q">
+        <span class="num">viii</span>
+        <h4>Приватность MD-чтения</h4>
+        <p>Claude читает локальные файлы и формирует ответы, файлы на сервер не уходят. Explicit confirmation на scan — или молча (стандартное поведение Claude Code)?</p>
       </div>
     </div>
   </div>
