@@ -714,7 +714,8 @@
       "client_offer_msg": "клиент пишет: «у меня бюджет {budget}, сроки — неделя»",
       "extra_hunger_low": "🍔 голод снижает прогресс",
       "extra_hunger_mid": "🍔 голодно",
-      "extra_hangover": "☕ похмелье"
+      "extra_hangover": "☕ похмелье",
+      "client_label": "клиент"
     },
     "anna_referral": {
       "yes": "беру. скидывай договор",

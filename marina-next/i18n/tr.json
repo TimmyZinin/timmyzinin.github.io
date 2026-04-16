@@ -714,7 +714,8 @@
       "client_offer_msg": "müşteri yazıyor: «bütçem {budget}, süre — bir hafta»",
       "extra_hunger_low": "🍔 açlık ilerlemeyi düşürüyor",
       "extra_hunger_mid": "🍔 acıkmış",
-      "extra_hangover": "☕ akşamdan kalma"
+      "extra_hangover": "☕ akşamdan kalma",
+      "client_label": "müşteri"
     },
     "anna_referral": {
       "yes": "aldım. kontratı gönder",

@@ -714,7 +714,8 @@
       "client_offer_msg": "client writes: «budget is {budget}, timeline — one week»",
       "extra_hunger_low": "🍔 hunger killing progress",
       "extra_hunger_mid": "🍔 hungry",
-      "extra_hangover": "☕ hungover"
+      "extra_hangover": "☕ hungover",
+      "client_label": "client"
     },
     "anna_referral": {
       "yes": "i'm in. send the contract",

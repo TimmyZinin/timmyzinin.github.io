@@ -714,7 +714,8 @@
       "client_offer_msg": "cliente escreve: «orçamento é {budget}, prazo — uma semana»",
       "extra_hunger_low": "🍔 fome acabando com o progresso",
       "extra_hunger_mid": "🍔 com fome",
-      "extra_hangover": "☕ ressaca"
+      "extra_hangover": "☕ ressaca",
+      "client_label": "cliente"
     },
     "anna_referral": {
       "yes": "fechado. manda o contrato",
