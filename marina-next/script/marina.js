@@ -4741,27 +4741,43 @@
 
     STATE = loadState();
 
-    // SPRINT 52 — language mismatch detection: persisted thread history is in
-    // a different language than current locale. Auto-clear threads (preserve
-    // gameplay state — day, cash, contacts visibility) so player sees clean
-    // chats in current language. Avoids RU/EN/TR/PT mixing in bubbles.
+    // SPRINT 52 — language mismatch detection (v2): clear thread history when
+    // current locale ≠ stored locale OR when persisted bubbles contain
+    // a different alphabet than expected. Preserves gameplay state (day, cash, contacts).
     var _curLang = (window.MarinaI18n && window.MarinaI18n.getLang && window.MarinaI18n.getLang()) || 'ru';
-    if (STATE._lang_stamp && STATE._lang_stamp !== _curLang) {
-      // Clear all thread bubble history but keep state.contacts visibility/unread + state stats
+    function _bubbleHasMismatch() {
+      if (!STATE.threads || typeof STATE.threads !== 'object') return false;
+      var cyrPattern = /[А-Яа-яёЁ]/;
+      for (var tid in STATE.threads) {
+        if (!Object.prototype.hasOwnProperty.call(STATE.threads, tid)) continue;
+        var msgs = STATE.threads[tid] || [];
+        for (var i = 0; i < msgs.length; i++) {
+          var txt = msgs[i] && msgs[i].text;
+          if (typeof txt !== 'string') continue;
+          var hasCyr = cyrPattern.test(txt);
+          // Mismatch: current lang non-RU but bubble has cyrillic
+          if (_curLang !== 'ru' && hasCyr) return true;
+          // Mismatch: current lang RU but bubble has no cyrillic AND has latin word chars
+          if (_curLang === 'ru' && !hasCyr && /[a-z]{3,}/i.test(txt)) return true;
+        }
+      }
+      return false;
+    }
+    var _shouldClear = (STATE._lang_stamp && STATE._lang_stamp !== _curLang) || _bubbleHasMismatch();
+    if (_shouldClear) {
+      // Clear all thread bubble history but keep gameplay state intact
       if (STATE.threads && typeof STATE.threads === 'object') {
         for (var _tid in STATE.threads) {
           if (Object.prototype.hasOwnProperty.call(STATE.threads, _tid)) STATE.threads[_tid] = [];
         }
       }
-      // Reset unread badges (no point in showing pending-reply notifications for cleared chats)
       if (Array.isArray(STATE.contacts)) {
         STATE.contacts.forEach(function (c) { if (c) c.unread = 0; });
       }
-      // Stamp new lang
+      var _wasLang = STATE._lang_stamp || 'unknown';
       STATE._lang_stamp = _curLang;
       saveState();
-      // Console notice for QA
-      try { console.log('[i18n] thread history cleared due to language switch:', STATE._lang_stamp || 'unknown', '→', _curLang); } catch (e) {}
+      try { console.log('[i18n] thread history cleared:', _wasLang, '→', _curLang); } catch (e) {}
     } else if (!STATE._lang_stamp) {
       STATE._lang_stamp = _curLang;
       saveState();
