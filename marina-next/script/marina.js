@@ -4749,6 +4749,13 @@
     openChat(STATE.current_chat || 'scratch');
     renderDock();
 
+    // SPRINT 49 — re-render HUD when i18n becomes ready (initial render may have used RU fallback)
+    function _i18nReready() {
+      try { renderDock(); Bubbles.renderContacts(STATE); } catch (e) {}
+    }
+    window.addEventListener('marina:i18nready', _i18nReready);
+    window.addEventListener('marina:langchange', _i18nReready);
+
     if (STATE.ending_seen === 'win') {
       $('#win-stats').text(STATE.delivered_projects + ' проекта сданы · $' + STATE.cash + ' · energy ' + STATE.energy);
       $('#win-overlay').show();
