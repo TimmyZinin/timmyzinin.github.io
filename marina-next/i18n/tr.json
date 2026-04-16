@@ -724,7 +724,7 @@
   },
   "ui": {
     "brand": {
-      "title": "🔥 Melis Yanıyor",
+      "title": "🔥 Melis Tutuştu",
       "subtitle": "teledram"
     },
     "folder": {
@@ -756,7 +756,7 @@
   },
   "overlay": {
     "intro": {
-      "title": "Melis Yanıyor",
+      "title": "Melis Tutuştu",
       "subtitle": "1. gün. mart 2026.",
       "body": {
         "0": "Melis ajanstan yeni ayrıldı. Üç yıl markalar için copy yazdı, metinler kurdu, müşterileri yönetti.",
@@ -796,25 +796,29 @@
   },
   "meta": {
     "play": {
-      "title": "🔥 Melis Yanıyor — kurucu hayatta kalma mesajlaşma simü",
+      "title": "🔥 Melis Tutuştu — kurucu hayatta kalma mesajlaşma simü",
       "description": "Tarayıcı metin oyunu. 30 gün, $500, üç proje, absürt bir ev sahibesi ve bir Tinder-Kerem. İlk ayını kurucu olarak atlat. 15-20 dakika, ücretsiz.",
-      "og_title": "🔥 Melis Yanıyor — 30 günlük kurucu survival",
+      "og_title": "🔥 Melis Tutuştu — 30 günlük kurucu survival",
       "og_description": "Tarayıcı metin oyunu. 30 gün, $500, üç proje. Ev sahibesi absürt, Tinder-Kerem ısrarcı, hesap MASAK tarafından dondurulabilir. 15-20 dakika.",
       "og_image_alt": "Melis gece dairede laptop başında — key art",
-      "twitter_title": "🔥 Melis Yanıyor — survival mesajlaşma simü",
+      "twitter_title": "🔥 Melis Tutuştu — survival mesajlaşma simü",
       "twitter_description": "30 gün, $500, üç proje. İlk ayını kurucu olarak atlat. 15-20 dk, ücretsiz."
     },
     "brand": {
       "avatar_alt": "Melis"
     },
     "landing": {
-      "title": "🔥 Melis Yanıyor — kurucu hayatta kalma mesajlaşma simü",
+      "title": "🔥 Melis Tutuştu — kurucu hayatta kalma mesajlaşma simü",
       "description": "Tarayıcı metin oyunu. 30 gün, $500, üç proje, absürt ev sahibesi ve Tinder-Kerem. İlk ayını kurucu olarak atlat. 15-20 dakika, ücretsiz.",
-      "og_title": "🔥 Melis Yanıyor — 30 günlük kurucu survival",
+      "og_title": "🔥 Melis Tutuştu — 30 günlük kurucu survival",
       "og_description": "30 gün, $500, üç proje. Ev sahibesi absürt, Tinder-Kerem ısrarcı, hesap MASAK'a takılabilir. 15-20 dakika, ücretsiz. Tim Zinin'den.",
       "og_image_alt": "Melis gece dairede laptop başında — cinematic key art",
-      "twitter_title": "🔥 Melis Yanıyor — survival mesajlaşma simü",
+      "twitter_title": "🔥 Melis Tutuştu — survival mesajlaşma simü",
       "twitter_description": "30 gün, $500, üç proje. İlk ayını kurucu olarak atlat. 15-20 dk, ücretsiz."
+    },
+    "tim_telegram": {
+      "url": "https://t.me/timofeyzinin",
+      "handle": "@timofeyzinin"
     }
   },
   "landing": {
@@ -1376,7 +1380,7 @@
   },
   "viral": {
     "card": {
-      "title": "🔥 Melis Yanıyor",
+      "title": "🔥 Melis Tutuştu",
       "win_title": "Melis başardı",
       "lose_title": "stüdyo yandı",
       "rescue_title": "son anda kurtarıldı",

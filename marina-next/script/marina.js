@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.10.3-tr-soundtrack-v2';
+  var APP_VERSION = '2.10.4-melis-tutustu';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -1028,9 +1028,11 @@
         bumpInteraction();
         if (opt.id === 'tg_subscribe') {
           STATE.lead_submitted = true; // reuse flag to suppress chip after click
-          track('telegram_cta_clicked', { overlay: 'tim_creator' });
+          // SPRINT 53.3 — per-locale TG URL via i18n (single channel now, extensible later)
+          var tgUrl = tStr('meta.tim_telegram.url', 'https://t.me/timofeyzinin');
+          track('telegram_cta_clicked', { overlay: 'tim_creator', target_url: tgUrl });
           // Open Telegram channel in new tab
-          var w = window.open('https://t.me/timofeyzinin', '_blank', 'noopener');
+          var w = window.open(tgUrl, '_blank', 'noopener');
           if (!w) { /* popup blocked — link still visible in chat */ }
           postOutgoing('tim', tStr('system.tim_creator.subscribed', 'подписалась 👍'));
           setTimeout(function () {
