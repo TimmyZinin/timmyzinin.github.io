@@ -993,18 +993,18 @@
 
     var cashClass = STATE.cash < 0 ? 'neg' : (STATE.cash < 200 ? 'warn' : 'pos');
     var deltaClass = delta >= 0 ? 'pos' : 'neg';
-    var deltaSuffix = tStr('bubble.bank.delta_suffix_7d', 'за последние 7 дней');
+    var deltaSuffix = tStr('contact.bank.delta_suffix_7d', 'за последние 7 дней');
     var deltaText = (delta >= 0 ? '+' : '') + '$' + delta + ' ' + deltaSuffix;
 
     var lockBanner = '';
     if (STATE.bank_locked) {
       var daysLeft = Math.max(0, (STATE.bank_locked_until || STATE.day) - STATE.day);
-      var lockPrefix = tStr('bubble.bank.lock_prefix', '🔒 115-ФЗ · заблокирован · ещё');
-      var lockUnit = tStr('bubble.bank.lock_unit', 'дн.');
+      var lockPrefix = tStr('contact.bank.lock_prefix', '🔒 115-ФЗ · заблокирован · ещё');
+      var lockUnit = tStr('contact.bank.lock_unit', 'дн.');
       lockBanner = '<div class="bb-delta neg">' + lockPrefix + ' ' + daysLeft + ' ' + lockUnit + '</div>';
     }
 
-    var balanceLabel = tStr('bubble.bank.current_balance_label', 'ТЕКУЩИЙ БАЛАНС');
+    var balanceLabel = tStr('contact.bank.current_balance_label', 'ТЕКУЩИЙ БАЛАНС');
     var html = '<div class="bank-balance-card">' +
       '<div class="bb-label">' + balanceLabel + '</div>' +
       '<div class="bb-value ' + cashClass + '">$' + STATE.cash + '</div>' +
