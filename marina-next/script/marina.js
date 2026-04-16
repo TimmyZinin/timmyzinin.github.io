@@ -4741,9 +4741,11 @@
 
     STATE = loadState();
 
-    // SPRINT 52 — language mismatch detection (v2): clear thread history when
-    // current locale ≠ stored locale OR when persisted bubbles contain
-    // a different alphabet than expected. Preserves gameplay state (day, cash, contacts).
+    // SPRINT 52 — language mismatch detection (v3): FULL state reset when
+    // current locale ≠ stored locale OR persisted bubbles have wrong alphabet.
+    // Beat-flags depend on bubble history (флажки `beat_*: true` без bubbles
+    // → пустые чаты). Easier to reset everything and let the game replay
+    // intro + beats fresh in current language.
     var _curLang = (window.MarinaI18n && window.MarinaI18n.getLang && window.MarinaI18n.getLang()) || 'ru';
     function _bubbleHasMismatch() {
       if (!STATE.threads || typeof STATE.threads !== 'object') return false;
@@ -4755,9 +4757,7 @@
           var txt = msgs[i] && msgs[i].text;
           if (typeof txt !== 'string') continue;
           var hasCyr = cyrPattern.test(txt);
-          // Mismatch: current lang non-RU but bubble has cyrillic
           if (_curLang !== 'ru' && hasCyr) return true;
-          // Mismatch: current lang RU but bubble has no cyrillic AND has latin word chars
           if (_curLang === 'ru' && !hasCyr && /[a-z]{3,}/i.test(txt)) return true;
         }
       }
@@ -4765,19 +4765,13 @@
     }
     var _shouldClear = (STATE._lang_stamp && STATE._lang_stamp !== _curLang) || _bubbleHasMismatch();
     if (_shouldClear) {
-      // Clear all thread bubble history but keep gameplay state intact
-      if (STATE.threads && typeof STATE.threads === 'object') {
-        for (var _tid in STATE.threads) {
-          if (Object.prototype.hasOwnProperty.call(STATE.threads, _tid)) STATE.threads[_tid] = [];
-        }
-      }
-      if (Array.isArray(STATE.contacts)) {
-        STATE.contacts.forEach(function (c) { if (c) c.unread = 0; });
-      }
       var _wasLang = STATE._lang_stamp || 'unknown';
+      try { console.log('[i18n] full state reset due to language switch:', _wasLang, '→', _curLang); } catch (e) {}
+      // Wipe state entirely; lang stamp persists via separate localStorage key
+      clearState();
+      STATE = defaultState();
       STATE._lang_stamp = _curLang;
       saveState();
-      try { console.log('[i18n] thread history cleared:', _wasLang, '→', _curLang); } catch (e) {}
     } else if (!STATE._lang_stamp) {
       STATE._lang_stamp = _curLang;
       saveState();
