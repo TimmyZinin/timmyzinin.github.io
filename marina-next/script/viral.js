@@ -415,12 +415,18 @@
     decodeChallenge: decodeChallenge
   };
 
-  // Auto-hook on landing page if present (no game shell)
-  if (typeof document !== 'undefined' && document.querySelector('.hero-eyebrow')) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', applyReferralOnLanding);
-    } else {
+  // Auto-hook on landing page (defer check until DOM is ready)
+  // viral.js may load in <head> before body renders — check inside handler.
+  function autoHook() {
+    if (document.querySelector('.hero-eyebrow')) {
       applyReferralOnLanding();
+    }
+  }
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', autoHook);
+    } else {
+      autoHook();
     }
   }
 })();
