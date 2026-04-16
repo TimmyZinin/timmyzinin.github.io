@@ -17,7 +17,7 @@
   // SPRINT 18 — split versions
   // APP_VERSION: cache-bust + UI display, changes every deploy
   // SAVE_SCHEMA_VERSION: persistence shape, only changes when state structure changes
-  var APP_VERSION = '2.8.0-i18n-wip';
+  var APP_VERSION = '2.10.0-tr-soundtrack';
   var SAVE_SCHEMA_VERSION = 1; // bump only on state shape change
   var VERSION = APP_VERSION; // legacy alias kept for existing refs
   var STATE_KEY = 'marina-fire:v2.0:state';
@@ -993,16 +993,20 @@
 
     var cashClass = STATE.cash < 0 ? 'neg' : (STATE.cash < 200 ? 'warn' : 'pos');
     var deltaClass = delta >= 0 ? 'pos' : 'neg';
-    var deltaText = (delta >= 0 ? '+' : '') + '$' + delta + ' за последние 7 дней';
+    var deltaSuffix = tStr('bubble.bank.delta_suffix_7d', 'за последние 7 дней');
+    var deltaText = (delta >= 0 ? '+' : '') + '$' + delta + ' ' + deltaSuffix;
 
     var lockBanner = '';
     if (STATE.bank_locked) {
       var daysLeft = Math.max(0, (STATE.bank_locked_until || STATE.day) - STATE.day);
-      lockBanner = '<div class="bb-delta neg">🔒 115-ФЗ · заблокирован · ещё ' + daysLeft + ' дн.</div>';
+      var lockPrefix = tStr('bubble.bank.lock_prefix', '🔒 115-ФЗ · заблокирован · ещё');
+      var lockUnit = tStr('bubble.bank.lock_unit', 'дн.');
+      lockBanner = '<div class="bb-delta neg">' + lockPrefix + ' ' + daysLeft + ' ' + lockUnit + '</div>';
     }
 
+    var balanceLabel = tStr('bubble.bank.current_balance_label', 'ТЕКУЩИЙ БАЛАНС');
     var html = '<div class="bank-balance-card">' +
-      '<div class="bb-label">ТЕКУЩИЙ БАЛАНС</div>' +
+      '<div class="bb-label">' + balanceLabel + '</div>' +
       '<div class="bb-value ' + cashClass + '">$' + STATE.cash + '</div>' +
       '<div class="bb-delta ' + deltaClass + '">' + deltaText + '</div>' +
       lockBanner +
@@ -1017,8 +1021,8 @@
     // SPRINT 41 — Tim creator 4th wall break: Telegram subscribe (was inline form)
     if (contactId === 'tim' && STATE.beat_tim_creator_fired && !STATE.lead_submitted) {
       Bubbles.renderReplyChips([
-        { id: 'tg_subscribe', label: '🔔 подписаться на @timofeyzinin в Telegram' },
-        { id: 'tg_later',     label: 'позже' }
+        { id: 'tg_subscribe', label: tStr('chip.tim_creator.tg_subscribe', '🔔 подписаться на @timofeyzinin в Telegram') },
+        { id: 'tg_later',     label: tStr('chip.tim_creator.tg_later', 'позже') }
       ], function (opt) {
         Bubbles.clearChipsArea();
         bumpInteraction();
@@ -1043,8 +1047,8 @@
     // SPRINT 26 — keep pending if cash insufficient so player can retry later
     if (contactId === 'tim' && STATE._tim_consult_pending && !STATE.auto_reach_out) {
       Bubbles.renderReplyChips([
-        { id: 'buy', label: 'купить автофарминг ($200)' },
-        { id: 'later', label: 'подумаю позже' }
+        { id: 'buy', label: tStr('chip.tim_tier1.buy', 'купить автофарминг ($200)') },
+        { id: 'later', label: tStr('chip.tim_tier1.later', 'подумаю позже') }
       ], function (opt) {
         Bubbles.clearChipsArea();
         bumpInteraction();
@@ -1075,8 +1079,8 @@
     // Tim tier 2 — auto_brief_lead
     if (contactId === 'tim' && STATE._tim_tier2_pending && !STATE.auto_brief_lead) {
       Bubbles.renderReplyChips([
-        { id: 'buy', label: 'купить авто-созвоны ($300)' },
-        { id: 'later', label: 'нет' }
+        { id: 'buy', label: tStr('chip.tim_tier2.buy', 'купить авто-созвоны ($300)') },
+        { id: 'later', label: tStr('chip.tim_tier2.later', 'нет') }
       ], function (opt) {
         Bubbles.clearChipsArea();
         bumpInteraction();
@@ -1113,8 +1117,8 @@
     // Tim tier 3 — auto_send_offer
     if (contactId === 'tim' && STATE._tim_tier3_pending && !STATE.auto_send_offer) {
       Bubbles.renderReplyChips([
-        { id: 'buy', label: 'купить AI-оффер ($400)' },
-        { id: 'later', label: 'нет' }
+        { id: 'buy', label: tStr('chip.tim_tier3.buy', 'купить AI-оффер ($400)') },
+        { id: 'later', label: tStr('chip.tim_tier3.later', 'нет') }
       ], function (opt) {
         Bubbles.clearChipsArea();
         bumpInteraction();
@@ -1151,8 +1155,8 @@
     // Khozyaika 1 — счётчики воды
     if (contactId === 'khozyaika' && STATE._khozyaika1_pending) {
       Bubbles.renderReplyChips([
-        { id: 'send', label: 'отправить показания (−1h)' },
-        { id: 'ignore', label: 'забить (−$100 штраф через 3 дня)' }
+        { id: 'send', label: tStr('chip.khozyaika1.send', 'отправить показания (−1h)') },
+        { id: 'ignore', label: tStr('chip.khozyaika1.ignore', 'забить (−$100 штраф через 3 дня)') }
       ], function (opt) {
         STATE._khozyaika1_pending = false;
         Bubbles.clearChipsArea();
@@ -1173,8 +1177,8 @@
     // Khozyaika 2 — тикток
     if (contactId === 'khozyaika' && STATE._khozyaika2_pending) {
       Bubbles.renderReplyChips([
-        { id: 'like', label: 'лайкнуть и подписаться (−1h)' },
-        { id: 'refuse', label: 'отказать (−5 комфорт)' }
+        { id: 'like', label: tStr('chip.khozyaika2.like', 'лайкнуть и подписаться (−1h)') },
+        { id: 'refuse', label: tStr('chip.khozyaika2.refuse', 'отказать (−5 комфорт)') }
       ], function (opt) {
         STATE._khozyaika2_pending = false;
         Bubbles.clearChipsArea();
@@ -1193,8 +1197,8 @@
     // Khozyaika 3 — кошка
     if (contactId === 'khozyaika' && STATE._khozyaika3_pending) {
       Bubbles.renderReplyChips([
-        { id: 'help', label: 'помочь искать (−2h, +10 комфорт)' },
-        { id: 'refuse', label: 'нет времени (−5 комфорт)' }
+        { id: 'help', label: tStr('chip.khozyaika3.help', 'помочь искать (−2h, +10 комфорт)') },
+        { id: 'refuse', label: tStr('chip.khozyaika3.refuse', 'нет времени (−5 комфорт)') }
       ], function (opt) {
         STATE._khozyaika3_pending = false;
         Bubbles.clearChipsArea();
@@ -1218,7 +1222,7 @@
     // Khozyaika 4 — гороскоп (flavor only)
     if (contactId === 'khozyaika' && STATE._khozyaika4_pending) {
       Bubbles.renderReplyChips([
-        { id: 'thanks', label: 'спасибо, буду знать' }
+        { id: 'thanks', label: tStr('chip.khozyaika4.thanks', 'спасибо, буду знать') }
       ], function () {
         STATE._khozyaika4_pending = false;
         Bubbles.clearChipsArea();
@@ -1232,8 +1236,8 @@
     // SPRINT 14 — Khozyaika day 5 electric meter
     if (contactId === 'khozyaika' && STATE._khozyaika_electric_pending) {
       Bubbles.renderReplyChips([
-        { id: 'send', label: 'отправить фото (−1h)' },
-        { id: 'later', label: 'потом отправлю (−5 комфорт)' }
+        { id: 'send', label: tStr('chip.khozyaika_electric.send', 'отправить фото (−1h)') },
+        { id: 'later', label: tStr('chip.khozyaika_electric.later', 'потом отправлю (−5 комфорт)') }
       ], function (opt) {
         STATE._khozyaika_electric_pending = false;
         Bubbles.clearChipsArea();
@@ -1252,8 +1256,8 @@
     // SPRINT 14 — Khozyaika day 9 chain letter
     if (contactId === 'khozyaika' && STATE._khozyaika_chain_pending) {
       Bubbles.renderReplyChips([
-        { id: 'forward', label: 'переслать 5 людям (−1h)' },
-        { id: 'refuse', label: 'не буду (−5 комфорт)' }
+        { id: 'forward', label: tStr('chip.khozyaika_chain.forward', 'переслать 5 людям (−1h)') },
+        { id: 'refuse', label: tStr('chip.khozyaika_chain.refuse', 'не буду (−5 комфорт)') }
       ], function (opt) {
         STATE._khozyaika_chain_pending = false;
         Bubbles.clearChipsArea();
@@ -1278,8 +1282,8 @@
     // Pavel loan
     if (contactId === 'pavel' && STATE._pavel_pending) {
       Bubbles.renderReplyChips([
-        { id: 'lend', label: 'дать $300 в долг' },
-        { id: 'refuse', label: 'отказать' }
+        { id: 'lend', label: tStr('chip.pavel.lend', 'дать $300 в долг') },
+        { id: 'refuse', label: tStr('chip.pavel.refuse', 'отказать') }
       ], function (opt) {
         STATE._pavel_pending = false;
         Bubbles.clearChipsArea();
@@ -1303,8 +1307,8 @@
     // SPRINT 38b — Pavel day 17 'давай встретимся на кофе' (both options = decline)
     if (contactId === 'pavel' && STATE._pavel_d17_pending) {
       Bubbles.renderReplyChips([
-        { id: 'soft',  label: 'мягко отказать · «не сейчас, Паш. правда занята»' },
-        { id: 'hard',  label: 'жёстко отказать · «нет. больше не пиши»' }
+        { id: 'soft',  label: tStr('chip.pavel_d17.soft', 'мягко отказать · «не сейчас, Паш. правда занята»') },
+        { id: 'hard',  label: tStr('chip.pavel_d17.hard', 'жёстко отказать · «нет. больше не пиши»') }
       ], function (opt) {
         STATE._pavel_d17_pending = false;
         Bubbles.clearChipsArea();
@@ -1333,8 +1337,8 @@
     // Mama day 6
     if (contactId === 'mama' && STATE._mama6_pending) {
       Bubbles.renderReplyChips([
-        { id: 'send', label: 'перевести $200' },
-        { id: 'defer', label: 'не сейчас, мам' }
+        { id: 'send', label: tStr('chip.mama6.send', 'перевести $200') },
+        { id: 'defer', label: tStr('chip.mama6.defer', 'не сейчас, мам') }
       ], function (opt) {
         STATE._mama6_pending = false;
         Bubbles.clearChipsArea();
@@ -1356,8 +1360,8 @@
     // Mama day 17 (pirogi invitation)
     if (contactId === 'mama' && STATE._mama17_pending) {
       Bubbles.renderReplyChips([
-        { id: 'come', label: 'приеду в выходные' },
-        { id: 'later', label: 'потом, работа' }
+        { id: 'come', label: tStr('chip.mama17.come', 'приеду в выходные') },
+        { id: 'later', label: tStr('chip.mama17.later', 'потом, работа') }
       ], function (opt) {
         STATE._mama17_pending = false;
         Bubbles.clearChipsArea();
@@ -1384,16 +1388,16 @@
       if (contactId === 'denis' && STATE[key]) {
         var dCost = DENIS_COSTS[d] || 250;
         var canAfford = !STATE.bank_locked && STATE.cash >= dCost && STATE.hours >= 2;
-        var denyReason = STATE.bank_locked ? 'счёт заблокирован' :
-                         (STATE.cash < dCost ? 'не хватает $' + (dCost - STATE.cash) :
-                         (STATE.hours < 2 ? 'нет 2 часов' : null));
+        var denyReason = STATE.bank_locked ? tStr('chip.denis.deny_bank_locked', 'счёт заблокирован') :
+                         (STATE.cash < dCost ? tStr('chip.denis.deny_short_cash', 'не хватает ${shortage}').replace('{shortage}', (dCost - STATE.cash)) :
+                         (STATE.hours < 2 ? tStr('chip.denis.deny_no_hours', 'нет 2 часов') : null));
         Bubbles.renderReplyChips([
           {
             id: 'go',
-            label: 'поехать (−$' + dCost + ', +60⚡, +25💚, −2h)' + (canAfford ? '' : ' · ' + denyReason),
+            label: tStr('chip.denis.go', 'поехать (−${cost}, +60⚡, +25💚, −2h)').replace('{cost}', '$' + dCost) + (canAfford ? '' : ' · ' + denyReason),
             disabled: !canAfford
           },
-          { id: 'skip', label: 'не сейчас' }
+          { id: 'skip', label: tStr('chip.denis.skip', 'не сейчас') }
         ], function (opt) {
           // SPRINT 14.1 rev4 — re-evaluate guards against CURRENT STATE (not stale closure).
           // Codex caught bypass: player opens chat while affordable, spends money
@@ -1403,8 +1407,8 @@
             var liveCash = STATE.cash;
             var liveHours = STATE.hours;
             if (liveBankLocked || liveCash < dCost || liveHours < 2) {
-              var reason = liveBankLocked ? 'счёт заблокирован' :
-                           (liveCash < dCost ? 'не хватает $' + (dCost - liveCash) : 'нет 2 часов');
+              var reason = liveBankLocked ? tStr('chip.denis.deny_bank_locked', 'счёт заблокирован') :
+                           (liveCash < dCost ? tStr('chip.denis.deny_short_cash', 'не хватает ${shortage}').replace('{shortage}', (dCost - liveCash)) : tStr('chip.denis.deny_no_hours', 'нет 2 часов'));
               postOutgoing('denis', tStr('system.denis.skip', 'слушай, не сейчас. не могу — {reason}.').replace('{reason}', reason));
               // Do NOT clear pending — let player come back when ready.
               // Re-render chips so UI reflects current resource state.
@@ -1440,9 +1444,9 @@
     // Оля Петрова (Herbalife pitch)
     if (contactId === 'olya' && STATE._olya_pending) {
       Bubbles.renderReplyChips([
-        { id: 'invest', label: 'вложить $200 в клуб' },
-        { id: 'listen', label: 'послушать 5 минут (−1h)' },
-        { id: 'delete', label: 'удалить из контактов' }
+        { id: 'invest', label: tStr('chip.olya.invest', 'вложить $200 в клуб') },
+        { id: 'listen', label: tStr('chip.olya.listen', 'послушать 5 минут (−1h)') },
+        { id: 'delete', label: tStr('chip.olya.delete', 'удалить из контактов') }
       ], function (opt) {
         STATE._olya_pending = false;
         Bubbles.clearChipsArea();
@@ -1469,9 +1473,9 @@
     // SPRINT 39 — Оля retry (day 17) chip
     if (contactId === 'olya' && STATE._olya_retry_pending) {
       Bubbles.renderReplyChips([
-        { id: 'invest400', label: 'вложить $400 в новый уровень (риск)' },
-        { id: 'block',     label: '🚫 заблокировать Олю · больше не пишет' },
-        { id: 'ignore',    label: 'игнор · она напишет снова через неделю' }
+        { id: 'invest400', label: tStr('chip.olya_retry.invest400', 'вложить $400 в новый уровень (риск)') },
+        { id: 'block',     label: tStr('chip.olya_retry.block', '🚫 заблокировать Олю · больше не пишет') },
+        { id: 'ignore',    label: tStr('chip.olya_retry.ignore', 'игнор · она напишет снова через неделю') }
       ], function (opt) {
         STATE._olya_retry_pending = false;
         Bubbles.clearChipsArea();
@@ -1496,8 +1500,8 @@
     // SPRINT 39 — Оля final (day 24) chip
     if (contactId === 'olya' && STATE._olya_final_pending) {
       Bubbles.renderReplyChips([
-        { id: 'pity150', label: 'дать $150 чтобы отстала' },
-        { id: 'no',      label: '«Оля, нет. на этом всё»' }
+        { id: 'pity150', label: tStr('chip.olya_final.pity150', 'дать $150 чтобы отстала') },
+        { id: 'no',      label: tStr('chip.olya_final.no', '«Оля, нет. на этом всё»') }
       ], function (opt) {
         STATE._olya_final_pending = false;
         Bubbles.clearChipsArea();
@@ -1520,8 +1524,8 @@
     // Кирилл (Tinder intro → unlocks date action)
     if (contactId === 'kirill' && STATE._kirill_pending) {
       Bubbles.renderReplyChips([
-        { id: 'yes', label: 'встретимся (разблокировать свидания)' },
-        { id: 'no', label: 'не мой типаж' }
+        { id: 'yes', label: tStr('chip.kirill_intro.yes', 'встретимся (разблокировать свидания)') },
+        { id: 'no', label: tStr('chip.kirill_intro.no', 'не мой типаж') }
       ], function (opt) {
         STATE._kirill_pending = false;
         Bubbles.clearChipsArea();
@@ -1546,8 +1550,8 @@
     // Kirill love arc — mid-late game warm messages
     if (contactId === 'kirill' && STATE._kirill_love1_pending) {
       Bubbles.renderReplyChips([
-        { id: 'warm', label: 'ответить искренне · +💚 Кирилл, +5💚 настроение' },
-        { id: 'cool', label: 'отшутиться · −💚 Кирилл' }
+        { id: 'warm', label: tStr('chip.kirill_love1.warm', 'ответить искренне · +💚 Кирилл, +5💚 настроение') },
+        { id: 'cool', label: tStr('chip.kirill_love1.cool', 'отшутиться · −💚 Кирилл') }
       ], function (opt) {
         STATE._kirill_love1_pending = false;
         Bubbles.clearChipsArea();
@@ -1566,8 +1570,8 @@
     }
     if (contactId === 'kirill' && STATE._kirill_love2_pending) {
       Bubbles.renderReplyChips([
-        { id: 'yes',   label: 'да, встретимся · +💚 Кирилл, −3ч сегодня' },
-        { id: 'defer', label: 'не сейчас, работа' }
+        { id: 'yes',   label: tStr('chip.kirill_love2.yes', 'да, встретимся · +💚 Кирилл, −3ч сегодня') },
+        { id: 'defer', label: tStr('chip.kirill_love2.defer', 'не сейчас, работа') }
       ], function (opt) {
         STATE._kirill_love2_pending = false;
         Bubbles.clearChipsArea();
@@ -1587,8 +1591,8 @@
     }
     if (contactId === 'kirill' && STATE._kirill_love_final_pending) {
       Bubbles.renderReplyChips([
-        { id: 'yes_love', label: '«да. я тоже.»' },
-        { id: 'scared', label: '«Кирилл, я боюсь, но хочу попробовать»' }
+        { id: 'yes_love', label: tStr('chip.kirill_love_final.yes_love', '«да. я тоже.»') },
+        { id: 'scared', label: tStr('chip.kirill_love_final.scared', '«Кирилл, я боюсь, но хочу попробовать»') }
       ], function (opt) {
         STATE._kirill_love_final_pending = false;
         Bubbles.clearChipsArea();
@@ -1608,8 +1612,8 @@
     // Kirill follow-up complaint after bank unlocks (plate girl call-out)
     if (contactId === 'kirill' && STATE._kirill_complaint_pending) {
       Bubbles.renderReplyChips([
-        { id: 'sorry', label: 'прости (−15 комфорт)' },
-        { id: 'defend', label: 'я просто не могла (−10 комфорт)' }
+        { id: 'sorry', label: tStr('chip.kirill_complaint.sorry', 'прости (−15 комфорт)') },
+        { id: 'defend', label: tStr('chip.kirill_complaint.defend', 'я просто не могла (−10 комфорт)') }
       ], function (opt) {
         STATE._kirill_complaint_pending = false;
         Bubbles.clearChipsArea();
@@ -1628,9 +1632,9 @@
     // SPRINT 38b — Nastya partnership choice (day 20 offer)
     if (contactId === 'nastya' && STATE._nastya_partnership_pending) {
       Bubbles.renderReplyChips([
-        { id: 'join',   label: 'согласиться · +$200 upfront, +1 проект на неделю' },
-        { id: 'maybe',  label: 'подумаю · сохранить вариант' },
-        { id: 'decline',label: 'нет, я одна справлюсь' }
+        { id: 'join',   label: tStr('chip.nastya_partnership.join', 'согласиться · +$200 upfront, +1 проект на неделю') },
+        { id: 'maybe',  label: tStr('chip.nastya_partnership.maybe', 'подумаю · сохранить вариант') },
+        { id: 'decline',label: tStr('chip.nastya_partnership.decline', 'нет, я одна справлюсь') }
       ], function (opt) {
         STATE._nastya_partnership_pending = false;
         Bubbles.clearChipsArea();
@@ -1681,9 +1685,9 @@
     // SPRINT 38b — chip labels in human language (no leaked code identifiers)
     if (contactId === 'kirill' && STATE._kirill_conflict_pending) {
       Bubbles.renderReplyChips([
-        { id: 'honest',    label: 'я с ним не возвращаюсь · +💚 Кирилл, −5💚 (тяжёлый разговор)' },
-        { id: 'defensive', label: 'это не твоё дело · −💚 Кирилл' },
-        { id: 'leave',     label: 'может мы и правда рано… · 💔 расстаться с Кириллом' }
+        { id: 'honest',    label: tStr('chip.kirill_conflict.honest', 'я с ним не возвращаюсь · +💚 Кирилл, −5💚 (тяжёлый разговор)') },
+        { id: 'defensive', label: tStr('chip.kirill_conflict.defensive', 'это не твоё дело · −💚 Кирилл') },
+        { id: 'leave',     label: tStr('chip.kirill_conflict.leave', 'может мы и правда рано… · 💔 расстаться с Кириллом') }
       ], function (opt) {
         STATE._kirill_conflict_pending = false;
         Bubbles.clearChipsArea();
@@ -1708,9 +1712,9 @@
     // БРАТ крипта (triggers 115-ФЗ bank lock — BLOCK I)
     if (contactId === 'krypta' && STATE._krypta_pending) {
       Bubbles.renderReplyChips([
-        { id: 'send', label: 'ПЕРЕВОЖУ $100 (5% шанс х10)' },
-        { id: 'bot', label: 'ты бот?' },
-        { id: 'ignore', label: 'игнор' }
+        { id: 'send', label: tStr('chip.krypta.send', 'ПЕРЕВОЖУ $100 (5% шанс х10)') },
+        { id: 'bot', label: tStr('chip.krypta.bot', 'ты бот?') },
+        { id: 'ignore', label: tStr('chip.krypta.ignore', 'игнор') }
       ], function (opt) {
         STATE._krypta_pending = false;
         Bubbles.clearChipsArea();
@@ -1738,9 +1742,9 @@
     // SPRINT 38b — БРАТ крипта retry (day 18) — chip choice
     if (contactId === 'krypta' && STATE._krypta_retry_pending) {
       Bubbles.renderReplyChips([
-        { id: 'send_50',  label: 'перевести $50 (5% шанс х10)' },
-        { id: 'block',    label: 'заблокировать БРАТА · больше не пишет' },
-        { id: 'ignore',   label: 'игнор · он напишет снова через неделю' }
+        { id: 'send_50',  label: tStr('chip.krypta_retry.send_50', 'перевести $50 (5% шанс х10)') },
+        { id: 'block',    label: tStr('chip.krypta_retry.block', 'заблокировать БРАТА · больше не пишет') },
+        { id: 'ignore',   label: tStr('chip.krypta_retry.ignore', 'игнор · он напишет снова через неделю') }
       ], function (opt) {
         STATE._krypta_retry_pending = false;
         Bubbles.clearChipsArea();
@@ -1766,8 +1770,8 @@
     // SPRINT 38b — БРАТ крипта final desperation (day 25)
     if (contactId === 'krypta' && STATE._krypta_final_pending) {
       Bubbles.renderReplyChips([
-        { id: 'pity_30', label: 'из жалости $30' },
-        { id: 'no',      label: '«нет, Брат. на этом всё»' }
+        { id: 'pity_30', label: tStr('chip.krypta_final.pity_30', 'из жалости $30') },
+        { id: 'no',      label: tStr('chip.krypta_final.no', '«нет, Брат. на этом всё»') }
       ], function (opt) {
         STATE._krypta_final_pending = false;
         Bubbles.clearChipsArea();
@@ -1790,8 +1794,8 @@
     // Артур (эx-босс) — potentially $800 project
     if (contactId === 'artur' && STATE._artur_pending) {
       Bubbles.renderReplyChips([
-        { id: 'visit', label: 'подойти в офис (−4h)' },
-        { id: 'refuse', label: 'отказать' }
+        { id: 'visit', label: tStr('chip.artur.visit', 'подойти в офис (−4h)') },
+        { id: 'refuse', label: tStr('chip.artur.refuse', 'отказать') }
       ], function (opt) {
         STATE._artur_pending = false;
         Bubbles.clearChipsArea();
@@ -1837,8 +1841,8 @@
     // Вера Николаевна — помочь внучке
     if (contactId === 'vera' && STATE._vera_pending) {
       Bubbles.renderReplyChips([
-        { id: 'help', label: 'помочь Алисе (−2h, +10 комфорт)' },
-        { id: 'refuse', label: 'вежливо отказать (−3 комфорт)' }
+        { id: 'help', label: tStr('chip.vera.help', 'помочь Алисе (−2h, +10 комфорт)') },
+        { id: 'refuse', label: tStr('chip.vera.refuse', 'вежливо отказать (−3 комфорт)') }
       ], function (opt) {
         STATE._vera_pending = false;
         Bubbles.clearChipsArea();
@@ -1859,8 +1863,8 @@
     // Светка — сплетни (SPRINT 06)
     if (contactId === 'svetka' && STATE._svetka_pending) {
       Bubbles.renderReplyChips([
-        { id: 'listen', label: '«слушать» сплетню (−1h, +15💚)' },
-        { id: 'ignore', label: 'не сейчас (−5💚)' }
+        { id: 'listen', label: tStr('chip.svetka.listen', '«слушать» сплетню (−1h, +15💚)') },
+        { id: 'ignore', label: tStr('chip.svetka.ignore', 'не сейчас (−5💚)') }
       ], function (opt) {
         STATE._svetka_pending = false;
         Bubbles.clearChipsArea();
@@ -1883,8 +1887,8 @@
     // Сосед снизу — протёк
     if (contactId === 'sosed' && STATE._sosed_pending) {
       Bubbles.renderReplyChips([
-        { id: 'come', label: 'спуститься (−1h)' },
-        { id: 'ignore', label: 'игнорировать (переспросит day+1)' }
+        { id: 'come', label: tStr('chip.sosed.come', 'спуститься (−1h)') },
+        { id: 'ignore', label: tStr('chip.sosed.ignore', 'игнорировать (переспросит day+1)') }
       ], function (opt) {
         STATE._sosed_pending = false;
         Bubbles.clearChipsArea();
@@ -2195,10 +2199,10 @@
           'клиент');
         // Offer torgi chips
         Bubbles.renderReplyChips([
-          { id: 'accept',   label: 'согласиться ($' + baseBudget + ')', cost: '100% accept' },
-          { id: 'counter1', label: 'поторговаться ($' + (baseBudget + 150) + ')', cost: '70% accept' },
-          { id: 'counter2', label: 'жёстко ($' + (baseBudget + 350) + ')', cost: '40% accept' },
-          { id: 'decline',  label: 'отказать, искать следующего' }
+          { id: 'accept',   label: tStr('chip.torgi.accept', 'согласиться (${price})').replace('{price}', '$' + baseBudget), cost: '100% accept' },
+          { id: 'counter1', label: tStr('chip.torgi.counter1', 'поторговаться (${price})').replace('{price}', '$' + (baseBudget + 150)), cost: '70% accept' },
+          { id: 'counter2', label: tStr('chip.torgi.counter2', 'жёстко (${price})').replace('{price}', '$' + (baseBudget + 350)), cost: '40% accept' },
+          { id: 'decline',  label: tStr('chip.torgi.decline', 'отказать, искать следующего') }
         ], function (opt) {
           handleTorgiChoice(opt.id, baseBudget);
         });
@@ -2663,9 +2667,9 @@
   // auto-trigger once per day in processPassive (passive income generation).
 
   var TIM_TIERS = [
-    { id: 'auto_reach_out',   label: 'Автофарминг холодных лидов', price: 200 },
-    { id: 'auto_brief_lead',  label: 'Авто-созвоны с лидами',      price: 300 },
-    { id: 'auto_send_offer',  label: 'Авто-оффер и торг',          price: 400 }
+    { id: 'auto_reach_out',   label: tStr('chip.tim_tiers.auto_reach_out', 'Автофарминг холодных лидов'), price: 200 },
+    { id: 'auto_brief_lead',  label: tStr('chip.tim_tiers.auto_brief_lead', 'Авто-созвоны с лидами'),      price: 300 },
+    { id: 'auto_send_offer',  label: tStr('chip.tim_tiers.auto_send_offer', 'Авто-оффер и торг'),          price: 400 }
   ];
 
   function beatTimConsultIntro() {

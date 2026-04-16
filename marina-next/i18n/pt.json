@@ -77,7 +77,11 @@
     },
     "bank": {
       "name": "Nubank",
-      "subtitle": "Nubank · notificações da conta"
+      "subtitle": "Nubank · notificações da conta",
+      "current_balance_label": "SALDO ATUAL",
+      "delta_suffix_7d": "últimos 7 dias",
+      "lock_prefix": "🔒 COAF/PIX em revisão · bloqueado ·",
+      "lock_unit": "d restantes"
     },
     "khozyaika": {
       "name": "Dona Lúcia",
@@ -1424,6 +1428,155 @@
       "hours_short": "h",
       "days_short": "d",
       "day_short": "d"
+    }
+  },
+  "chip": {
+    "tim_creator": {
+      "tg_subscribe": "🔔 seguir @timofeyzinin no telegram",
+      "tg_later": "depois"
+    },
+    "tim_tier1": {
+      "buy": "comprar auto-prospecção ($200)",
+      "later": "vou pensar"
+    },
+    "tim_tier2": {
+      "buy": "comprar calls de ai ($300)",
+      "later": "não"
+    },
+    "tim_tier3": {
+      "buy": "comprar ai-proposta ($400)",
+      "later": "não"
+    },
+    "tim_tiers": {
+      "auto_reach_out": "auto prospecção de leads frios",
+      "auto_brief_lead": "calls de descoberta com ai",
+      "auto_send_offer": "auto-proposta & negociação"
+    },
+    "khozyaika1": {
+      "send": "enviar leitura do medidor (−1h)",
+      "ignore": "deixar pra lá (multa de −$100 em 3 dias)"
+    },
+    "khozyaika2": {
+      "like": "curtir e seguir (−1h)",
+      "refuse": "recusar (−5 conforto)"
+    },
+    "khozyaika3": {
+      "help": "ajudar a procurar (−2h, +10 conforto)",
+      "refuse": "sem tempo (−5 conforto)"
+    },
+    "khozyaika4": {
+      "thanks": "valeu, bom saber"
+    },
+    "khozyaika_electric": {
+      "send": "enviar foto (−1h)",
+      "later": "envio depois (−5 conforto)"
+    },
+    "khozyaika_chain": {
+      "forward": "encaminhar pra 5 pessoas (−1h)",
+      "refuse": "não vou (−5 conforto)"
+    },
+    "pavel": {
+      "lend": "emprestar $300",
+      "refuse": "recusar"
+    },
+    "pavel_d17": {
+      "soft": "recusar gentil · «agora não, paş. to mesmo atolada»",
+      "hard": "recusar firme · «não. não me escreve mais»"
+    },
+    "mama6": {
+      "send": "mandar $200",
+      "defer": "agora não, mãe"
+    },
+    "mama17": {
+      "come": "vou no fim de semana",
+      "later": "depois, trabalho"
+    },
+    "denis": {
+      "go": "bora (−{cost}, +60⚡, +25💚, −2h)",
+      "skip": "agora não",
+      "deny_bank_locked": "conta bloqueada",
+      "deny_short_cash": "faltam ${shortage}",
+      "deny_no_hours": "sem 2 horas"
+    },
+    "olya": {
+      "invest": "investir $200 no «clube»",
+      "listen": "ouvir 5 minutos (−1h)",
+      "delete": "apagar dos contatos"
+    },
+    "olya_retry": {
+      "invest400": "investir $400 no «novo nível» (risco)",
+      "block": "🚫 bloquear a olya · ela para de escrever",
+      "ignore": "ignorar · ela escreve de novo semana que vem"
+    },
+    "olya_final": {
+      "pity150": "dar $150 pra ela parar",
+      "no": "«olya, não. acabou»"
+    },
+    "kirill_intro": {
+      "yes": "vamos sair (desbloquear encontros)",
+      "no": "não é meu tipo"
+    },
+    "kirill_love1": {
+      "warm": "responder com sinceridade · +💚 kirill, +5💚 humor",
+      "cool": "sair pela tangente · −💚 kirill"
+    },
+    "kirill_love2": {
+      "yes": "sim, vamos sair · +💚 kirill, −3h hoje",
+      "defer": "agora não, trabalho"
+    },
+    "kirill_love_final": {
+      "yes_love": "«sim. eu também.»",
+      "scared": "«kirill, to com medo mas quero tentar»"
+    },
+    "kirill_complaint": {
+      "sorry": "me desculpa (−15 conforto)",
+      "defend": "eu simplesmente não pude (−10 conforto)"
+    },
+    "kirill_conflict": {
+      "honest": "não to voltando com ele · +💚 kirill, −5💚 (conversa pesada)",
+      "defensive": "não é da sua conta · −💚 kirill",
+      "leave": "talvez tenhamos ido rápido demais… · 💔 terminar com kirill"
+    },
+    "nastya_partnership": {
+      "join": "topar · +$200 adiantado, +1 projeto pra semana",
+      "maybe": "vou pensar · guardar a opção",
+      "decline": "não, dou conta sozinha"
+    },
+    "krypta": {
+      "send": "ENVIANDO $100 (5% chance x10)",
+      "bot": "você é bot?",
+      "ignore": "ignorar"
+    },
+    "krypta_retry": {
+      "send_50": "enviar $50 (5% chance x10)",
+      "block": "bloquear o MANO · ele para de escrever",
+      "ignore": "ignorar · ele escreve de novo semana que vem"
+    },
+    "krypta_final": {
+      "pity_30": "por dó, $30",
+      "no": "«não, mano. acabou»"
+    },
+    "artur": {
+      "visit": "passar no escritório (−4h)",
+      "refuse": "recusar"
+    },
+    "vera": {
+      "help": "ajudar a alisa (−2h, +10 conforto)",
+      "refuse": "recusar com educação (−3 conforto)"
+    },
+    "svetka": {
+      "listen": "«ouvir» a fofoca (−1h, +15💚)",
+      "ignore": "agora não (−5💚)"
+    },
+    "sosed": {
+      "come": "descer (−1h)",
+      "ignore": "ignorar (ele pergunta de novo dia+1)"
+    },
+    "torgi": {
+      "accept": "aceitar ({price})",
+      "counter1": "negociar ({price})",
+      "counter2": "contra forte ({price})",
+      "decline": "recusar, procurar o próximo"
     }
   }
 }

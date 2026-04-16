@@ -13,14 +13,33 @@
   'use strict';
 
   var MUTE_KEY = 'marina-fire:v2.0:audio_muted';
+  var LANG_KEY = 'marina-fire:lang';
+
+  // SPRINT 53 — per-locale soundtrack. TR has its own 4 tracks (Suno);
+  // RU/EN/PT fall back to the default RU soundtrack until localized versions ship.
+  function audioBase() {
+    try {
+      var lang = (window.MarinaI18n && typeof window.MarinaI18n.getLang === 'function')
+        ? window.MarinaI18n.getLang()
+        : localStorage.getItem(LANG_KEY);
+      if (lang === 'tr') return 'audio/tr/';
+    } catch (e) {}
+    return 'audio/';
+  }
   // Sequential playlist: main → «потолок не падает» → «обычный вторник» → repeat
-  var PLAYLIST = [
-    'audio/soundtrack.mp3',    // 1. «Двенадцать дней до конца месяца»
-    'audio/soundtrack_2.mp3',  // 2. «потолок не падает»
-    'audio/soundtrack_3.mp3'   // 3. «обычный вторник»
-  ];
+  // Filenames are stable across locales — only the directory prefix changes.
+  function buildPlaylist() {
+    var base = audioBase();
+    return [
+      base + 'soundtrack.mp3',    // 1. main loop
+      base + 'soundtrack_2.mp3',  // 2. relief
+      base + 'soundtrack_3.mp3'   // 3. focus / mundane
+    ];
+  }
+  function finaleTrackUrl() { return audioBase() + 'soundtrack_4.mp3'; }
+  var PLAYLIST = buildPlaylist();
   // Finale track — interrupts rotation starting day 29+
-  var FINALE_TRACK = 'audio/soundtrack_4.mp3'; // 4. «Тридцать дней до потолка»
+  var FINALE_TRACK = finaleTrackUrl();
   var MUSIC_VOL = 0.42; // sit under SFX (~-7 dB)
 
   var AudioCtx = window.AudioContext || window.webkitAudioContext;

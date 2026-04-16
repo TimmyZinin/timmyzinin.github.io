@@ -77,7 +77,11 @@
     },
     "bank": {
       "name": "Garanti",
-      "subtitle": "Garanti · hesap bildirimleri"
+      "subtitle": "Garanti · hesap bildirimleri",
+      "current_balance_label": "GÜNCEL BAKİYE",
+      "delta_suffix_7d": "son 7 gün",
+      "lock_prefix": "🔒 MASAK incelemesi · donduruldu ·",
+      "lock_unit": "gün kaldı"
     },
     "khozyaika": {
       "name": "Neriman Hanım",
@@ -1424,6 +1428,155 @@
       "hours_short": "s",
       "days_short": "g",
       "day_short": "g"
+    }
+  },
+  "chip": {
+    "tim_creator": {
+      "tg_subscribe": "🔔 telegram'da @timofeyzinin'i takip et",
+      "tg_later": "sonra"
+    },
+    "tim_tier1": {
+      "buy": "otomatik müşteri avı al ($200)",
+      "later": "sonra düşünürüm"
+    },
+    "tim_tier2": {
+      "buy": "ai tanışma görüşmesi al ($300)",
+      "later": "hayır"
+    },
+    "tim_tier3": {
+      "buy": "ai-teklif al ($400)",
+      "later": "hayır"
+    },
+    "tim_tiers": {
+      "auto_reach_out": "otomatik soğuk müşteri avı",
+      "auto_brief_lead": "ai tanışma görüşmeleri",
+      "auto_send_offer": "otomatik teklif & pazarlık"
+    },
+    "khozyaika1": {
+      "send": "sayaç okumasını gönder (−1s)",
+      "ignore": "boşver (3 gün sonra −$100 ceza)"
+    },
+    "khozyaika2": {
+      "like": "beğen ve takip et (−1s)",
+      "refuse": "reddet (−5 konfor)"
+    },
+    "khozyaika3": {
+      "help": "aramaya yardım et (−2s, +10 konfor)",
+      "refuse": "vakit yok (−5 konfor)"
+    },
+    "khozyaika4": {
+      "thanks": "teşekkürler, bilmiş olayım"
+    },
+    "khozyaika_electric": {
+      "send": "fotoğraf gönder (−1s)",
+      "later": "sonra gönderirim (−5 konfor)"
+    },
+    "khozyaika_chain": {
+      "forward": "5 kişiye ilet (−1s)",
+      "refuse": "yapmam (−5 konfor)"
+    },
+    "pavel": {
+      "lend": "$300 borç ver",
+      "refuse": "reddet"
+    },
+    "pavel_d17": {
+      "soft": "yumuşakça reddet · «şimdi olmaz, paş. gerçekten meşgulüm»",
+      "hard": "sertçe reddet · «hayır. bir daha yazma»"
+    },
+    "mama6": {
+      "send": "$200 gönder",
+      "defer": "şimdi olmaz, anne"
+    },
+    "mama17": {
+      "come": "hafta sonu gelirim",
+      "later": "sonra, iş var"
+    },
+    "denis": {
+      "go": "gidelim (−{cost}, +60⚡, +25💚, −2s)",
+      "skip": "şimdi olmaz",
+      "deny_bank_locked": "hesap bloke",
+      "deny_short_cash": "${shortage} eksik",
+      "deny_no_hours": "2 saat yok"
+    },
+    "olya": {
+      "invest": "«kulübe» $200 yatır",
+      "listen": "5 dakika dinle (−1s)",
+      "delete": "rehberden sil"
+    },
+    "olya_retry": {
+      "invest400": "«yeni seviyeye» $400 yatır (riskli)",
+      "block": "🚫 olya'yı engelle · bir daha yazmaz",
+      "ignore": "yok say · gelecek hafta yine yazacak"
+    },
+    "olya_final": {
+      "pity150": "rahat bıraksın diye $150 ver",
+      "no": "«olya, hayır. bitti bu iş»"
+    },
+    "kirill_intro": {
+      "yes": "buluşalım (randevuları aç)",
+      "no": "tipim değil"
+    },
+    "kirill_love1": {
+      "warm": "içtenlikle cevapla · +💚 kirill, +5💚 moral",
+      "cool": "şakayla geçiştir · −💚 kirill"
+    },
+    "kirill_love2": {
+      "yes": "evet, buluşalım · +💚 kirill, −3s bugün",
+      "defer": "şimdi olmaz, iş"
+    },
+    "kirill_love_final": {
+      "yes_love": "«evet. ben de.»",
+      "scared": "«kirill, korkuyorum ama denemek istiyorum»"
+    },
+    "kirill_complaint": {
+      "sorry": "özür dilerim (−15 konfor)",
+      "defend": "yapamazdım (−10 konfor)"
+    },
+    "kirill_conflict": {
+      "honest": "ona dönmüyorum · +💚 kirill, −5💚 (ağır konuşma)",
+      "defensive": "sana ne · −💚 kirill",
+      "leave": "belki gerçekten çok erken… · 💔 kirill'den ayrıl"
+    },
+    "nastya_partnership": {
+      "join": "kabul et · +$200 peşin, +1 haftalık proje",
+      "maybe": "düşüneyim · seçeneği tut",
+      "decline": "hayır, tek başıma hallederim"
+    },
+    "krypta": {
+      "send": "$100 GÖNDERİYORUM (%5 x10 şans)",
+      "bot": "sen bot musun?",
+      "ignore": "yok say"
+    },
+    "krypta_retry": {
+      "send_50": "$50 gönder (%5 x10 şans)",
+      "block": "KARDEŞ'i engelle · bir daha yazmaz",
+      "ignore": "yok say · gelecek hafta yine yazacak"
+    },
+    "krypta_final": {
+      "pity_30": "acıyıp $30 ver",
+      "no": "«hayır, kardeş. bitti bu iş»"
+    },
+    "artur": {
+      "visit": "ofise uğra (−4s)",
+      "refuse": "reddet"
+    },
+    "vera": {
+      "help": "alisa'ya yardım et (−2s, +10 konfor)",
+      "refuse": "kibarca reddet (−3 konfor)"
+    },
+    "svetka": {
+      "listen": "dedikoduyu «dinle» (−1s, +15💚)",
+      "ignore": "şimdi olmaz (−5💚)"
+    },
+    "sosed": {
+      "come": "aşağı in (−1s)",
+      "ignore": "yok say (yarın yine sorar)"
+    },
+    "torgi": {
+      "accept": "kabul ({price})",
+      "counter1": "pazarlık ({price})",
+      "counter2": "sert pazarlık ({price})",
+      "decline": "reddet, başka müşteri ara"
     }
   }
 }

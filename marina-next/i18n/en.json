@@ -77,7 +77,11 @@
     },
     "bank": {
       "name": "Chase",
-      "subtitle": "Chase · account notifications"
+      "subtitle": "Chase · account notifications",
+      "current_balance_label": "CURRENT BALANCE",
+      "delta_suffix_7d": "last 7 days",
+      "lock_prefix": "🔒 IRS 1099 hold · frozen ·",
+      "lock_unit": "d left"
     },
     "khozyaika": {
       "name": "Mrs. Dagmar",
@@ -1424,6 +1428,155 @@
       "hours_short": "h",
       "days_short": "d",
       "day_short": "d"
+    }
+  },
+  "chip": {
+    "tim_creator": {
+      "tg_subscribe": "🔔 follow @timofeyzinin on telegram",
+      "tg_later": "later"
+    },
+    "tim_tier1": {
+      "buy": "buy auto-prospecting ($200)",
+      "later": "i'll think about it"
+    },
+    "tim_tier2": {
+      "buy": "buy ai discovery calls ($300)",
+      "later": "nah"
+    },
+    "tim_tier3": {
+      "buy": "buy ai-offer ($400)",
+      "later": "nah"
+    },
+    "tim_tiers": {
+      "auto_reach_out": "auto cold-lead prospecting",
+      "auto_brief_lead": "ai discovery calls",
+      "auto_send_offer": "auto-offer & negotiation"
+    },
+    "khozyaika1": {
+      "send": "send meter readings (−1h)",
+      "ignore": "skip it (−$100 fine in 3 days)"
+    },
+    "khozyaika2": {
+      "like": "like and follow (−1h)",
+      "refuse": "decline (−5 comfort)"
+    },
+    "khozyaika3": {
+      "help": "help look (−2h, +10 comfort)",
+      "refuse": "no time (−5 comfort)"
+    },
+    "khozyaika4": {
+      "thanks": "thanks, good to know"
+    },
+    "khozyaika_electric": {
+      "send": "send photo (−1h)",
+      "later": "i'll send later (−5 comfort)"
+    },
+    "khozyaika_chain": {
+      "forward": "forward to 5 people (−1h)",
+      "refuse": "not happening (−5 comfort)"
+    },
+    "pavel": {
+      "lend": "lend $300",
+      "refuse": "decline"
+    },
+    "pavel_d17": {
+      "soft": "soft no · «not now, pash. genuinely slammed»",
+      "hard": "hard no · «no. don't write again»"
+    },
+    "mama6": {
+      "send": "send $200",
+      "defer": "not now, mom"
+    },
+    "mama17": {
+      "come": "i'll come this weekend",
+      "later": "later, work"
+    },
+    "denis": {
+      "go": "go (−{cost}, +60⚡, +25💚, −2h)",
+      "skip": "not now",
+      "deny_bank_locked": "account frozen",
+      "deny_short_cash": "short ${shortage}",
+      "deny_no_hours": "no 2 hours"
+    },
+    "olya": {
+      "invest": "invest $200 in the «club»",
+      "listen": "hear her out for 5 min (−1h)",
+      "delete": "delete from contacts"
+    },
+    "olya_retry": {
+      "invest400": "invest $400 in «next level» (risk)",
+      "block": "🚫 block olya · she's done writing",
+      "ignore": "ignore · she'll write again next week"
+    },
+    "olya_final": {
+      "pity150": "give $150 to make her stop",
+      "no": "«olya, no. that's it»"
+    },
+    "kirill_intro": {
+      "yes": "let's meet (unlock dates)",
+      "no": "not my type"
+    },
+    "kirill_love1": {
+      "warm": "answer honestly · +💚 kirill, +5💚 mood",
+      "cool": "deflect with a joke · −💚 kirill"
+    },
+    "kirill_love2": {
+      "yes": "yes, let's meet · +💚 kirill, −3h today",
+      "defer": "not now, work"
+    },
+    "kirill_love_final": {
+      "yes_love": "«yes. me too.»",
+      "scared": "«kirill, i'm scared but i want to try»"
+    },
+    "kirill_complaint": {
+      "sorry": "i'm sorry (−15 comfort)",
+      "defend": "i just couldn't (−10 comfort)"
+    },
+    "kirill_conflict": {
+      "honest": "i'm not getting back with him · +💚 kirill, −5💚 (heavy convo)",
+      "defensive": "none of your business · −💚 kirill",
+      "leave": "maybe we did rush this… · 💔 break up with kirill"
+    },
+    "nastya_partnership": {
+      "join": "accept · +$200 upfront, +1 project for the week",
+      "maybe": "i'll think about it · keep the option",
+      "decline": "no, i can handle it solo"
+    },
+    "krypta": {
+      "send": "SENDING $100 (5% chance x10)",
+      "bot": "are you a bot?",
+      "ignore": "ignore"
+    },
+    "krypta_retry": {
+      "send_50": "send $50 (5% chance x10)",
+      "block": "block BRO · he's done writing",
+      "ignore": "ignore · he'll write again next week"
+    },
+    "krypta_final": {
+      "pity_30": "out of pity, $30",
+      "no": "«no, bro. that's it»"
+    },
+    "artur": {
+      "visit": "swing by the office (−4h)",
+      "refuse": "decline"
+    },
+    "vera": {
+      "help": "help alisa (−2h, +10 comfort)",
+      "refuse": "politely decline (−3 comfort)"
+    },
+    "svetka": {
+      "listen": "«hear» the gossip (−1h, +15💚)",
+      "ignore": "not now (−5💚)"
+    },
+    "sosed": {
+      "come": "go down (−1h)",
+      "ignore": "ignore (he'll ask again day+1)"
+    },
+    "torgi": {
+      "accept": "accept ({price})",
+      "counter1": "counter ({price})",
+      "counter2": "hard counter ({price})",
+      "decline": "pass, find next one"
     }
   }
 }
