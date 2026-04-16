@@ -4749,9 +4749,14 @@
     openChat(STATE.current_chat || 'scratch');
     renderDock();
 
-    // SPRINT 49 — re-render HUD when i18n becomes ready (initial render may have used RU fallback)
+    // SPRINT 49 — re-render HUD when i18n becomes ready (initial render may have used RU fallback).
+    // Event may have ALREADY fired before marina.js init() — check current state too.
     function _i18nReready() {
       try { renderDock(); Bubbles.renderContacts(STATE); } catch (e) {}
+    }
+    if (window.MarinaI18n && window.MarinaI18n.isReady && window.MarinaI18n.isReady()) {
+      // i18n ready by the time marina init runs — re-render now
+      _i18nReready();
     }
     window.addEventListener('marina:i18nready', _i18nReready);
     window.addEventListener('marina:langchange', _i18nReready);
