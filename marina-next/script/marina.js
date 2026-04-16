@@ -4807,14 +4807,11 @@
         if (STATE._lang_stamp && newLang && STATE._lang_stamp !== newLang) {
           // Full reset — same as init() mismatch path. Reload triggers fresh boot in new locale.
           clearState();
-          // Stamp NEW lang in fresh state so init() doesn't double-clear
-          var freshState = defaultState();
-          freshState._lang_stamp = newLang;
-          try {
-            localStorage.setItem(STATE_KEY, JSON.stringify(freshState));
-            localStorage.setItem(VERSION_KEY, VERSION);
-          } catch (e) {}
-          // Hard reload so init() runs fresh
+          // Replace STATE in-place with fresh defaults + stamped lang, then saveState().
+          STATE = defaultState();
+          STATE._lang_stamp = newLang;
+          saveState();
+          // Hard reload so init() runs fresh, beats replay in new locale
           location.reload();
         }
       } catch (e) {}
