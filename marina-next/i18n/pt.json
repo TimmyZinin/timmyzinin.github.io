@@ -321,7 +321,14 @@
         "AI barganhando: começou com $280, cliente recuou, AI contra-ofertou $240, aceitou. eu teria cedido",
         "o funil inteiro roda sem mim. primeiro contato → discovery → oferta → upfront. só falta fazer o projeto. assusta e liberta ao mesmo tempo"
       ]
-    }
+    },
+    "cold_lead_clients": [
+      "landing saas",
+      "briefing dtc",
+      "email sequência",
+      "case study",
+      "reels pack"
+    ]
   },
   "action": {
     "reach_out": {
@@ -544,7 +551,8 @@
       "project_final": "final · projeto #{id}",
       "eat_out": "café da esquina",
       "shopping": "shoppinginho",
-      "mama_rescue": "mãe mandou"
+      "mama_rescue": "mãe mandou",
+      "artur_upfront": "upfront do arthur"
     },
     "tim_tier1": {
       "yes": "fechado. te pago $200.",
@@ -702,7 +710,11 @@
       "nastya_partnership": "🤝 parceria com Natália · +$200 + novo projeto (4 units, 7 dias) · +10💚",
       "suspicious_txn": "transação suspeita · prepare-se pra consequência",
       "client_accept": "ok, fechado",
-      "client_terms": "vamos nesses termos"
+      "client_terms": "vamos nesses termos",
+      "client_offer_msg": "cliente escreve: «orçamento é {budget}, prazo — uma semana»",
+      "extra_hunger_low": "🍔 fome acabando com o progresso",
+      "extra_hunger_mid": "🍔 com fome",
+      "extra_hangover": "☕ ressaca"
     },
     "anna_referral": {
       "yes": "fechado. manda o contrato",

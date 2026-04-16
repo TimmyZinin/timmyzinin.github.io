@@ -321,7 +321,14 @@
         "AI haggling: started at $280, client pushed back, AI countered $240, accepted. i would've caved",
         "the whole funnel runs without me. first contact → discovery → offer → upfront. all that's left is to do the project. scary and freeing at the same time"
       ]
-    }
+    },
+    "cold_lead_clients": [
+      "saas landing",
+      "dtc brief",
+      "email sequence",
+      "case study",
+      "reels pack"
+    ]
   },
   "action": {
     "reach_out": {
@@ -544,7 +551,8 @@
       "project_final": "final · project #{id}",
       "eat_out": "corner cafe",
       "shopping": "small shopping spree",
-      "mama_rescue": "Mum sent it"
+      "mama_rescue": "Mum sent it",
+      "artur_upfront": "upfront from arthur"
     },
     "tim_tier1": {
       "yes": "i'm in. sending $200.",
@@ -702,7 +710,11 @@
       "nastya_partnership": "🤝 partnership with Nadia · +$200 + new project (4 units, 7 days) · +10💚",
       "suspicious_txn": "suspicious transaction · brace for consequences",
       "client_accept": "ok, taking it",
-      "client_terms": "let's go with these terms"
+      "client_terms": "let's go with these terms",
+      "client_offer_msg": "client writes: «budget is {budget}, timeline — one week»",
+      "extra_hunger_low": "🍔 hunger killing progress",
+      "extra_hunger_mid": "🍔 hungry",
+      "extra_hangover": "☕ hungover"
     },
     "anna_referral": {
       "yes": "i'm in. send the contract",

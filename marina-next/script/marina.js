@@ -1808,11 +1808,11 @@
               // Hit — $800 project offer
               postIncoming('artur', tStr('system.artur.project_offer', '{name}, есть проект на $800 — серьёзный клиент, 10 дней.').replace('{name}', tStr('contact.heroine.firstname', 'Марина')), Bubbles.localizedContactName(findContact('artur')));
               STATE.cash += 400;
-              postBank(400, 'upfront от Артура');
+              postBank(400, tStr('system.payment.artur_upfront', 'upfront от Артура'));
               STATE.active_projects.push({
                 id: (STATE.active_projects.length + STATE.delivered_projects + 1),
                 clientId: 'artur',
-                client: 'Артур',
+                client: tStr('contact.artur.name', 'Артур'),
                 progress: 0,
                 work_units_done: 0,
                 work_units_total: 6, // SPRINT 15 — match standard
@@ -2195,8 +2195,8 @@
       postOutgoing('scratch', tStr('system.scratch.send_offer', 'отправляю предложение'));
       setTimeout(function () {
         postIncoming('scratch',
-          'клиент пишет: «у меня бюджет $' + baseBudget + ', сроки — неделя»',
-          'клиент');
+          tStr('system.scratch.client_offer_msg', 'клиент пишет: «у меня бюджет ${budget}, сроки — неделя»').replace('{budget}', '$' + baseBudget),
+          tStr('system.scratch.client_label', 'клиент'));
         // Offer torgi chips
         Bubbles.renderReplyChips([
           { id: 'accept',   label: tStr('chip.torgi.accept', 'согласиться (${price})').replace('{price}', '$' + baseBudget), cost: '100% accept' },
@@ -2238,7 +2238,7 @@
         var project = {
           id: (STATE.active_projects.length + STATE.delivered_projects + 1),
           clientId: 'scratch', // generic cold lead — clawback goes to scratch
-          client: pick(['лендинг saas','бриф dtc','email-серия','кейс-стади','reels-пакет']),
+          client: tPickOr('text.cold_lead_clients', ['лендинг saas','бриф dtc','email-серия','кейс-стади','reels-пакет']),
           progress: 0,
           work_units_done: 0,
           work_units_total: 6, // SPRINT 15 rev2 — 3→4→6: real playtest needed deeper nerf
@@ -2285,9 +2285,9 @@
       postOutgoing('scratch', STATE.hunger < 50 ? tPickOr('text.work_hungry', WORK_TEXT_HUNGRY) : tPickOr('text.work', WORK_TEXT));
       setTimeout(function () {
         var extra = '';
-        if (STATE.hunger < 30) extra = ' · 🍔 голод снижает прогресс';
-        else if (STATE.hunger < 50) extra = ' · 🍔 голодно';
-        if (STATE._hangover_active) extra += ' · ☕ похмелье';
+        if (STATE.hunger < 30) extra = ' · ' + tStr('system.scratch.extra_hunger_low', '🍔 голод снижает прогресс');
+        else if (STATE.hunger < 50) extra = ' · ' + tStr('system.scratch.extra_hunger_mid', '🍔 голодно');
+        if (STATE._hangover_active) extra += ' · ' + tStr('system.scratch.extra_hangover', '☕ похмелье');
         // SPRINT 34 — show units progress explicitly so player sees movement
         var totalU = p.work_units_total || 3;
         postSystem('scratch', tStr('system.scratch.project_progress', 'проект #{id} · {done}/{total} units · {pct}%').replace('{id}', p.id).replace('{done}', (p.work_units_done || 0).toFixed(1)).replace('{total}', totalU).replace('{pct}', Math.floor(p.progress)) + extra);

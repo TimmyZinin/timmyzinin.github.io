@@ -321,7 +321,14 @@
         "AI pazarlığı: $280'den başladı, müşteri direndi, AI $240 karşı-teklif, kabul. ben aşağı inerdim",
         "tüm funnel bensiz çalışıyor. ilk kontakt → brief → teklif → upfront. geriye sadece projeyi yapmak kaldı. hem korkutucu hem özgürleştirici"
       ]
-    }
+    },
+    "cold_lead_clients": [
+      "saas landing",
+      "dtc brief",
+      "email serisi",
+      "vaka çalışması",
+      "reels paketi"
+    ]
   },
   "action": {
     "reach_out": {
@@ -544,7 +551,8 @@
       "project_final": "final · proje #{id}",
       "eat_out": "köşedeki kafe",
       "shopping": "küçük alışveriş",
-      "mama_rescue": "annem gönderdi"
+      "mama_rescue": "annem gönderdi",
+      "artur_upfront": "arda'dan upfront"
     },
     "tim_tier1": {
       "yes": "aldım. $200 gönderiyorum.",
@@ -702,7 +710,11 @@
       "nastya_partnership": "🤝 Aslı ile ortaklık · +$200 + yeni proje (4 unit, 7 gün) · +10💚",
       "suspicious_txn": "şüpheli işlem · sonuçlarına hazır ol",
       "client_accept": "tamam, alıyorum",
-      "client_terms": "bu şartlarda olsun"
+      "client_terms": "bu şartlarda olsun",
+      "client_offer_msg": "müşteri yazıyor: «bütçem {budget}, süre — bir hafta»",
+      "extra_hunger_low": "🍔 açlık ilerlemeyi düşürüyor",
+      "extra_hunger_mid": "🍔 acıkmış",
+      "extra_hangover": "☕ akşamdan kalma"
     },
     "anna_referral": {
       "yes": "aldım. kontratı gönder",
