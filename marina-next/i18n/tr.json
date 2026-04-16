@@ -1217,5 +1217,19 @@
       "hero_rescue": "🚨 {name} {d}. günde kurtarıldı. seni de kurtarırlar mı?",
       "hero_default": "🎁 {name} {d}. güne kadar gitti. sen daha ileri gidebilir misin?"
     }
+  },
+  "hud": {
+    "tip": {
+      "day": "{max} günden {day}. günü. Ay {max}. günün sonunda biter — ≥3 proje teslim, cash≥0, enerji≥25, açlık≥30, konfor≥20 gerekli.",
+      "hours": "Şu an {clock}. Melis'in günü: 9:00 → 23:00 (14 gerçek saat = 8 iş slotu). Slotlar bitince «yat uyu»'ya bas.",
+      "cash": "Melis'in parası. Başlangıç $500. Her gün −$45 pasif + kira $500 (gün 10/20) + kaçınılmaz harcamalar ($60/$80/$150/$100). −$1500 altına düşerse — tahliye.",
+      "rent_ok": "Sonraki kira: $500, {rentDay}. günde. {daysLeft} gün kaldı. ✓ yeterli.",
+      "rent_short": "Sonraki kira: $500, {rentDay}. günde. {daysLeft} gün kaldı. ${shortBy} eksik — kazan veya bir teklif kapat.",
+      "energy": "Enerji (0-100). İşten ve kötü uykudan düşer. Geceleri toparlanır (tam sadece yediysen). Finalde 25 altında = kayıp.",
+      "hunger": "Açlık (0-100). Her gün −30. 50 altında — iş yavaşlar. 30 altında — enerji düşer. Açlık=0 gün 4+ — Melis bayılır. Ev yemeği (−$15) veya kafe (−$35).",
+      "comfort": "Konfor / ruh hali (0-100). Her gün −10. 35 altında — dürtüsel alışveriş. 5 altında gün 15+ — kriz riski. Alışveriş, kafe, arkadaşlar (Deniz) yükseltir.",
+      "bank_locked": "Hesap MASAK incelemesinde (şüpheli kripto işlemi). Tüm harcamalar engellendi: yemek, teklif, alışveriş. Açılmasını bekle: {daysLeft} gün.",
+      "bank_locked_label": "MASAK"
+    }
   }
 }

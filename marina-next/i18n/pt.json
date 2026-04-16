@@ -1217,5 +1217,19 @@
       "hero_rescue": "🚨 {name} foi salva no dia {d}. te salvam também?",
       "hero_default": "🎁 {name} chegou até o dia {d}. vai mais longe?"
     }
+  },
+  "hud": {
+    "tip": {
+      "day": "Dia {day} de {max}. O mês acaba no dia {max} — precisa de ≥3 projetos entregues, cash≥0, energia≥25, fome≥30, conforto≥20.",
+      "hours": "Agora {clock}. Dia da Marina: 9:00 → 23:00 (14 horas reais = 8 slots de trabalho). Quando acabar — clica «dormir».",
+      "cash": "O dinheiro da Marina. Começa $500. Cada dia −$45 passivo + aluguel $500 (dia 10/20) + gastos inevitáveis ($60/$80/$150/$100). Abaixo de −$1500 — despejo.",
+      "rent_ok": "Próximo aluguel: $500 no dia {rentDay}. Faltam {daysLeft} dias. ✓ dá conta.",
+      "rent_short": "Próximo aluguel: $500 no dia {rentDay}. Faltam {daysLeft} dias. Falta ${shortBy} — ganha ou fecha um deal.",
+      "energy": "Energia (0-100). Cai com trabalho e sono ruim. Recupera à noite (cheio só se comeu). Abaixo de 25 no final = perde.",
+      "hunger": "Fome (0-100). Cada dia −30. Abaixo de 50 — trabalho fica lento. Abaixo de 30 — energia cai. Fome=0 dia 4+ — Marina desmaia. Come em casa (−$15) ou no café (−$35).",
+      "comfort": "Conforto / humor (0-100). Cada dia −10. Abaixo de 35 — compra impulsiva. Abaixo de 5 dia 15+ — risco de surto. Shopping, café, amigos (Diego) levantam.",
+      "bank_locked": "Conta em revisão COAF (movimento cripto suspeito). Todas as compras bloqueadas: comida, propostas, shopping. Espera {daysLeft} dias.",
+      "bank_locked_label": "COAF hold"
+    }
   }
 }

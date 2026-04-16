@@ -1217,5 +1217,19 @@
       "hero_rescue": "🚨 {name} was saved on day {d}. Will someone save you?",
       "hero_default": "🎁 {name} made it to day {d}. Can you go further?"
     }
+  },
+  "hud": {
+    "tip": {
+      "day": "Day {day} of {max}. Month ends day {max} — need ≥3 projects delivered, cash≥0, energy≥25, hunger≥30, comfort≥20.",
+      "hours": "It's {clock}. Marina's day: 9am → 11pm (14 real hours = 8 work slots). When slots end — hit «end day».",
+      "cash": "Marina's cash. Start $500. Every day −$45 passive + rent $500 (day 10/20) + unavoidable expenses ($60/$80/$150/$100). Below −$1500 — eviction.",
+      "rent_ok": "Next rent: $500 due day {rentDay}. {daysLeft} days left. ✓ covered.",
+      "rent_short": "Next rent: $500 due day {rentDay}. {daysLeft} days left. Short ${shortBy} — earn or close a deal.",
+      "energy": "Energy (0-100). Drops from work and bad sleep. Recovers overnight (fully only if you ate). Below 25 at finale = lose.",
+      "hunger": "Hunger (0-100). Each day −30. Below 50 — work slows. Below 30 — energy drops. Hunger=0 day 4+ — Marina collapses. Eat home (−$15) or cafe (−$35).",
+      "comfort": "Comfort / mood (0-100). Each day −10. Below 35 — impulse buys. Below 5 day 15+ — breakdown risk. Shopping, cafe, friends (Denis) raise it.",
+      "bank_locked": "Account under IRS 1099 review (suspicious transaction flagged). All purchases blocked: food, offers, shopping. Wait {daysLeft} days for unlock.",
+      "bank_locked_label": "IRS hold"
+    }
   }
 }

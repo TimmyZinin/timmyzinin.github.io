@@ -897,11 +897,15 @@
     if (clockM === 60) { clockM = 0; clockH = (clockH + 1) % 24; }
     var clockStr = (clockH < 10 ? '0' : '') + clockH + ':' + (clockM < 10 ? '0' : '') + clockM;
 
+    function _esc(s) { return String(s).replace(/[&<>"']/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
     var parts = [];
-    parts.push('<div class="r-pill r-day" title="День ' + STATE.day + ' из ' + FINALE_DAY + '. Месяц закончится на ' + FINALE_DAY + '-й день — нужно сдать ≥3 проекта, иметь cash≥0, энергию≥25, голод≥30, комфорт≥20."><span class="r-icon">🗓️</span><span class="r-val">' + STATE.day + '</span><span class="r-max">/' + FINALE_DAY + '</span></div>');
-    parts.push('<div class="r-pill r-hours" title="Сейчас ' + clockStr + '. День Марины: 9:00 → 23:00 (14 реальных часов = 8 рабочих слотов). Когда слоты кончатся — нажми «лечь спать»."><span class="r-icon">⏱️</span><span class="r-val">' + clockStr + '</span><span class="r-max">·' + hoursLeft + 'ч</span></div>');
+    var hudDayTip  = tStr('hud.tip.day',    'День {day} из {max}. Месяц закончится на {max}-й день — нужно сдать ≥3 проекта, иметь cash≥0, энергию≥25, голод≥30, комфорт≥20.').replace('{day}', STATE.day).replace(/\{max\}/g, FINALE_DAY);
+    var hudHourTip = tStr('hud.tip.hours',  'Сейчас {clock}. День Марины: 9:00 → 23:00 (14 реальных часов = 8 рабочих слотов). Когда слоты кончатся — нажми «лечь спать».').replace('{clock}', clockStr);
+    var hudCashTip = tStr('hud.tip.cash',   'Деньги Марины. Старт $500. Каждый день −$45 пассив + аренда $500 (день 10/20) + неизбежные траты ($60/$80/$150/$100). Если падёт ниже −$1500 — выселение.');
+    parts.push('<div class="r-pill r-day" title="' + _esc(hudDayTip) + '"><span class="r-icon">🗓️</span><span class="r-val">' + STATE.day + '</span><span class="r-max">/' + FINALE_DAY + '</span></div>');
+    parts.push('<div class="r-pill r-hours" title="' + _esc(hudHourTip) + '"><span class="r-icon">⏱️</span><span class="r-val">' + clockStr + '</span><span class="r-max">·' + hoursLeft + 'ч</span></div>');
     var cashCls = STATE.cash < 0 ? 'crit' : (STATE.cash < 200 ? 'warn' : 'ok');
-    parts.push('<div class="r-pill r-cash ' + cashCls + '" title="Деньги Марины. Старт $500. Каждый день −$45 пассив + аренда $500 (день 10/20) + неизбежные траты ($60/$80/$150/$100). Если падёт ниже −$1500 — выселение."><span class="r-icon">💰</span><span class="r-val">$' + STATE.cash + '</span></div>');
+    parts.push('<div class="r-pill r-cash ' + cashCls + '" title="' + _esc(hudCashTip) + '"><span class="r-icon">💰</span><span class="r-val">$' + STATE.cash + '</span></div>');
 
     // SPRINT 27 — rent countdown pill: показывает следующую аренду + сколько дней
     // SPRINT 34 — after rescue, next payment is end-of-month (day 30) not hidden
@@ -915,20 +919,27 @@
       var canPay = STATE.cash >= 500;
       // SPRINT 31 — progress bar: countdown from 10 days to 0, fill grows as deadline approaches
       var rentFill = Math.max(0, Math.min(100, (10 - daysLeft) * 10));
-      var rentTitle = 'Следующая аренда: $500 на день ' + rentDay + '. Осталось ' + daysLeft + ' дн. ' +
-                      (canPay ? '✓ хватает.' : 'Не хватает $' + (500 - STATE.cash) + ' — заработай или продай услугу.');
-      parts.push('<div class="r-pill r-rent ' + rentCls + '" title="' + rentTitle + '"><span class="r-icon">🏠</span><span class="r-val">$500</span><span class="r-max">·' + daysLeft + 'дн</span><div class="r-bar"><div class="r-fill" style="width:' + rentFill + '%"></div></div></div>');
+      var rentTipBase = canPay
+        ? tStr('hud.tip.rent_ok', 'Следующая аренда: $500 на день {rentDay}. Осталось {daysLeft} дн. ✓ хватает.')
+        : tStr('hud.tip.rent_short', 'Следующая аренда: $500 на день {rentDay}. Осталось {daysLeft} дн. Не хватает ${shortBy} — заработай или продай услугу.');
+      var rentTitle = rentTipBase.replace('{rentDay}', rentDay).replace('{daysLeft}', daysLeft).replace('{shortBy}', 500 - STATE.cash);
+      parts.push('<div class="r-pill r-rent ' + rentCls + '" title="' + _esc(rentTitle) + '"><span class="r-icon">🏠</span><span class="r-val">$500</span><span class="r-max">·' + daysLeft + 'дн</span><div class="r-bar"><div class="r-fill" style="width:' + rentFill + '%"></div></div></div>');
     }
     var e = STATE.energy;
-    parts.push('<div class="r-pill r-energy ' + colorClass(e) + '" title="Энергия (0-100). Падает от работы и плохого сна. Восстанавливается ночью (полностью только если поела). Если ниже 25 на финале — проигрыш."><span class="r-icon">⚡</span><span class="r-val">' + e + '</span><div class="r-bar"><div class="r-fill" style="width:' + e + '%"></div></div></div>');
+    var hudEnergyTip  = tStr('hud.tip.energy',  'Энергия (0-100). Падает от работы и плохого сна. Восстанавливается ночью (полностью только если поела). Если ниже 25 на финале — проигрыш.');
+    parts.push('<div class="r-pill r-energy ' + colorClass(e) + '" title="' + _esc(hudEnergyTip) + '"><span class="r-icon">⚡</span><span class="r-val">' + e + '</span><div class="r-bar"><div class="r-fill" style="width:' + e + '%"></div></div></div>');
     var h = STATE.hunger || 100;
-    parts.push('<div class="r-pill r-hunger ' + colorClass(h) + '" title="Голод (0-100). Каждый день −30. Ниже 50 — работа замедляется, ниже 30 — энергия падает. Голод=0 на день 4+ — Марина свалилась. Поешь дома (−$15) или в кафе (−$35)."><span class="r-icon">🍔</span><span class="r-val">' + h + '</span><div class="r-bar"><div class="r-fill" style="width:' + h + '%"></div></div></div>');
+    var hudHungerTip  = tStr('hud.tip.hunger',  'Голод (0-100). Каждый день −30. Ниже 50 — работа замедляется, ниже 30 — энергия падает. Голод=0 на день 4+ — Марина свалилась. Поешь дома (−$15) или в кафе (−$35).');
+    parts.push('<div class="r-pill r-hunger ' + colorClass(h) + '" title="' + _esc(hudHungerTip) + '"><span class="r-icon">🍔</span><span class="r-val">' + h + '</span><div class="r-bar"><div class="r-fill" style="width:' + h + '%"></div></div></div>');
     var m = STATE.comfort || 0;
-    parts.push('<div class="r-pill r-comfort ' + colorClass(m) + '" title="Комфорт / настроение (0-100). Каждый день −10. Ниже 35 — импульсивные покупки. Ниже 5 на день 15+ — нервы могут сдать. Шопинг, кафе, друзья (Денис) поднимают."><span class="r-icon">💚</span><span class="r-val">' + m + '</span><div class="r-bar"><div class="r-fill" style="width:' + m + '%"></div></div></div>');
+    var hudComfortTip = tStr('hud.tip.comfort', 'Комфорт / настроение (0-100). Каждый день −10. Ниже 35 — импульсивные покупки. Ниже 5 на день 15+ — нервы могут сдать. Шопинг, кафе, друзья (Денис) поднимают.');
+    parts.push('<div class="r-pill r-comfort ' + colorClass(m) + '" title="' + _esc(hudComfortTip) + '"><span class="r-icon">💚</span><span class="r-val">' + m + '</span><div class="r-bar"><div class="r-fill" style="width:' + m + '%"></div></div></div>');
 
     if (STATE.bank_locked) {
       var daysLeft = Math.max(0, (STATE.bank_locked_until || STATE.day) - STATE.day);
-      parts.push('<div class="r-pill r-locked" title="Счёт заблокирован по 115-ФЗ (подозрительная транзакция). Все траты невозможны: еда, оффер, шопинг. Ждать ' + daysLeft + ' дней до разблокировки."><span class="r-icon">🔒</span><span class="r-val">115-ФЗ</span><span class="r-max">· ' + daysLeft + 'д</span></div>');
+      var hudLockedTip = tStr('hud.tip.bank_locked', 'Счёт заблокирован по 115-ФЗ (подозрительная транзакция). Все траты невозможны: еда, оффер, шопинг. Ждать {daysLeft} дней до разблокировки.').replace('{daysLeft}', daysLeft);
+      var hudLockedLabel = tStr('hud.tip.bank_locked_label', '115-ФЗ');
+      parts.push('<div class="r-pill r-locked" title="' + _esc(hudLockedTip) + '"><span class="r-icon">🔒</span><span class="r-val">' + _esc(hudLockedLabel) + '</span><span class="r-max">· ' + daysLeft + 'д</span></div>');
     }
 
     var html = parts.join('');
