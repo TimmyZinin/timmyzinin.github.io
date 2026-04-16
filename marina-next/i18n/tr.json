@@ -1419,6 +1419,11 @@
       "comfort": "Konfor / ruh hali (0-100). Her gün −10. 35 altında — dürtüsel alışveriş. 5 altında gün 15+ — kriz riski. Alışveriş, kafe, arkadaşlar (Deniz) yükseltir.",
       "bank_locked": "Hesap MASAK incelemesinde (şüpheli kripto işlemi). Tüm harcamalar engellendi: yemek, teklif, alışveriş. Açılmasını bekle: {daysLeft} gün.",
       "bank_locked_label": "MASAK"
+    },
+    "unit": {
+      "hours_short": "s",
+      "days_short": "g",
+      "day_short": "g"
     }
   }
 }

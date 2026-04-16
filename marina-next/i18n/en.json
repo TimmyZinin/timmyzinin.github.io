@@ -1419,6 +1419,11 @@
       "comfort": "Comfort / mood (0-100). Each day −10. Below 35 — impulse buys. Below 5 day 15+ — breakdown risk. Shopping, cafe, friends (Denis) raise it.",
       "bank_locked": "Account under IRS 1099 review (suspicious transaction flagged). All purchases blocked: food, offers, shopping. Wait {daysLeft} days for unlock.",
       "bank_locked_label": "IRS hold"
+    },
+    "unit": {
+      "hours_short": "h",
+      "days_short": "d",
+      "day_short": "d"
     }
   }
 }

@@ -230,7 +230,17 @@
       // SPRINT 37 — pin scratch ('себе') as Telegram-style sticky chat
       if (c.id === 'scratch') $item.addClass('pinned');
 
-      var $avatar = $('<div class="contact-avatar">').addClass(c.id).text(c.avatar || displayName[0]);
+      // SPRINT 52 — prefer emoji avatar from state.contacts (e.g. '🚀' for krypta).
+      // For text-letter avatars, derive from LOCALIZED name's first char so EN/TR/PT
+      // see correct initial (Lucy/Zeynep/Camila → L/Z/C, not stale RU 'Л').
+      var avatarChar;
+      if (c.avatar && /[^A-Za-zА-Яа-яёЁ]/.test(c.avatar)) {
+        // emoji or special char — keep as-is
+        avatarChar = c.avatar;
+      } else {
+        avatarChar = (displayName && displayName[0]) || (c.avatar || '?');
+      }
+      var $avatar = $('<div class="contact-avatar">').addClass(c.id).text(avatarChar);
       if (c.online) $avatar.addClass('online');
       $item.append($avatar);
 

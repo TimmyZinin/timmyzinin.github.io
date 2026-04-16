@@ -1419,6 +1419,11 @@
       "comfort": "Conforto / humor (0-100). Cada dia −10. Abaixo de 35 — compra impulsiva. Abaixo de 5 dia 15+ — risco de surto. Shopping, café, amigos (Diego) levantam.",
       "bank_locked": "Conta em revisão COAF (movimento cripto suspeito). Todas as compras bloqueadas: comida, propostas, shopping. Espera {daysLeft} dias.",
       "bank_locked_label": "COAF hold"
+    },
+    "unit": {
+      "hours_short": "h",
+      "days_short": "d",
+      "day_short": "d"
     }
   }
 }
