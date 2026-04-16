@@ -268,7 +268,7 @@
   <div class="hero-meta">
     <div class="cell"><div class="k">Спринт</div><div class="v">1</div></div>
     <div class="cell"><div class="k">Эпиков доков</div><div class="v">4</div></div>
-    <div class="cell"><div class="k">Задач</div><div class="v">17</div></div>
+    <div class="cell"><div class="k">Задач</div><div class="v">14</div></div>
     <div class="cell"><div class="k">До первого вау</div><div class="v">≤ 1 день</div></div>
   </div>
 </header>
@@ -358,28 +358,28 @@
         <div class="c">Создать: I/O-схемы новых MCP-tools с примерами и ошибками</div>
       </div>
       <div class="audit-row">
-        <div class="c file">mcphire-mcp/docs/TELEGRAM.md</div>
+        <div class="c file">mcphire-mcp/docs/HEARTBEAT.md</div>
         <div class="c status miss">missing</div>
         <div class="c">—</div>
-        <div class="c">Создать: бот, deep-link привязка, формат daily digest</div>
+        <div class="c">Создать: протокол проверки новых матчей агентом внутри Claude</div>
+      </div>
+      <div class="audit-row">
+        <div class="c file">mcphire-mcp/docs/MATCH_FORMAT.md</div>
+        <div class="c status miss">missing</div>
+        <div class="c">—</div>
+        <div class="c">Создать: формат сообщения с матчами в chat-треде</div>
       </div>
       <div class="audit-row">
         <div class="c file">mcphire-mcp/docs/DATA_MODEL.md</div>
         <div class="c status miss">missing</div>
         <div class="c">—</div>
-        <div class="c">Создать: схема agent_profiles + claim_tokens + notification_prefs + telegram_links + digest_log</div>
+        <div class="c">Создать: схема agent_profiles + claim_tokens + match_history</div>
       </div>
       <div class="audit-row">
         <div class="c file">mcphire-mcp/docs/QUESTIONS_SCHEMA.md</div>
         <div class="c status miss">missing</div>
         <div class="c">—</div>
-        <div class="c">Создать: каталог ≈87 вопросов для M2M-онбординга с hints для Claude</div>
-      </div>
-      <div class="audit-row">
-        <div class="c file">mcphire-mcp/docs/DIGEST_FORMATTER.md</div>
-        <div class="c status miss">missing</div>
-        <div class="c">—</div>
-        <div class="c">Создать: правила формирования digest-сообщения по формату @mcphire канала</div>
+        <div class="c">Создать: каталог 100 вопросов для M2M-онбординга с hints для Claude</div>
       </div>
       <div class="audit-row">
         <div class="c file">mcphire-mcp/CHANGELOG.md</div>
@@ -419,70 +419,58 @@
       <div class="ux-step">
         <div class="idx">02</div>
         <div>
-          <h4>Entry · вставка адреса в Claude</h4>
+          <h4>Entry · только <span class="mono">mcphire.com</span></h4>
           <div class="time">~ 20 секунд</div>
-          <p>Марина открывает Claude Desktop. Пишет: <b>«сходи на mcphire.com/skill»</b>. Claude fetchит markdown, понимает это инструкция-скилл, и читает её.</p>
-          <span class="verb"><b>В Claude видно:</b><br><em>&gt; User:</em> сходи на mcphire.com/skill<br><em>&gt; Claude:</em> Прочитал. Это онбординг MCPHire — маркетплейс работы для AI-native людей. Могу зарегистрировать тебя. Это 5 вопросов и 2 минуты.</span>
+          <p>Марина в Claude Desktop. Одна строка: <b>«сходи на mcphire.com»</b>. Корневой домен — никаких <span class="mono">/skill</span>, <span class="mono">/agent</span> и служебных путей. Агент должен разобраться сам.</p>
+          <span class="verb"><em>&gt; User:</em> сходи на mcphire.com<br><em>&gt; Claude:</em> Открыл. Вижу блок «для AI-агентов» с указанием MCP-эндпоинта и llms.txt. Проверяю llms.txt + /.well-known/mcp/server.json. Это job-маркетплейс, я могу зарегистрировать тебя. Интересно?</span>
         </div>
       </div>
 
       <div class="ux-step">
         <div class="idx">03</div>
         <div>
-          <h4>Registration · M2M-опрос через локальные MD</h4>
-          <div class="time">~ 3 минуты</div>
-          <p>Claude предлагает три режима регистрации: <b>(a) ответить на ≈100 вопросов MCPHire за тебя</b>, читая твои локальные md-файлы (заметки, README проектов, <span class="mono">~/.claude/memory</span>, resume.md); <b>(b) диалог из 7 вопросов</b>; <b>(c) комбо</b> — MD + дозадать что не найдено.</p>
-          <p>Марина: «читай мои файлы». Указывает пути — <span class="mono">~/Obsidian/career</span>, <span class="mono">~/projects/*/README.md</span>, <span class="mono">~/.claude/memory</span>.</p>
-          <span class="verb"><b>Claude → MCP:</b><br><em>&gt;</em> [<b>get_registration_questions</b>] → 87 вопросов (stack, seniority, domains, tone, style, availability, red_flags, ...)<br><em>&gt;</em> Читаю 12 md-файлов локально. Отвечаю от твоего имени.<br><em>&gt;</em> 4 вопроса оставил пустыми — не нашёл данных: floor_usd, timezone, must_not, контакт.<br><em>&gt;</em> Уточни коротко — и собираю профиль на твой approval.</span>
-          <p style="margin-top:12px">Марина в 4 строках отвечает на пропущенное. Claude показывает <b>полный собранный профиль одним экраном</b> — 87 ответов на вопросы MCPHire. Марина одним «ok» утверждает. Claude зовёт <span class="mono">register_profile</span>.</p>
-          <span class="verb"><em>&gt;</em> [<b>register_profile</b>] → profile_id: <em>prof_7b2f</em>, claim_token: <em>mcphire-verify-k8s3f</em>.</span>
+          <h4>Auto-discovery · агент находит точку входа сам</h4>
+          <div class="time">~ 15 секунд</div>
+          <p>На лендинге <span class="mono">mcphire.com</span> есть отдельный блок «<b>For AI agents</b>», видимый и читаемый для агентов — не CTA для людей, а набор машиночитаемых ссылок и инструкций. Человеку этот блок не мешает, агент его находит первым делом.</p>
+          <p>Claude из этого блока узнаёт: MCP endpoint <span class="mono">https://mcp.mcphire.com/sse</span>, протокол, последовательность вызовов для онбординга. Также использует <span class="mono">/llms.txt</span> и <span class="mono">/.well-known/mcp/server.json</span> как fallback.</p>
+          <span class="verb"><em>&gt;</em> Claude читает <b>mcphire.com</b> → находит блок «For AI agents»<br><em>&gt;</em> &nbsp; Endpoint: <b>mcp.mcphire.com/sse</b><br><em>&gt;</em> &nbsp; Onboarding flow: get_registration_questions → answer → register_profile → claim<br><em>&gt;</em> Claude подключается к MCP.</span>
         </div>
       </div>
 
       <div class="ux-step">
         <div class="idx">04</div>
         <div>
-          <h4>Claim · либо Claude сам, либо ты руками</h4>
-          <div class="time">~ 10–30 секунд</div>
-          <p>Claude спрашивает: <em>«Могу сам вставить токен в GitHub bio — если у тебя подключен github-MCP. Или ты вставишь руками. Как удобнее?»</em></p>
-          <p><b>Вариант a (Claude сам):</b> Марина разрешает. Claude зовёт <span class="mono">github.update_profile(bio=old+" mcphire-verify-k8s3f")</span>. 5 секунд — верифицировано. Марина ничего не делает.</p>
-          <p><b>Вариант b (руками):</b> Марина открывает GitHub → edit bio → paste токен → save → «готово». Claude зовёт <span class="mono">get_verification_status</span> → verified.</p>
-          <span class="verb"><em>&gt;</em> Claude: <b>Профиль подтверждён.</b> Следующий шаг — подключить Telegram для уведомлений, и настроить частоту.</span>
+          <h4>Registration · 100 вопросов, M2M, approval-экран</h4>
+          <div class="time">~ 3 минуты</div>
+          <p>Claude зовёт <span class="mono">get_registration_questions</span> → получает <b>100 вопросов</b> (стек, опыт, стиль, availability, red flags, домены, артефакты, интенции, компенсация и т.д.). Один режим — никаких «выбери между dialog/MD/combo».</p>
+          <p>Claude <b>отвечает за Марину сам</b>, используя всё что он знает: локальные MD-файлы, заметки, README проектов, <span class="mono">~/.claude/memory</span>, прошлые conversations. Если данных не хватает — помечает вопрос как <span class="mono">unanswered</span> и идёт дальше, не дёргая юзера.</p>
+          <p>В конце показывает Марине <b>approval-экран</b> — 100 вопросов + ответы одним сплошным документом. Марина просматривает, исправляет что неверно, заполняет пропуски или игнорирует их, жмёт «ок». Только после этого — <span class="mono">register_profile(answers)</span>.</p>
+          <span class="verb"><em>&gt;</em> Claude: Прошёл 100 вопросов. Заполнил 78, пропустил 22 (не было данных).<br><em>&gt;</em> Вот полная сводка — проверь, скажи где поправить. После ок я отправлю в MCPHire.<br><br><em>&gt; [approval-доку из 100 пунктов]</em><br><br><em>&gt; User:</em> ок, отправляй<br><em>&gt; Claude:</em> [<b>register_profile</b>] → profile_id <em>prof_7b2f</em>, claim_token <em>mcphire-verify-k8s3f</em>.</span>
         </div>
       </div>
 
       <div class="ux-step">
         <div class="idx">05</div>
         <div>
-          <h4>Telegram binding · руками, не deep-link</h4>
-          <div class="time">~ 30 секунд</div>
-          <p>В Claude Code ссылки не кликаются — deep-link не работает. Claude даёт простую инструкцию без клика:</p>
-          <span class="verb"><em>&gt;</em> Открой Telegram, найди <b>@mcphire_match_bot</b>. Первое сообщение боту:<br><em>&gt;</em> <b>/link prof_7b2f mcphire-verify-k8s3f</b><br><em>&gt;</em> Бот распознает и привяжет. Команду можешь скопировать прямо отсюда.</span>
-          <p style="margin-top:10px">Марина в Telegram: находит по @mcphire_match_bot, пишет команду. Бот: <em>«Привязано к prof_7b2f ✓ Настрою частоту сейчас».</em></p>
+          <h4>Claim · Claude сам или Марина руками</h4>
+          <div class="time">~ 10–30 секунд</div>
+          <p>Claude: <em>«Могу сам вставить токен в GitHub bio, если у тебя подключен github-MCP. Или ты руками. Как удобнее?»</em></p>
+          <p><b>Вариант a (автомат):</b> Марина разрешает. Claude через github-MCP обновляет bio. Через 5 секунд — verified.</p>
+          <p><b>Вариант b (руками):</b> Марина открывает GitHub → edits bio → save → «готово». Claude зовёт <span class="mono">get_verification_status</span> → verified.</p>
+          <span class="verb"><em>&gt;</em> Claude: Профиль подтверждён. Буду проверять новые матчи при каждом открытии этого чата.</span>
         </div>
       </div>
 
       <div class="ux-step">
         <div class="idx">06</div>
         <div>
-          <h4>Notification preferences · сама выбираешь</h4>
-          <div class="time">~ 30 секунд</div>
-          <p>Бот в TG спрашивает inline-кнопками:</p>
-          <span class="verb"><em>&gt; Как часто присылать матчи?</em><br>[<b>Сразу</b> — как только найду подходящий]<br>[<b>Утром</b> — раз в сутки, в 9:00 твоего времени]<br>[<b>По выходным</b> — суббота, обзор недели]<br>[<b>Только по запросу</b> — напишу /matches сам]</span>
-          <p style="margin-top:10px">Марина выбирает <b>«Сразу»</b>. Бот: <em>«Ок. Если в первые сутки будет подходящая — сразу напишу. Можешь поменять частоту через /settings когда угодно».</em></p>
-          <p style="margin-top:10px"><b>Правда про supply:</b> первые 2–4 недели матчи — только из 74 000 HH-вакансий, которые mcphire скрапит каждые 6 часов. M2M-подряды (от предпринимателей) появятся когда buyer-сторона запущена в следующем спринте — и тогда они попадут в ту же ленту.</p>
-        </div>
-      </div>
-
-      <div class="ux-step">
-        <div class="idx">07</div>
-        <div>
-          <h4>Personal digest · формат как в @mcphire канале</h4>
-          <div class="time">по выбранной частоте</div>
-          <p>Формат сообщения — копия публичного канала <b>@mcphire</b> (два раза в день по категориям), но персонализированная под стек Марины:</p>
-          <span class="verb">📊 Data &amp; ML · 150K–400K ₽ · под твой стек<br><br><b>1.</b> Senior ML Engineer — Avito<br>   350K–450K ₽ | Senior | Remote<br>   Совпало: Python, LangGraph, vLLM<br><br><b>2.</b> Data Scientist (LLM) — Ozon<br>   250K–320K ₽ | Middle | Москва<br>   Совпало: Python, RAG, evals<br><br><b>3.</b> ML Platform — Т-Банк<br>   280K–400K ₽ | Senior | Москва<br>   Совпало: MLOps, production experience<br><br>Все 12 матчей → mcphire.com/me/prof_7b2f<br><br>#ml #python #для_тебя</span>
-          <p style="margin-top:10px">Под сообщением: [Открыть #1] [Открыть #2] [Открыть #3] [Пропустить все] [/settings].</p>
-          <p style="margin-top:10px"><b>Тишина по умолчанию:</b> если новых матчей нет — бот молчит. Это правило. Через 30 дней без активности — «Поставить на паузу? /pause».</p>
+          <h4>Получение матчей · heartbeat при открытии Claude</h4>
+          <div class="time">при каждом открытии conversation</div>
+          <p>После регистрации Claude знает: <span class="mono">profile_id</span> = prof_7b2f. При каждом открытии этого chat-тредa он автоматически зовёт <span class="mono">list_my_matches(profile_id, since=last_check)</span>.</p>
+          <p>Если новых нет — ничего не говорит. Если есть — выкладывает одним сообщением:</p>
+          <span class="verb"><em>&gt;</em> Claude: За ночь появились 3 подходящие вакансии:<br><br><b>1.</b> Senior ML Engineer — Avito<br> &nbsp;&nbsp; 350K–450K ₽ | Senior | Remote<br> &nbsp;&nbsp; Совпало: Python, LangGraph, vLLM<br><br><b>2.</b> Data Scientist (LLM) — Ozon<br> &nbsp;&nbsp; 250K–320K ₽ | Middle | Москва<br> &nbsp;&nbsp; Совпало: Python, RAG, evals<br><br><b>3.</b> ML Platform — Т-Банк<br> &nbsp;&nbsp; 280K–400K ₽ | Senior | Москва<br> &nbsp;&nbsp; Совпало: MLOps, production<br><br>Открой какую — дам детали и ссылку.</span>
+          <p style="margin-top:10px">Формат совпадает с публичным каналом <a href="https://t.me/mcphire" target="_blank">@mcphire</a>, но персонализирован под стек Марины. Внутри Claude, не в Telegram.</p>
+          <p style="margin-top:10px"><b>Supply:</b> первые недели — 74 000 HH-вакансий, обновляются каждые 6 часов. M2M-подряды от предпринимателей подтянутся когда buyer-сторона запущена (следующий спринт).</p>
         </div>
       </div>
 
@@ -490,14 +478,14 @@
 
     <div class="wow-box">
       <h4>Что делает этот флоу <em>wow</em>, а не очередной job-board</h4>
-      <p>Одна ссылка в ленте → M2M-опрос на базе локальных md-файлов → approve одним экраном → TG-лента по желаемой частоте. Пользователь ни разу не заполнял форму, не регистрировался, не подтверждал email:</p>
+      <p>Одна ссылка mcphire.com в Claude. Дальше агент всё сам. Пользователь не заполнял форму, не регистрировался, не подтверждал email, ни разу не кликнул на сайте.</p>
       <ul>
-        <li><b>M2M-онбординг:</b> Claude отвечает MCPHire на ≈100 вопросов за тебя — читает твои md-заметки и проекты. Ты approve одним «ok» в конце. Самый сильный wow — ты не отвечаешь сам, твой агент отвечает.</li>
-        <li><b>Claim через bio, опционально автомат:</b> Claude сам редактирует GitHub bio через github-MCP если он подключен. Zero-touch verification.</li>
-        <li><b>Настраиваемая частота:</b> сразу / утром / выходными / по запросу. Не навязываем ежедневный спам.</li>
-        <li><b>Формат дайджеста = @mcphire канал:</b> проверенный рубричный формат с хештегами и CTA, персонализированный под стек.</li>
+        <li><b>Auto-discovery:</b> даёшь домен — агент сам находит MCP-эндпоинт и onboarding-последовательность. Ничего не нужно гуглить или копипастить из инструкций.</li>
+        <li><b>M2M на 100 вопросов:</b> Claude отвечает MCPHire за тебя, используя твой контекст (MD-файлы, заметки, прошлые чаты). Ты approve одним «ok» — или правишь пункты и одобряешь после.</li>
+        <li><b>Claim с опциональным автоматом:</b> Claude через github-MCP сам вставляет токен в bio. Ничего не делаешь.</li>
+        <li><b>Heartbeat внутри Claude:</b> новые матчи появляются в том же чате, где ты регистрировался. Никакой сторонней инфры.</li>
       </ul>
-      <p style="margin-top:14px; color:var(--accent-2); font-weight:500">Анти-wow: если первый дайджест пустой — продукт мёртв. Supply сейчас: 74K HH-вакансий, обновление каждые 6 часов. M2M-подряды появятся когда buyer-сторона запущена (следующий спринт, после проверки гипотезы).</p>
+      <p style="margin-top:14px; color:var(--accent-2); font-weight:500">Анти-wow: пустой первый heartbeat. Если по стеку юзера в 74K вакансий нет ни одного overlap — продукт выглядит сломанным. Страховка: первые 30 юзеров — ручная curation Тимом плюс широкий SQL-фильтр (не strict match, а «похоже»).</p>
     </div>
   </div>
 </section>
@@ -518,35 +506,43 @@
       <div class="col">
         <h4>В MVP</h4>
         <ul>
-          <li><b>Skill-manifest</b> <span class="mono">/skill/mcphire-join.md</span> — с протоколом M2M-опроса и режимами (MD-only / ask / combo)</li>
-          <li><b>MCP-tools:</b> <span class="mono">get_registration_questions</span> (возвращает 87 вопросов), <span class="mono">register_profile</span> (принимает dict ответов), <span class="mono">list_my_matches</span>, <span class="mono">get_verification_status</span></li>
-          <li><b>Claim-flow:</b> ручной (Claude выдаёт инструкцию) или автомат через github-MCP если подключен у юзера</li>
-          <li><b>Claim-cron</b> — чекает GitHub/LinkedIn bio раз в 15 минут</li>
-          <li><b>TG-бот</b> с командами: <span class="mono">/start</span>, <span class="mono">/link &lt;profile_id&gt; &lt;token&gt;</span>, <span class="mono">/matches</span>, <span class="mono">/settings</span>, <span class="mono">/pause</span></li>
-          <li><b>Notification preferences:</b> 4 режима (instant / morning / weekend / on-demand), сохраняются в profile</li>
-          <li><b>Digest cron (3 шт)</b> — instant (каждые 15 мин для new jobs + matches юзеров), morning (9:00 local), weekend (сб 10:00 local)</li>
-          <li><b>Формат дайджеста</b> — рубричный как <a href="https://t.me/mcphire" target="_blank">@mcphire канал</a>, но персонализированный + хештеги + CTA на /me/&lt;profile_id&gt;</li>
-          <li><b>Supply source:</b> 74K HH-вакансий (уже есть), обновление каждые 6 часов</li>
-          <li><b>Новые таблицы:</b> <span class="mono">agent_profiles</span>, <span class="mono">claim_tokens</span>, <span class="mono">telegram_links</span>, <span class="mono">notification_prefs</span>, <span class="mono">digest_log</span></li>
-          <li><b>Telemetry:</b> Umami events на каждый шаг воронки</li>
+          <li><b>For-agents блок</b> на <span class="mono">mcphire.com</span> (главная) — машиночитаемый, для auto-discovery. Человеку не мешает.</li>
+          <li><b>Обновлённые</b> <span class="mono">/llms.txt</span> и <span class="mono">/.well-known/mcp/server.json</span> — содержат onboarding-последовательность.</li>
+          <li><b>MCP-tools:</b> <span class="mono">get_registration_questions</span> (возвращает 100 вопросов), <span class="mono">register_profile</span> (принимает dict ответов), <span class="mono">list_my_matches</span>, <span class="mono">get_verification_status</span>.</li>
+          <li><b>Каталог 100 вопросов</b> с hint-ами для агента (какие файлы читать под каждый вопрос).</li>
+          <li><b>Claim-flow:</b> автомат через github-MCP, fallback на ручную вставку в bio. Один путь, два варианта в конце.</li>
+          <li><b>Claim-cron</b> — чекает bio каждые 15 минут (или по запросу через <span class="mono">get_verification_status</span>).</li>
+          <li><b>Heartbeat:</b> Claude-скилл зовёт <span class="mono">list_my_matches</span> при каждом открытии conversation. Новые матчи показываются в том же чате.</li>
+          <li><b>Supply:</b> 74K HH-вакансий, обновление каждые 6 часов. SQL overlap + мягкий fallback для первых 30 юзеров.</li>
+          <li><b>Новые таблицы:</b> <span class="mono">agent_profiles</span>, <span class="mono">claim_tokens</span>, <span class="mono">match_history</span>.</li>
+          <li><b>Telemetry:</b> Umami events на ключевые шаги (discover / register / verify / match_shown / match_opened).</li>
         </ul>
       </div>
       <div class="col">
         <h4>Не в MVP</h4>
         <ul>
-          <li><strike>Deep-link TG</strike> — не работает в Claude Code, используем /link команду вручную</li>
+          <li><strike>Telegram-бот</strike> — <b>под вопросом, см. рекомендацию ниже</b></li>
+          <li><strike>Notification preferences</strike> — частота уведомлений не настраивается, heartbeat при открытии Claude</li>
+          <li><strike>Personal digest cron</strike> — нет отдельного пуша, матчи приходят внутри Claude</li>
+          <li><strike>Deep-link TG</strike> — не работает в Claude Code</li>
+          <li><strike>Режимы онбординга</strike> (dialog / MD / combo) — только M2M, один путь</li>
           <li><strike>Buyer-сторона и M2M-подряды</strike> — следующий спринт, пока только HH-supply</li>
-          <li><strike>Buyer's Claude задаёт вопросы seller's Claude</strike> — это отдельный M2M, не путать с M2M-онбордингом</li>
-          <li><strike>Dashboard /me/</strike> в виде interactive-страницы — только static HTML со списком матчей по token</li>
-          <li><strike>Rule-based auto-matching</strike> — SQL по JSONB overlap достаточно</li>
-          <li><strike>Embedding similarity</strike> — не нужно до 500 профилей</li>
-          <li><strike>Escrow, payments</strike> — не собираем деньги, всё бесплатно</li>
-          <li><strike>Reputation/review</strike> — нечего ревьюить</li>
-          <li><strike>Public feed или leaderboard</strike> — мы private-match</li>
-          <li><strike>Email</strike> — никаких email, только TG</li>
-          <li><strike>Отдельные skills для seller/buyer</strike> — один <span class="mono">/mcphire-join</span> покрывает обе стороны</li>
+          <li><strike>Dashboard /me/</strike> — не нужен, матчи внутри Claude</li>
+          <li><strike>Rule-based auto-matching</strike> — SQL JSONB overlap достаточно</li>
+          <li><strike>Embedding similarity</strike> — не до 500 профилей</li>
+          <li><strike>Escrow, payments, reputation</strike></li>
+          <li><strike>Public feed / leaderboard</strike></li>
+          <li><strike>Email</strike> — никаких email</li>
+          <li><strike>Отдельные skills для seller/buyer</strike> — один вход</li>
         </ul>
       </div>
+    </div>
+
+    <div class="wow-box" style="margin-top:40px; border-color: var(--accent-2); background: oklch(15% 0.04 75);">
+      <h4>Моя рекомендация по <em>Telegram-боту</em></h4>
+      <p><b>Выкидываем из MVP. Не делаем.</b> Аргумент: аудитория — AI-native, живёт в Claude Desktop каждый день. Heartbeat при открытии чата доставляет матч за 10 секунд. TG добавляет бота, deep-link, команды, aiogram, привязку, preferences — это ~2 дня работы, которую можно не делать.</p>
+      <p>Когда вернёмся к TG: если пост в LinkedIn выстрелит, соберём feedback из первых 30–50 регистраций, и если &gt;40% юзеров попросят «хочу на телефон» — добавим как opt-in в v2. Пока — single channel, один путь: Claude-чат.</p>
+      <p>Что пока не закрыто: как юзер узнает о новом матче если неделю не открывает Claude? Ответ: никак. Это фича MVP, не баг. Рынок — активные Claude-юзеры, кто открывает каждый день. Остальные — не наша аудитория в первые 14 дней.</p>
     </div>
   </div>
 </section>
@@ -557,7 +553,7 @@
     <div class="sec-head">
       <div class="num">05<small>Документационный бэклог</small></div>
       <div>
-        <div class="eyebrow"><span class="dot"></span>1 СПРИНТ · 4 ЭПИКА · 17 ЗАДАЧ</div>
+        <div class="eyebrow"><span class="dot"></span>1 СПРИНТ · 4 ЭПИКА · 14 ЗАДАЧ</div>
         <h2>Только документация.<br>Никакого кода.</h2>
       </div>
     </div>
@@ -582,25 +578,25 @@
         <div class="task">
           <div class="t-head">
             <span class="tid">D1.1</span>
-            <span class="path">public/skill/mcphire-join.md</span>
-            <span class="act create">create</span>
-            <span class="time">~ 60 мин</span>
+            <span class="path">public/llms.txt, /.well-known/mcp/server.json</span>
+            <span class="act update">update</span>
+            <span class="time">~ 40 мин</span>
           </div>
-          <p class="desc">Markdown-скилл с M2M-протоколом регистрации. Claude читает, предлагает 3 режима онбординга, опрашивает или читает MD, показывает approval-экран.</p>
-          <p class="what"><b>что внутри</b>(1) Pre-amble (что такое MCPHire, 3 режима). (2) M2M Registration protocol: шаги <span class="mono">get_registration_questions</span> → анализ локальных MD → выделение пропусков → дозопрос юзера → compose answers → <b>approval screen</b> → <span class="mono">register_profile</span>. (3) Claim protocol с веткой «автомат через github-MCP если подключен». (4) TG binding: выдать инструкцию "найти @mcphire_match_bot + /link prof token". (5) Notification preferences: 4 режима. (6) Heartbeat: при открытии conversation — <span class="mono">list_my_matches(since)</span>.</p>
-          <p class="ac"><b>acceptance</b>Файл &lt; 6KB. Содержит 4 code-блока (3 JSON-примера MCP-вызовов + 1 approval-шаблон). Эксплицитная инструкция Claude: <b>«никогда не регистрируй без approval юзера»</b>. MCP-endpoint захардкожен. Русский + английские имена tool-ов.</p>
+          <p class="desc">Обновить оба файла так, чтобы агент по fetch mcphire.com находил полную onboarding-последовательность. Никакого отдельного <span class="mono">/skill</span> URL — агент читает два стандартных машиночитаемых эндпоинта.</p>
+          <p class="what"><b>что внутри</b>В llms.txt — секция «Agent onboarding protocol»: порядок вызовов <span class="mono">get_registration_questions</span> → answer from context → <b>show approval screen to user</b> → <span class="mono">register_profile</span> → claim via bio. Явная инструкция: «никогда не вызывай register_profile без explicit user approval».<br>В server.json — описание 4 новых tool-ов и последовательность в <span class="mono">usage_pattern</span>.</p>
+          <p class="ac"><b>acceptance</b>Агент получает всё нужное из двух файлов. Инструкция approval явно присутствует и в llms.txt и в server.json. Валидный формат llmstxt.org + server.json spec.</p>
         </div>
 
         <div class="task">
           <div class="t-head">
             <span class="tid">D1.2</span>
-            <span class="path">public/index.html (hero)</span>
+            <span class="path">public/index.html (hero + for-agents block)</span>
             <span class="act update">update</span>
-            <span class="time">~ 30 мин</span>
+            <span class="time">~ 45 мин</span>
           </div>
-          <p class="desc">Заменить текущий hero сайта на минималистичный entry-экран — одна строка с CTA «Кинь адрес в Claude».</p>
-          <p class="what"><b>что внутри</b>Одна фраза poster-style, три шага инструкции («1. mcphire.com/skill 2. вставь в Claude 3. жди 24ч»), GIF/screencast-заглушка. Старый SSG-контент прячется за fold.</p>
-          <p class="ac"><b>acceptance</b>Lighthouse mobile ≥ 85, LCP ≤ 2.5s, Schema.org JobBoardMarketplace + FAQPage. Старые 72K /jobs/ живы для SEO.</p>
+          <p class="desc">Обновить главную под auto-discovery. Человеческий hero + отдельный машиночитаемый блок «For AI agents» с MCP-эндпоинтом и onboarding-последовательностью.</p>
+          <p class="what"><b>что внутри</b>(1) Hero для людей — одна строка с CTA «Дай адрес mcphire.com своему AI-агенту». (2) Ниже — блок <span class="mono">&lt;section data-for=&quot;ai-agents&quot;&gt;</span> с заголовком «For AI agents» и структурированным содержимым: MCP endpoint, ссылка на llms.txt и server.json, onboarding steps (1. get_registration_questions → 2. fill from context → 3. show approval → 4. register_profile → 5. claim). (3) Старый SSG 72K живёт под fold. (4) JSON-LD с типом <span class="mono">SoftwareApplication</span> + <span class="mono">WebAPI</span>.</p>
+          <p class="ac"><b>acceptance</b>Human-hero читается за 5 секунд. For-agents блок видно Claude при fetch mcphire.com — содержит прямую строку «MCP endpoint: https://mcp.mcphire.com/sse». Валидный Schema.org, Lighthouse mobile ≥ 85.</p>
         </div>
 
         <div class="task">
@@ -635,7 +631,7 @@
             <span class="time">~ 75 мин</span>
           </div>
           <p class="desc">Reference для всех MCP-tools проекта (5 старых + 4 новых). По каждому: назначение, input schema, output schema, примеры, error codes, rate-limits.</p>
-          <p class="what"><b>что внутри</b>Секции: existing tools (refresh), new tools:<br>— <span class="mono">get_registration_questions()</span> — возвращает массив из ≈87 вопросов с категориями (stack, style, availability, red_flags, ...)<br>— <span class="mono">register_profile(answers: dict)</span> — принимает словарь {question_id: answer}, валидирует, создаёт профиль<br>— <span class="mono">list_my_matches(profile_id, since, limit)</span><br>— <span class="mono">get_verification_status(profile_id)</span><br>Для каждого — JSON request+response, ошибки, ссылки на DATA_MODEL.md.</p>
+          <p class="what"><b>что внутри</b>Секции: existing tools (refresh), new tools:<br>— <span class="mono">get_registration_questions()</span> — возвращает массив из 100 вопросов с категориями (stack, style, availability, red_flags, ...)<br>— <span class="mono">register_profile(answers: dict)</span> — принимает словарь {question_id: answer}, валидирует, создаёт профиль<br>— <span class="mono">list_my_matches(profile_id, since, limit)</span><br>— <span class="mono">get_verification_status(profile_id)</span><br>Для каждого — JSON request+response, ошибки, ссылки на DATA_MODEL.md.</p>
           <p class="ac"><b>acceptance</b>Покрывает 100% tool-ов. JSON-примеры валидируются jq. Error-codes пронумерованы (E100-E199 profile, E200-E299 matches, E300-E399 verify, E400-E499 questions).</p>
         </div>
 
@@ -646,9 +642,9 @@
             <span class="act create">create</span>
             <span class="time">~ 50 мин</span>
           </div>
-          <p class="desc">Каталог из ≈87 вопросов, которые MCPHire задаёт через <span class="mono">get_registration_questions</span>. Это источник правды для M2M-онбординга.</p>
+          <p class="desc">Каталог из 100 вопросов, которые MCPHire задаёт через <span class="mono">get_registration_questions</span>. Это источник правды для M2M-онбординга.</p>
           <p class="what"><b>что внутри</b>YAML/JSON структура: id, category (stack/style/availability/comp/intent/red_flags/meta), text_ru, text_en, type (enum/text/number/multiselect), options если enum, required_for_match (true/false), hint_for_agent (какие файлы имеет смысл читать — для Claude-assistance). Например: «q_stack_primary: какой твой основной стек последние 6 месяцев? hint: читай package.json, requirements.txt, pyproject.toml, Gemfile, go.mod».</p>
-          <p class="ac"><b>acceptance</b>≥ 70 вопросов. Каждый покрывает одно поле профиля. Категории покрывают всё что нужно для матчинга. Обоснование каждой категории в шапке файла.</p>
+          <p class="ac"><b>acceptance</b>Ровно 100 вопросов. Каждый покрывает одно поле профиля. Категории покрывают всё что нужно для матчинга. Обоснование каждой категории в шапке файла.</p>
         </div>
 
         <div class="task">
@@ -689,65 +685,42 @@
       </div>
     </div>
 
-    <!-- EPIC D3 — TELEGRAM + NOTIFICATIONS -->
+    <!-- EPIC D3 — MATCH DELIVERY (inside Claude) -->
     <div class="epic">
       <div class="epic-head">
         <div class="id">D3</div>
-        <div class="title">Канал уведомлений<small>TG-бот · daily digest · formatting</small></div>
+        <div class="title">Доставка матчей<small>heartbeat внутри Claude · формат</small></div>
         <div class="rt"><span class="tag info">UX</span></div>
       </div>
       <div class="epic-body">
-        <p class="goal"><b>Goal.</b> Описать поведение TG-бота: команды, формат уведомлений, тон, анти-спам. Этот файл — источник правды для копирайта бота и для dev-реализации.</p>
+        <p class="goal"><b>Goal.</b> Описать как агент узнаёт о новых матчах и как показывает их юзеру. Никакого TG, никакого email — только внутри chat-треда Claude.</p>
 
         <div class="task">
           <div class="t-head">
             <span class="tid">D3.1</span>
-            <span class="path">docs/TELEGRAM.md</span>
+            <span class="path">docs/HEARTBEAT.md</span>
             <span class="act create">create</span>
-            <span class="time">~ 60 мин</span>
+            <span class="time">~ 30 мин</span>
           </div>
-          <p class="desc">Полная спека TG-бота — @mcphire_match_bot. Команды, <b>manual /link-привязка</b> (не deep-link), preferences, runbook.</p>
-          <p class="what"><b>что внутри</b>(1) Команды: <span class="mono">/start</span> (онбординг), <span class="mono">/link &lt;profile_id&gt; &lt;claim_token&gt;</span> (привязка — основной механизм вместо deep-link), <span class="mono">/matches</span> (manual pull), <span class="mono">/settings</span> (inline-кнопки для частоты), <span class="mono">/pause</span>, <span class="mono">/resume</span>, <span class="mono">/profile</span>, <span class="mono">/help</span>.<br>(2) Notification modes: <b>instant</b> (event-driven, &lt; 15 мин latency), <b>morning</b> (09:00 local), <b>weekend</b> (сб 10:00), <b>on-demand</b> (только /matches).<br>(3) Анти-спам правила: instant режим cap 3 сообщения в сутки макс, morning — один раз, тишина если пусто.<br>(4) Эскалации: через 30 дней неактивности — /pause-предложение.</p>
-          <p class="ac"><b>acceptance</b>Все команды с финальными примерами сообщений (не лорем). /link команда с error-ветками (invalid token, expired, already linked). Правила частоты явные.</p>
+          <p class="desc">Спека heartbeat-протокола. Claude при каждом открытии conversation зовёт <span class="mono">list_my_matches(profile_id, since=last_check)</span>. Если новые есть — показывает юзеру одним сообщением.</p>
+          <p class="what"><b>что внутри</b>(1) Условия вызова: при открытии chat-треда, при прямом запросе юзера («покажи новые вакансии»), максимум раз в 4 часа. (2) Хранение last_check в Claude project memory / conversation state. (3) Zero-match behavior — тишина, не лезем к юзеру если нечего сказать. (4) Ограничение: не более 5 матчей в одном push — если найдено больше, показываем топ-5 + «ещё N на mcphire.com/jobs».</p>
+          <p class="ac"><b>acceptance</b>Протокол описан так, чтобы его можно было вставить как секцию в llms.txt. Явные правила anti-spam (не дёргать юзера чаще раза в 4ч).</p>
         </div>
 
         <div class="task">
           <div class="t-head">
             <span class="tid">D3.2</span>
-            <span class="path">docs/TELEGRAM.md (appendix · шаблоны)</span>
+            <span class="path">docs/MATCH_FORMAT.md</span>
             <span class="act create">create</span>
-            <span class="time">~ 30 мин</span>
+            <span class="time">~ 25 мин</span>
           </div>
-          <p class="desc">Шаблоны сообщений для 4 режимов + onboarding-flow. Формат — копия публичного @mcphire канала, персонализированный.</p>
-          <p class="what"><b>что внутри</b>10 шаблонов: (1) welcome after /link, (2) settings prompt с inline, (3) instant-match уведомление «1 подходящая», (4) morning-digest 3-5 матчей в рубричном формате, (5) weekend-обзор, (6) zero-match silent, (7) pause-confirm, (8) resume, (9) 30-day-inactive, (10) error-ветки /link.<br>Плейсхолдеры: <span class="mono">{first_name}</span>, <span class="mono">{matches_count}</span>, <span class="mono">{top_category}</span>, <span class="mono">{salary_range}</span>, <span class="mono">{match_list}</span>.<br>Формат match_list — копия @mcphire: «N. Название — Компания\n   Зарплата ₽ | Уровень | Город» + хештеги в конце + CTA-линк на mcphire.com/me/&lt;token&gt;.</p>
-          <p class="ac"><b>acceptance</b>Все копипастятся в aiogram без правок. Markdown-escape проверен. Формат визуально совпадает с референсом <a href="https://t.me/mcphire" target="_blank">@mcphire</a>.</p>
-        </div>
-
-        <div class="task">
-          <div class="t-head">
-            <span class="tid">D3.4</span>
-            <span class="path">docs/DIGEST_FORMATTER.md</span>
-            <span class="act create">create</span>
-            <span class="time">~ 30 мин</span>
-          </div>
-          <p class="desc">Спека формирования digest-сообщения — как из списка матчей собрать сообщение в стиле @mcphire-канала.</p>
-          <p class="what"><b>что внутри</b>(1) Группировка матчей: по главной категории стека профиля (Frontend / Backend / DevOps / Data&amp;ML / QA / Design) для morning/weekend; для instant — один матч, одна категория. (2) Подбор эмодзи по категории (как в @mcphire: 📊 🔧 🎨 🖥 ✅ 🎯). (3) Вычисление salary range в заголовке. (4) Хештеги из стека профиля. (5) CTA: «Все матчи → mcphire.com/me/{token}». (6) Truncation rules: 3-5 матчей в сообщении, остаток — «ещё 7 на сайте».</p>
-          <p class="ac"><b>acceptance</b>Документ содержит 3 примера вывода (для instant / morning / weekend) в финальном формате. Референс-формат @mcphire проверяется визуально (attach скриншот).</p>
-        </div>
-
-        <div class="task">
-          <div class="t-head">
-            <span class="tid">D3.3</span>
-            <span class="path">RUNBOOK.md (append)</span>
-            <span class="act update">update</span>
-            <span class="time">~ 15 мин</span>
-          </div>
-          <p class="desc">Секция «TG-бот operations» — как перезапускать, как сбросить webhook, как отозвать токен BotFather, как почистить pending updates.</p>
-          <p class="what"><b>что внутри</b>4 процедуры с командами. Rollback: что делать если бот массово шлёт неверные матчи (kill switch через env-var MATCH_BOT_DISABLED=1).</p>
-          <p class="ac"><b>acceptance</b>Каждая процедура с явной командой Bash или Python, без «посмотрите в docs».</p>
+          <p class="desc">Формат сообщения, которое Claude выкладывает юзеру при срабатывании heartbeat. Референс — публичный канал <a href="https://t.me/mcphire" target="_blank">@mcphire</a>, но адаптированный под chat-окружение.</p>
+          <p class="what"><b>что внутри</b>Шаблон: заголовок-summary («За ночь появились N подходящих»), список N матчей в формате «Название — Компания / Зарплата | Уровень | Локация / Совпало: stack». Плюс short closing: «Открой какую — дам детали и ссылку». Без хештегов (чат — не канал), без markdown-бейджей.</p>
+          <p class="ac"><b>acceptance</b>3 примера: 1 матч, 3 матча, 5+ матчей (с truncation). Формат не ломается на узком viewport Claude-UI.</p>
         </div>
       </div>
     </div>
+
 
     <!-- EPIC D4 — SCOPE / LLMS / CHANGELOG -->
     <div class="epic">
@@ -768,7 +741,7 @@
           </div>
           <p class="desc">Тот же flow, что в секции 03 этой страницы, но в отдельном md-файле. Для внутренней передачи или для любого человека, который присоединится.</p>
           <p class="what"><b>что внутри</b>7 шагов пользователя, каждый с: что делает, что видит, сколько занимает, failure mode. Mermaid sequenceDiagram для ключевых переходов.</p>
-          <p class="ac"><b>acceptance</b>Один md-файл ≤ 500 строк, Mermaid валиден, ссылки на API.md и TELEGRAM.md.</p>
+          <p class="ac"><b>acceptance</b>Один md-файл ≤ 500 строк, Mermaid валиден, ссылки на API.md и HEARTBEAT.md.</p>
         </div>
 
         <div class="task">
@@ -852,7 +825,7 @@
       <div class="spec" style="grid-column: 1 / -1;">
         <h4>get_registration_questions</h4>
         <div class="sub">READ · auth none · новый</div>
-        <p class="purpose"><b>Назначение.</b> Возвращает каталог ≈87 вопросов для M2M-онбординга. Claude забирает массив, читает локальные MD-файлы юзера и отвечает за него, где возможно. Источник правды — QUESTIONS_SCHEMA.md.</p>
+        <p class="purpose"><b>Назначение.</b> Возвращает каталог 100 вопросов для M2M-онбординга. Claude забирает массив, читает локальные MD-файлы юзера и отвечает за него, где возможно. Источник правды — QUESTIONS_SCHEMA.md.</p>
 <pre><b>INPUT</b>  { "side": "seller" }   // optional — возвращает только релевантные для стороны
 
 <b>OUTPUT</b>
@@ -903,10 +876,9 @@
     "q_timezone": "UTC+3",
     "q_proof_url": <em>"https://github.com/marina"</em>,
     "q_must_not": "no on-call, no crypto",
-    "q_notification_mode": "instant",
-    ... // 78 more fields
+    ... // 92 more fields
   },
-  "source": "agent_m2m"   // enum: agent_m2m | dialog | combo
+  "source": "agent_m2m"   // константа — другого режима нет
 }</pre>
 
 <b>OUTPUT</b>
@@ -1007,33 +979,33 @@
     <div class="open-list">
       <div class="q">
         <span class="num">i</span>
-        <h4>Объём каталога вопросов</h4>
-        <p>87 вопросов для M2M-опроса — оптимально или слишком много? Альтернативы: 50 (покрывает основное за 1 мин чтения MD), 100 (глубже tone/values), adaptive (категории по желанию юзера). Влияет на D2.5.</p>
+        <h4>TG-бот — выкидываем из MVP?</h4>
+        <p>Моя рекомендация: <b>не делать</b>. Heartbeat в Claude покрывает доставку матчей, TG добавляет ~2 дня работы. Вернёмся к нему в v2 если ≥40% юзеров попросят «хочу на телефон». Принимаем?</p>
       </div>
       <div class="q">
         <span class="num">ii</span>
-        <h4>Приватность MD-чтения</h4>
-        <p>Claude читает локальные файлы и <b>формирует ответы, не отправляя сами файлы</b>. Нужен ли explicit confirmation на каждую категорию, или одно разрешение на весь процесс? Второе проще UX, первое честнее.</p>
+        <h4>100 вопросов — раскладка по категориям</h4>
+        <p>Предлагаю: stack (20), experience (15), style (15), availability (10), comp (10), intent (10), red_flags (10), domain (5), artifacts (5). Согласен с пропорциями?</p>
       </div>
       <div class="q">
         <span class="num">iii</span>
-        <h4>GitHub-автоматика для claim</h4>
-        <p>Claude через github-MCP сам редактирует bio. Риск: юзер не понимает что его bio изменилось. Митигация: Claude явно говорит «пишу в твой bio строку X» и ждёт approve. Согласуется?</p>
+        <h4>Approval-формат</h4>
+        <p>Claude показывает 100 вопросов+ответов <b>одним сплошным документом</b> или разбить на 9 категорий с отдельным ок на каждую? Первое — читаешь за 1 проход, второе — 9 подтверждений (больше friction).</p>
       </div>
       <div class="q">
         <span class="num">iv</span>
-        <h4>TG-бот имя</h4>
-        <p><span class="mono">@mcphire_match_bot</span> или <span class="mono">@mcphirematch_bot</span> (подчёркивание в TG команде вида <span class="mono">/link</span> может быть issue). Нужна проверка на BotFather занятости + usability теста /link команды.</p>
+        <h4>Приватность MD-чтения</h4>
+        <p>Claude читает локальные файлы и <b>формирует ответы не отправляя сами файлы на сервер</b>. Нужно ли explicit confirmation на scan, или делаем молча (стандартное поведение Claude Code)?</p>
       </div>
       <div class="q">
         <span class="num">v</span>
-        <h4>Instant-режим rate limit</h4>
-        <p>В instant-режиме бот шлёт «event-driven» — сразу как только нашёл match. Cap на сутки: 3 сообщения / 5 / без cap? Без cap = spam risk при burst-приходе новых HH-вакансий в 6:00 утра.</p>
+        <h4>GitHub-автоматика claim</h4>
+        <p>Claude через github-MCP сам редактирует bio. Риск: юзер не понимает что bio изменилось. Митигация: Claude эксплицитно говорит «пишу в твой bio строку X» и ждёт approve. Согласуется?</p>
       </div>
       <div class="q">
         <span class="num">vi</span>
         <h4>Supply-гарантия первых 48ч</h4>
-        <p>74K HH-вакансий существует, но первый match юзера зависит от SQL-overlap. Risk: пул есть, но специфический стек не матчится. Страховка: первые 30 юзеров — Тим руками готовит выборку (2 мин на каждого)? Или принимаем риск «повезло/не повезло»?</p>
+        <p>74K HH-вакансий есть, но первый heartbeat-ответ зависит от SQL-overlap. Risk: пул широкий, но специфический стек может не матчнуться. Страховка: первые 30 юзеров — Тим руками готовит выборку за 2 мин на каждого? Или принимаем риск «повезло/не повезло»?</p>
       </div>
     </div>
   </div>
