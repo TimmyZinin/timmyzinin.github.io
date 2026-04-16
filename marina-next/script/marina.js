@@ -4741,6 +4741,32 @@
 
     STATE = loadState();
 
+    // SPRINT 52 — language mismatch detection: persisted thread history is in
+    // a different language than current locale. Auto-clear threads (preserve
+    // gameplay state — day, cash, contacts visibility) so player sees clean
+    // chats in current language. Avoids RU/EN/TR/PT mixing in bubbles.
+    var _curLang = (window.MarinaI18n && window.MarinaI18n.getLang && window.MarinaI18n.getLang()) || 'ru';
+    if (STATE._lang_stamp && STATE._lang_stamp !== _curLang) {
+      // Clear all thread bubble history but keep state.contacts visibility/unread + state stats
+      if (STATE.threads && typeof STATE.threads === 'object') {
+        for (var _tid in STATE.threads) {
+          if (Object.prototype.hasOwnProperty.call(STATE.threads, _tid)) STATE.threads[_tid] = [];
+        }
+      }
+      // Reset unread badges (no point in showing pending-reply notifications for cleared chats)
+      if (Array.isArray(STATE.contacts)) {
+        STATE.contacts.forEach(function (c) { if (c) c.unread = 0; });
+      }
+      // Stamp new lang
+      STATE._lang_stamp = _curLang;
+      saveState();
+      // Console notice for QA
+      try { console.log('[i18n] thread history cleared due to language switch:', STATE._lang_stamp || 'unknown', '→', _curLang); } catch (e) {}
+    } else if (!STATE._lang_stamp) {
+      STATE._lang_stamp = _curLang;
+      saveState();
+    }
+
     // SPRINT 14.4 rev3 — populate footer version dynamically (single source = VERSION)
     $('#footer-version').text('v' + VERSION + ' survival');
 
@@ -4760,6 +4786,24 @@
     }
     window.addEventListener('marina:i18nready', _i18nReready);
     window.addEventListener('marina:langchange', _i18nReready);
+
+    // SPRINT 52 — on mid-run language switch, also clear thread history so user
+    // doesn't see mixed-language bubbles. Reload to apply fresh.
+    window.addEventListener('marina:langchange', function (ev) {
+      try {
+        var newLang = (ev.detail && ev.detail.lang) || (window.MarinaI18n && window.MarinaI18n.getLang());
+        if (STATE._lang_stamp && newLang && STATE._lang_stamp !== newLang) {
+          if (STATE.threads) for (var tid in STATE.threads) { if (Object.prototype.hasOwnProperty.call(STATE.threads, tid)) STATE.threads[tid] = []; }
+          if (Array.isArray(STATE.contacts)) STATE.contacts.forEach(function (c) { if (c) c.unread = 0; });
+          STATE._lang_stamp = newLang;
+          saveState();
+          // Reload UI to render fresh state in new locale
+          openChat(STATE.current_chat || 'scratch');
+          Bubbles.renderContacts(STATE);
+          renderDock();
+        }
+      } catch (e) {}
+    });
 
     if (STATE.ending_seen === 'win') {
       $('#win-stats').text(STATE.delivered_projects + ' проекта сданы · $' + STATE.cash + ' · energy ' + STATE.energy);
