@@ -28,17 +28,26 @@
 
   <!-- SPRINT 49 — i18n: load runtime BEFORE paint to avoid FOUC -->
   <script src="i18n/i18n-runtime.js?v=2.8.0"></script>
+  <!-- SPRINT 51 — viral mechanic: load BEFORE i18n init so viral hook can fire from i18n onReady callback -->
+  <script src="script/viral.js?v=2.8.0"></script>
   <script>
     // Auto-detect lang in head before paint — avoid FOUC.
     // Resolution: URL ?lang= > localStorage > navigator > 'en' fallback.
+    // viral applyReferralOnLanding hooked into onReady so i18n's applyDomSwap
+    // runs FIRST, then viral overrides hero eyebrow LAST — no race.
     (function () {
       if (!window.MarinaI18n) return;
-      window.MarinaI18n.init({ autodetect: true });
+      window.MarinaI18n.init({
+        autodetect: true,
+        onReady: function () {
+          // i18n done — now safely apply viral referral override
+          if (window.MarinaViral && document.querySelector('.hero-eyebrow')) {
+            window.MarinaViral.applyReferralOnLanding();
+          }
+        }
+      });
     })();
   </script>
-
-  <!-- SPRINT 51 — viral mechanic: applies ?from= / ?challenge= hero override -->
-  <script src="script/viral.js?v=2.8.0"></script>
 </head>
 <body id="top">
 
