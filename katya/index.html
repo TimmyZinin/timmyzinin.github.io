@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Катя, готовимся к встрече — 16 апреля, 13:00 CET | Tim Zinin</title>
+<meta name="description" content="План подготовки к встрече: оплата подписки Claude, установка Claude Code в терминал за 10 минут, драфт персонального скилла под задачи PR и маркетинга.">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:title" content="Катя — план на встречу 16 апреля">
+<meta property="og:description" content="Оплата Claude, установка Claude Code, драфт скилла под PR-задачи.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://timzinin.com/katya/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: oklch(97% 0.020 85);
+  --bg-2: oklch(94% 0.030 80);
+  --ink: oklch(18% 0.02 40);
+  --ink-soft: oklch(35% 0.03 40);
+  --line: oklch(20% 0.02 40);
+  --bordeaux: oklch(42% 0.15 25);
+  --terracotta: oklch(58% 0.17 45);
+  --ochre: oklch(72% 0.14 75);
+  --coral: oklch(62% 0.19 30);
+  --peach: oklch(82% 0.09 75);
+  --cream: oklch(93% 0.04 85);
+  --moss: oklch(48% 0.08 140);
+  --accent: var(--bordeaux);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  overflow-x: hidden;
+  position: relative;
+}
+body::before{
+  content:"";
+  position: fixed;
+  inset:0;
+  pointer-events:none;
+  z-index: 1000;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+h1,h2,h3,h4{font-family:'DM Serif Display', Georgia, serif;font-weight:400;letter-spacing:-0.02em;line-height:1.05;margin:0}
+.mono{font-family:'JetBrains Mono', ui-monospace, monospace}
+
+.nav{
+  position: sticky; top:0; z-index: 500;
+  display:flex; gap: clamp(8px, 1.5vw, 22px);
+  padding: 14px clamp(16px, 4vw, 56px);
+  background: var(--bg);
+  border-bottom: 1.5px solid var(--line);
+  font-family:'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  overflow-x: auto;
+  white-space: nowrap;
+  align-items: center;
+}
+.nav a{color: var(--ink);text-decoration:none;padding:3px 0;border-bottom: 2px solid transparent;transition: border-color .2s}
+.nav a:hover{border-color: var(--accent)}
+.nav .brand{color: var(--bordeaux);font-weight:700;margin-right:auto}
+
+section{
+  padding: clamp(60px, 9vw, 120px) clamp(20px, 5vw, 80px);
+  border-bottom: 1.5px solid var(--line);
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.sec-num{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(80px, 14vw, 200px);
+  line-height: 0.9;
+  color: var(--ink);
+  opacity: 0.08;
+  position: absolute;
+  top: 20px;
+  right: clamp(20px, 5vw, 80px);
+  pointer-events: none;
+  user-select: none;
+}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bordeaux);
+  margin-bottom: 16px;
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+}
+
+/* HERO */
+.hero{padding: clamp(60px, 10vw, 140px) clamp(20px, 5vw, 80px) clamp(40px, 6vw, 90px)}
+.hero h1{
+  font-size: clamp(44px, 8.5vw, 104px);
+  margin-bottom: 20px;
+}
+.hero h1 em{font-style: italic; color: var(--bordeaux)}
+.hero .lede{
+  font-size: clamp(18px, 2.1vw, 22px);
+  max-width: 680px;
+  color: var(--ink-soft);
+  margin-top: 20px;
+}
+.hero-meta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+.hero-meta .chip{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 8px 14px;
+  background: var(--cream);
+  border: 1.5px solid var(--line);
+  border-radius: 3px;
+}
+.hero-meta .chip strong{color: var(--bordeaux)}
+
+/* CHECKLIST */
+.checklist{
+  margin-top: 36px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.check-card{
+  background: var(--cream);
+  border: 1.5px solid var(--line);
+  padding: 24px;
+  position: relative;
+}
+.check-card .num{
+  font-family:'DM Serif Display', serif;
+  font-size: 48px;
+  color: var(--bordeaux);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.check-card h3{
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+.check-card p{
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.check-card .time{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--bordeaux);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 14px;
+  display: inline-block;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+/* STEPS */
+h2{
+  font-size: clamp(36px, 5vw, 60px);
+  margin-bottom: 24px;
+}
+h2 em{font-style: italic; color: var(--bordeaux)}
+h3{
+  font-size: clamp(24px, 3vw, 32px);
+  margin-bottom: 14px;
+}
+.step{
+  padding: 36px 0;
+  border-top: 1px dashed var(--line);
+}
+.step:first-of-type{border-top: none}
+.step-header{
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.step-header .step-num{
+  font-family:'DM Serif Display', serif;
+  font-size: clamp(48px, 7vw, 88px);
+  color: var(--bordeaux);
+  line-height: 0.9;
+}
+.step-body p{max-width: 720px; margin-bottom: 14px}
+.step-body ul{max-width: 720px; padding-left: 22px; margin-bottom: 14px}
+.step-body li{margin-bottom: 8px}
+
+/* CODE BLOCKS */
+.code{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 14px;
+  background: var(--ink);
+  color: oklch(95% 0.02 85);
+  padding: 18px 20px;
+  border-radius: 3px;
+  overflow-x: auto;
+  margin: 14px 0;
+  line-height: 1.7;
+  white-space: pre;
+  position: relative;
+}
+.code .comment{color: oklch(65% 0.05 85); font-style: italic}
+.code .cmd{color: oklch(88% 0.15 75)}
+
+/* TABS */
+.tabs{
+  margin: 20px 0;
+}
+.tab-buttons{
+  display: flex;
+  gap: 0;
+  border-bottom: 1.5px solid var(--line);
+}
+.tab-btn{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px;
+  transition: all 0.2s;
+}
+.tab-btn.active{
+  color: var(--bordeaux);
+  border-bottom-color: var(--bordeaux);
+  font-weight: 600;
+}
+.tab-content{display: none; padding-top: 20px}
+.tab-content.active{display: block}
+
+/* CALLOUT */
+.callout{
+  background: var(--peach);
+  border-left: 4px solid var(--terracotta);
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.callout strong{color: var(--bordeaux)}
+.callout-title{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bordeaux);
+  margin-bottom: 8px;
+  display: block;
+}
+.callout-warn{background: oklch(88% 0.08 50); border-left-color: var(--coral)}
+.callout-info{background: var(--cream); border-left-color: var(--ink)}
+
+/* AGENDA */
+.agenda{
+  display: grid;
+  gap: 0;
+  margin-top: 32px;
+  border: 1.5px solid var(--line);
+}
+.agenda-row{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.agenda-row:last-child{border-bottom: none}
+.agenda-row:nth-child(odd){background: var(--cream)}
+.agenda-time{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bordeaux);
+  letter-spacing: 0.05em;
+}
+.agenda-content h4{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+.agenda-content p{
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* TASKS GRID */
+.tasks-grid{
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 28px;
+}
+.task-card{
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  padding: 20px;
+  position: relative;
+}
+.task-card .num{
+  font-family:'DM Serif Display', serif;
+  font-size: 32px;
+  color: var(--bordeaux);
+  line-height: 1;
+}
+.task-card h4{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 8px 0;
+}
+.task-card p{
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.task-card .status{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  background: var(--moss);
+  color: var(--bg);
+  border-radius: 2px;
+}
+
+/* FAQ */
+.faq details{
+  border-top: 1px solid var(--line);
+  padding: 20px 0;
+}
+.faq details:last-child{border-bottom: 1px solid var(--line)}
+.faq summary{
+  font-family:'DM Serif Display', serif;
+  font-size: 22px;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 40px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 28px;
+  color: var(--bordeaux);
+  transition: transform 0.2s;
+}
+.faq details[open] summary::after{transform: rotate(45deg)}
+.faq details p{
+  margin-top: 14px;
+  color: var(--ink-soft);
+  max-width: 720px;
+}
+.faq details .code{margin-top: 14px}
+
+/* FOOTER */
+footer{
+  padding: 60px clamp(20px, 5vw, 80px);
+  background: var(--ink);
+  color: oklch(85% 0.02 85);
+  font-size: 14px;
+  text-align: center;
+}
+footer a{color: var(--ochre); text-decoration: underline}
+
+/* RESPONSIVE */
+@media (max-width: 640px){
+  .agenda-row{grid-template-columns: 1fr; gap: 6px}
+  .sec-num{font-size: 80px; opacity: 0.06}
+}
+
+/* DRAFT BADGE */
+.draft-badge{
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 1001;
+  background: var(--coral);
+  color: white;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 12px;
+  border-radius: 3px;
+  font-weight: 600;
+  transform: rotate(3deg);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+</style>
+</head>
+<body>
+
+<div class="draft-badge">draft · not sent</div>
+
+<nav class="nav">
+  <span class="brand">Для Кати</span>
+  <a href="#checklist">Чеклист</a>
+  <a href="#step1">Claude</a>
+  <a href="#step2">Установка</a>
+  <a href="#step3">Проверка</a>
+  <a href="#agenda">Встреча</a>
+  <a href="#skill">Твой скилл</a>
+  <a href="#faq">FAQ</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="eyebrow">План подготовки · 16 апреля · 13:00 CET</span>
+  <h1>Катя,<br>встречаемся <em>в среду</em>.<br>Вот что успеть <em>до созвона</em>.</h1>
+  <p class="lede">
+    Два часа. Первый — я учу тебя Claude Code с нуля, разбираем твои восемь направлений.
+    Второй — работаю один над твоим персональным скиллом, ты смотришь и задаёшь вопросы.
+    Чтобы первый час не потратить на установку, нужно прийти с готовым инструментом.
+    Это три шага, примерно 15 минут суммарно.
+  </p>
+  <div class="hero-meta">
+    <span class="chip"><strong>Когда:</strong> 16 апреля, ср</span>
+    <span class="chip"><strong>Во сколько:</strong> 13:00 CET</span>
+    <span class="chip"><strong>Длительность:</strong> 2 часа</span>
+    <span class="chip"><strong>Формат:</strong> Google Meet</span>
+    <span class="chip"><strong>Оплата:</strong> ✅ получена</span>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <span class="sec-num">01</span>
+  <span class="eyebrow">Чеклист до встречи</span>
+  <h2>Три шага.<br>Минут <em>пятнадцать</em>.</h2>
+  <p style="max-width: 720px; color: var(--ink-soft); font-size: 18px">
+    Не пугайся слов «терминал» и «установить через командную строку» — на деле это
+    три скопированных команды. Если застрянешь на каком-то шаге, просто сфотографируй
+    экран и пришли мне — разберёмся за минуту в переписке.
+  </p>
+
+  <div class="checklist">
+    <div class="check-card">
+      <div class="num">1</div>
+      <h3>Подписка Claude</h3>
+      <p>Оформить Pro-план на <span class="mono">claude.ai</span>. $20/мес, можно отменить сразу после нашей встречи.</p>
+      <span class="time">5 минут · карта</span>
+    </div>
+    <div class="check-card">
+      <div class="num">2</div>
+      <h3>Установить Claude Code</h3>
+      <p>Поставить в терминал CLI-версию Claude. Это 2–3 команды, я расписал пошагово для Mac и Windows.</p>
+      <span class="time">10 минут · терминал</span>
+    </div>
+    <div class="check-card">
+      <div class="num">3</div>
+      <h3>Проверка связи</h3>
+      <p>Запустить <span class="mono">claude</span>, залогиниться, задать первый вопрос. Убедиться что всё работает.</p>
+      <span class="time">2 минуты · тест</span>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 1 -->
+<section id="step1">
+  <span class="sec-num">02</span>
+  <span class="eyebrow">Шаг 1</span>
+  <h2>Оплатить подписку <em>Claude Pro</em></h2>
+
+  <div class="step-body">
+    <p>Claude Code работает через твой аккаунт на <span class="mono">claude.ai</span>. Бесплатный тариф
+      не подойдёт — лимиты слишком жёсткие, за один разговор о твоих задачах всё закончится.</p>
+
+    <ul>
+      <li>Открыть <a href="https://claude.ai/upgrade" target="_blank"><strong>claude.ai/upgrade</strong></a></li>
+      <li>Выбрать план <strong>Pro</strong> — $20/месяц</li>
+      <li>Привязать карту, подтвердить</li>
+      <li>Войти в аккаунт, запомнить email и пароль — они понадобятся на шаге 2</li>
+    </ul>
+
+    <div class="callout callout-info">
+      <span class="callout-title">Про тариф</span>
+      Pro хватает на комфортную работу по 2–3 часа в день. Если увидишь, что упираешься в лимиты — тогда
+      апгрейднемся на Max ($100 или $200), но сначала Pro. Подписку можно отменить в один клик в настройках.
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section id="step2">
+  <span class="sec-num">03</span>
+  <span class="eyebrow">Шаг 2</span>
+  <h2>Установить <em>Claude Code</em> в терминал</h2>
+
+  <div class="step-body">
+    <p>Claude Code — это CLI, то есть «командная строка». Ты общаешься с Claude не в браузере, а прямо в терминале:
+      он умеет читать файлы на твоём компьютере, писать код, запускать команды, искать информацию. Именно из него
+      мы и будем собирать твой персональный скилл для PR и парсинга.</p>
+
+    <p><strong>Ниже выбери свою систему:</strong></p>
+
+    <div class="tabs">
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="mac">🍎 macOS</button>
+        <button class="tab-btn" data-tab="win">🪟 Windows</button>
+        <button class="tab-btn" data-tab="linux">🐧 Linux</button>
+      </div>
+
+      <!-- MAC TAB -->
+      <div class="tab-content active" data-tab="mac">
+        <h3 style="margin-top: 16px">Установка на Mac</h3>
+
+        <p><strong>1. Открыть Terminal</strong></p>
+        <p>Нажать <span class="mono">⌘ + Space</span> (Spotlight), набрать <strong>Terminal</strong>, Enter. Откроется чёрное/белое окно — это и есть терминал.</p>
+
+        <p><strong>2. Установить Node.js</strong> (нужен как движок для Claude Code)</p>
+        <p>Скопировать и вставить в терминал одной строкой. После вставки — Enter. Терминал спросит пароль от Mac — вводи, символов не будет видно, это нормально.</p>
+        <div class="code"><span class="comment"># Сначала ставим Homebrew (менеджер программ для Mac)</span>
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+<span class="comment"># Потом ставим Node.js</span>
+brew install node</div>
+
+        <p><strong>3. Установить Claude Code</strong></p>
+        <div class="code">npm install -g @anthropic-ai/claude-code</div>
+
+        <p><strong>4. Запустить</strong></p>
+        <div class="code">claude</div>
+        <p>В первый раз Claude Code откроет браузер и попросит залогиниться — тем же email/паролем, что и на <span class="mono">claude.ai</span>. После логина можно закрыть вкладку, вернуться в терминал — там будет приглашение к диалогу.</p>
+      </div>
+
+      <!-- WINDOWS TAB -->
+      <div class="tab-content" data-tab="win">
+        <h3 style="margin-top: 16px">Установка на Windows</h3>
+
+        <div class="callout callout-warn">
+          <span class="callout-title">Важно для Windows</span>
+          Claude Code на Windows работает через <strong>WSL</strong> (Windows Subsystem for Linux) — это «Linux внутри Windows». Звучит страшно, но ставится одной командой. Если пойдёт не так — позвони мне до встречи, сделаем вместе за 5 минут.
+        </div>
+
+        <p><strong>1. Открыть PowerShell от администратора</strong></p>
+        <p>Пуск → набрать <strong>PowerShell</strong> → правой кнопкой → «Запуск от имени администратора».</p>
+
+        <p><strong>2. Установить WSL</strong></p>
+        <div class="code">wsl --install</div>
+        <p>После этого <strong>обязательно перезагрузить компьютер</strong>. После перезагрузки появится окно Ubuntu — нужно будет задать логин и пароль (любые, запиши их).</p>
+
+        <p><strong>3. Внутри Ubuntu (WSL) установить Node.js</strong></p>
+        <div class="code">curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs</div>
+
+        <p><strong>4. Установить Claude Code</strong></p>
+        <div class="code">npm install -g @anthropic-ai/claude-code</div>
+
+        <p><strong>5. Запустить</strong></p>
+        <div class="code">claude</div>
+      </div>
+
+      <!-- LINUX TAB -->
+      <div class="tab-content" data-tab="linux">
+        <h3 style="margin-top: 16px">Установка на Linux</h3>
+        <p>Если у тебя Linux, ты и так знаешь что делать, но на всякий случай:</p>
+        <div class="code"><span class="comment"># Node.js через nvm (или ставь свой любимый способ)</span>
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+nvm install 20
+
+<span class="comment"># Claude Code</span>
+npm install -g @anthropic-ai/claude-code
+
+<span class="comment"># Запуск</span>
+claude</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-title">Что делать, если что-то сломалось</span>
+      Не пытайся чинить сама — это отнимет полчаса и нервы. Сфотографируй ошибку, пришли мне в Telegram.
+      Я отвечу конкретной командой-исправлением. На встрече мы всё равно пройдёмся и убедимся, что всё работает.
+    </div>
+  </div>
+</section>
+
+<!-- STEP 3 -->
+<section id="step3">
+  <span class="sec-num">04</span>
+  <span class="eyebrow">Шаг 3</span>
+  <h2>Проверить, что <em>работает</em></h2>
+
+  <div class="step-body">
+    <p>Запусти <span class="mono">claude</span> в терминале. Когда увидишь приглашение к диалогу, введи любую команду для проверки. Например:</p>
+
+    <div class="code">привет. скажи одним предложением какая сегодня дата и какая у тебя модель.</div>
+
+    <p>Если Claude ответил осмысленно — ты готова. Можно выходить (<span class="mono">/quit</span>) и ждать встречи.</p>
+
+    <div class="callout callout-info">
+      <span class="callout-title">Бонус, если останется время</span>
+      Зайди на <a href="https://github.com/anthropics/claude-code" target="_blank"><strong>github.com/anthropics/claude-code</strong></a>
+      и пробеги глазами README. Ничего заучивать не надо — просто чтобы было ощущение, что это за зверь.
+      Ещё полезно посмотреть <a href="https://docs.claude.com/en/docs/claude-code/overview" target="_blank">официальные доки</a> — первые два экрана.
+    </div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section id="agenda">
+  <span class="sec-num">05</span>
+  <span class="eyebrow">Программа встречи</span>
+  <h2>Два часа.<br>Пополам: <em>учу</em> и <em>делаю</em>.</h2>
+
+  <div class="agenda">
+    <div class="agenda-row">
+      <div class="agenda-time">0:00–0:10</div>
+      <div class="agenda-content">
+        <h4>Знакомство с Claude Code вживую</h4>
+        <p>Открываем терминал, запускаем Claude. Объясняю на пальцах: что такое скилл, что такое файловая система, зачем Claude нужен доступ к твоей папке. Разгоняем страх.</p>
+      </div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">0:10–0:30</div>
+      <div class="agenda-content">
+        <h4>Первые команды: навигация, чтение, поиск</h4>
+        <p>Пройдёмся по базовым операциям так, чтобы ты могла повторить сама. Claude ищет файлы, читает их, пересказывает. Делаешь ты — я подсказываю.</p>
+      </div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">0:30–0:50</div>
+      <div class="agenda-content">
+        <h4>Обзор готовых скиллов на GitHub</h4>
+        <p>Показываю репозиторий Anthropic Skills и мою библиотеку. Смотрим, какие куски можно переиспользовать под твои 8 направлений — парсинг, LinkedIn, аналитика трендов, SEO.</p>
+      </div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">0:50–1:00</div>
+      <div class="agenda-content">
+        <h4>Финализируем спеку твоего скилла</h4>
+        <p>Нарисуем финальный план: какие подзадачи в первой версии, какие во второй. Ты даёшь своё голосовое + уточнения, я записываю в спеку.</p>
+      </div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">1:00–1:55</div>
+      <div class="agenda-content">
+        <h4>Я пишу скилл вживую, ты наблюдаешь</h4>
+        <p>Разделяю экран. Ты задаёшь вопросы, я комментирую каждое решение. К концу часа у тебя в терминале рабочий скилл «PR & Media Hunter v0».</p>
+      </div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">1:55–2:00</div>
+      <div class="agenda-content">
+        <h4>Что дальше</h4>
+        <p>Домашка на неделю, чат для вопросов, критерий «когда нужна вторая встреча».</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILL DRAFT -->
+<section id="skill">
+  <span class="sec-num">06</span>
+  <span class="eyebrow">Драфт твоего скилла</span>
+  <h2>«PR &amp; Media Hunter»<br><em>твои 8 направлений</em> в одном инструменте</h2>
+
+  <p style="max-width: 760px; color: var(--ink-soft); font-size: 18px">
+    Ты прислала восемь пунктов. Они хорошо ложатся в три блока: <strong>поиск клиентов</strong>,
+    <strong>сбор и обогащение баз</strong> (журналисты + блогеры), <strong>аналитика и SEO</strong>.
+    Ниже — черновик того, что получится после двух часов. Это не финал — на встрече вместе уточним приоритеты.
+  </p>
+
+  <div class="tasks-grid">
+    <div class="task-card">
+      <span class="status">mvp</span>
+      <div class="num">1</div>
+      <h4>Поиск клиентов</h4>
+      <p>Мониторинг LinkedIn по ключевым фразам, автоответы в тональности, которую настроим вместе.</p>
+    </div>
+    <div class="task-card">
+      <span class="status">mvp</span>
+      <div class="num">2</div>
+      <h4>База журналистов</h4>
+      <p>Парсинг профилей, поиск прямых контактов, выгрузка в CSV, черновик первого письма.</p>
+    </div>
+    <div class="task-card">
+      <span class="status">mvp</span>
+      <div class="num">3</div>
+      <h4>База блогеров</h4>
+      <p>То же + проверка на соответствие подписчиков и реальных просмотров (фильтр накруток).</p>
+    </div>
+    <div class="task-card">
+      <span class="status">v2</span>
+      <div class="num">4</div>
+      <h4>Тренды по хэштегам</h4>
+      <p>Скан топовых постов по тегам, группировка по темам, «почему зашло».</p>
+    </div>
+    <div class="task-card">
+      <span class="status">v2</span>
+      <div class="num">5</div>
+      <h4>SEO-ревизия сайтов</h4>
+      <p>Проход по страницам клиента: meta, заголовки, скорость, Schema.org. Отчёт с приоритетами.</p>
+    </div>
+    <div class="task-card">
+      <span class="status">v2</span>
+      <div class="num">6</div>
+      <h4>Разбор «взлетевших» видео</h4>
+      <p>Анализ хуков, темпа, структуры. Копируем формулы, адаптируем под клиентов.</p>
+    </div>
+    <div class="task-card">
+      <span class="status">v2</span>
+      <div class="num">7</div>
+      <h4>Актуализация баз</h4>
+      <p>Раз в месяц автоматически проверять: журналист перешёл в другое издание? блогер ушёл в отпуск?</p>
+    </div>
+    <div class="task-card">
+      <span class="status">v3</span>
+      <div class="num">8</div>
+      <h4>Аналитика трафика</h4>
+      <p>Подтягиваем GA / GSC / Umami, отдаём тебе сводку на каждую пятницу.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 32px">
+    <span class="callout-title">Важно</span>
+    На встрече сделаем <strong>MVP-блок</strong> целиком (пункты 1–3). Это даст тебе рабочий инструмент уже в среду
+    вечером. V2 и V3 — на неделю-две самостоятельной работы, я на связи в чате и по коллам по $250/час.
+  </div>
+</section>
+
+<!-- WHAT TO BRING -->
+<section id="bring">
+  <span class="sec-num">07</span>
+  <span class="eyebrow">Что прихватить на встречу</span>
+  <h2>Прийти <em>с материалом</em></h2>
+
+  <div class="step-body">
+    <ul>
+      <li><strong>Голосовое 5+ минут</strong> (помнишь, я просил) — брейн-дамп о твоём инструменте, аудитории, платформах, воронке. Если не записала до встречи — сделаем в первые 10 минут.</li>
+      <li><strong>1–2 примера клиентов</strong>, для которых хочешь запускать PR-кампании. Имена, сайты, сегмент.</li>
+      <li><strong>Доступы к LinkedIn и любым аккаунтам</strong>, которые мы будем использовать. Логины/пароли в защищённом месте — на встрече расскажу как правильно их передать в Claude.</li>
+      <li><strong>1–2 «эталонных» инфлюенсера или журналиста</strong>, которых хотела бы клонировать в базе — чтобы Claude понял, по каким признакам искать похожих.</li>
+    </ul>
+
+    <div class="callout callout-info">
+      <span class="callout-title">Ничего не готово — это тоже нормально</span>
+      Если времени не было — приходи как есть. Первые 15 минут посвятим быстрому интервью, я вытащу из тебя всё что нужно. Главное — Claude Code в терминале должен работать.
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <span class="sec-num">08</span>
+  <span class="eyebrow">FAQ</span>
+  <h2>Вопросы, которые <em>точно</em> возникнут</h2>
+
+  <div class="faq">
+    <details>
+      <summary>Что такое «терминал» и почему именно он?</summary>
+      <p>Это чёрное/белое окно, в котором ты общаешься с компьютером текстом. Кажется архаичным, но на деле мощнее любого интерфейса: Claude из терминала видит все твои файлы, может их править, запускать программы, лезть в интернет. В браузере этого сделать нельзя.</p>
+    </details>
+
+    <details>
+      <summary>Claude будет видеть все мои файлы? Это безопасно?</summary>
+      <p>Claude видит только ту папку, из которой ты его запустила — не весь компьютер. Запустила из папки <span class="mono">~/work/pr-hunter</span> — видит только её. Claude Code ничего не отправляет Anthropic кроме твоих сообщений в чате. Конкретные файлы показываются модели только когда ты явно их открываешь или Claude сам решает их прочитать, и это всегда видно в интерфейсе.</p>
+    </details>
+
+    <details>
+      <summary>Я сломаю что-нибудь?</summary>
+      <p>Сложно. Claude Code по умолчанию спрашивает разрешение перед каждым изменением файла и перед запуском команд. Всё можно откатить. На встрече покажу как работает «режим безопасности», чтобы ты чувствовала себя спокойно.</p>
+    </details>
+
+    <details>
+      <summary>Сколько это стоит в месяц после встречи?</summary>
+      <p>Минимум — $20 (Claude Pro). Если будешь гонять тяжёлые задачи (большие парсинги, аналитика тысяч профилей) — $100/200 Max. Плюс могут быть мелкие API-расходы на сторонние сервисы (прокси для парсинга, SERP-поиск), но это оптом, $10–30/мес.</p>
+    </details>
+
+    <details>
+      <summary>А если после встречи возникнут вопросы?</summary>
+      <p>Пиши в Telegram. Мелкие — отвечу бесплатно в течение дня. Большие (новый модуль, интеграция с новой платформой) — отдельный час или полтора, $250/час. У тебя уже будет рабочий скилл, с которым можно работать самостоятельно.</p>
+    </details>
+
+    <details>
+      <summary>А что если я филолог и я паникую?</summary>
+      <p>Это нормально. Я учил Claude Code семи людям без айтишного бэкграунда — всем зашло за 1–2 часа. Если собьёшься на шаге установки — фотография в чат, я подскажу. На встрече тоже будет страх «я ничего не понимаю» первые 20 минут — это проходит.</p>
+    </details>
+
+    <details>
+      <summary>Что делать прямо сейчас?</summary>
+      <p>Открыть <a href="https://claude.ai/upgrade">claude.ai/upgrade</a>, оформить Pro. Потом вернуться сюда и пройти шаг 2. Всё.</p>
+    </details>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Страница подготовки к встрече · 16 апреля 2026 · 13:00 CET</p>
+  <p style="margin-top: 12px; opacity: 0.7">
+    Вопросы до встречи — <a href="https://t.me/timzinin">@timzinin</a> в Telegram.
+  </p>
+</footer>
+
+<script>
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      const tabsContainer = btn.closest('.tabs');
+      tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      tabsContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      tabsContainer.querySelector(`.tab-content[data-tab="${tab}"]`).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
