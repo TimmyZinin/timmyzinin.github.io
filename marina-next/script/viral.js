@@ -415,18 +415,40 @@
     decodeChallenge: decodeChallenge
   };
 
-  // Auto-hook on landing page (defer check until DOM is ready)
-  // viral.js may load in <head> before body renders — check inside handler.
+  // Auto-hook on landing page — referral hero override.
+  // ORDER: i18n fetch is async — its applyDomSwap() runs AFTER DOMContentLoaded
+  // and would clobber our override. So we wait for marina:i18nready event,
+  // then apply, then ALSO re-apply on language change.
   function autoHook() {
-    if (document.querySelector('.hero-eyebrow')) {
-      applyReferralOnLanding();
-    }
+    if (!document.querySelector('.hero-eyebrow')) return;
+    applyReferralOnLanding();
   }
   if (typeof document !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', autoHook);
-    } else {
+    // Wait for i18n ready (it may already be ready by the time we register)
+    var i18nReadyHandler = function () { autoHook(); };
+    if (window.MarinaI18n && window.MarinaI18n.isReady && window.MarinaI18n.isReady()) {
       autoHook();
+    } else {
+      window.addEventListener('marina:i18nready', i18nReadyHandler);
+    }
+    // Re-apply on language switch (i18n re-renders DOM, would clobber)
+    window.addEventListener('marina:langchange', function () { autoHook(); });
+    // Also handle case where MarinaI18n never loads — fall back to DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        // After 500ms if no i18nready event fired, apply anyway
+        setTimeout(function () {
+          if (!window.MarinaI18n || !window.MarinaI18n.isReady || !window.MarinaI18n.isReady()) {
+            autoHook();
+          }
+        }, 500);
+      });
+    } else {
+      setTimeout(function () {
+        if (!window.MarinaI18n || !window.MarinaI18n.isReady || !window.MarinaI18n.isReady()) {
+          autoHook();
+        }
+      }, 500);
     }
   }
 })();
