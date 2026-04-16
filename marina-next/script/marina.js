@@ -1500,7 +1500,7 @@
         Bubbles.clearChipsArea();
         bumpInteraction();
         if (opt.id === 'pity150') {
-          postOutgoing('olya', '$150 последние. больше не пиши.');
+          postOutgoing('olya', tStr('system.olya.pity_150', '$150 последние. больше не пиши.'));
           STATE.cash -= 150;
           postBank(-150, tStr('system.payment.olya_150', 'Оля · последняя жалость'));
           STATE.comfort = Math.max(0, STATE.comfort - 5);
@@ -1718,7 +1718,7 @@
           postBank(-100, tStr('system.payment.krypta_100', 'перевод на «крипту»'));
           // Schedule 115-ФЗ bank lock for next day
           STATE.pending_callbacks.push({ trigger_day: STATE.day + 1, type: 'bank_lock_115' });
-          postMessage('scratch', { kind: 'system', text: 'подозрительная транзакция · жди последствий' });
+          postMessage('scratch', { kind: 'system', text: tStr('system.scratch.suspicious_txn', 'подозрительная транзакция · жди последствий') });
         } else if (opt.id === 'bot') {
           postOutgoing('krypta', tStr('system.krypta.bot_check', 'ты бот?'));
           setTimeout(function () {
@@ -2222,7 +2222,7 @@
     }
 
     if (accepted) {
-      postOutgoing('scratch', choice === 'accept' ? 'окей, беру' : 'давайте на этих условиях');
+      postOutgoing('scratch', tStr(choice === 'accept' ? 'system.scratch.client_accept' : 'system.scratch.client_terms', choice === 'accept' ? 'окей, беру' : 'давайте на этих условиях'));
       setTimeout(function () {
         postIncoming('scratch', tStr('system.scratch.client_signed', 'отлично, договор подписываем · срок неделя'), tStr('system.scratch.client_label', 'клиент'));
         // Create project with upfront + final + deadline (BLOCK K)
@@ -4396,8 +4396,8 @@
         STATE.comfort = Math.min(100, STATE.comfort + 20);
         STATE.hours = 0;
         postBank(700, tStr('system.payment.mama_rescue', 'мама перевела'));
-        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: 'доча, я перевела $700. не возражай. поешь, отдохни. я люблю тебя.' });
-        postMessage('scratch', { kind: 'system', text: '💌 мама прислала $700 + 20 комфорт · ты в строю' });
+        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: tStr('rescue.mama_money.mama_msg', 'доча, я перевела $700. не возражай. поешь, отдохни. я люблю тебя.') });
+        postMessage('scratch', { kind: 'system', text: tStr('rescue.mama_money.scratch_note', '💌 мама прислала $700 + 20 комфорт · ты в строю') });
       }
     },
     hospital: {
@@ -4412,8 +4412,8 @@
         STATE.energy = Math.max(40, STATE.energy);
         STATE.comfort = Math.min(100, STATE.comfort + 25);
         STATE.hours = 0;
-        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: 'я приехала. ничего не говори. ешь суп. потом поспишь. наталья валерьевна молодец что позвонила.' });
-        postMessage('scratch', { kind: 'system', text: '🏥 мама с супом + 80 голод + 25 комфорт · день потерян' });
+        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: tStr('rescue.hospital.mama_msg', 'я приехала. ничего не говори. ешь суп. потом поспишь. хозяйка молодец что позвонила.') });
+        postMessage('scratch', { kind: 'system', text: tStr('rescue.hospital.scratch_note', '🏥 мама с супом + 80 голод + 25 комфорт · день потерян') });
       }
     },
     lena_breakdown: {
@@ -4427,8 +4427,8 @@
         STATE.comfort = 70;
         STATE.energy = Math.min(100, STATE.energy + 30);
         STATE.hours = 0;
-        postMessage('lena', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('lena')), text: 'еду к тебе. собирай сумку, переночуешь у меня. без споров.' });
-        postMessage('scratch', { kind: 'system', text: '🛋 Лена забрала к себе · +30⚡ +70 комфорт · день потерян' });
+        postMessage('lena', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('lena')), text: tStr('rescue.lena_breakdown.lena_msg', 'еду к тебе. собирай сумку, переночуешь у меня. без споров.') });
+        postMessage('scratch', { kind: 'system', text: tStr('rescue.lena_breakdown.scratch_note', '🛋 подруга забрала к себе · +30⚡ +70 комфорт · день потерян') });
       }
     },
     father: {
@@ -4442,8 +4442,8 @@
         STATE.cash = 200;
         STATE.comfort = Math.min(100, STATE.comfort + 15);
         STATE.hours = 0;
-        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: 'папа выехал. забирает тебя на пару дней. это не провал, это пауза.' });
-        postMessage('scratch', { kind: 'system', text: '🏡 родители помогли · cash $200 · +15 комфорт · ты в безопасности' });
+        postMessage('mama', { kind: 'incoming', senderName: Bubbles.localizedContactName(findContact('mama')), text: tStr('rescue.father.mama_msg', 'папа выехал. забирает тебя на пару дней. это не провал, это пауза.') });
+        postMessage('scratch', { kind: 'system', text: tStr('rescue.father.scratch_note', '🏡 родители помогли · cash $200 · +15 комфорт · ты в безопасности') });
       }
     }
   };
@@ -4797,20 +4797,25 @@
     window.addEventListener('marina:i18nready', _i18nReready);
     window.addEventListener('marina:langchange', _i18nReready);
 
-    // SPRINT 52 — on mid-run language switch, also clear thread history so user
-    // doesn't see mixed-language bubbles. Reload to apply fresh.
+    // SPRINT 52 (codex-fix HIGH-1) — on mid-run language switch, do FULL state
+    // reset (same path as init detection). Just clearing threads while keeping
+    // beat_*/projects/pending flags leaves story consumed but chat empty.
+    // Reload page so beats/intro can replay cleanly in new locale.
     window.addEventListener('marina:langchange', function (ev) {
       try {
         var newLang = (ev.detail && ev.detail.lang) || (window.MarinaI18n && window.MarinaI18n.getLang());
         if (STATE._lang_stamp && newLang && STATE._lang_stamp !== newLang) {
-          if (STATE.threads) for (var tid in STATE.threads) { if (Object.prototype.hasOwnProperty.call(STATE.threads, tid)) STATE.threads[tid] = []; }
-          if (Array.isArray(STATE.contacts)) STATE.contacts.forEach(function (c) { if (c) c.unread = 0; });
-          STATE._lang_stamp = newLang;
-          saveState();
-          // Reload UI to render fresh state in new locale
-          openChat(STATE.current_chat || 'scratch');
-          Bubbles.renderContacts(STATE);
-          renderDock();
+          // Full reset — same as init() mismatch path. Reload triggers fresh boot in new locale.
+          clearState();
+          // Stamp NEW lang in fresh state so init() doesn't double-clear
+          var freshState = defaultState();
+          freshState._lang_stamp = newLang;
+          try {
+            localStorage.setItem(STATE_KEY, JSON.stringify(freshState));
+            localStorage.setItem(VERSION_KEY, VERSION);
+          } catch (e) {}
+          // Hard reload so init() runs fresh
+          location.reload();
         }
       } catch (e) {}
     });

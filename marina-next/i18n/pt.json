@@ -607,7 +607,8 @@
       "invest_thanks": "obrigada amiga! você tá na trilha da nova vida 🌸",
       "listen": "tenho 5 min. fala.",
       "invest_400": "mandando $400. última vez.",
-      "final_no": "não. acabou."
+      "final_no": "não. acabou.",
+      "pity_150": "$150 últimos. para de escrever."
     },
     "kirill": {
       "meet": "ok, vamos sair. mas nada sério.",
@@ -694,7 +695,10 @@
       "night_warn": "⚠ trabalho noturno · cansada · −0.5 unit",
       "month_over": "— mês acabou. dia {day} pra trás. —",
       "day_over": "— fim do dia {day} · novo dia começou —",
-      "nastya_partnership": "🤝 parceria com Natália · +$200 + novo projeto (4 units, 7 dias) · +10💚"
+      "nastya_partnership": "🤝 parceria com Natália · +$200 + novo projeto (4 units, 7 dias) · +10💚",
+      "suspicious_txn": "transação suspeita · prepare-se pra consequência",
+      "client_accept": "ok, fechado",
+      "client_terms": "vamos nesses termos"
     },
     "anna_referral": {
       "yes": "fechado. manda o contrato",
@@ -1274,8 +1278,8 @@
       "caller": "mãe",
       "callBtn": "📞 ligar pra mãe",
       "bank_memo": "mãe mandou pix",
-      "mama_msg": "filha, mandei $700 via pix. não discute. come, descansa. te amo.",
-      "scratch_note": "💌 mãe mandou $700 + 20 conforto · você tá de volta"
+      "mama_msg": "filha, mandei $700. sem discussão. come, descansa. te amo.",
+      "scratch_note": "💌 mãe mandou $700 + 20 conforto · de volta ao jogo"
     },
     "hospital": {
       "kicker": "marina desmaiou",
@@ -1283,7 +1287,7 @@
       "body": "a senhoria te viu entrando no prédio segurando na parede. chamou o SAMU. você tá na UPA olhando pra conta de R$2k. pra quem você liga?",
       "caller": "mãe",
       "callBtn": "📞 ligar pra mãe",
-      "mama_msg": "tô aqui. não fala nada. come a sopa. depois dorme. dona lúcia fez bem em ligar.",
+      "mama_msg": "tô aqui. não fala nada. come a sopa. depois dorme. Dona Lúcia fez bem ligar.",
       "scratch_note": "🏥 mãe com sopa + 80 fome + 25 conforto · dia perdido"
     },
     "lena_breakdown": {
@@ -1292,8 +1296,8 @@
       "body": "se não der uma pausa agora — piora. pra quem você liga?",
       "caller": "Camila",
       "callBtn": "📞 ligar pra Camila",
-      "lena_msg": "tô comprando passagem pro rio hoje. faz a mala, você fica comigo uma semana. sem discussão.",
-      "scratch_note": "🛋 Camila comprou passagem · +30⚡ +70 conforto · dia perdido"
+      "lena_msg": "tô indo aí. faz a mala, dorme em casa. sem argumento.",
+      "scratch_note": "🛋 Camila me levou pra casa · +30⚡ +70 conforto · dia perdido"
     },
     "father": {
       "kicker": "dinheiro no vermelho fundo",
@@ -1301,8 +1305,8 @@
       "body": "precisa estabilizar urgente. pra quem você liga?",
       "caller": "pais",
       "callBtn": "📞 ligar pros pais",
-      "mama_msg": "pai já tá na estrada. te pega por uns dias, vamos pra BH. não é fracasso, é pausa.",
-      "scratch_note": "🏡 pais ajudaram · cash $200 · +15 conforto · você tá segura"
+      "mama_msg": "pai tá vindo. te leva por uns dias. não é fracasso, é pausa.",
+      "scratch_note": "🏡 família ajudou · cash $200 · +15 conforto · tá segura"
     },
     "overlay_alt": "crise"
   },

@@ -607,7 +607,8 @@
       "invest_thanks": "teşekkürler tatlım! yeni bir hayatın yolundasın 🌸",
       "listen": "beş dakikam var. anlat.",
       "invest_400": "$400 gönderiyorum. son.",
-      "final_no": "hayır. bu kadar."
+      "final_no": "hayır. bu kadar.",
+      "pity_150": "son $150. artık yazma."
     },
     "kirill": {
       "meet": "tamam, buluşalım. ciddi bir şey vaat etmiyorum.",
@@ -694,7 +695,10 @@
       "night_warn": "⚠ gece çalışması · yorgunluk · −0.5 unit",
       "month_over": "— ay bitti. {day}. gün geride kaldı. —",
       "day_over": "— {day}. gün bitti · yeni gün başladı —",
-      "nastya_partnership": "🤝 Aslı ile ortaklık · +$200 + yeni proje (4 unit, 7 gün) · +10💚"
+      "nastya_partnership": "🤝 Aslı ile ortaklık · +$200 + yeni proje (4 unit, 7 gün) · +10💚",
+      "suspicious_txn": "şüpheli işlem · sonuçlarına hazır ol",
+      "client_accept": "tamam, alıyorum",
+      "client_terms": "bu şartlarda olsun"
     },
     "anna_referral": {
       "yes": "aldım. kontratı gönder",
@@ -1274,8 +1278,8 @@
       "caller": "anne",
       "callBtn": "📞 anneyi ara",
       "bank_memo": "anne transfer etti",
-      "mama_msg": "kızım, $700 yatırdım. itiraz etme. ye, dinlen. seni seviyorum.",
-      "scratch_note": "💌 anne $700 gönderdi + 20 konfor · ayaktasın"
+      "mama_msg": "kızım, $700 gönderdim. itiraz yok. ye, dinlen. seni seviyorum.",
+      "scratch_note": "💌 annem $700 + 20 konfor gönderdi · oyundasın"
     },
     "hospital": {
       "kicker": "melis düştü",
@@ -1283,8 +1287,8 @@
       "body": "ev sahibesi duvara tutunarak apartmana girdiğini gördü. ambulans çağırdı. hastanedesin. kimi arayalım?",
       "caller": "anne",
       "callBtn": "📞 anneyi ara",
-      "mama_msg": "geldim. hiçbir şey söyleme. çorbayı iç. sonra uyursun. neriman hanım iyi ki aramış.",
-      "scratch_note": "🏥 anne çorbayla + 80 açlık + 25 konfor · gün kayıp"
+      "mama_msg": "geldim. konuşma. çorbayı iç. sonra uyu. Neriman Hanım iyi yaptı arayarak.",
+      "scratch_note": "🏥 annem çorbayla + 80 tokluk + 25 konfor · gün kayıp"
     },
     "lena_breakdown": {
       "kicker": "konfor sıfırlandı",
@@ -1292,8 +1296,8 @@
       "body": "şimdi ara vermezsen — daha kötü olacak. kimi arayalım?",
       "caller": "Zeynep",
       "callBtn": "📞 Zeynep'i ara",
-      "lena_msg": "sana geliyorum. çanta hazırla, bende kalırsın. tartışma yok.",
-      "scratch_note": "🛋 Zeynep yanına aldı · +30⚡ +70 konfor · gün kayıp"
+      "lena_msg": "sana geliyorum. çantanı topla, bende kalıyorsun. tartışma yok.",
+      "scratch_note": "🛋 Zeynep beni aldı · +30⚡ +70 konfor · gün kayıp"
     },
     "father": {
       "kicker": "para derin eksi",
@@ -1301,8 +1305,8 @@
       "body": "acil stabilize olmak lazım. kimi arayalım?",
       "caller": "aile",
       "callBtn": "📞 aileyi ara",
-      "mama_msg": "baban yola çıktı. birkaç günlüğüne seni alıyor. bu başarısızlık değil, mola.",
-      "scratch_note": "🏡 aile yardım etti · nakit $200 · +15 konfor · güvendesin"
+      "mama_msg": "baban yola çıktı. seni birkaç günlüğüne alıyor. bu başarısızlık değil, mola.",
+      "scratch_note": "🏡 ailen yardım etti · cash $200 · +15 konfor · güvendesin"
     },
     "overlay_alt": "kriz"
   },

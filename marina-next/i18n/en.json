@@ -607,7 +607,8 @@
       "invest_thanks": "thank you babe! you're on the path to a new life 🌸",
       "listen": "got 5 mins. shoot.",
       "invest_400": "sending $400. last time.",
-      "final_no": "no. that's it."
+      "final_no": "no. that's it.",
+      "pity_150": "$150 last time. stop writing."
     },
     "kirill": {
       "meet": "fine, let's meet. nothing serious though.",
@@ -694,7 +695,10 @@
       "night_warn": "⚠ night work · exhausted · −0.5 unit",
       "month_over": "— month is over. day {day} behind us. —",
       "day_over": "— end of day {day} · new day begins —",
-      "nastya_partnership": "🤝 partnership with Nadia · +$200 + new project (4 units, 7 days) · +10💚"
+      "nastya_partnership": "🤝 partnership with Nadia · +$200 + new project (4 units, 7 days) · +10💚",
+      "suspicious_txn": "suspicious transaction · brace for consequences",
+      "client_accept": "ok, taking it",
+      "client_terms": "let's go with these terms"
     },
     "anna_referral": {
       "yes": "i'm in. send the contract",
@@ -1274,8 +1278,8 @@
       "caller": "mum",
       "callBtn": "📞 call mum",
       "bank_memo": "mum sent money",
-      "mama_msg": "sweetie, i sent $700 via zelle. don't argue. eat, rest. i love you.",
-      "scratch_note": "💌 mum sent $700 + 20 comfort · you're back in it"
+      "mama_msg": "honey, sent $700. no arguments. eat, rest. love you.",
+      "scratch_note": "💌 Mum sent $700 + 20 comfort · back in business"
     },
     "hospital": {
       "kicker": "marina collapsed",
@@ -1283,8 +1287,8 @@
       "body": "the landlady saw you leaning on the wall in the lobby. called 911. you're in the ER staring at a $3500 bill. who do you call?",
       "caller": "mum",
       "callBtn": "📞 call mum",
-      "mama_msg": "i'm here. don't say anything. eat the soup. then sleep. Mrs. Dagmar did right to call.",
-      "scratch_note": "🏥 mum with soup + 80 hunger + 25 comfort · day lost"
+      "mama_msg": "i'm here. don't say a word. eat the soup. then sleep. landlady did right calling.",
+      "scratch_note": "🏥 Mum with soup + 80 fullness + 25 comfort · day lost"
     },
     "lena_breakdown": {
       "kicker": "comfort is at zero",
@@ -1292,8 +1296,8 @@
       "body": "if you don't pause now — it gets worse. who do you call?",
       "caller": "Lucy",
       "callBtn": "📞 call Lucy",
-      "lena_msg": "booking you a flight to amsterdam tonight. pack a bag, you're staying with me a week. no arguing.",
-      "scratch_note": "🛋 Lucy booked a flight · +30⚡ +70 comfort · day lost"
+      "lena_msg": "coming over. pack a bag, you sleep at my place. no debate.",
+      "scratch_note": "🛋 Lucy took me in · +30⚡ +70 comfort · day lost"
     },
     "father": {
       "kicker": "money deep in the red",
@@ -1301,7 +1305,7 @@
       "body": "need to stabilize fast. who do you call?",
       "caller": "parents",
       "callBtn": "📞 call parents",
-      "mama_msg": "dad's driving out. picking you up for a couple days to long island. it's not failure, it's a pause.",
+      "mama_msg": "Dad's on his way. picking you up for a couple days. this isn't a fail, it's a pause.",
       "scratch_note": "🏡 parents helped · cash $200 · +15 comfort · you're safe"
     },
     "overlay_alt": "crisis"
