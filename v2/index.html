@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tim Zinin — AI, игры, сообщество, проекты</title>
+<meta name="description" content="Персональная площадка Тима Зинина: AI-трансформация бизнеса, игры, сообщества, side-проекты и соцсети. Консультации от $250/час.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#ffffff;--red:#e02020;--red-light:#ff4444;--yellow:#ffd700;
+  --black:#111;--cream:#fff8e7;
+  --display:'Russo One',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;line-height:1.6;}
+.bangers{font-family:var(--display);letter-spacing:0.04em;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.container{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+section{padding:80px 0;position:relative;}
+.dots-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.12) 1px,transparent 1px);background-size:8px 8px;pointer-events:none;z-index:0;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--red);border-bottom:4px solid var(--black);padding:10px 0;}
+nav .container{display:flex;justify-content:space-between;align-items:center;}
+.nav-logo{font-family:var(--display);font-size:24px;color:var(--white);letter-spacing:0.06em;text-decoration:none;}
+.nav-logo em{font-style:normal;background:var(--yellow);color:var(--black);padding:2px 8px;margin-left:6px;font-size:14px;border:2px solid var(--black);}
+.nav-links{display:flex;gap:20px;list-style:none;align-items:center;}
+.nav-links a{color:var(--white);text-decoration:none;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:0.05em;}
+.nav-links a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px;}
+.nav-cta{background:var(--yellow);color:var(--black)!important;padding:10px 20px;border:3px solid var(--black);font-family:var(--display);font-size:14px!important;transition:all .15s;}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--black);text-decoration:none!important;}
+@media(max-width:720px){.nav-links li:not(.mobile-cta){display:none;}}
+
+/* HERO */
+.hero{padding:140px 0 80px;background:var(--white);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.08) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;}
+.hero-flex{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center;position:relative;z-index:1;}
+.hero-tag{display:inline-block;font-family:var(--display);font-size:14px;color:var(--white);background:var(--red);border:3px solid var(--black);padding:6px 16px;margin-bottom:20px;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--black);letter-spacing:0.06em;}
+.hero h1{font-family:var(--display);font-size:clamp(42px,6.5vw,78px);line-height:0.95;margin-bottom:24px;color:var(--black);letter-spacing:0.01em;}
+.hero h1 .red{color:var(--red);}
+.hero h1 .yellow{background:var(--yellow);padding:0 10px;display:inline-block;transform:rotate(-1deg);}
+.hero-sub{font-size:18px;line-height:1.7;color:#333;max-width:540px;margin-bottom:32px;}
+.hero-sub strong{color:var(--black);}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-pop{display:inline-block;font-family:var(--display);font-size:18px;padding:16px 30px;border:4px solid var(--black);text-decoration:none;text-transform:uppercase;transition:all .15s;cursor:pointer;letter-spacing:0.04em;}
+.btn-pop:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
+.btn-red{background:var(--red);color:white;}
+.btn-yellow{background:var(--yellow);color:var(--black);}
+.btn-black{background:var(--black);color:var(--yellow);}
+.hero-art{position:relative;}
+.hero-img{width:100%;aspect-ratio:1;object-fit:cover;object-position:center 15%;border:5px solid var(--black);border-radius:50%;box-shadow:10px 10px 0 var(--red);display:block;}
+.hero-badge{position:absolute;top:12px;right:-12px;background:var(--yellow);color:var(--black);font-family:var(--display);font-size:14px;padding:10px 18px;border:3px solid var(--black);transform:rotate(6deg);box-shadow:3px 3px 0 var(--black);z-index:2;letter-spacing:0.06em;}
+@media(max-width:900px){.hero-flex{grid-template-columns:1fr;}.hero-art{max-width:320px;margin:0 auto;}}
+
+/* STAGING BANNER */
+.staging{background:var(--black);color:var(--yellow);text-align:center;padding:10px 12px;font-family:var(--display);font-size:14px;letter-spacing:0.08em;position:sticky;top:64px;z-index:900;border-top:2px solid var(--yellow);border-bottom:2px solid var(--yellow);}
+.staging a{color:var(--yellow);text-decoration:underline;}
+
+/* SECTION HEADERS */
+.section-label{font-size:13px;color:var(--red);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:10px;font-weight:900;}
+.section-title{font-family:var(--display);font-size:clamp(32px,5vw,52px);line-height:1.1;margin-bottom:16px;letter-spacing:0.01em;}
+.section-sub{font-size:17px;color:#555;max-width:640px;line-height:1.7;margin-bottom:44px;}
+
+/* SERVICES */
+.services{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);padding:100px 0;border-top:4px solid var(--black);border-bottom:4px solid var(--black);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.service-card{background:var(--white);border:4px solid var(--black);padding:32px;position:relative;transition:all .2s;display:flex;flex-direction:column;}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:8px;}
+.service-card.tier-1::before{background:var(--yellow);}
+.service-card.tier-2::before{background:var(--red);}
+.service-card.tier-3::before{background:var(--black);}
+.service-card:hover{transform:translate(-4px,-4px);box-shadow:7px 7px 0 var(--black);}
+.service-card.featured{background:var(--yellow);border-width:4px;box-shadow:6px 6px 0 var(--red);}
+.service-card.featured:hover{box-shadow:10px 10px 0 var(--red);}
+.service-badge{position:absolute;top:-14px;right:20px;background:var(--red);color:var(--white);font-family:var(--display);font-size:13px;padding:6px 14px;border:3px solid var(--black);letter-spacing:0.05em;transform:rotate(3deg);}
+.service-name{font-family:var(--display);font-size:24px;color:var(--black);margin-bottom:8px;margin-top:8px;letter-spacing:0.02em;}
+.service-tag{font-size:12px;color:var(--red);font-weight:800;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:18px;}
+.service-price{font-family:'JetBrains Mono',monospace;font-size:44px;font-weight:700;color:var(--black);line-height:1;margin-bottom:4px;}
+.service-price-note{font-size:13px;color:#666;margin-bottom:22px;font-weight:600;}
+.service-list{list-style:none;padding:0;margin:0 0 28px;flex:1;}
+.service-list li{padding:8px 0 8px 26px;position:relative;font-size:14px;line-height:1.55;color:#333;border-bottom:1px dashed #ddd;}
+.service-list li:last-child{border-bottom:0;}
+.service-list li::before{content:'✔';position:absolute;left:0;top:8px;color:var(--red);font-weight:900;font-size:16px;}
+.service-cta{display:block;text-align:center;background:var(--black);color:var(--yellow);font-family:var(--display);font-size:16px;padding:14px;border:3px solid var(--black);text-decoration:none;letter-spacing:0.06em;transition:all .15s;margin-top:auto;}
+.service-cta:hover{background:var(--red);color:var(--white);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--black);}
+.service-card.featured .service-cta{background:var(--red);color:var(--white);}
+.service-card.featured .service-cta:hover{background:var(--black);color:var(--yellow);}
+.slots{margin-top:14px;padding:10px 12px;background:var(--black);color:var(--white);font-size:12px;font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;border:2px solid var(--black);}
+.slots .slot-row{display:flex;gap:4px;margin-top:6px;}
+.slots .slot{width:20px;height:20px;border:2px solid var(--yellow);}
+.slots .slot.taken{background:var(--red);}
+.slots .slot.free{background:var(--yellow);}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr;}.service-price{font-size:36px;}}
+
+/* PROJECT GROUPS */
+.groups{padding:100px 0 60px;background:var(--white);}
+.group{margin-bottom:100px;}
+.group-header{display:grid;grid-template-columns:1fr 1.2fr;gap:44px;align-items:center;margin-bottom:40px;}
+.group:nth-child(even) .group-header{direction:rtl;}
+.group:nth-child(even) .group-header > *{direction:ltr;}
+.group-art{border:5px solid var(--black);box-shadow:10px 10px 0 var(--red);overflow:hidden;aspect-ratio:16/10;background:var(--cream);position:relative;}
+.group:nth-child(even) .group-art{box-shadow:10px 10px 0 var(--yellow);}
+.group:nth-child(3n) .group-art{box-shadow:10px 10px 0 var(--black);}
+.group-art img{width:100%;height:100%;object-fit:cover;display:block;}
+.group-emoji{position:absolute;top:-18px;left:-18px;background:var(--yellow);border:4px solid var(--black);width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:4px 4px 0 var(--black);z-index:2;}
+.group-title-wrap .section-label{color:var(--red);}
+.group-title{font-family:var(--display);font-size:clamp(36px,5vw,56px);color:var(--black);margin-bottom:14px;line-height:1;letter-spacing:0.01em;}
+.group-desc{font-size:17px;color:#444;line-height:1.7;margin-bottom:24px;max-width:540px;}
+.group-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.proj-card{background:var(--white);border:4px solid var(--black);padding:22px;text-decoration:none;color:var(--black);transition:all .2s;display:flex;flex-direction:column;gap:10px;position:relative;}
+.proj-card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--red);background:var(--cream);}
+.proj-card h4{font-family:var(--display);font-size:22px;color:var(--black);letter-spacing:0.02em;}
+.proj-card p{font-size:14px;color:#555;line-height:1.55;flex:1;}
+.proj-card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.proj-card .tag{background:var(--black);color:var(--white);font-size:10px;padding:3px 8px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;}
+.proj-card .tag.live{background:var(--red);}
+.proj-card .tag.beta{background:var(--yellow);color:var(--black);}
+.proj-card::after{content:'↗';position:absolute;top:12px;right:16px;font-size:18px;color:var(--red);font-weight:900;opacity:0.6;transition:opacity .2s;}
+.proj-card:hover::after{opacity:1;}
+@media(max-width:900px){.group-header{grid-template-columns:1fr;}.group:nth-child(even) .group-header{direction:ltr;}}
+
+/* SOCIALS (list style) */
+.group.socials .group-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
+.socials .proj-card{padding:18px;flex-direction:row;align-items:center;gap:14px;}
+.socials .proj-card h4{font-size:18px;}
+.socials .proj-card p{font-size:12px;}
+.social-icon{width:40px;height:40px;border:3px solid var(--black);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:18px;flex-shrink:0;}
+.social-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#bc1888);color:white;}
+.social-li{background:#0a66c2;color:white;}
+.social-x{background:var(--black);color:white;}
+.social-th{background:var(--black);color:white;}
+.social-tg{background:#26a5e4;color:white;}
+.social-sub{background:#ff6719;color:white;}
+.social-yt{background:#ff0000;color:white;}
+
+/* FOOTER */
+footer{background:var(--black);color:var(--white);padding:60px 0 32px;border-top:4px solid var(--red);}
+footer .container{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;}
+footer h4{font-family:var(--display);font-size:20px;color:var(--yellow);margin-bottom:16px;letter-spacing:0.04em;}
+footer a{color:var(--white);text-decoration:none;display:block;padding:4px 0;font-size:14px;opacity:0.85;transition:opacity .2s;}
+footer a:hover{opacity:1;color:var(--yellow);}
+.footer-bottom{grid-column:1/-1;border-top:2px solid rgba(255,255,255,0.15);padding-top:20px;margin-top:20px;display:flex;justify-content:space-between;font-size:12px;opacity:0.6;}
+@media(max-width:720px){footer .container{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;gap:8px;}}
+
+/* FLOATING TG CTA */
+.float-cta{position:fixed;bottom:24px;right:24px;background:var(--yellow);border:4px solid var(--black);box-shadow:5px 5px 0 var(--black);padding:14px 22px;font-family:var(--display);font-size:16px;color:var(--black);text-decoration:none;letter-spacing:0.04em;z-index:500;transition:transform .2s;}
+.float-cta:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--black);}
+.float-cta::before{content:'✈ ';color:var(--red);}
+
+/* FADE IN (only when JS enables it) */
+.js-fade{opacity:0;transform:translateY(20px);transition:opacity .6s, transform .6s;}
+.js-fade.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="container">
+  <a href="#" class="nav-logo">TIM ZININ<em>V2</em></a>
+  <ul class="nav-links">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#games">Игры</a></li>
+    <li><a href="#community">Сообщество</a></li>
+    <li><a href="#side">Проекты</a></li>
+    <li><a href="#socials">Соцсети</a></li>
+    <li class="mobile-cta"><a href="https://t.me/timzinin" class="nav-cta" target="_blank">Заказать</a></li>
+  </ul>
+</div>
+</nav>
+
+<div class="staging">
+  STAGING-ВЕРСИЯ — обкатываем редизайн. Боевой сайт: <a href="https://timzinin.com">timzinin.com</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+  <div class="hero-flex">
+    <div class="hero-text">
+      <span class="hero-tag">Architect · Builder · Founder</span>
+      <h1>
+        <span class="red">Тим Зинин.</span><br>
+        Делаю <span class="yellow">AI-системы</span>,<br>
+        которые приносят деньги.
+      </h1>
+      <p class="hero-sub">
+        Работаю как AI-архитектор, строю автономных агентов и интегрирую их в бизнес. <br>
+        <strong>13 платформ на автопилоте. 6 агентов в проде. 3 900+ тестов.</strong><br>
+        Здесь — всё что я делаю: игры, сообщества, side-проекты и соцсети.
+      </p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-pop btn-red">Услуги</a>
+        <a href="#side" class="btn-pop btn-yellow">Проекты</a>
+        <a href="https://t.me/timzinin" class="btn-pop btn-black" target="_blank">Написать в TG</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-badge">250$/HR</div>
+      <img src="../tim-zinin.jpg" alt="Tim Zinin" class="hero-img" onerror="this.style.background='var(--yellow)'; this.style.objectFit='contain';">
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+<div class="container">
+  <div class="section-label">Услуги</div>
+  <h2 class="section-title">Три формата. Один принцип — <span style="color:var(--red);">работающие системы</span>.</h2>
+  <p class="section-sub">От часовой консультации до полного погружения как AI-CTO на ставке. Кнопки ведут прямо в Telegram — без форм, счетов и регистраций.</p>
+
+  <div class="services-grid">
+
+    <!-- TIER 1: CONSULTATION -->
+    <div class="service-card tier-1">
+      <div class="service-name">Консультация</div>
+      <div class="service-tag">Разовая · 1 час</div>
+      <div class="service-price">$250</div>
+      <div class="service-price-note">за час · оплата перед сессией</div>
+      <ul class="service-list">
+        <li>Разбор твоей задачи, архитектуры, процесса</li>
+        <li>Конкретные рекомендации с примерами из моего прода</li>
+        <li>Запись экрана + саммари с action-items</li>
+        <li>Ссылки на инструменты и паттерны</li>
+        <li>Ответы на 30 дней после звонка (в TG)</li>
+      </ul>
+      <a href="https://t.me/timzinin?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%A2%D0%B8%D0%BC%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D1%87%D0%B0%D1%81%D0%BE%D0%B2%D1%83%D1%8E%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20%D0%B7%D0%B0%20%24250.%20%D0%9C%D0%BE%D1%8F%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B0%3A%20___" class="service-cta" target="_blank">Заказать час →</a>
+    </div>
+
+    <!-- TIER 2: GROWTH -->
+    <div class="service-card tier-2 featured">
+      <div class="service-badge">Популярный</div>
+      <div class="service-name">Growth</div>
+      <div class="service-tag">Подписка · 5 часов в неделю</div>
+      <div class="service-price">$3 500</div>
+      <div class="service-price-note">в месяц · включает всё ниже</div>
+      <ul class="service-list">
+        <li>Обучение фаундера: Claude Code, agentic workflows, MCP</li>
+        <li>Обучение персонала AI-инструментам по их ролям</li>
+        <li>Аудит процессов: где AI вытащит 5-10х скорость</li>
+        <li>Интеграция AI-агентов в существующие пайплайны</li>
+        <li>2 видеосессии в неделю + разборы в Loom/записях</li>
+        <li>Поддержка в TG · SLA 24 часа</li>
+        <li>Ежемесячный roadmap и ретро-разбор результатов</li>
+      </ul>
+      <div class="slots">
+        СЛОТЫ:&nbsp;2 из 4 заняты · <span style="color:var(--yellow);">1 свободен</span>
+        <div class="slot-row"><span class="slot taken"></span><span class="slot taken"></span><span class="slot free"></span><span class="slot" style="background:#333;border-color:#555;"></span></div>
+      </div>
+      <a href="https://t.me/timzinin?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D1%8C%20%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D1%81%D0%BB%D0%BE%D1%82%20Growth%20%28%243500%2F%D0%BC%D0%B5%D1%81%2C%205%D1%87%2F%D0%BD%D0%B5%D0%B4%29.%20%D0%9C%D0%BE%D0%B9%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%3A%20___" class="service-cta" target="_blank" style="margin-top:16px;">Занять слот →</a>
+    </div>
+
+    <!-- TIER 3: FULL IMMERSION -->
+    <div class="service-card tier-3">
+      <div class="service-name">Full Immersion</div>
+      <div class="service-tag">AI-CTO на ставке · 40 ч/нед</div>
+      <div class="service-price">$20 000</div>
+      <div class="service-price-note">в месяц · полное погружение</div>
+      <ul class="service-list">
+        <li>Работаю как AI-CTO на ставке в твоём бизнесе</li>
+        <li>Строю AI-инфраструктуру end-to-end под цели</li>
+        <li>Наём и обучение AI-команды (inhouse или аутстафф)</li>
+        <li>Разработка кастомных агентов и MCP-серверов</li>
+        <li>Еженедельные retro + квартальный roadmap</li>
+        <li>Прямой доступ 24/7 в TG (экстренные вопросы)</li>
+        <li>NDA + эксклюзивность по нише при запросе</li>
+      </ul>
+      <a href="https://t.me/timzinin?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20Full%20Immersion%20%28%2420%20000%2F%D0%BC%D0%B5%D1%81%2C%2040%D1%87%2F%D0%BD%D0%B5%D0%B4%29.%20%D0%9A%D0%BE%D0%BD%D1%82%D0%B5%D0%BA%D1%81%D1%82%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B0%3A%20___" class="service-cta" target="_blank">Обсудить условия →</a>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- PROJECT GROUPS -->
+<div class="groups">
+<div class="container">
+
+<!-- GROUP 1: GAMES -->
+<section class="group" id="games">
+  <div class="group-header">
+    <div class="group-art">
+      <div class="group-emoji">🎮</div>
+      <img src="img/section-games.png" alt="Pop-art games illustration" loading="lazy">
+    </div>
+    <div class="group-title-wrap">
+      <div class="section-label">01 · Игры</div>
+      <h2 class="group-title">Геймдев как маркетинг</h2>
+      <p class="group-desc">Мои игры — это лид-магниты и виральные инструменты для проектов. Каждая сделана с нуля на Unity или WebGL, развёрнута через GitHub Pages, и привлекает аудиторию в сообщества.</p>
+    </div>
+  </div>
+  <div class="group-grid">
+    <a class="proj-card" href="https://timzinin.com/marina-next" target="_blank">
+      <h4>Marina Next</h4>
+      <p>Симулятор фаундера: 30 дней, $500 на счету, 3 клиентских проекта. Эмоциональный трип через срыв к надежде.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">HTML5</span><span class="tag">Narrative</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.com/battle-denis/" target="_blank">
+      <h4>Battle Denis</h4>
+      <p>Pixel-art battle с Денисом Говоруновым. og:image deep-link preview работает — лид-магнит с нулевого трения.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">Pixel</span><span class="tag">Виральное</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.com/kloaka-pechali/" target="_blank">
+      <h4>Клоака печали</h4>
+      <p>Unity WebGL шутер для sborka.work: 4 уровня — барахолка вакансий, LinkedIn, HR-болото, финал. Docker build on Contabo.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">Unity 6</span><span class="tag">СБОРКА</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- GROUP 2: COMMUNITY -->
+<section class="group" id="community">
+  <div class="group-header">
+    <div class="group-art">
+      <div class="group-emoji">🤝</div>
+      <img src="img/section-community.png" alt="Pop-art community illustration" loading="lazy">
+    </div>
+    <div class="group-title-wrap">
+      <div class="section-label">02 · Сообщество</div>
+      <h2 class="group-title">Там, где люди собираются</h2>
+      <p class="group-desc">Проекты, которые я основал или сооснователь. Живые сообщества с ботами, CRM, партнёрскими программами и подкастами. Не каналы с охватами — реальные клубы с ритуалами.</p>
+    </div>
+  </div>
+  <div class="group-grid">
+    <a class="proj-card" href="https://sborka.work" target="_blank">
+      <h4>СБОРКА</h4>
+      <p>Карьерный клуб для разработчиков. Telegram-бот, Mini App, 3 тарифа, вебинары, AI-подкаст. 1158+ тестов. Co-founder.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">Career club</span><span class="tag">TG Bot</span></div>
+    </a>
+    <a class="proj-card" href="https://mentalstab.com" target="_blank">
+      <h4>MentalStab</h4>
+      <p>Психолог для вайб-кодеров (c Катериной Чернецовой). Бот, CRM, Tribute, контент, сообщество профессионалов.</p>
+      <div class="tags"><span class="tag beta">BETA</span><span class="tag">Mental health</span><span class="tag">Tribute</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.com/friends/" target="_blank">
+      <h4>Friends Protocol</h4>
+      <p>Knowledge networking: матчинг людей по интеллектуальному отпечатку. С Денисом Говоруновым. Лендинг + wiki.</p>
+      <div class="tags"><span class="tag">Alpha</span><span class="tag">Solana</span><span class="tag">Network</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.com/claude-partner/" target="_blank">
+      <h4>Claude Partner Program</h4>
+      <p>Ищем 10 человек для обучения Claude — чтобы стать Anthropic Partner. Бесплатный экзамен $99 + 4 курса Academy.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">Anthropic</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- GROUP 3: SIDE PROJECTS -->
+<section class="group" id="side">
+  <div class="group-header">
+    <div class="group-art">
+      <div class="group-emoji">🛠</div>
+      <img src="img/section-side.png" alt="Pop-art side projects illustration" loading="lazy">
+    </div>
+    <div class="group-title-wrap">
+      <div class="section-label">03 · Side-проекты</div>
+      <h2 class="group-title">Лаборатория идей</h2>
+      <p class="group-desc">Продукты и платформы, которые я строю соло или с клиентами. От MCP-маркетплейса до AI-трансформации кипрской недвижимости. Все в проде, все генерят данные.</p>
+    </div>
+  </div>
+  <div class="group-grid">
+    <a class="proj-card" href="https://mcphire.com" target="_blank">
+      <h4>MCPHire</h4>
+      <p>MCP-first job marketplace. 38K вакансий, 3000 SSG страниц, Schema.org. Когда AI-агенты будут искать работу для людей — через API.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">MCP</span><span class="tag">SEO</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.com/antaria-project/" target="_blank">
+      <h4>Antaria Homes</h4>
+      <p>AI-трансформация кипрской недвижимости. С Алексеем Штурбиным. Instagram CLI, Lead Machine, Content Factory.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">Real estate</span><span class="tag">Кипр</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.com/vera-guide/" target="_blank">
+      <h4>Vera Guide</h4>
+      <p>Персональный AI-гайд для HR: Vera Konstantinova. Живая инструкция по AI в рекрутменте.</p>
+      <div class="tags"><span class="tag">LIVE</span><span class="tag">HR</span></div>
+    </a>
+    <a class="proj-card" href="#" onclick="return false;">
+      <h4>Lead Machine</h4>
+      <p>Автономный лид-ген: HH scan → enrichment → scoring → outreach. 1293 компании, 330 emails, 256 TG каналов.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">Lead gen</span><span class="tag">B2B</span></div>
+    </a>
+    <a class="proj-card" href="#" onclick="return false;">
+      <h4>Content Factory</h4>
+      <p>Автогенерация контента для 13 платформ. MiniMax M2.5 primary. Publisher-service в Docker. 6 n8n workflow.</p>
+      <div class="tags"><span class="tag live">LIVE</span><span class="tag">SMM auto</span><span class="tag">n8n</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.com/ksa/" target="_blank">
+      <h4>Saudi Hunter</h4>
+      <p>AI job hunter для Саудовской Аравии (KSA). Бот + networking + лендинг. EN/AR bilingual.</p>
+      <div class="tags"><span class="tag">Alpha</span><span class="tag">KSA</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.com/product-ideas/" target="_blank">
+      <h4>Product Ideas Lab</h4>
+      <p>3 AI-продукта за 3 дня: LeadSniff API, ScreenToCode MCP, ContentMill n8n. Fast-launch playground.</p>
+      <div class="tags"><span class="tag">R&D</span></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.substack.com" target="_blank">
+      <h4>Substack (EN)</h4>
+      <p>"CMO Who Writes Code" — manifestos, case studies, Friday build-logs. Под персональный бренд.</p>
+      <div class="tags"><span class="tag">Weekly</span><span class="tag">EN</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- GROUP 4: SOCIALS -->
+<section class="group socials" id="socials">
+  <div class="group-header">
+    <div class="group-art">
+      <div class="group-emoji">📱</div>
+      <img src="img/section-socials.png" alt="Pop-art social media illustration" loading="lazy">
+    </div>
+    <div class="group-title-wrap">
+      <div class="section-label">04 · Соцсети</div>
+      <h2 class="group-title">Где меня читают</h2>
+      <p class="group-desc">Контент публикуется автоматом через Content Factory — одну идею разбираю в 13 форматов под каждую платформу. Подписывайся где удобнее.</p>
+    </div>
+  </div>
+  <div class="group-grid">
+    <a class="proj-card" href="https://instagram.com/timzinin" target="_blank">
+      <span class="social-icon social-ig">IG</span>
+      <div><h4>Instagram</h4><p>@timzinin · визуал, Reels</p></div>
+    </a>
+    <a class="proj-card" href="https://linkedin.com/in/timzinin" target="_blank">
+      <span class="social-icon social-li">in</span>
+      <div><h4>LinkedIn</h4><p>Tim Zinin · B2B-разборы</p></div>
+    </a>
+    <a class="proj-card" href="https://x.com/timzinin" target="_blank">
+      <span class="social-icon social-x">X</span>
+      <div><h4>X / Twitter</h4><p>@timzinin · threads, build-in-public</p></div>
+    </a>
+    <a class="proj-card" href="https://www.threads.net/@timzinin" target="_blank">
+      <span class="social-icon social-th">T</span>
+      <div><h4>Threads</h4><p>@timzinin · сырые мысли</p></div>
+    </a>
+    <a class="proj-card" href="https://t.me/timzinin" target="_blank">
+      <span class="social-icon social-tg">TG</span>
+      <div><h4>Telegram</h4><p>@timzinin · личный канал</p></div>
+    </a>
+    <a class="proj-card" href="https://timzinin.substack.com" target="_blank">
+      <span class="social-icon social-sub">S</span>
+      <div><h4>Substack</h4><p>timzinin.substack.com · EN-блог</p></div>
+    </a>
+    <a class="proj-card" href="https://youtube.com/@timzinin" target="_blank">
+      <span class="social-icon social-yt">YT</span>
+      <div><h4>YouTube</h4><p>Long-form, кейсы, демо</p></div>
+    </a>
+  </div>
+</section>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+  <div>
+    <h4>Тим Зинин</h4>
+    <p style="opacity:0.7;font-size:14px;max-width:280px;line-height:1.6;">AI-архитектор из Каш (Турция). Строю автономные системы для бизнеса. Живу на Claude Code, MCP и Docker.</p>
+  </div>
+  <div>
+    <h4>Услуги</h4>
+    <a href="#services">Консультация $250/час</a>
+    <a href="#services">Growth подписка $3 500/мес</a>
+    <a href="#services">Full Immersion $20 000/мес</a>
+  </div>
+  <div>
+    <h4>Связаться</h4>
+    <a href="https://t.me/timzinin" target="_blank">Telegram @timzinin</a>
+    <a href="mailto:ilove@timzinin.com">ilove@timzinin.com</a>
+    <a href="https://github.com/TimmyZinin" target="_blank">GitHub TimmyZinin</a>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Tim Zinin · staging на /v2/</span>
+    <span>Version 2 · последнее обновление 18 апреля 2026</span>
+  </div>
+</div>
+</footer>
+
+<a href="https://t.me/timzinin" class="float-cta" target="_blank">Заказать</a>
+
+<script>
+// Fade-in observer
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.group, .services, .hero').forEach(el => {
+  el.classList.add('js-fade');
+  io.observe(el);
+  // Auto-reveal after 1.5s if still not visible (fallback for non-scroll screenshots)
+  setTimeout(() => el.classList.add('visible'), 1500);
+});
+
+// Image fallback for missing section illustrations
+document.querySelectorAll('.group-art img').forEach(img => {
+  img.addEventListener('error', () => {
+    img.style.display = 'none';
+    img.parentElement.style.background = 'linear-gradient(135deg, var(--yellow), var(--red))';
+    img.parentElement.style.display = 'flex';
+    img.parentElement.style.alignItems = 'center';
+    img.parentElement.style.justifyContent = 'center';
+    const fallback = document.createElement('div');
+    fallback.style.cssText = 'font-family:Russo One,sans-serif;font-size:48px;color:var(--black);text-align:center;padding:20px;letter-spacing:0.02em;';
+    fallback.textContent = 'POP';
+    img.parentElement.appendChild(fallback);
+  });
+});
+</script>
+</body>
+</html>
