@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Antaria × Tim Zinin — План первого месяца</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #111;
+  --white: #ffffff;
+  --bg: #fafafa;
+  --red: #e02020;
+  --red-light: #ff4444;
+  --yellow: #ffd700;
+  --blue: #1a3a8a;
+  --green: #22c55e;
+  --display: 'Russo One', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { overflow: hidden; height: 100%; }
+body { font-family: var(--body); background: var(--bg); color: var(--black); overflow: hidden; height: 100%; }
+
+body::after {
+  content: ''; position: fixed; inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none; z-index: 9999;
+}
+
+.deck { display: flex; height: 100vh; width: max-content; overflow: hidden; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.slide { min-width: 100vw; width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 80px clamp(40px, 8vw, 140px); position: relative; overflow: hidden; border-right: 4px solid var(--black); flex-shrink: 0; }
+
+.arrow { position: fixed; top: 50%; transform: translateY(-50%); z-index: 200; width: 56px; height: 56px; background: var(--yellow); border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); cursor: pointer; font-size: 24px; font-weight: 900; display: flex; align-items: center; justify-content: center; transition: all .15s; color: var(--black); }
+.arrow:hover { transform: translateY(-50%) translate(-2px,-2px); box-shadow: 5px 5px 0 var(--black); }
+.arrow-left { left: 16px; } .arrow-right { right: 16px; }
+.arrow:disabled { opacity: 0.3; cursor: default; }
+
+.slide-counter { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 200; font-family: var(--mono); font-size: 14px; background: var(--black); color: var(--yellow); padding: 6px 16px; border: 2px solid var(--black); }
+
+.slide-number { position: absolute; top: 32px; left: clamp(40px, 8vw, 140px); font-family: var(--mono); font-size: 13px; color: var(--red); letter-spacing: 0.08em; background: var(--yellow); padding: 4px 12px; border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black); transform: rotate(-1deg); }
+
+.brand-mark { position: absolute; top: 32px; right: clamp(40px, 8vw, 140px); font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; color: #999; }
+
+h1 { font-family: var(--display); font-size: clamp(44px, 6vw, 96px); letter-spacing: -0.01em; line-height: 1.05; margin-bottom: 24px; }
+h2 { font-family: var(--display); font-size: clamp(32px, 4.5vw, 72px); letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 20px; }
+h3 { font-family: var(--display); font-size: clamp(16px, 1.6vw, 24px); margin-bottom: 10px; }
+p, li { font-size: clamp(15px, 1.3vw, 19px); line-height: 1.6; color: #444; }
+
+.red { color: var(--red); } .blue { color: var(--blue); } .green { color: var(--green); }
+.yellow-bg { background: var(--yellow); padding: 2px 8px; display: inline-block; }
+
+.card { background: var(--white); border: 4px solid var(--black); box-shadow: 4px 4px 0 var(--black); padding: 28px; transition: all .15s; }
+.card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+.card-red { background: var(--white); border: 4px solid var(--red); box-shadow: 4px 4px 0 var(--red); padding: 28px; }
+.card-yellow { background: var(--yellow); border: 4px solid var(--black); box-shadow: 4px 4px 0 var(--black); padding: 28px; }
+.card-yellow p { color: #333; }
+.card-blue { background: var(--blue); border: 4px solid var(--black); box-shadow: 4px 4px 0 var(--black); padding: 28px; color: var(--white); }
+.card-blue h3 { color: var(--yellow); }
+.card-blue p, .card-blue li { color: rgba(255,255,255,0.88); }
+.card-black { background: var(--black); border: 4px solid var(--black); box-shadow: 4px 4px 0 var(--red); padding: 28px; color: var(--white); }
+.card-black h3 { color: var(--yellow); }
+.card-black p, .card-black li { color: rgba(255,255,255,0.88); }
+
+.speech-bubble { background: var(--yellow); border: 4px solid var(--black); border-radius: 24px 24px 4px 24px; padding: 20px 28px; box-shadow: 5px 5px 0 var(--black); font-family: var(--display); font-size: clamp(18px, 2vw, 30px); line-height: 1.3; }
+
+.label-tag { display: inline-block; background: var(--red); color: var(--white); font-family: var(--display); font-size: clamp(12px, 1vw, 16px); padding: 5px 14px; border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); transform: rotate(-2deg); letter-spacing: 0.04em; }
+
+.stat { font-family: var(--mono); font-size: clamp(36px, 4.5vw, 64px); color: var(--red); font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-family: var(--mono); font-size: 12px; color: #888; letter-spacing: 0.08em; }
+
+.tag { display: inline-block; background: var(--yellow); border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black); font-family: var(--mono); font-size: 12px; padding: 3px 10px; margin: 3px; transform: rotate(-1deg); }
+.tag-red { background: var(--red); color: var(--white); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 28px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 28px; }
+.grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 28px; }
+
+.pow-badge { display: inline-block; background: var(--yellow); border: 4px solid var(--black); box-shadow: 4px 4px 0 var(--black); font-family: var(--display); font-size: clamp(18px, 2vw, 32px); padding: 10px 24px; transform: rotate(-3deg); }
+
+.pill { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black); padding: 6px 14px; font-size: 13px; font-weight: 600; margin: 4px; font-family: var(--mono); }
+.pill-red { background: var(--red); color: var(--white); border-color: var(--black); }
+
+.nav-dots { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 100; }
+.nav-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; border: 2px solid var(--black); cursor: pointer; transition: all .2s; }
+.nav-dot.active { background: var(--red); transform: scale(1.3); }
+
+.dots-bg { position: relative; }
+.dots-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle, rgba(224,32,32,0.08) 1px, transparent 1px); background-size: 8px 8px; pointer-events: none; z-index: 0; }
+
+.day-card { background: var(--white); border: 4px solid var(--black); box-shadow: 4px 4px 0 var(--black); padding: 20px; min-height: 220px; display: flex; flex-direction: column; gap: 10px; position: relative; }
+.day-card.hl { background: var(--yellow); box-shadow: 4px 4px 0 var(--red); border-color: var(--red); }
+.day-card .d { font-family: var(--display); font-size: 14px; letter-spacing: 0.1em; color: var(--red); }
+.day-card.hl .d { color: var(--black); background: var(--red); color: var(--white); padding: 3px 8px; width: max-content; }
+.day-card strong { font-family: var(--display); font-size: 18px; color: var(--black); line-height: 1.25; }
+.day-card span { font-size: 13px; color: #333; line-height: 1.5; }
+
+.track-card { padding: 34px; min-height: 320px; display: flex; flex-direction: column; gap: 12px; }
+.track-card .t-num { font-family: var(--display); font-size: 72px; line-height: 1; color: var(--red); }
+.card-blue .t-num, .card-black .t-num { color: var(--yellow); }
+.track-card h3 { font-size: 28px; }
+.track-card ul { list-style: none; margin-top: 8px; }
+.track-card ul li { padding-left: 18px; position: relative; margin-bottom: 8px; font-size: 15px; }
+.track-card ul li::before { content: '■'; position: absolute; left: 0; color: var(--red); font-size: 10px; top: 4px; }
+.card-blue ul li::before, .card-black ul li::before { color: var(--yellow); }
+
+.kpi-big { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 32px; }
+.kpi-big > div { background: var(--white); border: 4px solid var(--black); box-shadow: 4px 4px 0 var(--black); padding: 24px; }
+.kpi-big .num { font-family: var(--display); font-size: clamp(32px, 3.6vw, 54px); color: var(--red); line-height: 1; margin-bottom: 12px; }
+.kpi-big .lab { font-size: 14px; color: #555; line-height: 1.5; }
+
+.meta-row { display: flex; gap: 36px; flex-wrap: wrap; font-family: var(--mono); font-size: 13px; color: #666; padding-top: 24px; border-top: 2px solid var(--black); margin-top: 28px; }
+.meta-row b { display: block; color: var(--red); font-weight: 700; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-5, .kpi-big { grid-template-columns: 1fr; }
+  .slide { padding: 60px 20px; overflow-y: auto; height: auto; min-height: 100vh; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-dots" id="navDots"></nav>
+<button class="arrow arrow-left" id="arrowLeft" onclick="goSlide(current-1)">&larr;</button>
+<button class="arrow arrow-right" id="arrowRight" onclick="goSlide(current+1)">&rarr;</button>
+<div class="slide-counter" id="slideCounter">1 / 6</div>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — TITLE -->
+  <section class="slide dots-bg">
+    <div class="slide-number">01 / 06 · INTRO</div>
+    <div class="brand-mark">ANTARIA × TIM ZININ · АПРЕЛЬ 2026</div>
+
+    <div style="position:relative; z-index:2">
+      <div class="label-tag" style="margin-bottom: 28px">ПЛАН ПЕРВОГО МЕСЯЦА</div>
+      <h1>Не «AI внедрим». <br><span class="red">Сначала</span> — услышим команду.<br>Потом — <span class="yellow-bg">действуем</span>.</h1>
+      <p style="max-width: 70ch; font-size: clamp(17px, 1.5vw, 22px); color: #222; margin-top: 8px">
+        Четыре недели совместной работы. Первая — <b>Discovery</b>: я говорю 1-на-1 с каждым сотрудником маркетинга и продаж, слушаю где болит. Дальше — два параллельных трека и еженедельный ритм спринтов.
+      </p>
+
+      <div class="meta-row">
+        <div><b>Старт</b>28 апреля 2026 · понедельник</div>
+        <div><b>Длительность</b>28 дней · 20 часов моего времени</div>
+        <div><b>Стоимость</b>275 000 ₽ / месяц</div>
+        <div><b>Куратор автоматизаций</b>Алексей Штурбин</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 — WEEK 1 DISCOVERY -->
+  <section class="slide">
+    <div class="slide-number">02 / 06 · DISCOVERY</div>
+    <div class="brand-mark">НЕДЕЛЯ 1</div>
+
+    <h2>Неделя 1 — <span class="red">Discovery</span>.<br>Один на один с каждым.</h2>
+    <p style="max-width: 64ch; margin-bottom: 8px">К CRM не прикасаюсь. Сначала я <b>слушаю команду</b>, а не ломаю процессы. За 5 дней — 30-минутные разговоры с каждым ключевым человеком. Только слушаю. Потом собираю картину.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="red">С КЕМ ГОВОРЮ</h3>
+        <div style="display:flex; flex-wrap: wrap; gap: 4px; margin-top: 14px">
+          <span class="pill">Марина · видение</span>
+          <span class="pill pill-red">Максим · РОП</span>
+          <span class="pill">Арсений · таргет</span>
+          <span class="pill">Евгений · performance</span>
+          <span class="pill">Иван · аналитика</span>
+          <span class="pill">Ольга · контент</span>
+          <span class="pill">Анастасия · копирайт</span>
+          <span class="pill">Мария · бренд</span>
+          <span class="pill">Андрей · дизайн</span>
+          <span class="pill pill-red">Сергей · IT</span>
+          <span class="pill">Кристина · квалификация</span>
+          <span class="pill">Семён · брокер</span>
+        </div>
+        <p style="margin-top: 18px; font-size: 15px">Вопросы у всех одни и те же: <b>что вас бесит</b>, что вы делаете вручную каждый день, где вы теряете время, чего боитесь, что бы вы поменяли.</p>
+      </div>
+
+      <div class="card-red">
+        <h3 class="red">ЧТО НА ВЫХОДЕ</h3>
+        <ul style="list-style: none; margin-top: 14px">
+          <li style="padding: 10px 0; border-bottom: 2px dashed #ddd"><b class="red">■</b> &nbsp;Карта боли — где именно рвётся воронка 13K → 100</li>
+          <li style="padding: 10px 0; border-bottom: 2px dashed #ddd"><b class="red">■</b> &nbsp;Контур безопасности с Сергеем — PII, GDPR, логи</li>
+          <li style="padding: 10px 0; border-bottom: 2px dashed #ddd"><b class="red">■</b> &nbsp;Аудит стека инструментов команды</li>
+          <li style="padding: 10px 0"><b class="red">■</b> &nbsp;План действий на 3 недели, согласованный с Мариной</li>
+        </ul>
+        <div class="speech-bubble" style="margin-top: 22px; background: var(--yellow); font-size: 17px; padding: 14px 20px">«С моим появлением уровень стресса повышается — люди начинают шевелиться»</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 — TWO TRACKS -->
+  <section class="slide dots-bg">
+    <div class="slide-number">03 / 06 · 2 ТРЕКА</div>
+    <div class="brand-mark">ПОСЛЕ DISCOVERY</div>
+
+    <div style="position:relative; z-index:2">
+      <h2>После первой недели —<br><span class="red">два трека</span> параллельно.</h2>
+      <p style="max-width: 60ch">Один трек — быстрая ручная польза для людей. Второй — системные изменения на месяцы вперёд. Алексей Штурбин курирует трек автоматизации и держит связь между командой Antaria и мной.</p>
+
+      <div class="grid-2" style="margin-top: 32px">
+        <div class="card track-card">
+          <div class="t-num">01</div>
+          <h3 class="red">ТРЕК ОБУЧЕНИЯ</h3>
+          <p style="font-size: 15px; color: #222"><b>Главная цель месяца.</b> Поднять уровень осведомлённости и образованности команды в AI. Чтобы через месяц они сами могли пользоваться инструментами, а не зависели от подрядчика.</p>
+          <ul>
+            <li>Еженедельные лекции по 1 часу</li>
+            <li>Разборы кейсов: как это уже работает в их задаче</li>
+            <li>Практикум: каждый пробует руками</li>
+            <li>Библиотека скиллов остаётся у команды</li>
+          </ul>
+        </div>
+
+        <div class="card-blue track-card">
+          <div class="t-num">02</div>
+          <h3>ТРЕК АВТОМАТИЗАЦИИ</h3>
+          <p style="font-size: 15px"><b>Куратор — Алексей.</b> Через него приходят запросы от команды. Я собираю: скиллы, агенты, интеграции. Запускаем через защищённый контур.</p>
+          <ul>
+            <li>AI-агенты в воронке квалификации</li>
+            <li>Скиллы для performance-команды</li>
+            <li>Инструменты атрибуции и дашборды</li>
+            <li>Автоматизация рутины 80/20</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top: 28px">
+        <span class="pow-badge">упор — МЕТРИКИ · ТРАФИК · РАБОТА С ТРАФИКОМ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 — WEEKLY RHYTHM -->
+  <section class="slide">
+    <div class="slide-number">04 / 06 · РИТМ</div>
+    <div class="brand-mark">С НЕДЕЛИ 2</div>
+
+    <h2>Ритм недели — <span class="red">понедельник</span> и <span class="red">пятница</span>.</h2>
+    <p style="max-width: 60ch">Никаких бесконечных созвонов. Только текст. В понедельник — что делаем. В пятницу — что сделали. Между ними команда работает как работала, ничего не ломается.</p>
+
+    <div class="grid-5">
+      <div class="day-card hl">
+        <div class="d">ПН · утро</div>
+        <strong>Постановка задач</strong>
+        <span>Текстовый брифинг: что делаем на этой неделе, какие метрики меряем, от кого что нужно. 1 страница. Марина читает в своём ритме.</span>
+      </div>
+      <div class="day-card">
+        <div class="d">ВТ–СР</div>
+        <strong>Работа async</strong>
+        <span>Я собираю скиллы и агентов. Алексей передаёт запросы от команды. Команда работает как обычно.</span>
+      </div>
+      <div class="day-card hl">
+        <div class="d">ЧТ · 1 час</div>
+        <strong>Лекция</strong>
+        <span>Рассказываю команде про инструмент недели: что делает, почему выбран, как с ним работать. Запись остаётся.</span>
+      </div>
+      <div class="day-card">
+        <div class="d">ПТ · день</div>
+        <strong>Внедрение</strong>
+        <span>Автоматизация уходит в продуктив через защищённый контур. Команда получает доступ и короткую инструкцию.</span>
+      </div>
+      <div class="day-card hl">
+        <div class="d">ПТ · вечер</div>
+        <strong>Отчётность</strong>
+        <span>Документ: что сделано по автоматизациям, какие цифры замерили, следующая неделя. Марина + Алексей.</span>
+      </div>
+    </div>
+
+    <p style="margin-top: 32px; font-style: italic; color: #555"><b class="red">Почему так:</b> у вас нет времени на созвоны, а у команды не должно быть ощущения «нас заставляют учить AI». Спокойный, текстовый, предсказуемый ритм.</p>
+  </section>
+
+  <!-- SLIDE 5 — FOCUS + KPI -->
+  <section class="slide dots-bg">
+    <div class="slide-number">05 / 06 · ФОКУС</div>
+    <div class="brand-mark">ЧТО ПОЛУЧАЕТЕ</div>
+
+    <div style="position:relative; z-index: 2">
+      <h2>Упор — <span class="red">трафик</span>,<br>фундамент — <span class="yellow-bg">образование команды</span>.</h2>
+
+      <div class="grid-3" style="margin-top: 20px">
+        <div class="card card-yellow">
+          <h3>01 · МЕТРИКИ</h3>
+          <p>Прозрачность того, что уже есть. CPL по каналам, квалификация %, скорость ответа, атрибуция до резервации. Один экран — вместо созвонов пяти человек.</p>
+        </div>
+        <div class="card">
+          <h3 class="red">02 · ТРАФИК</h3>
+          <p>Аудит Meta ADS и остальных каналов. AI-слой для отбора качественных лидов на входе. Команда Арсения и Евгения перестаёт тонуть в объёме.</p>
+        </div>
+        <div class="card card-black">
+          <h3>03 · РАБОТА С ТРАФИКОМ</h3>
+          <p>AI-квалификация, скорость первого касания, автоподсказки брокерам. Рост конверсии 13K → SQL → сделка — не «вообще», а в конкретных точках.</p>
+        </div>
+      </div>
+
+      <div class="kpi-big">
+        <div>
+          <div class="num">×4–7</div>
+          <div class="lab">Рост квалификации лидов за 4 недели</div>
+        </div>
+        <div>
+          <div class="num">&lt; 3 мин</div>
+          <div class="lab">Среднее время первого ответа на заявку</div>
+        </div>
+        <div>
+          <div class="num">4</div>
+          <div class="lab">Обученных человека в команде, владеющих AI-инструментами</div>
+        </div>
+        <div>
+          <div class="num">1</div>
+          <div class="lab">Экран, на котором вы видите весь маркетинг</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 — START -->
+  <section class="slide">
+    <div class="slide-number">06 / 06 · НАЧИНАЕМ</div>
+    <div class="brand-mark">СЛЕДУЮЩИЕ ШАГИ</div>
+
+    <h2>Три шага — <span class="red">и в понедельник<br>первый брифинг у вас в Telegram.</span></h2>
+
+    <div class="grid-3" style="margin-top: 16px">
+      <div class="card">
+        <div class="label-tag" style="background: var(--black); margin-bottom: 18px">ШАГ 1 · СЕГОДНЯ</div>
+        <h3>Решение</h3>
+        <p>Вы говорите «да» на этой встрече или берёте паузу до конца недели. Если да — Алексей готовит документы и оплату.</p>
+      </div>
+      <div class="card">
+        <div class="label-tag" style="background: var(--red); margin-bottom: 18px">ШАГ 2 · 22–24 АПРЕЛЯ</div>
+        <h3>Контур безопасности</h3>
+        <p>Архитектурная сессия с Сергеем, подписание документа о защите данных. Расписание 12 интервью с командой.</p>
+      </div>
+      <div class="card-red">
+        <div class="label-tag" style="background: var(--black); margin-bottom: 18px">ШАГ 3 · 28 АПРЕЛЯ</div>
+        <h3 class="red">Discovery стартует</h3>
+        <p>Понедельник — первый брифинг вам в Telegram. Разговоры 1-на-1 начинаются. К пятнице карта боли и план на месяц.</p>
+      </div>
+    </div>
+
+    <div class="meta-row">
+      <div><b>Оплата</b>Предоплата за месяц · рубли · ИП → ИП</div>
+      <div><b>Договор</b>Рамочный + допник №1 (месяц, 20 часов)</div>
+      <div><b>Промежуточный контроль</b>Пятничные отчёты Марина + Алексей</div>
+      <div><b>Решение о продолжении</b>5 мая, после недели 4</div>
+    </div>
+
+    <div class="speech-bubble" style="margin-top: 32px; max-width: 70ch">Если к 5 мая не видите движения — расходимся без обид, все материалы остаются у вас. Но я уверен, что вы захотите продолжить.</div>
+  </section>
+
+</div>
+
+<script>
+const deck = document.getElementById('deck');
+const slides = document.querySelectorAll('.slide');
+const navDots = document.getElementById('navDots');
+const counter = document.getElementById('slideCounter');
+const total = slides.length;
+let current = 0;
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot';
+  dot.onclick = () => goSlide(i);
+  navDots.appendChild(dot);
+});
+
+function goSlide(n) {
+  if (n < 0 || n >= total) return;
+  current = n;
+  deck.style.transform = `translateX(-${current * 100}vw)`;
+  counter.textContent = `${current + 1} / ${total}`;
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  document.getElementById('arrowLeft').disabled = current === 0;
+  document.getElementById('arrowRight').disabled = current === total - 1;
+}
+goSlide(0);
+
+document.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (e.deltaY > 30) goSlide(current + 1);
+  if (e.deltaY < -30) goSlide(current - 1);
+}, { passive: false });
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goSlide(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goSlide(current - 1); }
+});
+
+deck.addEventListener('click', e => {
+  if (e.target.closest('a, button, .arrow')) return;
+  const x = e.clientX;
+  if (x > window.innerWidth * 0.7) goSlide(current + 1);
+  else if (x < window.innerWidth * 0.3) goSlide(current - 1);
+});
+
+let touchX = 0;
+deck.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+deck.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (dx < -50) goSlide(current + 1);
+  if (dx > 50) goSlide(current - 1);
+});
+</script>
+
+</body>
+</html>
