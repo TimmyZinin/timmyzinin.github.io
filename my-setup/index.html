@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мой сетап — Тим Зинин</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #111;
+  --white: #ffffff;
+  --bg: #fafafa;
+  --red: #e02020;
+  --red-light: #ff4444;
+  --yellow: #ffd700;
+  --blue: #1a3a8a;
+  --green: #22c55e;
+  --gray: #f0f0f0;
+  --display: 'Russo One', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { overflow: hidden; height: 100%; }
+body { font-family: var(--body); background: var(--bg); color: var(--black); overflow: hidden; height: 100%; }
+
+body::after {
+  content: ''; position: fixed; inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none; z-index: 9999;
+}
+
+.deck { display: flex; height: 100vh; width: max-content; overflow: hidden; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.slide { min-width: 100vw; width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px clamp(40px, 6vw, 100px); position: relative; overflow: hidden; border-right: 4px solid var(--black); flex-shrink: 0; overflow-y: auto; }
+
+.arrow { position: fixed; top: 50%; transform: translateY(-50%); z-index: 200; width: 52px; height: 52px; background: var(--yellow); border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); cursor: pointer; font-size: 22px; font-weight: 900; display: flex; align-items: center; justify-content: center; transition: all .15s; color: var(--black); }
+.arrow:hover { transform: translateY(-50%) translate(-2px,-2px); box-shadow: 5px 5px 0 var(--black); }
+.arrow-left { left: 16px; } .arrow-right { right: 16px; }
+.arrow:disabled { opacity: 0.3; cursor: default; }
+
+.slide-counter { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 200; font-family: var(--mono); font-size: 13px; background: var(--black); color: var(--yellow); padding: 6px 14px; border: 2px solid var(--black); }
+
+.slide-number { position: absolute; top: 28px; left: clamp(40px, 6vw, 100px); font-family: var(--mono); font-size: 12px; color: var(--red); letter-spacing: 0.08em; background: var(--yellow); padding: 4px 12px; border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black); transform: rotate(-1deg); }
+.brand-mark { position: absolute; top: 28px; right: clamp(40px, 6vw, 100px); font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; color: #999; }
+
+h1 { font-family: var(--display); font-size: clamp(40px, 5.5vw, 84px); letter-spacing: -0.01em; line-height: 1.04; margin-bottom: 20px; }
+h2 { font-family: var(--display); font-size: clamp(28px, 4vw, 56px); letter-spacing: -0.01em; line-height: 1.08; margin-bottom: 14px; }
+h3 { font-family: var(--display); font-size: clamp(15px, 1.5vw, 22px); letter-spacing: 0; margin-bottom: 8px; }
+h4 { font-family: var(--display); font-size: 15px; letter-spacing: 0; margin-bottom: 6px; color: var(--red); }
+p, li { font-size: clamp(14px, 1.15vw, 17px); line-height: 1.55; color: #333; }
+.lead { font-size: clamp(16px, 1.35vw, 20px); max-width: 70ch; color: #222; line-height: 1.55; }
+
+.red { color: var(--red); } .blue { color: var(--blue); } .green { color: var(--green); }
+.yellow-bg { background: var(--yellow); padding: 2px 8px; display: inline-block; }
+
+.card { background: var(--white); border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); padding: 20px; transition: all .15s; }
+.card:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--black); }
+.card-red { background: var(--white); border: 3px solid var(--red); box-shadow: 3px 3px 0 var(--red); padding: 20px; }
+.card-yellow { background: var(--yellow); border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); padding: 20px; }
+.card-yellow p, .card-yellow li { color: #222; }
+.card-blue { background: var(--blue); border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); padding: 20px; color: var(--white); }
+.card-blue h3, .card-blue h4 { color: var(--yellow); }
+.card-blue p, .card-blue li { color: rgba(255,255,255,0.9); }
+.card-black { background: var(--black); border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--red); padding: 20px; color: var(--white); }
+.card-black h3, .card-black h4 { color: var(--yellow); }
+.card-black p, .card-black li { color: rgba(255,255,255,0.88); }
+
+.speech-bubble { background: var(--yellow); border: 3px solid var(--black); border-radius: 24px 24px 4px 24px; padding: 16px 22px; box-shadow: 4px 4px 0 var(--black); font-family: var(--display); font-size: clamp(16px, 1.6vw, 24px); line-height: 1.3; }
+
+.label-tag { display: inline-block; background: var(--red); color: var(--white); font-family: var(--display); font-size: clamp(11px, 0.95vw, 14px); padding: 5px 13px; border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); transform: rotate(-2deg); letter-spacing: 0.04em; }
+
+.stat { font-family: var(--mono); font-size: clamp(32px, 4vw, 56px); color: var(--red); font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-family: var(--mono); font-size: 11px; color: #888; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.tag { display: inline-block; background: var(--yellow); border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black); font-family: var(--mono); font-size: 11px; padding: 3px 9px; margin: 2px 3px; font-weight: 600; }
+.tag-red { background: var(--red); color: var(--white); }
+.tag-dark { background: var(--black); color: var(--yellow); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 18px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+
+.pow-badge { display: inline-block; background: var(--yellow); border: 3px solid var(--black); box-shadow: 4px 4px 0 var(--black); font-family: var(--display); font-size: clamp(16px, 1.8vw, 28px); padding: 8px 20px; transform: rotate(-3deg); }
+
+.pill { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black); padding: 5px 12px; font-size: 12px; font-weight: 600; margin: 3px; font-family: var(--mono); }
+.pill-red { background: var(--red); color: var(--white); }
+.pill-yellow { background: var(--yellow); }
+
+.nav-dots { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 100; }
+.nav-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; border: 1.5px solid var(--black); cursor: pointer; transition: all .2s; padding: 0; }
+.nav-dot.active { background: var(--red); transform: scale(1.4); }
+
+.dots-bg { position: relative; }
+.dots-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle, rgba(224,32,32,0.08) 1px, transparent 1px); background-size: 8px 8px; pointer-events: none; z-index: 0; }
+
+.stripe-bg { background: repeating-linear-gradient(45deg, var(--bg), var(--bg) 10px, var(--white) 10px, var(--white) 20px); }
+
+table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+th { text-align: left; padding: 10px 12px; background: var(--black); color: var(--yellow); font-family: var(--display); font-size: 13px; letter-spacing: 0.04em; }
+td { padding: 8px 12px; border-bottom: 1.5px solid #eee; font-size: 13px; vertical-align: top; }
+td.mono { font-family: var(--mono); font-size: 12px; color: var(--red); }
+td.desc { color: #555; }
+
+.skill-group { background: var(--white); border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); padding: 14px 18px; margin-bottom: 10px; }
+.skill-group h4 { margin-bottom: 6px; }
+.skill-group .names { font-family: var(--mono); font-size: 12px; color: #333; line-height: 1.65; }
+.skill-group .names code { background: var(--yellow); padding: 1px 6px; border-radius: 3px; font-size: 11px; margin-right: 3px; display: inline-block; margin-bottom: 3px; }
+
+ul.clean { list-style: none; padding: 0; margin: 0; }
+ul.clean li { padding: 6px 0; padding-left: 18px; position: relative; font-size: 14px; line-height: 1.5; }
+ul.clean li::before { content: '■'; position: absolute; left: 0; top: 9px; width: 8px; height: 8px; color: var(--red); font-size: 9px; }
+
+.kbd { font-family: var(--mono); background: var(--gray); border: 1px solid #ccc; border-bottom-width: 2px; border-radius: 3px; padding: 1px 6px; font-size: 12px; color: var(--black); }
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .slide { padding: 50px 20px; height: auto; min-height: 100vh; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-dots" id="navDots"></nav>
+<button class="arrow arrow-left" id="arrowLeft" onclick="goSlide(current-1)">&larr;</button>
+<button class="arrow arrow-right" id="arrowRight" onclick="goSlide(current+1)">&rarr;</button>
+<div class="slide-counter" id="slideCounter">1 / 20</div>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — TITLE -->
+  <section class="slide dots-bg">
+    <div class="slide-number">01 / 20 · INTRO</div>
+    <div class="brand-mark">TIM ZININ · 20 АПР 2026</div>
+    <div style="position:relative; z-index:2">
+      <div class="label-tag" style="margin-bottom: 24px">МОЙ СЕТАП</div>
+      <h1>Один человек. <span class="red">15 проектов.</span><br>Турецкий посёлок <span class="yellow-bg">Каш</span>.</h1>
+      <p class="lead" style="margin-top: 6px">Экскурсия по рабочему месту, которое заменяет команду из 10 человек. Без офиса, без найма, без секретов. Всё повторимо за выходные кем угодно в этом зале.</p>
+      <div class="grid-4" style="margin-top: 28px">
+        <div class="card-yellow"><div class="stat">94</div><div class="stat-label">скилла</div></div>
+        <div class="card"><div class="stat">25</div><div class="stat-label">агентов</div></div>
+        <div class="card-red" style="color:var(--red)"><div class="stat">30+</div><div class="stat-label">хуков</div></div>
+        <div class="card-black"><div class="stat" style="color:var(--yellow)">20+</div><div class="stat-label" style="color:#bbb">MCP</div></div>
+      </div>
+      <p style="margin-top: 20px; font-style: italic; color:#666">Сегодня покажу всё как есть — без магии, без волшебства, без «ну это сложно».</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 — WORKFLOW: CONSTITUTION + SPRINT -->
+  <section class="slide">
+    <div class="slide-number">02 / 20 · WORKFLOW</div>
+    <div class="brand-mark">КОНСТИТУЦИЯ + СПРИНТ</div>
+    <h2>Сначала — <span class="red">правила</span>.<br>Потом инструменты.</h2>
+    <p class="lead">Без дисциплины любая AI-инфраструктура превращается в генератор галлюцинаций. У меня есть конституция и спринт-протокол, которые вшиты в каждую сессию Клода.</p>
+    <div class="grid-2" style="margin-top: 14px">
+      <div class="card-red">
+        <h3 class="red">КОНСТИТУЦИЯ · 7 ПРАВИЛ</h3>
+        <ul class="clean">
+          <li><b>Честность</b> — код ≠ фича. Сделано = пользователь увидел</li>
+          <li><b>Проверяй — потом докладывай</b> — curl, screencapture, Telethon</li>
+          <li><b>Максимальная автономность</b> — 10 шагов эскалации до Тима</li>
+          <li><b>Контент = картинка + ссылка + UTM</b> — без картинки не публикуем</li>
+          <li><b>Координация сессий</b> — handoff, activity_log, session_registry</li>
+          <li><b>Инфраструктура</b> — после деплоя curl, иначе откатываемся</li>
+        </ul>
+      </div>
+      <div class="card-yellow">
+        <h3>СПРИНТ · 8 ШАГОВ</h3>
+        <p style="font-family:var(--mono); font-size:13px; margin-bottom:10px; line-height:1.8">PLAN → HITL → IMPLEMENT → TEST → SEC → DEPLOY → VERIFY → NOTIFY</p>
+        <p style="font-size:13px">Между TEST и SEC — обязательный <b>Codex code review</b>. Между PLAN и HITL — <b>adversarial review</b>. Я не жму деплой без независимой пары глаз.</p>
+      </div>
+    </div>
+    <div class="speech-bubble" style="margin-top: 22px; background: var(--black); color: var(--yellow); font-size:18px">Правила &gt; скорость. Всегда.</div>
+  </section>
+
+  <!-- SLIDE 3 — WORKFLOW: MEMORY + HANDOFF + TASK BOARD -->
+  <section class="slide dots-bg">
+    <div class="slide-number">03 / 20 · WORKFLOW</div>
+    <div class="brand-mark">ПАМЯТЬ · HANDOFF · КАНБАН</div>
+    <div style="position:relative; z-index:2">
+      <h2>Что делает <span class="red">одну сессию</span> продолжением <span class="red">следующей</span>.</h2>
+      <div class="grid-3" style="margin-top: 16px">
+        <div class="card">
+          <h4>MEMORY.md</h4>
+          <p style="font-size:14px">Индекс памяти — грузится в каждую сессию. MOC-файлы как точки входа: проекты, клиенты, инфра, SMM.</p>
+          <p style="font-family:var(--mono); font-size:11px; color:var(--red); margin-top: 8px">~/.claude/projects/.../memory/</p>
+        </div>
+        <div class="card-red">
+          <h4 style="color:var(--red)">SESSION HANDOFF</h4>
+          <p style="font-size:14px">Append-only журнал состояния. Закрыл ноут утром — вечерняя сессия прочитает что было. Переживает compaction.</p>
+          <p style="font-family:var(--mono); font-size:11px; color:var(--red); margin-top: 8px">memory/session_handoff.md</p>
+        </div>
+        <div class="card-blue">
+          <h4>ACTIVITY LOG</h4>
+          <p style="font-size:14px">Что делают 5-10 параллельных сессий прямо сейчас. Чтоб не дублировали работу и не ломали чужие процессы.</p>
+          <p style="font-family:var(--mono); font-size:11px; color:var(--yellow); margin-top: 8px">memory/activity_log.md</p>
+        </div>
+        <div class="card-yellow">
+          <h4>SESSION REGISTRY</h4>
+          <p style="font-size:14px">Lock-файлы: кто занял Playwright, кто делает SSH на Contabo. Как семафоры в ОС, но в markdown.</p>
+          <p style="font-family:var(--mono); font-size:11px; color:var(--red); margin-top: 8px">memory/session_registry.json</p>
+        </div>
+        <div class="card-black">
+          <h4>TASK BOARD</h4>
+          <p style="font-size:14px">Канбан на своей локальной HTML-странице. backlog → wip → test → done. Открывается одним кликом.</p>
+          <p style="font-family:var(--mono); font-size:11px; color:var(--yellow); margin-top: 8px">~/tasks.html + ~/task_data.js</p>
+        </div>
+        <div class="card">
+          <h4>MOC-ФАЙЛЫ</h4>
+          <p style="font-size:14px">Map of Content — точки входа по темам. moc-ai-corp, moc-sborka, moc-smm, moc-clients, moc-infrastructure.</p>
+          <p style="font-family:var(--mono); font-size:11px; color:var(--red); margin-top: 8px">memory/moc-*.md</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 — CLI AND RUNTIMES -->
+  <section class="slide">
+    <div class="slide-number">04 / 20 · CLI</div>
+    <div class="brand-mark">РАНТАЙМЫ</div>
+    <h2>Главные <span class="red">CLI</span>, которые у меня запущены 24/7.</h2>
+    <table>
+      <thead><tr><th>Инструмент</th><th>Версия</th><th>Путь</th><th>Зачем</th></tr></thead>
+      <tbody>
+        <tr><td><b>Claude Code</b></td><td class="mono">2.1.114</td><td class="mono">~/.local/bin/claude</td><td class="desc">Основной рабочий интерфейс. Opus 4.7 / 1M контекст</td></tr>
+        <tr><td><b>Codex CLI</b></td><td class="mono">0.120.0</td><td class="mono">/opt/homebrew/bin/codex</td><td class="desc">Независимый ревьюер кода и архитектуры</td></tr>
+        <tr><td><b>mm</b> (MiniMax)</td><td class="mono">custom</td><td class="mono">~/bin/mm</td><td class="desc">Slave-сессии кодинга на MiniMax M2.5</td></tr>
+        <tr><td><b>Playwright CLI</b></td><td class="mono">0.1.4</td><td class="mono">~/.nvm/.../playwright-cli</td><td class="desc">Браузер без DOM в контексте — токен-эффективно</td></tr>
+        <tr><td><b>mlx_whisper</b></td><td class="mono">—</td><td class="mono">/opt/homebrew/bin/mlx_whisper</td><td class="desc">Локальная транскрибация на Apple Silicon. Войс → текст за секунды</td></tr>
+        <tr><td><b>gh</b></td><td class="mono">—</td><td class="mono">/opt/homebrew/bin/gh</td><td class="desc">Git + PR + issues + wiki через CLI</td></tr>
+        <tr><td><b>docker</b></td><td class="mono">—</td><td class="mono">—</td><td class="desc">Контейнеризация всех сервисов</td></tr>
+        <tr><td><b>n8n</b> (self-hosted)</td><td class="mono">—</td><td class="mono">n8n.timzinin.com</td><td class="desc">Workflow orchestration — оркестратор контент-конвейера</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 18px; font-style: italic; color:#666">Всё CLI — ни одной GUI-IDE. Ни Cursor, ни VS Code. Чистый терминал.</p>
+  </section>
+
+  <!-- SLIDE 5 — CUSTOM CLI -->
+  <section class="slide">
+    <div class="slide-number">05 / 20 · CUSTOM</div>
+    <div class="brand-mark">КАСТОМНЫЕ CLI</div>
+    <h2>То, что я <span class="red">написал сам</span> — в ~/bin/</h2>
+    <p class="lead">Каждая команда решает конкретную боль: запуск сессий, переключение между моделями, передача данных между агентами.</p>
+    <div class="grid-2" style="margin-top: 14px">
+      <div class="card-yellow">
+        <h4>ccc · cccm</h4>
+        <p style="font-size:14px">Python-launcher'ы для быстрого запуска Claude Code в нужной папке с правильным промптом и логами старта/закрытия. Плюс ccc_lib — общая библиотека для всех моих CLI.</p>
+      </div>
+      <div class="card-red">
+        <h4 class="red">agent-bus</h4>
+        <p style="font-size:14px">Шина сообщений между параллельными агентами. Одна сессия может отправить задачу другой — Claude ↔ Codex ↔ MiniMax. Workspace-based routing.</p>
+      </div>
+      <div class="card-blue">
+        <h4>claude-session</h4>
+        <p style="font-size:14px">Launcher v2 для named-сессий. Читает prompt из ~/.claude/watchdog/prompt_session_*.md, присваивает session ID, запускает в отдельном окне iTerm с badge.</p>
+      </div>
+      <div class="card">
+        <h4>mm</h4>
+        <p style="font-size:14px">Bash-обёртка: отдельный <span class="kbd">CLAUDE_CONFIG_DIR</span>, MiniMax API-ключи, <span class="kbd">--dangerously-skip-permissions</span>. Запуск Claude Code но с MiniMax M2.5 вместо Opus.</p>
+      </div>
+    </div>
+    <div style="margin-top: 16px">
+      <span class="tag tag-dark">happy-mcp</span>
+      <span class="tag tag-dark">mcptelegram</span>
+      <span class="tag tag-dark">paperclipai</span>
+      <span class="tag tag-dark">zubeid-youtube-mcp-server</span>
+      <span class="tag">ещё node-CLI пакеты</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 — LLM STACK -->
+  <section class="slide dots-bg">
+    <div class="slide-number">06 / 20 · LLM</div>
+    <div class="brand-mark">11 МОДЕЛЕЙ ПО РОЛЯМ</div>
+    <div style="position:relative; z-index:2">
+      <h2>Каждая модель — <span class="red">на своё место</span>.</h2>
+      <p class="lead">Одна модель не решает все задачи. Разные силы, разные цены, разные скорости. Мой принцип: деньги только через Anthropic Pro + OpenRouter + OpenAI Codex.</p>
+      <table style="margin-top: 14px">
+        <thead><tr><th>Модель</th><th>Роль</th><th>Платформа</th></tr></thead>
+        <tbody>
+          <tr><td><b>Claude Opus 4.7</b> (1M)</td><td>Стратегия, архитектура, сложные решения</td><td class="mono">Anthropic Pro</td></tr>
+          <tr><td><b>Claude Sonnet 4.6</b></td><td>Регулярная работа, скорость</td><td class="mono">Anthropic Pro</td></tr>
+          <tr><td><b>Claude Haiku 4.5</b></td><td>Быстрые операции</td><td class="mono">Anthropic Pro</td></tr>
+          <tr><td><b>MiniMax M2.5</b></td><td>Slave-кодинг по ТЗ (дёшево)</td><td class="mono">OpenRouter</td></tr>
+          <tr><td><b>OpenAI gpt-5-codex</b></td><td>Adversarial + code review</td><td class="mono">Codex CLI</td></tr>
+          <tr><td><b>Gemini 2.5 Flash Image</b></td><td>Генерация картинок для сайтов и постов</td><td class="mono">OpenRouter</td></tr>
+          <tr><td><b>Gemini 2.5 Flash</b></td><td>B-roll для Шортов Лизы</td><td class="mono">OpenRouter</td></tr>
+          <tr><td><b>ElevenLabs Lily</b></td><td>TTS-голос Лизы с word-level timestamps</td><td class="mono">ElevenLabs API</td></tr>
+          <tr><td><b>Llama 3.3 70B</b></td><td>Бэкап / массовые задачи</td><td class="mono">Groq (100K/день <b>free</b>)</td></tr>
+          <tr><td><b>Llama (OpenRouter)</b></td><td>Резерв</td><td class="mono">OpenRouter free</td></tr>
+          <tr><td><b>Whisper Large v3</b></td><td>Транскрибация голосовых</td><td class="mono">mlx_whisper локально</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 14px"><b>Правило перекрёстной проверки:</b> Claude пишет план → Codex атакует. Claude пишет код → Codex ревьюит. Так я ловлю свои галлюцинации.</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 — CLAUDE CODE CORE -->
+  <section class="slide">
+    <div class="slide-number">07 / 20 · CLAUDE CODE</div>
+    <div class="brand-mark">ЯДРО</div>
+    <h2>Claude Code — <span class="red">не IDE и не чат</span>.<br>Это операционная система.</h2>
+    <div class="grid-2" style="margin-top: 16px">
+      <div class="card-red">
+        <h4 class="red">ПОЧЕМУ НЕ CURSOR</h4>
+        <ul class="clean">
+          <li>Чистый терминал, не прибит к редактору</li>
+          <li>1M контекст — помнит весь день</li>
+          <li>Работа в тексте, не в файловом дереве</li>
+          <li>Масштабируется на 10 параллельных сессий</li>
+          <li>Расширяется хуками, скиллами, MCP</li>
+        </ul>
+      </div>
+      <div class="card-yellow">
+        <h4>КАК Я РАБОТАЮ</h4>
+        <ul class="clean">
+          <li>Не пишу код — описываю что хочу</li>
+          <li>Плагинов как у всех — больше, чем у всех</li>
+          <li>Один Opus держит 1M токенов памяти</li>
+          <li>Если тяжело Опусу — делегирую MiniMax</li>
+          <li>Результат ревьюит Codex, потом тестирую сам</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid-4" style="margin-top: 18px">
+      <div class="card"><h4>94</h4><p style="font-size:13px">скилла всего (47 активных, 47 припарковано)</p></div>
+      <div class="card-blue"><h4>25</h4><p style="font-size:13px">Core-агентов в ~/.claude/agents/ + 41 в пуле</p></div>
+      <div class="card-red"><h4>30+</h4><p style="font-size:13px">хуков — защитная сетка и автоматизация</p></div>
+      <div class="card-yellow"><h4>20+</h4><p style="font-size:13px">MCP-серверов (локальные + remote connectors)</p></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8 — SKILLS PRINCIPLE -->
+  <section class="slide">
+    <div class="slide-number">08 / 20 · СКИЛЛЫ</div>
+    <div class="brand-mark">ПРИНЦИП РАБОТЫ</div>
+    <h2>Скилл — это <span class="red">команда</span>, которую я сам себе написал.</h2>
+    <p class="lead">Каждый скилл = markdown-файл с инструкцией + триггером. Я набираю <span class="kbd">/offer</span> — Claude знает что делать, читает шаблоны, запрашивает нужные инструменты.</p>
+    <div class="grid-2" style="margin-top: 16px">
+      <div class="card-yellow">
+        <h4>ПОЧЕМУ ПАРКУЮ</h4>
+        <p style="font-size:14px">Каждый скилл жрёт ~100 токенов в старте сессии. 94 скилла = 9400 токенов впустую. Решение — хранить на диске, но исключать из контекста.</p>
+        <p style="font-family:var(--mono); font-size:12px; color:var(--red); margin-top: 10px">skill-park.sh · skill-unpark.sh · skill-list.sh</p>
+      </div>
+      <div class="card-black">
+        <h4>СТРУКТУРА</h4>
+        <ul class="clean" style="color:#ddd">
+          <li>~/.claude/skills/&lt;name&gt;/SKILL.md — активен</li>
+          <li>~/.claude/skills-parked/&lt;name&gt;/ — запаркован</li>
+          <li>После парковки — restart сессии обязателен</li>
+          <li>Вызов из сессии: <span class="kbd">/name</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="speech-bubble" style="margin-top: 18px; font-size: 18px">47 активных скиллов — это 47 моих кастомных ассистентов, каждый со своей ролью.</div>
+  </section>
+
+  <!-- SLIDE 9 — SKILLS: INFRA + MARKETING -->
+  <section class="slide">
+    <div class="slide-number">09 / 20 · СКИЛЛЫ</div>
+    <div class="brand-mark">ИНФРА · РЕВЬЮ · МАРКЕТИНГ</div>
+    <h2><span class="red">Первая половина</span> моих 47 скиллов.</h2>
+    <div class="skill-group">
+      <h4>🔧 Инфраструктура и меta (10)</h4>
+      <div class="names">
+        <code>/verify</code> проверка DNS/URL/handoff после деплоев ·
+        <code>/deploy-project</code> автодеплой на Contabo VPS ·
+        <code>/new-sprint</code> инициализация спринта ·
+        <code>/spawn</code> запуск параллельной сессии ·
+        <code>/inbox</code> проверка результатов slave-сессий ·
+        <code>/mcp-parking</code> управление MCP-серверами ·
+        <code>/publish-content</code> публикация контента с проверками
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>🔍 Ревью и качество (6)</h4>
+      <div class="names">
+        <code>/codex-review</code> независимый code review ·
+        <code>/codex-adversarial</code> атака на план/архитектуру ·
+        <code>/codex-rescue</code> делегация сложного таска Codex ·
+        <code>/combo-review</code> двойной gate (MiniMax → Codex) ·
+        <code>/mm-review</code> оценка slave-задач MiniMax ·
+        <code>/self-adversarial</code> fallback когда Codex недоступен
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>📈 Маркетинг и продажи (8)</h4>
+      <div class="names">
+        <code>/offer</code> аутрич-лендинг для лида ·
+        <code>/outreach</code> cold-message генерация ·
+        <code>/copywriting</code> маркетинговый копирайтинг ·
+        <code>/anti-ai-writing</code> убрать AI-tells из текста ·
+        <code>/launch-strategy</code> планирование запусков ·
+        <code>/social-content</code> посты для SMM ·
+        <code>/seo-optimizer</code> SEO-аудит и стратегия ·
+        <code>/image-gen</code> генерация картинок через Gemini
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>🎯 Outreach по платформам (4)</h4>
+      <div class="names">
+        <code>/hh-outreach</code> отклики на HH ·
+        <code>/kariyer-outreach</code> отклики в Турции ·
+        <code>/superjob-outreach</code> SuperJob через API ·
+        <code>/outreach-hunt</code> мульти-площадочный скан (SuperJob/Habr/Avito/GetMatch)
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 10 — SKILLS: CREATIVE + GAMES + PROJECT -->
+  <section class="slide">
+    <div class="slide-number">10 / 20 · СКИЛЛЫ</div>
+    <div class="brand-mark">ТВОРЧЕСТВО · ИГРЫ · ПРОЕКТЫ</div>
+    <h2><span class="red">Вторая половина</span> моих 47 скиллов.</h2>
+    <div class="skill-group">
+      <h4>🎨 Фронтенд и дизайн (4)</h4>
+      <div class="names">
+        <code>/frontend-design</code> калиброванный под мой вкус (Pop Art, Playful Bold Poster) ·
+        <code>/ui-ux-pro-max</code> 50 стилей + 21 палитра + 9 стеков ·
+        <code>/scriptwriter</code> сценарии для AI-видео (MiniMax/Sora/Kling) ·
+        <code>/image-gen</code> картинки через OpenRouter Gemini
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>🎮 3D и игры (8)</h4>
+      <div class="names">
+        <code>/3d-asset</code> pipeline ·
+        <code>/3d-games</code> rendering/shaders/physics ·
+        <code>/3d-web-experience</code> Three.js / R3F ·
+        <code>/game-development</code> оркестратор ·
+        <code>/game-design</code> GDD, баланс ·
+        <code>/game-art</code> визуальный стиль ·
+        <code>/game-audio</code> саунд-дизайн ·
+        <code>/develop-web-game</code> dev+test loop HTML/JS ·
+        <code>/web-games</code> WebGPU/PWA
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>🎯 Проектные и карьерные (7)</h4>
+      <div class="names">
+        <code>/focus-coach</code> психолог + аналитик сессий ·
+        <code>/career-ops</code> AI job search command center ·
+        <code>/expert-hunter</code> поиск и ранжирование экспертов ·
+        <code>/lh</code> trend-to-product для Романа ·
+        <code>/sborka-content</code> контент-план СБОРКИ ·
+        <code>/sborka-webinar-funnel</code> воронка вебинаров ·
+        <code>/playwright-cli</code> браузерная автоматизация
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>🤖 LLM-оркестрация и персонажи (3)</h4>
+      <div class="names">
+        <code>/mm</code> MiniMax slave-сессия ·
+        <code>/spawn</code> запуск параллельного Claude ·
+        <code>/character-pipeline</code> AI-персонажи
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 11 — PARKED SKILLS -->
+  <section class="slide dots-bg">
+    <div class="slide-number">11 / 20 · СКИЛЛЫ</div>
+    <div class="brand-mark">25 ПРИПАРКОВАННЫХ</div>
+    <div style="position:relative; z-index:2">
+      <h2>Скиллы <span class="red">в депо</span>.<br>Не грузятся, но всегда под рукой.</h2>
+      <p class="lead">Эти 25 скиллов живут на диске, но исключены из стартового контекста. Распарковываю за 5 секунд когда нужны.</p>
+      <div class="grid-3" style="margin-top: 16px">
+        <div class="card-yellow">
+          <h4>МАРКЕТИНГ · 8</h4>
+          <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.7">
+            <code>marketing-psychology</code>
+            <code>pricing-strategy</code>
+            <code>free-tool-strategy</code>
+            <code>programmatic-seo</code>
+            <code>viral-generator-builder</code>
+            <code>email-sequence</code>
+            <code>referral-program</code>
+            <code>paywall-upgrade-cro</code>
+          </div>
+        </div>
+        <div class="card">
+          <h4>КОНТЕНТ · 4</h4>
+          <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.7">
+            <code>content-research-writer</code>
+            <code>bank</code>
+            <code>theme-factory</code>
+            <code>meme-factory</code>
+          </div>
+        </div>
+        <div class="card-red">
+          <h4 class="red">ПРОДУКТЫ · 5</h4>
+          <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.7">
+            <code>product-ideas-bank</code>
+            <code>app-store-optimization</code>
+            <code>agent-pool</code>
+            <code>funnel</code>
+            <code>playtest-unity</code>
+          </div>
+        </div>
+        <div class="card-blue">
+          <h4>ИНФРА · 4</h4>
+          <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.7">
+            <code>mm-rate</code>
+            <code>codex-setup</code>
+            <code>scroll-experience</code>
+            <code>wiki</code>
+          </div>
+        </div>
+        <div class="card-black">
+          <h4>ПРОЕКТНЫЕ · 4</h4>
+          <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.7">
+            <code>sborka-podcast</code>
+            <code>broker-checker-gptzero</code>
+            <code>broker-writer</code>
+            <code>add-vendor-krmktl</code>
+          </div>
+        </div>
+        <div class="card-yellow">
+          <h4>ЭКОНОМИЯ</h4>
+          <p style="font-size:13px">25 скиллов × 100 токенов = <b>2500 токенов</b> свободны. За год это десятки тысяч долларов.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 12 — AGENTS CORE -->
+  <section class="slide">
+    <div class="slide-number">12 / 20 · АГЕНТЫ</div>
+    <div class="brand-mark">25 CORE</div>
+    <h2>Агент — это <span class="red">специалист</span> с изолированным контекстом.</h2>
+    <p class="lead">Claude Code запускает агента в отдельном sandbox'е: свой набор инструментов, свои правила, своя экспертиза. Я не ношу в своей сессии весь контекст — делегирую специалисту.</p>
+    <div class="grid-3" style="margin-top: 14px">
+      <div class="card">
+        <h4 class="red">РАЗРАБОТКА · 7</h4>
+        <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.8">
+          <code>backend-developer</code>
+          <code>code-reviewer</code>
+          <code>debugger</code>
+          <code>devops-troubleshooter</code>
+          <code>frontend-designer</code>
+          <code>test-engineer</code>
+          <code>security-auditor</code>
+        </div>
+      </div>
+      <div class="card-red">
+        <h4 class="red">ПРОДУКТ И СТРАТЕГИЯ · 5</h4>
+        <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.8">
+          <code>product-manager</code>
+          <code>product-strategist</code>
+          <code>ux-researcher</code>
+          <code>market-researcher</code>
+          <code>competitive-analyst</code>
+        </div>
+      </div>
+      <div class="card-yellow">
+        <h4>МАРКЕТИНГ · 4</h4>
+        <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.8">
+          <code>content-marketer</code>
+          <code>seo-specialist</code>
+          <code>lead-machine</code>
+          <code>trend-analyst</code>
+        </div>
+      </div>
+      <div class="card-blue">
+        <h4>CUSTOMER · 2</h4>
+        <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.8; color:rgba(255,255,255,0.9)">
+          <code>customer-success-manager</code>
+          <code>customer-support</code>
+        </div>
+      </div>
+      <div class="card-black">
+        <h4>ИГРЫ · 4</h4>
+        <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.8">
+          <code>game-designer</code>
+          <code>game-developer</code>
+          <code>unity-game-developer</code>
+          <code>3d-artist</code>
+        </div>
+      </div>
+      <div class="card">
+        <h4>ФИНАНСЫ И LEGAL · 3</h4>
+        <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.8">
+          <code>revenue-pulse</code>
+          <code>payment-integration</code>
+          <code>legal-advisor</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 13 — AGENTS ORCHESTRATION -->
+  <section class="slide">
+    <div class="slide-number">13 / 20 · АГЕНТЫ</div>
+    <div class="brand-mark">ОРКЕСТРАЦИЯ</div>
+    <h2><span class="red">Master-slave</span> между Claude, MiniMax и Codex.</h2>
+    <p class="lead">Я не работаю один. У меня постоянно крутятся параллельные агентские сессии — каждая со своим мозгом, своим лимитом, своей задачей. Оркестрация через <span class="kbd">agent-bus</span>.</p>
+    <div class="grid-2" style="margin-top: 14px">
+      <div class="card">
+        <h4 class="red">MASTER-СЕССИЯ (Opus 4.7)</h4>
+        <ul class="clean">
+          <li>Держит 1M контекста</li>
+          <li>Планирует, решает архитектуру</li>
+          <li>Запускает slave-агентов через <code>/spawn</code></li>
+          <li>Собирает результаты через <code>/inbox</code></li>
+        </ul>
+      </div>
+      <div class="card-blue">
+        <h4>SLAVE-СЕССИЯ (MiniMax M2.5)</h4>
+        <ul class="clean">
+          <li>Запускается через <code>mm</code></li>
+          <li>Отдельный <code>CLAUDE_CONFIG_DIR</code> чтобы не конфликтовать</li>
+          <li>Получает ТЗ от master, пишет код</li>
+          <li>Результат ревьюит master перед мерджем</li>
+        </ul>
+      </div>
+      <div class="card-red">
+        <h4 class="red">REVIEWER (OpenAI Codex CLI)</h4>
+        <ul class="clean">
+          <li>Read-only sandbox — не может изменять файлы</li>
+          <li>Два режима: review (ищет баги) и adversarial (атакует архитектуру)</li>
+          <li>Вердикт: APPROVED / NEEDS_CHANGES / REJECTED</li>
+          <li>Для критичного кода — <code>/combo-review</code> (MiniMax + Codex)</li>
+        </ul>
+      </div>
+      <div class="card-yellow">
+        <h4>КАК ЭТО ВЫГЛЯДИТ</h4>
+        <p style="font-size:14px; line-height:1.6">Я запускаю master. Master порождает 3 slave'а: один скрапит, второй пишет тексты, третий верстает HTML. Параллельно Codex ревьюит master-план. Я пью кофе. Через 20 минут всё собрано.</p>
+      </div>
+    </div>
+    <div class="speech-bubble" style="margin-top: 18px; background: var(--black); color: var(--yellow); font-size:17px">Один человек = один мозг. Пять сессий = пять мозгов одновременно.</div>
+  </section>
+
+  <!-- SLIDE 14 — HOOKS: DEFENSIVE NET -->
+  <section class="slide">
+    <div class="slide-number">14 / 20 · ХУКИ</div>
+    <div class="brand-mark">ЗАЩИТНАЯ СЕТКА</div>
+    <h2>Хук — это <span class="red">автомат</span>, который слушает каждое действие Claude.</h2>
+    <p class="lead">Перед каждым Bash, Write, Edit хук может проверить что происходит и заблокировать если опасно. Это моя страховка от тупых ошибок — своих и AI.</p>
+    <div class="grid-2" style="margin-top: 14px">
+      <div class="card-red">
+        <h4 class="red">БЛОКИРОВКА ДЕСТРУКТИВА</h4>
+        <ul class="clean">
+          <li><code>bash-pretooluse-guard.py</code> — unified guard на Bash. Ловит <span class="kbd">rm -rf</span>, <span class="kbd">git push --force</span>, <span class="kbd">kill Chrome</span></li>
+          <li><code>file-protection.py</code> — защита критичных файлов (api_credentials, .env, CLAUDE.md)</li>
+          <li><code>git-secret-guard.sh</code> — глобальный pre-commit на все репо, ловит токены</li>
+          <li><code>tim-directive-guard.sh</code> — я явно запретил что-то — хук следит</li>
+        </ul>
+      </div>
+      <div class="card-black">
+        <h4>ПРЕДДЕПЛОЙНЫЕ ПРОВЕРКИ</h4>
+        <ul class="clean">
+          <li><code>dns-verifier.py</code> — перед DNS-изменением валидирует все записи</li>
+          <li><code>url-checker.py</code> — проверка URL в публикациях</li>
+          <li><code>telegram-target-guard.py</code> — защита от отправки в чужой чат</li>
+          <li><code>hh-platform-claim-guard.py</code> + <code>hh-touch-guard.py</code> + <code>hh-verify.sh</code> + <code>hh-claim-patterns.py</code> — не даёт массово отправлять на HH после бана</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top: 16px; font-style: italic; color:#666">Хуки — единственное место в моей системе, где я параноик. Скорость &lt; безопасность.</p>
+  </section>
+
+  <!-- SLIDE 15 — HOOKS: AUTOMATION -->
+  <section class="slide">
+    <div class="slide-number">15 / 20 · ХУКИ</div>
+    <div class="brand-mark">АВТОМАТИЗАЦИЯ</div>
+    <h2>Хуки, <span class="red">которые делают жизнь легче</span>.</h2>
+    <p class="lead">Эта группа не блокирует, а упрощает: убирает ручные шаги, подставляет контекст, нормализует текст.</p>
+    <div class="grid-2" style="margin-top: 14px">
+      <div class="card-yellow">
+        <h4>УТИЛИТЫ</h4>
+        <ul class="clean">
+          <li><code>image-auto-resize.py</code> — Retina-скриншоты 2000+ автоматически режутся до 1600 (иначе API падает)</li>
+          <li><code>social-text-spacing.py</code> — spacing в текстах для соцсетей (в X нужен один, в LinkedIn другой)</li>
+          <li><code>russian-content-checker.py</code> — проверка русского текста на опечатки</li>
+        </ul>
+      </div>
+      <div class="card-blue">
+        <h4>СЕССИОННЫЕ</h4>
+        <ul class="clean">
+          <li><code>session-init.py</code> — инициализация новой сессии. Читает handoff, MEMORY.md, registry</li>
+          <li><code>precompact-handoff.py</code> — перед compaction автоматически дописывает WIP-задачи в handoff (чтобы не потерять)</li>
+          <li><code>session-end-cleanup.py</code> — на выходе снимает lock'и, архивирует временные файлы</li>
+        </ul>
+      </div>
+      <div class="card-red">
+        <h4 class="red">КООРДИНАЦИЯ</h4>
+        <ul class="clean">
+          <li><code>browser-session-guard.py</code> — не даёт разным сессиям ломать друг другу браузер</li>
+          <li><code>slave-review.sh</code> — автоматический ревью slave-сессий перед merge</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>СКРИПТЫ-МЕНЕДЖЕРЫ</h4>
+        <div class="names" style="font-family:var(--mono); font-size:12px; line-height:1.8">
+          <code>mcp-list.sh</code> / <code>mcp-park.sh</code> / <code>mcp-unpark.sh</code>
+          <code>skill-list.sh</code> / <code>skill-park.sh</code> / <code>skill-unpark.sh</code>
+          <code>accept-session.sh</code> · <code>check-inbox.sh</code> · <code>archive-cleanup.sh</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 16 — HOOKS: ANTI-LIE + COORDINATION -->
+  <section class="slide">
+    <div class="slide-number">16 / 20 · ХУКИ</div>
+    <div class="brand-mark">АНТИВРАНИНГ И ДИСЦИПЛИНА</div>
+    <h2>Хуки против <span class="red">"всё работает"</span> без проверки.</h2>
+    <p class="lead">Claude любит сказать «готово». Без этих хуков я бы верил. Теперь я верю только когда есть доказательство.</p>
+    <div class="grid-2" style="margin-top: 14px">
+      <div class="card-red">
+        <h4 class="red">АНТИВРАНИНГ</h4>
+        <ul class="clean">
+          <li><code>completion-evidence.py</code> — требует доказательство выполнения (скрин, curl, тест)</li>
+          <li><code>verify-claims.py</code> — при словах «готово» проверяет факт</li>
+          <li><code>review-no-approve-without-evidence.py</code> — Codex не может одобрить без доказательств</li>
+          <li><code>review-verdict-check.py</code> — валидирует вердикты ревью</li>
+          <li><code>review-guard.py</code> · <code>review-logger.py</code> — логи всех ревью</li>
+          <li><code>sprint-completion-checker.py</code> — спринт не закрыт без VERIFY-шага</li>
+        </ul>
+      </div>
+      <div class="card-yellow">
+        <h4>АНТИПЕРЕКЛАДЫВАНИЕ</h4>
+        <ul class="clean">
+          <li><code>autonomy-guard.py</code> — если Claude предлагает мне сделать что-то руками (CAPTCHA, SMS), а на самом деле может сам — ХУК РУГАЕТСЯ</li>
+          <li><code>no-ask-permission.py</code> — не спрашивать разрешения на то, что не критично</li>
+          <li><code>no-delegate-to-user.py</code> — не выдавать Тиму пронумерованные инструкции</li>
+          <li><code>no-session-quit.py</code> — не бросать задачу на полпути</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top: 16px; font-style: italic; color:#666">Это самые ценные хуки. Они сохраняют мне десятки часов в неделю от перекладывания ответственности на меня.</p>
+  </section>
+
+  <!-- SLIDE 17 — MCP LOCAL -->
+  <section class="slide">
+    <div class="slide-number">17 / 20 · MCP</div>
+    <div class="brand-mark">ЛОКАЛЬНЫЕ MCP</div>
+    <h2>MCP — <span class="red">мост</span> между Claude и миром.</h2>
+    <p class="lead">Model Context Protocol превращает любой API в инструмент для Claude. Я использую шесть базовых MCP-серверов в каждой сессии.</p>
+    <table style="margin-top: 14px">
+      <thead><tr><th>MCP</th><th>Аккаунт / инструмент</th><th>Что даёт</th></tr></thead>
+      <tbody>
+        <tr><td><b>telegram-mcp</b></td><td class="mono">MTProto @timzinin</td><td class="desc">Telethon: отправка от моего имени, чтение 230-членных чатов, расшифровка голосовых через mlx_whisper</td></tr>
+        <tr><td><b>tg-communicator</b></td><td class="mono">@Botanicatest_bot</td><td class="desc">HITL: ask_user, notify_user, send_file. Канал Claude → мне в Telegram</td></tr>
+        <tr><td><b>playwright</b></td><td class="mono">@playwright/mcp</td><td class="desc">Браузерные длинные сессии с persistent state</td></tr>
+        <tr><td><b>context7</b></td><td class="mono">context7</td><td class="desc">Живая документация библиотек — Claude не галлюцинирует API</td></tr>
+        <tr><td><b>github-mcp</b></td><td class="mono">github-mcp</td><td class="desc">Git, PRs, issues, Actions через Claude</td></tr>
+        <tr><td><b>google-search-console</b></td><td class="mono">GSC</td><td class="desc">SEO-анализ, keywords, рейтинги, trends</td></tr>
+      </tbody>
+    </table>
+    <div class="grid-2" style="margin-top: 16px">
+      <div class="card-yellow">
+        <h4>ПОЧЕМУ ТОЛЬКО 6?</h4>
+        <p style="font-size:14px">Каждый MCP — это дополнительные токены в старте. Парковка MCP через <code>mcp-park.sh</code>. Остальные включаются под задачу.</p>
+      </div>
+      <div class="card-red">
+        <h4 class="red">ПРИПАРКОВАНО</h4>
+        <p style="font-size:14px"><b>telegram-bot-api</b> (162 метода Bot API). Сложный, жрёт контекст — включаю только когда нужен массовый postup в СБОРКЕ или КРМКТЛ.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 18 — CLAUDE.AI REMOTE CONNECTORS -->
+  <section class="slide dots-bg">
+    <div class="slide-number">18 / 20 · MCP</div>
+    <div class="brand-mark">REMOTE CONNECTORS CLAUDE.AI</div>
+    <div style="position:relative; z-index:2">
+      <h2>Самая <span class="red">недооценённая</span> часть стека.</h2>
+      <p class="lead">Anthropic в Claude.ai дал remote connectors — MCP-серверы от партнёров. Подключаешь одним кликом в Claude.ai, и они становятся доступны в Claude Code. Это как плагины — но одобренные платформой.</p>
+      <div class="grid-3" style="margin-top: 14px">
+        <div class="card-yellow">
+          <h4>ПОЧТА И КАЛЕНДАРЬ</h4>
+          <ul class="clean">
+            <li><b>Gmail</b> — черновики, чтение, лейблы, поиск тредов</li>
+            <li><b>Google Calendar</b> — создание/поиск событий, suggest_time</li>
+            <li><b>Google Drive</b> — файлы, поиск, metadata, permissions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>МАРКЕТИНГ И SEO</h4>
+          <ul class="clean">
+            <li><b>Ahrefs</b> — SEO и конкурентный анализ</li>
+            <li><b>Clay</b> — B2B lead enrichment</li>
+            <li><b>HubSpot</b> — CRM (я пока Twenty CRM использую)</li>
+            <li><b>LunarCrush</b> — крипто-аналитика и sentiment</li>
+          </ul>
+        </div>
+        <div class="card-blue">
+          <h4>СПЕЦИАЛЬНЫЕ</h4>
+          <ul class="clean">
+            <li><b>Indeed</b> — вакансии Indeed</li>
+            <li><b>computer-use</b> — мышь, клавиатура, скриншоты Mac</li>
+            <li><b>plugin:telegram</b> — замена reply через Telegram-канал</li>
+          </ul>
+        </div>
+      </div>
+      <div class="speech-bubble" style="margin-top: 20px; font-size:17px">Вы спрашиваете Claude — он читает вашу почту, правит календарь, обогащает лиды. Всё это без копейки сверху.</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 19 — LOCAL MCP SERVERS IN ~/ -->
+  <section class="slide">
+    <div class="slide-number">19 / 20 · MCP</div>
+    <div class="brand-mark">РАЗРАБОТКА В ~/</div>
+    <h2>Свои MCP-серверы, <span class="red">которые я пишу сам</span>.</h2>
+    <p class="lead">Когда нужного MCP нет — я пишу его сам. Вот что лежит у меня локально.</p>
+    <table style="margin-top: 12px">
+      <thead><tr><th>Папка</th><th>Что внутри</th><th>Куда ходит</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">~/telegram-mcp/</td><td>Telethon-MCP, uv run main.py</td><td class="desc">Моя личная обёртка: чтение истории, recent_actions, голосовые</td></tr>
+        <tr><td class="mono">~/ig-mcp/</td><td>Instagram Graph API (jlbadano fork)</td><td class="desc">Публикация, инсайты, DM (Advanced Access), конверсии</td></tr>
+        <tr><td class="mono">~/instagram-cli/</td><td>CLI + MCP (21 инструмент)</td><td class="desc">Viral detection, скачивание Reels/Stories, экспорт в csv/json</td></tr>
+        <tr><td class="mono">~/facebook-mcp-server/</td><td>Facebook Graph API</td><td class="desc">Публикация на страницы, инсайты</td></tr>
+        <tr><td class="mono">~/x-mcp/</td><td>X (Twitter) API</td><td class="desc">Публикация threads, поиск, пресеты</td></tr>
+        <tr><td class="mono">~/mcphire-mcp/</td><td>MCPHire backend</td><td class="desc">10 tools, prod mcp.mcphire.com — MCP-first job marketplace</td></tr>
+        <tr><td class="mono">~/sborka-career-mcp/</td><td>СБОРКА MCP-слой</td><td class="desc">Карьерный клуб через MCP-интерфейс</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 16px; font-style: italic; color:#666">Каждый такой сервер — это 1-2 вечера работы. Но потом он навсегда даёт Claude контроль над платформой.</p>
+  </section>
+
+  <!-- SLIDE 20 — INSTAGRAM DEEP DIVE + CTA -->
+  <section class="slide">
+    <div class="slide-number">20 / 20 · ФИНАЛ</div>
+    <div class="brand-mark">INSTAGRAM СТЕК + CTA</div>
+    <h2>Отдельно — про <span class="red">Instagram</span>.</h2>
+    <p class="lead">Instagram — самая сложная платформа для автоматизации (Meta активно ловит ботов). У меня тут три слоя.</p>
+    <div class="grid-3" style="margin-top: 14px">
+      <div class="card-yellow">
+        <h4>instagram-cli</h4>
+        <p style="font-size:13px"><b>By @lupikovoleg.</b> Терминальный CLI + локальный MCP-сервер.</p>
+        <ul class="clean" style="margin-top:8px">
+          <li>Поиск по теме (мультиязычный)</li>
+          <li>Viral detection (freshness filter — today/last N days)</li>
+          <li>Скачивание Reels / Posts / Stories / Highlights</li>
+          <li>Анализ профилей — stats, followers, likers, комменты</li>
+          <li>Экспорт в csv/json</li>
+        </ul>
+        <p style="font-family:var(--mono); font-size:11px; color:var(--red); margin-top: 8px">HIKERAPI_KEY + OPENROUTER_API_KEY</p>
+      </div>
+      <div class="card-blue">
+        <h4>ig-mcp</h4>
+        <p style="font-size:13px">Официальный Graph API MCP (jlbadano fork).</p>
+        <ul class="clean" style="margin-top:8px">
+          <li>get_profile_info, get_media_posts, get_media_insights</li>
+          <li>publish_media — upload фото/видео</li>
+          <li>get_conversations, get_conversation_messages, send_dm (Advanced Access)</li>
+          <li>get_account_pages — связка с Facebook-страницами</li>
+        </ul>
+        <p style="font-family:var(--mono); font-size:11px; color:var(--yellow); margin-top: 8px">FB Developer + Long-lived token</p>
+      </div>
+      <div class="card-red">
+        <h4 class="red">КТО ЭТО ИСПОЛЬЗУЕТ</h4>
+        <ul class="clean">
+          <li><b>Лиза Соловьёва</b> — AI-блогер СБОРКИ, аккаунт lisa.solovyova.sborka, публикация Shorts из pipeline Gemini + ElevenLabs + ffmpeg</li>
+          <li><b>Мой основной аккаунт</b> — я сам через instagram-cli смотрю что вирусится у конкурентов и у своих партнёров</li>
+          <li><b>Антария</b> — для Марины anariahomes, виральная аналитика</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-black" style="margin-top: 22px; padding: 24px">
+      <h3 style="color:var(--yellow); margin-bottom:10px">🧩 С ЧЕГО НАЧАТЬ — ЕСЛИ ВЫ ХОТИТЕ ТАК ЖЕ</h3>
+      <div class="grid-2">
+        <ul class="clean" style="color:#eee">
+          <li><b>Claude Code</b> — Anthropic Pro за $20/мес</li>
+          <li>3 хука: guard, file-protection, git-secret</li>
+          <li>1 MCP: Telegram</li>
+          <li>3 скилла под свои задачи</li>
+        </ul>
+        <ul class="clean" style="color:#eee">
+          <li>Memory + handoff — свои markdown-папки</li>
+          <li>Codex CLI как внешний ревьюер ($20/мес)</li>
+          <li>n8n локально / self-hosted — бесплатно</li>
+          <li>Парковка — с первого же дня</li>
+        </ul>
+      </div>
+      <p style="margin-top: 14px; color:#fff; font-size:15px"><b>Итого ~$40/мес на LLM.</b> Остальное — бесплатно. Единственная инвестиция — время на настройку и дисциплина.</p>
+    </div>
+    <div class="speech-bubble" style="margin-top: 18px; font-size:18px">В СБОРКЕ пришлите свой текущий стек текстом — разберём вместе.</div>
+  </section>
+
+</div>
+
+<script>
+const deck = document.getElementById('deck');
+const slides = document.querySelectorAll('.slide');
+const navDots = document.getElementById('navDots');
+const counter = document.getElementById('slideCounter');
+const total = slides.length;
+let current = 0;
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot';
+  dot.onclick = () => goSlide(i);
+  navDots.appendChild(dot);
+});
+
+function goSlide(n) {
+  if (n < 0 || n >= total) return;
+  current = n;
+  deck.style.transform = `translateX(-${current * 100}vw)`;
+  counter.textContent = `${current + 1} / ${total}`;
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  document.getElementById('arrowLeft').disabled = current === 0;
+  document.getElementById('arrowRight').disabled = current === total - 1;
+}
+goSlide(0);
+
+document.addEventListener('wheel', e => {
+  if (Math.abs(e.deltaY) < 30) return;
+  const activeSlide = slides[current];
+  const canScrollDown = activeSlide.scrollHeight > activeSlide.clientHeight && activeSlide.scrollTop < activeSlide.scrollHeight - activeSlide.clientHeight - 5;
+  const canScrollUp = activeSlide.scrollTop > 5;
+  if (e.deltaY > 30 && !canScrollDown) { e.preventDefault(); goSlide(current + 1); }
+  if (e.deltaY < -30 && !canScrollUp) { e.preventDefault(); goSlide(current - 1); }
+}, { passive: false });
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goSlide(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goSlide(current - 1); }
+});
+
+deck.addEventListener('click', e => {
+  if (e.target.closest('a, button, .arrow, td, th')) return;
+  const x = e.clientX;
+  if (x > window.innerWidth * 0.7) goSlide(current + 1);
+  else if (x < window.innerWidth * 0.3) goSlide(current - 1);
+});
+
+let touchX = 0;
+deck.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+deck.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (dx < -50) goSlide(current + 1);
+  if (dx > 50) goSlide(current - 1);
+});
+</script>
+
+</body>
+</html>
