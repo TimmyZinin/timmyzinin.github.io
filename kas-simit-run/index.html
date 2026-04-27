@@ -2,19 +2,154 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Kaş'ta Simit Koşusu</title>
-<meta name="description" content="8-bit pixel platformer. Kaş sokaklarında 10 simit topla, kedi ve köpeklerden kaç!">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kaş'ta Simit Koşusu — 8-bit Pixel Akdeniz Macerası</title>
+<meta name="description" content="Akdeniz güneşi batarken Kaş sokaklarından geç, Antik Tiyatro'nun yanından koş, 10 simit topla, kedi ve köpeklerden kaç. Tarayıcıda oynanır 8-bit pixel oyun.">
 <meta property="og:title" content="Kaş'ta Simit Koşusu">
-<meta property="og:description" content="Beni Kaş sokaklarına götür: 10 simit, retro çiptün ve Akdeniz manzarası.">
+<meta property="og:description" content="8-bit Anadolu günbatımı. Hicaz makamında müzik. 10 simit. Kedi ve köpekler. Antik Tiyatro. Sen ve Kaş.">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="style.css">
+<meta property="og:url" content="https://timzinin.com/kas-simit-run/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="landing.css">
 </head>
 <body>
-<div id="frame">
-  <canvas id="screen" width="320" height="180"></canvas>
-  <div id="hint">SPACE / ↑ / TAP — ZIPLA</div>
-</div>
-<script src="game.js" defer></script>
+
+<header class="hero">
+  <canvas id="hero-art" width="640" height="320"></canvas>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <p class="kicker">8-BIT · AKDENİZ · ANADOLU</p>
+    <h1>
+      <span class="title-line line-1">KAŞ'TA</span>
+      <span class="title-line line-2">SİMİT KOŞUSU</span>
+    </h1>
+    <p class="tagline">
+      Güneş Akdeniz'e batarken Kaş sokaklarında bir koşu.<br>
+      Antik Tiyatro'nun yanından geç, kedi ve köpeklerden kaç,<br>
+      <strong>10 simit</strong> topla.
+    </p>
+    <div class="cta-row">
+      <a href="play.html" class="cta-primary">▶ OYUNA BAŞLA</a>
+      <a href="#nasil" class="cta-secondary">↓ Nasıl Oynanır?</a>
+    </div>
+    <p class="hero-meta">Ücretsiz · Tarayıcıda · Kayıt yok · Mobil uyumlu</p>
+  </div>
+  <div class="scroll-hint">↓</div>
+</header>
+
+<section id="hikaye" class="story">
+  <div class="container">
+    <h2 class="section-title">HİKAYE</h2>
+    <p class="lead">
+      Akdeniz'in en güzel kasabalarından biri olan <strong>Kaş</strong>'ta
+      bir akşam vakti. Güneş Likya dağlarının arkasına yavaş yavaş iniyor,
+      gökyüzü altın, gül ve mor renklere bürünüyor.
+    </p>
+    <p class="lead">
+      Kahve molasından sonra fırından çıkıyorsun ve sokağa adımını atıyorsun.
+      Tam o sırada bir <em>simit</em> rüzgârla havalanıyor… ve sokak kedileri
+      ile köpekleri de aynı simiti istiyor. Onlardan kaç. <strong>Hepsini topla.</strong>
+    </p>
+  </div>
+</section>
+
+<section id="nasil" class="how-to">
+  <div class="container">
+    <h2 class="section-title">NASIL OYNANIR?</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">↑</div>
+        <h3>ZIPLA</h3>
+        <p>
+          <kbd>SPACE</kbd> &middot; <kbd>↑</kbd> &middot; <kbd>W</kbd> tuşları,
+          ya da ekrana <strong>dokun</strong>. Karakterin otomatik olarak koşar,
+          senin işin doğru anda zıplamak.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">◯</div>
+        <h3>SİMİT TOPLA</h3>
+        <p>
+          Sokağa serpilmiş <strong>10 altın simit</strong>. Bazıları yerde,
+          bazıları havada — zıplayarak yakala. Hepsini topladığında oyunu
+          kazanırsın.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">▲</div>
+        <h3>KAÇ</h3>
+        <p>
+          Sokak kedileri ve köpekleri de simitleri ister. Onlara çarpma —
+          aksi halde simitlerini kaybedersin. Köpekler havlar, kediler
+          miyavlar; kulağını dört aç!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <h2 class="section-title">NE VAR İÇİNDE?</h2>
+    <ul class="feature-list">
+      <li>
+        <span class="feature-tag">🎵 Müzik</span>
+        <strong>Hicaz makamı</strong> ve <strong>9/8 aksak</strong> ritim.
+        Saz, darbuka, bağlama hissi — tamamen 8-bit synth ile.
+      </li>
+      <li>
+        <span class="feature-tag">🌅 Atmosfer</span>
+        Akdeniz günbatımı: altın, oranj, gül, mor, indigo gradient'leri.
+        Suya düşen güneş izi, martılar, bulutlar.
+      </li>
+      <li>
+        <span class="feature-tag">🏛️ Detay</span>
+        <strong>Antik Tiyatro</strong> (Helenistik, MÖ 1. yy), kiremitli evler,
+        çamlar, mavi/yeşil/kırmızı kapılar, balkonlarda begonviller, çelenk ışıkları.
+      </li>
+      <li>
+        <span class="feature-tag">🐈 Karakterler</span>
+        Hareketli kediler, lümper köpekler — her biri özel hareket
+        animasyonlu. Pencerelerde tembel kediler.
+      </li>
+      <li>
+        <span class="feature-tag">🇹🇷 Türkçe</span>
+        Ş, İ, Ğ, Ç — tüm Türk harfleri pixel font ile düzgün.
+        Tabelalar: <em>FIRIN, KAHVE, MARKET, ECZANE, LOKANTA, ÇAY EVI</em>.
+      </li>
+      <li>
+        <span class="feature-tag">📱 Erişim</span>
+        Hiç indirmek yok, hiç kayıt yok, hiç reklam yok. Sadece tarayıcı.
+        Telefonda da, bilgisayarda da çalışır.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>BIR DAKİKAN VAR MI?</h2>
+    <p class="big-tag">10 simit. 1 günbatımı. Kaş seni bekliyor.</p>
+    <a href="play.html" class="cta-primary big">▶ OYUNA BAŞLA</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>
+      <span class="footer-emoji">🌅</span>
+      Made with love in Kaş, Antalya · Pixel art &amp; chiptune by hand
+    </p>
+    <p class="footer-credits">
+      Bir <a href="https://timzinin.com">timzinin.com</a> projesi.
+      Hicaz makamı, 9/8 aksak ritim, Web Audio API.
+      <a href="https://github.com/TimmyZinin/timmyzinin.github.io">Kaynak kodu</a>.
+    </p>
+  </div>
+</footer>
+
+<script src="hero-render.js" defer></script>
 </body>
 </html>

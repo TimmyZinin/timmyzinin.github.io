@@ -713,6 +713,142 @@ function drawSign(x, y, text) {
   drawTextTiny(x + 2, y + 1, text, C.sign);
 }
 
+// ---------- ANTIK TIYATRO (Hellenistic theater of Kaş) ----------
+function drawTheater(x, baseY) {
+  const cx = x + 65;
+  const stoneLight = '#d9c8a0';
+  const stoneMid   = '#b89d6c';
+  const stoneDark  = '#7a6244';
+  const stoneShade = '#4a3a26';
+  const grass      = '#3e4a2a';
+
+  // Hill rising behind the theater (ancient stone hillside)
+  ctx.fillStyle = '#4a3826';
+  for (let i = -8; i < 138; i++) {
+    const norm = (i - 65) / 70;
+    const hgt = Math.round(36 * Math.max(0, 1 - norm * norm * 0.85));
+    if (hgt > 0) ctx.fillRect(x + i, baseY - hgt - 4, 1, hgt + 4);
+  }
+  // hill highlight rim
+  ctx.fillStyle = '#6a5238';
+  for (let i = -8; i < 138; i++) {
+    const norm = (i - 65) / 70;
+    const hgt = Math.round(36 * Math.max(0, 1 - norm * norm * 0.85));
+    if (hgt > 0) ctx.fillRect(x + i, baseY - hgt - 4, 1, 1);
+  }
+
+  // Tiered stone seating (cavea) — solid trapezoid-ish stone shape, stepped tier lines on top.
+  // Trapezoid: narrow at top (back rows), wider at bottom (front rows).
+  // y ranges from baseY-32 (top, smallest) to baseY-8 (bottom, widest).
+  const tierTopY = baseY - 32;
+  const tierBotY = baseY - 8;
+  const widthFn = (y) => {
+    const t = (y - tierTopY) / (tierBotY - tierTopY); // 0..1
+    return Math.round(36 + t * 60); // 36 wide at top → 96 wide at bottom
+  };
+  // 1) Fill stone body
+  for (let y = tierTopY; y <= tierBotY; y++) {
+    const w = widthFn(y);
+    ctx.fillStyle = stoneMid;
+    ctx.fillRect(cx - Math.floor(w / 2), y, w, 1);
+  }
+  // 2) Round the upper corners (overpaint with hill color) for arc feel
+  const hillBg = '#4a3826';
+  for (let y = tierTopY; y < tierTopY + 6; y++) {
+    const t = (y - tierTopY) / 6;
+    const cornerCut = Math.round((1 - t) * 6);
+    const w = widthFn(y);
+    const left = cx - Math.floor(w / 2);
+    ctx.fillStyle = hillBg;
+    ctx.fillRect(left, y, cornerCut, 1);
+    ctx.fillRect(left + w - cornerCut, y, cornerCut, 1);
+  }
+  // 3) Tier lines (shadow grooves separating rows of seats)
+  const tierYs = [tierTopY + 4, tierTopY + 9, tierTopY + 14, tierTopY + 19];
+  tierYs.forEach(ty => {
+    const w = widthFn(ty);
+    ctx.fillStyle = stoneShade;
+    ctx.fillRect(cx - Math.floor(w / 2) + 1, ty, w - 2, 1);
+  });
+  // 4) Top highlight on each tier (light edge above the shadow line)
+  tierYs.forEach(ty => {
+    const w = widthFn(ty - 1);
+    ctx.fillStyle = stoneLight;
+    ctx.fillRect(cx - Math.floor(w / 2) + 2, ty - 1, w - 4, 1);
+  });
+  // 5) Top crown (back row of seats)
+  ctx.fillStyle = stoneLight;
+  const wTop = widthFn(tierTopY) - 4;
+  ctx.fillRect(cx - Math.floor(wTop / 2) + 1, tierTopY + 1, wTop - 2, 1);
+
+  // Vertical kerkides (radial aisle dividers between wedges)
+  ctx.fillStyle = stoneShade;
+  for (let k = -2; k <= 2; k++) {
+    if (k === 0) continue;
+    const a = (k / 2.5) * 0.95; // angular spread
+    for (let r = 8; r < 56; r++) {
+      const px = Math.round(cx + Math.sin(a) * r);
+      const py = Math.round(baseY - 6 - Math.cos(a) * r * 0.32);
+      if (py >= baseY - 30 && py <= baseY - 6) {
+        ctx.fillRect(px, py, 1, 1);
+      }
+    }
+  }
+
+  // Stage / orchestra (flat platform at front)
+  ctx.fillStyle = stoneLight;
+  ctx.fillRect(cx - 18, baseY - 5, 36, 4);
+  ctx.fillStyle = stoneMid;
+  ctx.fillRect(cx - 18, baseY - 2, 36, 1);
+  ctx.fillStyle = stoneShade;
+  ctx.fillRect(cx - 18, baseY - 1, 36, 1);
+  // stage edge stones
+  for (let i = 0; i < 36; i += 4) {
+    ctx.fillStyle = stoneShade;
+    ctx.fillRect(cx - 18 + i, baseY - 5, 1, 4);
+  }
+
+  // Two ruined columns flanking the stage (skene remnants)
+  for (const dx of [-22, 22]) {
+    // column shaft
+    ctx.fillStyle = stoneLight;
+    ctx.fillRect(cx + dx, baseY - 16, 3, 11);
+    ctx.fillStyle = stoneDark;
+    ctx.fillRect(cx + dx + 2, baseY - 16, 1, 11);
+    // capital
+    ctx.fillStyle = stoneMid;
+    ctx.fillRect(cx + dx - 1, baseY - 17, 5, 2);
+    ctx.fillStyle = stoneShade;
+    ctx.fillRect(cx + dx - 1, baseY - 18, 5, 1);
+    // base
+    ctx.fillStyle = stoneMid;
+    ctx.fillRect(cx + dx - 1, baseY - 5, 5, 1);
+  }
+  // Broken column tops (one shorter)
+  ctx.fillStyle = stoneLight;
+  ctx.fillRect(cx - 30, baseY - 8, 2, 3);
+  ctx.fillStyle = stoneDark;
+  ctx.fillRect(cx - 28, baseY - 8, 1, 3);
+
+  // A few tiny audience figures sitting on the upper tiers (pixel dots)
+  ctx.fillStyle = '#2a1810';
+  const audience = [
+    [-22, -14], [-12, -16], [-2, -18], [8, -16], [18, -14],
+    [-30, -10], [22, -12], [-18, -22], [-6, -24], [10, -22],
+  ];
+  audience.forEach(([dx, dy]) => {
+    ctx.fillRect(cx + dx, baseY + dy, 1, 1);
+  });
+
+  // Cypresses flanking the theater
+  drawCypress(x - 6, baseY, 22);
+  drawCypress(x + 130, baseY, 24);
+  drawCypress(x - 14, baseY, 16);
+
+  // Welcome sign
+  drawSign(x + 38, baseY - 44, 'ANTİK TİYATRO');
+}
+
 // ---------- CYPRESS TREE ----------
 function drawCypress(x, baseY, height) {
   // trunk
@@ -1075,13 +1211,18 @@ function drawBoat(x, y) {
 function lerp(a, b, t) { return a + (b - a) * t; }
 
 // ---------- LEVEL ----------
-const LEVEL_LENGTH = 2800;
+const LEVEL_LENGTH = 2950;
 const GROUND_Y = 158;
+
+// Antik Tiyatro of Kaş — Hellenistic theater carved into the hillside (1st c. BC)
+// Real landmark, opens the level as a "welcome to Kaş" backdrop.
+const THEATER = { x: 20, w: 130 };
 
 const HOUSES = [];
 {
   const widths = [44, 56, 38, 60, 48, 50, 42, 64];
-  for (let x = 40, i = 0; x < LEVEL_LENGTH; i++) {
+  // First house starts at x=210 to leave room for the theater
+  for (let x = 210, i = 0; x < LEVEL_LENGTH; i++) {
     HOUSES.push({ x, seed: i });
     x += widths[i % widths.length] + 8;
   }
@@ -1651,7 +1792,12 @@ function update(dt) {
 
   enemies.forEach(e => {
     e.animTime += dt;
-    e.x = e.baseX + Math.sin(e.animTime * 0.025) * 18 * (e.dir);
+    // Cats: lively (faster sway, smaller range). Dogs: slow lumbering trot.
+    if (e.type === 'cat') {
+      e.x = e.baseX + Math.sin(e.animTime * 0.025) * 16 * (e.dir);
+    } else {
+      e.x = e.baseX + Math.sin(e.animTime * 0.010) * 10 * (e.dir);
+    }
     const screenDist = Math.abs((e.x - scrollX) - player.x);
     // bark/meow when enemy enters screen (~80px ahead)
     if (screenDist < 100 && screenDist > 80 && !e.greeted) {
@@ -1734,6 +1880,12 @@ function render(t) {
 
   drawBackground(scrollX, t);
 
+  // Antique theater (foreground, before first house)
+  {
+    const tx = THEATER.x - scrollX;
+    if (tx > -150 && tx < W + 10) drawTheater(tx, GROUND_Y);
+  }
+
   // Cypresses (mid-foreground, just behind houses)
   CYPRESSES.forEach(cp => {
     const sx = cp.x - scrollX * 0.95;
@@ -1813,8 +1965,9 @@ function render(t) {
       ctx.fillStyle = C.shadow;
       const sw = e.type === 'cat' ? 14 : 18;
       ctx.fillRect(screenX + 1, GROUND_Y - 1, sw, 1);
-      // sprite
-      const frame = Math.floor(e.animTime * 0.08) % 4;
+      // sprite — cats animate faster than dogs (dogs lumber)
+      const frameRate = e.type === 'cat' ? 0.08 : 0.045;
+      const frame = Math.floor(e.animTime * frameRate) % 4;
       if (e.type === 'cat') {
         drawSprite(screenX, GROUND_Y - 14, CAT_FRAMES[frame], CAT_LEGEND, e.dir < 0);
       } else {
