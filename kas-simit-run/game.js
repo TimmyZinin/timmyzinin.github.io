@@ -9,20 +9,28 @@ const cv = document.getElementById('screen');
 const ctx = cv.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 
-// ---------- PALETTE ----------
+// ---------- PALETTE (Kaş sunset over the Aegean) ----------
 const C = {
-  sky1: '#ffd9a8', sky2: '#ffb066', sky3: '#7ec9e8',
-  sun:  '#fcd34d', sunGlow: '#fde68a', sunRay: '#fff1b8',
-  cloud: '#fff8e8', cloudSh: '#e8d4a8',
-  seaFar: '#3b82c4', seaMid: '#2769a8', seaNear: '#1e5a96', seaFoam: '#cfe9f5', seaWave: '#5fa9d8',
-  mtn1: '#7c6e8d', mtn1Hi: '#9686a8', mtn2: '#564e6a', mtn2Hi: '#6a607a',
-  hill: '#3a5a7a', hillHouse: '#cfc6ad', hillRoof: '#7a3f17',
-  white: '#f5efdf', whiteSh: '#d9cfb8', whiteHi: '#fffaef',
-  ochre: '#c77b3b', ochreSh: '#8a4f22', ochreHi: '#dd9456',
-  blue: '#9fb8d4', blueSh: '#5a7596',
-  roof: '#b5512f', roofSh: '#7a2f17', roofHi: '#d96f48',
-  win:  '#3a5f8f', winLit: '#fce28a', winFrame: '#e8d4a8', winGlass: '#5b87b8',
-  shut: '#2a4060', shutOpen: '#5a8b3e',
+  // sunset sky: deep amber → rose → lavender → indigo
+  sky1: '#fcc88a', // top warm gold
+  sky2: '#f48a5a', // orange
+  sky3: '#e85a7c', // rose
+  sky4: '#9b5fb5', // violet
+  sky5: '#5a4080', // deep horizon violet
+  sun:  '#ff7d3a', sunGlow: '#ffae5a', sunRay: '#ffd58a', sunCore: '#fff0c4',
+  cloud: '#ff9870', cloudSh: '#c45f6a', cloudHi: '#ffd0a8',
+  // sea reflecting sunset
+  seaFar: '#5a3a78', seaMid: '#7a3a78', seaNear: '#3a2858',
+  seaFoam: '#ffd0a8', seaWave: '#c4567a', seaGold: '#ffae5a',
+  mtn1: '#3e2a5a', mtn1Hi: '#5a3e7a', mtn2: '#22153e', mtn2Hi: '#3a2858',
+  hill: '#1a0e2a', hillHouse: '#3a2858', hillRoof: '#7a2f17',
+  // sunset-lit walls: warm but in shadow
+  white: '#e8c8a4', whiteSh: '#a8845a', whiteHi: '#fce0b0',
+  ochre: '#c4683a', ochreSh: '#7a3a1f', ochreHi: '#e88858',
+  blue: '#9b6f9c', blueSh: '#5a3e6a',
+  roof: '#8e3520', roofSh: '#4f1a10', roofHi: '#c4563a',
+  win:  '#1e1430', winLit: '#ffc870', winFrame: '#a88458', winGlass: '#3a2a4a',
+  shut: '#1a1028', shutOpen: '#5a4a30',
   doorBlue: '#3a5a8a', doorGreen: '#3e6b3a', doorRed: '#8a3a3a',
   doorFrame: '#f5efdf', doorKnob: '#fcd34d',
   street: '#caa97d', streetSh: '#8b6f47', streetLine: '#6b4423', cobble: '#a88860',
@@ -442,41 +450,61 @@ const BIRD_LEGEND = { B: C.bird };
 const BIRD_1 = ['B...B', '.BBB.', '..B..'];
 const BIRD_2 = ['.B.B.', 'BBBBB', '..B..'];
 
-// ---------- SUN ----------
+// ---------- SUN (big sunset disc) ----------
 function drawSun(x, y, t) {
-  // animated rays
-  const rayCount = 8;
+  // outer glow gradient (large soft halo)
+  for (let r = 28; r > 14; r--) {
+    const a = (28 - r) / 14;
+    const alpha = (1 - r/28) * 0.5;
+    ctx.fillStyle = `rgba(255, 174, 90, ${alpha})`;
+    for (let ang = 0; ang < Math.PI * 2; ang += 0.05) {
+      const px = Math.round(x + Math.cos(ang) * r);
+      const py = Math.round(y + Math.sin(ang) * r);
+      ctx.fillRect(px, py, 1, 1);
+    }
+  }
+  // animated rays (faint, sunset has long horizontal rays)
+  const rayCount = 10;
   ctx.fillStyle = C.sunRay;
   for (let i = 0; i < rayCount; i++) {
-    const a = (i / rayCount) * Math.PI * 2 + t * 0.0004;
-    const len = 16 + Math.sin(t * 0.002 + i) * 2;
-    for (let r = 14; r < 14 + len; r++) {
+    const a = (i / rayCount) * Math.PI * 2 + t * 0.0003;
+    const len = 22 + Math.sin(t * 0.002 + i) * 4;
+    for (let r = 16; r < 16 + len; r += 2) {
       const px = Math.round(x + Math.cos(a) * r);
       const py = Math.round(y + Math.sin(a) * r);
-      if (r % 3 !== 0) ctx.fillRect(px, py, 1, 1);
+      ctx.fillRect(px, py, 1, 1);
     }
   }
-  // halo
+  // bright halo ring
   ctx.fillStyle = C.sunGlow;
-  const r = 13;
-  for (let i = -r; i <= r; i++) {
-    for (let j = -r; j <= r; j++) {
+  const rh = 15;
+  for (let i = -rh; i <= rh; i++) {
+    for (let j = -rh; j <= rh; j++) {
       const d2 = i*i + j*j;
-      if (d2 <= r*r && d2 >= (r-2)*(r-2)) ctx.fillRect(x + i, y + j, 1, 1);
+      if (d2 <= rh*rh && d2 >= (rh-2)*(rh-2)) ctx.fillRect(x + i, y + j, 1, 1);
     }
   }
-  // disc
+  // disc — big sunset orange
   ctx.fillStyle = C.sun;
-  const r2 = 10;
+  const r2 = 12;
   for (let i = -r2; i <= r2; i++) {
     for (let j = -r2; j <= r2; j++) {
       if (i*i + j*j <= r2*r2) ctx.fillRect(x + i, y + j, 1, 1);
     }
   }
-  // highlight
+  // bright core
   ctx.fillStyle = C.sunGlow;
-  ctx.fillRect(x - 4, y - 5, 3, 2);
-  ctx.fillRect(x - 5, y - 3, 2, 2);
+  for (let i = -7; i <= 7; i++) {
+    for (let j = -7; j <= 7; j++) {
+      if (i*i + j*j <= 49) ctx.fillRect(x + i, y + j, 1, 1);
+    }
+  }
+  ctx.fillStyle = C.sunCore;
+  for (let i = -3; i <= 3; i++) {
+    for (let j = -3; j <= 3; j++) {
+      if (i*i + j*j <= 9) ctx.fillRect(x + i, y + j, 1, 1);
+    }
+  }
 }
 
 // ---------- CLOUD ----------
@@ -886,17 +914,31 @@ function drawBackground(scrollX, t) {
   // base wash
   ctx.fillStyle = C.seaNear;
   ctx.fillRect(0, 0, W, GROUND_Y);
-  // sky gradient
-  for (let y = 0; y < 75; y++) {
-    const tt = y / 75;
-    const r = lerp(0xff, 0x7e, tt) | 0;
-    const g = lerp(0xd9, 0xc9, tt) | 0;
-    const b = lerp(0xa8, 0xe8, tt) | 0;
+  // sunset sky gradient (5 stops: gold → orange → rose → violet → indigo at horizon)
+  const stops = [
+    [0,  0xfc, 0xc8, 0x8a],
+    [18, 0xf4, 0x8a, 0x5a],
+    [36, 0xe8, 0x5a, 0x7c],
+    [54, 0x9b, 0x5f, 0xb5],
+    [70, 0x5a, 0x40, 0x80],
+    [78, 0x3a, 0x28, 0x58],
+  ];
+  for (let y = 0; y < 78; y++) {
+    let r=0, g=0, b=0;
+    for (let i = 0; i < stops.length - 1; i++) {
+      if (y >= stops[i][0] && y <= stops[i+1][0]) {
+        const tt = (y - stops[i][0]) / (stops[i+1][0] - stops[i][0]);
+        r = lerp(stops[i][1], stops[i+1][1], tt) | 0;
+        g = lerp(stops[i][2], stops[i+1][2], tt) | 0;
+        b = lerp(stops[i][3], stops[i+1][3], tt) | 0;
+        break;
+      }
+    }
     ctx.fillStyle = `rgb(${r},${g},${b})`;
     ctx.fillRect(0, y, W, 1);
   }
-  // sun
-  drawSun(W - 60, 30, t);
+  // big setting sun, low on horizon, partially behind sea
+  drawSun(W - 70, 62, t);
   // clouds (parallax)
   CLOUDS.forEach((c, i) => {
     const cx = (((c.x - scrollX * c.speed - t * 0.005) % (W + 60)) + (W + 60)) % (W + 60) - 30;
@@ -919,28 +961,47 @@ function drawBackground(scrollX, t) {
     const bx = i * 200 - hillOff;
     drawHillWithHouses(bx, 78);
   }
-  // sea band
+  // sea band — sunset reflection
   ctx.fillStyle = C.seaFar;
   ctx.fillRect(0, 75, W, 4);
   ctx.fillStyle = C.seaMid;
   ctx.fillRect(0, 79, W, 4);
   ctx.fillStyle = C.seaNear;
   ctx.fillRect(0, 83, W, GROUND_Y - 83);
-  // animated waves
-  ctx.fillStyle = C.seaWave;
-  for (let y = 84; y < 95; y += 3) {
-    for (let x = 0; x < W; x += 8) {
-      const phase = (x * 0.1 + t * 0.005 + y) % (Math.PI * 2);
-      const off = Math.floor(Math.sin(phase) * 1.5);
-      ctx.fillRect(x + off, y, 3, 1);
+  // golden sun-trail on water (vertical column under sun, dancing)
+  const sunX = W - 70;
+  for (let y = 78; y < GROUND_Y; y++) {
+    const flicker = Math.sin(t * 0.008 + y * 0.5) * 0.5 + 0.5;
+    const widen = (y - 78) * 0.4;
+    const w = Math.max(2, Math.round(6 + widen + flicker * 3));
+    const a = Math.max(0, 1 - (y - 78) / 40);
+    if (a > 0.05) {
+      ctx.fillStyle = `rgba(255, 174, 90, ${a * 0.7})`;
+      ctx.fillRect(sunX - w / 2, y, w, 1);
+      // bright streak in center
+      if ((Math.floor(t * 0.01) + y) % 5 === 0) {
+        ctx.fillStyle = C.sunRay;
+        ctx.fillRect(sunX - 1, y, 2, 1);
+      }
     }
   }
-  // foam sparkles
-  ctx.fillStyle = C.seaFoam;
-  for (let i = 0; i < 18; i++) {
+  // animated waves — pink/violet ripples
+  ctx.fillStyle = C.seaWave;
+  for (let y = 84; y < GROUND_Y - 2; y += 4) {
+    for (let x = 0; x < W; x += 10) {
+      const phase = (x * 0.1 + t * 0.005 + y) % (Math.PI * 2);
+      const off = Math.floor(Math.sin(phase) * 2);
+      ctx.fillRect(x + off, y, 4, 1);
+    }
+  }
+  // gold foam sparkles (reflect sun)
+  for (let i = 0; i < 14; i++) {
     const sx = ((i * 47 + Math.floor(t * 0.04)) % (W + 40)) - 20;
-    const sy = 84 + ((i * 13) % 12);
+    const sy = 84 + ((i * 13) % 18);
     if ((Math.floor(t * 0.005) + i) % 4 === 0) {
+      // closer to sun trail = brighter gold
+      const distFromSun = Math.abs(sx - sunX);
+      ctx.fillStyle = distFromSun < 40 ? C.sunRay : C.seaFoam;
       ctx.fillRect(sx, sy, 2, 1);
       ctx.fillRect(sx + 1, sy + 1, 1, 1);
     }
@@ -1101,58 +1162,385 @@ function drawParticles() {
   });
 }
 
-// ---------- AUDIO ----------
+// ---------- AUDIO ENGINE — Turkish Hicaz makam, 9/8 aksak ----------
+// Hicaz scale (Phrygian Dominant) on D: D, Eb, F#, G, A, Bb, C#, D
+// This makam is the sound of mediterranean/Anatolian sunset music.
 let audioCtx = null;
+let masterGain = null;
+let musicGain = null;
+let sfxGain = null;
+let ambientNode = null;
+let ambientGain = null;
 let musicTimer = null;
+let footstepTimer = null;
+let intensityLevel = 0; // 0 = intro (bass+lead), 1 = play (full mix)
+
 function ensureAudio() {
   if (audioCtx) return audioCtx;
-  try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { audioCtx = null; }
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = 0.7;
+    masterGain.connect(audioCtx.destination);
+    musicGain = audioCtx.createGain();
+    musicGain.gain.value = 0.6;
+    musicGain.connect(masterGain);
+    sfxGain = audioCtx.createGain();
+    sfxGain.gain.value = 0.85;
+    sfxGain.connect(masterGain);
+  } catch(e) { audioCtx = null; }
   return audioCtx;
 }
-function beep(freq, duration, type = 'square', volume = 0.08) {
+
+// duck music briefly when SFX plays
+function duckMusic(amount = 0.4, dur = 0.15) {
+  if (!musicGain) return;
+  const ac = audioCtx;
+  const now = ac.currentTime;
+  musicGain.gain.cancelScheduledValues(now);
+  musicGain.gain.setValueAtTime(musicGain.gain.value, now);
+  musicGain.gain.linearRampToValueAtTime(amount, now + 0.02);
+  musicGain.gain.linearRampToValueAtTime(0.6, now + dur);
+}
+
+function tone(freq, duration, type = 'square', volume = 0.08, dest = null, attack = 0.005) {
   const ac = ensureAudio();
   if (!ac) return;
   const osc = ac.createOscillator();
   const gain = ac.createGain();
   osc.type = type;
   osc.frequency.setValueAtTime(freq, ac.currentTime);
-  gain.gain.setValueAtTime(volume, ac.currentTime);
+  gain.gain.setValueAtTime(0, ac.currentTime);
+  gain.gain.linearRampToValueAtTime(volume, ac.currentTime + attack);
   gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + duration);
-  osc.connect(gain).connect(ac.destination);
+  osc.connect(gain).connect(dest || sfxGain || ac.destination);
   osc.start();
-  osc.stop(ac.currentTime + duration);
+  osc.stop(ac.currentTime + duration + 0.02);
+  return osc;
 }
-function sfxJump()    { beep(440, 0.06, 'square', 0.07); setTimeout(() => beep(660, 0.05, 'square', 0.06), 40); }
-function sfxPickup()  { beep(880, 0.05, 'square', 0.08); setTimeout(() => beep(1320, 0.07, 'square', 0.08), 40); setTimeout(() => beep(1760, 0.05, 'triangle', 0.05), 100); }
-function sfxLose()    { beep(220, 0.15, 'sawtooth', 0.1); setTimeout(() => beep(165, 0.18, 'sawtooth', 0.1), 120); setTimeout(() => beep(110, 0.3, 'sawtooth', 0.1), 280); }
-function sfxWin()     {
-  const notes = [523, 659, 784, 1047, 1319];
-  notes.forEach((n, i) => setTimeout(() => beep(n, 0.18, 'square', 0.1), i * 110));
+
+// Saz-like pluck: square wave with a tiny pitch glide (taksim feel)
+function pluck(freq, duration, volume = 0.05, dest = null) {
+  const ac = ensureAudio();
+  if (!ac) return;
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(freq * 1.02, ac.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(freq, ac.currentTime + 0.04);
+  gain.gain.setValueAtTime(0, ac.currentTime);
+  gain.gain.linearRampToValueAtTime(volume, ac.currentTime + 0.005);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + duration);
+  osc.connect(gain).connect(dest || musicGain);
+  osc.start();
+  osc.stop(ac.currentTime + duration + 0.02);
 }
-const MUSIC_NOTES = [
-  [262, 392], [330, 0], [262, 523], [330, 0],
-  [294, 440], [349, 0], [294, 466], [349, 0],
-  [262, 392], [330, 523], [262, 392], [330, 0],
-  [220, 440], [294, 0], [262, 392], [262, 0],
+
+// Darbuka-like percussion: short noise burst with bandpass
+let noiseBuffer = null;
+function getNoiseBuffer() {
+  if (noiseBuffer) return noiseBuffer;
+  const ac = ensureAudio();
+  if (!ac) return null;
+  const length = ac.sampleRate * 0.5;
+  noiseBuffer = ac.createBuffer(1, length, ac.sampleRate);
+  const data = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < length; i++) data[i] = Math.random() * 2 - 1;
+  return noiseBuffer;
+}
+function drum(type = 'doum', volume = 0.18, dest = null) {
+  const ac = ensureAudio();
+  if (!ac) return;
+  const buf = getNoiseBuffer();
+  if (!buf) return;
+  const src = ac.createBufferSource();
+  src.buffer = buf;
+  const filter = ac.createBiquadFilter();
+  const gain = ac.createGain();
+  if (type === 'doum') {
+    // low, deep — bass drum
+    filter.type = 'lowpass';
+    filter.frequency.value = 180;
+    filter.Q.value = 6;
+    gain.gain.setValueAtTime(volume, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.18);
+    // also add a sine thump
+    const thump = ac.createOscillator();
+    const thumpGain = ac.createGain();
+    thump.type = 'sine';
+    thump.frequency.setValueAtTime(120, ac.currentTime);
+    thump.frequency.exponentialRampToValueAtTime(60, ac.currentTime + 0.08);
+    thumpGain.gain.setValueAtTime(volume * 0.8, ac.currentTime);
+    thumpGain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.12);
+    thump.connect(thumpGain).connect(dest || musicGain);
+    thump.start();
+    thump.stop(ac.currentTime + 0.15);
+  } else if (type === 'tek') {
+    // higher slap — snare-like
+    filter.type = 'highpass';
+    filter.frequency.value = 1800;
+    filter.Q.value = 2;
+    gain.gain.setValueAtTime(volume * 0.6, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.06);
+  } else if (type === 'ka') {
+    // dampened slap
+    filter.type = 'bandpass';
+    filter.frequency.value = 800;
+    filter.Q.value = 4;
+    gain.gain.setValueAtTime(volume * 0.4, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.04);
+  }
+  src.connect(filter).connect(gain).connect(dest || musicGain);
+  src.start();
+  src.stop(ac.currentTime + 0.3);
+}
+
+// ---------- SFX ----------
+function sfxJump() {
+  duckMusic();
+  tone(330, 0.04, 'square', 0.07);
+  setTimeout(() => tone(523, 0.06, 'square', 0.06), 30);
+  setTimeout(() => tone(659, 0.05, 'triangle', 0.04), 70);
+}
+function sfxPickup() {
+  duckMusic(0.3, 0.25);
+  // Hicaz-flavoured ascending chime: D, F#, A, D
+  const notes = [587.33, 739.99, 880, 1174.66];
+  notes.forEach((n, i) => setTimeout(() => tone(n, 0.10, 'square', 0.08), i * 45));
+  setTimeout(() => tone(1567.98, 0.12, 'triangle', 0.05), 200);
+}
+function sfxLose() {
+  // descending chromatic minor cadence, sad
+  const notes = [392, 369.99, 349.23, 329.63, 311.13, 293.66];
+  notes.forEach((n, i) => {
+    setTimeout(() => tone(n, 0.18, 'sawtooth', 0.09), i * 100);
+  });
+  // bass thud
+  setTimeout(() => drum('doum', 0.3, sfxGain), 0);
+  setTimeout(() => drum('doum', 0.25, sfxGain), 600);
+}
+function sfxWin() {
+  // Hicaz arpeggio fanfare: D, F#, A, C#, D + drums
+  const notes = [587.33, 739.99, 880, 1108.73, 1174.66];
+  notes.forEach((n, i) => {
+    setTimeout(() => {
+      pluck(n, 0.25, 0.08, sfxGain);
+      pluck(n / 2, 0.25, 0.04, sfxGain);
+    }, i * 130);
+  });
+  // celebratory drum roll
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => drum(i % 2 === 0 ? 'doum' : 'tek', 0.15, sfxGain), 700 + i * 80);
+  }
+  setTimeout(() => {
+    pluck(587.33, 0.5, 0.1, sfxGain);
+    pluck(880, 0.5, 0.06, sfxGain);
+    pluck(1174.66, 0.5, 0.08, sfxGain);
+  }, 1200);
+}
+
+// Cat meow — pitch sweep on triangle
+function sfxMeow() {
+  duckMusic();
+  const ac = ensureAudio();
+  if (!ac) return;
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(700, ac.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(550, ac.currentTime + 0.08);
+  osc.frequency.exponentialRampToValueAtTime(800, ac.currentTime + 0.18);
+  gain.gain.setValueAtTime(0, ac.currentTime);
+  gain.gain.linearRampToValueAtTime(0.07, ac.currentTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.25);
+  osc.connect(gain).connect(sfxGain);
+  osc.start();
+  osc.stop(ac.currentTime + 0.3);
+}
+
+// Dog bark — gruff square with vibrato + noise burst
+function sfxBark() {
+  duckMusic();
+  const ac = ensureAudio();
+  if (!ac) return;
+  // bark 1
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(180, ac.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(120, ac.currentTime + 0.08);
+  gain.gain.setValueAtTime(0.08, ac.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.12);
+  osc.connect(gain).connect(sfxGain);
+  osc.start();
+  osc.stop(ac.currentTime + 0.13);
+  // noise component (gruff)
+  drum('tek', 0.1, sfxGain);
+}
+
+// Bird chirp
+function sfxBirdChirp() {
+  const ac = ensureAudio();
+  if (!ac) return;
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(2400, ac.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(3200, ac.currentTime + 0.04);
+  osc.frequency.exponentialRampToValueAtTime(2200, ac.currentTime + 0.08);
+  gain.gain.setValueAtTime(0, ac.currentTime);
+  gain.gain.linearRampToValueAtTime(0.03, ac.currentTime + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.10);
+  osc.connect(gain).connect(sfxGain);
+  osc.start();
+  osc.stop(ac.currentTime + 0.12);
+}
+
+// Footstep tap
+function sfxFootstep() {
+  const ac = ensureAudio();
+  if (!ac) return;
+  const buf = getNoiseBuffer();
+  if (!buf) return;
+  const src = ac.createBufferSource();
+  src.buffer = buf;
+  const filter = ac.createBiquadFilter();
+  const gain = ac.createGain();
+  filter.type = 'bandpass';
+  filter.frequency.value = 600 + Math.random() * 200;
+  filter.Q.value = 3;
+  gain.gain.setValueAtTime(0.025, ac.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.05);
+  src.connect(filter).connect(gain).connect(sfxGain);
+  src.start();
+  src.stop(ac.currentTime + 0.08);
+}
+
+// Ambient: low-frequency sea drone
+function startAmbient() {
+  const ac = ensureAudio();
+  if (!ac || ambientNode) return;
+  // pink-ish noise filtered low — sounds like distant waves
+  const buf = getNoiseBuffer();
+  if (!buf) return;
+  ambientNode = ac.createBufferSource();
+  ambientNode.buffer = buf;
+  ambientNode.loop = true;
+  const filter = ac.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 280;
+  filter.Q.value = 1.5;
+  ambientGain = ac.createGain();
+  ambientGain.gain.value = 0;
+  ambientGain.gain.linearRampToValueAtTime(0.05, ac.currentTime + 1.5);
+  // slow LFO for wave breathing
+  const lfo = ac.createOscillator();
+  const lfoGain = ac.createGain();
+  lfo.frequency.value = 0.18;
+  lfoGain.gain.value = 0.025;
+  lfo.connect(lfoGain).connect(ambientGain.gain);
+  lfo.start();
+  ambientNode.connect(filter).connect(ambientGain).connect(masterGain);
+  ambientNode.start();
+}
+function stopAmbient() {
+  if (!ambientNode) return;
+  const ac = audioCtx;
+  ambientGain.gain.linearRampToValueAtTime(0, ac.currentTime + 0.5);
+  setTimeout(() => {
+    try { ambientNode.stop(); } catch(e) {}
+    ambientNode = null;
+  }, 600);
+}
+
+// ---------- MUSIC: Hicaz makam, 9/8 aksak (3+2+2+2 grouping) ----------
+// Hicaz scale on D: D=293.66, Eb=311.13, F#=369.99, G=392, A=440, Bb=466.16, C#=554.37, D=587.33
+// Lower octave for bass: D2=73.42, A2=110, F#2=92.5, G2=98, etc.
+const HZ = {
+  D3: 146.83, Eb3: 155.56, F3: 174.61, F_3: 184.99, G3: 196, A3: 220, Bb3: 233.08, C4: 261.63, C_4: 277.18, D4: 293.66, Eb4: 311.13, F4: 349.23, F_4: 369.99, G4: 392, A4: 440, Bb4: 466.16, C5: 523.25, C_5: 554.37, D5: 587.33, Eb5: 622.25, F_5: 739.99, G5: 783.99, A5: 880,
+};
+// 9/8 aksak: 9 sixteenth-notes per measure grouped as 2+2+2+3 or 3+2+2+2 — feels lopsided in a good way
+// Each "step" = 1 sixteenth at ~140 BPM => ~107ms per step.
+// Lead melody (32 steps = 4 measures of 8/8 + dot, simplified to 32 even sixteenths).
+// '.' = rest, otherwise frequency name from HZ
+const MUSIC_LEAD = [
+  // measure 1 — taksim opening on tonic
+  'D4', '.',  'Eb4', 'D4', 'F_4', '.',  'G4',  '.',
+  // measure 2 — climb
+  'A4', 'G4', 'F_4','Eb4','D4',  '.',  'F_4', 'G4',
+  // measure 3 — high register
+  'A4', '.',  'Bb4','A4', 'G4',  'F_4','Eb4','D4',
+  // measure 4 — return to tonic with hicaz characteristic Eb-F#
+  'C_4','D4', 'Eb4','D4', 'C_4', 'D4', '.',   '.',
 ];
+const MUSIC_BASS = [
+  // 9/8 doum-tek pattern in pitched bass — D pedal with A movement
+  'D3', '.',  '.',  'A3', '.',  '.',  'D3', '.',
+  'D3', '.',  '.',  'A3', '.',  '.',  'F_3','G3',
+  'A3', '.',  '.',  'A3', '.',  '.',  'D3', '.',
+  'D3', '.',  '.',  'G3', '.',  'A3', 'D3', '.',
+];
+// Drums per step: 'D' = doum (deep), 'T' = tek, 'K' = ka, '.' = rest
+// 9/8 aksak feels: D . T . K . D T . in 9 — adapted to 8-step phrase with accents
+const MUSIC_DRUMS = [
+  'D','.','T','.','K','.','D','T',
+  'D','.','T','.','K','.','D','T',
+  'D','.','T','.','K','T','D','T',
+  'D','T','K','T','D','.','T','.',
+];
+
 let musicStep = 0;
 function startMusic() {
   if (musicTimer) return;
   const ac = ensureAudio();
   if (!ac) return;
   if (ac.state === 'suspended') ac.resume();
+
+  const STEP_MS = 107; // ~140 BPM sixteenths
+
   const tick = () => {
-    const [bass, harm] = MUSIC_NOTES[musicStep % MUSIC_NOTES.length];
-    if (bass) beep(bass, 0.18, 'triangle', 0.045);
-    if (harm) beep(harm, 0.16, 'square', 0.025);
+    const i = musicStep % MUSIC_LEAD.length;
+    // Lead saz (always plays)
+    const leadNote = MUSIC_LEAD[i];
+    if (leadNote !== '.') {
+      pluck(HZ[leadNote], 0.45, 0.06);
+      // octave doubling for highlights
+      if (i % 4 === 0) pluck(HZ[leadNote] * 2, 0.35, 0.025);
+    }
+    // Bass triangle (always plays)
+    const bassNote = MUSIC_BASS[i];
+    if (bassNote !== '.') {
+      const ac2 = audioCtx;
+      const osc = ac2.createOscillator();
+      const gain = ac2.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(HZ[bassNote], ac2.currentTime);
+      gain.gain.setValueAtTime(0, ac2.currentTime);
+      gain.gain.linearRampToValueAtTime(0.07, ac2.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ac2.currentTime + 0.25);
+      osc.connect(gain).connect(musicGain);
+      osc.start();
+      osc.stop(ac2.currentTime + 0.3);
+    }
+    // Drums (only at intensity 1)
+    if (intensityLevel >= 1) {
+      const drumHit = MUSIC_DRUMS[i];
+      if (drumHit === 'D') drum('doum', 0.16);
+      else if (drumHit === 'T') drum('tek', 0.10);
+      else if (drumHit === 'K') drum('ka', 0.08);
+    }
     musicStep++;
   };
-  musicTimer = setInterval(tick, 200);
+
+  musicTimer = setInterval(tick, STEP_MS);
   tick();
 }
 function stopMusic() {
   if (musicTimer) clearInterval(musicTimer);
   musicTimer = null;
+}
+function setIntensity(level) {
+  intensityLevel = level;
 }
 
 // ---------- STATE ----------
@@ -1165,12 +1553,13 @@ const player = {
   onGround: true,
   animTime: 0,
   jumpPhase: 0, // 0 = ground, 1 = up, 2 = down
+  lastStepFrame: -1,
 };
 let scrollX = 0;
 let collected = 0;
 let stateTime = 0;
 let simits = SIMIT_POSITIONS.map(p => ({ ...p, taken: false, bobPhase: Math.random() * Math.PI * 2 }));
-let enemies = ENEMIES.map(e => ({ ...e, baseX: e.x, animTime: 0, barkTime: -100 }));
+let enemies = ENEMIES.map(e => ({ ...e, baseX: e.x, animTime: 0, barkTime: -100, greeted: false }));
 let loseReason = '';
 let shake = 0;
 
@@ -1184,9 +1573,10 @@ function resetGame() {
   player.onGround = true;
   player.animTime = 0;
   simits = SIMIT_POSITIONS.map(p => ({ ...p, taken: false, bobPhase: Math.random() * Math.PI * 2 }));
-  enemies = ENEMIES.map(e => ({ ...e, baseX: e.x, animTime: 0, barkTime: -100 }));
+  enemies = ENEMIES.map(e => ({ ...e, baseX: e.x, animTime: 0, barkTime: -100, greeted: false }));
   particles.length = 0;
   shake = 0;
+  player.lastStepFrame = -1;
 }
 
 // ---------- INPUT ----------
@@ -1194,7 +1584,9 @@ function attemptJump() {
   if (state === STATE.INTRO) {
     state = STATE.PLAY;
     stateTime = 0;
+    setIntensity(1);
     startMusic();
+    startAmbient();
     return;
   }
   if (state === STATE.WIN || state === STATE.LOSE) {
@@ -1202,6 +1594,8 @@ function attemptJump() {
       resetGame();
       state = STATE.INTRO;
       stopMusic();
+      stopAmbient();
+      setIntensity(0);
     }
     return;
   }
@@ -1258,8 +1652,35 @@ function update(dt) {
   enemies.forEach(e => {
     e.animTime += dt;
     e.x = e.baseX + Math.sin(e.animTime * 0.025) * 18 * (e.dir);
-    if (e.type === 'dog' && Math.random() < 0.003) e.barkTime = stateTime;
+    const screenDist = Math.abs((e.x - scrollX) - player.x);
+    // bark/meow when enemy enters screen (~80px ahead)
+    if (screenDist < 100 && screenDist > 80 && !e.greeted) {
+      e.greeted = true;
+      if (e.type === 'dog') {
+        e.barkTime = stateTime;
+        sfxBark();
+      } else {
+        sfxMeow();
+      }
+    }
+    // random barks for nearby dogs
+    if (e.type === 'dog' && screenDist < 120 && Math.random() < 0.002) {
+      e.barkTime = stateTime;
+      sfxBark();
+    }
   });
+
+  // Footstep on each run-cycle ground frame
+  if (player.onGround) {
+    const stepFrame = Math.floor(player.animTime * 0.10) % 4;
+    if (stepFrame !== player.lastStepFrame && (stepFrame === 0 || stepFrame === 2)) {
+      sfxFootstep();
+    }
+    player.lastStepFrame = stepFrame;
+  }
+
+  // Random bird chirps
+  if (Math.random() < 0.004) sfxBirdChirp();
 
   const playerWorldX = scrollX + player.x;
   const playerRect = { x: playerWorldX + 2, y: player.y + 2, w: 12, h: 20 };
@@ -1278,6 +1699,7 @@ function update(dt) {
         stateTime = 0;
         sfxWin();
         stopMusic();
+        stopAmbient();
       }
     }
   });
@@ -1292,6 +1714,7 @@ function update(dt) {
       loseReason = e.type === 'cat' ? 'KEDI SİMİTİNİ YEDİ!' : 'KÖPEK SİMİTİNİ YEDİ!';
       sfxLose();
       stopMusic();
+      stopAmbient();
       shake = 8;
       break;
     }
