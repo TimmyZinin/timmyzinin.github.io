@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI-парадигма для предпринимателя — игра-симулятор за 25 минут</title>
+<meta name="description" content="Бесплатная visual-novel игра. Евгений за неделю переходит с ChatGPT на Claude Code. Пройдёшь вместе с ним и поймёшь как использовать AI в твоём бизнесе.">
+<meta property="og:title" content="AI-парадигма для предпринимателя">
+<meta property="og:description" content="Игра-симулятор. 25 минут. В Telegram. Бесплатно.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://timzinin.com/ai-course/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #FBF8F3;
+  --cream-warm: #F5EFE3;
+  --navy: #14213D;
+  --navy-soft: #1E2D52;
+  --gold: #C9A75F;
+  --gold-deep: #A88840;
+  --ink: #2A2A2A;
+  --muted: #6B6B6B;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 0 60px;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--cream-warm) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,167,95,0.08), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.hero-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  font-size: clamp(38px, 7vw, 76px);
+  line-height: 1.04;
+  color: var(--navy);
+  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+.hero-headline em {
+  font-style: italic;
+  color: var(--gold-deep);
+  font-weight: 700;
+}
+.hero-sub {
+  font-size: clamp(17px, 2.2vw, 21px);
+  color: var(--muted);
+  max-width: 620px;
+  margin-bottom: 40px;
+  line-height: 1.55;
+}
+.btn-tg {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--navy);
+  color: var(--cream);
+  padding: 20px 36px;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 24px rgba(20,33,61,0.18);
+}
+.btn-tg:hover {
+  background: var(--navy-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(20,33,61,0.25);
+}
+.btn-tg svg { width: 22px; height: 22px; flex-shrink: 0; }
+.hero-meta {
+  display: flex;
+  gap: 28px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--muted);
+}
+.hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+.hero-meta span::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* ============ SECTIONS ============ */
+.section { padding: 80px 0; }
+.section-cream { background: var(--cream-warm); }
+.section h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 4.5vw, 44px);
+  line-height: 1.15;
+  color: var(--navy);
+  margin-bottom: 48px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  max-width: 720px;
+}
+.section h2 em { color: var(--gold-deep); font-style: italic; }
+
+/* ============ STORY ============ */
+.story {
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-warm) 100%);
+}
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  margin-top: 24px;
+}
+.story-card {
+  background: white;
+  padding: 32px 28px;
+  border-radius: 16px;
+  border: 1px solid rgba(20,33,61,0.06);
+  position: relative;
+}
+.story-card-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  opacity: 0.4;
+  margin-bottom: 12px;
+}
+.story-card h3 {
+  font-size: 19px;
+  color: var(--navy);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.story-card p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ============ ICP ============ */
+.icp-quote {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.4;
+  color: var(--navy);
+  font-style: italic;
+  font-weight: 700;
+  border-left: 4px solid var(--gold);
+  padding: 8px 0 8px 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.icp-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 48px;
+}
+.icp-item {
+  padding: 24px 0;
+  border-top: 1px solid rgba(20,33,61,0.1);
+  font-size: 15px;
+  color: var(--ink);
+  position: relative;
+  padding-left: 28px;
+}
+.icp-item::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  color: var(--gold);
+  font-size: 32px;
+  line-height: 0;
+}
+
+/* ============ FAQ ============ */
+.faq-item {
+  border-top: 1px solid rgba(20,33,61,0.1);
+  padding: 24px 0;
+}
+.faq-item:last-child { border-bottom: 1px solid rgba(20,33,61,0.1); }
+.faq-q {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.faq-a {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ============ CTA FINAL ============ */
+.cta-final {
+  background: var(--navy);
+  color: var(--cream);
+  padding: 100px 0;
+  text-align: center;
+}
+.cta-final h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 56px);
+  color: var(--cream);
+  margin: 0 auto 28px;
+  max-width: 720px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+.cta-final h2 em { color: var(--gold); font-style: italic; }
+.cta-final p {
+  font-size: 18px;
+  color: rgba(251,248,243,0.7);
+  margin-bottom: 40px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-tg-light {
+  background: var(--gold);
+  color: var(--navy);
+  box-shadow: 0 8px 24px rgba(201,167,95,0.3);
+}
+.btn-tg-light:hover {
+  background: var(--gold-deep);
+  color: var(--cream);
+  box-shadow: 0 12px 32px rgba(201,167,95,0.4);
+}
+
+/* ============ FOOTER ============ */
+footer {
+  background: var(--navy);
+  color: rgba(251,248,243,0.6);
+  padding: 32px 0;
+  text-align: center;
+  font-size: 13px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+footer a { color: var(--gold); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .hero { padding: 60px 0 48px; min-height: auto; }
+  .section { padding: 56px 0; }
+  .cta-final { padding: 72px 0; }
+  .icp-quote { padding-left: 20px; font-size: 19px; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Бесплатная игра-симулятор</div>
+    <h1 class="hero-headline">AI-парадигма<br>для <em>предпринимателя</em><br>за 25 минут</h1>
+    <p class="hero-sub">
+      Евгений уже год сидит на ChatGPT. На этой неделе он упрётся в потолок и перейдёт на Claude Code. Пройди с ним — и поймёшь, как AI работает в твоём бизнесе на самом деле.
+    </p>
+    <a class="btn-tg" href="https://t.me/tim_ai_business_course_bot?startapp=game" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.94 8.18l-1.99 9.39c-.15.66-.54.83-1.09.51l-3.02-2.22-1.46 1.4c-.16.16-.3.3-.61.3l.22-3.07 5.59-5.05c.24-.21-.05-.33-.37-.12l-6.91 4.35-2.97-.93c-.65-.2-.66-.65.13-.96l11.6-4.47c.54-.2 1.02.13.84.96z"/></svg>
+      Играть в Telegram
+    </a>
+    <div class="hero-meta">
+      <span>25 минут</span>
+      <span>3 главы · 12 решений</span>
+      <span>Без регистрации</span>
+    </div>
+  </div>
+</section>
+
+<section class="section story">
+  <div class="container">
+    <h2>Три главы. Один <em>предприниматель</em>. Одна неделя.</h2>
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="story-card-num">01</div>
+        <h3>Понедельник: потолок ChatGPT</h3>
+        <p>Клиент прислал 80-страничный бриф. ChatGPT не справляется с длинным файлом. Появляется идея — попробовать что-то другое.</p>
+      </div>
+      <div class="story-card">
+        <div class="story-card-num">02</div>
+        <h3>Среда: регистрация и установка</h3>
+        <p>Anthropic не принимает российский номер. Подписка $20/мес. Терминал. Виртуальные номера, оплата через Wise/Oplatym, первая команда claude.</p>
+      </div>
+      <div class="story-card">
+        <div class="story-card-num">03</div>
+        <h3>Пятница: новая работа с AI</h3>
+        <p>Tools, MCP, Skills, Agents, Hooks. Пять типов задач за один день. Понимаешь, что управлять AI-инструментами — это новая компетенция.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream">
+  <div class="container">
+    <h2>Для кого эта <em>игра</em></h2>
+    <div class="icp-quote">
+      «Если ты уже год пользуешься ChatGPT и чувствуешь, что упёрся — но не понимаешь куда дальше».
+    </div>
+    <div class="icp-list">
+      <div class="icp-item">Владельцу агентства, студии, небольшого продакшна</div>
+      <div class="icp-item">Удалёнщику с зарубежной картой, но без +1 номера</div>
+      <div class="icp-item">Тому, кто читает про AI, но не понимает чем Claude отличается от Codex</div>
+      <div class="icp-item">Кто хочет конкретики, а не «AI это будущее»</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Что узнаешь за <em>25 минут</em></h2>
+    <div class="faq-item">
+      <div class="faq-q">Как зарегаться в Anthropic без зарубежного номера?</div>
+      <div class="faq-a">Виртуальные SIM, Airalo eSIM, посредники — какой способ работает в 2026, какой нет.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Чем Claude Code отличается от ChatGPT и Codex?</div>
+      <div class="faq-a">Три инструмента — три разных задачи. Когда какой выбирать, какая разница в цене и удобстве.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Как платить за Pro подписку из России?</div>
+      <div class="faq-a">Wise, Oplatym.ru, BotHub — три способа, реально работающих весной 2026.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Что такое MCP, Skills, Agents, Hooks?</div>
+      <div class="faq-a">Простыми словами: разъёмы AI к твоим сервисам, переиспользуемые промпты, многошаговые задачи, реакции на события.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Сколько времени и денег нужно?</div>
+      <div class="faq-a">Игра — бесплатно, 25 минут. Реальный Claude Code — $20/мес. После игры решишь сам, нужно ли.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="container">
+    <h2>Открой Telegram. <em>Сыграй.</em><br>Реши, как работать дальше.</h2>
+    <p>В конце — короткая форма: оставишь контакт, я напишу в течение 24 часов и помогу встроить AI в твой бизнес персонально.</p>
+    <a class="btn-tg btn-tg-light" href="https://t.me/tim_ai_business_course_bot?startapp=game" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.94 8.18l-1.99 9.39c-.15.66-.54.83-1.09.51l-3.02-2.22-1.46 1.4c-.16.16-.3.3-.61.3l.22-3.07 5.59-5.05c.24-.21-.05-.33-.37-.12l-6.91 4.35-2.97-.93c-.65-.2-.66-.65.13-.96l11.6-4.47c.54-.2 1.02.13.84.96z"/></svg>
+      Начать игру
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Тим Зинин · <a href="https://timzinin.com/">timzinin.com</a> · <a href="https://t.me/tim_ai_business_course_bot">@tim_ai_business_course_bot</a>
+  </div>
+</footer>
+
+</body>
+</html>
