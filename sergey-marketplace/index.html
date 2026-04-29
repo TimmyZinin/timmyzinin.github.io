@@ -132,8 +132,12 @@ section{position:relative;padding:clamp(70px,10vw,150px) clamp(20px,5vw,80px);bo
 
 .yulia{display:grid;grid-template-columns:1fr 1.4fr;gap:0;margin-top:60px;border:1px solid var(--rule)}
 @media(max-width:860px){.yulia{grid-template-columns:1fr}}
-.yulia-img{background-image:url("https://images.unsplash.com/photo-1488161628813-67a8eb45cad8?w=1200&q=80&auto=format&fit=crop");background-size:cover;background-position:center;min-height:340px;position:relative;filter:grayscale(0.25) contrast(1.06)}
-.yulia-img::after{content:"";position:absolute;inset:0;background:rgba(20,15,12,0.12);mix-blend-mode:multiply}
+.yulia-quote{background:var(--ink);color:var(--paper);padding:clamp(36px,4vw,56px);display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:340px;position:relative;overflow:hidden}
+.yulia-quote::before{content:"„";position:absolute;top:-20px;left:18px;font-family:'Cormorant Garamond',serif;font-size:240px;line-height:1;color:var(--ochre);opacity:0.3;font-style:italic;pointer-events:none}
+.yulia-quote .qmark{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ochre);position:relative;z-index:2}
+.yulia-quote .qbody{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.4vw,32px);line-height:1.25;font-style:italic;font-weight:500;color:var(--paper);position:relative;z-index:2;max-width:30ch}
+.yulia-quote .qbody em{color:var(--ochre);font-style:italic}
+.yulia-quote .qsign{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);border-top:1px solid rgba(255,255,255,0.2);padding-top:14px;position:relative;z-index:2}
 .yulia-text{padding:clamp(36px,4vw,56px);background:var(--paper);display:flex;flex-direction:column;justify-content:center;gap:18px}
 .yulia-text .micro{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--oxblood)}
 .yulia-text h4{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,40px);line-height:1.05;font-weight:500;max-width:18ch;margin:0}
@@ -375,11 +379,15 @@ section{position:relative;padding:clamp(70px,10vw,150px) clamp(20px,5vw,80px);bo
   </div>
 
   <div class="yulia">
-    <div class="yulia-img" aria-label="Photo placeholder"></div>
+    <div class="yulia-quote">
+      <div class="qmark">Тезис</div>
+      <div class="qbody">Женщина-основательница в категории, где ЦА — <em>женщины 25–45,</em> работает как структурный signal of trust, который не строится за полгода и не нанимается на рынке.</div>
+      <div class="qsign">— из обсуждения панели</div>
+    </div>
     <div class="yulia-text">
       <div class="micro">Структурный актив бренда</div>
-      <h4>Юля — лицо <em>YouTravel</em>.</h4>
-      <p>В категории, где целевая — женщины 25–45, женщина-основательница работает как сильнейший signal of trust. Структурный актив, не маркетинговая активация. Лицо Юли в коммуникациях, личный TG, intro-видео в каждом туре, регулярные обращения — снижают CAC и поднимают доверие. У Трипстера такого нет. За полгода такое не строится. У вас уже есть. Потерять нельзя.</p>
+      <h4>Лицо фаундера — <em>половина бренда.</em></h4>
+      <p>Это не маркетинговая активация, а структура. Личный TG, intro-видео в каждом туре, регулярные обращения, лицо в коммуникациях — каждый из этих элементов снижает CAC и поднимает доверие. У Трипстера структурно такого нет (унифицированный шаблон, поточная модель). У YouTravel уже есть. Сохранить, усилить, сделать центром коммуникации второго года.</p>
     </div>
   </div>
 </section>
