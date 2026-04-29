@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Маркетплейс авторских туров — мысли вслух для Сергея</title>
+<meta name="description" content="Первый подход к снаряду. 7 мест, которые я бы фиксил, чтобы площадка зарабатывала кратно больше, не догоняя Трипстер лбом.">
+<link rel="canonical" href="https://timzinin.com/sergey-marketplace/">
+<meta property="og:title" content="Маркетплейс авторских туров — мысли вслух для Сергея">
+<meta property="og:description" content="Первый подход к снаряду. 7 мест, которые я бы фиксил, чтобы площадка зарабатывала кратно больше, не догоняя Трипстер лбом.">
+<meta property="og:url" content="https://timzinin.com/sergey-marketplace/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Маркетплейс авторских туров — мысли вслух для Сергея">
+<meta name="twitter:description" content="Первый подход к снаряду. 7 мест, которые я бы фиксил, чтобы площадка зарабатывала кратно больше, не догоняя Трипстер лбом.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script defer src="https://umami.timzinin.com/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script>
+<style>
+:root{
+  --bg: oklch(97% 0.020 85);
+  --bg-2: oklch(94% 0.030 80);
+  --ink: oklch(18% 0.02 40);
+  --ink-soft: oklch(35% 0.03 40);
+  --line: oklch(20% 0.02 40);
+  --bordeaux: oklch(42% 0.15 25);
+  --terracotta: oklch(58% 0.17 45);
+  --ochre: oklch(72% 0.14 75);
+  --coral: oklch(62% 0.19 30);
+  --peach: oklch(82% 0.09 75);
+  --cream: oklch(93% 0.04 85);
+  --accent: var(--bordeaux);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;font-size:17px;line-height:1.5;overflow-x:hidden;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.35;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+h1,h2,h3,h4{font-family:'DM Serif Display',Georgia,serif;font-weight:400;letter-spacing:-0.02em;line-height:1.02;margin:0}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+a{color:var(--bordeaux);text-decoration:underline;text-underline-offset:3px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:500;display:flex;gap:clamp(8px,1.5vw,22px);padding:14px clamp(16px,4vw,56px);background:var(--bg);border-bottom:1.5px solid var(--line);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;overflow-x:auto;white-space:nowrap;align-items:center}
+.nav a{color:var(--ink);text-decoration:none;padding:3px 0;border-bottom:2px solid transparent;transition:border-color .2s}
+.nav a:hover{border-color:var(--accent)}
+.nav .brand{color:var(--bordeaux);font-weight:700;margin-right:auto;font-family:'JetBrains Mono',monospace;letter-spacing:0.08em}
+
+/* SECTION SHELL */
+section{padding:clamp(60px,9vw,140px) clamp(20px,5vw,80px);border-bottom:1.5px solid var(--line);position:relative}
+.sec-num{font-family:'DM Serif Display',serif;font-size:clamp(80px,14vw,200px);line-height:0.9;color:var(--ink);opacity:0.08;position:absolute;top:clamp(20px,4vw,50px);right:clamp(16px,4vw,56px);pointer-events:none;user-select:none}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux);margin-bottom:18px;display:inline-block;padding:5px 10px;border:1.5px solid var(--bordeaux)}
+h2.sec-title{font-size:clamp(40px,7vw,96px);margin-bottom:30px;max-width:18ch}
+h2.sec-title em{font-style:italic;color:var(--bordeaux)}
+.lead{font-size:clamp(18px,1.7vw,22px);max-width:62ch;color:var(--ink-soft);margin-bottom:40px;line-height:1.5}
+.lead b{color:var(--ink);font-weight:500}
+
+/* HERO */
+.hero{min-height:92vh;padding:clamp(100px,14vw,180px) clamp(20px,5vw,80px) clamp(60px,8vw,120px);display:flex;flex-direction:column;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux);display:inline-block;padding:5px 10px;border:1.5px solid var(--bordeaux);z-index:2;align-self:flex-start}
+.hero-head{font-size:clamp(54px,11vw,180px);line-height:0.88;letter-spacing:-0.03em;max-width:16ch;z-index:2}
+.hero-head em{font-style:italic;color:var(--bordeaux);font-family:'DM Serif Display',serif}
+.hero-pitch{max-width:58ch;font-size:clamp(18px,1.8vw,24px);color:var(--ink-soft);line-height:1.4;z-index:2}
+.hero-meta{display:flex;flex-wrap:wrap;gap:30px 50px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink);z-index:2;border-top:1.5px solid var(--line);padding-top:24px}
+.hero-meta b{color:var(--bordeaux);display:block;font-size:11px;margin-bottom:4px;font-weight:600;letter-spacing:0.12em}
+.hero-meta .num{font-family:'DM Serif Display',serif;font-size:clamp(28px,3vw,42px);line-height:1;letter-spacing:-0.02em;text-transform:none;color:var(--ink);font-weight:400}
+.hero-geom{position:absolute;pointer-events:none;z-index:1;right:clamp(20px,5vw,80px);top:clamp(120px,16vw,200px);width:clamp(200px,28vw,420px);opacity:0.85}
+
+/* HELLO */
+.hello{padding:clamp(50px,7vw,110px) clamp(20px,5vw,80px);border-bottom:1.5px solid var(--line);background:var(--cream);position:relative}
+.hello-grid{display:grid;grid-template-columns:0.7fr 1.3fr;gap:clamp(30px,5vw,70px);align-items:start}
+@media(max-width:780px){.hello-grid{grid-template-columns:1fr}}
+.hello-photo{display:flex;flex-direction:column;gap:18px}
+.hello-photo .frame{position:relative;border:2px solid var(--line);background:var(--bg);padding:14px;max-width:320px}
+.hello-photo .frame::before{content:"";position:absolute;top:-10px;left:-10px;width:60px;height:60px;border-top:2px solid var(--bordeaux);border-left:2px solid var(--bordeaux)}
+.hello-photo .frame::after{content:"";position:absolute;bottom:-10px;right:-10px;width:60px;height:60px;border-bottom:2px solid var(--bordeaux);border-right:2px solid var(--bordeaux)}
+.hello-photo .ph-stub{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:3/4;background:var(--bg-2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--ink-soft)}
+.hello-photo img{display:block;width:100%;height:auto;filter:grayscale(0.15) contrast(1.05)}
+.hello-sig{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--bordeaux);line-height:1.7}
+.hello-sig b{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:var(--ink);letter-spacing:0;text-transform:none;display:block;margin-bottom:2px}
+.hello-text h2{font-family:'DM Serif Display',serif;font-size:clamp(40px,6vw,80px);line-height:1;letter-spacing:-0.02em;margin-bottom:24px}
+.hello-text h2 em{font-style:italic;color:var(--bordeaux)}
+.hello-text p{font-size:clamp(17px,1.5vw,20px);line-height:1.55;max-width:60ch;color:var(--ink);margin:0 0 18px}
+.hello-text p b{font-weight:600}
+.hello-text p.kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--bordeaux);margin-top:30px}
+
+/* DIAGNOSIS / SUPPLY GAP */
+.diag-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(30px,5vw,70px);align-items:start;margin-top:30px}
+@media(max-width:880px){.diag-grid{grid-template-columns:1fr}}
+.diag-text p{font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--ink);margin:0 0 18px;max-width:58ch}
+.diag-text p b{color:var(--bordeaux)}
+.diag-chart{border:1.5px solid var(--line);background:var(--cream);padding:30px 28px;display:flex;flex-direction:column;gap:18px}
+.diag-chart .ct{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux)}
+.diag-chart .ch{font-family:'DM Serif Display',serif;font-size:clamp(22px,2.4vw,32px);line-height:1.05;letter-spacing:-0.02em;max-width:18ch}
+.diag-chart svg{width:100%;height:auto;display:block}
+.diag-chart .cd{font-size:13px;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;line-height:1.6}
+
+/* FIXES GRID */
+.fixes-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:20px}
+@media(max-width:980px){.fixes-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.fixes-grid{grid-template-columns:1fr}}
+.fix{border-right:2px solid var(--line);border-bottom:2px solid var(--line);padding:32px 28px;display:flex;flex-direction:column;gap:14px;background:var(--cream);position:relative;min-height:340px;transition:background .2s,transform .2s}
+.fix:hover{background:var(--peach);transform:translateY(-4px)}
+.fix-1,.fix-3,.fix-5{grid-column:span 4}
+.fix-2,.fix-4{grid-column:span 2}
+.fix-6{grid-column:span 3;background:var(--peach)}
+.fix-6:hover{background:var(--ochre)}
+.fix-7{grid-column:span 3;background:var(--ink);color:var(--cream)}
+.fix-7 .f-num,.fix-7 .f-tag,.fix-7 .f-name em{color:var(--ochre)}
+.fix-7:hover{background:oklch(22% 0.04 35);transform:translateY(-4px)}
+@media(max-width:980px){.fix-1,.fix-2,.fix-3,.fix-4,.fix-5,.fix-6,.fix-7{grid-column:span 1}}
+.f-num{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,56px);line-height:0.9;color:var(--bordeaux)}
+.f-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--bordeaux)}
+.f-name{font-family:'DM Serif Display',serif;font-size:clamp(24px,2.6vw,36px);line-height:1.02;letter-spacing:-0.02em}
+.f-name em{font-style:italic;color:var(--bordeaux)}
+.f-desc{font-size:15px;line-height:1.5;flex:1}
+.f-foot{padding-top:14px;border-top:1.5px solid currentColor;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;display:flex;gap:18px;flex-wrap:wrap}
+.f-foot b{color:var(--bordeaux);font-weight:600}
+.fix-7 .f-foot b{color:var(--ochre)}
+
+/* PANEL TABLE */
+.mx-wrap{overflow-x:auto;border:2px solid var(--line);background:var(--cream);margin-top:20px}
+table.mx{width:100%;border-collapse:collapse;font-size:15px;min-width:640px}
+table.mx th,table.mx td{text-align:left;padding:18px 20px;border-bottom:1.5px solid var(--line);vertical-align:top}
+table.mx th{background:var(--ink);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;font-weight:600}
+table.mx tr:last-child td{border-bottom:none}
+table.mx td:first-child{font-weight:500;font-family:'DM Serif Display',serif;font-size:20px;line-height:1.15;letter-spacing:-0.01em}
+table.mx td.res{color:var(--bordeaux);font-weight:500}
+table.mx td.res b{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;background:var(--bordeaux);color:var(--cream);padding:3px 8px;display:inline-block;margin-right:8px;font-weight:600}
+
+/* AUDIT / FIRST STEP */
+.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border-top:1.5px solid var(--line);border-left:1.5px solid var(--line);margin-top:30px;counter-reset:audit}
+.audit-item{padding:28px 26px 30px;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);background:var(--cream);display:grid;gap:12px;counter-increment:audit;position:relative;min-height:200px}
+.audit-item::before{content:counter(audit,decimal-leading-zero);font-family:'DM Serif Display',serif;font-size:42px;color:var(--bordeaux);line-height:1}
+.audit-item .t{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.1;letter-spacing:-0.01em}
+.audit-item .d{font-size:14px;color:var(--ink-soft);line-height:1.5}
+.audit-foot{margin-top:36px;padding:30px clamp(28px,4vw,50px);border:2px solid var(--line);background:var(--bg-2);font-size:clamp(17px,1.6vw,21px);line-height:1.5}
+.audit-foot b{color:var(--bordeaux);font-weight:600}
+
+/* NUMBERS REQUEST */
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:20px}
+@media(max-width:880px){.numbers-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.numbers-grid{grid-template-columns:1fr}}
+.numreq{padding:30px 26px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--cream);display:flex;flex-direction:column;gap:14px;min-height:240px;transition:background .2s}
+.numreq:hover{background:var(--peach)}
+.numreq .n{font-family:'DM Serif Display',serif;font-size:54px;line-height:0.9;color:var(--bordeaux);letter-spacing:-0.02em}
+.numreq .t{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux)}
+.numreq .h{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.1;letter-spacing:-0.01em}
+.numreq .d{font-size:14px;line-height:1.5;color:var(--ink-soft);margin-top:auto}
+.numbers-note{margin-top:30px;padding:24px 28px;border-left:4px solid var(--bordeaux);background:var(--cream);font-size:clamp(16px,1.5vw,19px);line-height:1.5;font-style:italic;max-width:80ch}
+
+/* CONTACT FOOTER */
+footer{padding:clamp(60px,9vw,120px) clamp(20px,5vw,80px);background:var(--ink);color:var(--cream);display:grid;gap:40px}
+footer .ftop{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;align-items:end}
+@media(max-width:880px){footer .ftop{grid-template-columns:1fr}}
+footer h3{font-family:'DM Serif Display',serif;font-size:clamp(36px,5.5vw,72px);color:var(--cream);max-width:18ch;letter-spacing:-0.02em;line-height:1}
+footer h3 em{color:var(--ochre);font-style:italic}
+footer .fnote{font-size:16px;line-height:1.5;color:oklch(85% 0.04 80);max-width:48ch}
+footer a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
+footer a:hover{color:var(--ochre)}
+.fcontacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;padding-top:30px;border-top:1px solid rgba(255,255,255,0.18);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.06em}
+.fcontacts b{display:block;color:var(--ochre);margin-bottom:10px;font-weight:600;letter-spacing:0.14em;font-size:11px;text-transform:uppercase}
+.fmeta{font-size:11px;opacity:0.55;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace;text-transform:uppercase;border-top:1px solid rgba(255,255,255,0.12);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="brand">ТЗ → СЕРГЕЙ</span>
+  <a href="#hello">01 Здравствуйте</a>
+  <a href="#diagnosis">02 Положение</a>
+  <a href="#fixes">03 Семь фиксов</a>
+  <a href="#panel">04 Панель</a>
+  <a href="#audit">05 Первый шаг</a>
+  <a href="#numbers">06 Цифры</a>
+  <a href="#contact">07 Контакт</a>
+</nav>
+
+<header class="hero">
+  <svg class="hero-geom" viewBox="0 0 420 420" aria-hidden="true">
+    <circle cx="210" cy="210" r="180" fill="none" stroke="oklch(42% 0.15 25)" stroke-width="2"/>
+    <rect x="60" y="60" width="300" height="300" fill="none" stroke="oklch(18% 0.02 40)" stroke-width="1.5" stroke-dasharray="6 8"/>
+    <polygon points="210,60 360,300 60,300" fill="oklch(72% 0.14 75)" opacity="0.55"/>
+    <line x1="60" y1="300" x2="360" y2="60" stroke="oklch(42% 0.15 25)" stroke-width="2"/>
+    <circle cx="210" cy="210" r="8" fill="oklch(42% 0.15 25)"/>
+    <circle cx="60" cy="60" r="4" fill="oklch(18% 0.02 40)"/>
+    <circle cx="360" cy="360" r="4" fill="oklch(18% 0.02 40)"/>
+  </svg>
+
+  <span class="hero-eyebrow">мысли вслух · апрель 2026 · для Сергея</span>
+
+  <h1 class="hero-head">У вас <em>четырёхкратно меньше</em> supply, и это не та проблема, которую решает SEO.</h1>
+
+  <p class="hero-pitch">Это первый подход к снаряду — без ваших цифр, по индустриальным диапазонам. Семь мест, которые я бы фиксил, чтобы площадка зарабатывала кратно больше, не догоняя Трипстер лбом. Если зайдёт — поговорим тридцать минут и перепишу под вашу реальность.</p>
+
+  <div class="hero-meta">
+    <div><b>Категория multi-day</b><span class="num">35–45</span>млрд ₽/год · рост 20–25%</div>
+    <div><b>AOV multi-day</b><span class="num">40–150к</span>чек одного тура</div>
+    <div><b>B2B incentive</b><span class="num">2.5</span>млн ₽ средняя сделка</div>
+    <div><b>Окно атаки</b><span class="num">12–18</span>мес до закрытия категории</div>
+  </div>
+</header>
+
+<!-- 01 HELLO -->
+<section class="hello" id="hello">
+  <span class="sec-num">01</span>
+  <div class="hello-grid">
+    <div class="hello-photo">
+      <div class="frame">
+        <div class="ph-stub">PHOTO · TIM ZININ</div>
+      </div>
+      <div class="hello-sig">
+        <b>Тимофей Зинин</b>
+        оператор · стратег · Каш, Анталья<br>
+        пишу сам, не делегирую
+      </div>
+    </div>
+    <div class="hello-text">
+      <span class="eyebrow">01 — Здравствуйте, Сергей</span>
+      <h2>Меня зовут Тим. Это <em>не презентация</em> — это мысли вслух.</h2>
+      <p>Я делаю операционную и маркетинговую работу для компаний, где нужно одновременно держать продукт, бренд, дистрибуцию и юр-периметр. Чаще всего — туда зовут, когда лобовая стратегия не работает, а денег на эксперименты осталось на полгода.</p>
+      <p>Про вас я знаю немного: маркетплейс авторских туров, Трипстер впереди примерно в четыре раза по supply, вы где-то рядом со средним чеком и думаете куда двигаться. Этого хватает, чтобы написать первый набросок — но мало, чтобы делать ставки. Поэтому ниже — гипотезы, не план. <b>План я напишу, когда увижу четыре цифры в конце документа.</b></p>
+      <p>Я не предлагаю вам рекламу, ставки на performance или ребрендинг как самоцель. Я предлагаю посмотреть на категорию и сказать: вот эти семь мест я бы фиксил первыми. Какие-то очевидны, какие-то — нет. Какие-то вы уже думали и отбросили — будет интересно узнать почему.</p>
+      <p class="kicker">→ Прокрутите вниз. Если хотя бы один из семи фиксов резонирует — напишите.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 DIAGNOSIS -->
+<section id="diagnosis">
+  <span class="sec-num">02</span>
+  <span class="eyebrow">02 — Положение, как я его вижу</span>
+  <h2 class="sec-title">Лобовая атака — это <em>полгода жжения бюджета</em> и закрытие.</h2>
+  <p class="lead">Трипстер — лидер категории «городские экскурсии 2–4 часа». У них сетевой эффект, который вы не догоняете при текущем supply 4× меньше. Это не вопрос усилий — это математика двусторонних рынков. Хорошая новость: <b>multi-day туры — другая категория</b>, и в ней Трипстер слаб структурно.</p>
+
+  <div class="diag-grid">
+    <div class="diag-text">
+      <p>Их продукт, юр-модель и дистрибуция заточены под формат до 24 часов. Multi-day с трансфером и проживанием — это туроператорская деятельность по 132-ФЗ, и Трипстер этого избегает. В эту категорию можно <b>зайти не догоняющим, а первым</b>.</p>
+      <p>Multi-day — рынок 35–45 млрд ₽/год с ростом 20–25% YoY (российская индустрия). AOV в 4–10× выше городской экскурсии. Repeat ниже — но LTV в рублях сопоставим, потому что один авторский тур = одна большая транзакция, а не серия маленьких.</p>
+      <p>Это значит: <b>не догонять</b>. Сегментироваться. Перепаковаться. Закрыть юр-блокер. И только потом включать дистрибуцию.</p>
+    </div>
+    <div class="diag-chart">
+      <span class="ct">Supply gap · по индустрии</span>
+      <span class="ch">Авторов в каталоге, оценка</span>
+      <svg viewBox="0 0 420 240" aria-hidden="true">
+        <line x1="20" y1="220" x2="400" y2="220" stroke="oklch(20% 0.02 40)" stroke-width="1.5"/>
+        <rect x="60" y="40" width="120" height="180" fill="oklch(42% 0.15 25)"/>
+        <rect x="240" y="175" width="120" height="45" fill="oklch(72% 0.14 75)"/>
+        <text x="120" y="30" text-anchor="middle" font-family="DM Serif Display, serif" font-size="22" fill="oklch(18% 0.02 40)">Трипстер</text>
+        <text x="300" y="165" text-anchor="middle" font-family="DM Serif Display, serif" font-size="22" fill="oklch(18% 0.02 40)">Вы</text>
+        <text x="120" y="135" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" fill="oklch(93% 0.04 85)" font-weight="600">~10–12k</text>
+        <text x="300" y="205" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" fill="oklch(18% 0.02 40)" font-weight="600">~2.5–3k</text>
+        <line x1="180" y1="40" x2="240" y2="175" stroke="oklch(42% 0.15 25)" stroke-width="1" stroke-dasharray="4 6"/>
+      </svg>
+      <span class="cd">оценка по индустрии · ваши цифры могут отличаться</span>
+    </div>
+  </div>
+</section>
+
+<!-- 03 SEVEN FIXES -->
+<section id="fixes">
+  <span class="sec-num">03</span>
+  <span class="eyebrow">03 — Семь мест, которые я бы фиксил</span>
+  <h2 class="sec-title">Не пять советов как заработать миллион. <em>Семь гипотез</em>, в порядке приоритета.</h2>
+  <p class="lead">Часть из них — про продукт и упаковку. Часть — про юридический периметр без которого половина перформанса несёт штрафной риск. Часть — про каналы, где Трипстер платит за ваш трафик в три раза меньше. Я расположил в том порядке, в каком решал бы по priority ladder: сначала безопасность, потом юнит-экономика, потом масштаб.</p>
+
+  <div class="fixes-grid">
+
+    <div class="fix fix-1">
+      <span class="f-num">01</span>
+      <span class="f-tag">Упаковка · бренд</span>
+      <h3 class="f-name">Клуб <em>авторских экспедиций</em>, не маркетплейс экскурсий.</h3>
+      <p class="f-desc">Категория — это язык. Пока вы говорите «маркетплейс авторских туров», вы Трипстер №2. Переупаковка в «экспедиции» + именные витрины авторов (как блогеры, не «гид #2456») — даёт ту узнаваемость, которую SEO-битвой не выиграть. Манифест на главной, один экран, пятьдесят слов: кто, против кого, для кого.</p>
+      <div class="f-foot"><span><b>Эффект</b> · бренд moat</span><span><b>Срок</b> · 4–6 нед</span><span><b>Бюджет</b> · ниже всех остальных пунктов</span></div>
+    </div>
+
+    <div class="fix fix-2">
+      <span class="f-num">02</span>
+      <span class="f-tag">Юр · 132-ФЗ</span>
+      <h3 class="f-name">Агентская, <em>не туроператорская</em>.</h3>
+      <p class="f-desc">Multi-day с трансфером и проживанием — туроператорская деятельность. Нужен реестр Ростуризма, финобеспечение. Решение: площадка — агрегатор, авторы — ИП-туроператоры. Это юридическое решение, не маркетинговое — без него любая performance несёт штрафной риск.</p>
+      <div class="f-foot"><span><b>Эффект</b> · де-риск</span><span><b>Срок</b> · 6–8 нед</span></div>
+    </div>
+
+    <div class="fix fix-3">
+      <span class="f-num">03</span>
+      <span class="f-tag">Supply · CAC</span>
+      <h3 class="f-name">Гарантия дохода, <em>а не демпинг комиссии</em>.</h3>
+      <p class="f-desc">Снижение комиссии с 20% до 15% не сработает — топ-автор Трипстера зарабатывает там 200–500к ₽/мес, его не сдвинет +5%. Решение: гарантия дохода для топ-50 переманиваемых авторов — фикс 200к ₽/мес × 3 мес + комиссия 15% сверху. Платите за supply onboarding как за CAC. Окупается с 2–3 туров в год. Бюджет: $300–400k на шесть месяцев.</p>
+      <div class="f-foot"><span><b>Эффект</b> · ×2 supply за квартал</span><span><b>Бюджет</b> · $300–400k / 6 мес</span><span><b>Payback</b> · 8–14 мес</span></div>
+    </div>
+
+    <div class="fix fix-4">
+      <span class="f-num">04</span>
+      <span class="f-tag">Demand · каналы</span>
+      <h3 class="f-name">80% бюджета — в <em>нативку с тревел-блогерами</em>.</h3>
+      <p class="f-desc">В Yandex Direct лобовая битва за брендовые keywords — вы платите 3 ₽ за их 1 ₽. Performance в YD оставляем только на long-tail и retargeting. Основной бюджет — 3–5 mid-tier тревел-блогеров (50–300к подп.) с per-booking attribution через UTM + промокод. Один тур = одна нативка = трекаемые продажи.</p>
+      <div class="f-foot"><span><b>Эффект</b> · CAC ÷ 2–3</span></div>
+    </div>
+
+    <div class="fix fix-5">
+      <span class="f-num">05</span>
+      <span class="f-tag">Конверсия · listing</span>
+      <h3 class="f-name">Baseline для каждого тура, <em>а не SEO для главной</em>.</h3>
+      <p class="f-desc">Конверсия маркетплейса определяется на странице тура, не в трафике. Бенчмарк здоровой площадки — 1.2–2% traffic→booking. Гипотеза: у вас сейчас ниже из-за слабых listing — нет видео, отзывы без фото, бронирование требует регистрации. Решение: content team из 2 человек + listing quality bar (видео 30 с + 8 фото + 3 отзыва до публикации) + чат с автором до оплаты. Это то, что Трипстер не умеет — раздавит его по trust.</p>
+      <div class="f-foot"><span><b>Эффект</b> · конверсия ×1.5–2</span><span><b>Команда</b> · +2 чел / контент</span></div>
+    </div>
+
+    <div class="fix fix-6">
+      <span class="f-num">06</span>
+      <span class="f-tag">B2B · slow money</span>
+      <h3 class="f-name">B2B sub-brand для <em>incentive-туров</em>.</h3>
+      <p class="f-desc">Корпоративные выезды — слепое пятно индустрии. Tinkoff, Avito, Yandex тратят 40–150 млн ₽/год на team-offsites через знакомых организаторов, не через маркетплейсы. Отдельный sub-brand, два sales, фокус на 50 целевых компаний. KPI первых шести месяцев: 8 закрытых сделок × 2.5 млн ₽ = 20 млн ₽ дополнительного GMV. Sales cycle 2–4 месяца — в P&L Q1 не закладывать.</p>
+      <div class="f-foot"><span><b>GMV / 6 мес</b> · +20 млн ₽</span><span><b>Команда</b> · +2 sales</span></div>
+    </div>
+
+    <div class="fix fix-7">
+      <span class="f-num">07</span>
+      <span class="f-tag">LTV · membership</span>
+      <h3 class="f-name">Travel Club + <em>реферальная программа</em>.</h3>
+      <p class="f-desc">Маркетплейс зарабатывает на commission × volume × repeat. Решение: членство 4 990 ₽/год — 5% кешбэк + ранний доступ к турам + закрытые ретриты. 10 000 членов = 50 млн ₽/год recurring + LTV ×2. Реферальная программа 2 000 / 2 000 ₽ — у Трипстера её нет, у вас должна быть.</p>
+      <div class="f-foot"><span><b>Recurring</b> · +50 млн ₽/год</span><span><b>LTV</b> · ×2</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 04 PANEL -->
+<section id="panel">
+  <span class="sec-num">04</span>
+  <span class="eyebrow">04 — Что обсуждали в панели</span>
+  <h2 class="sec-title">Я прогнал гипотезы через <em>семь экспертов</em>. Вот четыре конфликта, которые остались.</h2>
+  <p class="lead">Marketplace-стратег, travel-инсайдер, бренд-стратег, performance, UX, юнит-экономика, B2B sales. По каждой теме у двух из них была противоположная позиция. Резолюция — не «компромисс», а priority ladder: безопасность → юнит-экономика → надёжность → простота → стоимость.</p>
+
+  <div class="mx-wrap">
+    <table class="mx">
+      <thead>
+        <tr><th>Тема</th><th>Позиция A</th><th>Позиция B</th><th>Резолюция</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Комиссия</td>
+          <td>Демпинг 15% для onboarding авторов</td>
+          <td>Гарантия дохода вместо демпинга</td>
+          <td class="res"><b>B</b>гарантия целевая и окупаемая</td>
+        </tr>
+        <tr>
+          <td>Каналы</td>
+          <td>80% бюджета — influencer-нативка</td>
+          <td>Бренд-нарратив первичен, каналы вторичны</td>
+          <td class="res"><b>оба</b>influencer = доставка нарратива</td>
+        </tr>
+        <tr>
+          <td>B2B vs B2C приоритет</td>
+          <td>B2B быстрее по cash</td>
+          <td>B2C — основной мотор площадки</td>
+          <td class="res"><b>B + sub</b>B2C первичен, B2B параллельным sub-brand</td>
+        </tr>
+        <tr>
+          <td>Multi-day pivot</td>
+          <td>Юр-блокер, не идти</td>
+          <td>Единственный путь, иначе закрытие</td>
+          <td class="res"><b>идём</b>через агентскую модель, иначе никак</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 05 FIRST STEP -->
+<section id="audit">
+  <span class="sec-num">05</span>
+  <span class="eyebrow">05 — Что я предлагаю как первый шаг</span>
+  <h2 class="sec-title">Двухнедельный аудит. <em>Фикс-цена</em>. Без обязательств дальше.</h2>
+  <p class="lead">Я не верю в трёхмесячные дискавери-проекты до первого касания продукта. Две недели, пять конкретных результатов, фикс-стоимость. После этого вы либо понимаете что мы хотим жить дальше, либо берёте артефакты и идёте без меня. Оба варианта — нормальные.</p>
+
+  <div class="audit-grid">
+    <div class="audit-item">
+      <span class="t">Юр-консультация по 132-ФЗ</span>
+      <span class="d">Где ваш текущий контур попадает под туроператорскую деятельность, какая агентская модель закрывает это юридически чисто, что нужно поменять в офертах.</span>
+    </div>
+    <div class="audit-item">
+      <span class="t">Бренд-манифест + макет витрины автора</span>
+      <span class="d">Один экран первого касания (50 слов) и шаблон именной витрины автора как спорт-блогера. На уровне макета, не финальный дизайн.</span>
+    </div>
+    <div class="audit-item">
+      <span class="t">Юнит-экономика multi-day vs city</span>
+      <span class="d">На ваших данных. Что приносит маржу, что съедает её, где payback короче. Без этого все остальные решения — гадание.</span>
+    </div>
+    <div class="audit-item">
+      <span class="t">Пилот supply-acquisition</span>
+      <span class="d">План onboarding 10 авторов с гарантированным доходом. Юр-форма, контракт, KPI, оценка $5–8к на автора как CAC supply-side.</span>
+    </div>
+    <div class="audit-item">
+      <span class="t">Пилот influencer-канала</span>
+      <span class="d">Выбор трёх integrations с тревел-блогерами: кто, бюджет, оффер, attribution. Запуск в течение 2–3 недель после аудита.</span>
+    </div>
+  </div>
+
+  <div class="audit-foot">
+    Стоимость аудита фиксированная. <b>На сайте я её не публикую</b> — формат и сумма зависят от того, насколько у вас уже есть юнит-экономика и cash-runway. Если интересно — напишите, обсудим за десять минут.
+  </div>
+</section>
+
+<!-- 06 NUMBERS -->
+<section id="numbers">
+  <span class="sec-num">06</span>
+  <span class="eyebrow">06 — Цифры, которые мне нужны от вас</span>
+  <h2 class="sec-title">Без этих четырёх чисел любой бюджет — <em>гадание</em>.</h2>
+  <p class="lead">Это не due-diligence. Это четыре числа, без которых любая стратегия пишется по индустрии — а индустрия в среднем не похожа на вас. Готов работать под NDA, не нужны квартальные отчёты — только грубые порядки.</p>
+
+  <div class="numbers-grid">
+    <div class="numreq">
+      <span class="n">01</span>
+      <span class="t">GMV</span>
+      <span class="h">Текущий оборот в месяц</span>
+      <span class="d">Грубо. Категория, диапазон, средняя за последние три месяца — этого достаточно.</span>
+    </div>
+    <div class="numreq">
+      <span class="n">02</span>
+      <span class="t">Split</span>
+      <span class="h">% city vs multi-day</span>
+      <span class="d">Доля multi-day по GMV и по количеству бронирований. Это определяет всё дальнейшее.</span>
+    </div>
+    <div class="numreq">
+      <span class="n">03</span>
+      <span class="t">CAC</span>
+      <span class="h">По каналам, последние три месяца</span>
+      <span class="d">Yandex Direct, SEO, прямой, реферальный. Если по каналам не считаете — общий blended CAC тоже подойдёт.</span>
+    </div>
+    <div class="numreq">
+      <span class="n">04</span>
+      <span class="t">LTV</span>
+      <span class="h">12-мес LTV по когорте</span>
+      <span class="d">Сколько в среднем оставляет клиент за 12 месяцев. Если не считаете — repeat rate в первый год.</span>
+    </div>
+  </div>
+
+  <div class="numbers-note">Ещё четыре открытых вопроса, без ответа на которые я не предложу конкретный план: готовы ли к пересборке бренда (включая название), есть ли в команде опыт enterprise sales, кто формально продаёт тур — площадка или автор, и какой у вас cash-runway. Это лучше обсуждать голосом, не в форме.</div>
+</section>
+
+<!-- 07 CONTACT -->
+<footer id="contact">
+  <span class="eyebrow" style="color:var(--ochre);border-color:var(--ochre)">07 — Контакт</span>
+  <div class="ftop">
+    <h3>Если хотя бы один из семи фиксов <em>резонирует</em> — напишите.</h3>
+    <p class="fnote">Я отвечаю в течение суток. Тридцать минут разговора голосом — это всё, что нужно, чтобы понять, есть ли смысл двигаться дальше. Если нет — вы заберёте семь гипотез и пойдёте делать сами. Это нормально.</p>
+  </div>
+
+  <div class="fcontacts">
+    <div>
+      <b>Telegram</b>
+      <a href="https://t.me/timzinin">@timzinin</a>
+    </div>
+    <div>
+      <b>Email</b>
+      <a href="mailto:tim.zinin@gmail.com">tim.zinin@gmail.com</a>
+    </div>
+    <div>
+      <b>Сайт</b>
+      <a href="https://timzinin.com">timzinin.com</a>
+    </div>
+    <div>
+      <b>Где я</b>
+      Каш, Анталья · UTC+3
+    </div>
+  </div>
+
+  <div class="fmeta">
+    <span>тз → сергей · мысли вслух · апрель 2026</span>
+    <span>первый подход к снаряду · v1</span>
+  </div>
+</footer>
+
+</body>
+</html>
