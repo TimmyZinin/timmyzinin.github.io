@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Better Ground × Зинин Штурбин — план запуска AI</title>
+<meta name="description" content="Персональное предложение для Aleksandr Surtcev и команды Better Ground. Личное обучение фаундера, расширение на тестовую группу из 6 человек, advisory сопровождение." />
+<meta name="robots" content="noindex, nofollow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Press+Start+2P&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: oklch(98% 0.01 80);
+    --bg-2: oklch(95% 0.015 80);
+    --ink: oklch(20% 0.02 280);
+    --ink-soft: oklch(45% 0.02 280);
+    --line: oklch(86% 0.015 80);
+    --accent: oklch(58% 0.22 27);
+    --accent-2: oklch(45% 0.18 270);
+    --good: oklch(65% 0.16 145);
+    --earth: oklch(55% 0.10 60);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-feature-settings: "ss01", "ss02", "cv11";
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  img { display: block; max-width: 100%; }
+
+  .pixel { font-family: "Press Start 2P", monospace; letter-spacing: 0.02em; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  .wrap { width: min(1180px, 92vw); margin: 0 auto; }
+  section { padding: clamp(60px, 8vw, 110px) 0; position: relative; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px);
+    background: oklch(98% 0.01 80 / 0.85);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0;
+  }
+  nav .brand { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; display: flex; align-items: center; }
+  nav .brand .pixel-dot {
+    display: inline-block; width: 12px; height: 12px;
+    background: var(--accent);
+    margin-right: 10px;
+    image-rendering: pixelated;
+    box-shadow: 4px 0 0 var(--accent), 0 4px 0 var(--ink), 4px 4px 0 var(--ink);
+  }
+  nav ul { list-style: none; display: flex; gap: 28px; padding: 0; margin: 0; font-size: 14px; }
+  @media (max-width: 720px) { nav ul { display: none; } }
+  nav .cta {
+    padding: 10px 18px;
+    background: var(--ink); color: var(--bg);
+    border-radius: 999px;
+    font-size: 14px; font-weight: 500;
+    transition: transform 0.2s ease;
+  }
+  nav .cta:hover { transform: translateY(-2px); color: var(--bg); }
+
+  /* HERO */
+  .hero { padding-top: 70px; padding-bottom: 60px; }
+  .hero-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 70px; align-items: center; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 50px; } }
+
+  .hero h1 {
+    font-size: clamp(36px, 5.4vw, 68px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    margin: 0 0 24px;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero h1 .pixel-block {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 0 12px;
+    transform: rotate(-1.5deg);
+    box-shadow: 6px 6px 0 var(--accent);
+  }
+  .hero p.lede {
+    font-size: clamp(16px, 1.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0 0 30px;
+    max-width: 560px;
+  }
+  .hero-cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary, .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    font-weight: 500; font-size: 15px;
+    transition: all 0.2s ease;
+  }
+  .btn-primary {
+    background: var(--ink); color: var(--bg);
+    box-shadow: 4px 4px 0 var(--accent);
+  }
+  .btn-primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent); color: var(--bg); }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+
+  .duo {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    position: relative;
+  }
+  .portrait {
+    position: relative;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    padding: 18px;
+    border-radius: 4px;
+  }
+  .portrait img {
+    width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+    image-rendering: pixelated;
+    filter: contrast(1.1) saturate(0.8);
+    border-radius: 2px;
+  }
+  .portrait .label {
+    margin-top: 12px;
+    display: flex; align-items: baseline; justify-content: space-between;
+  }
+  .portrait .name { font-weight: 600; font-size: 14px; }
+  .portrait .role { font-size: 11px; color: var(--ink-soft); }
+  .portrait::before {
+    content: "";
+    position: absolute; top: -8px; left: -8px;
+    width: 16px; height: 16px;
+    background: var(--accent);
+    image-rendering: pixelated;
+  }
+  .portrait:nth-child(2)::before { background: var(--accent-2); top: auto; bottom: -8px; left: auto; right: -8px; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+  .badge .dot {
+    width: 8px; height: 8px;
+    background: var(--good);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px oklch(65% 0.16 145 / 0.2);
+  }
+  .badge.persona { background: oklch(58% 0.22 27 / 0.08); border-color: oklch(58% 0.22 27 / 0.25); color: var(--accent); }
+
+  /* CONTEXT — что мы услышали */
+  .context { background: var(--bg-2); }
+  .context h2 {
+    font-size: clamp(26px, 3.6vw, 44px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.05;
+    margin: 0 0 16px;
+  }
+  .context h2 .pixel-mark {
+    display: inline-block;
+    width: clamp(20px, 2.5vw, 30px); height: clamp(20px, 2.5vw, 30px);
+    background: var(--accent);
+    margin-right: 12px;
+    vertical-align: middle;
+    transform: translateY(-4px);
+  }
+  .context .lede { color: var(--ink-soft); margin: 0 0 50px; max-width: 720px; font-size: 16px; line-height: 1.6; }
+
+  .ctx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .ctx-grid { grid-template-columns: 1fr; } }
+  .ctx-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 26px;
+    position: relative;
+  }
+  .ctx-card .num {
+    font-family: "Press Start 2P", monospace;
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .ctx-card h3 { font-size: 17px; margin: 0 0 10px; font-weight: 700; line-height: 1.3; }
+  .ctx-card p { color: var(--ink-soft); font-size: 14px; line-height: 1.55; margin: 0; }
+  .ctx-card .tag { display: inline-block; margin-top: 14px; font-size: 11px; padding: 4px 9px; background: var(--bg-2); border-radius: 99px; color: var(--ink-soft); border: 1px solid var(--line); }
+
+  /* RECOMMENDED PATH */
+  .path h2 {
+    font-size: clamp(26px, 3.6vw, 44px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.05;
+    margin: 0 0 16px;
+  }
+  .path .lede { color: var(--ink-soft); margin: 0 0 50px; max-width: 640px; font-size: 16px; line-height: 1.6; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
+
+  .step {
+    border: 1px solid var(--line);
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 30px;
+    position: relative;
+  }
+  .step.featured {
+    background: var(--ink); color: var(--bg); border-color: var(--ink);
+  }
+  .step.featured::after {
+    content: "STEP 1 — НАЧИНАЕМ ЗДЕСЬ";
+    position: absolute; top: -10px; right: 22px;
+    background: var(--accent); color: var(--bg);
+    font-family: "Press Start 2P", monospace;
+    font-size: 8px;
+    padding: 6px 10px;
+  }
+  .step .order {
+    font-family: "Press Start 2P", monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .step.featured .order { color: oklch(75% 0.15 27); }
+  .step .label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; font-weight: 600; }
+  .step.featured .label { color: oklch(75% 0 0); }
+  .step h3 { font-size: 22px; margin: 0 0 10px; font-weight: 700; line-height: 1.2; }
+  .step .who { font-size: 13px; color: var(--ink-soft); margin: 0 0 18px; }
+  .step.featured .who { color: oklch(75% 0 0); }
+  .step .price-row { display: flex; align-items: baseline; gap: 8px; margin: 14px 0 18px; }
+  .step .price { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+  .step .price-unit { font-size: 13px; color: var(--ink-soft); }
+  .step.featured .price-unit { color: oklch(75% 0 0); }
+  .step ul { list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+  .step.featured ul { color: oklch(82% 0 0); }
+  .step ul li { padding: 8px 0; border-top: 1px dashed var(--line); }
+  .step.featured ul li { border-color: oklch(35% 0 0); }
+  .step ul li:first-child { border-top: none; }
+
+  /* PROGRAM DETAILS — глубже про шаг 1 */
+  .program { background: var(--bg-2); }
+  .program h2 {
+    font-size: clamp(26px, 3.6vw, 44px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.05;
+    margin: 0 0 16px;
+  }
+  .program .lede { color: var(--ink-soft); margin: 0 0 50px; max-width: 640px; font-size: 16px; line-height: 1.6; }
+  .sessions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 800px) { .sessions { grid-template-columns: 1fr; } }
+  .session {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 28px;
+    position: relative;
+  }
+  .session .week {
+    font-family: "Press Start 2P", monospace;
+    font-size: 10px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .session h3 { font-size: 18px; margin: 0 0 10px; font-weight: 700; }
+  .session p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 14px; }
+  .session .deliver {
+    font-size: 12px; color: var(--ink); padding: 10px 12px;
+    background: var(--bg-2); border-left: 3px solid var(--accent);
+    border-radius: 2px;
+  }
+  .session .deliver strong { font-weight: 600; }
+
+  /* WHY NOT */
+  .principles h2 {
+    font-size: clamp(24px, 3.2vw, 38px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.1;
+    margin: 0 0 36px;
+  }
+  .principle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 800px) { .principle-grid { grid-template-columns: 1fr; } }
+  .principle-card {
+    padding: 28px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    position: relative;
+  }
+  .principle-card.no::before {
+    content: "✕";
+    position: absolute; top: 22px; right: 22px;
+    font-size: 16px; color: var(--accent);
+  }
+  .principle-card.yes::before {
+    content: "✓";
+    position: absolute; top: 22px; right: 22px;
+    font-size: 16px; color: var(--good);
+  }
+  .principle-card h3 { font-size: 16px; margin: 0 0 14px; font-weight: 700; }
+  .principle-card ul { margin: 0; padding-left: 18px; color: var(--ink-soft); line-height: 1.65; font-size: 14px; }
+  .principle-card.no h3 { text-decoration: line-through; text-decoration-color: var(--accent); text-decoration-thickness: 3px; }
+
+  /* CTA финал */
+  .cta-final {
+    background: var(--ink);
+    color: var(--bg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-final::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, oklch(58% 0.22 27 / 0.15) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, oklch(45% 0.18 270 / 0.15) 0, transparent 40%);
+  }
+  .cta-final .wrap { position: relative; }
+  .cta-final h2 {
+    font-size: clamp(32px, 5vw, 60px); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 22px;
+  }
+  .cta-final .sub { color: oklch(78% 0 0); font-size: 17px; margin: 0 auto 36px; max-width: 600px; line-height: 1.5; }
+  .cta-final .btn-primary {
+    background: var(--bg); color: var(--ink);
+    box-shadow: 4px 4px 0 var(--accent);
+    font-size: 17px;
+    padding: 20px 32px;
+  }
+  .cta-final .btn-primary:hover { box-shadow: 6px 6px 0 var(--accent); color: var(--ink); }
+  .cta-final .pixel-deco {
+    display: flex; gap: 4px; justify-content: center;
+    margin-bottom: 28px;
+  }
+  .cta-final .pixel-deco span {
+    width: 12px; height: 12px;
+    background: var(--bg);
+    image-rendering: pixelated;
+    opacity: 0.3;
+  }
+  .cta-final .pixel-deco span:nth-child(3),
+  .cta-final .pixel-deco span:nth-child(7) { background: var(--accent); opacity: 1; }
+  .cta-final .pixel-deco span:nth-child(5) { background: var(--accent-2); opacity: 1; }
+
+  /* footer */
+  footer { padding: 36px 0 56px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-soft); }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  footer .links { display: flex; gap: 22px; flex-wrap: wrap; }
+
+  .scanline {
+    height: 1px;
+    background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 4px, transparent 4px, transparent 8px);
+    opacity: 0.08;
+    margin: 0;
+  }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.show { opacity: 1; transform: translateY(0); }
+
+  /* numbers ribbon */
+  .ribbon { background: var(--ink); color: var(--bg); padding: 14px 0; }
+  .ribbon .wrap { display: flex; justify-content: space-around; gap: 30px; flex-wrap: wrap; font-size: 13px; }
+  .ribbon .it { display: flex; align-items: center; gap: 10px; }
+  .ribbon .num { font-family: "Press Start 2P", monospace; font-size: 12px; color: oklch(75% 0.15 27); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="https://zinin-shturbin.com"><span class="pixel-dot"></span>Зинин Штурбин и партнёры</a>
+    <ul>
+      <li><a href="#context">Что услышали</a></li>
+      <li><a href="#path">План работы</a></li>
+      <li><a href="#program">Шаг 1 в деталях</a></li>
+    </ul>
+    <a class="cta" href="#cta">Ответить →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <div class="badge persona">⌗ Персональное предложение · Aleksandr Surtcev · Better Ground</div>
+      <h1>
+        AI для <span class="pixel-block">Better Ground</span> <br>
+        — без агентств,<br>
+        без <span class="accent">кабалы</span>
+      </h1>
+      <p class="lede">
+        Алексей Штурбин обсудил с тобой задачи: тендеры, BQ, юристы,
+        тестовая группа из 6 человек. Это карта работы — что мы предлагаем
+        сделать первым шагом, как расширяться дальше и сколько это стоит в рублях.
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="#cta">
+          Ответить Алексею
+          <span class="mono">→</span>
+        </a>
+        <a class="btn-secondary" href="#path">Посмотреть план</a>
+      </div>
+    </div>
+
+    <div class="duo">
+      <div class="portrait">
+        <img src="tim.jpg" alt="Тим Зинин" />
+        <div class="label">
+          <div class="name">Тим Зинин</div>
+          <div class="role">инженер</div>
+        </div>
+      </div>
+      <div class="portrait">
+        <img src="alexey.png" alt="Алексей Штурбин" />
+        <div class="label">
+          <div class="name">Алексей Штурбин</div>
+          <div class="role">стратег</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ribbon">
+  <div class="wrap">
+    <div class="it"><span class="num">~10M €</span><span>оборот Better Ground</span></div>
+    <div class="it"><span class="num">6 чел</span><span>тестовая группа</span></div>
+    <div class="it"><span class="num">100k ₽</span><span>стартовый шаг</span></div>
+    <div class="it"><span class="num">25k ₽/час</span><span>Zoom 1-на-1 с Тимом</span></div>
+  </div>
+</div>
+
+<!-- ЧТО МЫ УСЛЫШАЛИ -->
+<section class="context" id="context">
+  <div class="wrap">
+    <h2 class="reveal"><span class="pixel-mark"></span>Что мы услышали и почему это важно</h2>
+    <p class="lede reveal">
+      Из разговора с Алексеем 29 апреля. Не пересказ ради пересказа — это якоря, на которых строится план.
+      Если что-то поняли неточно — поправьте, скорректируем.
+    </p>
+
+    <div class="ctx-grid">
+      <div class="ctx-card reveal">
+        <span class="num">01 / контекст</span>
+        <h3>Нишевое B2B-оборудование с огромным потенциалом</h3>
+        <p>
+          Щебёночные колонны и глубинное вибро-уплотнение. Лицензия, скрытый субподряд, репутационное наследие
+          (Keller-эпоха). Малый stock, осторожный рынок — клиенты ищут проекты, а не наоборот.
+        </p>
+        <span class="tag">Better Ground (DE) · betterground.de</span>
+      </div>
+
+      <div class="ctx-card reveal">
+        <span class="num">02 / уже сделано</span>
+        <h3>Первый эксперимент с Claude — почти получилось</h3>
+        <p>
+          Загрузил геотехнику в тендер, получил готовое КП с BQ. По форме — впечатлило, по содержанию —
+          «не наша философия». Запретил галлюцинации через 2 страницы инструкций. Это уровень готовности —
+          не «впервые слышу», а «нащупал и хочу глубже».
+        </p>
+        <span class="tag">Опыт: ~1 неделя серьёзной работы</span>
+      </div>
+
+      <div class="ctx-card reveal">
+        <span class="num">03 / запрос</span>
+        <h3>Тестовая группа 6 человек, дальше — расширение</h3>
+        <p>
+          Aleksandr + Владимир + Лоуренс + 1 геотехнический инженер. Юристы (привыкли к ChatGPT) —
+          следующий этап. Цель — не «попробовать», а встроить AI в тендеры, sales и проектную коммуникацию.
+        </p>
+        <span class="tag">Бизнес-юниты на расширение</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="scanline" />
+
+<!-- РЕКОМЕНДОВАННЫЙ ПУТЬ -->
+<section class="path" id="path">
+  <div class="wrap">
+    <h2 class="reveal">Три шага. Каждый — отдельное решение.</h2>
+    <p class="lede reveal">
+      Не «годовой контракт под ключ». Каждый шаг даёт самостоятельную ценность. Начинаем с малого,
+      расширяемся когда видим, что заходит.
+    </p>
+
+    <div class="steps">
+      <div class="step featured reveal">
+        <span class="order">↳ STEP 1</span>
+        <div class="label">Personal · 1-на-1</div>
+        <h3>Личное обучение Aleksandr</h3>
+        <p class="who">4 часовых сессии за месяц. Один на один с Тимом. Zoom.</p>
+        <div class="price-row">
+          <div class="price">100 000 ₽</div>
+          <div class="price-unit">/ за пакет (25k ₽/час)</div>
+        </div>
+        <ul>
+          <li>Правильно настраиваем Claude под тендеры и BQ</li>
+          <li>Собираем кастомные «скиллы» под философию Better Ground</li>
+          <li>Безопасный outreach в LinkedIn без блокировок</li>
+          <li>Telegram-поддержка между сессиями</li>
+          <li>Все материалы и записи навсегда</li>
+        </ul>
+      </div>
+
+      <div class="step reveal">
+        <span class="order">↳ STEP 2</span>
+        <div class="label">Team · группа 6</div>
+        <h3>Обучение тестовой группы</h3>
+        <p class="who">Aleksandr, Владимир, Лоуренс, инженер + 2. Программа 4–6 недель.</p>
+        <div class="price-row">
+          <div class="price">от 600 000 ₽</div>
+          <div class="price-unit">/ программа</div>
+        </div>
+        <ul>
+          <li>2 групповые встречи в неделю по 1.5 часа</li>
+          <li>Индивидуальные задания между встречами</li>
+          <li>Метрики прогресса по каждому участнику</li>
+          <li>Финал — ROI-карта внедрений</li>
+          <li>Запускаем после Step 1, чтобы не «жечь» команду вслепую</li>
+        </ul>
+      </div>
+
+      <div class="step reveal">
+        <span class="order">↳ STEP 3</span>
+        <div class="label">Ongoing · advisory</div>
+        <h3>Стратегический совет</h3>
+        <p class="who">Сопровождение фаундера и команды на стадии активного внедрения.</p>
+        <div class="price-row">
+          <div class="price">от 250 000 ₽</div>
+          <div class="price-unit">/ месяц</div>
+        </div>
+        <ul>
+          <li>4 встречи в месяц (Алексей — стратегия, Тим — техника)</li>
+          <li>Telegram-поддержка по будням</li>
+          <li>Ревью AI-инициатив и тендерных кампаний</li>
+          <li>Помощь в ключевых решениях по AI-стеку</li>
+          <li>Подключаем когда команда уже «поехала»</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ШАГ 1 ДЕТАЛЬНО -->
+<section class="program" id="program">
+  <div class="wrap">
+    <h2 class="reveal">Шаг 1 в деталях — что именно мы делаем за 4 сессии</h2>
+    <p class="lede reveal">
+      Программа адаптируется под Better Ground. Это не «общий курс по AI», это под твою задачу:
+      тендеры, BQ, sales-коммуникация, безопасный LinkedIn.
+    </p>
+
+    <div class="sessions">
+      <div class="session reveal">
+        <span class="week">SESSION 01</span>
+        <h3>Контур и инструменты</h3>
+        <p>
+          Ставим Claude по-инженерному: подписки, лимиты, изоляция данных. Разбираем где сейчас идут
+          деньги в Better Ground и где AI вытаскивает максимум — а где будет «псевдо-AI» и пустая трата.
+        </p>
+        <div class="deliver">
+          <strong>Получаешь:</strong> рабочий контур Claude + карта приоритетов «куда внедряем первым»
+        </div>
+      </div>
+
+      <div class="session reveal">
+        <span class="week">SESSION 02</span>
+        <h3>Скиллы под тендеры и BQ</h3>
+        <p>
+          Превращаем твои 2 страницы инструкций («не галлюцинировать», «снижать температуру») в полноценный
+          переиспользуемый скилл. Тестируем на реальных тендерах. Защищаемся от выдачи «1.5к-страничной
+          BQ в чужой философии».
+        </p>
+        <div class="deliver">
+          <strong>Получаешь:</strong> 1–2 кастомных скилла под Better Ground + чек-лист валидации BQ
+        </div>
+      </div>
+
+      <div class="session reveal">
+        <span class="week">SESSION 03</span>
+        <h3>Безопасный LinkedIn outreach</h3>
+        <p>
+          Как использовать AI для поиска проектов и подрядчиков без блокировок. Premium-инструменты
+          LinkedIn (вышли в US неделю назад) + наши обвязки. Никаких «агрессивных молодых ребят с долей
+          в компании 51%».
+        </p>
+        <div class="deliver">
+          <strong>Получаешь:</strong> схему outreach + готовые промпты под целевые сегменты Better Ground
+        </div>
+      </div>
+
+      <div class="session reveal">
+        <span class="week">SESSION 04</span>
+        <h3>Передача командe и план расширения</h3>
+        <p>
+          Превращаем твой опыт в инструкции для команды. Готовим 6-человеческую тестовую группу к Step 2:
+          кому что включать, где adoption треснет, какие красные флаги ловить. Ты выходишь с понятным
+          контуром на месяц вперёд.
+        </p>
+        <div class="deliver">
+          <strong>Получаешь:</strong> playbook для команды + roadmap Step 2 с метриками успеха
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="scanline" />
+
+<!-- ПРИНЦИПЫ -->
+<section class="principles">
+  <div class="wrap">
+    <h2 class="reveal">Как мы работаем — принципы, которые экономят месяцы</h2>
+    <div class="principle-grid">
+      <div class="principle-card no reveal">
+        <h3>Чего мы не делаем</h3>
+        <ul>
+          <li>Не разрабатываем AI-системы под ключ</li>
+          <li>Не пишем код вместо вашей команды</li>
+          <li>Не работаем за процент или долю в компании</li>
+          <li>Не продаём годовые контракты с непонятным результатом</li>
+          <li>Не «впихиваем» решения, которые вашей философии не подходят</li>
+        </ul>
+      </div>
+      <div class="principle-card yes reveal">
+        <h3>Что мы делаем</h3>
+        <ul>
+          <li>Учим фаундера лично работать с инструментами</li>
+          <li>Проводим обучение команды до C-level</li>
+          <li>Консультируем по применению AI в твоих процессах</li>
+          <li>Сопровождаем самостоятельные внедрения</li>
+          <li>Передаём capability — после нас вы можете без нас</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA финал -->
+<section class="cta-final" id="cta">
+  <div class="wrap">
+    <div class="pixel-deco">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <h2>Стартуем с шага 1.<br/>100 000 ₽ за месяц.</h2>
+    <p class="sub">
+      Если заходит — обсуждаем Step 2 (тестовая группа). Если нет — расходимся без обязательств.
+      Ответь Алексею в Telegram, согласуем стартовую сессию на ближайшую неделю.
+    </p>
+    <a class="btn-primary" href="https://t.me/Aleksei_Shturbin" target="_blank" rel="noopener">
+      Написать Алексею <span class="mono">↗</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Зинин Штурбин и партнёры · Персонально для Better Ground</div>
+    <div class="links">
+      <a href="mailto:tim.zinin@gmail.com">tim.zinin@gmail.com</a>
+      <a href="https://t.me/timofeyzinin">@timofeyzinin</a>
+      <a href="https://t.me/Aleksei_Shturbin">@Aleksei_Shturbin</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('show');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
