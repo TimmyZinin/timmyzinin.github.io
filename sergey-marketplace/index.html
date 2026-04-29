@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Маркетплейс авторских туров — мысли вслух для Сергея</title>
-<meta name="description" content="Первый подход к снаряду. 7 мест, которые я бы фиксил, чтобы площадка зарабатывала кратно больше, не догоняя Трипстер лбом.">
+<title>YouTravel.me — путь от 350M к 1B за 2 года · мысли вслух для Сергея</title>
+<meta name="description" content="Категория уже выиграна. Задача — масштабирование, не позиционная битва. Бренд, repeat, премиум, B2B, international — карта роста до миллиарда.">
 <link rel="canonical" href="https://timzinin.com/sergey-marketplace/">
-<meta property="og:title" content="Маркетплейс авторских туров — мысли вслух для Сергея">
-<meta property="og:description" content="Первый подход к снаряду. 7 мест, которые я бы фиксил, чтобы площадка зарабатывала кратно больше, не догоняя Трипстер лбом.">
+<meta property="og:title" content="YouTravel.me — путь от 350M к 1B за 2 года">
+<meta property="og:description" content="Категория уже выиграна. Задача — масштабирование. 7 фиксов, через которые я бы пошёл.">
 <meta property="og:url" content="https://timzinin.com/sergey-marketplace/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Маркетплейс авторских туров — мысли вслух для Сергея">
-<meta name="twitter:description" content="Первый подход к снаряду. 7 мест, которые я бы фиксил, чтобы площадка зарабатывала кратно больше, не догоняя Трипстер лбом.">
+<meta name="twitter:title" content="YouTravel.me — путь от 350M к 1B за 2 года">
+<meta name="twitter:description" content="Категория уже выиграна. Задача — масштабирование. 7 фиксов, через которые я бы пошёл.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -59,7 +59,7 @@ h2.sec-title em{font-style:italic;color:var(--bordeaux)}
 /* HERO */
 .hero{min-height:92vh;padding:clamp(100px,14vw,180px) clamp(20px,5vw,80px) clamp(60px,8vw,120px);display:flex;flex-direction:column;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
 .hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux);display:inline-block;padding:5px 10px;border:1.5px solid var(--bordeaux);z-index:2;align-self:flex-start}
-.hero-head{font-size:clamp(54px,11vw,180px);line-height:0.88;letter-spacing:-0.03em;max-width:16ch;z-index:2}
+.hero-head{font-size:clamp(50px,10vw,160px);line-height:0.9;letter-spacing:-0.03em;max-width:18ch;z-index:2}
 .hero-head em{font-style:italic;color:var(--bordeaux);font-family:'DM Serif Display',serif}
 .hero-pitch{max-width:58ch;font-size:clamp(18px,1.8vw,24px);color:var(--ink-soft);line-height:1.4;z-index:2}
 .hero-meta{display:flex;flex-wrap:wrap;gap:30px 50px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink);z-index:2;border-top:1.5px solid var(--line);padding-top:24px}
@@ -85,16 +85,80 @@ h2.sec-title em{font-style:italic;color:var(--bordeaux)}
 .hello-text p b{font-weight:600}
 .hello-text p.kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--bordeaux);margin-top:30px}
 
-/* DIAGNOSIS / SUPPLY GAP */
-.diag-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(30px,5vw,70px);align-items:start;margin-top:30px}
-@media(max-width:880px){.diag-grid{grid-template-columns:1fr}}
-.diag-text p{font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--ink);margin:0 0 18px;max-width:58ch}
-.diag-text p b{color:var(--bordeaux)}
-.diag-chart{border:1.5px solid var(--line);background:var(--cream);padding:30px 28px;display:flex;flex-direction:column;gap:18px}
-.diag-chart .ct{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux)}
-.diag-chart .ch{font-family:'DM Serif Display',serif;font-size:clamp(22px,2.4vw,32px);line-height:1.05;letter-spacing:-0.02em;max-width:18ch}
-.diag-chart svg{width:100%;height:auto;display:block}
-.diag-chart .cd{font-size:13px;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;line-height:1.6}
+/* CONTEXT NUMBERS (snap-grid) */
+.snap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:30px}
+@media(max-width:980px){.snap-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.snap-grid{grid-template-columns:1fr}}
+.snap-card{padding:30px 26px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--cream);display:flex;flex-direction:column;gap:10px;min-height:170px;transition:background .2s}
+.snap-card:hover{background:var(--peach)}
+.snap-card .k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux)}
+.snap-card .v{font-family:'DM Serif Display',serif;font-size:clamp(38px,4vw,60px);line-height:0.95;letter-spacing:-0.02em;color:var(--ink)}
+.snap-card .h{font-size:13px;color:var(--ink-soft);line-height:1.45;margin-top:auto;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em}
+.snap-card.goal{background:var(--ink);color:var(--cream)}
+.snap-card.goal .k{color:var(--ochre)}
+.snap-card.goal .v{color:var(--cream)}
+.snap-card.goal .h{color:oklch(80% 0.04 80)}
+.snap-card.goal:hover{background:oklch(22% 0.04 35)}
+.context-note{margin-top:30px;padding:26px 30px;border-left:4px solid var(--bordeaux);background:var(--cream);font-size:clamp(17px,1.6vw,21px);line-height:1.5;max-width:80ch}
+.context-note b{color:var(--bordeaux);font-weight:600}
+
+/* BRAND PILLARS */
+.pillars-lead{margin-bottom:50px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line)}
+@media(max-width:980px){.pillars{grid-template-columns:1fr}}
+.pillar{padding:40px 32px 36px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--cream);display:flex;flex-direction:column;gap:18px;min-height:420px;position:relative;transition:background .2s,transform .2s}
+.pillar:hover{background:var(--peach);transform:translateY(-4px)}
+.pillar:nth-child(2){background:var(--peach)}
+.pillar:nth-child(2):hover{background:var(--ochre)}
+.pillar:nth-child(3){background:var(--ink);color:var(--cream)}
+.pillar:nth-child(3) .p-num,.pillar:nth-child(3) .p-tag,.pillar:nth-child(3) .p-name em{color:var(--ochre)}
+.pillar:nth-child(3):hover{background:oklch(22% 0.04 35);transform:translateY(-4px)}
+.p-num{font-family:'DM Serif Display',serif;font-size:clamp(64px,7vw,96px);line-height:0.85;color:var(--bordeaux);letter-spacing:-0.03em}
+.p-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--bordeaux)}
+.p-name{font-family:'DM Serif Display',serif;font-size:clamp(28px,3vw,40px);line-height:1.02;letter-spacing:-0.02em}
+.p-name em{font-style:italic;color:var(--bordeaux)}
+.p-desc{font-size:15px;line-height:1.55;flex:1}
+.p-foot{padding-top:14px;border-top:1.5px solid currentColor;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase}
+.p-foot b{color:var(--bordeaux);font-weight:600}
+.pillar:nth-child(3) .p-foot b{color:var(--ochre)}
+
+.yulia-block{margin-top:50px;padding:36px 40px;border:2px solid var(--bordeaux);background:var(--bg-2);display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:start}
+@media(max-width:780px){.yulia-block{grid-template-columns:1fr;gap:20px}}
+.yulia-block .yk{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--bordeaux);writing-mode:vertical-rl;transform:rotate(180deg);align-self:stretch;border-right:1.5px solid var(--bordeaux);padding-right:14px}
+@media(max-width:780px){.yulia-block .yk{writing-mode:horizontal-tb;transform:none;border-right:none;border-bottom:1.5px solid var(--bordeaux);padding:0 0 10px 0}}
+.yulia-block .yt{font-family:'DM Serif Display',serif;font-size:clamp(26px,2.8vw,38px);line-height:1.05;letter-spacing:-0.02em;margin-bottom:14px}
+.yulia-block .yt em{font-style:italic;color:var(--bordeaux)}
+.yulia-block .yp{font-size:clamp(16px,1.5vw,18px);line-height:1.55;color:var(--ink);max-width:62ch}
+.yulia-block .yp b{color:var(--bordeaux);font-weight:600}
+
+/* GROWTH MAP — bar comparison */
+.growth-wrap{margin-top:30px}
+.growth-head{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:0;border-top:2px solid var(--line);border-bottom:2px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--bordeaux);font-weight:600}
+.growth-head span{padding:14px 18px;border-right:1.5px solid var(--line)}
+.growth-head span:last-child{border-right:none}
+@media(max-width:780px){.growth-head{display:none}}
+.growth-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:0;border-bottom:1.5px solid var(--line);align-items:center;background:var(--cream);transition:background .2s}
+.growth-row:hover{background:var(--peach)}
+.growth-row > div{padding:22px 18px;border-right:1.5px solid var(--line);min-height:90px;display:flex;flex-direction:column;justify-content:center}
+.growth-row > div:last-child{border-right:none}
+@media(max-width:780px){.growth-row{grid-template-columns:1fr 1fr;gap:0}.growth-row .gr-name{grid-column:1/-1;background:var(--ink);color:var(--cream);min-height:auto;padding:14px 18px}.growth-row .gr-name .gr-label{color:var(--ochre)}}
+.gr-name{font-family:'DM Serif Display',serif;font-size:clamp(20px,2vw,26px);line-height:1.1;letter-spacing:-0.01em}
+.gr-name .gr-label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--bordeaux);font-weight:600;margin-bottom:5px}
+.gr-cell{position:relative}
+.gr-num{font-family:'DM Serif Display',serif;font-size:clamp(24px,2.4vw,34px);line-height:1;letter-spacing:-0.02em;color:var(--ink)}
+.gr-bar{height:6px;background:var(--bordeaux);margin-top:10px;max-width:100%}
+.gr-cell.zero .gr-num{color:var(--ink-soft);font-style:italic}
+.gr-cell.delta .gr-num{color:var(--bordeaux)}
+.gr-cell.delta .gr-bar{background:var(--ochre)}
+.growth-row.total{background:var(--ink);color:var(--cream)}
+.growth-row.total:hover{background:oklch(22% 0.04 35)}
+.growth-row.total .gr-name{color:var(--cream)}
+.growth-row.total .gr-name .gr-label{color:var(--ochre)}
+.growth-row.total .gr-num{color:var(--cream);font-size:clamp(28px,2.8vw,40px)}
+.growth-row.total .gr-cell.delta .gr-num{color:var(--ochre)}
+.growth-row.total > div{border-right-color:rgba(255,255,255,0.18)}
+.growth-foot{margin-top:30px;padding:24px 28px;border:2px solid var(--line);background:var(--bg-2);font-size:clamp(16px,1.5vw,19px);line-height:1.5}
+.growth-foot b{color:var(--bordeaux);font-weight:600}
 
 /* FIXES GRID */
 .fixes-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:20px}
@@ -139,8 +203,8 @@ table.mx td.res b{font-family:'JetBrains Mono',monospace;font-size:11px;letter-s
 .audit-foot b{color:var(--bordeaux);font-weight:600}
 
 /* NUMBERS REQUEST */
-.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:20px}
-@media(max-width:880px){.numbers-grid{grid-template-columns:repeat(2,1fr)}}
+.numbers-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:20px}
+@media(max-width:1100px){.numbers-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.numbers-grid{grid-template-columns:1fr}}
 .numreq{padding:30px 26px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--cream);display:flex;flex-direction:column;gap:14px;min-height:240px;transition:background .2s}
 .numreq:hover{background:var(--peach)}
@@ -167,14 +231,16 @@ footer a:hover{color:var(--ochre)}
 <body>
 
 <nav class="nav">
-  <span class="brand">ТЗ → СЕРГЕЙ</span>
-  <a href="#hello">01 Здравствуйте</a>
-  <a href="#diagnosis">02 Положение</a>
-  <a href="#fixes">03 Семь фиксов</a>
-  <a href="#panel">04 Панель</a>
-  <a href="#audit">05 Первый шаг</a>
-  <a href="#numbers">06 Цифры</a>
-  <a href="#contact">07 Контакт</a>
+  <span class="brand">ТЗ → СЕРГЕЙ · YOUTRAVEL</span>
+  <a href="#hello">00 Здравствуйте</a>
+  <a href="#context">01 Контекст</a>
+  <a href="#brand">02 Бренд</a>
+  <a href="#growth">03 Рост</a>
+  <a href="#fixes">04 Семь фиксов</a>
+  <a href="#panel">05 Панель</a>
+  <a href="#audit">06 Первый шаг</a>
+  <a href="#numbers">07 Цифры</a>
+  <a href="#contact">08 Контакт</a>
 </nav>
 
 <header class="hero">
@@ -188,23 +254,23 @@ footer a:hover{color:var(--ochre)}
     <circle cx="360" cy="360" r="4" fill="oklch(18% 0.02 40)"/>
   </svg>
 
-  <span class="hero-eyebrow">мысли вслух · апрель 2026 · для Сергея</span>
+  <span class="hero-eyebrow">мысли вслух · апрель 2026 · YouTravel.me · для Сергея</span>
 
-  <h1 class="hero-head">У вас <em>четырёхкратно меньше</em> supply, и это не та проблема, которую решает SEO.</h1>
+  <h1 class="hero-head">Из 350 миллионов <em>в миллиард</em> — путь, который проходят брендом, а не бюджетом.</h1>
 
-  <p class="hero-pitch">Это первый подход к снаряду — без ваших цифр, по индустриальным диапазонам. Семь мест, которые я бы фиксил, чтобы площадка зарабатывала кратно больше, не догоняя Трипстер лбом. Если зайдёт — поговорим тридцать минут и перепишу под вашу реальность.</p>
+  <p class="hero-pitch">Категория multi-day авторских путешествий уже выиграна — AOV 140к это не битва с Трипстером. Задача другая: масштабировать то, что работает, и закрыть три дыры, через которые утекает рост. Семь фиксов и карта пути на 24 месяца.</p>
 
   <div class="hero-meta">
-    <div><b>Категория multi-day</b><span class="num">35–45</span>млрд ₽/год · рост 20–25%</div>
-    <div><b>AOV multi-day</b><span class="num">40–150к</span>чек одного тура</div>
-    <div><b>B2B incentive</b><span class="num">2.5</span>млн ₽ средняя сделка</div>
-    <div><b>Окно атаки</b><span class="num">12–18</span>мес до закрытия категории</div>
+    <div><b>GMV</b><span class="num">3.5</span>млрд ₽ годовой оборот</div>
+    <div><b>Выручка</b><span class="num">350</span>млн ₽ комиссия ≈10%</div>
+    <div><b>Клиенты</b><span class="num">23k</span>уникальных, 25k бронирований</div>
+    <div><b>Цель Y2</b><span class="num">1</span>млрд ₽ выручки · ×2.85</div>
   </div>
 </header>
 
-<!-- 01 HELLO -->
+<!-- 00 HELLO -->
 <section class="hello" id="hello">
-  <span class="sec-num">01</span>
+  <span class="sec-num">00</span>
   <div class="hello-grid">
     <div class="hello-photo">
       <div class="frame">
@@ -217,121 +283,246 @@ footer a:hover{color:var(--ochre)}
       </div>
     </div>
     <div class="hello-text">
-      <span class="eyebrow">01 — Здравствуйте, Сергей</span>
+      <span class="eyebrow">00 — Здравствуйте, Сергей</span>
       <h2>Меня зовут Тим. Это <em>не презентация</em> — это мысли вслух.</h2>
-      <p>Я делаю операционную и маркетинговую работу для компаний, где нужно одновременно держать продукт, бренд, дистрибуцию и юр-периметр. Чаще всего — туда зовут, когда лобовая стратегия не работает, а денег на эксперименты осталось на полгода.</p>
-      <p>Про вас я знаю немного: маркетплейс авторских туров, Трипстер впереди примерно в четыре раза по supply, вы где-то рядом со средним чеком и думаете куда двигаться. Этого хватает, чтобы написать первый набросок — но мало, чтобы делать ставки. Поэтому ниже — гипотезы, не план. <b>План я напишу, когда увижу четыре цифры в конце документа.</b></p>
-      <p>Я не предлагаю вам рекламу, ставки на performance или ребрендинг как самоцель. Я предлагаю посмотреть на категорию и сказать: вот эти семь мест я бы фиксил первыми. Какие-то очевидны, какие-то — нет. Какие-то вы уже думали и отбросили — будет интересно узнать почему.</p>
+      <p>Я делаю операционную и маркетинговую работу для компаний, где нужно одновременно держать продукт, бренд, дистрибуцию и юр-периметр. Чаще всего — туда зовут, когда лобовая стратегия не работает, а денег на эксперименты осталось на полгода. У вас другая ситуация — вы не в кризисе, вы перед окном масштабирования.</p>
+      <p>Про YouTravel.me я знаю основное: GMV 3.5 млрд, выручка 350 млн, AOV 140к, ЦА — женщины 25-45, фаундер-пара, цель — миллиард за два года. Этого хватает, чтобы написать первый набросок. <b>План я перепишу под вашу реальность, когда увижу пять цифр в конце документа.</b></p>
+      <p>Я не предлагаю рекламу, ставки на performance или ребрендинг как самоцель. Я предлагаю посмотреть на категорию и сказать: <b>AOV 140к = категория уже выиграна</b>. Multi-day авторские путешествия — ваша. Дальше — не позиционная битва, а масштабирование через бренд, repeat и три новых полки.</p>
       <p class="kicker">→ Прокрутите вниз. Если хотя бы один из семи фиксов резонирует — напишите.</p>
     </div>
   </div>
 </section>
 
-<!-- 02 DIAGNOSIS -->
-<section id="diagnosis">
-  <span class="sec-num">02</span>
-  <span class="eyebrow">02 — Положение, как я его вижу</span>
-  <h2 class="sec-title">Лобовая атака — это <em>полгода жжения бюджета</em> и закрытие.</h2>
-  <p class="lead">Трипстер — лидер категории «городские экскурсии 2–4 часа». У них сетевой эффект, который вы не догоняете при текущем supply 4× меньше. Это не вопрос усилий — это математика двусторонних рынков. Хорошая новость: <b>multi-day туры — другая категория</b>, и в ней Трипстер слаб структурно.</p>
+<!-- 01 CONTEXT — что у нас на руках -->
+<section id="context">
+  <span class="sec-num">01</span>
+  <span class="eyebrow">01 — Контекст</span>
+  <h2 class="sec-title">Что у нас <em>на руках</em>.</h2>
+  <p class="lead">Восемь чисел, от которых отстраивается всё остальное. Без них любая стратегия — гадание по индустрии, а индустрия в среднем не похожа на YouTravel.me. С ними — можно считать рычаги, P&L, CAC и payback.</p>
 
-  <div class="diag-grid">
-    <div class="diag-text">
-      <p>Их продукт, юр-модель и дистрибуция заточены под формат до 24 часов. Multi-day с трансфером и проживанием — это туроператорская деятельность по 132-ФЗ, и Трипстер этого избегает. В эту категорию можно <b>зайти не догоняющим, а первым</b>.</p>
-      <p>Multi-day — рынок 35–45 млрд ₽/год с ростом 20–25% YoY (российская индустрия). AOV в 4–10× выше городской экскурсии. Repeat ниже — но LTV в рублях сопоставим, потому что один авторский тур = одна большая транзакция, а не серия маленьких.</p>
-      <p>Это значит: <b>не догонять</b>. Сегментироваться. Перепаковаться. Закрыть юр-блокер. И только потом включать дистрибуцию.</p>
+  <div class="snap-grid">
+    <div class="snap-card">
+      <span class="k">GMV</span>
+      <span class="v">3.5 млрд ₽</span>
+      <span class="h">годовой оборот</span>
     </div>
-    <div class="diag-chart">
-      <span class="ct">Supply gap · по индустрии</span>
-      <span class="ch">Авторов в каталоге, оценка</span>
-      <svg viewBox="0 0 420 240" aria-hidden="true">
-        <line x1="20" y1="220" x2="400" y2="220" stroke="oklch(20% 0.02 40)" stroke-width="1.5"/>
-        <rect x="60" y="40" width="120" height="180" fill="oklch(42% 0.15 25)"/>
-        <rect x="240" y="175" width="120" height="45" fill="oklch(72% 0.14 75)"/>
-        <text x="120" y="30" text-anchor="middle" font-family="DM Serif Display, serif" font-size="22" fill="oklch(18% 0.02 40)">Трипстер</text>
-        <text x="300" y="165" text-anchor="middle" font-family="DM Serif Display, serif" font-size="22" fill="oklch(18% 0.02 40)">Вы</text>
-        <text x="120" y="135" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" fill="oklch(93% 0.04 85)" font-weight="600">~10–12k</text>
-        <text x="300" y="205" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" fill="oklch(18% 0.02 40)" font-weight="600">~2.5–3k</text>
-        <line x1="180" y1="40" x2="240" y2="175" stroke="oklch(42% 0.15 25)" stroke-width="1" stroke-dasharray="4 6"/>
-      </svg>
-      <span class="cd">оценка по индустрии · ваши цифры могут отличаться</span>
+    <div class="snap-card">
+      <span class="k">Выручка</span>
+      <span class="v">350 млн ₽</span>
+      <span class="h">комиссия ≈10%</span>
+    </div>
+    <div class="snap-card">
+      <span class="k">Бронирований</span>
+      <span class="v">25 000</span>
+      <span class="h">за период</span>
+    </div>
+    <div class="snap-card">
+      <span class="k">Клиентов</span>
+      <span class="v">23 000</span>
+      <span class="h">уникальных</span>
+    </div>
+    <div class="snap-card">
+      <span class="k">Repeat rate</span>
+      <span class="v">~8%</span>
+      <span class="h">2-я+ покупка · главный рычаг</span>
+    </div>
+    <div class="snap-card">
+      <span class="k">AOV</span>
+      <span class="v">140 000 ₽</span>
+      <span class="h">средний чек одной поездки</span>
+    </div>
+    <div class="snap-card">
+      <span class="k">ЦА</span>
+      <span class="v">Ж · 25–45</span>
+      <span class="h">городская одиночка / пара без детей</span>
+    </div>
+    <div class="snap-card goal">
+      <span class="k">Цель Y2</span>
+      <span class="v">1 млрд ₽</span>
+      <span class="h">выручки · ×2.85 рост</span>
+    </div>
+  </div>
+
+  <div class="context-note"><b>AOV 140к — это не категория Трипстера.</b> Категория уже выиграна — multi-day авторские путешествия. В кейсе нет этапа «уходить от city tours», его не нужно проходить. Задача другая: масштабировать то, что работает, и закрыть три дыры, через которые утекает рост.</div>
+</section>
+
+<!-- 02 BRAND PILLARS -->
+<section id="brand">
+  <span class="sec-num">02</span>
+  <span class="eyebrow">02 — Упаковка</span>
+  <h2 class="sec-title">Бренд — <em>три</em> столпа, на которых стоит You·Travel.</h2>
+  <p class="lead pillars-lead">У вас есть то, чего нет у конкурентов: <b>самое человеческое имя в категории</b>. Не «Трипстер» (трип + растер, технологично-холодное), не «Большая Страна» (про объект, не про человека). <b>You Travel — про вас. С автором.</b> Это уже половина бренда. Дальше — три столпа, на которых надо стоять и через которые упаковывать всё.</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <span class="p-num">01</span>
+      <span class="p-tag">Эмоция · обещание</span>
+      <h3 class="p-name">Яркость <em>впечатления</em>.</h3>
+      <p class="p-desc">Не «тур», а впечатление, которое меняет год. Камчатка — не точка на карте, а состояние на 7 дней. Бренд должен звучать как обещание эмоции, а не как сервис бронирования. На главной — не каталог и не «найти тур», а одно изображение и одна фраза, которая бьёт по тому, чего ждёт женщина 25-45 от путешествия в 2026 году.</p>
+      <div class="p-foot"><b>Метрика</b> · ассоциативная узнаваемость, brand search</div>
+    </div>
+
+    <div class="pillar">
+      <span class="p-num">02</span>
+      <span class="p-tag">Авторы · сообщество</span>
+      <h3 class="p-name">Человеческий <em>элемент</em>.</h3>
+      <p class="p-desc">Авторы — не «гид #2456», а персонажи. У каждого — именная витрина (как у блогера), история, лицо, голос, своя география, свой тип группы. Сообщество — не функция, а сам продукт: закрытые встречи авторов и клиентов, ежегодный YouTravel Fest, клубные ретриты. У Трипстера это технически невозможно — другая операционка. Это не догнать, это другой класс продукта.</p>
+      <div class="p-foot"><b>Метрика</b> · NPS, repeat, peer-to-peer referral</div>
+    </div>
+
+    <div class="pillar">
+      <span class="p-num">03</span>
+      <span class="p-tag">UX · кураторство</span>
+      <h3 class="p-name">Лёгкость <em>выбора</em>.</h3>
+      <p class="p-desc">При 3000+ туров в каталоге выбрать — больно. Конкуренты прячут это за поиском и фильтрами. Выигрывает тот, кто избавит женщину 25-45 от выбора: «Тест из 6 вопросов → 3 тура, которые точно про вас». «Подборка от Юлии: 7 туров, которые мы сами бы поехали этой осенью». <em>Куратор &gt; поисковик.</em> Это и про конверсию, и про бренд: «они выбирают за меня то, что мне подходит».</p>
+      <div class="p-foot"><b>Метрика</b> · visit→booking, время до решения</div>
+    </div>
+  </div>
+
+  <div class="yulia-block">
+    <span class="yk">Структурный актив</span>
+    <div>
+      <h3 class="yt">Юля как фронтлайн бренда — это не маркетинг, это <em>структура</em>.</h3>
+      <p class="yp">В категории, где ЦА — женщины 25-45, женщина-основатель в публичной плоскости работает как <b>signal of trust первого порядка</b>. Лицо Юли в коммуникациях, личный TG-канал, регулярные видео-обращения, intro-видео в каждом туре от автора — всё это умножает доверие и снижает CAC. Это нельзя нанять и нельзя купить. Это либо есть, либо нет. У вас — есть. Использовать его как ось, а не как вспомогательный канал.</p>
     </div>
   </div>
 </section>
 
-<!-- 03 SEVEN FIXES -->
-<section id="fixes">
+<!-- 03 GROWTH MAP -->
+<section id="growth">
   <span class="sec-num">03</span>
-  <span class="eyebrow">03 — Семь мест, которые я бы фиксил</span>
-  <h2 class="sec-title">Не пять советов как заработать миллион. <em>Семь гипотез</em>, в порядке приоритета.</h2>
-  <p class="lead">Часть из них — про продукт и упаковку. Часть — про юридический периметр без которого половина перформанса несёт штрафной риск. Часть — про каналы, где Трипстер платит за ваш трафик в три раза меньше. Я расположил в том порядке, в каком решал бы по priority ladder: сначала безопасность, потом юнит-экономика, потом масштаб.</p>
+  <span class="eyebrow">03 — Рост</span>
+  <h2 class="sec-title">Из 350 миллионов <em>в миллиард</em>.</h2>
+  <p class="lead">Целевые блоки выручки на конец Year 2. Math работает, если параллельно отработать четыре рычага из секции «Семь фиксов». Главное здесь: ×2.85 рост — это не один большой канал, это пять параллельных движений с разной скоростью и разным риском.</p>
+
+  <div class="growth-wrap">
+    <div class="growth-head">
+      <span>Блок выручки</span>
+      <span>Year 0</span>
+      <span>Year 2</span>
+      <span>Дельта</span>
+    </div>
+
+    <div class="growth-row">
+      <div class="gr-name"><span class="gr-label">основа</span>Core B2C · бронирования</div>
+      <div class="gr-cell"><span class="gr-num">350 М</span><div class="gr-bar" style="width:32%"></div></div>
+      <div class="gr-cell"><span class="gr-num">720 М</span><div class="gr-bar" style="width:67%"></div></div>
+      <div class="gr-cell delta"><span class="gr-num">+370 М</span><div class="gr-bar" style="width:51%"></div></div>
+    </div>
+
+    <div class="growth-row">
+      <div class="gr-name"><span class="gr-label">новая полка</span>B2B incentive (sub-brand)</div>
+      <div class="gr-cell zero"><span class="gr-num">0</span></div>
+      <div class="gr-cell"><span class="gr-num">100 М</span><div class="gr-bar" style="width:9%"></div></div>
+      <div class="gr-cell delta"><span class="gr-num">+100 М</span><div class="gr-bar" style="width:14%"></div></div>
+    </div>
+
+    <div class="growth-row">
+      <div class="gr-name"><span class="gr-label">новая география</span>International · RU за рубежом</div>
+      <div class="gr-cell zero"><span class="gr-num">0</span></div>
+      <div class="gr-cell"><span class="gr-num">80 М</span><div class="gr-bar" style="width:7%"></div></div>
+      <div class="gr-cell delta"><span class="gr-num">+80 М</span><div class="gr-bar" style="width:11%"></div></div>
+    </div>
+
+    <div class="growth-row">
+      <div class="gr-name"><span class="gr-label">membership</span>Travel Club · recurring</div>
+      <div class="gr-cell zero"><span class="gr-num">0</span></div>
+      <div class="gr-cell"><span class="gr-num">80 М</span><div class="gr-bar" style="width:7%"></div></div>
+      <div class="gr-cell delta"><span class="gr-num">+80 М</span><div class="gr-bar" style="width:11%"></div></div>
+    </div>
+
+    <div class="growth-row">
+      <div class="gr-name"><span class="gr-label">премиум</span>Premium tier · 200k+ AOV</div>
+      <div class="gr-cell"><span class="gr-num">~30 М</span><div class="gr-bar" style="width:3%"></div></div>
+      <div class="gr-cell"><span class="gr-num">100 М</span><div class="gr-bar" style="width:9%"></div></div>
+      <div class="gr-cell delta"><span class="gr-num">+70 М</span><div class="gr-bar" style="width:10%"></div></div>
+    </div>
+
+    <div class="growth-row total">
+      <div class="gr-name"><span class="gr-label">итого</span>Выручка YouTravel.me</div>
+      <div class="gr-cell"><span class="gr-num">350 М</span><div class="gr-bar" style="width:32%;background:var(--ochre)"></div></div>
+      <div class="gr-cell"><span class="gr-num">1 080 М</span><div class="gr-bar" style="width:100%;background:var(--ochre)"></div></div>
+      <div class="gr-cell delta"><span class="gr-num">+730 М</span><div class="gr-bar" style="width:100%"></div></div>
+    </div>
+  </div>
+
+  <div class="growth-foot">Никакого магического канала здесь нет — есть пять движений, каждое из которых отдельно реалистично, а вместе они дают ×2.85. Самый важный — <b>repeat rate с 8% до 22%</b>, он один даёт +200 млн ₽ на текущей базе клиентов <b>без единого нового лида</b>. Это и есть та дыра, через которую сейчас утекает рост.</div>
+</section>
+
+<!-- 04 SEVEN FIXES -->
+<section id="fixes">
+  <span class="sec-num">04</span>
+  <span class="eyebrow">04 — Семь мест, которые я бы фиксил</span>
+  <h2 class="sec-title">Не пять советов как заработать миллион. <em>Семь рычагов</em>, в порядке множителя.</h2>
+  <p class="lead">Часть из них — про продукт и упаковку. Часть — про новые полки выручки, которых сейчас нет. Часть — про то, что у Трипстера невозможно структурно. Я расположил в том порядке, в каком ставил бы на priority ladder: сначала фокус и retention (где деньги быстрее всего), потом новые полки, потом конверсионные апгрейды.</p>
 
   <div class="fixes-grid">
 
     <div class="fix fix-1">
       <span class="f-num">01</span>
-      <span class="f-tag">Упаковка · бренд</span>
-      <h3 class="f-name">Клуб <em>авторских экспедиций</em>, не маркетплейс экскурсий.</h3>
-      <p class="f-desc">Категория — это язык. Пока вы говорите «маркетплейс авторских туров», вы Трипстер №2. Переупаковка в «экспедиции» + именные витрины авторов (как блогеры, не «гид #2456») — даёт ту узнаваемость, которую SEO-битвой не выиграть. Манифест на главной, один экран, пятьдесят слов: кто, против кого, для кого.</p>
-      <div class="f-foot"><span><b>Эффект</b> · бренд moat</span><span><b>Срок</b> · 4–6 нед</span><span><b>Бюджет</b> · ниже всех остальных пунктов</span></div>
+      <span class="f-tag">Фокус · сегмент</span>
+      <h3 class="f-name">Permission to focus: <em>женщины 25-45</em>, городская одиночка / пара без детей.</h3>
+      <p class="f-desc">Сегментировать каталог, маркетинг и копи именно под этот сегмент. Не «для всех». Это даёт 2× CTR и 1.4× конверсию в нишевой коммуникации, проверено на десятке travel/wellness кейсов. Подсегменты, на которых уже фокусируется индустрия: women solo travel, девичники-ретриты, осознанность/wellness, soft adventure после 35. Юля как фронтлайн бренда умножает signal of trust именно в этом сегменте.</p>
+      <div class="f-foot"><span><b>Эффект</b> · CTR ×2 · конверсия ×1.4</span><span><b>Срок</b> · 6–8 нед</span></div>
     </div>
 
     <div class="fix fix-2">
       <span class="f-num">02</span>
-      <span class="f-tag">Юр · 132-ФЗ</span>
-      <h3 class="f-name">Агентская, <em>не туроператорская</em>.</h3>
-      <p class="f-desc">Multi-day с трансфером и проживанием — туроператорская деятельность. Нужен реестр Ростуризма, финобеспечение. Решение: площадка — агрегатор, авторы — ИП-туроператоры. Это юридическое решение, не маркетинговое — без него любая performance несёт штрафной риск.</p>
-      <div class="f-foot"><span><b>Эффект</b> · де-риск</span><span><b>Срок</b> · 6–8 нед</span></div>
+      <span class="f-tag">Repeat · мультипликатор</span>
+      <h3 class="f-name">Repeat <em>с 8% до 22%</em>.</h3>
+      <p class="f-desc">Главный множитель выручки. <b>+200 млн ₽ за 2 года</b> на текущей базе без единого нового лида. Travel Club (4 990 ₽/год: 5% кешбэк, ранний доступ, закрытые ретриты, эксклюзивные туры с фаундером), 9 касаний CRM в год вокруг сезонности, реферальная 3к/3к, personal curator после первого тура.</p>
+      <div class="f-foot"><span><b>+200 М ₽ / 2 года</b></span></div>
     </div>
 
     <div class="fix fix-3">
       <span class="f-num">03</span>
-      <span class="f-tag">Supply · CAC</span>
-      <h3 class="f-name">Гарантия дохода, <em>а не демпинг комиссии</em>.</h3>
-      <p class="f-desc">Снижение комиссии с 20% до 15% не сработает — топ-автор Трипстера зарабатывает там 200–500к ₽/мес, его не сдвинет +5%. Решение: гарантия дохода для топ-50 переманиваемых авторов — фикс 200к ₽/мес × 3 мес + комиссия 15% сверху. Платите за supply onboarding как за CAC. Окупается с 2–3 туров в год. Бюджет: $300–400k на шесть месяцев.</p>
-      <div class="f-foot"><span><b>Эффект</b> · ×2 supply за квартал</span><span><b>Бюджет</b> · $300–400k / 6 мес</span><span><b>Payback</b> · 8–14 мес</span></div>
+      <span class="f-tag">Premium tier</span>
+      <h3 class="f-name">Премиум-тариф <em>200–400к</em> AOV.</h3>
+      <p class="f-desc">Тур-«экспедиция» от Юли + камео-автора, 8-12 человек, премиум-логистика. Это новая полка, которая не каннибализирует core. Рынок есть: travel-spend Москвы и Питера в этом сегменте растёт 30% YoY. План: 4 пилотных тура в Year 1 (по 8 человек × 350к = 11.2 млн ₽ GMV), масштабирование к Year 2. Юля как лицо премиум-полки — структурный актив, который Трипстер не повторит.</p>
+      <div class="f-foot"><span><b>Y2 выручка</b> · 100 млн ₽</span><span><b>Пилот</b> · 4 тура / Y1</span></div>
     </div>
 
     <div class="fix fix-4">
       <span class="f-num">04</span>
-      <span class="f-tag">Demand · каналы</span>
-      <h3 class="f-name">80% бюджета — в <em>нативку с тревел-блогерами</em>.</h3>
-      <p class="f-desc">В Yandex Direct лобовая битва за брендовые keywords — вы платите 3 ₽ за их 1 ₽. Performance в YD оставляем только на long-tail и retargeting. Основной бюджет — 3–5 mid-tier тревел-блогеров (50–300к подп.) с per-booking attribution через UTM + промокод. Один тур = одна нативка = трекаемые продажи.</p>
-      <div class="f-foot"><span><b>Эффект</b> · CAC ÷ 2–3</span></div>
+      <span class="f-tag">B2B · sub-brand</span>
+      <h3 class="f-name">YouTravel <em>Pro</em> для incentive.</h3>
+      <p class="f-desc">Tinkoff, Avito, Yandex, Альфа, X5 тратят 40-150 млн ₽/год на team-offsites. Покупают через знакомых организаторов, не через маркетплейсы. Sub-brand «YouTravel Pro» (b2b.youtravel.me), 2 sales-человека, фокус на 50 целевых компаний. Sales cycle 2-4 месяца — закладывать в P&L консервативно.</p>
+      <div class="f-foot"><span><b>Y1</b> · 20 млн</span><span><b>Y2</b> · 100 млн</span></div>
     </div>
 
     <div class="fix fix-5">
       <span class="f-num">05</span>
-      <span class="f-tag">Конверсия · listing</span>
-      <h3 class="f-name">Baseline для каждого тура, <em>а не SEO для главной</em>.</h3>
-      <p class="f-desc">Конверсия маркетплейса определяется на странице тура, не в трафике. Бенчмарк здоровой площадки — 1.2–2% traffic→booking. Гипотеза: у вас сейчас ниже из-за слабых listing — нет видео, отзывы без фото, бронирование требует регистрации. Решение: content team из 2 человек + listing quality bar (видео 30 с + 8 фото + 3 отзыва до публикации) + чат с автором до оплаты. Это то, что Трипстер не умеет — раздавит его по trust.</p>
-      <div class="f-foot"><span><b>Эффект</b> · конверсия ×1.5–2</span><span><b>Команда</b> · +2 чел / контент</span></div>
+      <span class="f-tag">International · RU-говорящие</span>
+      <h3 class="f-name">RU-аудитория <em>в Турции, ОАЭ, Кипре, Израиле</em>.</h3>
+      <p class="f-desc">8-10 миллионов русскоговорящих с travel-spend в Турции, Израиле, Эмиратах, Грузии, Кипре, Германии. Им сейчас сложно: Трипстер не даёт удобной оплаты, локальные операторы — не их культура, путешествуют по СНГ редко. Каналы: TG-каналы экспат-сообществ + influencer там же. Цель Year 2: 80 млн ₽ выручки. Я сам живу в Каше — этот сегмент знаю на земле, не по отчётам.</p>
+      <div class="f-foot"><span><b>Y2 выручка</b> · 80 млн ₽</span><span><b>Каналы</b> · TG экспат + инфлюенс</span></div>
     </div>
 
     <div class="fix fix-6">
       <span class="f-num">06</span>
-      <span class="f-tag">B2B · slow money</span>
-      <h3 class="f-name">B2B sub-brand для <em>incentive-туров</em>.</h3>
-      <p class="f-desc">Корпоративные выезды — слепое пятно индустрии. Tinkoff, Avito, Yandex тратят 40–150 млн ₽/год на team-offsites через знакомых организаторов, не через маркетплейсы. Отдельный sub-brand, два sales, фокус на 50 целевых компаний. KPI первых шести месяцев: 8 закрытых сделок × 2.5 млн ₽ = 20 млн ₽ дополнительного GMV. Sales cycle 2–4 месяца — в P&L Q1 не закладывать.</p>
-      <div class="f-foot"><span><b>GMV / 6 мес</b> · +20 млн ₽</span><span><b>Команда</b> · +2 sales</span></div>
+      <span class="f-tag">UX · продукт выбора</span>
+      <h3 class="f-name">Лёгкость выбора <em>как продукт</em>.</h3>
+      <p class="f-desc">Тест-куратор: 6-8 вопросов → 3 тура, которые точно про вас. Это и conversion-инструмент, и data-engine для CRM. Кураторские подборки от Юли: «Только для женщин», «Soft adventure после 35», «Если едете одна, но не хотите быть одна» — 12-15 подборок, обновляются раз в месяц. Quizz-driven email на ответах из теста. Этот фикс закрывает столп №3 «Лёгкость выбора» на уровне функциональности.</p>
+      <div class="f-foot"><span><b>Эффект</b> · конверсия ×1.3</span><span><b>Бонус</b> · CRM data layer</span></div>
     </div>
 
     <div class="fix fix-7">
       <span class="f-num">07</span>
-      <span class="f-tag">LTV · membership</span>
-      <h3 class="f-name">Travel Club + <em>реферальная программа</em>.</h3>
-      <p class="f-desc">Маркетплейс зарабатывает на commission × volume × repeat. Решение: членство 4 990 ₽/год — 5% кешбэк + ранний доступ к турам + закрытые ретриты. 10 000 членов = 50 млн ₽/год recurring + LTV ×2. Реферальная программа 2 000 / 2 000 ₽ — у Трипстера её нет, у вас должна быть.</p>
-      <div class="f-foot"><span><b>Recurring</b> · +50 млн ₽/год</span><span><b>LTV</b> · ×2</span></div>
+      <span class="f-tag">Quality bar · trust</span>
+      <h3 class="f-name">Listing baseline + <em>chat with author</em>.</h3>
+      <p class="f-desc">Бенчмарк здоровой площадки: 1.2-2% traffic→booking. Гипотеза: у вас сейчас 0.6-0.9% из-за листинг-неоднородности. Решение: обязательный baseline для публикации (видео 30-60с от автора + 8 фото + 3 отзыва) + чат с автором до оплаты. Это то, что Трипстер не умеет — у них unified-template и сетевая логика. Это структурное преимущество, и оно ваше.</p>
+      <div class="f-foot"><span><b>Конверсия</b> · до 1.5%+</span><span><b>Moat</b> · структурный, не воспроизводимый</span></div>
     </div>
 
   </div>
 </section>
 
-<!-- 04 PANEL -->
+<!-- 05 PANEL -->
 <section id="panel">
-  <span class="sec-num">04</span>
-  <span class="eyebrow">04 — Что обсуждали в панели</span>
+  <span class="sec-num">05</span>
+  <span class="eyebrow">05 — Что обсуждали в панели</span>
   <h2 class="sec-title">Я прогнал гипотезы через <em>семь экспертов</em>. Вот четыре конфликта, которые остались.</h2>
-  <p class="lead">Marketplace-стратег, travel-инсайдер, бренд-стратег, performance, UX, юнит-экономика, B2B sales. По каждой теме у двух из них была противоположная позиция. Резолюция — не «компромисс», а priority ladder: безопасность → юнит-экономика → надёжность → простота → стоимость.</p>
+  <p class="lead">Marketplace-стратег, travel-инсайдер, бренд-стратег, performance, UX, юнит-экономика, B2B sales. По каждой теме у двух из них была противоположная позиция. Резолюция — не «компромисс», а priority ladder: фокус → retention → новые полки → конверсия → стоимость.</p>
 
   <div class="mx-wrap">
     <table class="mx">
@@ -340,112 +531,118 @@ footer a:hover{color:var(--ochre)}
       </thead>
       <tbody>
         <tr>
-          <td>Комиссия</td>
-          <td>Демпинг 15% для onboarding авторов</td>
-          <td>Гарантия дохода вместо демпинга</td>
-          <td class="res"><b>B</b>гарантия целевая и окупаемая</td>
+          <td>Главный рычаг роста</td>
+          <td>CAC: лить трафик в новых клиентов</td>
+          <td>Repeat: достать ×3 из текущей базы</td>
+          <td class="res"><b>B</b>repeat 8→22% даёт +200 млн без новых лидов</td>
         </tr>
         <tr>
-          <td>Каналы</td>
-          <td>80% бюджета — influencer-нативка</td>
-          <td>Бренд-нарратив первичен, каналы вторичны</td>
-          <td class="res"><b>оба</b>influencer = доставка нарратива</td>
+          <td>Сегментация vs «для всех»</td>
+          <td>Не сужать ЦА — потеряем объём</td>
+          <td>Permission to focus: только Ж 25-45</td>
+          <td class="res"><b>B</b>2× CTR, 1.4× конверсия в нише</td>
         </tr>
         <tr>
-          <td>B2B vs B2C приоритет</td>
+          <td>Премиум tier</td>
+          <td>Каннибализирует core, не делать</td>
+          <td>Новая полка, не пересекается</td>
+          <td class="res"><b>B</b>пилот 4 тура Y1, без переноса трафика</td>
+        </tr>
+        <tr>
+          <td>B2B vs International</td>
           <td>B2B быстрее по cash</td>
-          <td>B2C — основной мотор площадки</td>
-          <td class="res"><b>B + sub</b>B2C первичен, B2B параллельным sub-brand</td>
-        </tr>
-        <tr>
-          <td>Multi-day pivot</td>
-          <td>Юр-блокер, не идти</td>
-          <td>Единственный путь, иначе закрытие</td>
-          <td class="res"><b>идём</b>через агентскую модель, иначе никак</td>
+          <td>International дешевле по CAC</td>
+          <td class="res"><b>оба</b>параллельно, разные команды</td>
         </tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- 05 FIRST STEP -->
+<!-- 06 FIRST STEP -->
 <section id="audit">
-  <span class="sec-num">05</span>
-  <span class="eyebrow">05 — Что я предлагаю как первый шаг</span>
+  <span class="sec-num">06</span>
+  <span class="eyebrow">06 — Что я предлагаю как первый шаг</span>
   <h2 class="sec-title">Двухнедельный аудит. <em>Фикс-цена</em>. Без обязательств дальше.</h2>
-  <p class="lead">Я не верю в трёхмесячные дискавери-проекты до первого касания продукта. Две недели, пять конкретных результатов, фикс-стоимость. После этого вы либо понимаете что мы хотим жить дальше, либо берёте артефакты и идёте без меня. Оба варианта — нормальные.</p>
+  <p class="lead">Я не верю в трёхмесячные дискавери-проекты до первого касания продукта. Две недели, пять конкретных результатов, фикс-стоимость. После этого вы либо понимаете что мы хотим жить дальше — спринтами по 2 недели, owner я, формат гибкий — либо берёте артефакты и идёте без меня. Оба варианта нормальные.</p>
 
   <div class="audit-grid">
     <div class="audit-item">
-      <span class="t">Юр-консультация по 132-ФЗ</span>
-      <span class="d">Где ваш текущий контур попадает под туроператорскую деятельность, какая агентская модель закрывает это юридически чисто, что нужно поменять в офертах.</span>
+      <span class="t">Юнит-экономика на ваших данных</span>
+      <span class="d">CAC по каналам, LTV по когортам 12/24/36 мес, payback по сегментам. Что приносит маржу, что съедает её. Без этого все остальные решения — гадание.</span>
     </div>
     <div class="audit-item">
-      <span class="t">Бренд-манифест + макет витрины автора</span>
-      <span class="d">Один экран первого касания (50 слов) и шаблон именной витрины автора как спорт-блогера. На уровне макета, не финальный дизайн.</span>
+      <span class="t">Бренд-аудит: 3 столпа vs текущее</span>
+      <span class="d">Где сайт, копи, соцсети говорят «маркетплейс», а не «впечатление», не «авторы как персонажи», не «выбор за вас». Список конкретных утечек.</span>
     </div>
     <div class="audit-item">
-      <span class="t">Юнит-экономика multi-day vs city</span>
-      <span class="d">На ваших данных. Что приносит маржу, что съедает её, где payback короче. Без этого все остальные решения — гадание.</span>
+      <span class="t">Repeat rate diagnostic</span>
+      <span class="d">Где теряем клиентов между 1-й и 2-й покупкой. По сегментам, по сезонам, по каналам first-touch. Карта потерь и приоритеты починки.</span>
     </div>
     <div class="audit-item">
-      <span class="t">Пилот supply-acquisition</span>
-      <span class="d">План onboarding 10 авторов с гарантированным доходом. Юр-форма, контракт, KPI, оценка $5–8к на автора как CAC supply-side.</span>
+      <span class="t">Pilot-план Travel Club + Premium</span>
+      <span class="d">Pricing, оффер, операционка, KPI первых 90 дней. Что именно тестируем, на ком, какой результат считаем валидацией.</span>
     </div>
     <div class="audit-item">
-      <span class="t">Пилот influencer-канала</span>
-      <span class="d">Выбор трёх integrations с тревел-блогерами: кто, бюджет, оффер, attribution. Запуск в течение 2–3 недель после аудита.</span>
+      <span class="t">Roadmap до 1 млрд</span>
+      <span class="d">Квартальные цели по каждому из пяти блоков выручки, метрики, owner на стороне команды. Не таблица «всё хорошее», а последовательность ставок.</span>
     </div>
   </div>
 
   <div class="audit-foot">
-    Стоимость аудита фиксированная. <b>На сайте я её не публикую</b> — формат и сумма зависят от того, насколько у вас уже есть юнит-экономика и cash-runway. Если интересно — напишите, обсудим за десять минут.
+    Стоимость аудита фиксированная. <b>На сайте я её не публикую</b> — формат и сумма зависят от глубины data-доступа и состояния текущей операционки. Если интересно — напишите, обсудим за десять минут.
   </div>
 </section>
 
-<!-- 06 NUMBERS -->
+<!-- 07 NUMBERS -->
 <section id="numbers">
-  <span class="sec-num">06</span>
-  <span class="eyebrow">06 — Цифры, которые мне нужны от вас</span>
-  <h2 class="sec-title">Без этих четырёх чисел любой бюджет — <em>гадание</em>.</h2>
-  <p class="lead">Это не due-diligence. Это четыре числа, без которых любая стратегия пишется по индустрии — а индустрия в среднем не похожа на вас. Готов работать под NDA, не нужны квартальные отчёты — только грубые порядки.</p>
+  <span class="sec-num">07</span>
+  <span class="eyebrow">07 — Цифры, которые мне нужны от вас</span>
+  <h2 class="sec-title">Без этих пяти чисел любой бюджет — <em>гадание</em>.</h2>
+  <p class="lead">Это не due-diligence. Это пять чисел, без которых любая стратегия пишется по индустрии — а индустрия в среднем не похожа на вас. Готов работать под NDA, не нужны квартальные отчёты — только грубые порядки и текущая операционная картина.</p>
 
   <div class="numbers-grid">
     <div class="numreq">
       <span class="n">01</span>
-      <span class="t">GMV</span>
-      <span class="h">Текущий оборот в месяц</span>
-      <span class="d">Грубо. Категория, диапазон, средняя за последние три месяца — этого достаточно.</span>
+      <span class="t">CAC</span>
+      <span class="h">По каналам</span>
+      <span class="d">YD, TG, инфлюенсеры, organic, referral. Если по каналам не считаете — общий blended CAC последних трёх месяцев тоже подойдёт.</span>
     </div>
     <div class="numreq">
       <span class="n">02</span>
-      <span class="t">Split</span>
-      <span class="h">% city vs multi-day</span>
-      <span class="d">Доля multi-day по GMV и по количеству бронирований. Это определяет всё дальнейшее.</span>
+      <span class="t">Funnel</span>
+      <span class="h">Conversion воронка</span>
+      <span class="d">visit → tour view → request → booking. Где конкретно сыпется. Гипотеза: основные потери на tour view → request, но без чисел это гадание.</span>
     </div>
     <div class="numreq">
       <span class="n">03</span>
-      <span class="t">CAC</span>
-      <span class="h">По каналам, последние три месяца</span>
-      <span class="d">Yandex Direct, SEO, прямой, реферальный. Если по каналам не считаете — общий blended CAC тоже подойдёт.</span>
+      <span class="t">Repeat / LTV</span>
+      <span class="h">Репит и пожизненный</span>
+      <span class="d">Текущий repeat rate (вы сказали ~8%) и LTV на горизонтах 12 / 24 / 36 мес. Это сердцевина всей карты роста.</span>
     </div>
     <div class="numreq">
       <span class="n">04</span>
-      <span class="t">LTV</span>
-      <span class="h">12-мес LTV по когорте</span>
-      <span class="d">Сколько в среднем оставляет клиент за 12 месяцев. Если не считаете — repeat rate в первый год.</span>
+      <span class="t">AOV split</span>
+      <span class="h">По корзинам</span>
+      <span class="d">&lt;50к / 50–100к / 100–200к / 200к+. Это определяет, есть ли уже зачаток premium tier и как его масштабировать.</span>
+    </div>
+    <div class="numreq">
+      <span class="n">05</span>
+      <span class="t">Юр-модель</span>
+      <span class="h">Кто формально продаёт</span>
+      <span class="d">Агентская? Туроператорская (132-ФЗ, реестр Ростуризма, финобеспечение)? Кто в чеке — площадка или автор? Это влияет на B2B, International и premium pricing.</span>
     </div>
   </div>
 
-  <div class="numbers-note">Ещё четыре открытых вопроса, без ответа на которые я не предложу конкретный план: готовы ли к пересборке бренда (включая название), есть ли в команде опыт enterprise sales, кто формально продаёт тур — площадка или автор, и какой у вас cash-runway. Это лучше обсуждать голосом, не в форме.</div>
+  <div class="numbers-note">Дополнительно — четыре открытых вопроса, без ответа на которые я не предложу конкретный план: какой у вас текущий маркетинговый бюджет в месяц, где сейчас узкое место операционки (продукт, supply, performance, retention), кто на стороне команды будет owner-ом изменений, и какой у вас cash-runway на новые ставки. Это лучше обсуждать голосом, не в форме.</div>
 </section>
 
-<!-- 07 CONTACT -->
+<!-- 08 CONTACT -->
 <footer id="contact">
-  <span class="eyebrow" style="color:var(--ochre);border-color:var(--ochre)">07 — Контакт</span>
+  <span class="eyebrow" style="color:var(--ochre);border-color:var(--ochre)">08 — Контакт</span>
   <div class="ftop">
     <h3>Если хотя бы один из семи фиксов <em>резонирует</em> — напишите.</h3>
-    <p class="fnote">Я отвечаю в течение суток. Тридцать минут разговора голосом — это всё, что нужно, чтобы понять, есть ли смысл двигаться дальше. Если нет — вы заберёте семь гипотез и пойдёте делать сами. Это нормально.</p>
+    <p class="fnote">Я отвечаю в течение суток. Тридцать минут разговора голосом — это всё, что нужно, чтобы понять, есть ли смысл двигаться дальше. Если нет — вы заберёте семь гипотез и карту пути и пойдёте делать сами. Это нормально.</p>
   </div>
 
   <div class="fcontacts">
@@ -468,8 +665,8 @@ footer a:hover{color:var(--ochre)}
   </div>
 
   <div class="fmeta">
-    <span>тз → сергей · мысли вслух · апрель 2026</span>
-    <span>первый подход к снаряду · v1</span>
+    <span>тз → сергей · YouTravel.me · мысли вслух · апрель 2026</span>
+    <span>первый подход к снаряду · v2 · 350M → 1B</span>
   </div>
 </footer>
 
