@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Евгений и потолок ChatGPT — AI-игра</title>
+<meta name="description" content="Visual Novel-тренажёр для курса «AI для предпринимателя». Евгений за неделю переходит с ChatGPT на Claude Code.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<link rel="stylesheet" href="css/game.css">
+</head>
+
+<body>
+
+<div id="app">
+
+  <header class="topbar" id="topbar" style="display:none">
+    <div class="topbar-left">
+      <div class="chapter-label" data-role="chapter-label">Глава —</div>
+      <div class="xp-row">
+        <div class="xp-bar"><div class="xp-fill" data-role="xp-fill"></div></div>
+        <div class="xp-label" data-role="xp-label">XP: 0/0</div>
+      </div>
+    </div>
+    <button class="mute-btn" type="button" data-role="mute" aria-label="Звук">🔊</button>
+  </header>
+
+  <main class="screen-title" data-screen="title">
+    <h1 class="title-headline">Евгений<br>и&nbsp;потолок<br>ChatGPT</h1>
+    <p class="title-subline">— Visual Novel —</p>
+
+    <div class="title-portrait" data-asset="char-eugene-master"></div>
+
+    <div class="title-buttons">
+      <button class="btn-primary" type="button" data-action="start">▶ Начать неделю</button>
+      <button class="btn-secondary" type="button" data-action="continue" style="display:none">↻ Продолжить</button>
+      <button class="btn-tertiary" type="button" data-action="show-certificate" style="display:none">📜 Мой сертификат</button>
+    </div>
+  </main>
+
+  <main class="screen-scene" data-screen="scene" style="display:none">
+    <div class="scene-bg" data-role="bg"></div>
+    <div class="scene-character" data-role="character"></div>
+    <div class="scene-location" data-role="location" style="display:none"></div>
+
+    <div class="dialog-box" data-role="dialog-box">
+      <div class="dialog-speaker" data-role="speaker"></div>
+      <div class="dialog-text" data-role="text"></div>
+      <div class="dialog-arrow" data-role="arrow">▶</div>
+    </div>
+
+    <div class="choices-container" data-role="choices"></div>
+  </main>
+
+  <main class="screen-chapter-end" data-screen="chapter-end" style="display:none"></main>
+
+  <main class="screen-certificate" data-screen="certificate" style="display:none"></main>
+
+</div>
+
+<script type="module">
+import { Engine } from './js/engine.js';
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+  }
+
+  const root = document.getElementById('app');
+  const engine = new Engine(root);
+  engine.exposeTestHooks();
+
+  const topbar = document.getElementById('topbar');
+  const sceneEl = root.querySelector('[data-screen="scene"]');
+  const chapterEndEl = root.querySelector('[data-screen="chapter-end"]');
+  const updateTopbar = () => {
+    const sceneVisible = sceneEl.style.display !== 'none';
+    const chapterEndVisible = chapterEndEl.style.display !== 'none';
+    topbar.style.display = (sceneVisible || chapterEndVisible) ? '' : 'none';
+  };
+  const observer = new MutationObserver(updateTopbar);
+  [sceneEl, chapterEndEl].forEach((el) => observer.observe(el, { attributes: true, attributeFilter: ['style'] }));
+  updateTopbar();
+});
+</script>
+
+</body>
+</html>

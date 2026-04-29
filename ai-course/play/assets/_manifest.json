@@ -1,0 +1,112 @@
+{
+  "assets": [
+    {
+      "name": "bg-office-day",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. A small business ...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:47:49Z",
+      "size_kb": 1727,
+      "ok": true
+    },
+    {
+      "name": "bg-office-day",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. A small business ...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:48:31Z",
+      "size_kb": 1602,
+      "ok": true
+    },
+    {
+      "name": "bg-office-evening",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. Same small busine...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:48:41Z",
+      "size_kb": 1399,
+      "ok": true
+    },
+    {
+      "name": "bg-laptop-screen",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. Close-up of a Mac...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:48:49Z",
+      "size_kb": 1190,
+      "ok": true
+    },
+    {
+      "name": "bg-home-kitchen",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. A modern Russian ...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:48:59Z",
+      "size_kb": 1825,
+      "ok": true
+    },
+    {
+      "name": "bg-meeting-room",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. A small meeting r...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:49:07Z",
+      "size_kb": 1125,
+      "ok": true
+    },
+    {
+      "name": "char-ivan-master",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. A Russian constru...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:49:22Z",
+      "size_kb": 1278,
+      "ok": true
+    },
+    {
+      "name": "char-claude-presence",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. A stylized abstra...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:49:34Z",
+      "size_kb": 954,
+      "ok": true
+    },
+    {
+      "name": "char-andrey-teen",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. A Russian teenage...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:49:42Z",
+      "size_kb": 1591,
+      "ok": true
+    },
+    {
+      "name": "char-tim-teaching",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. A black-and-white...",
+      "ref": null,
+      "timestamp": "2026-04-27T20:49:50Z",
+      "size_kb": 1119,
+      "ok": true
+    },
+    {
+      "name": "char-ivan-surprised",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. Same character as...",
+      "ref": "char-ivan-master.png",
+      "timestamp": "2026-04-27T20:50:06Z",
+      "size_kb": 1706,
+      "ok": true
+    },
+    {
+      "name": "char-ivan-confident",
+      "model": "google/gemini-2.5-flash-image",
+      "prompt": "Pop-art illustration in the style of Roy Lichtenstein. Halftone Ben-Day dots, thick black outlines (3-4px width), flat saturated colors, no soft shading, no photorealism, no gradients. Strict color palette ONLY: vibrant red #E63946, warm cream #FBF8F3, deep navy #0B1426 (outlines and shadows), yellow #FFD23F (highlights only), gold #C9A75F (accents only). Composition: centered subject, clear silhouette readable in black. No text in image, no logos, no watermarks, no signatures. Same character as...",
+      "ref": "char-ivan-master.png",
+      "timestamp": "2026-04-27T20:50:18Z",
+      "size_kb": 1341,
+      "ok": true
+    }
+  ]
+}
