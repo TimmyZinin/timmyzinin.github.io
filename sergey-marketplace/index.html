@@ -3,672 +3,687 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YouTravel.me — путь от 350M к 1B за 2 года · мысли вслух для Сергея</title>
-<meta name="description" content="Категория уже выиграна. Задача — масштабирование, не позиционная битва. Бренд, repeat, премиум, B2B, international — карта роста до миллиарда.">
+<title>YouTravel · 350 → 1 000 — выпуск для Сергея</title>
+<meta name="description" content="Мысли вслух для Сергея Пахомова. Семь мест, через которые YouTravel идёт от 350 миллионов выручки к одному миллиарду за два года.">
 <link rel="canonical" href="https://timzinin.com/sergey-marketplace/">
-<meta property="og:title" content="YouTravel.me — путь от 350M к 1B за 2 года">
-<meta property="og:description" content="Категория уже выиграна. Задача — масштабирование. 7 фиксов, через которые я бы пошёл.">
+<meta property="og:title" content="YouTravel · 350 → 1 000 — выпуск для Сергея">
+<meta property="og:description" content="Мысли вслух Тима Зинина. Что я бы фиксил, чтобы YouTravel вырос в три раза за два года.">
 <meta property="og:url" content="https://timzinin.com/sergey-marketplace/">
-<meta property="og:type" content="website">
+<meta property="og:image" content="https://timzinin.com/sergey-marketplace/img/tim.jpg">
+<meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="YouTravel.me — путь от 350M к 1B за 2 года">
-<meta name="twitter:description" content="Категория уже выиграна. Задача — масштабирование. 7 фиксов, через которые я бы пошёл.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script defer src="https://umami.timzinin.com/script.js" data-website-id="b00703aa-b94d-457b-8071-46d9ce71968a"></script>
 <style>
 :root{
-  --bg: oklch(97% 0.020 85);
-  --bg-2: oklch(94% 0.030 80);
-  --ink: oklch(18% 0.02 40);
-  --ink-soft: oklch(35% 0.03 40);
-  --line: oklch(20% 0.02 40);
-  --bordeaux: oklch(42% 0.15 25);
-  --terracotta: oklch(58% 0.17 45);
-  --ochre: oklch(72% 0.14 75);
-  --coral: oklch(62% 0.19 30);
-  --peach: oklch(82% 0.09 75);
-  --cream: oklch(93% 0.04 85);
-  --accent: var(--bordeaux);
+  --paper: oklch(96% 0.018 80);
+  --paper-2: oklch(93% 0.025 78);
+  --ink: oklch(15% 0.02 30);
+  --ink-soft: oklch(38% 0.025 30);
+  --ink-muted: oklch(55% 0.02 30);
+  --rule: oklch(20% 0.02 30);
+  --rule-soft: oklch(70% 0.02 30);
+  --oxblood: oklch(38% 0.135 25);
+  --burgundy: oklch(28% 0.10 25);
+  --ochre: oklch(68% 0.14 70);
+  --moss: oklch(42% 0.08 130);
+  --night: oklch(14% 0.018 260);
 }
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;font-size:17px;line-height:1.5;overflow-x:hidden;position:relative}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.35;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-h1,h2,h3,h4{font-family:'DM Serif Display',Georgia,serif;font-weight:400;letter-spacing:-0.02em;line-height:1.02;margin:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:17px;line-height:1.6;font-weight:400;overflow-x:hidden;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.4;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0 0.05 0 0 0 0.32 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+::selection{background:var(--oxblood);color:var(--paper)}
+.serif,h1,h2,h3,h4,.h{font-family:'Cormorant Garamond','Apple Garamond',Georgia,serif;font-weight:500;letter-spacing:-0.012em;line-height:1.02}
+.italic{font-style:italic}
 .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-a{color:var(--bordeaux);text-decoration:underline;text-underline-offset:3px}
+em{font-style:italic;color:var(--oxblood)}
+a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:var(--rule-soft);transition:text-decoration-color .2s,color .2s}
+a:hover{text-decoration-color:var(--oxblood);color:var(--oxblood)}
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:500;display:flex;gap:clamp(8px,1.5vw,22px);padding:14px clamp(16px,4vw,56px);background:var(--bg);border-bottom:1.5px solid var(--line);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;overflow-x:auto;white-space:nowrap;align-items:center}
-.nav a{color:var(--ink);text-decoration:none;padding:3px 0;border-bottom:2px solid transparent;transition:border-color .2s}
-.nav a:hover{border-color:var(--accent)}
-.nav .brand{color:var(--bordeaux);font-weight:700;margin-right:auto;font-family:'JetBrains Mono',monospace;letter-spacing:0.08em}
+.masthead{position:sticky;top:0;z-index:500;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:12px clamp(20px,4vw,56px);background:var(--paper);border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink)}
+.masthead .left{text-align:left}
+.masthead .center{text-align:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;font-weight:500;letter-spacing:0;text-transform:none;color:var(--oxblood)}
+.masthead .right{text-align:right;color:var(--ink-soft)}
+@media(max-width:780px){.masthead{grid-template-columns:1fr 1fr}.masthead .center{display:none}}
 
-/* SECTION SHELL */
-section{padding:clamp(60px,9vw,140px) clamp(20px,5vw,80px);border-bottom:1.5px solid var(--line);position:relative}
-.sec-num{font-family:'DM Serif Display',serif;font-size:clamp(80px,14vw,200px);line-height:0.9;color:var(--ink);opacity:0.08;position:absolute;top:clamp(20px,4vw,50px);right:clamp(16px,4vw,56px);pointer-events:none;user-select:none}
-.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux);margin-bottom:18px;display:inline-block;padding:5px 10px;border:1.5px solid var(--bordeaux)}
-h2.sec-title{font-size:clamp(40px,7vw,96px);margin-bottom:30px;max-width:18ch}
-h2.sec-title em{font-style:italic;color:var(--bordeaux)}
-.lead{font-size:clamp(18px,1.7vw,22px);max-width:62ch;color:var(--ink-soft);margin-bottom:40px;line-height:1.5}
-.lead b{color:var(--ink);font-weight:500}
+.nav{display:flex;gap:clamp(10px,2vw,28px);padding:10px clamp(20px,4vw,56px);background:var(--paper-2);border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:var(--ink-soft);text-decoration:none;padding:2px 0;border-bottom:1.5px solid transparent}
+.nav a:hover{color:var(--oxblood);border-color:var(--oxblood)}
+.nav a .num{color:var(--oxblood);margin-right:6px;font-weight:600}
 
-/* HERO */
-.hero{min-height:92vh;padding:clamp(100px,14vw,180px) clamp(20px,5vw,80px) clamp(60px,8vw,120px);display:flex;flex-direction:column;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
-.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux);display:inline-block;padding:5px 10px;border:1.5px solid var(--bordeaux);z-index:2;align-self:flex-start}
-.hero-head{font-size:clamp(50px,10vw,160px);line-height:0.9;letter-spacing:-0.03em;max-width:18ch;z-index:2}
-.hero-head em{font-style:italic;color:var(--bordeaux);font-family:'DM Serif Display',serif}
-.hero-pitch{max-width:58ch;font-size:clamp(18px,1.8vw,24px);color:var(--ink-soft);line-height:1.4;z-index:2}
-.hero-meta{display:flex;flex-wrap:wrap;gap:30px 50px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink);z-index:2;border-top:1.5px solid var(--line);padding-top:24px}
-.hero-meta b{color:var(--bordeaux);display:block;font-size:11px;margin-bottom:4px;font-weight:600;letter-spacing:0.12em}
-.hero-meta .num{font-family:'DM Serif Display',serif;font-size:clamp(28px,3vw,42px);line-height:1;letter-spacing:-0.02em;text-transform:none;color:var(--ink);font-weight:400}
-.hero-geom{position:absolute;pointer-events:none;z-index:1;right:clamp(20px,5vw,80px);top:clamp(120px,16vw,200px);width:clamp(200px,28vw,420px);opacity:0.85}
+.cover{position:relative;padding:clamp(60px,10vw,140px) clamp(20px,5vw,80px) clamp(40px,6vw,90px);min-height:88vh;display:flex;flex-direction:column;justify-content:space-between;border-bottom:1px solid var(--rule)}
+.cover-meta{display:flex;justify-content:space-between;align-items:flex-start;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft);gap:30px;flex-wrap:wrap}
+.cover-meta b{color:var(--oxblood);font-weight:600}
+.cover-mid{display:grid;grid-template-columns:1fr;gap:40px;margin:clamp(40px,8vw,100px) 0}
+.cover-title{font-size:clamp(56px,11.5vw,178px);line-height:0.9;letter-spacing:-0.025em;font-weight:500;font-family:'Cormorant Garamond',serif;max-width:14ch}
+.cover-title em{font-style:italic;color:var(--oxblood);font-family:'Cormorant Garamond',serif}
+.cover-deck{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.4vw,32px);line-height:1.32;font-weight:400;font-style:italic;max-width:54ch;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:24px;margin-top:8px}
+.cover-foot{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--rule);padding-top:22px}
+.cover-foot .stat{padding-right:20px;border-right:1px solid var(--rule-soft)}
+.cover-foot .stat:last-child{border-right:none}
+.cover-foot .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
+.cover-foot .v{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,40px);font-weight:500;line-height:1;color:var(--ink)}
+.cover-foot .v em{font-style:italic;color:var(--oxblood)}
+@media(max-width:780px){.cover-foot{grid-template-columns:repeat(2,1fr);gap:18px}.cover-foot .stat{padding:12px 0;border-right:none;border-bottom:1px solid var(--rule-soft)}}
 
-/* HELLO */
-.hello{padding:clamp(50px,7vw,110px) clamp(20px,5vw,80px);border-bottom:1.5px solid var(--line);background:var(--cream);position:relative}
-.hello-grid{display:grid;grid-template-columns:0.7fr 1.3fr;gap:clamp(30px,5vw,70px);align-items:start}
-@media(max-width:780px){.hello-grid{grid-template-columns:1fr}}
-.hello-photo{display:flex;flex-direction:column;gap:18px}
-.hello-photo .frame{position:relative;border:2px solid var(--line);background:var(--bg);padding:14px;max-width:320px}
-.hello-photo .frame::before{content:"";position:absolute;top:-10px;left:-10px;width:60px;height:60px;border-top:2px solid var(--bordeaux);border-left:2px solid var(--bordeaux)}
-.hello-photo .frame::after{content:"";position:absolute;bottom:-10px;right:-10px;width:60px;height:60px;border-bottom:2px solid var(--bordeaux);border-right:2px solid var(--bordeaux)}
-.hello-photo .ph-stub{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:3/4;background:var(--bg-2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--ink-soft)}
-.hello-photo img{display:block;width:100%;height:auto;filter:grayscale(0.15) contrast(1.05)}
-.hello-sig{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--bordeaux);line-height:1.7}
-.hello-sig b{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:var(--ink);letter-spacing:0;text-transform:none;display:block;margin-bottom:2px}
-.hello-text h2{font-family:'DM Serif Display',serif;font-size:clamp(40px,6vw,80px);line-height:1;letter-spacing:-0.02em;margin-bottom:24px}
-.hello-text h2 em{font-style:italic;color:var(--bordeaux)}
-.hello-text p{font-size:clamp(17px,1.5vw,20px);line-height:1.55;max-width:60ch;color:var(--ink);margin:0 0 18px}
-.hello-text p b{font-weight:600}
-.hello-text p.kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--bordeaux);margin-top:30px}
+.band{position:relative;height:clamp(280px,52vh,640px);background-color:var(--ink);background-size:cover;background-position:center;border-bottom:1px solid var(--rule);overflow:hidden}
+.band::after{content:"";position:absolute;inset:0;background:rgba(20,15,12,0.18);mix-blend-mode:multiply;pointer-events:none}
+.band .caption{position:absolute;left:clamp(20px,4vw,56px);bottom:clamp(20px,3vw,38px);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:var(--paper);background:rgba(20,15,12,0.55);padding:8px 12px;z-index:2}
+.band .pull{position:absolute;right:clamp(20px,5vw,72px);bottom:clamp(40px,7vw,100px);max-width:min(540px,55vw);font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.6vw,38px);line-height:1.18;color:var(--paper);font-style:italic;font-weight:500;z-index:2;text-shadow:0 1px 24px rgba(0,0,0,0.5)}
+.band .pull::before{content:"«";color:var(--ochre);margin-right:4px}
+.band .pull::after{content:"»";color:var(--ochre);margin-left:4px}
 
-/* CONTEXT NUMBERS (snap-grid) */
-.snap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:30px}
-@media(max-width:980px){.snap-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.snap-grid{grid-template-columns:1fr}}
-.snap-card{padding:30px 26px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--cream);display:flex;flex-direction:column;gap:10px;min-height:170px;transition:background .2s}
-.snap-card:hover{background:var(--peach)}
-.snap-card .k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux)}
-.snap-card .v{font-family:'DM Serif Display',serif;font-size:clamp(38px,4vw,60px);line-height:0.95;letter-spacing:-0.02em;color:var(--ink)}
-.snap-card .h{font-size:13px;color:var(--ink-soft);line-height:1.45;margin-top:auto;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em}
-.snap-card.goal{background:var(--ink);color:var(--cream)}
-.snap-card.goal .k{color:var(--ochre)}
-.snap-card.goal .v{color:var(--cream)}
-.snap-card.goal .h{color:oklch(80% 0.04 80)}
-.snap-card.goal:hover{background:oklch(22% 0.04 35)}
-.context-note{margin-top:30px;padding:26px 30px;border-left:4px solid var(--bordeaux);background:var(--cream);font-size:clamp(17px,1.6vw,21px);line-height:1.5;max-width:80ch}
-.context-note b{color:var(--bordeaux);font-weight:600}
+section{position:relative;padding:clamp(70px,10vw,150px) clamp(20px,5vw,80px);border-bottom:1px solid var(--rule)}
+.folio{position:absolute;top:clamp(20px,4vw,40px);right:clamp(20px,4vw,56px);font-family:'Cormorant Garamond',serif;font-size:clamp(80px,12vw,170px);font-style:italic;font-weight:500;color:var(--ink);opacity:0.075;pointer-events:none;user-select:none;line-height:0.9}
+.kicker{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:var(--oxblood);margin-bottom:30px}
+.kicker .ch{font-weight:600}
+.kicker .rule-h{flex:1;height:1px;background:var(--rule);max-width:120px}
+.section-title{font-size:clamp(40px,6.5vw,96px);line-height:1;letter-spacing:-0.018em;margin:0 0 26px;max-width:18ch;font-weight:500}
+.section-title em{font-style:italic;color:var(--oxblood)}
+.section-deck{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(19px,1.85vw,26px);line-height:1.4;color:var(--ink-soft);max-width:62ch;margin:0 0 50px}
 
-/* BRAND PILLARS */
-.pillars-lead{margin-bottom:50px}
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line)}
+.hello-grid{display:grid;grid-template-columns:0.85fr 1.4fr;gap:clamp(30px,5vw,70px);align-items:start}
+@media(max-width:860px){.hello-grid{grid-template-columns:1fr}}
+.portrait{position:relative;width:100%;max-width:340px;aspect-ratio:4/5;background:var(--paper-2);border:1px solid var(--rule);background-image:url("img/tim.jpg");background-size:cover;background-position:center 22%;filter:grayscale(1) contrast(1.05) brightness(0.97)}
+.portrait::before{content:"";position:absolute;top:-7px;left:-7px;width:48px;height:48px;border-top:1px solid var(--oxblood);border-left:1px solid var(--oxblood)}
+.portrait::after{content:"";position:absolute;bottom:-7px;right:-7px;width:48px;height:48px;border-bottom:1px solid var(--oxblood);border-right:1px solid var(--oxblood)}
+.cap{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-muted);line-height:1.7}
+.cap b{color:var(--oxblood);font-weight:600}
+.hello-text p{font-size:clamp(17px,1.45vw,20px);line-height:1.62;max-width:60ch;color:var(--ink);margin:0 0 22px}
+.hello-text p:first-child::first-letter{font-family:'Cormorant Garamond',serif;font-size:clamp(60px,7vw,98px);line-height:0.85;float:left;padding:8px 14px 0 0;color:var(--oxblood);font-style:italic;font-weight:500}
+.sig{margin-top:40px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:28px;border-top:1px solid var(--rule);padding-top:20px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+.sig .name{color:var(--oxblood)}
+.sig .where{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);font-style:normal}
+
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+@media(max-width:860px){.numbers-grid{grid-template-columns:repeat(2,1fr)}}
+.num-cell{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:32px 24px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;background:var(--paper);transition:background .25s}
+.num-cell:hover{background:var(--paper-2)}
+.num-cell .label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-muted)}
+.num-cell .value{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.5vw,72px);font-weight:500;line-height:0.95;color:var(--ink)}
+.num-cell .value em{font-style:italic;color:var(--oxblood)}
+.num-cell .unit{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft)}
+.num-cell.target{background:var(--ink);color:var(--paper)}
+.num-cell.target .label,.num-cell.target .unit{color:var(--ochre)}
+.num-cell.target .value{color:var(--paper)}
+.num-cell.target .value em{color:var(--ochre)}
+.note-block{margin-top:40px;padding:26px 30px;border-left:2px solid var(--oxblood);background:var(--paper-2);font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,28px);line-height:1.4;font-style:italic;font-weight:500;max-width:78ch}
+.note-block strong{color:var(--oxblood);font-weight:600;font-style:normal}
+
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
 @media(max-width:980px){.pillars{grid-template-columns:1fr}}
-.pillar{padding:40px 32px 36px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--cream);display:flex;flex-direction:column;gap:18px;min-height:420px;position:relative;transition:background .2s,transform .2s}
-.pillar:hover{background:var(--peach);transform:translateY(-4px)}
-.pillar:nth-child(2){background:var(--peach)}
-.pillar:nth-child(2):hover{background:var(--ochre)}
-.pillar:nth-child(3){background:var(--ink);color:var(--cream)}
-.pillar:nth-child(3) .p-num,.pillar:nth-child(3) .p-tag,.pillar:nth-child(3) .p-name em{color:var(--ochre)}
-.pillar:nth-child(3):hover{background:oklch(22% 0.04 35);transform:translateY(-4px)}
-.p-num{font-family:'DM Serif Display',serif;font-size:clamp(64px,7vw,96px);line-height:0.85;color:var(--bordeaux);letter-spacing:-0.03em}
-.p-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--bordeaux)}
-.p-name{font-family:'DM Serif Display',serif;font-size:clamp(28px,3vw,40px);line-height:1.02;letter-spacing:-0.02em}
-.p-name em{font-style:italic;color:var(--bordeaux)}
-.p-desc{font-size:15px;line-height:1.55;flex:1}
-.p-foot{padding-top:14px;border-top:1.5px solid currentColor;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase}
-.p-foot b{color:var(--bordeaux);font-weight:600}
-.pillar:nth-child(3) .p-foot b{color:var(--ochre)}
+.pillar{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:48px 36px 56px;min-height:440px;display:flex;flex-direction:column;gap:22px;background:var(--paper);position:relative;transition:background .3s}
+.pillar:hover{background:var(--paper-2)}
+.pillar .roman{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(48px,5vw,72px);font-weight:500;line-height:1;color:var(--oxblood)}
+.pillar h3{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3vw,42px);line-height:1.05;font-weight:500;letter-spacing:-0.01em;max-width:14ch}
+.pillar h3 em{font-style:italic}
+.pillar .body{font-size:15.5px;line-height:1.6;color:var(--ink-soft);max-width:36ch}
+.pillar .body strong{color:var(--ink);font-weight:500}
+.pillar.dark{background:var(--ink);color:var(--paper)}
+.pillar.dark:hover{background:var(--burgundy)}
+.pillar.dark .roman{color:var(--ochre)}
+.pillar.dark .body{color:var(--paper-2)}
+.pillar.dark .body strong{color:var(--paper)}
 
-.yulia-block{margin-top:50px;padding:36px 40px;border:2px solid var(--bordeaux);background:var(--bg-2);display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:start}
-@media(max-width:780px){.yulia-block{grid-template-columns:1fr;gap:20px}}
-.yulia-block .yk{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--bordeaux);writing-mode:vertical-rl;transform:rotate(180deg);align-self:stretch;border-right:1.5px solid var(--bordeaux);padding-right:14px}
-@media(max-width:780px){.yulia-block .yk{writing-mode:horizontal-tb;transform:none;border-right:none;border-bottom:1.5px solid var(--bordeaux);padding:0 0 10px 0}}
-.yulia-block .yt{font-family:'DM Serif Display',serif;font-size:clamp(26px,2.8vw,38px);line-height:1.05;letter-spacing:-0.02em;margin-bottom:14px}
-.yulia-block .yt em{font-style:italic;color:var(--bordeaux)}
-.yulia-block .yp{font-size:clamp(16px,1.5vw,18px);line-height:1.55;color:var(--ink);max-width:62ch}
-.yulia-block .yp b{color:var(--bordeaux);font-weight:600}
+.yulia{display:grid;grid-template-columns:1fr 1.4fr;gap:0;margin-top:60px;border:1px solid var(--rule)}
+@media(max-width:860px){.yulia{grid-template-columns:1fr}}
+.yulia-img{background-image:url("https://images.unsplash.com/photo-1488161628813-67a8eb45cad8?w=1200&q=80&auto=format&fit=crop");background-size:cover;background-position:center;min-height:340px;position:relative;filter:grayscale(0.25) contrast(1.06)}
+.yulia-img::after{content:"";position:absolute;inset:0;background:rgba(20,15,12,0.12);mix-blend-mode:multiply}
+.yulia-text{padding:clamp(36px,4vw,56px);background:var(--paper);display:flex;flex-direction:column;justify-content:center;gap:18px}
+.yulia-text .micro{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--oxblood)}
+.yulia-text h4{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,40px);line-height:1.05;font-weight:500;max-width:18ch;margin:0}
+.yulia-text h4 em{font-style:italic;color:var(--oxblood)}
+.yulia-text p{font-size:16px;line-height:1.6;color:var(--ink-soft);margin:0;max-width:46ch}
 
-/* GROWTH MAP — bar comparison */
-.growth-wrap{margin-top:30px}
-.growth-head{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:0;border-top:2px solid var(--line);border-bottom:2px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--bordeaux);font-weight:600}
-.growth-head span{padding:14px 18px;border-right:1.5px solid var(--line)}
-.growth-head span:last-child{border-right:none}
-@media(max-width:780px){.growth-head{display:none}}
-.growth-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:0;border-bottom:1.5px solid var(--line);align-items:center;background:var(--cream);transition:background .2s}
-.growth-row:hover{background:var(--peach)}
-.growth-row > div{padding:22px 18px;border-right:1.5px solid var(--line);min-height:90px;display:flex;flex-direction:column;justify-content:center}
-.growth-row > div:last-child{border-right:none}
-@media(max-width:780px){.growth-row{grid-template-columns:1fr 1fr;gap:0}.growth-row .gr-name{grid-column:1/-1;background:var(--ink);color:var(--cream);min-height:auto;padding:14px 18px}.growth-row .gr-name .gr-label{color:var(--ochre)}}
-.gr-name{font-family:'DM Serif Display',serif;font-size:clamp(20px,2vw,26px);line-height:1.1;letter-spacing:-0.01em}
-.gr-name .gr-label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--bordeaux);font-weight:600;margin-bottom:5px}
-.gr-cell{position:relative}
-.gr-num{font-family:'DM Serif Display',serif;font-size:clamp(24px,2.4vw,34px);line-height:1;letter-spacing:-0.02em;color:var(--ink)}
-.gr-bar{height:6px;background:var(--bordeaux);margin-top:10px;max-width:100%}
-.gr-cell.zero .gr-num{color:var(--ink-soft);font-style:italic}
-.gr-cell.delta .gr-num{color:var(--bordeaux)}
-.gr-cell.delta .gr-bar{background:var(--ochre)}
-.growth-row.total{background:var(--ink);color:var(--cream)}
-.growth-row.total:hover{background:oklch(22% 0.04 35)}
-.growth-row.total .gr-name{color:var(--cream)}
-.growth-row.total .gr-name .gr-label{color:var(--ochre)}
-.growth-row.total .gr-num{color:var(--cream);font-size:clamp(28px,2.8vw,40px)}
-.growth-row.total .gr-cell.delta .gr-num{color:var(--ochre)}
-.growth-row.total > div{border-right-color:rgba(255,255,255,0.18)}
-.growth-foot{margin-top:30px;padding:24px 28px;border:2px solid var(--line);background:var(--bg-2);font-size:clamp(16px,1.5vw,19px);line-height:1.5}
-.growth-foot b{color:var(--bordeaux);font-weight:600}
+.roadmap{margin-top:30px}
+.road-row{display:grid;grid-template-columns:200px 1fr 1fr 110px;align-items:center;gap:0;padding:22px 0;border-bottom:1px solid var(--rule-soft);position:relative}
+.road-row:first-child{border-top:1px solid var(--rule)}
+.road-row.head{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-muted);padding:14px 0;border-bottom:1px solid var(--rule)}
+.road-row.total{background:var(--ink);color:var(--paper);margin-top:8px;padding:24px 18px;border:none}
+.road-row.total .road-name,.road-row.total .road-delta{color:var(--paper)}
+.road-row.total .road-name b{color:var(--ochre)}
+.road-row .road-name{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,1.9vw,26px);font-weight:500;line-height:1.05;padding-right:14px}
+.road-row .road-name b{color:var(--oxblood);font-weight:500;font-style:italic}
+.road-row .road-name span.tag{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);margin-top:4px;font-weight:400}
+.road-row .bar-wrap{position:relative;height:32px;display:flex;align-items:center;padding-right:14px}
+.road-row .bar{height:14px;background:var(--oxblood);position:relative;display:flex;align-items:center}
+.road-row.total .bar{background:var(--ochre)}
+.road-row .bar.delta{background:var(--ochre)}
+.road-row .bar .num{position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap}
+.road-row.total .bar .num{color:var(--paper)}
+.road-row .road-delta{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,28px);font-weight:500;color:var(--moss);text-align:right;font-style:italic}
+.road-row.zero .bar{background:var(--rule-soft);width:2% !important}
+.road-row.zero .bar .num{color:var(--ink-muted);font-style:italic}
+@media(max-width:860px){.road-row{grid-template-columns:1fr;gap:8px}.road-row.head{display:none}.road-row .bar-wrap{padding-right:0}.road-row .road-delta{text-align:left;padding-top:4px}.road-row.total{padding:20px 16px}}
 
-/* FIXES GRID */
-.fixes-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:20px}
-@media(max-width:980px){.fixes-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:580px){.fixes-grid{grid-template-columns:1fr}}
-.fix{border-right:2px solid var(--line);border-bottom:2px solid var(--line);padding:32px 28px;display:flex;flex-direction:column;gap:14px;background:var(--cream);position:relative;min-height:340px;transition:background .2s,transform .2s}
-.fix:hover{background:var(--peach);transform:translateY(-4px)}
-.fix-1,.fix-3,.fix-5{grid-column:span 4}
-.fix-2,.fix-4{grid-column:span 2}
-.fix-6{grid-column:span 3;background:var(--peach)}
-.fix-6:hover{background:var(--ochre)}
-.fix-7{grid-column:span 3;background:var(--ink);color:var(--cream)}
-.fix-7 .f-num,.fix-7 .f-tag,.fix-7 .f-name em{color:var(--ochre)}
-.fix-7:hover{background:oklch(22% 0.04 35);transform:translateY(-4px)}
-@media(max-width:980px){.fix-1,.fix-2,.fix-3,.fix-4,.fix-5,.fix-6,.fix-7{grid-column:span 1}}
-.f-num{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,56px);line-height:0.9;color:var(--bordeaux)}
-.f-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--bordeaux)}
-.f-name{font-family:'DM Serif Display',serif;font-size:clamp(24px,2.6vw,36px);line-height:1.02;letter-spacing:-0.02em}
-.f-name em{font-style:italic;color:var(--bordeaux)}
-.f-desc{font-size:15px;line-height:1.5;flex:1}
-.f-foot{padding-top:14px;border-top:1.5px solid currentColor;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;display:flex;gap:18px;flex-wrap:wrap}
-.f-foot b{color:var(--bordeaux);font-weight:600}
-.fix-7 .f-foot b{color:var(--ochre)}
+.dispatches{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--rule)}
+.dispatch{display:grid;grid-template-columns:140px 1fr 320px;border-bottom:1px solid var(--rule);padding:46px 0;gap:clamp(24px,3vw,50px);position:relative;transition:background .25s}
+.dispatch:hover{background:var(--paper-2)}
+.dispatch .d-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(60px,6vw,96px);line-height:0.9;color:var(--oxblood)}
+.dispatch .d-body{padding-right:14px}
+.dispatch .d-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px}
+.dispatch .d-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,42px);line-height:1.05;font-weight:500;letter-spacing:-0.01em;margin:0 0 14px;max-width:22ch}
+.dispatch .d-title em{font-style:italic;color:var(--oxblood)}
+.dispatch .d-text{font-size:16px;line-height:1.62;color:var(--ink-soft);margin:0;max-width:60ch}
+.dispatch .d-text strong{color:var(--ink);font-weight:500}
+.dispatch .d-side{border-left:1px solid var(--rule-soft);padding-left:24px;display:flex;flex-direction:column;gap:10px;align-self:start}
+.dispatch .d-side .row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:13px;line-height:1.4}
+.dispatch .d-side .row .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-muted)}
+.dispatch .d-side .row .v{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--ink);text-align:right}
+.dispatch .d-side .row .v em{font-style:italic;color:var(--oxblood)}
+@media(max-width:980px){.dispatch{grid-template-columns:80px 1fr;gap:18px}.dispatch .d-side{grid-column:1/-1;border-left:none;border-top:1px solid var(--rule-soft);padding:18px 0 0;margin-top:6px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}}
+@media(max-width:560px){.dispatch .d-side{grid-template-columns:1fr}}
 
-/* PANEL TABLE */
-.mx-wrap{overflow-x:auto;border:2px solid var(--line);background:var(--cream);margin-top:20px}
-table.mx{width:100%;border-collapse:collapse;font-size:15px;min-width:640px}
-table.mx th,table.mx td{text-align:left;padding:18px 20px;border-bottom:1.5px solid var(--line);vertical-align:top}
-table.mx th{background:var(--ink);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;font-weight:600}
-table.mx tr:last-child td{border-bottom:none}
-table.mx td:first-child{font-weight:500;font-family:'DM Serif Display',serif;font-size:20px;line-height:1.15;letter-spacing:-0.01em}
-table.mx td.res{color:var(--bordeaux);font-weight:500}
-table.mx td.res b{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;background:var(--bordeaux);color:var(--cream);padding:3px 8px;display:inline-block;margin-right:8px;font-weight:600}
+/* PANEL — extended */
+.panel-intro{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,1.95vw,28px);line-height:1.4;max-width:64ch;color:var(--ink-soft);margin:0 0 50px}
+.experts{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--rule);border-left:1px solid var(--rule);margin-bottom:60px}
+@media(max-width:860px){.experts{grid-template-columns:1fr}}
+.expert{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:32px 30px 36px;background:var(--paper);display:flex;flex-direction:column;gap:14px;transition:background .25s}
+.expert:hover{background:var(--paper-2)}
+.expert .e-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid var(--rule-soft);padding-bottom:12px}
+.expert .e-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-style:italic;font-weight:500;color:var(--oxblood);line-height:1}
+.expert .e-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);text-align:right;max-width:14ch}
+.expert h4{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.4vw,32px);font-weight:500;line-height:1.08;margin:0;max-width:16ch}
+.expert h4 em{font-style:italic;color:var(--oxblood)}
+.expert .e-block{display:grid;grid-template-columns:80px 1fr;gap:14px;font-size:14.5px;line-height:1.55}
+.expert .e-block .k{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);padding-top:3px}
+.expert .e-block .v{color:var(--ink-soft)}
+.expert .e-block .v strong{color:var(--ink);font-weight:500}
+.expert .e-block .v em{font-style:italic;color:var(--oxblood)}
+.expert .e-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;line-height:1.4;color:var(--ink);border-left:2px solid var(--oxblood);padding:6px 0 6px 14px;margin-top:6px}
 
-/* AUDIT / FIRST STEP */
-.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border-top:1.5px solid var(--line);border-left:1.5px solid var(--line);margin-top:30px;counter-reset:audit}
-.audit-item{padding:28px 26px 30px;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);background:var(--cream);display:grid;gap:12px;counter-increment:audit;position:relative;min-height:200px}
-.audit-item::before{content:counter(audit,decimal-leading-zero);font-family:'DM Serif Display',serif;font-size:42px;color:var(--bordeaux);line-height:1}
-.audit-item .t{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.1;letter-spacing:-0.01em}
-.audit-item .d{font-size:14px;color:var(--ink-soft);line-height:1.5}
-.audit-foot{margin-top:36px;padding:30px clamp(28px,4vw,50px);border:2px solid var(--line);background:var(--bg-2);font-size:clamp(17px,1.6vw,21px);line-height:1.5}
-.audit-foot b{color:var(--bordeaux);font-weight:600}
+.conflicts-h{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.5vw,34px);font-weight:500;line-height:1.1;margin:0 0 18px;font-style:italic}
+.conflicts-h em{color:var(--oxblood)}
+.panel-table{width:100%;border-collapse:collapse;font-size:14.5px}
+.panel-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-muted);font-weight:500;text-align:left;padding:14px 18px;border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.panel-table tbody td{padding:18px 18px;border-bottom:1px solid var(--rule-soft);vertical-align:top;line-height:1.5;color:var(--ink)}
+.panel-table tbody td:first-child{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--oxblood);font-weight:500;white-space:nowrap}
+.panel-table tbody td.resolution{font-family:'JetBrains Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--moss);font-weight:600}
+@media(max-width:780px){.panel-table thead{display:none}.panel-table tr{display:block;margin-bottom:18px;border:1px solid var(--rule-soft);padding:8px 12px}.panel-table td{display:block;border:none;padding:6px 0}.panel-table tbody td:first-child{font-size:22px}}
 
-/* NUMBERS REQUEST */
-.numbers-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:2px solid var(--line);border-left:2px solid var(--line);margin-top:20px}
-@media(max-width:1100px){.numbers-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.numbers-grid{grid-template-columns:1fr}}
-.numreq{padding:30px 26px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--cream);display:flex;flex-direction:column;gap:14px;min-height:240px;transition:background .2s}
-.numreq:hover{background:var(--peach)}
-.numreq .n{font-family:'DM Serif Display',serif;font-size:54px;line-height:0.9;color:var(--bordeaux);letter-spacing:-0.02em}
-.numreq .t{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bordeaux)}
-.numreq .h{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.1;letter-spacing:-0.01em}
-.numreq .d{font-size:14px;line-height:1.5;color:var(--ink-soft);margin-top:auto}
-.numbers-note{margin-top:30px;padding:24px 28px;border-left:4px solid var(--bordeaux);background:var(--cream);font-size:clamp(16px,1.5vw,19px);line-height:1.5;font-style:italic;max-width:80ch}
+.priority{margin-top:60px;padding:32px clamp(24px,4vw,46px);background:var(--ink);color:var(--paper);border-left:4px solid var(--ochre)}
+.priority h4{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2vw,30px);font-weight:500;font-style:italic;margin:0 0 20px;color:var(--paper)}
+.priority h4 em{color:var(--ochre)}
+.priority ol{list-style:none;padding:0;margin:0;counter-reset:p;display:grid;grid-template-columns:repeat(3,1fr);gap:14px 26px}
+@media(max-width:780px){.priority ol{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.priority ol{grid-template-columns:1fr}}
+.priority li{counter-increment:p;font-size:14.5px;line-height:1.4;color:var(--paper-2);padding-left:30px;position:relative;font-family:'Inter',sans-serif}
+.priority li::before{content:counter(p);position:absolute;left:0;top:-2px;font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;font-weight:500;color:var(--ochre);width:22px;text-align:right}
 
-/* CONTACT FOOTER */
-footer{padding:clamp(60px,9vw,120px) clamp(20px,5vw,80px);background:var(--ink);color:var(--cream);display:grid;gap:40px}
-footer .ftop{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;align-items:end}
-@media(max-width:880px){footer .ftop{grid-template-columns:1fr}}
-footer h3{font-family:'DM Serif Display',serif;font-size:clamp(36px,5.5vw,72px);color:var(--cream);max-width:18ch;letter-spacing:-0.02em;line-height:1}
-footer h3 em{color:var(--ochre);font-style:italic}
-footer .fnote{font-size:16px;line-height:1.5;color:oklch(85% 0.04 80);max-width:48ch}
-footer a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
-footer a:hover{color:var(--ochre)}
-.fcontacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;padding-top:30px;border-top:1px solid rgba(255,255,255,0.18);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.06em}
-.fcontacts b{display:block;color:var(--ochre);margin-bottom:10px;font-weight:600;letter-spacing:0.14em;font-size:11px;text-transform:uppercase}
-.fmeta{font-size:11px;opacity:0.55;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace;text-transform:uppercase;border-top:1px solid rgba(255,255,255,0.12);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.step{display:grid;grid-template-columns:0.7fr 1.6fr;gap:clamp(30px,5vw,70px);align-items:start}
+@media(max-width:860px){.step{grid-template-columns:1fr}}
+.step-left{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(28px,3.5vw,52px);line-height:1.05;font-weight:500}
+.step-left em{color:var(--oxblood);font-style:italic}
+.step-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--rule)}
+.step-list li{display:grid;grid-template-columns:60px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--rule-soft);align-items:start}
+.step-list li .n{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:var(--oxblood);font-weight:600;padding-top:5px}
+.step-list li .t h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;line-height:1.15;margin:0 0 6px}
+.step-list li .t p{margin:0;color:var(--ink-soft);font-size:15px;line-height:1.55;max-width:60ch}
+
+.req-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--rule);border-left:1px solid var(--rule);margin-top:20px}
+@media(max-width:1100px){.req-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.req-grid{grid-template-columns:1fr}}
+.req{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:28px 24px;background:var(--paper);display:flex;flex-direction:column;gap:14px;min-height:200px}
+.req .n{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:var(--oxblood);font-weight:600}
+.req h4{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;line-height:1.1;margin:0;max-width:18ch}
+.req p{margin:0;color:var(--ink-muted);font-size:13.5px;line-height:1.5;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+
+.colophon{background:var(--ink);color:var(--paper);padding:clamp(60px,9vw,130px) clamp(20px,5vw,80px);border-bottom:none}
+.colophon .folio{color:var(--paper);opacity:0.07}
+.colophon .kicker{color:var(--ochre)}
+.colophon .kicker .rule-h{background:rgba(255,255,255,0.18)}
+.colophon .section-title{color:var(--paper)}
+.colophon .section-title em{color:var(--ochre)}
+.colophon-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(30px,5vw,70px);margin-top:50px}
+@media(max-width:860px){.colophon-grid{grid-template-columns:1fr}}
+.colophon-letter{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,2.4vw,32px);line-height:1.4;font-weight:400;max-width:36ch;color:var(--paper)}
+.colophon-letter em{color:var(--ochre);font-style:italic}
+.contacts{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,0.18)}
+.contacts .row{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.12);align-items:baseline}
+.contacts .row .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ochre)}
+.contacts .row .v{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;font-style:italic}
+.contacts .row .v a{color:var(--paper);text-decoration-color:rgba(255,255,255,0.3)}
+.contacts .row .v a:hover{color:var(--ochre);text-decoration-color:var(--ochre)}
+.imprint{margin-top:60px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.18);font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.imprint b{color:var(--ochre)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <span class="brand">ТЗ → СЕРГЕЙ · YOUTRAVEL</span>
-  <a href="#hello">00 Здравствуйте</a>
-  <a href="#context">01 Контекст</a>
-  <a href="#brand">02 Бренд</a>
-  <a href="#growth">03 Рост</a>
-  <a href="#fixes">04 Семь фиксов</a>
-  <a href="#panel">05 Панель</a>
-  <a href="#audit">06 Первый шаг</a>
-  <a href="#numbers">07 Цифры</a>
-  <a href="#contact">08 Контакт</a>
-</nav>
-
-<header class="hero">
-  <svg class="hero-geom" viewBox="0 0 420 420" aria-hidden="true">
-    <circle cx="210" cy="210" r="180" fill="none" stroke="oklch(42% 0.15 25)" stroke-width="2"/>
-    <rect x="60" y="60" width="300" height="300" fill="none" stroke="oklch(18% 0.02 40)" stroke-width="1.5" stroke-dasharray="6 8"/>
-    <polygon points="210,60 360,300 60,300" fill="oklch(72% 0.14 75)" opacity="0.55"/>
-    <line x1="60" y1="300" x2="360" y2="60" stroke="oklch(42% 0.15 25)" stroke-width="2"/>
-    <circle cx="210" cy="210" r="8" fill="oklch(42% 0.15 25)"/>
-    <circle cx="60" cy="60" r="4" fill="oklch(18% 0.02 40)"/>
-    <circle cx="360" cy="360" r="4" fill="oklch(18% 0.02 40)"/>
-  </svg>
-
-  <span class="hero-eyebrow">мысли вслух · апрель 2026 · YouTravel.me · для Сергея</span>
-
-  <h1 class="hero-head">Из 350 миллионов <em>в миллиард</em> — путь, который проходят брендом, а не бюджетом.</h1>
-
-  <p class="hero-pitch">Категория multi-day авторских путешествий уже выиграна — AOV 140к это не битва с Трипстером. Задача другая: масштабировать то, что работает, и закрыть три дыры, через которые утекает рост. Семь фиксов и карта пути на 24 месяца.</p>
-
-  <div class="hero-meta">
-    <div><b>GMV</b><span class="num">3.5</span>млрд ₽ годовой оборот</div>
-    <div><b>Выручка</b><span class="num">350</span>млн ₽ комиссия ≈10%</div>
-    <div><b>Клиенты</b><span class="num">23k</span>уникальных, 25k бронирований</div>
-    <div><b>Цель Y2</b><span class="num">1</span>млрд ₽ выручки · ×2.85</div>
-  </div>
+<header class="masthead">
+  <div class="left">Зинин · Издание 01</div>
+  <div class="center">мысли вслух</div>
+  <div class="right">Апрель 2026 · Выпуск для Сергея</div>
 </header>
 
-<!-- 00 HELLO -->
-<section class="hello" id="hello">
-  <span class="sec-num">00</span>
+<nav class="nav">
+  <a href="#editorial"><span class="num">I</span> ОТ АВТОРА</a>
+  <a href="#context"><span class="num">II</span> КОНТЕКСТ</a>
+  <a href="#brand"><span class="num">III</span> БРЕНД</a>
+  <a href="#road"><span class="num">IV</span> 350 → 1 000</a>
+  <a href="#dispatches"><span class="num">V</span> СЕМЬ ДЕПЕШ</a>
+  <a href="#panel"><span class="num">VI</span> ПАНЕЛЬ</a>
+  <a href="#step"><span class="num">VII</span> ПЕРВЫЙ ШАГ</a>
+  <a href="#data"><span class="num">VIII</span> ЦИФРЫ</a>
+  <a href="#contact"><span class="num">IX</span> КОНТАКТ</a>
+</nav>
+
+<section class="cover">
+  <div class="cover-meta">
+    <div><b>YouTravel · Сергей Пахомов</b></div>
+    <div>Тираж — 1 экз. Только для адресата.</div>
+    <div>timzinin.com / sergey-marketplace</div>
+  </div>
+  <div class="cover-mid">
+    <h1 class="cover-title">Из 350 миллионов <em>в миллиард.</em></h1>
+    <p class="cover-deck">Путь, который проходят брендом, а не бюджетом. Семь мест, где YouTravel вырастет в три раза за два года, без лобовой драки с Трипстером. Мысли вслух, первый подход к снаряду.</p>
+  </div>
+  <div class="cover-foot">
+    <div class="stat"><div class="k">GMV / 2025</div><div class="v"><em>3,5</em> млрд&nbsp;₽</div></div>
+    <div class="stat"><div class="k">Выручка</div><div class="v"><em>350</em> млн&nbsp;₽</div></div>
+    <div class="stat"><div class="k">Клиенты</div><div class="v"><em>23</em>&thinsp;000</div></div>
+    <div class="stat"><div class="k">Цель Y2</div><div class="v"><em>1</em>&thinsp;000 млн&nbsp;₽</div></div>
+  </div>
+</section>
+
+<div class="band" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=2000&q=80&auto=format&fit=crop')">
+  <div class="caption">Камчатка · кадр из тура автора платформы</div>
+  <div class="pull">Авторские путешествия продают состояние, а не маршрут.</div>
+</div>
+
+<section id="editorial">
+  <div class="folio">I</div>
+  <div class="kicker"><span class="ch">Глава I</span><span class="rule-h"></span><span>От автора</span></div>
+  <h2 class="section-title">Сергей, <em>добрый день.</em></h2>
+  <p class="section-deck">Первый подход к снаряду. Не запрос «давайте созвонимся», а попытка показать, как я думаю — до того, как мы решим, нужны ли друг другу.</p>
+
   <div class="hello-grid">
-    <div class="hello-photo">
-      <div class="frame">
-        <div class="ph-stub">PHOTO · TIM ZININ</div>
-      </div>
-      <div class="hello-sig">
-        <b>Тимофей Зинин</b>
-        оператор · стратег · Каш, Анталья<br>
-        пишу сам, не делегирую
+    <div>
+      <div class="portrait" aria-label="Тим Зинин"></div>
+      <div class="cap">
+        <b>Тимофей Зинин</b><br>
+        Маркетинг и продукт. Каш, Турция.<br>
+        Был директором по маркетингу СБОРКИ. Делаю Friends Protocol, MCPHire, ещё несколько вещей. Помогаю зарабатывать там, где уже работает — через бренд, не через рекламный бюджет.
       </div>
     </div>
     <div class="hello-text">
-      <span class="eyebrow">00 — Здравствуйте, Сергей</span>
-      <h2>Меня зовут Тим. Это <em>не презентация</em> — это мысли вслух.</h2>
-      <p>Я делаю операционную и маркетинговую работу для компаний, где нужно одновременно держать продукт, бренд, дистрибуцию и юр-периметр. Чаще всего — туда зовут, когда лобовая стратегия не работает, а денег на эксперименты осталось на полгода. У вас другая ситуация — вы не в кризисе, вы перед окном масштабирования.</p>
-      <p>Про YouTravel.me я знаю основное: GMV 3.5 млрд, выручка 350 млн, AOV 140к, ЦА — женщины 25-45, фаундер-пара, цель — миллиард за два года. Этого хватает, чтобы написать первый набросок. <b>План я перепишу под вашу реальность, когда увижу пять цифр в конце документа.</b></p>
-      <p>Я не предлагаю рекламу, ставки на performance или ребрендинг как самоцель. Я предлагаю посмотреть на категорию и сказать: <b>AOV 140к = категория уже выиграна</b>. Multi-day авторские путешествия — ваша. Дальше — не позиционная битва, а масштабирование через бренд, repeat и три новых полки.</p>
-      <p class="kicker">→ Прокрутите вниз. Если хотя бы один из семи фиксов резонирует — напишите.</p>
+      <p>Я работаю один. Иногда с одним-двумя людьми, когда задача того требует. Делаю одну вещь хорошо: смотрю на бизнес с выручкой, нахожу два-три места утечки роста, помогаю эти места закрыть. Без агентских презентаций и квартальных дисконтов.</p>
+      <p>За YouTravel слежу полтора года. Вы построили категорию, в которую не пускают холодных. Имя — самое человеческое в нише. Юля как фронтлайн бренда — структурный актив, такие за деньги не строят. Это сочетание я не нанимаю на рынке. Я докручиваю то, что уже стоит.</p>
+      <p>Этот выпуск — что я бы фиксил, если бы YouTravel был мой. Цифры — гипотезы на ваших данных. Поэтому в конце прошу пять чисел. Без них любой план превращается в гадание.</p>
+      <div class="sig">
+        <span class="italic">— </span><span class="name italic">Тим</span>
+        <span class="where">29 апреля 2026 · Каш, Турция</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 01 CONTEXT — что у нас на руках -->
+<div class="band" style="background-image:url('https://images.unsplash.com/photo-1542882616-1b3e2dab30b9?w=2000&q=80&auto=format&fit=crop')">
+  <div class="caption">Алтай · многодневный поход, ЦА women 25-45</div>
+  <div class="pull">AOV сто сорок тысяч — другая категория. Категория уже выиграна.</div>
+</div>
+
 <section id="context">
-  <span class="sec-num">01</span>
-  <span class="eyebrow">01 — Контекст</span>
-  <h2 class="sec-title">Что у нас <em>на руках</em>.</h2>
-  <p class="lead">Восемь чисел, от которых отстраивается всё остальное. Без них любая стратегия — гадание по индустрии, а индустрия в среднем не похожа на YouTravel.me. С ними — можно считать рычаги, P&L, CAC и payback.</p>
+  <div class="folio">II</div>
+  <div class="kicker"><span class="ch">Глава II</span><span class="rule-h"></span><span>Контекст</span></div>
+  <h2 class="section-title">Что у нас <em>на руках.</em></h2>
+  <p class="section-deck">Восемь чисел, на которые я опираюсь. Все — с ваших слов, проверять не успел. Поправьте, если что-то сместилось.</p>
 
-  <div class="snap-grid">
-    <div class="snap-card">
-      <span class="k">GMV</span>
-      <span class="v">3.5 млрд ₽</span>
-      <span class="h">годовой оборот</span>
-    </div>
-    <div class="snap-card">
-      <span class="k">Выручка</span>
-      <span class="v">350 млн ₽</span>
-      <span class="h">комиссия ≈10%</span>
-    </div>
-    <div class="snap-card">
-      <span class="k">Бронирований</span>
-      <span class="v">25 000</span>
-      <span class="h">за период</span>
-    </div>
-    <div class="snap-card">
-      <span class="k">Клиентов</span>
-      <span class="v">23 000</span>
-      <span class="h">уникальных</span>
-    </div>
-    <div class="snap-card">
-      <span class="k">Repeat rate</span>
-      <span class="v">~8%</span>
-      <span class="h">2-я+ покупка · главный рычаг</span>
-    </div>
-    <div class="snap-card">
-      <span class="k">AOV</span>
-      <span class="v">140 000 ₽</span>
-      <span class="h">средний чек одной поездки</span>
-    </div>
-    <div class="snap-card">
-      <span class="k">ЦА</span>
-      <span class="v">Ж · 25–45</span>
-      <span class="h">городская одиночка / пара без детей</span>
-    </div>
-    <div class="snap-card goal">
-      <span class="k">Цель Y2</span>
-      <span class="v">1 млрд ₽</span>
-      <span class="h">выручки · ×2.85 рост</span>
-    </div>
+  <div class="numbers-grid">
+    <div class="num-cell"><div class="label">GMV / 2025</div><div class="value">3,5</div><div class="unit">миллиарда рублей</div></div>
+    <div class="num-cell"><div class="label">Выручка / 2025</div><div class="value">350</div><div class="unit">млн ₽ · комиссия ≈ 10%</div></div>
+    <div class="num-cell"><div class="label">Бронирования</div><div class="value">25 000</div><div class="unit">за 2025 год</div></div>
+    <div class="num-cell"><div class="label">Уникальные клиенты</div><div class="value">23 000</div><div class="unit">repeat ≈ 1,09</div></div>
+    <div class="num-cell"><div class="label">Repeat rate</div><div class="value"><em>8%</em></div><div class="unit">главная утечка LTV</div></div>
+    <div class="num-cell"><div class="label">AOV</div><div class="value">140</div><div class="unit">тысяч рублей</div></div>
+    <div class="num-cell"><div class="label">Целевая аудитория</div><div class="value" style="font-size:clamp(28px,3.4vw,46px)">женщины <em>25–45</em></div><div class="unit">соло / пары без детей</div></div>
+    <div class="num-cell target"><div class="label">Цель / два года</div><div class="value"><em>1 000</em></div><div class="unit">млн ₽ · ×2,85</div></div>
   </div>
 
-  <div class="context-note"><b>AOV 140к — это не категория Трипстера.</b> Категория уже выиграна — multi-day авторские путешествия. В кейсе нет этапа «уходить от city tours», его не нужно проходить. Задача другая: масштабировать то, что работает, и закрыть три дыры, через которые утекает рост.</div>
+  <div class="note-block">AOV 140 тысяч — другая категория. У Трипстера экскурсия 2–4 часа за 3–5 тысяч. У вас — семидневная экспедиция за 140. Драка идёт за разное. Категория уже ваша, утекает другое: <strong>повторные продажи и новые полки выручки.</strong></div>
 </section>
 
-<!-- 02 BRAND PILLARS -->
 <section id="brand">
-  <span class="sec-num">02</span>
-  <span class="eyebrow">02 — Упаковка</span>
-  <h2 class="sec-title">Бренд — <em>три</em> столпа, на которых стоит You·Travel.</h2>
-  <p class="lead pillars-lead">У вас есть то, чего нет у конкурентов: <b>самое человеческое имя в категории</b>. Не «Трипстер» (трип + растер, технологично-холодное), не «Большая Страна» (про объект, не про человека). <b>You Travel — про вас. С автором.</b> Это уже половина бренда. Дальше — три столпа, на которых надо стоять и через которые упаковывать всё.</p>
+  <div class="folio">III</div>
+  <div class="kicker"><span class="ch">Глава III</span><span class="rule-h"></span><span>Упаковка</span></div>
+  <h2 class="section-title">Бренд держится на <em>трёх столпах.</em></h2>
+  <p class="section-deck">Имя у вас уже самое человеческое в категории. You·Travel — про вас, с автором. Половина бренда сделана. Дальше держимся на трёх столпах. Через них упаковываем главную, каталог, email, посты в TG, подпись Юли — всё.</p>
 
   <div class="pillars">
     <div class="pillar">
-      <span class="p-num">01</span>
-      <span class="p-tag">Эмоция · обещание</span>
-      <h3 class="p-name">Яркость <em>впечатления</em>.</h3>
-      <p class="p-desc">Не «тур», а впечатление, которое меняет год. Камчатка — не точка на карте, а состояние на 7 дней. Бренд должен звучать как обещание эмоции, а не как сервис бронирования. На главной — не каталог и не «найти тур», а одно изображение и одна фраза, которая бьёт по тому, чего ждёт женщина 25-45 от путешествия в 2026 году.</p>
-      <div class="p-foot"><b>Метрика</b> · ассоциативная узнаваемость, brand search</div>
+      <div class="roman">I</div>
+      <h3>Яркость <em>впечатления</em></h3>
+      <p class="body">Продаём состояние, которое меняет год. Камчатка — не точка на карте, а семь дней одной женщины со своей жизнью. Главная страница продаёт <strong>обещание эмоции</strong>, не каталог фильтров. Одна фотография, одна фраза, которая попадает в то, чего ждёт женщина 25–45 от путешествия в&nbsp;2026.</p>
     </div>
-
     <div class="pillar">
-      <span class="p-num">02</span>
-      <span class="p-tag">Авторы · сообщество</span>
-      <h3 class="p-name">Человеческий <em>элемент</em>.</h3>
-      <p class="p-desc">Авторы — не «гид #2456», а персонажи. У каждого — именная витрина (как у блогера), история, лицо, голос, своя география, свой тип группы. Сообщество — не функция, а сам продукт: закрытые встречи авторов и клиентов, ежегодный YouTravel Fest, клубные ретриты. У Трипстера это технически невозможно — другая операционка. Это не догнать, это другой класс продукта.</p>
-      <div class="p-foot"><b>Метрика</b> · NPS, repeat, peer-to-peer referral</div>
+      <div class="roman">II</div>
+      <h3>Человеческий <em>элемент</em></h3>
+      <p class="body">Авторы — персонажи, не позиции в каталоге. У каждого <strong>именная витрина</strong>: история, лицо, голос, своя география, свой формат группы. Сообщество работает как продукт: закрытые встречи, ежегодный YouTravel Fest, клубные ретриты с фаундером. У Трипстера это структурно невозможно — у них шаблон и поток.</p>
     </div>
-
-    <div class="pillar">
-      <span class="p-num">03</span>
-      <span class="p-tag">UX · кураторство</span>
-      <h3 class="p-name">Лёгкость <em>выбора</em>.</h3>
-      <p class="p-desc">При 3000+ туров в каталоге выбрать — больно. Конкуренты прячут это за поиском и фильтрами. Выигрывает тот, кто избавит женщину 25-45 от выбора: «Тест из 6 вопросов → 3 тура, которые точно про вас». «Подборка от Юлии: 7 туров, которые мы сами бы поехали этой осенью». <em>Куратор &gt; поисковик.</em> Это и про конверсию, и про бренд: «они выбирают за меня то, что мне подходит».</p>
-      <div class="p-foot"><b>Метрика</b> · visit→booking, время до решения</div>
+    <div class="pillar dark">
+      <div class="roman">III</div>
+      <h3>Лёгкость <em>выбора</em></h3>
+      <p class="body">При 3 000+ туров выбор — больно. Конкуренты прячут боль за фильтры. Выигрывает тот, кто <strong>избавит от выбора</strong>: тест из 6 вопросов → 3 тура, которые точно про вас. Подборка от Юли. Куратор обгоняет поисковик. Это и UX, и месседж бренда: «вам подберут».</p>
     </div>
   </div>
 
-  <div class="yulia-block">
-    <span class="yk">Структурный актив</span>
-    <div>
-      <h3 class="yt">Юля как фронтлайн бренда — это не маркетинг, это <em>структура</em>.</h3>
-      <p class="yp">В категории, где ЦА — женщины 25-45, женщина-основатель в публичной плоскости работает как <b>signal of trust первого порядка</b>. Лицо Юли в коммуникациях, личный TG-канал, регулярные видео-обращения, intro-видео в каждом туре от автора — всё это умножает доверие и снижает CAC. Это нельзя нанять и нельзя купить. Это либо есть, либо нет. У вас — есть. Использовать его как ось, а не как вспомогательный канал.</p>
+  <div class="yulia">
+    <div class="yulia-img" aria-label="Photo placeholder"></div>
+    <div class="yulia-text">
+      <div class="micro">Структурный актив бренда</div>
+      <h4>Юля — лицо <em>YouTravel</em>.</h4>
+      <p>В категории, где целевая — женщины 25–45, женщина-основательница работает как сильнейший signal of trust. Структурный актив, не маркетинговая активация. Лицо Юли в коммуникациях, личный TG, intro-видео в каждом туре, регулярные обращения — снижают CAC и поднимают доверие. У Трипстера такого нет. За полгода такое не строится. У вас уже есть. Потерять нельзя.</p>
     </div>
   </div>
 </section>
 
-<!-- 03 GROWTH MAP -->
-<section id="growth">
-  <span class="sec-num">03</span>
-  <span class="eyebrow">03 — Рост</span>
-  <h2 class="sec-title">Из 350 миллионов <em>в миллиард</em>.</h2>
-  <p class="lead">Целевые блоки выручки на конец Year 2. Math работает, если параллельно отработать четыре рычага из секции «Семь фиксов». Главное здесь: ×2.85 рост — это не один большой канал, это пять параллельных движений с разной скоростью и разным риском.</p>
+<div class="band" style="background-image:url('https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=2000&q=80&auto=format&fit=crop')">
+  <div class="caption">Карелия · северное сияние</div>
+  <div class="pull">Миллиард — это четыре блока выручки вместо одного. Утроить core невозможно.</div>
+</div>
 
-  <div class="growth-wrap">
-    <div class="growth-head">
-      <span>Блок выручки</span>
-      <span>Year 0</span>
-      <span>Year 2</span>
-      <span>Дельта</span>
-    </div>
+<section id="road">
+  <div class="folio">IV</div>
+  <div class="kicker"><span class="ch">Глава IV</span><span class="rule-h"></span><span>Карта пути</span></div>
+  <h2 class="section-title">Из 350 миллионов <em>в миллиард.</em></h2>
+  <p class="section-deck">Утроить core-маркетплейс в чистом виде нельзя — CAC сожрёт юнит-экономику. Поэтому миллиард собирается из пяти блоков. Core растёт умеренно, четыре новых полки добавляют 330 миллионов к сумме.</p>
 
-    <div class="growth-row">
-      <div class="gr-name"><span class="gr-label">основа</span>Core B2C · бронирования</div>
-      <div class="gr-cell"><span class="gr-num">350 М</span><div class="gr-bar" style="width:32%"></div></div>
-      <div class="gr-cell"><span class="gr-num">720 М</span><div class="gr-bar" style="width:67%"></div></div>
-      <div class="gr-cell delta"><span class="gr-num">+370 М</span><div class="gr-bar" style="width:51%"></div></div>
-    </div>
-
-    <div class="growth-row">
-      <div class="gr-name"><span class="gr-label">новая полка</span>B2B incentive (sub-brand)</div>
-      <div class="gr-cell zero"><span class="gr-num">0</span></div>
-      <div class="gr-cell"><span class="gr-num">100 М</span><div class="gr-bar" style="width:9%"></div></div>
-      <div class="gr-cell delta"><span class="gr-num">+100 М</span><div class="gr-bar" style="width:14%"></div></div>
-    </div>
-
-    <div class="growth-row">
-      <div class="gr-name"><span class="gr-label">новая география</span>International · RU за рубежом</div>
-      <div class="gr-cell zero"><span class="gr-num">0</span></div>
-      <div class="gr-cell"><span class="gr-num">80 М</span><div class="gr-bar" style="width:7%"></div></div>
-      <div class="gr-cell delta"><span class="gr-num">+80 М</span><div class="gr-bar" style="width:11%"></div></div>
-    </div>
-
-    <div class="growth-row">
-      <div class="gr-name"><span class="gr-label">membership</span>Travel Club · recurring</div>
-      <div class="gr-cell zero"><span class="gr-num">0</span></div>
-      <div class="gr-cell"><span class="gr-num">80 М</span><div class="gr-bar" style="width:7%"></div></div>
-      <div class="gr-cell delta"><span class="gr-num">+80 М</span><div class="gr-bar" style="width:11%"></div></div>
-    </div>
-
-    <div class="growth-row">
-      <div class="gr-name"><span class="gr-label">премиум</span>Premium tier · 200k+ AOV</div>
-      <div class="gr-cell"><span class="gr-num">~30 М</span><div class="gr-bar" style="width:3%"></div></div>
-      <div class="gr-cell"><span class="gr-num">100 М</span><div class="gr-bar" style="width:9%"></div></div>
-      <div class="gr-cell delta"><span class="gr-num">+70 М</span><div class="gr-bar" style="width:10%"></div></div>
-    </div>
-
-    <div class="growth-row total">
-      <div class="gr-name"><span class="gr-label">итого</span>Выручка YouTravel.me</div>
-      <div class="gr-cell"><span class="gr-num">350 М</span><div class="gr-bar" style="width:32%;background:var(--ochre)"></div></div>
-      <div class="gr-cell"><span class="gr-num">1 080 М</span><div class="gr-bar" style="width:100%;background:var(--ochre)"></div></div>
-      <div class="gr-cell delta"><span class="gr-num">+730 М</span><div class="gr-bar" style="width:100%"></div></div>
-    </div>
-  </div>
-
-  <div class="growth-foot">Никакого магического канала здесь нет — есть пять движений, каждое из которых отдельно реалистично, а вместе они дают ×2.85. Самый важный — <b>repeat rate с 8% до 22%</b>, он один даёт +200 млн ₽ на текущей базе клиентов <b>без единого нового лида</b>. Это и есть та дыра, через которую сейчас утекает рост.</div>
-</section>
-
-<!-- 04 SEVEN FIXES -->
-<section id="fixes">
-  <span class="sec-num">04</span>
-  <span class="eyebrow">04 — Семь мест, которые я бы фиксил</span>
-  <h2 class="sec-title">Не пять советов как заработать миллион. <em>Семь рычагов</em>, в порядке множителя.</h2>
-  <p class="lead">Часть из них — про продукт и упаковку. Часть — про новые полки выручки, которых сейчас нет. Часть — про то, что у Трипстера невозможно структурно. Я расположил в том порядке, в каком ставил бы на priority ladder: сначала фокус и retention (где деньги быстрее всего), потом новые полки, потом конверсионные апгрейды.</p>
-
-  <div class="fixes-grid">
-
-    <div class="fix fix-1">
-      <span class="f-num">01</span>
-      <span class="f-tag">Фокус · сегмент</span>
-      <h3 class="f-name">Permission to focus: <em>женщины 25-45</em>, городская одиночка / пара без детей.</h3>
-      <p class="f-desc">Сегментировать каталог, маркетинг и копи именно под этот сегмент. Не «для всех». Это даёт 2× CTR и 1.4× конверсию в нишевой коммуникации, проверено на десятке travel/wellness кейсов. Подсегменты, на которых уже фокусируется индустрия: women solo travel, девичники-ретриты, осознанность/wellness, soft adventure после 35. Юля как фронтлайн бренда умножает signal of trust именно в этом сегменте.</p>
-      <div class="f-foot"><span><b>Эффект</b> · CTR ×2 · конверсия ×1.4</span><span><b>Срок</b> · 6–8 нед</span></div>
-    </div>
-
-    <div class="fix fix-2">
-      <span class="f-num">02</span>
-      <span class="f-tag">Repeat · мультипликатор</span>
-      <h3 class="f-name">Repeat <em>с 8% до 22%</em>.</h3>
-      <p class="f-desc">Главный множитель выручки. <b>+200 млн ₽ за 2 года</b> на текущей базе без единого нового лида. Travel Club (4 990 ₽/год: 5% кешбэк, ранний доступ, закрытые ретриты, эксклюзивные туры с фаундером), 9 касаний CRM в год вокруг сезонности, реферальная 3к/3к, personal curator после первого тура.</p>
-      <div class="f-foot"><span><b>+200 М ₽ / 2 года</b></span></div>
-    </div>
-
-    <div class="fix fix-3">
-      <span class="f-num">03</span>
-      <span class="f-tag">Premium tier</span>
-      <h3 class="f-name">Премиум-тариф <em>200–400к</em> AOV.</h3>
-      <p class="f-desc">Тур-«экспедиция» от Юли + камео-автора, 8-12 человек, премиум-логистика. Это новая полка, которая не каннибализирует core. Рынок есть: travel-spend Москвы и Питера в этом сегменте растёт 30% YoY. План: 4 пилотных тура в Year 1 (по 8 человек × 350к = 11.2 млн ₽ GMV), масштабирование к Year 2. Юля как лицо премиум-полки — структурный актив, который Трипстер не повторит.</p>
-      <div class="f-foot"><span><b>Y2 выручка</b> · 100 млн ₽</span><span><b>Пилот</b> · 4 тура / Y1</span></div>
-    </div>
-
-    <div class="fix fix-4">
-      <span class="f-num">04</span>
-      <span class="f-tag">B2B · sub-brand</span>
-      <h3 class="f-name">YouTravel <em>Pro</em> для incentive.</h3>
-      <p class="f-desc">Tinkoff, Avito, Yandex, Альфа, X5 тратят 40-150 млн ₽/год на team-offsites. Покупают через знакомых организаторов, не через маркетплейсы. Sub-brand «YouTravel Pro» (b2b.youtravel.me), 2 sales-человека, фокус на 50 целевых компаний. Sales cycle 2-4 месяца — закладывать в P&L консервативно.</p>
-      <div class="f-foot"><span><b>Y1</b> · 20 млн</span><span><b>Y2</b> · 100 млн</span></div>
-    </div>
-
-    <div class="fix fix-5">
-      <span class="f-num">05</span>
-      <span class="f-tag">International · RU-говорящие</span>
-      <h3 class="f-name">RU-аудитория <em>в Турции, ОАЭ, Кипре, Израиле</em>.</h3>
-      <p class="f-desc">8-10 миллионов русскоговорящих с travel-spend в Турции, Израиле, Эмиратах, Грузии, Кипре, Германии. Им сейчас сложно: Трипстер не даёт удобной оплаты, локальные операторы — не их культура, путешествуют по СНГ редко. Каналы: TG-каналы экспат-сообществ + influencer там же. Цель Year 2: 80 млн ₽ выручки. Я сам живу в Каше — этот сегмент знаю на земле, не по отчётам.</p>
-      <div class="f-foot"><span><b>Y2 выручка</b> · 80 млн ₽</span><span><b>Каналы</b> · TG экспат + инфлюенс</span></div>
-    </div>
-
-    <div class="fix fix-6">
-      <span class="f-num">06</span>
-      <span class="f-tag">UX · продукт выбора</span>
-      <h3 class="f-name">Лёгкость выбора <em>как продукт</em>.</h3>
-      <p class="f-desc">Тест-куратор: 6-8 вопросов → 3 тура, которые точно про вас. Это и conversion-инструмент, и data-engine для CRM. Кураторские подборки от Юли: «Только для женщин», «Soft adventure после 35», «Если едете одна, но не хотите быть одна» — 12-15 подборок, обновляются раз в месяц. Quizz-driven email на ответах из теста. Этот фикс закрывает столп №3 «Лёгкость выбора» на уровне функциональности.</p>
-      <div class="f-foot"><span><b>Эффект</b> · конверсия ×1.3</span><span><b>Бонус</b> · CRM data layer</span></div>
-    </div>
-
-    <div class="fix fix-7">
-      <span class="f-num">07</span>
-      <span class="f-tag">Quality bar · trust</span>
-      <h3 class="f-name">Listing baseline + <em>chat with author</em>.</h3>
-      <p class="f-desc">Бенчмарк здоровой площадки: 1.2-2% traffic→booking. Гипотеза: у вас сейчас 0.6-0.9% из-за листинг-неоднородности. Решение: обязательный baseline для публикации (видео 30-60с от автора + 8 фото + 3 отзыва) + чат с автором до оплаты. Это то, что Трипстер не умеет — у них unified-template и сетевая логика. Это структурное преимущество, и оно ваше.</p>
-      <div class="f-foot"><span><b>Конверсия</b> · до 1.5%+</span><span><b>Moat</b> · структурный, не воспроизводимый</span></div>
-    </div>
-
+  <div class="roadmap">
+    <div class="road-row head"><div>Блок выручки</div><div>Year 0 (сегодня)</div><div>Year 2 (цель)</div><div style="text-align:right">Дельта</div></div>
+    <div class="road-row"><div class="road-name">Core <b>B2C</b><span class="tag">маркетплейс / основа</span></div><div class="bar-wrap"><div class="bar" style="width:35%"><span class="num">350 М</span></div></div><div class="bar-wrap"><div class="bar" style="width:72%"><span class="num">720 М</span></div></div><div class="road-delta">+370</div></div>
+    <div class="road-row zero"><div class="road-name"><b>B2B</b> incentive<span class="tag">новая полка / sub-brand</span></div><div class="bar-wrap"><div class="bar" style="width:2%"><span class="num">0</span></div></div><div class="bar-wrap"><div class="bar delta" style="width:10%"><span class="num">100 М</span></div></div><div class="road-delta">+100</div></div>
+    <div class="road-row zero"><div class="road-name"><b>International</b><span class="tag">RU-говорящие за рубежом</span></div><div class="bar-wrap"><div class="bar" style="width:2%"><span class="num">0</span></div></div><div class="bar-wrap"><div class="bar delta" style="width:8%"><span class="num">80 М</span></div></div><div class="road-delta">+80</div></div>
+    <div class="road-row zero"><div class="road-name">Travel <b>Club</b><span class="tag">membership · recurring</span></div><div class="bar-wrap"><div class="bar" style="width:2%"><span class="num">0</span></div></div><div class="bar-wrap"><div class="bar delta" style="width:8%"><span class="num">80 М</span></div></div><div class="road-delta">+80</div></div>
+    <div class="road-row"><div class="road-name"><b>Premium</b> tier<span class="tag">AOV 200–400 тыс</span></div><div class="bar-wrap"><div class="bar" style="width:3%"><span class="num">30 М</span></div></div><div class="bar-wrap"><div class="bar" style="width:10%"><span class="num">100 М</span></div></div><div class="road-delta">+70</div></div>
+    <div class="road-row total"><div class="road-name"><b>Итого</b> выручка<span class="tag" style="color:rgba(255,255,255,0.5)">сумма по блокам</span></div><div class="bar-wrap"><div class="bar" style="width:35%"><span class="num">350 М</span></div></div><div class="bar-wrap"><div class="bar" style="width:100%"><span class="num">1 080 М</span></div></div><div class="road-delta">+730</div></div>
   </div>
 </section>
 
-<!-- 05 PANEL -->
+<section id="dispatches">
+  <div class="folio">V</div>
+  <div class="kicker"><span class="ch">Глава V</span><span class="rule-h"></span><span>Семь депеш</span></div>
+  <h2 class="section-title">Семь мест, где <em>я бы шёл первым.</em></h2>
+  <p class="section-deck">Семь рычагов с гипотезой эффекта и сроком, на котором результат становится виден.</p>
+
+  <div class="dispatches">
+    <article class="dispatch">
+      <div class="d-num">01</div>
+      <div class="d-body">
+        <div class="d-tag">Permission to focus</div>
+        <h3 class="d-title">Каталог под <em>женщин 25–45.</em></h3>
+        <p class="d-text">Сегментировать каталог, копи, фото и подачу под одну ЦА: женщины 25–45, городские соло-путешественницы и пары без детей. Подсегменты: women solo, девичники-ретриты, осознанность и wellness, soft adventure после 35. <strong>В нишевой коммуникации даёт 2× CTR и 1,4× конверсию</strong> — цифры консервативные, проверены в десятке travel/wellness-кейсов.</p>
+      </div>
+      <aside class="d-side">
+        <div class="row"><span class="k">Эффект</span><span class="v">+30–40% к&nbsp;<em>конверсии</em></span></div>
+        <div class="row"><span class="k">Срок</span><span class="v">1–2 квартала</span></div>
+        <div class="row"><span class="k">Риск</span><span class="v">низкий</span></div>
+      </aside>
+    </article>
+
+    <article class="dispatch">
+      <div class="d-num">02</div>
+      <div class="d-body">
+        <div class="d-tag">Главный множитель</div>
+        <h3 class="d-title">Repeat 8% → <em>22%.</em></h3>
+        <p class="d-text">Это <strong>+200 миллионов ₽ за два года</strong> на текущей базе клиентов, без новых лидов. Четыре механики, которые работают вместе: (1) <strong>Travel Club</strong> 4 990 ₽/год — кешбэк, ранний доступ, закрытые ретриты; (2) <strong>email/CRM-цикл</strong> из 9 касаний в год вокруг сезонности; (3) <strong>реферальная программа</strong> 3 000 / 3 000 ₽ — у Трипстера её нет; (4) <strong>personal curator</strong> — после первого тура автор пишет лично.</p>
+      </div>
+      <aside class="d-side">
+        <div class="row"><span class="k">Эффект</span><span class="v">+200 М ₽ <em>за 2 года</em></span></div>
+        <div class="row"><span class="k">Срок</span><span class="v">9 месяцев</span></div>
+        <div class="row"><span class="k">Бюджет</span><span class="v">15–25 М ₽</span></div>
+      </aside>
+    </article>
+
+    <article class="dispatch">
+      <div class="d-num">03</div>
+      <div class="d-body">
+        <div class="d-tag">Премиум-полка</div>
+        <h3 class="d-title">Экспедиции с Юлей. <em>AOV 200–400 тыс.</em></h3>
+        <p class="d-text">Новая полка без каннибализации core. Экспедиция от Юли + камео-автора, 8–12 человек, премиум-логистика. Travel-spend Москвы и Питера в премиум-сегменте растёт <strong>30% YoY</strong>. План: 4 пилотных тура в Y1 (8 человек × 350 тыс = 11,2 М ₽ GMV каждый), масштаб к Y2 — 25 туров.</p>
+      </div>
+      <aside class="d-side">
+        <div class="row"><span class="k">Y2 эффект</span><span class="v">+70 М&nbsp;₽</span></div>
+        <div class="row"><span class="k">Маржа</span><span class="v">25%</span></div>
+        <div class="row"><span class="k">PR-вес</span><span class="v"><em>высокий</em></span></div>
+      </aside>
+    </article>
+
+    <article class="dispatch">
+      <div class="d-num">04</div>
+      <div class="d-body">
+        <div class="d-tag">B2B sub-brand</div>
+        <h3 class="d-title">Корпоративные <em>экспедиции.</em></h3>
+        <p class="d-text">Tinkoff, Avito, Yandex, Альфа, X5 тратят <strong>40–150 миллионов ₽/год</strong> на team-offsites. Покупают через знакомых организаторов. Sub-brand «YouTravel Pro» (или b2b.youtravel.me), 2 sales-человека, 50 целевых компаний. Sales cycle 2–4 месяца — закладывать в P&amp;L консервативно.</p>
+      </div>
+      <aside class="d-side">
+        <div class="row"><span class="k">Y1 KPI</span><span class="v">8 сделок · <em>20 М</em></span></div>
+        <div class="row"><span class="k">Y2 KPI</span><span class="v">100 М ₽</span></div>
+        <div class="row"><span class="k">Команда</span><span class="v">2 sales</span></div>
+      </aside>
+    </article>
+
+    <article class="dispatch">
+      <div class="d-num">05</div>
+      <div class="d-body">
+        <div class="d-tag">Новая география</div>
+        <h3 class="d-title">RU за пределами <em>России.</em></h3>
+        <p class="d-text">В Турции, Израиле, ОАЭ, Грузии, Кипре, Германии живёт <strong>8–10 миллионов</strong> русскоговорящих с travel-spend. Им сейчас сложно: Трипстер не даёт удобной оплаты, локальные операторы — другая культура. Каналы: TG-каналы экспат-сообществ + influencer там же. Живу в Каше, знаю эти комьюнити изнутри.</p>
+      </div>
+      <aside class="d-side">
+        <div class="row"><span class="k">Y2 цель</span><span class="v">80 М&nbsp;₽</span></div>
+        <div class="row"><span class="k">Гео фокус</span><span class="v">TR · IL · DE</span></div>
+        <div class="row"><span class="k">Канал</span><span class="v">TG-комьюнити</span></div>
+      </aside>
+    </article>
+
+    <article class="dispatch">
+      <div class="d-num">06</div>
+      <div class="d-body">
+        <div class="d-tag">Лёгкость выбора</div>
+        <h3 class="d-title">Куратор обгоняет <em>поисковик.</em></h3>
+        <p class="d-text">Тест-куратор: <strong>6–8 вопросов → 3 тура.</strong> Это и conversion-инструмент, и data-engine для CRM. Кураторские подборки: «От Юли», «Только для женщин», «Soft adventure после 35», «Если едете одна, но не хотите быть одна». 12–15 подборок, обновляются раз в месяц. Quizz-driven email превращает ответы теста в персонализированную рассылку.</p>
+      </div>
+      <aside class="d-side">
+        <div class="row"><span class="k">Эффект</span><span class="v">+0,4–0,7 п.п. <em>CR</em></span></div>
+        <div class="row"><span class="k">Бонус</span><span class="v">CRM-данные</span></div>
+        <div class="row"><span class="k">Срок</span><span class="v">2 месяца</span></div>
+      </aside>
+    </article>
+
+    <article class="dispatch">
+      <div class="d-num">07</div>
+      <div class="d-body">
+        <div class="d-tag">Listing quality bar</div>
+        <h3 class="d-title">Видео автора + <em>чат до оплаты.</em></h3>
+        <p class="d-text">Бенчмарк здоровой площадки: 1,2–2% trafficк→booking. Гипотеза по вашей статистике — 0,6–0,9% из-за разнородности листингов. Решение: <strong>baseline для публикации</strong> — видео 30–60с от автора, 8 фото, 3 отзыва. И <strong>чат с автором до оплаты.</strong> Трипстер этого не сделает: их модель построена на масштабе и шаблоне, не на личном контакте до брони.</p>
+      </div>
+      <aside class="d-side">
+        <div class="row"><span class="k">Цель CR</span><span class="v"><em>1,5%+</em></span></div>
+        <div class="row"><span class="k">Команда</span><span class="v">2 чел content</span></div>
+        <div class="row"><span class="k">Moat</span><span class="v">структурный</span></div>
+      </aside>
+    </article>
+  </div>
+</section>
+
+<div class="band" style="background-image:url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=2000&q=80&auto=format&fit=crop')">
+  <div class="caption">Кавказ · вечер у костра</div>
+  <div class="pull">Гарантия дохода привлекает топ-автора. Скидка комиссии — нет.</div>
+</div>
+
 <section id="panel">
-  <span class="sec-num">05</span>
-  <span class="eyebrow">05 — Что обсуждали в панели</span>
-  <h2 class="sec-title">Я прогнал гипотезы через <em>семь экспертов</em>. Вот четыре конфликта, которые остались.</h2>
-  <p class="lead">Marketplace-стратег, travel-инсайдер, бренд-стратег, performance, UX, юнит-экономика, B2B sales. По каждой теме у двух из них была противоположная позиция. Резолюция — не «компромисс», а priority ladder: фокус → retention → новые полки → конверсия → стоимость.</p>
+  <div class="folio">VI</div>
+  <div class="kicker"><span class="ch">Глава VI</span><span class="rule-h"></span><span>Голоса панели</span></div>
+  <h2 class="section-title">Семь голосов <em>под капотом.</em></h2>
+  <p class="panel-intro">Каждую гипотезу из этого выпуска я прогнал через виртуальную панель из семи экспертов. У каждого — свой угол зрения и свои слепые пятна. Они спорили, я фиксировал. Ниже — кто говорил, что говорил, и где спорили.</p>
 
-  <div class="mx-wrap">
-    <table class="mx">
-      <thead>
-        <tr><th>Тема</th><th>Позиция A</th><th>Позиция B</th><th>Резолюция</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Главный рычаг роста</td>
-          <td>CAC: лить трафик в новых клиентов</td>
-          <td>Repeat: достать ×3 из текущей базы</td>
-          <td class="res"><b>B</b>repeat 8→22% даёт +200 млн без новых лидов</td>
-        </tr>
-        <tr>
-          <td>Сегментация vs «для всех»</td>
-          <td>Не сужать ЦА — потеряем объём</td>
-          <td>Permission to focus: только Ж 25-45</td>
-          <td class="res"><b>B</b>2× CTR, 1.4× конверсия в нише</td>
-        </tr>
-        <tr>
-          <td>Премиум tier</td>
-          <td>Каннибализирует core, не делать</td>
-          <td>Новая полка, не пересекается</td>
-          <td class="res"><b>B</b>пилот 4 тура Y1, без переноса трафика</td>
-        </tr>
-        <tr>
-          <td>B2B vs International</td>
-          <td>B2B быстрее по cash</td>
-          <td>International дешевле по CAC</td>
-          <td class="res"><b>оба</b>параллельно, разные команды</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="experts">
+
+    <article class="expert">
+      <div class="e-head">
+        <div class="e-num">I</div>
+        <div class="e-tag">Marketplace strategist · двусторонние рынки</div>
+      </div>
+      <h4>«Категорию <em>уже выиграли.</em>»</h4>
+      <div class="e-block"><div class="k">Тезис</div><div class="v">AOV 140 тысяч — это не «версия Трипстера». Это другая категория, в которой YouTravel — первый. Главная задача — не догонять конкурента, а <strong>не дать ему сюда зайти</strong> через структурные преимущества: имя, авторов, женщину-фаундера.</div></div>
+      <div class="e-block"><div class="k">Слепое пятно</div><div class="v">Network effect работает в обе стороны. Уйдут топ-50 авторов — рассыплется и demand. Поэтому supply-side всегда дороже defend, чем demand-side.</div></div>
+      <div class="e-quote">Победа — не догнать Трипстер. Победа — сделать так, чтобы он сюда не пошёл.</div>
+    </article>
+
+    <article class="expert">
+      <div class="e-head">
+        <div class="e-num">II</div>
+        <div class="e-tag">Travel insider · российский рынок</div>
+      </div>
+      <h4>«Юр-модель <em>важнее маркетинга.</em>»</h4>
+      <div class="e-block"><div class="k">Тезис</div><div class="v">Российский рынок multi-day туров: 35–45 миллиардов ₽/год, рост 20–25% YoY. Multi-day с трансфером и проживанием — туроператорская деятельность по 132-ФЗ. Без агентской модели — серый рынок и риск штрафов.</div></div>
+      <div class="e-block"><div class="k">Слепое пятно</div><div class="v">Insider забывает про скорость: agency-структура по бумагам — 2 месяца настройки. Если supply растёт быстрее юр-обвязки, площадка летит без шасси.</div></div>
+      <div class="e-quote">Площадка — агрегатор. Авторы — ИП-туроператоры. Иначе никак.</div>
+    </article>
+
+    <article class="expert">
+      <div class="e-head">
+        <div class="e-num">III</div>
+        <div class="e-tag">Brand strategist · позиционирование</div>
+      </div>
+      <h4>«Имя <em>уже работает.</em> Доделать упаковку.»</h4>
+      <div class="e-block"><div class="k">Тезис</div><div class="v">«You·Travel» — самое человеческое имя в категории. Конкурентов — Трипстер, Большая Страна — собирали из объектов, не из людей. Половина бренда сделана. Остальное держится на трёх столпах: яркость, человек, выбор.</div></div>
+      <div class="e-block"><div class="k">Слепое пятно</div><div class="v">Brand-driven рост в travel — 12+ месяцев. Performance-команды сжигают бюджет, пока бренд набирает массу. Нужен мост — influencer-нативка как «доставка нарратива».</div></div>
+      <div class="e-quote">Категория = язык. Пока площадка говорит «маркетплейс», она вторая. Когда говорит «клуб экспедиций» — первая.</div>
+    </article>
+
+    <article class="expert">
+      <div class="e-head">
+        <div class="e-num">IV</div>
+        <div class="e-tag">Performance / growth · каналы</div>
+      </div>
+      <h4>«80% бюджета — <em>в инфлюенсеров.</em>»</h4>
+      <div class="e-block"><div class="k">Тезис</div><div class="v">CPC в Yandex Direct по «авторские туры» — 80–180 ₽, conversion 1–2%, CAC брутто 4–8 тыс ₽. При AOV 140k работает. Но Трипстер платит за тот же трафик в 3 раза меньше — у них brand search и SEO-моат. Перформанс лбом — слив.</div></div>
+      <div class="e-block"><div class="k">Слепое пятно</div><div class="v">Influencer-нативка плохо масштабируется: 5 интеграций в квартал — потолок одного человека. Нужна in-house команда или агентство — это +2 ставки в P&amp;L.</div></div>
+      <div class="e-quote">Платить за трафик там, где Трипстер сильный — закапывать деньги. Платить за нативку там, где его нет — единственный путь.</div>
+    </article>
+
+    <article class="expert">
+      <div class="e-head">
+        <div class="e-num">V</div>
+        <div class="e-tag">Conversion / UX · продуктовый</div>
+      </div>
+      <h4>«Конверсия живёт <em>на странице тура.</em>»</h4>
+      <div class="e-block"><div class="k">Тезис</div><div class="v">Все деньги делаются на listing page, не в трафике. Здоровая площадка — 1,2–2% trafficк→booking. Гипотеза: у YouTravel сейчас 0,6–0,9% из-за неоднородности страниц. Видео + 8 фото + 3 отзыва + чат с автором до оплаты — рычаг ×2 без рекламного бюджета.</div></div>
+      <div class="e-block"><div class="k">Слепое пятно</div><div class="v">Чат с автором живой человек = операционная нагрузка на авторов. Часть откажется. Нужны нормы реакции и SLA, иначе клиент пишет — никто не отвечает.</div></div>
+      <div class="e-quote">Один чат до оплаты = 30% к конверсии. Это не маркетинг, это продукт.</div>
+    </article>
+
+    <article class="expert">
+      <div class="e-head">
+        <div class="e-num">VI</div>
+        <div class="e-tag">Pricing &amp; unit economics</div>
+      </div>
+      <h4>«Демпинг комиссии <em>не работает.</em>»</h4>
+      <div class="e-block"><div class="k">Тезис</div><div class="v">Топ-автор Трипстера зарабатывает там 200–500 тыс ₽/мес. На +5% комиссии (с 20% до 15%) он не уходит — у него -90% трафика на новой площадке. Что работает — <strong>гарантия дохода</strong>: 200 тыс ₽/мес фикс на 3 месяца + комиссия 15% сверху. CAC supply ≈ 600 тыс ₽ за автора, окупается с 2–3 туров в год.</div></div>
+      <div class="e-block"><div class="k">Слепое пятно</div><div class="v">Гарантия = риск площадки. Если автор не закрыл туров — мы платим за минусовую полку. Нужен жёсткий конкурс: топ-50, не топ-500.</div></div>
+      <div class="e-quote">Платить за supply onboarding как за CAC. Это самая дорогая, и самая защитная инвестиция.</div>
+    </article>
+
+    <article class="expert">
+      <div class="e-head">
+        <div class="e-num">VII</div>
+        <div class="e-tag">B2B / enterprise sales</div>
+      </div>
+      <h4>«Корпоративы — <em>слепое пятно индустрии.</em>»</h4>
+      <div class="e-block"><div class="k">Тезис</div><div class="v">Tinkoff, Avito, Yandex, Альфа, X5 тратят 40–150 миллионов ₽/год на team-offsites. Покупают через знакомых, не через маркетплейсы. Sub-brand «YouTravel Pro», 2 sales-человека, 50 целевых компаний. KPI Y1 — 8 сделок × 2,5 миллиона. Y2 — 100 миллионов выручки.</div></div>
+      <div class="e-block"><div class="k">Слепое пятно</div><div class="v">Sales cycle 2–4 месяца. Если в P&amp;L Q1 заложить B2B-выручку — провал. Нужен 6-месячный «инкубатор», только потом — выручка.</div></div>
+      <div class="e-quote">B2B не строится через лендинги. Только живые звонки, 50 имён, 2 sales — и шесть месяцев тишины перед первой сделкой.</div>
+    </article>
+
+  </div>
+
+  <h3 class="conflicts-h">Где панель <em>спорила.</em></h3>
+  <table class="panel-table">
+    <thead>
+      <tr><th style="width:170px">Вопрос</th><th>Позиция A</th><th>Позиция B</th><th style="width:140px">Решение</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Комиссия</td><td>Демпинг 15% для onboarding топ-авторов <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em">— Marketplace strategist</span></td><td>Гарантия дохода вместо демпинга — целевая, окупаемая <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em">— Pricing</span></td><td class="resolution">B</td></tr>
+      <tr><td>Каналы</td><td>80% бюджета — influencer-нативка <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em">— Performance</span></td><td>Бренд-нарратив первичен, всё остальное — доставка <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em">— Brand</span></td><td class="resolution">A + B</td></tr>
+      <tr><td>B2B vs B2C</td><td>B2B-сделки быстрее по чеку <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em">— B2B</span></td><td>B2C — основной мотор, fly-wheel сейчас <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em">— Marketplace</span></td><td class="resolution">B2C primary</td></tr>
+      <tr><td>Юр-модель</td><td>Туроператорская — контроль качества <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em">— UX</span></td><td>Агентская — скорость и легальность 132-ФЗ <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em">— Insider</span></td><td class="resolution">Агентская</td></tr>
+    </tbody>
+  </table>
+
+  <div class="priority">
+    <h4>Priority ladder, по которому я <em>выбирал между голосами.</em></h4>
+    <ol>
+      <li>Безопасность — юр-риск 132-ФЗ выше всего</li>
+      <li>Корректность — юнит-экономика положительная</li>
+      <li>Надёжность — проверенные каналы выше новых</li>
+      <li>Простота — один сегмент сначала, потом масштаб</li>
+      <li>Стоимость — supply дороже demand по приоритету бюджета</li>
+      <li>Скорость — медленный рост лучше сожжённого кэша</li>
+    </ol>
   </div>
 </section>
 
-<!-- 06 FIRST STEP -->
-<section id="audit">
-  <span class="sec-num">06</span>
-  <span class="eyebrow">06 — Что я предлагаю как первый шаг</span>
-  <h2 class="sec-title">Двухнедельный аудит. <em>Фикс-цена</em>. Без обязательств дальше.</h2>
-  <p class="lead">Я не верю в трёхмесячные дискавери-проекты до первого касания продукта. Две недели, пять конкретных результатов, фикс-стоимость. После этого вы либо понимаете что мы хотим жить дальше — спринтами по 2 недели, owner я, формат гибкий — либо берёте артефакты и идёте без меня. Оба варианта нормальные.</p>
+<section id="step">
+  <div class="folio">VII</div>
+  <div class="kicker"><span class="ch">Глава VII</span><span class="rule-h"></span><span>Первый шаг</span></div>
+  <h2 class="section-title">Двухнедельный <em>аудит.</em></h2>
+  <p class="section-deck">Прежде чем двигать что-то в проде — диагностика на ваших данных. Без неё все цифры выше остаются гипотезами.</p>
 
-  <div class="audit-grid">
-    <div class="audit-item">
-      <span class="t">Юнит-экономика на ваших данных</span>
-      <span class="d">CAC по каналам, LTV по когортам 12/24/36 мес, payback по сегментам. Что приносит маржу, что съедает её. Без этого все остальные решения — гадание.</span>
-    </div>
-    <div class="audit-item">
-      <span class="t">Бренд-аудит: 3 столпа vs текущее</span>
-      <span class="d">Где сайт, копи, соцсети говорят «маркетплейс», а не «впечатление», не «авторы как персонажи», не «выбор за вас». Список конкретных утечек.</span>
-    </div>
-    <div class="audit-item">
-      <span class="t">Repeat rate diagnostic</span>
-      <span class="d">Где теряем клиентов между 1-й и 2-й покупкой. По сегментам, по сезонам, по каналам first-touch. Карта потерь и приоритеты починки.</span>
-    </div>
-    <div class="audit-item">
-      <span class="t">Pilot-план Travel Club + Premium</span>
-      <span class="d">Pricing, оффер, операционка, KPI первых 90 дней. Что именно тестируем, на ком, какой результат считаем валидацией.</span>
-    </div>
-    <div class="audit-item">
-      <span class="t">Roadmap до 1 млрд</span>
-      <span class="d">Квартальные цели по каждому из пяти блоков выручки, метрики, owner на стороне команды. Не таблица «всё хорошее», а последовательность ставок.</span>
-    </div>
-  </div>
-
-  <div class="audit-foot">
-    Стоимость аудита фиксированная. <b>На сайте я её не публикую</b> — формат и сумма зависят от глубины data-доступа и состояния текущей операционки. Если интересно — напишите, обсудим за десять минут.
+  <div class="step">
+    <div class="step-left">Это формат, в котором мне комфортно начать. Дальше — sprint-цикл по две недели, формат гибкий: фикс или per-result. Сначала <em>посмотрим друг другу в глаза</em> и поймём, есть ли общий язык.</div>
+    <ol class="step-list">
+      <li><span class="n">→ 01</span><div class="t"><h4>Юнит-экономика на ваших данных</h4><p>CAC по каналам, LTV в окнах 12/24/36 мес, payback period, contribution margin по сегментам. Карта: что приносит деньги, что покрывает прошлые сделки.</p></div></li>
+      <li><span class="n">→ 02</span><div class="t"><h4>Бренд-аудит — три столпа vs реальность</h4><p>Где утечки между обещанием бренда и тем, что видит женщина 25–45 на главной, в каталоге, в email, в TG. Конкретный список fixes с приоритетом по эффекту.</p></div></li>
+      <li><span class="n">→ 03</span><div class="t"><h4>Repeat rate diagnostic</h4><p>Где теряем клиентов между первым и вторым бронированием. Cohort-анализ по авторам, направлениям, сезонам. Гипотезы: какие касания работают, какие лишние.</p></div></li>
+      <li><span class="n">→ 04</span><div class="t"><h4>Pilot-планы Travel Club + Premium tier</h4><p>Two-page playbook на каждую полку: воронка, цена, ценностное предложение, прогноз 12 мес, риски. Готов к запуску за 30–45 дней после старта.</p></div></li>
+      <li><span class="n">→ 05</span><div class="t"><h4>Roadmap до миллиарда</h4><p>Квартальные цели по каждому из пяти блоков выручки. Трекеры. Что мы должны увидеть в Q1, Q2, Q3, Q4, чтобы Y2 закрылся миллиардом, а не 750 миллионами.</p></div></li>
+    </ol>
   </div>
 </section>
 
-<!-- 07 NUMBERS -->
-<section id="numbers">
-  <span class="sec-num">07</span>
-  <span class="eyebrow">07 — Цифры, которые мне нужны от вас</span>
-  <h2 class="sec-title">Без этих пяти чисел любой бюджет — <em>гадание</em>.</h2>
-  <p class="lead">Это не due-diligence. Это пять чисел, без которых любая стратегия пишется по индустрии — а индустрия в среднем не похожа на вас. Готов работать под NDA, не нужны квартальные отчёты — только грубые порядки и текущая операционная картина.</p>
+<section id="data">
+  <div class="folio">VIII</div>
+  <div class="kicker"><span class="ch">Глава VIII</span><span class="rule-h"></span><span>Цифры от вас</span></div>
+  <h2 class="section-title">Пять чисел, которые <em>мне нужны.</em></h2>
+  <p class="section-deck">Без этих пяти диапазон гипотез слишком широкий, и я обещать точность не могу. С ними — могу.</p>
 
-  <div class="numbers-grid">
-    <div class="numreq">
-      <span class="n">01</span>
-      <span class="t">CAC</span>
-      <span class="h">По каналам</span>
-      <span class="d">YD, TG, инфлюенсеры, organic, referral. Если по каналам не считаете — общий blended CAC последних трёх месяцев тоже подойдёт.</span>
-    </div>
-    <div class="numreq">
-      <span class="n">02</span>
-      <span class="t">Funnel</span>
-      <span class="h">Conversion воронка</span>
-      <span class="d">visit → tour view → request → booking. Где конкретно сыпется. Гипотеза: основные потери на tour view → request, но без чисел это гадание.</span>
-    </div>
-    <div class="numreq">
-      <span class="n">03</span>
-      <span class="t">Repeat / LTV</span>
-      <span class="h">Репит и пожизненный</span>
-      <span class="d">Текущий repeat rate (вы сказали ~8%) и LTV на горизонтах 12 / 24 / 36 мес. Это сердцевина всей карты роста.</span>
-    </div>
-    <div class="numreq">
-      <span class="n">04</span>
-      <span class="t">AOV split</span>
-      <span class="h">По корзинам</span>
-      <span class="d">&lt;50к / 50–100к / 100–200к / 200к+. Это определяет, есть ли уже зачаток premium tier и как его масштабировать.</span>
-    </div>
-    <div class="numreq">
-      <span class="n">05</span>
-      <span class="t">Юр-модель</span>
-      <span class="h">Кто формально продаёт</span>
-      <span class="d">Агентская? Туроператорская (132-ФЗ, реестр Ростуризма, финобеспечение)? Кто в чеке — площадка или автор? Это влияет на B2B, International и premium pricing.</span>
-    </div>
+  <div class="req-grid">
+    <div class="req"><div class="n">N° 01</div><h4>CAC по каналам</h4><p>YD · TG · influencer · organic · referral · brand search</p></div>
+    <div class="req"><div class="n">N° 02</div><h4>Conversion funnel</h4><p>visit → tour view → request → booking, по сегментам</p></div>
+    <div class="req"><div class="n">N° 03</div><h4>Repeat &amp; LTV</h4><p>текущий repeat rate, LTV в окнах 12 / 24 / 36 мес</p></div>
+    <div class="req"><div class="n">N° 04</div><h4>Split AOV</h4><p>&lt;50k / 50–100 / 100–200 / 200k+ — доли в bookings и в выручке</p></div>
+    <div class="req"><div class="n">N° 05</div><h4>Юр-модель</h4><p>агентская / туроператорская? кто формально продаёт тур — площадка или автор?</p></div>
   </div>
-
-  <div class="numbers-note">Дополнительно — четыре открытых вопроса, без ответа на которые я не предложу конкретный план: какой у вас текущий маркетинговый бюджет в месяц, где сейчас узкое место операционки (продукт, supply, performance, retention), кто на стороне команды будет owner-ом изменений, и какой у вас cash-runway на новые ставки. Это лучше обсуждать голосом, не в форме.</div>
 </section>
 
-<!-- 08 CONTACT -->
-<footer id="contact">
-  <span class="eyebrow" style="color:var(--ochre);border-color:var(--ochre)">08 — Контакт</span>
-  <div class="ftop">
-    <h3>Если хотя бы один из семи фиксов <em>резонирует</em> — напишите.</h3>
-    <p class="fnote">Я отвечаю в течение суток. Тридцать минут разговора голосом — это всё, что нужно, чтобы понять, есть ли смысл двигаться дальше. Если нет — вы заберёте семь гипотез и карту пути и пойдёте делать сами. Это нормально.</p>
-  </div>
+<section id="contact" class="colophon">
+  <div class="folio">IX</div>
+  <div class="kicker"><span class="ch">Глава IX</span><span class="rule-h"></span><span>Контакт</span></div>
+  <h2 class="section-title">Если резонирует — <em>напишите.</em></h2>
 
-  <div class="fcontacts">
-    <div>
-      <b>Telegram</b>
-      <a href="https://t.me/timzinin">@timzinin</a>
-    </div>
-    <div>
-      <b>Email</b>
-      <a href="mailto:tim.zinin@gmail.com">tim.zinin@gmail.com</a>
-    </div>
-    <div>
-      <b>Сайт</b>
-      <a href="https://timzinin.com">timzinin.com</a>
-    </div>
-    <div>
-      <b>Где я</b>
-      Каш, Анталья · UTC+3
+  <div class="colophon-grid">
+    <div class="colophon-letter">Я не продаю услугу через лендинг. Этот выпуск — мысли вслух, не предложение. Резонирует — напишите в Telegram, обсудим, нужна ли встреча. Не резонирует — спасибо, что прочитали.<br><br><em>— Тим</em></div>
+    <div class="contacts">
+      <div class="row"><span class="k">Telegram</span><span class="v"><a href="https://t.me/timzinin">@timzinin</a></span></div>
+      <div class="row"><span class="k">Email</span><span class="v"><a href="mailto:tim.zinin@gmail.com">tim.zinin@gmail.com</a></span></div>
+      <div class="row"><span class="k">Сайт</span><span class="v"><a href="https://timzinin.com">timzinin.com</a></span></div>
+      <div class="row"><span class="k">Локация</span><span class="v" style="font-style:normal;font-family:'Inter',sans-serif;font-size:15px;color:rgba(255,255,255,0.75)">Каш, Анталья · UTC+3</span></div>
     </div>
   </div>
-
-  <div class="fmeta">
-    <span>тз → сергей · YouTravel.me · мысли вслух · апрель 2026</span>
-    <span>первый подход к снаряду · v2 · 350M → 1B</span>
+  <div class="imprint">
+    <div>Зинин · Издание 01 · Апрель 2026 · <b>Выпуск для Сергея</b></div>
+    <div>Тираж — 1 экз. Только для адресата.</div>
+    <div>Set in Cormorant Garamond &amp; Inter</div>
   </div>
-</footer>
+</section>
 
 </body>
 </html>
