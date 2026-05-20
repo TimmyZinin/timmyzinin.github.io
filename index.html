@@ -9,8 +9,11 @@
     <meta property="og:title" content="Tim Zinin — AI Transformation Expert">
     <meta property="og:description" content="Your business still runs on human effort. AI agents don't sleep. From $250/hr.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="tim-zinin.jpg">
+    <meta property="og:url" content="https://timzinin.com/">
+    <meta property="og:image" content="https://timzinin.com/img/site-assets/hero-face.jpg">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://timzinin.com/">
+    <link rel="icon" type="image/jpeg" href="tim-zinin.jpg">
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Person","name":"Timofey Zinin","alternateName":"Tim Zinin","url":"https://timzinin.com/","image":"https://timzinin.com/tim-zinin.jpg","jobTitle":"AI Transformation Expert","description":"AI Transformation Expert who builds multi-agent systems, trains founders on AI, and automates business processes. 6 AI agents in production, 3,963 tests, 24/7 operation.","knowsAbout":["AI Business Transformation","Multi-Agent AI Systems","Founder AI Training","Process Automation","AI Strategy","Generative Engine Optimization","MCP Architecture","Team AI Education"],"sameAs":["https://www.linkedin.com/in/timzinin","https://t.me/timzinin","https://github.com/TimmyZinin"]}
     </script>
@@ -19,1250 +22,1353 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --white:#ffffff;--red:#e02020;--red-light:#ff4444;--blue:#1a3a8a;--yellow:#ffd700;
-            --black:#111;--pink:#ff69b4;
-            --display:'Bangers',cursive;
+        :root{
+            --ink:#0a0a0a;--white:#ffffff;--red:#e8262d;--red-deep:#b21218;
+            --yellow:#fed002;--yellow-deep:#d4ac00;--sky:#4cb8d3;--grey:#f4f4f4;
+            --f-display:'Anton','Bebas Neue','Archivo Black',Impact,sans-serif;
+            --f-body:'Inter',system-ui,-apple-system,sans-serif;
+            --f-mono:'JetBrains Mono','Courier New',monospace;
         }
-        :lang(ru),:lang(ar),:lang(zh),:lang(hi),:lang(ja){--display:'Russo One',sans-serif;}
         *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;}
-        .bangers{font-family:var(--display);letter-spacing:0.04em;}
-        .mono{font-family:'JetBrains Mono',monospace;}
-        .dots-bg{position:relative;}
-        .dots-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.12) 1px,transparent 1px);background-size:8px 8px;pointer-events:none;z-index:0;}
-        .container{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
-        section{padding:80px 0;position:relative;}
+        html{scroll-behavior:smooth;}
+        body{font-family:var(--f-body);background:var(--white);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+        img{display:block;max-width:100%;}
+        a{color:inherit;}
+        button{font:inherit;cursor:pointer;}
 
-        /* NAV — FIX #1: mobile hamburger */
-        nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--red);border-bottom:4px solid var(--black);padding:10px 0;}
-        nav .container{display:flex;justify-content:space-between;align-items:center;}
-        .nav-logo{font-family:var(--display);font-size:24px;color:var(--white);letter-spacing:0.06em;}
-        .nav-links{display:flex;gap:16px;list-style:none;align-items:center;}
-        .nav-links a{color:var(--white);text-decoration:none;font-weight:700;font-size:14px;text-transform:uppercase;}
-        .nav-links a:hover{text-decoration:underline;text-decoration-thickness:3px;}
-        .nav-cta{background:var(--yellow)!important;color:var(--black)!important;padding:10px 24px!important;border:3px solid var(--black);font-family:var(--display)!important;font-size:16px!important;letter-spacing:0.04em;transition:all .15s;white-space:nowrap;max-width:250px;overflow:hidden;text-overflow:ellipsis;}
-        .nav-cta:hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--black);}
-        /* FIX #2: lang dropdown instead of 10 tiny buttons */
-        .lang-select{background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.4);padding:5px 8px;font-size:12px;font-weight:700;cursor:pointer;text-transform:uppercase;appearance:none;-webkit-appearance:none;border-radius:0;outline:none;}
-        .lang-select option{background:var(--red);color:white;}
-        .hamburger{display:none;background:none;border:none;color:white;font-size:28px;cursor:pointer;padding:4px 8px;font-weight:900;}
-        .nav-mobile-overlay{display:none;position:fixed;inset:0;top:54px;background:var(--red);z-index:999;padding:32px;flex-direction:column;gap:24px;align-items:center;}
-        .nav-mobile-overlay.open{display:flex;}
-        .nav-mobile-overlay a{color:white;font-family:var(--display);font-size:28px;text-decoration:none;letter-spacing:0.04em;}
-        .nav-mobile-overlay a:hover{text-decoration:underline;}
+        .wrap{max-width:1280px;margin:0 auto;padding:0 56px;position:relative;}
+        .halftone{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;}
+        .halftone.ink-06{background-image:radial-gradient(#0a0a0a 28%,transparent 30%);background-size:10px 10px;opacity:0.06;}
+        .halftone.ink-10{background-image:radial-gradient(#0a0a0a 28%,transparent 30%);background-size:5px 5px;opacity:0.10;}
+        .halftone.ink-18{background-image:radial-gradient(#0a0a0a 28%,transparent 30%);background-size:7px 7px;opacity:0.18;}
+        .halftone.red-06{background-image:radial-gradient(#e8262d 28%,transparent 30%);background-size:10px 10px;opacity:0.06;}
+        .halftone.red-18{background-image:radial-gradient(#e8262d 28%,transparent 30%);background-size:6px 6px;opacity:0.18;}
+        .halftone.red-08{background-image:radial-gradient(#e8262d 28%,transparent 30%);background-size:8px 8px;opacity:0.18;}
+        .halftone.red-10{background-image:radial-gradient(#e8262d 28%,transparent 30%);background-size:9px 9px;opacity:0.10;}
+        .halftone.yellow-08{background-image:radial-gradient(#fed002 28%,transparent 30%);background-size:10px 10px;opacity:0.08;}
+        .halftone.yellow-18{background-image:radial-gradient(#fed002 28%,transparent 30%);background-size:6px 6px;opacity:0.18;}
+        .halftone.yellow-10{background-image:radial-gradient(#fed002 28%,transparent 30%);background-size:6px 6px;opacity:0.10;}
 
-        /* GREETING BUBBLE — the OG provocative ones */
-        .greeting-bubble{position:fixed;bottom:24px;right:24px;z-index:998;cursor:pointer;animation:bubblePop 0.5s ease-out;}
-        .bubble-inner{background:var(--yellow);border:4px solid var(--black);border-radius:24px 24px 4px 24px;padding:16px 24px;box-shadow:5px 5px 0 var(--black);max-width:300px;position:relative;transition:transform .2s;}
-        .bubble-inner:hover{transform:scale(1.05) rotate(-2deg);}
-        .bubble-text{font-family:var(--display);font-size:22px;color:var(--black);line-height:1.3;transition:opacity .3s;}
-        .bubble-close{position:absolute;top:-8px;right:-8px;width:28px;height:28px;background:var(--red);color:white;border:3px solid var(--black);border-radius:50%;font-weight:900;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-        @keyframes bubblePop{0%{transform:scale(0) rotate(20deg);}60%{transform:scale(1.1) rotate(-5deg);}100%{transform:scale(1) rotate(0);}}
+        .photo-frame{position:relative;display:block;width:100%;}
+        .photo-frame .bg{position:absolute;inset:0;border:4px solid var(--ink);transform:translate(14px,14px);}
+        .photo-frame .img{position:relative;border:4px solid var(--ink);background:var(--white);}
+        .photo-frame .img img{width:100%;height:auto;display:block;}
+        .photo-frame.bg-red .bg{background:var(--red);}
+        .photo-frame.bg-yellow .bg{background:var(--yellow);}
+        .photo-frame.bg-ink .bg{background:var(--ink);}
+        .photo-frame.tilt-l{transform:rotate(-1.5deg);}
+        .photo-frame.tilt-r{transform:rotate(1.5deg);}
 
-        .chat-window{position:fixed;bottom:24px;right:24px;z-index:999;width:380px;max-height:520px;background:white;border:4px solid var(--black);box-shadow:8px 8px 0 var(--red);display:none;flex-direction:column;overflow:hidden;}
-        .chat-window.open{display:flex;}
-        .chat-header{background:var(--red);padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:4px solid var(--black);}
-        .chat-header-avatar{width:40px;height:40px;border-radius:50%;border:3px solid var(--black);object-fit:cover;}
-        .chat-header-info{flex:1;color:white;}
-        .chat-header-name{font-family:var(--display);font-size:18px;letter-spacing:0.04em;}
-        .chat-header-status{font-size:11px;opacity:0.8;}
-        .chat-close{background:none;border:none;color:white;font-size:24px;cursor:pointer;font-weight:900;padding:0 4px;}
-        .chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:280px;max-height:360px;background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);}
-        .chat-msg{max-width:80%;padding:10px 14px;font-size:14px;line-height:1.5;position:relative;animation:msgPop .3s ease-out;}
-        .chat-msg.bot{align-self:flex-start;background:var(--yellow);border:3px solid var(--black);border-radius:16px 16px 16px 4px;color:var(--black);}
-        .chat-msg.user{align-self:flex-end;background:var(--red);border:3px solid var(--black);border-radius:16px 16px 4px 16px;color:white;}
-        .chat-msg.bot .msg-name{font-family:var(--display);font-size:12px;color:var(--red);margin-bottom:4px;}
-        .chat-options{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px;}
-        .chat-option{background:white;border:3px solid var(--black);padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
-        .chat-option:hover{background:var(--yellow);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--black);}
-        .chat-input-wrap{display:flex;border-top:3px solid var(--black);display:none;}
-        .chat-input{flex:1;border:none;padding:12px;font-size:14px;outline:none;font-family:'Inter',sans-serif;}
-        .chat-send{background:var(--red);color:white;border:none;padding:12px 20px;font-family:var(--display);font-size:16px;cursor:pointer;border-left:3px solid var(--black);}
-        .chat-send:hover{background:var(--black);}
-        @keyframes msgPop{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
-        .typing-dots{display:flex;gap:4px;padding:4px 0;}
-        .typing-dots span{width:8px;height:8px;background:var(--red);border-radius:50%;animation:typeDot .6s infinite alternate;}
-        .typing-dots span:nth-child(2){animation-delay:.2s;}
-        .typing-dots span:nth-child(3){animation-delay:.4s;}
-        @keyframes typeDot{0%{opacity:.3;transform:translateY(0);}100%{opacity:1;transform:translateY(-4px);}}
+        /* ============ NAV ============ */
+        header.nav{background:var(--ink);color:var(--white);border-bottom:4px solid var(--red);position:sticky;top:0;z-index:50;}
+        .nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:14px 32px;flex-wrap:wrap;}
+        .nav-logo{font-family:var(--f-display);font-size:22px;letter-spacing:2.5px;text-decoration:none;color:var(--white);display:flex;align-items:center;gap:8px;}
+        .nav-logo .dot{width:10px;height:10px;background:var(--red);border-radius:999px;display:inline-block;}
+        .nav-logo .slash{color:var(--yellow);opacity:0.9;}
+        .nav-logo .yel{color:var(--yellow);}
+        .nav-links{margin-left:auto;display:flex;gap:22px;font-family:var(--f-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;}
+        .nav-links a{color:var(--white);text-decoration:none;opacity:0.85;transition:opacity .15s;}
+        .nav-links a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px;}
+        .lang-select{background:rgba(255,255,255,.1);color:#fff;border:2px solid rgba(255,255,255,.35);padding:6px 8px;font-family:var(--f-mono);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;appearance:none;-webkit-appearance:none;border-radius:0;outline:none;}
+        .lang-select option{background:var(--ink);color:#fff;}
+        .nav-cta{background:var(--red);color:var(--white);padding:10px 18px;text-decoration:none;font-family:var(--f-display);font-size:16px;letter-spacing:2px;border:3px solid var(--white);box-shadow:4px 4px 0 var(--yellow);transition:transform .15s,box-shadow .15s;text-transform:uppercase;white-space:nowrap;}
+        .nav-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--yellow);}
 
-        /* HERO — FIX #3: bigger image, cleaner */
-        .hero{padding:100px 0 60px;background:var(--white);position:relative;overflow:hidden;}
-        .hero-flex{display:flex;align-items:center;gap:48px;}
-        .hero-text{flex:1;z-index:2;}
-        /* hero-art defined after .hero-img */
-        .hero-tag{display:inline-block;font-family:var(--display);font-size:16px;color:var(--white);background:var(--red);border:3px solid var(--black);padding:8px 20px;margin-bottom:12px;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--black);}
-        .hero h1{font-family:var(--display);font-size:clamp(48px,7vw,80px);line-height:0.95;margin-bottom:20px;color:var(--black);}
-        .hero h1 .red{color:var(--red);}
-        /* FIX #4: subtext uses Inter (not Bangers) for readability */
-        .hero-sub{font-size:18px;line-height:1.7;color:#444;max-width:540px;margin-bottom:32px;}
-        .hero-sub strong{color:var(--black);}
-        .hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
-        .btn-pop{display:inline-block;font-family:var(--display);font-size:20px;padding:16px 36px;border:4px solid var(--black);text-decoration:none;text-transform:uppercase;transition:all .15s;cursor:pointer;}
-        .btn-pop:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
-        .btn-red{background:var(--red);color:white;}
-        .btn-yellow{background:var(--yellow);color:var(--black);}
-        .hero-img{width:100%;aspect-ratio:1;object-fit:cover;object-position:center 15%;border:5px solid var(--black);border-radius:50%;box-shadow:8px 8px 0 var(--red);display:block;}
-        .hero-art{flex:0 1 400px;z-index:2;min-width:0;}
-        .prov-img{max-width:100%;border:4px solid var(--black);box-shadow:6px 6px 0 var(--black);}
-        .pricing-img{max-width:360px;border:4px solid var(--black);box-shadow:6px 6px 0 var(--red);margin:0 auto 20px;display:block;}
-        .cta-img{max-width:280px;margin:0 auto 24px;display:block;position:relative;z-index:1;}
-        .reaction-img{width:80px;height:80px;object-fit:cover;border:3px solid var(--black);border-radius:50%;}
+        /* ============ HERO ============ */
+        .hero{background:var(--white);position:relative;overflow:hidden;}
+        .hero .tri{position:absolute;top:0;right:0;width:380px;height:380px;background:var(--yellow);clip-path:polygon(100% 0,0 0,100% 100%);opacity:0.95;}
+        .hero .tri-ht{position:absolute;top:0;right:0;width:380px;height:380px;clip-path:polygon(100% 0,0 0,100% 100%);background-image:radial-gradient(#e8262d 28%,transparent 30%);background-size:6px 6px;opacity:0.18;mix-blend-mode:multiply;pointer-events:none;}
+        .hero-inner{padding:70px 56px 90px;position:relative;}
+        .hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start;}
+        .kicker{display:flex;align-items:center;gap:12px;font-family:var(--f-mono);font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red-deep);margin-bottom:18px;}
+        .kicker .bar{width:32px;height:3px;background:var(--red);}
+        .h1{font-family:var(--f-display);font-size:clamp(64px,8.4vw,132px);line-height:0.92;color:var(--ink);text-transform:uppercase;letter-spacing:-1.5px;margin:0;}
+        .h1 .hl-y{background:var(--yellow);padding:0 10px;box-shadow:0 8px 0 var(--ink) inset;}
+        .h1 .col-red{color:var(--red);}
+        .h1 .ul-red{display:inline-block;text-decoration:10px underline var(--red);text-underline-offset:6px;}
+        .hero-body{font-family:var(--f-body);font-size:19px;line-height:1.6;color:var(--ink);max-width:620px;margin-top:22px;}
+        .gap-pill{background:var(--ink);color:var(--yellow);padding:2px 8px;font-weight:700;}
+        .cta-row{display:flex;gap:16px;margin-top:26px;align-items:center;flex-wrap:wrap;}
+        .cta-main{background:var(--red);color:var(--white);padding:20px 30px;text-decoration:none;font-family:var(--f-display);font-size:24px;letter-spacing:2px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);transition:transform .15s,box-shadow .15s;text-transform:uppercase;}
+        .cta-main:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink);}
+        .cta-sec{color:var(--ink);padding:10px 4px;font-family:var(--f-body);font-weight:800;font-size:16px;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:5px;}
+        .face-row{display:flex;align-items:center;gap:14px;padding:22px 0 0;flex-wrap:wrap;}
+        .face-stack{display:flex;}
+        .face-stack .face{width:56px;height:56px;border-radius:999px;overflow:hidden;border:3px solid var(--ink);background:#fff;box-shadow:0 4px 0 var(--ink);}
+        .face-stack .face:nth-child(1){transform:rotate(4deg);}
+        .face-stack .face:nth-child(2){margin-left:-16px;transform:rotate(-4deg);}
+        .face-stack .face:nth-child(3){margin-left:-16px;transform:rotate(4deg);}
+        .face-stack .face:nth-child(4){margin-left:-16px;transform:rotate(-4deg);}
+        .face-stack .face img{width:100%;height:100%;object-fit:cover;}
+        .face-cap{font-family:var(--f-display);font-size:18px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);line-height:1.1;max-width:280px;}
 
-        /* PROOF BAR — FIX #5: better label contrast */
-        .proof-bar{background:var(--black);padding:40px 0;border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
-        .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;}
-        .proof-number{font-family:'JetBrains Mono',monospace;font-size:42px;color:var(--yellow);font-weight:700;}
-        .proof-label{font-size:13px;color:rgba(255,255,255,0.9);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-top:4px;}
+        /* ============ HERO SPEECH BUBBLES ============ */
+        .hero-photo-wrap{position:relative;}
+        .speech{
+            position:absolute;background:var(--white);color:var(--ink);
+            border:3px solid var(--ink);padding:8px 14px;
+            font-family:var(--f-display);font-size:22px;line-height:1;letter-spacing:1px;
+            text-transform:uppercase;white-space:nowrap;
+            box-shadow:4px 4px 0 var(--ink);
+            border-radius:18px;z-index:3;
+        }
+        .speech::after{
+            content:'';position:absolute;width:0;height:0;
+            border-style:solid;
+        }
+        .speech.yel{background:var(--yellow);}
+        .speech.red{background:var(--red);color:var(--white);}
+        .speech.s1{top:-18px;left:-28px;transform:rotate(-6deg);animation:bob1 4.2s ease-in-out infinite;}
+        .speech.s1::after{bottom:-14px;left:32px;border-width:14px 10px 0 0;border-color:var(--ink) transparent transparent transparent;}
+        .speech.s1::before{content:'';position:absolute;bottom:-10px;left:34px;border-style:solid;border-width:11px 7px 0 0;border-color:#fff transparent transparent transparent;}
+        .speech.s1.yel::before{border-color:var(--yellow) transparent transparent transparent;}
+        .speech.s2{top:38%;right:-44px;transform:rotate(5deg);animation:bob2 5.1s ease-in-out infinite;}
+        .speech.s2::after{top:24px;left:-16px;border-width:0 16px 12px 0;border-color:transparent var(--ink) transparent transparent;}
+        .speech.s2::before{content:'';position:absolute;top:26px;left:-11px;border-style:solid;border-width:0 12px 9px 0;border-color:transparent #fff transparent transparent;}
+        .speech.s2.red::before{border-color:transparent var(--red) transparent transparent;}
+        .speech.s3{bottom:-22px;left:18%;transform:rotate(3deg);animation:bob3 3.7s ease-in-out infinite;}
+        .speech.s3::after{top:-14px;left:30px;border-width:0 0 14px 10px;border-color:transparent transparent var(--ink) transparent;}
+        .speech.s3::before{content:'';position:absolute;top:-10px;left:32px;border-style:solid;border-width:0 0 11px 7px;border-color:transparent transparent #fff transparent;}
+        .speech.s3.yel::before{border-color:transparent transparent var(--yellow) transparent;}
+        @keyframes bob1{0%,100%{transform:rotate(-6deg) translateY(0);}50%{transform:rotate(-6deg) translateY(-6px);}}
+        @keyframes bob2{0%,100%{transform:rotate(5deg) translateY(0);}50%{transform:rotate(5deg) translateY(6px);}}
+        @keyframes bob3{0%,100%{transform:rotate(3deg) translateY(0);}50%{transform:rotate(3deg) translateY(-5px);}}
 
-        /* REACTIONS — FIX #6: toned down sexual innuendo, more professional */
-        .reactions{padding:60px 0;background:var(--white);overflow:hidden;border-bottom:4px solid var(--black);}
-        .reaction-scroll{display:flex;gap:20px;animation:scrollR 25s linear infinite;}
-        @keyframes scrollR{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-        .reaction-card{flex-shrink:0;background:var(--white);border:4px solid var(--black);padding:24px;width:300px;text-align:center;position:relative;box-shadow:4px 4px 0 var(--black);}
-        .reaction-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(255,105,180,0.06) 1px,transparent 1px);background-size:6px 6px;pointer-events:none;}
-        .reaction-face-wrap{margin-bottom:12px;}
-        .reaction-text{font-family:var(--display);font-size:18px;color:var(--red);margin-bottom:4px;}
-        .reaction-sub{font-size:13px;color:#888;font-style:italic;}
+        /* ============ STATS ============ */
+        .stats{background:var(--ink);color:var(--white);border-top:4px solid var(--ink);border-bottom:4px solid var(--ink);}
+        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+        .stat{padding:44px 28px;text-align:center;position:relative;overflow:hidden;}
+        .stat:nth-child(-n+3){border-right:4px solid var(--ink);}
+        .stat-1{background:var(--red);color:var(--white);}
+        .stat-2{background:var(--ink);color:var(--white);}
+        .stat-3{background:var(--yellow);color:var(--ink);}
+        .stat-4{background:var(--ink);color:var(--white);}
+        .stat-n{font-family:var(--f-display);font-size:clamp(56px,5vw,92px);line-height:0.95;letter-spacing:-1px;position:relative;}
+        .stat-l{font-family:var(--f-mono);font-size:12px;letter-spacing:2.5px;margin-top:8px;text-transform:uppercase;position:relative;}
 
-        /* TESTIMONIALS — social proof section */
-        .testimonials-section{padding:80px 0;background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);border-top:4px solid var(--black);}
-        .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-        .testimonial-card{background:var(--white);border:4px solid var(--black);padding:28px;box-shadow:4px 4px 0 var(--black);position:relative;transition:all .2s;}
-        .testimonial-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--black);}
-        .testimonial-card::before{content:'\201C';position:absolute;top:12px;right:20px;font-size:60px;color:var(--red);opacity:0.15;font-family:Georgia,serif;line-height:1;}
-        .testimonial-text{font-size:16px;line-height:1.7;color:#333;margin-bottom:16px;font-style:italic;}
-        .testimonial-author{display:flex;align-items:center;gap:12px;}
-        .testimonial-avatar{width:48px;height:48px;border-radius:50%;border:3px solid var(--black);object-fit:cover;}
-        .testimonial-info strong{display:block;font-size:14px;color:var(--black);}
-        .testimonial-info span{font-size:12px;color:#888;}
-        @media(max-width:768px){.testimonials-grid{grid-template-columns:1fr;}}
+        /* ============ MARQUEE ============ */
+        .marquee{background:var(--ink);color:var(--yellow);overflow:hidden;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);height:64px;}
+        .marquee-track{display:inline-flex;align-items:center;white-space:nowrap;animation:mq-scroll 70s linear infinite;height:64px;}
+        .marquee:hover .marquee-track{animation-play-state:paused;}
+        .marquee-item{display:inline-flex;align-items:center;padding:0 24px;font-family:var(--f-display);font-size:28px;letter-spacing:2px;text-transform:uppercase;line-height:1;}
+        .marquee-sep{display:inline-block;font-size:22px;color:var(--red);padding:0 2px;}
+        @keyframes mq-scroll{from{transform:translateX(0);}to{transform:translateX(-33.333%);}}
 
-        /* PROVOCATION */
-        .provocation{text-align:center;background:var(--red);color:white;padding:80px 0;border-top:4px solid var(--black);border-bottom:4px solid var(--black);position:relative;}
-        .provocation::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.1) 1px,transparent 1px);background-size:6px 6px;pointer-events:none;}
-        .prov-quote{font-family:var(--display);font-size:clamp(28px,5vw,56px);line-height:1.15;max-width:600px;position:relative;z-index:1;text-align:left;}
-        .prov-quote .yellow{color:var(--yellow);}
-        .prov-sub{font-size:18px;opacity:0.9;max-width:560px;line-height:1.7;position:relative;z-index:1;text-align:left;}
-        .prov-grid{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:center;}
-        @media(max-width:768px){.prov-grid{grid-template-columns:1fr;}.prov-quote,.prov-sub{text-align:center;}}
+        /* ============ REACTION CAROUSEL ============ */
+        .reactions{background:var(--white);padding:80px 0 90px;border-top:4px solid var(--ink);border-bottom:4px solid var(--ink);position:relative;overflow:hidden;}
+        .reactions .halftone{background-image:radial-gradient(#fed002 28%,transparent 30%);background-size:14px 14px;opacity:0.08;}
+        .reactions-head{position:relative;}
+        .reactions-head .sec-head{margin-bottom:8px;}
+        .reactions h2.sec{font-family:var(--f-display);font-size:clamp(36px,4.8vw,72px);line-height:0.95;text-transform:uppercase;margin:0 0 30px;letter-spacing:-1px;}
+        .reactions h2.sec .col-red{color:var(--red);}
+        .reactions h2.sec .hl-y{background:var(--yellow);padding:0 10px;box-shadow:0 6px 0 var(--ink) inset;}
+        .reaction-strip{overflow:hidden;position:relative;}
+        .reaction-track{display:inline-flex;gap:22px;animation:react-scroll 88s linear infinite;padding:30px 0 40px;will-change:transform;}
+        .reaction-strip:hover .reaction-track{animation-play-state:paused;}
+        @keyframes react-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+        .react-card{flex-shrink:0;width:340px;display:flex;align-items:flex-start;gap:16px;padding:18px 18px 20px;background:var(--white);border:4px solid var(--ink);position:relative;}
+        .react-card:nth-child(4n+1){box-shadow:8px 8px 0 var(--red);transform:rotate(-1deg);}
+        .react-card:nth-child(4n+2){box-shadow:8px 8px 0 var(--yellow);transform:rotate(1deg);}
+        .react-card:nth-child(4n+3){box-shadow:8px 8px 0 var(--sky);transform:rotate(-0.5deg);}
+        .react-card:nth-child(4n+4){box-shadow:8px 8px 0 var(--ink);transform:rotate(1deg);}
+        .react-face{width:84px;height:84px;flex-shrink:0;border-radius:999px;overflow:hidden;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);}
+        .react-face img{width:100%;height:100%;object-fit:cover;}
+        .react-quote{flex:1;font-family:var(--f-display);font-size:18px;line-height:1.15;letter-spacing:0.5px;text-transform:uppercase;color:var(--ink);position:relative;padding-left:10px;}
+        .react-quote::before{content:'"';font-family:var(--f-display);font-size:60px;color:var(--red);position:absolute;top:-26px;left:-4px;line-height:1;}
 
-        /* CAPABILITIES — FIX #7: use Inter for body text in cards */
-        .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-        .cap-card{background:var(--white);border:4px solid var(--black);padding:28px;transition:all .2s;position:relative;overflow:hidden;}
-        .cap-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--red);}
-        .cap-card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
-        .cap-card h3{font-family:var(--display);font-size:20px;margin-bottom:8px;color:var(--red);}
-        .cap-card p{font-size:14px;color:#555;line-height:1.6;}
-        .section-label{font-size:14px;color:var(--red);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;font-weight:900;}
-        .section-title{font-family:var(--display);font-size:clamp(32px,5vw,52px);line-height:1.1;margin-bottom:16px;}
-        /* FIX #8: section-sub uses Inter for readability */
-        .section-sub{font-size:17px;color:#555;max-width:600px;line-height:1.7;margin-bottom:40px;}
+        /* ============ CREDENTIALS ============ */
+        .credentials{background:var(--grey);padding:30px 0;border-bottom:1px solid rgba(10,10,10,.13);}
+        .credentials .wrap{display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+        .cr-title{font-family:var(--f-display);font-size:22px;letter-spacing:2px;color:var(--ink);}
+        .cr-body{flex:1;font-family:var(--f-body);font-size:14px;line-height:1.5;color:var(--ink);min-width:280px;}
+        .cr-mono{font-family:var(--f-mono);font-size:11px;letter-spacing:2px;color:var(--ink);opacity:0.65;text-transform:uppercase;}
 
-        /* RESULTS */
-        .results-section{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#fff 10px,#fff 20px);}
-        .results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-        .result-card{background:var(--white);border:4px solid var(--black);padding:32px;box-shadow:4px 4px 0 var(--black);}
-        .result-card .label{font-family:var(--display);font-size:14px;color:var(--red);margin-bottom:8px;}
-        .result-card h3{font-size:18px;font-weight:900;margin-bottom:10px;}
-        .result-card p{font-size:14px;color:#555;line-height:1.6;margin-bottom:16px;}
-        .result-stats{display:flex;gap:24px;}
-        /* FIX #9: stat numbers use JetBrains Mono for clear readability */
-        .stat-val{font-family:'JetBrains Mono',monospace;font-size:32px;color:var(--red);font-weight:700;}
-        .stat-lbl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.04em;font-weight:700;}
+        /* ============ PROVOCATION ============ */
+        .provoc{background:var(--red);color:var(--white);position:relative;overflow:hidden;}
+        .provoc-inner{padding:90px 56px;position:relative;}
+        .provoc-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:center;}
+        .provoc .kicker{color:var(--yellow);}
+        .provoc .kicker .bar{background:var(--yellow);}
+        .provoc h2{font-family:var(--f-display);font-size:clamp(40px,5.4vw,86px);line-height:0.95;text-transform:uppercase;letter-spacing:-1px;margin:0;}
+        .provoc h2 .hl-ink{background:var(--ink);color:var(--yellow);padding:0 10px;}
+        .provoc h2.giant{font-size:clamp(48px,6.2vw,104px);line-height:0.92;color:var(--yellow);letter-spacing:-1.5px;text-shadow:5px 5px 0 var(--ink);margin-top:8px;}
+        .provoc-sub{font-family:var(--f-display);font-size:26px;margin-top:18px;color:var(--white);letter-spacing:1px;line-height:1.15;text-transform:uppercase;}
+        .provoc-body{font-family:var(--f-body);font-size:17.5px;line-height:1.6;margin-top:16px;max-width:620px;color:#ffe9eb;}
+        .provoc-body strong{color:var(--yellow);}
 
-        /* PORTFOLIO PROJECTS */
-        .portfolio-section{padding:100px 0;background:var(--black);color:var(--white);position:relative;}
-        .portfolio-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.08) 1px,transparent 1px);background-size:10px 10px;pointer-events:none;}
-        .portfolio-grid{display:flex;flex-direction:column;gap:60px;}
-        .project-card{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:1;}
-        .project-card:nth-child(even){direction:rtl;}
-        .project-card:nth-child(even) > *{direction:ltr;}
-        .project-img-wrap{position:relative;border:5px solid var(--red);box-shadow:8px 8px 0 rgba(224,32,32,0.4);overflow:hidden;transition:transform .3s, box-shadow .3s;}
-        .project-img-wrap:hover{transform:translate(-4px,-4px);box-shadow:12px 12px 0 rgba(224,32,32,0.5);}
-        .project-img{width:100%;display:block;}
-        .project-badge{position:absolute;top:-12px;right:-12px;background:var(--yellow);color:var(--black);font-family:var(--display);font-size:14px;padding:8px 16px;border:3px solid var(--black);transform:rotate(3deg);z-index:2;}
-        .project-content h3{font-family:var(--display);font-size:clamp(28px,4vw,40px);margin-bottom:8px;color:var(--yellow);}
-        .project-content .project-role{font-size:14px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;}
-        .project-content .project-desc{font-size:16px;line-height:1.7;color:rgba(255,255,255,0.85);margin-bottom:20px;}
-        .project-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
-        .project-tag{background:rgba(224,32,32,0.2);border:2px solid var(--red);color:var(--white);padding:4px 12px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;}
-        .project-stats{display:flex;gap:24px;flex-wrap:wrap;}
-        .project-stat{text-align:center;}
-        .project-stat .ps-val{font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--yellow);font-weight:700;}
-        .project-stat .ps-lbl{font-size:10px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;}
-        .project-link{display:inline-block;margin-top:16px;color:var(--yellow);font-family:var(--display);font-size:16px;text-decoration:none;border-bottom:3px solid var(--yellow);padding-bottom:2px;transition:all .2s;}
-        .project-link:hover{color:var(--white);border-color:var(--white);}
-        @media(max-width:768px){
-            .project-card,.project-card:nth-child(even){grid-template-columns:1fr;direction:ltr;}
+        /* ============ THE MATH ============ */
+        .math{background:var(--white);padding:80px 0;border-bottom:4px solid var(--ink);}
+        .math-head{display:flex;align-items:baseline;gap:16px;margin-bottom:20px;}
+        .math-kick{font-family:var(--f-mono);color:var(--red-deep);font-size:13px;letter-spacing:3px;text-transform:uppercase;}
+        .math-rule{flex:1;height:3px;background:var(--ink);}
+        .math h2{font-family:var(--f-display);font-size:clamp(36px,4.6vw,72px);text-transform:uppercase;line-height:0.95;margin:0 0 26px;letter-spacing:-1px;}
+        .math h2 .col-red{color:var(--red);}
+        .math-grid{display:grid;grid-template-columns:repeat(4,1fr);border:4px solid var(--ink);}
+        .math-cell{padding:30px 26px 34px;position:relative;overflow:hidden;}
+        .math-cell:nth-child(-n+3){border-right:4px solid var(--ink);}
+        .math-1{background:var(--red);color:var(--white);}
+        .math-2{background:var(--white);color:var(--ink);}
+        .math-3{background:var(--yellow);color:var(--ink);}
+        .math-4{background:var(--ink);color:var(--yellow);}
+        .math-big{font-family:var(--f-display);font-size:clamp(40px,3.4vw,60px);line-height:1;letter-spacing:-0.5px;position:relative;}
+        .math-sm{font-family:var(--f-body);font-size:14.5px;line-height:1.55;margin-top:12px;font-weight:500;position:relative;}
+
+        /* ============ SECTION COMMON ============ */
+        section.std{padding:100px 0;}
+        .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;}
+        .tab{font-family:var(--f-display);font-size:22px;padding:6px 16px;letter-spacing:3px;text-transform:uppercase;}
+        .tab.ink-yel{background:var(--ink);color:var(--yellow);}
+        .tab.red{background:var(--red);color:var(--white);}
+        .tab.yel-ink{background:var(--yellow);color:var(--ink);}
+        .sec-rule{flex:1;height:3px;background:var(--ink);}
+        .sec-rule.yel{background:var(--yellow);}
+        .sec-rule.red{background:var(--red);}
+        .sec-meta{font-family:var(--f-mono);font-size:12px;letter-spacing:3px;color:var(--ink);opacity:0.6;text-transform:uppercase;}
+        h2.sec{font-family:var(--f-display);font-size:clamp(40px,5.4vw,88px);line-height:0.95;text-transform:uppercase;margin:8px 0 14px;letter-spacing:-1px;max-width:1100px;}
+        h2.sec .col-red{color:var(--red);}
+        h2.sec .col-yel{color:var(--yellow);}
+        .sec-blurb{font-family:var(--f-body);font-size:18px;line-height:1.6;max-width:760px;margin-bottom:40px;}
+
+        /* ============ SERVICES ============ */
+        .services{background:var(--white);}
+        .serv-grid{display:grid;grid-template-columns:repeat(3,1fr);border:4px solid var(--ink);}
+        .serv-cell{padding:30px 28px 32px;position:relative;overflow:hidden;background:var(--white);}
+        .serv-cell:not(:nth-child(3n)){border-right:4px solid var(--ink);}
+        .serv-cell:nth-child(-n+3){border-bottom:4px solid var(--ink);}
+        .serv-cell.center{background:var(--yellow);}
+        .serv-n{font-family:var(--f-display);font-size:38px;color:var(--red);line-height:0.9;margin-bottom:12px;letter-spacing:-0.5px;position:relative;}
+        .serv-t{font-family:var(--f-display);font-size:28px;line-height:1.04;text-transform:uppercase;color:var(--ink);letter-spacing:-0.3px;margin:0;position:relative;}
+        .serv-d{font-family:var(--f-body);font-size:15.5px;line-height:1.6;margin-top:12px;color:var(--ink);position:relative;}
+
+        /* ============ RECEIPTS ============ */
+        .receipts{background:var(--ink);color:var(--white);position:relative;overflow:hidden;}
+        .rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+        .rec-card{background:var(--white);color:var(--ink);padding:28px 30px;border:4px solid var(--white);position:relative;}
+        .rec-card.s-red{box-shadow:10px 10px 0 var(--red);}
+        .rec-card.s-yel{box-shadow:10px 10px 0 var(--yellow);}
+        .rec-card.s-sky{box-shadow:10px 10px 0 var(--sky);}
+        .rec-tag{font-family:var(--f-mono);font-size:11px;letter-spacing:3px;color:var(--red-deep);text-transform:uppercase;}
+        .rec-t{font-family:var(--f-display);font-size:28px;margin:10px 0 12px;line-height:1.05;text-transform:uppercase;letter-spacing:-0.4px;}
+        .rec-d{font-family:var(--f-body);font-size:15.5px;line-height:1.6;margin:0;}
+        .rec-stats{display:flex;margin-top:18px;border-top:3px solid var(--ink);}
+        .rec-stat{flex:1;padding:12px 6px 0;}
+        .rec-stat:not(:last-child){border-right:3px solid var(--ink);}
+        .rec-stat-n{font-family:var(--f-display);font-size:40px;line-height:1;color:var(--red);letter-spacing:-0.5px;}
+        .rec-stat-l{font-family:var(--f-mono);font-size:11px;margin-top:6px;letter-spacing:2px;text-transform:uppercase;}
+
+        /* ============ PORTFOLIO ============ */
+        .portfolio{background:var(--white);}
+        .flagship{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;border:4px solid var(--ink);padding:32px;background:var(--grey);position:relative;overflow:hidden;}
+        .flag-tag{background:var(--red);color:var(--white);font-family:var(--f-display);font-size:18px;padding:4px 12px;letter-spacing:3px;display:inline-block;}
+        .flag-t{font-family:var(--f-display);font-size:44px;margin:12px 0 6px;line-height:1.0;text-transform:uppercase;letter-spacing:-1px;position:relative;}
+        .flag-role{font-family:var(--f-mono);font-size:12px;letter-spacing:2px;color:var(--red-deep);text-transform:uppercase;position:relative;}
+        .flag-d{font-family:var(--f-body);font-size:16px;line-height:1.6;margin-top:12px;position:relative;}
+        .flag-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;position:relative;}
+        .chip{background:var(--ink);color:var(--white);font-family:var(--f-mono);font-size:11px;padding:4px 10px;letter-spacing:2px;}
+        .flag-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:16px;border:3px solid var(--ink);position:relative;}
+        .flag-stat{padding:10px 6px;text-align:center;background:var(--white);}
+        .flag-stat:not(:last-child){border-right:3px solid var(--ink);}
+        .flag-stat-n{font-family:var(--f-display);font-size:28px;line-height:1;color:var(--red);}
+        .flag-stat-l{font-family:var(--f-mono);font-size:10px;letter-spacing:1.5px;margin-top:4px;text-transform:uppercase;}
+        .flag-cta{display:inline-block;margin-top:16px;background:var(--ink);color:var(--yellow);padding:12px 18px;font-family:var(--f-display);font-size:18px;letter-spacing:2px;text-decoration:none;position:relative;text-transform:uppercase;}
+        .pf-sub-h{font-family:var(--f-display);font-size:30px;text-transform:uppercase;margin:60px 0 18px;letter-spacing:-0.5px;}
+        .pf-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+        .pf-card{text-decoration:none;color:var(--ink);background:var(--white);border:3px solid var(--ink);padding:22px 22px 24px;display:block;transition:transform .15s,box-shadow .15s;}
+        .pf-card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink);}
+        .pf-role{font-family:var(--f-mono);font-size:11px;letter-spacing:2px;color:var(--red-deep);}
+        .pf-t{font-family:var(--f-display);font-size:26px;margin:6px 0 8px;text-transform:uppercase;letter-spacing:-0.3px;}
+        .pf-d{font-family:var(--f-body);font-size:14px;line-height:1.55;margin:0 0 12px;}
+        .pf-link{font-family:var(--f-mono);font-size:12px;color:var(--red);font-weight:700;}
+        .pf-twocol{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;margin-top:60px;}
+        .pf-sub2{font-family:var(--f-display);font-size:26px;text-transform:uppercase;margin:0 0 12px;letter-spacing:-0.3px;}
+        .events-list{border-top:2px solid var(--ink);}
+        .event{border-bottom:2px solid var(--ink);padding:12px 0;}
+        .event h4{font-family:var(--f-display);font-size:20px;margin:0 0 4px;text-transform:uppercase;}
+        .event p{font-family:var(--f-body);font-size:14px;line-height:1.55;margin:0;}
+        .tools-grid{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);}
+        .tool{padding:12px 14px;}
+        .tool:nth-child(odd){border-right:2px solid var(--ink);}
+        .tool:nth-child(-n+4){border-bottom:2px solid var(--ink);}
+        .tool h4{font-family:var(--f-display);font-size:16px;margin:0 0 2px;text-transform:uppercase;}
+        .tool p{font-family:var(--f-body);font-size:12.5px;line-height:1.5;margin:0;color:#333;}
+        .vault-link{margin-top:12px;font-family:var(--f-body);font-size:13px;}
+        .vault-link a{color:var(--red);font-weight:800;text-decoration:none;}
+        .vault-link a:hover{text-decoration:underline;}
+
+        /* ============ PRICING ============ */
+        .pricing{background:var(--yellow);position:relative;overflow:hidden;}
+        .pricing-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;align-items:start;position:relative;}
+        .price-big{font-family:var(--f-display);font-size:clamp(96px,11vw,200px);line-height:0.82;color:var(--red);letter-spacing:-4px;text-shadow:8px 8px 0 var(--ink);}
+        .price-big .unit{font-size:0.36em;color:var(--ink);letter-spacing:4px;text-shadow:none;margin-left:8px;}
+        .price-headline{font-family:var(--f-display);font-size:32px;margin-top:14px;text-transform:uppercase;line-height:1.05;letter-spacing:-0.4px;max-width:460px;}
+        .price-body{font-family:var(--f-body);font-size:17px;line-height:1.6;margin-top:14px;max-width:460px;}
+        .price-pic{margin-top:26px;max-width:460px;}
+        .tiers{display:grid;gap:18px;}
+        .tier{padding:28px 32px;border:4px solid var(--ink);background:var(--white);color:var(--ink);box-shadow:8px 8px 0 var(--ink);position:relative;}
+        .tier.featured{background:var(--ink);color:var(--white);box-shadow:10px 10px 0 var(--red);}
+        .tier-rec{position:absolute;top:-16px;right:28px;background:var(--red);color:var(--white);font-family:var(--f-display);font-size:18px;padding:4px 12px;border:3px solid var(--ink);letter-spacing:2px;transform:rotate(4deg);text-transform:uppercase;}
+        .tier-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;}
+        .tier-tag{font-family:var(--f-mono);font-size:12px;letter-spacing:3px;color:var(--red);text-transform:uppercase;font-weight:700;}
+        .tier.featured .tier-tag{color:var(--yellow);}
+        .tier-t{font-family:var(--f-display);font-size:36px;margin:4px 0 0;text-transform:uppercase;letter-spacing:-0.5px;}
+        .tier-p{font-family:var(--f-display);font-size:56px;line-height:1;color:var(--red);letter-spacing:-1.5px;text-align:right;}
+        .tier.featured .tier-p{color:var(--yellow);}
+        .tier-unit{font-family:var(--f-mono);font-size:11px;margin-top:4px;opacity:0.8;text-align:right;}
+        .tier-li{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;}
+        .tier-li li{font-family:var(--f-body);font-size:14.5px;padding-left:18px;position:relative;}
+        .tier-li li::before{content:'★';position:absolute;left:0;color:var(--red);font-weight:900;}
+        .tier.featured .tier-li li::before{color:var(--yellow);}
+        .tier-cta{display:inline-block;margin-top:14px;padding:12px 22px;font-family:var(--f-display);font-size:22px;text-decoration:none;letter-spacing:2px;background:var(--ink);color:var(--yellow);text-transform:uppercase;transition:transform .15s,box-shadow .15s;}
+        .tier-cta:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--red);}
+        .tier.featured .tier-cta{background:var(--yellow);color:var(--ink);}
+        .tier.featured .tier-cta:hover{box-shadow:4px 4px 0 var(--white);}
+        .pricing-tail{font-family:var(--f-display);font-size:18px;margin-top:8px;letter-spacing:1px;text-transform:uppercase;line-height:1.2;}
+
+        /* ============ ABOUT ============ */
+        .about{background:var(--white);position:relative;}
+        .about-grid{display:grid;grid-template-columns:0.85fr 1.4fr;gap:56px;align-items:start;}
+        .about-cap{margin-top:12px;font-family:var(--f-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;display:flex;justify-content:space-between;}
+        .about h2{font-family:var(--f-display);font-size:clamp(60px,7.4vw,132px);margin:0;text-transform:uppercase;line-height:0.9;letter-spacing:-2px;}
+        .about h2 .col-red{color:var(--red);}
+        .about p{font-family:var(--f-body);font-size:18px;line-height:1.65;margin-top:18px;}
+        .about-highlight{background:var(--yellow);padding:12px 16px;display:inline-block;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--red);}
+        .about-socials{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;}
+        .about-soc{font-family:var(--f-display);color:var(--white);padding:12px 22px;text-decoration:none;border:3px solid var(--ink);font-size:22px;letter-spacing:2px;box-shadow:5px 5px 0 var(--ink);transition:transform .15s,box-shadow .15s;text-transform:uppercase;}
+        .about-soc:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+        .soc-tg{background:var(--ink);}
+        .soc-li{background:var(--sky);}
+        .soc-gh{background:var(--red);}
+
+        /* ============ TESTIMONIALS ============ */
+        .testim{background:var(--ink);color:var(--white);position:relative;overflow:hidden;}
+        .ts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+        .ts-card{background:var(--white);color:var(--ink);padding:26px 28px;border:4px solid var(--white);position:relative;}
+        .ts-card:nth-child(odd){box-shadow:8px 8px 0 var(--red);}
+        .ts-card:nth-child(even){box-shadow:8px 8px 0 var(--yellow);}
+        .ts-quote{font-family:var(--f-display);font-size:70px;color:var(--red);line-height:0.5;position:absolute;top:24px;left:16px;}
+        .ts-text{font-family:var(--f-body);font-size:16px;line-height:1.6;margin:10px 0 14px;padding-left:38px;}
+        .ts-author{display:flex;align-items:center;gap:12px;padding-left:38px;}
+        .ts-avatar{width:52px;height:52px;border:3px solid var(--ink);object-fit:cover;background:var(--grey);}
+        .ts-name{font-family:var(--f-display);font-size:20px;text-transform:uppercase;letter-spacing:-0.2px;}
+        .ts-role{font-family:var(--f-mono);font-size:11px;letter-spacing:1px;margin-top:2px;}
+
+        /* ============ FINAL CTA ============ */
+        .final{background:var(--yellow);position:relative;overflow:hidden;}
+        .final-grid{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;min-height:560px;}
+        .final-l{padding:80px 56px;position:relative;}
+        .final h2{font-family:var(--f-display);font-size:clamp(56px,7.4vw,124px);line-height:0.88;text-transform:uppercase;letter-spacing:-2px;margin:0;}
+        .final h2 .col-red{color:var(--red);text-shadow:6px 6px 0 var(--ink);}
+        .final p.body{font-family:var(--f-body);font-size:18px;line-height:1.6;margin-top:18px;max-width:540px;}
+        .final-cta{display:inline-block;margin-top:20px;background:var(--ink);color:var(--yellow);padding:24px 36px;font-family:var(--f-display);font-size:32px;text-transform:uppercase;text-decoration:none;letter-spacing:2px;box-shadow:10px 10px 0 var(--red);border:4px solid var(--ink);transition:transform .15s,box-shadow .15s;}
+        .final-cta:hover{transform:translate(-3px,-3px);box-shadow:13px 13px 0 var(--red);}
+        .final-mono{font-family:var(--f-mono);font-size:13px;margin-top:12px;color:var(--ink);letter-spacing:1.5px;text-transform:uppercase;}
+        .final-r{position:relative;padding:40px 56px 40px 0;display:flex;align-items:center;justify-content:center;}
+
+        /* ============ FOOTER ============ */
+        footer.foot{background:var(--ink);color:var(--white);padding:30px 0;border-top:4px solid var(--red);}
+        footer.foot .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;}
+        .foot-logo{font-family:var(--f-display);font-size:18px;letter-spacing:3px;}
+        .foot-logo .yel{color:var(--yellow);}
+        .foot-meta{font-family:var(--f-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.8;}
+        .foot-meta a{color:#fff;text-decoration:none;opacity:0.85;}
+        .foot-meta a:hover{opacity:1;text-decoration:underline;}
+
+        /* ============ FLOATING BOOK BUBBLE ============ */
+        @keyframes fb-pop{
+            0%{transform:scale(0) rotate(-180deg);opacity:0;}
+            55%{transform:scale(1.18) rotate(10deg);opacity:1;}
+            75%{transform:scale(0.92) rotate(-5deg);}
+            90%{transform:scale(1.03) rotate(2deg);}
+            100%{transform:scale(1) rotate(0deg);}
+        }
+        @keyframes fb-wiggle{
+            0%,92%,100%{transform:rotate(0);}
+            93%{transform:rotate(-4deg) scale(1.04);}
+            95%{transform:rotate(4deg) scale(1.04);}
+            97%{transform:rotate(-3deg) scale(1.02);}
+            99%{transform:rotate(2deg);}
+        }
+        @keyframes fb-pulse{
+            0%,100%{box-shadow:0 8px 0 #0a0a0a,0 14px 28px rgba(0,0,0,.35),0 0 0 0 rgba(232,38,45,.6);}
+            50%{box-shadow:0 8px 0 #0a0a0a,0 14px 28px rgba(0,0,0,.35),0 0 0 18px rgba(232,38,45,0);}
+        }
+        .fb-bubble{
+            position:fixed;bottom:20px;right:20px;z-index:999;
+            width:340px;max-width:380px;background:var(--white);color:var(--ink);
+            border:4px solid var(--ink);
+            box-shadow:0 8px 0 var(--ink),0 18px 40px rgba(0,0,0,.32);
+            border-radius:18px;opacity:0;pointer-events:none;
+            transform-origin:bottom right;
+        }
+        .fb-bubble.show{opacity:1;pointer-events:auto;animation:fb-pop .85s cubic-bezier(.34,1.7,.4,1) both,fb-wiggle 7s ease-in-out 1.2s infinite;}
+        .fb-tail{position:absolute;bottom:-28px;right:26px;}
+        .fb-close{position:absolute;top:8px;right:8px;width:28px;height:28px;border:2px solid var(--ink);background:var(--yellow);font-family:var(--f-display);font-size:14px;border-radius:999px;line-height:1;padding:0;z-index:2;}
+        .fb-tag{position:absolute;top:-14px;left:16px;background:var(--red);color:var(--white);font-family:var(--f-display);font-size:14px;padding:3px 10px;border:3px solid var(--ink);letter-spacing:2px;transform:rotate(-4deg);text-shadow:1px 1px 0 var(--ink);text-transform:uppercase;}
+        .fb-head{padding:20px 18px 14px;display:flex;gap:14px;align-items:center;}
+        .fb-avatar{width:56px;height:56px;flex-shrink:0;border-radius:999px;overflow:hidden;border:3px solid var(--ink);box-shadow:0 4px 0 var(--red);}
+        .fb-avatar img{width:100%;height:100%;object-fit:cover;}
+        .fb-title{font-family:var(--f-display);font-size:22px;letter-spacing:1px;text-transform:uppercase;line-height:1;flex:1;min-width:0;}
+        .fb-title .red{color:var(--red);display:block;}
+        .fb-body{padding:0 18px 14px;font-family:var(--f-body);font-size:14px;line-height:1.5;}
+        .fb-body strong{background:var(--ink);color:var(--yellow);padding:1px 6px;font-weight:700;}
+        .fb-cta{display:block;margin:0 12px 14px;text-align:center;background:var(--red);color:var(--white);padding:14px 16px;text-decoration:none;font-family:var(--f-display);font-size:20px;letter-spacing:2px;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);text-transform:uppercase;transition:transform .15s,box-shadow .15s;}
+        .fb-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+        .fb-avatar-btn{
+            position:fixed;bottom:20px;right:20px;z-index:999;
+            width:64px;height:64px;border-radius:999px;border:4px solid var(--ink);
+            background:var(--red);overflow:hidden;padding:0;
+            animation:fb-pop .55s cubic-bezier(.34,1.7,.4,1) both,fb-pulse 2.4s ease-out infinite;
+        }
+        .fb-avatar-btn img{width:100%;height:100%;object-fit:cover;}
+
+        @media (prefers-reduced-motion: reduce){
+            .fb-bubble.show{animation:fb-pop .85s cubic-bezier(.34,1.7,.4,1) both;}
+            .fb-avatar-btn{animation:fb-pop .55s cubic-bezier(.34,1.7,.4,1) both;}
+            .marquee-track,.reaction-track{animation-duration:200s;}
+            .speech.s1,.speech.s2,.speech.s3{animation:none;}
         }
 
-        /* PRICING — FIX #10: prices use JetBrains Mono so $2,000 != $1,000 */
-        .pricing-section{padding:100px 0;position:relative;}
-        .price-hero{text-align:center;margin-bottom:60px;}
-        .price-amount{font-family:'JetBrains Mono',monospace;font-size:clamp(64px,12vw,110px);color:var(--red);line-height:1;font-weight:700;text-shadow:4px 4px 0 var(--black);}
-        .price-subtitle{font-family:var(--display);font-size:24px;color:var(--black);margin-top:8px;}
-        .price-roast{max-width:560px;margin:16px auto 0;font-size:16px;color:#555;line-height:1.6;font-style:italic;}
-        .price-roast strong{color:var(--red);font-style:normal;}
-        .tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-        .tier{background:var(--white);border:4px solid var(--black);padding:28px 20px;transition:all .2s;position:relative;}
-        .tier:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black);}
-        .tier.hot{border-color:var(--red);border-width:5px;}
-        .tier.hot::before{content:'START HERE';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--red);color:white;padding:4px 16px;font-family:var(--display);font-size:14px;border:3px solid var(--black);white-space:nowrap;}
-        .tier-name{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:4px;}
-        .tier-title{font-family:var(--display);font-size:22px;margin-bottom:12px;}
-        /* KEY FIX: JetBrains Mono for prices — $2,000 is now clearly $2,000 */
-        .tier-price{font-family:'JetBrains Mono',monospace;font-size:30px;color:var(--red);margin-bottom:4px;font-weight:700;}
-        .tier-period{font-size:13px;color:#888;margin-bottom:16px;}
-        .tier-features{list-style:none;margin-bottom:20px;}
-        .tier-features li{font-size:13px;color:#555;padding:4px 0;display:flex;align-items:flex-start;gap:8px;}
-        /* FIX #11: simpler bullet instead of POW! */
-        .tier-features li::before{content:'→';color:var(--red);flex-shrink:0;font-weight:900;margin-top:0;}
-        .tier-btn{display:block;width:100%;text-align:center;padding:12px;font-family:var(--display);font-size:16px;text-transform:uppercase;text-decoration:none;border:3px solid var(--black);cursor:pointer;transition:all .15s;}
-        .tier-btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--black);}
-        .tier-btn-red{background:var(--red);color:white;}
-        .tier-btn-outline{background:var(--white);color:var(--black);}
-        .price-note{text-align:center;margin-top:24px;font-size:14px;color:#888;font-weight:700;}
+        /* ============ RESPONSIVE ============ */
+        @media (max-width:760px){
+            .wrap{padding:0 20px;}
+            .nav-inner{padding:10px 16px;gap:12px;}
+            .nav-logo{font-size:16px;letter-spacing:2px;}
+            .nav-logo .slash,.nav-logo .yel{display:none;}
+            .nav-links{display:none;}
+            .nav-cta{padding:8px 12px;font-size:13px;margin-left:auto;box-shadow:3px 3px 0 var(--yellow);}
+            .lang-select{font-size:11px;padding:4px 6px;}
 
-        .price-ru-note{background:var(--yellow);color:var(--black);font-family:var(--display);font-size:18px;padding:12px 24px;border:4px solid var(--black);display:inline-block;transform:rotate(-2deg);box-shadow:4px 4px 0 var(--black);margin-top:16px;max-width:560px;}
-        .price-ru-warm{font-style:italic;color:#666;font-size:15px;margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto;}
+            .hero .tri,.hero .tri-ht{display:none;}
+            .hero-inner{padding:36px 20px 48px;}
+            .hero-grid{grid-template-columns:1fr;gap:28px;}
+            .h1{font-size:clamp(40px,11vw,56px);}
+            .h1 .ul-red{text-decoration-thickness:6px;}
+            .hero-body{font-size:15px;margin-top:18px;}
+            .cta-row{gap:10px;margin-top:22px;}
+            .cta-main{padding:14px 18px;font-size:17px;}
+            .cta-sec{font-size:14px;}
+            .face-stack .face{width:44px;height:44px;}
+            .face-stack .face:nth-child(n+2){margin-left:-12px;}
+            .face-cap{font-size:14px;}
+            .speech{font-size:14px;padding:6px 10px;}
+            .speech.s1{top:-10px;left:-8px;}
+            .speech.s2{right:-8px;top:32%;}
+            .speech.s3{bottom:-12px;left:6%;}
 
-        /* FAQ — FIX #12: simpler toggle indicator */
-        .faq-section{background:var(--white);border-top:4px solid var(--black);}
-        .faq-list{max-width:720px;margin:0 auto;}
-        .faq-item{border-bottom:3px solid var(--black);}
-        .faq-q{width:100%;background:none;border:none;color:var(--black);font-family:'Inter',sans-serif;font-size:16px;font-weight:900;text-align:left;padding:20px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;}
-        .faq-q::after{content:'+';font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--red);flex-shrink:0;transition:transform .3s;font-weight:700;}
-        .faq-q.active::after{content:'−';transform:rotate(0);}
-        .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;}
-        .faq-a-inner{padding:0 0 20px;font-size:15px;color:#555;line-height:1.7;}
+            .stats-grid{grid-template-columns:1fr 1fr;}
+            .stat{padding:28px 18px;}
+            .stat:nth-child(-n+3){border-right:none;}
+            .stat:nth-child(odd){border-right:4px solid var(--ink);}
+            .stat:nth-child(-n+2){border-bottom:4px solid var(--ink);}
+            .stat-n{font-size:48px;}
+            .stat-l{font-size:11px;}
 
-        /* ABOUT — FIX #13: photo with halftone overlay */
-        .about-grid{display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:center;}
-        .about-photo-wrap{border:5px solid var(--black);box-shadow:8px 8px 0 var(--red);overflow:hidden;position:relative;}
-        .about-photo-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(224,32,32,0.1) 1px,transparent 1px);background-size:4px 4px;pointer-events:none;mix-blend-mode:multiply;}
-        .about-photo{width:100%;display:block;filter:contrast(1.15) saturate(1.2);}
-        .about-content h2{font-family:var(--display);font-size:40px;margin-bottom:16px;}
-        .about-content p{font-size:15px;color:#444;line-height:1.7;margin-bottom:12px;}
-        .about-content p strong{color:var(--black);}
-        .about-links{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;}
-        .about-links a{font-family:var(--display);font-size:16px;color:var(--black);text-decoration:none;padding:8px 16px;border:3px solid var(--black);transition:all .15s;}
-        .about-links a:hover{background:var(--red);color:white;transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--black);}
+            .marquee{height:48px;}
+            .marquee-track{height:48px;}
+            .marquee-item{font-size:20px;padding:0 16px;}
+            .marquee-sep{font-size:16px;}
 
-        /* CTA */
-        .cta-section{text-align:center;background:var(--yellow);padding:80px 0;border-top:4px solid var(--black);border-bottom:4px solid var(--black);position:relative;}
-        .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.05) 1px,transparent 1px);background-size:8px 8px;pointer-events:none;}
-        .cta-section h2{font-family:var(--display);font-size:clamp(40px,7vw,72px);color:var(--black);margin-bottom:16px;line-height:1;position:relative;z-index:1;}
-        .cta-section h2 .red{color:var(--red);}
-        .cta-section p{font-size:18px;color:rgba(0,0,0,0.7);max-width:520px;margin:0 auto 32px;line-height:1.6;position:relative;z-index:1;}
-        .cta-btn{display:inline-block;background:var(--red);color:white;padding:18px 48px;font-family:var(--display);font-size:24px;text-decoration:none;border:4px solid var(--black);box-shadow:6px 6px 0 var(--black);transition:all .15s;position:relative;z-index:1;}
-        .cta-btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--black);}
+            .reactions{padding:50px 0 60px;}
+            .reactions h2.sec{font-size:clamp(28px,8vw,40px);}
+            .react-card{width:280px;padding:14px 14px 16px;gap:12px;}
+            .react-face{width:64px;height:64px;}
+            .react-quote{font-size:14.5px;padding-left:8px;}
+            .react-quote::before{font-size:44px;top:-18px;}
 
-        footer{padding:32px 0;text-align:center;background:var(--black);color:white;}
-        footer a{color:var(--yellow);text-decoration:none;}
-        footer a:hover{text-decoration:underline;}
+            .credentials{padding:20px 0;}
+            .credentials .wrap{flex-direction:column;align-items:flex-start;gap:14px;}
+            .cr-title{font-size:18px;}
+            .cr-mono{display:none;}
 
-        /* FIX #14: skip-to-content for accessibility */
-        .skip-link{position:absolute;top:-100px;left:16px;background:var(--red);color:white;padding:8px 16px;z-index:10000;font-weight:700;text-decoration:none;border:3px solid var(--black);}
-        .skip-link:focus{top:8px;}
+            .provoc-inner{padding:60px 20px;}
+            .provoc-grid{grid-template-columns:1fr;gap:30px;}
+            .provoc h2{font-size:clamp(28px,8vw,40px);}
+            .provoc h2.giant{font-size:clamp(34px,10vw,50px);}
+            .provoc-sub{font-size:18px;}
+            .provoc-body{font-size:15px;}
 
-        /* FIX #15: prefers-reduced-motion */
-        @media(prefers-reduced-motion:reduce){
-            .reaction-scroll{animation:none!important;}
-            .greeting-bubble,.chat-msg,.fade-in{animation:none!important;opacity:1!important;transform:none!important;}
-            .fade-in{opacity:1!important;transform:none!important;transition:none!important;}
-        }
+            .math{padding:60px 0;}
+            .math h2{font-size:clamp(28px,7.5vw,40px);}
+            .math-grid{grid-template-columns:1fr 1fr;}
+            .math-cell{padding:22px 18px 24px;}
+            .math-cell:nth-child(-n+3){border-right:none;}
+            .math-cell:nth-child(odd){border-right:4px solid var(--ink);}
+            .math-cell:nth-child(-n+2){border-bottom:4px solid var(--ink);}
+            .math-big{font-size:36px;}
+            .math-sm{font-size:13px;}
 
-        /* RESPONSIVE */
-        .nav-logo{white-space:nowrap;}
-        @media(max-width:1200px){
-            .nav-links .nav-hide{display:none;}
-            .hamburger{display:block;}
-            .nav-logo{font-size:16px;}
-            .nav-cta{padding:6px 10px!important;font-size:11px!important;white-space:nowrap;flex-shrink:0;}
-            .lang-select{padding:3px 4px;font-size:10px;flex-shrink:0;}
-            nav .container{gap:8px;overflow:hidden;}
-            .tiers-grid{grid-template-columns:repeat(2,1fr);}
-            .hero-flex{flex-direction:column;gap:24px;text-align:center;}
-            .hero-art{flex:none;width:200px;margin:0 auto;order:-1;}
-            .hero-sub{margin-left:auto;margin-right:auto;}
-            .hero-actions{justify-content:center;}
-            .hero-tag{display:inline-block;}
-        }
-        @media(max-width:768px){
-            .proof-grid{grid-template-columns:repeat(2,1fr);}
-            .cap-grid,.results-grid{grid-template-columns:1fr;}
-            .tiers-grid{grid-template-columns:1fr;}
+            section.std{padding:60px 0;}
+            .tab{font-size:16px;padding:4px 12px;}
+            h2.sec{font-size:clamp(30px,8vw,44px);}
+            .sec-blurb{font-size:15px;margin-bottom:28px;}
+
+            .serv-grid{grid-template-columns:1fr;}
+            .serv-cell{border-right:none !important;border-bottom:4px solid var(--ink) !important;}
+            .serv-cell:last-child{border-bottom:none !important;}
+            .serv-cell{padding:22px 22px 24px;}
+            .serv-n{font-size:30px;}
+            .serv-t{font-size:22px;}
+            .serv-d{font-size:14px;}
+
+            .rec-grid{grid-template-columns:1fr;gap:18px;}
+            .rec-card{padding:22px 22px;box-shadow:6px 6px 0 var(--red);}
+            .rec-card.s-yel{box-shadow:6px 6px 0 var(--yellow);}
+            .rec-card.s-sky{box-shadow:6px 6px 0 var(--sky);}
+            .rec-t{font-size:22px;}
+            .rec-d{font-size:14px;}
+            .rec-stat-n{font-size:28px;}
+
+            .flagship{grid-template-columns:1fr;padding:22px;gap:24px;}
+            .flag-t{font-size:32px;}
+            .flag-d{font-size:14px;}
+            .flag-stat-n{font-size:22px;}
+            .flag-cta{font-size:16px;}
+            .pf-grid3{grid-template-columns:1fr;gap:14px;}
+            .pf-sub-h{font-size:22px;margin:40px 0 14px;}
+            .pf-t{font-size:22px;}
+            .pf-card{padding:18px 18px 20px;}
+            .pf-twocol{grid-template-columns:1fr;gap:30px;margin-top:40px;}
+            .pf-sub2{font-size:20px;}
+            .event h4{font-size:17px;}
+            .event p{font-size:13px;}
+            .tools-grid{grid-template-columns:1fr;}
+            .tool{border-right:none !important;}
+            .tool{border-bottom:2px solid var(--ink) !important;}
+            .tool:last-child{border-bottom:none !important;}
+            .tool h4{font-size:15px;}
+            .tool p{font-size:12px;}
+
+            .pricing-grid{grid-template-columns:1fr;gap:28px;}
+            .price-big{font-size:clamp(64px,18vw,96px);letter-spacing:-2px;text-shadow:5px 5px 0 var(--ink);}
+            .price-headline{font-size:22px;}
+            .price-body{font-size:14.5px;}
+            .price-pic{display:none;}
+            .tiers{gap:14px;}
+            .tier{padding:22px 22px;box-shadow:5px 5px 0 var(--ink);}
+            .tier.featured{box-shadow:6px 6px 0 var(--red);}
+            .tier-rec{right:16px;font-size:14px;}
+            .tier-head{gap:12px;}
+            .tier-t{font-size:24px;}
+            .tier-p{font-size:38px;}
+            .tier-unit{font-size:10px;}
+            .tier-li{grid-template-columns:1fr;}
+            .tier-li li{font-size:13.5px;}
+            .tier-cta{padding:10px 18px;font-size:18px;}
+            .pricing-tail{font-size:14px;}
+
             .about-grid{grid-template-columns:1fr;gap:24px;}
-            .portfolio-section [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}
-            .portfolio-section [style*="grid-template-columns:repeat(4"]{grid-template-columns:repeat(2,1fr)!important;}
-            .about-photo-wrap{max-width:220px;margin:0 auto;}
-            section{padding:60px 0;}
-            .hero{padding:80px 0 40px;}
-            .hero h1{font-size:clamp(36px,10vw,56px);}
-            .btn-pop{font-size:16px;padding:14px 24px;width:100%;text-align:center;}
-            .chat-window{width:calc(100vw - 16px);right:8px;bottom:8px;max-height:70vh;}
-            .bubble-inner{max-width:220px;padding:12px 16px;}
-            .bubble-text{font-size:18px;}
-        }
-        @media(max-width:420px){
-            .nav-logo{font-size:14px;}
-            .nav-cta{padding:5px 8px!important;font-size:10px!important;max-width:120px;overflow:hidden;text-overflow:ellipsis;}
-            .lang-select{font-size:9px;padding:2px 3px;}
-            .hamburger{font-size:22px;padding:2px 4px;}
-        }
-        @media(max-width:360px){
-            .nav-cta{padding:4px 6px!important;font-size:9px!important;max-width:100px;}
-            .nav-logo{font-size:12px;}
-        }
-        .fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;}
-        .fade-in.visible{opacity:1;transform:translateY(0);}
+            .about h2{font-size:clamp(48px,13vw,72px);letter-spacing:-1px;}
+            .about p{font-size:15px;}
+            .about-soc{padding:10px 16px;font-size:16px;box-shadow:4px 4px 0 var(--ink);}
 
-        /* FIX #16: focus-visible styles */
-        :focus-visible{outline:3px solid var(--red);outline-offset:2px;}
-        a:focus-visible,button:focus-visible{outline:3px solid var(--red);outline-offset:2px;}
+            .ts-grid{grid-template-columns:1fr;gap:16px;}
+            .ts-card{padding:22px 22px;box-shadow:5px 5px 0 var(--red);}
+            .ts-card:nth-child(even){box-shadow:5px 5px 0 var(--yellow);}
+            .ts-text{font-size:14px;padding-left:30px;}
+            .ts-author{padding-left:30px;}
+            .ts-avatar{width:44px;height:44px;}
+            .ts-name{font-size:17px;}
+
+            .final-grid{grid-template-columns:1fr;min-height:0;}
+            .final-l{padding:60px 20px;}
+            .final h2{font-size:clamp(40px,11vw,64px);letter-spacing:-1px;}
+            .final h2 .col-red{text-shadow:4px 4px 0 var(--ink);}
+            .final p.body{font-size:15px;}
+            .final-cta{font-size:22px;padding:18px 24px;box-shadow:6px 6px 0 var(--red);}
+            .final-mono{font-size:11px;}
+            .final-r{padding:0 20px 40px;}
+
+            footer.foot{padding:20px 0;}
+            footer.foot .wrap{flex-direction:column;align-items:flex-start;}
+            .foot-logo{font-size:15px;}
+            .foot-meta{font-size:10.5px;}
+
+            .fb-bubble{width:calc(100vw - 32px);max-width:380px;right:16px;bottom:16px;}
+            .fb-avatar-btn{right:16px;bottom:16px;}
+        }
     </style>
 </head>
 <body>
 
-<!-- FIX #17: skip to content -->
-<a href="#main-content" class="skip-link">Skip to content</a>
-
-<!-- NAV -->
-<nav>
-    <div class="container">
-        <div class="nav-logo">TIM ZININ // AI TRANSFORMATION</div>
-        <button class="hamburger" onclick="document.getElementById('mobileNav').classList.toggle('open')" aria-label="Menu">&#9776;</button>
-        <ul class="nav-links">
-            <li class="nav-hide"><a href="#what" data-t="nav_services">Services</a></li>
-            <li class="nav-hide"><a href="#results" data-t="nav_results">Results</a></li>
-            <li class="nav-hide"><a href="#portfolio" data-t="nav_portfolio">Portfolio</a></li>
-            <li class="nav-hide"><a href="#pricing" data-t="nav_pricing">Pricing</a></li>
-            <li><select class="lang-select" id="langSelect" onchange="switchLang(this.value)" aria-label="Language"></select></li>
-            <li><a href="#book" class="nav-cta" data-t="nav_book">Book a Call!</a></li>
-        </ul>
+<!-- ================ NAV ================ -->
+<header class="nav" id="top">
+    <div class="nav-inner">
+        <a href="#top" class="nav-logo">
+            <span class="dot"></span>TIM ZININ<span class="slash">//</span><span class="yel">AI TRANSFORMATION</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+            <a href="#what" data-i18n="nav_services">Services</a>
+            <a href="#results" data-i18n="nav_results">Receipts</a>
+            <a href="#portfolio" data-i18n="nav_portfolio">Portfolio</a>
+            <a href="#book" data-i18n="nav_pricing">Pricing</a>
+            <a href="#about" data-i18n="nav_about">About</a>
+        </nav>
+        <select class="lang-select" id="langSelect" aria-label="Language">
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+            <option value="tr">TR</option>
+            <option value="es">ES</option>
+            <option value="de">DE</option>
+            <option value="fr">FR</option>
+            <option value="pt">PT</option>
+        </select>
+        <a href="#book" class="nav-cta" data-i18n="cta_nav">Book a Call!</a>
     </div>
-</nav>
-<div class="nav-mobile-overlay" id="mobileNav">
-    <a href="#what" data-t="nav_services" onclick="document.getElementById('mobileNav').classList.remove('open')">Services</a>
-    <a href="#results" data-t="nav_results" onclick="document.getElementById('mobileNav').classList.remove('open')">Results</a>
-    <a href="#pricing" data-t="nav_pricing" onclick="document.getElementById('mobileNav').classList.remove('open')">Pricing</a>
-    <a href="#about" onclick="document.getElementById('mobileNav').classList.remove('open')">About</a>
-    <a href="#book" class="nav-cta" data-t="nav_book" onclick="document.getElementById('mobileNav').classList.remove('open')">Book a Call!</a>
-</div>
+</header>
 
-<!-- GREETING BUBBLE — provocative, opens chat on click -->
-<div class="greeting-bubble" id="greetingBubble" onclick="openChat()">
-    <div class="bubble-inner">
-        <div class="bubble-text" id="bubbleText"></div>
-        <div class="bubble-close" onclick="event.stopPropagation();document.getElementById('greetingBubble').style.display='none'">X</div>
-    </div>
-</div>
-
-<div class="chat-window" id="chatWindow">
-    <div class="chat-header">
-        <img src="tim-zinin.jpg" alt="Tim Zinin" class="chat-header-avatar">
-        <div class="chat-header-info">
-            <div class="chat-header-name">Tim Zinin</div>
-            <div class="chat-header-status" data-t="chat_status">AI Transformation Expert</div>
-        </div>
-        <button class="chat-close" onclick="closeChat()" aria-label="Close chat">&times;</button>
-    </div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-options" id="chatOptions"></div>
-    <div class="chat-input-wrap" id="chatInputWrap">
-        <input class="chat-input" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendUserMsg()">
-        <button class="chat-send" onclick="sendUserMsg()">SEND</button>
-    </div>
-</div>
-
-<!-- HERO -->
-<section class="hero dots-bg" id="main-content">
-    <div class="container">
-        <div class="hero-flex">
-            <div class="hero-text">
-                <div class="hero-tag" data-t="hero_tag">WHILE YOU WERE IN MEETINGS...</div>
-                <h1 id="heroH1"><span data-t="hero_h1_1">Your competitors</span><br><span class="red" data-t="hero_h1_2">already have</span><br><span data-t="hero_h1_3">AI agents.</span> <span data-t="hero_h1_4">You don't.</span></h1>
-                <p class="hero-sub" data-t-html="hero_sub">They automated their operations. They run AI agents for content, outreach, analytics, and team coordination. They know exactly what produces results. And you? You're still hiring humans for work that machines do better. <strong>That gap gets wider every week.</strong></p>
-                <div class="hero-actions">
-                    <a href="#book" class="btn-pop btn-red" data-t="hero_btn1">Book 1 Hour — $250 →</a>
-                    <a href="#results" class="btn-pop btn-yellow" data-t="hero_btn2">See What You're Missing</a>
-                </div>
-            </div>
-            <div class="hero-art">
-                <img src="img/hero-face.jpg" alt="Pop art shocked woman - OMG!" class="hero-img" loading="eager">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PROOF BAR -->
-<div class="proof-bar">
-    <div class="container">
-        <div class="proof-grid" style="grid-template-columns:repeat(5,1fr);">
-            <div><div class="proof-number">13+</div><div class="proof-label" data-t="proof_1_label">Platforms Automated</div></div>
-            <div><div class="proof-number">6</div><div class="proof-label" data-t="proof_2_label">AI Agents Live</div></div>
-            <div><div class="proof-number">3,963</div><div class="proof-label" data-t="proof_3_label">Tests Passing</div></div>
-            <div><div class="proof-number">24/7</div><div class="proof-label" data-t="proof_4_label">Never Sleeps</div></div>
-            <a href="https://anthropic.skilljar.com" target="_blank" style="text-decoration:none;"><div class="proof-number" style="font-size:28px;">Anthropic</div><div class="proof-label" style="color:var(--yellow);">Partner Network</div></a>
-        </div>
-    </div>
-</div>
-
-<!-- ANTHROPIC CERTIFICATIONS -->
-<div style="background:var(--white);border-top:4px solid var(--black);border-bottom:4px solid var(--black);padding:40px 0;">
-    <div class="container" style="text-align:center;">
-        <div data-t="cert_label" style="font-family:var(--display);font-size:14px;color:var(--red);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;font-weight:900;">Anthropic Academy</div>
-        <div data-t="cert_title" style="font-family:var(--display);font-size:clamp(24px,4vw,36px);margin-bottom:24px;">Certified by the makers of Claude</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:0 auto;">
-            <a href="https://verify.skilljar.com/c/mutoy93cv78i" target="_blank" style="border:3px solid var(--black);padding:20px 16px;text-decoration:none;color:var(--black);transition:all .15s;background:var(--white);position:relative;overflow:hidden;">
-                <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);"></div>
-                <div data-t="cert_1_title" style="font-family:var(--display);font-size:15px;color:var(--red);margin-bottom:6px;">Building with the Claude API</div>
-                <div data-t="cert_sub" style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;">Anthropic Education</div>
-            </a>
-            <a href="https://verify.skilljar.com/c/utjxouqhnxog" target="_blank" style="border:3px solid var(--black);padding:20px 16px;text-decoration:none;color:var(--black);transition:all .15s;background:var(--white);position:relative;overflow:hidden;">
-                <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);"></div>
-                <div data-t="cert_2_title" style="font-family:var(--display);font-size:15px;color:var(--red);margin-bottom:6px;">Claude Code in Action</div>
-                <div data-t="cert_sub" style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;">Anthropic Education</div>
-            </a>
-            <a href="https://verify.skilljar.com/c/m794mhw77pgj" target="_blank" style="border:3px solid var(--black);padding:20px 16px;text-decoration:none;color:var(--black);transition:all .15s;background:var(--white);position:relative;overflow:hidden;">
-                <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);"></div>
-                <div data-t="cert_3_title" style="font-family:var(--display);font-size:15px;color:var(--red);margin-bottom:6px;">Introduction to Agent Skills</div>
-                <div data-t="cert_sub" style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;">Anthropic Education</div>
-            </a>
-            <a href="https://verify.skilljar.com/c/z2y5eywnp6gn" target="_blank" style="border:3px solid var(--black);padding:20px 16px;text-decoration:none;color:var(--black);transition:all .15s;background:var(--white);position:relative;overflow:hidden;">
-                <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);"></div>
-                <div data-t="cert_4_title" style="font-family:var(--display);font-size:15px;color:var(--red);margin-bottom:6px;">Introduction to MCP</div>
-                <div data-t="cert_sub" style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;">Anthropic Education</div>
-            </a>
-        </div>
-        <div data-t="cert_note" style="margin-top:16px;font-size:13px;color:#888;">Each certificate verifiable via Skilljar — click to verify</div>
-    </div>
-</div>
-
-<!-- REACTION STRIP -->
-<div class="reactions">
-    <div class="reaction-scroll" id="reactionScroll"></div>
-</div>
-
-<!-- PROVOCATION -->
-<section class="provocation fade-in">
-    <div class="container">
-        <div class="prov-grid">
+<!-- ================ HERO ================ -->
+<section class="hero">
+    <div class="tri"></div>
+    <div class="tri-ht"></div>
+    <div class="hero-inner wrap">
+        <div class="hero-grid">
             <div>
-                <p class="prov-quote"><span class="yellow" data-t="prov_1">While you were debating</span> <span class="yellow" data-t="prov_2">if AI is "ready"...</span><br><span data-t="prov_3">your competitor deployed a robot army.</span><br><span data-t="prov_4">They're not smarter than you.</span><br><span class="yellow" data-t="prov_5">They just stopped doing sh*t manually.</span></p>
-                <p class="prov-sub" data-t="prov_sub">Processes that take your team days? Seconds. Operations across departments? Automated. Decision-making? Data-driven and real-time. The tools exist. Forward-thinking founders are using them. The only question is: how long will you pretend this isn't happening?</p>
-            </div>
-            <img src="img/provocation.jpg" alt="Stressed businessman looking at invoice" class="prov-img" loading="lazy">
-        </div>
-    </div>
-</section>
-
-<!-- WHAT I DO -->
-<section id="what" class="fade-in dots-bg">
-    <div class="container">
-        <div class="section-label" data-t="what_label">What I Build</div>
-        <h2 class="section-title"><span data-t="what_title_1">What your business looks like</span><br><span data-t="what_title_2">after AI transformation</span></h2>
-        <p class="section-sub" data-t="what_sub">Every system below exists in production. Not a demo. Not a pilot. Running 24/7. The question isn't whether this works — it's why your business doesn't have it yet.</p>
-        <div class="cap-grid">
-            <div class="cap-card"><h3 data-t="cap1_title">Founder AI Training</h3><p data-t="cap1_text">Personalized 1:1 education. Learn to build AI agents, automate workflows, and think in systems. From zero to building your own AI army.</p></div>
-            <div class="cap-card"><h3 data-t="cap2_title">Team AI Transformation</h3><p data-t="cap2_text">Workshop format for teams. Modern AI landscape, hands-on tool demos, custom use cases. Turn your team from AI-curious to AI-native.</p></div>
-            <div class="cap-card"><h3 data-t="cap3_title">AI Strategy & Architecture</h3><p data-t="cap3_text">Full process audit, automation blueprint, ROI projections. Know exactly where AI saves money and what to build first.</p></div>
-            <div class="cap-card"><h3 data-t="cap4_title">Process Automation</h3><p data-t="cap4_text">Content factories, outreach systems, data pipelines, reporting dashboards. Multi-agent systems that run your operations 24/7.</p></div>
-            <div class="cap-card"><h3 data-t="cap5_title">Multi-Agent AI Systems</h3><p data-t="cap5_text">CEO, CMO, CFO, CTO, Designer, CPO — all AI agents. Event-driven, self-healing, production-grade. 3,963 tests. Zero downtime.</p></div>
-            <div class="cap-card"><h3 data-t="cap6_title">GEO & AI Discoverability</h3><p data-t="cap6_text">Make your brand visible to ChatGPT, Perplexity, Claude. Generative Engine Optimization is the new SEO. Schema, llms.txt, content architecture.</p></div>
-        </div>
-    </div>
-</section>
-
-<!-- RESULTS -->
-<section id="results" class="results-section fade-in">
-    <div class="container">
-        <div class="section-label" data-t="results_label">Receipts</div>
-        <h2 class="section-title"><span data-t="results_title_1">Systems I've Built.</span> <span data-t="results_title_2">Numbers That Matter.</span></h2>
-        <p class="section-sub" data-t="results_sub">I don't show slides. I show running systems with test suites and revenue dashboards.</p>
-        <div class="results-grid">
-            <div class="result-card">
-                <div class="label" data-t="res1_label">Multi-Agent AI Corporation</div>
-                <h3 data-t="res1_title">6 AI agents running the entire business operation</h3>
-                <p data-t="res1_text">Full AI corporation: CEO, CMO, CFO, CTO, Designer, CPO. Event-driven. Self-healing. 24 sprints without failure.</p>
-                <div class="result-stats"><div><div class="stat-val">3,963</div><div class="stat-lbl">Tests</div></div><div><div class="stat-val">24</div><div class="stat-lbl">Sprints</div></div><div><div class="stat-val">0</div><div class="stat-lbl">Downtime</div></div></div>
-            </div>
-            <div class="result-card">
-                <div class="label" data-t="res2_label">13-Platform Content System</div>
-                <h3 data-t="res2_title">Autonomous publishing everywhere that matters</h3>
-                <p data-t="res2_text">LinkedIn, Threads, Telegram, Facebook, VK, YouTube, Bluesky, Mastodon — all automated with per-platform optimization.</p>
-                <div class="result-stats"><div><div class="stat-val">13+</div><div class="stat-lbl">Platforms</div></div><div><div class="stat-val">24/7</div><div class="stat-lbl">Autonomous</div></div></div>
-            </div>
-            <div class="result-card">
-                <div class="label" data-t="res3_label">Webinar & Sales Funnel</div>
-                <h3 data-t="res3_title">Full automated funnel from click to paid subscription</h3>
-                <p data-t="res3_text">Career club: 1,158+ bot tests, 3 pricing tiers, partner program, automated commissions, webinar funnels.</p>
-                <div class="result-stats"><div><div class="stat-val">1,158+</div><div class="stat-lbl">Tests</div></div><div><div class="stat-val">3</div><div class="stat-lbl">Tiers</div></div></div>
-            </div>
-            <div class="result-card">
-                <div class="label" data-t="res4_label">Crypto Marketing Platform</div>
-                <h3 data-t="res4_title">7-vendor marketplace with Telegram Mini App</h3>
-                <p data-t="res4_text">Crypto marketing tools: bot, web app, CRM, vendor management. 7 vendors, 9 offers. Zero to production in weeks.</p>
-                <div class="result-stats"><div><div class="stat-val">7</div><div class="stat-lbl">Vendors</div></div><div><div class="stat-val">161</div><div class="stat-lbl">Tests</div></div></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PORTFOLIO PROJECTS -->
-<section id="portfolio" class="portfolio-section fade-in">
-    <div class="container">
-        <div class="section-label" style="color:var(--red);" data-t="portfolio_label">Portfolio</div>
-        <h2 class="section-title" style="color:var(--white);"><span data-t="portfolio_title_1">Built. Deployed.</span> <span style="color:var(--yellow);" data-t="portfolio_title_2">Making Money.</span></h2>
-        <p class="section-sub" style="color:rgba(255,255,255,0.7);">Not mockups. Not slides. Live products, real communities, and systems in production.</p>
-
-        <!-- FLAGSHIP: AI Corporation -->
-        <div class="portfolio-grid">
-            <div class="project-card">
-                <div class="project-img-wrap">
-                    <div class="project-badge">FLAGSHIP</div>
-                    <img src="img/project-aicorp.jpg" alt="AI Corporation — 6 autonomous agents" class="project-img" loading="lazy">
+                <div class="kicker"><span class="bar"></span><span data-i18n="kicker">While you were in meetings…</span></div>
+                <h1 class="h1">
+                    <span data-i18n="h1_a">Your competitors</span>
+                    <span class="hl-y" data-i18n="h1_b">already have</span>
+                    <span class="col-red" data-i18n="h1_c">AI agents.</span>
+                    <span class="ul-red" data-i18n="h1_d">You don't.</span>
+                </h1>
+                <p class="hero-body">
+                    <span data-i18n="hero_body">They automated their operations. They run AI agents for content, outreach, analytics, and team coordination. They know exactly what produces results. And you? You're still hiring humans for work that machines do better.</span>
+                    <strong class="gap-pill" data-i18n="gap">That gap gets wider every week.</strong>
+                </p>
+                <div class="cta-row">
+                    <a href="https://calendly.com/timzinin" target="_blank" rel="noopener" class="cta-main" data-i18n="cta_main">BOOK 1 HOUR — $250 →</a>
+                    <a href="#results" class="cta-sec" data-i18n="cta_sec">See What You're Missing →</a>
                 </div>
-                <div class="project-content">
-                    <h3>AI Corporation</h3>
-                    <div class="project-role">Architect & Solo Developer</div>
-                    <p class="project-desc">A full autonomous AI company with 6 agents (CEO, CMO, CFO, CTO, Designer, CPO) running 24/7. Event-driven architecture. Self-healing systems. 24 consecutive sprints without a single failure.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">CrewAI</span>
-                        <span class="project-tag">MCP</span>
-                        <span class="project-tag">Docker</span>
-                        <span class="project-tag">13+ Platforms</span>
+                <div class="face-row">
+                    <div class="face-stack">
+                        <div class="face"><img src="img/site-assets/face-magenta.jpg" alt=""></div>
+                        <div class="face"><img src="img/site-assets/face-yellow.jpg" alt=""></div>
+                        <div class="face"><img src="img/site-assets/face-gold.jpg" alt=""></div>
+                        <div class="face"><img src="img/site-assets/face-pink.jpg" alt=""></div>
                     </div>
-                    <div class="project-stats">
-                        <div class="project-stat"><div class="ps-val">3,963</div><div class="ps-lbl">Tests</div></div>
-                        <div class="project-stat"><div class="ps-val">13+</div><div class="ps-lbl">Platforms</div></div>
-                        <div class="project-stat"><div class="ps-val">24</div><div class="ps-lbl">Sprints</div></div>
-                        <div class="project-stat"><div class="ps-val">0</div><div class="ps-lbl">Downtime</div></div>
-                    </div>
-                    <a href="#book" class="project-link">→ Book a Strategy Call</a>
+                    <div class="face-cap" data-i18n="face_cap">THE ENTIRE OFFICE WHEN YOU SHARE YOUR AI BUDGET</div>
+                </div>
+            </div>
+            <div class="hero-photo-wrap">
+                <div class="speech s1 yel" data-i18n="hero_sp1">OH MY... THE SIZE!</div>
+                <div class="speech s2 red" data-i18n="hero_sp2">WTF IS THAT ROI?!</div>
+                <div class="speech s3" data-i18n="hero_sp3">WAIT, 24/7?!</div>
+                <div class="photo-frame bg-red">
+                    <div class="bg"></div>
+                    <div class="img"><img src="img/site-assets/hero-face.jpg" alt="Pop art shocked woman — OMG!"></div>
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- COMMUNITIES -->
-        <h3 class="bangers" style="color:var(--yellow);font-size:28px;margin:60px 0 24px;position:relative;z-index:1;">Communities I Built</h3>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:1;">
-            <a href="https://sborka.work" target="_blank" style="background:rgba(255,255,255,0.06);border:3px solid var(--red);padding:24px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:20px;color:var(--yellow);margin-bottom:8px;">СБОРКА Career Club</div>
-                <div style="font-size:13px;color:var(--red);font-weight:700;margin-bottom:8px;">CO-FOUNDER & AI ARCHITECT</div>
-                <p style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;">Discipline-driven career community. Telegram bot, Mini App, webinar funnels, AI podcast pipeline, 1,158+ tests.</p>
-                <div style="font-family:'JetBrains Mono',monospace;color:var(--yellow);font-size:18px;margin-top:12px;font-weight:700;">→ sborka.work</div>
-            </a>
-            <a href="https://cryptomarketologi.online" target="_blank" style="background:rgba(255,255,255,0.06);border:3px solid var(--red);padding:24px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:20px;color:var(--yellow);margin-bottom:8px;">Cryptomarketologi</div>
-                <div style="font-size:13px;color:var(--red);font-weight:700;margin-bottom:8px;">FOUNDER & LEAD DEVELOPER</div>
-                <p style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;">Crypto marketing tools marketplace. 7 vendors, TG Mini App, CRM, affiliate tracking. Full-stack solo build.</p>
-                <div style="font-family:'JetBrains Mono',monospace;color:var(--yellow);font-size:18px;margin-top:12px;font-weight:700;">→ cryptomarketologi.online</div>
-            </a>
-            <div style="background:rgba(255,255,255,0.06);border:3px solid var(--red);padding:24px;color:white;">
-                <div style="font-family:var(--display);font-size:20px;color:var(--yellow);margin-bottom:8px;">Botanica AI School</div>
-                <div style="font-size:13px;color:var(--red);font-weight:700;margin-bottom:8px;">FOUNDER</div>
-                <p style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;">AI school for nerds. A community of curious minds exploring the world of AI together. Events, workshops, open-source projects.</p>
-                <div style="font-family:'JetBrains Mono',monospace;color:var(--yellow);font-size:18px;margin-top:12px;font-weight:700;">→ t.me/botanica_club</div>
+<!-- ================ STATS ================ -->
+<section class="stats" aria-label="Key numbers">
+    <div class="stats-grid">
+        <div class="stat stat-1"><div class="halftone yellow-18"></div><div class="stat-n">$300K</div><div class="stat-l" data-i18n="stat_1">Team payroll replaced</div></div>
+        <div class="stat stat-2"><div class="halftone yellow-10"></div><div class="stat-n">8h → 30s</div><div class="stat-l" data-i18n="stat_2">Workday into one prompt</div></div>
+        <div class="stat stat-3"><div class="halftone red-18"></div><div class="stat-n">13+</div><div class="stat-l" data-i18n="stat_3">Platforms running solo</div></div>
+        <div class="stat stat-4"><div class="halftone yellow-10"></div><div class="stat-n">24/7</div><div class="stat-l" data-i18n="stat_4">While your team sleeps</div></div>
+    </div>
+</section>
+
+<!-- ================ MARQUEE ================ -->
+<div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- ================ REACTION CAROUSEL ================ -->
+<section class="reactions" aria-label="Reactions">
+    <div class="halftone"></div>
+    <div class="wrap reactions-head">
+        <div class="sec-head">
+            <span class="tab red" data-i18n="react_kick">※ The Office Reacts</span>
+            <span class="sec-rule"></span>
+        </div>
+        <h2 class="sec">
+            <span data-i18n="react_h2_a">When they finally see</span>
+            <span class="hl-y" data-i18n="react_h2_b">the system</span>
+            <span class="col-red" data-i18n="react_h2_c">running…</span>
+        </h2>
+    </div>
+    <div class="reaction-strip">
+        <div class="reaction-track" id="reactionTrack"></div>
+    </div>
+</section>
+
+<!-- ================ CREDENTIALS ================ -->
+<section class="credentials">
+    <div class="wrap">
+        <div class="cr-title">★ ANTHROPIC PARTNER NETWORK</div>
+        <div class="cr-body">Certified by the makers of Claude. Building with the Claude API · Claude Code in Action · Agent Skills · MCP.</div>
+        <div class="cr-mono">Each certificate verifiable via Skilljar</div>
+    </div>
+</section>
+
+<!-- ================ PROVOCATION ================ -->
+<section class="provoc">
+    <div class="halftone ink-18"></div>
+    <div class="provoc-inner wrap">
+        <div class="provoc-grid">
+            <div>
+                <div class="kicker"><span class="bar"></span><span>※ Chapter Two</span></div>
+                <h2>While you were debating if AI is <span class="hl-ink">"ready"…</span></h2>
+                <h2 class="giant">your competitor deployed a robot army.</h2>
+                <p class="provoc-sub">They're not smarter than you. They just stopped doing sh*t manually.</p>
+                <p class="provoc-body">Processes that take your team days? <strong>Seconds.</strong> Operations across departments? <strong>Automated.</strong> Decision-making? <strong>Data-driven and real-time.</strong> The tools exist. Forward-thinking founders are using them. The only question is: how long will you pretend this isn't happening?</p>
             </div>
-        </div>
-
-        <!-- EVENTS -->
-        <h3 class="bangers" style="color:var(--yellow);font-size:28px;margin:60px 0 24px;position:relative;z-index:1;">Events & Workshops</h3>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:1;">
-            <a href="https://timzinin.com/kas-talk/" target="_blank" style="background:rgba(255,255,255,0.06);border:3px solid var(--red);padding:20px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:18px;color:var(--yellow);margin-bottom:6px;">AI for Locals — Kaş</div>
-                <p style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.4;">Workshop with Kaş Municipality on AI & Tourism. Bilingual (TR/EN). March 2026.</p>
-            </a>
-            <a href="https://timzinin.com/kashfin/" target="_blank" style="background:rgba(255,255,255,0.06);border:3px solid var(--red);padding:20px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:18px;color:var(--yellow);margin-bottom:6px;">KaşFin — Microfinance AI</div>
-                <p style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.4;">AI-powered microfinance & portfolio management for Kaş tourism businesses.</p>
-            </a>
-            <a href="https://timzinin.com/human-networks/" target="_blank" style="background:rgba(255,255,255,0.06);border:3px solid var(--red);padding:20px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:18px;color:var(--yellow);margin-bottom:6px;">Human Networks Lecture</div>
-                <p style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.4;">Educational lecture on human networks & career for СБОРКА community.</p>
-            </a>
-        </div>
-
-        <!-- TOOLS & SKILLS -->
-        <h3 class="bangers" style="color:var(--yellow);font-size:28px;margin:60px 0 24px;position:relative;z-index:1;">Tools, Skills & Research</h3>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative;z-index:1;">
-            <a href="https://timzinin.com/cli-agents/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">CLI Agents 2026</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Research on coding agents landscape</p>
-            </a>
-            <a href="https://github.com/TimmyZinin/codex-review" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Codex Review Skill</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Independent AI code review for Claude Code</p>
-            </a>
-            <a href="https://timzinin.com/content-pipeline/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Content Pipeline</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Autonomous publishing on 13 platforms</p>
-            </a>
-            <a href="https://github.com/TimmyZinin/mcphire-frontend" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">MCPHire</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">MCP-first job marketplace, 38K vacancies</p>
-            </a>
-            <a href="https://timzinin.com/smm-research-hub/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">SMM Research Hub</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">29 platform audits, strategies for each</p>
-            </a>
-            <a href="https://timzinin.com/sborka-lecture/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">AI Workshop Materials</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Educational AI lecture series for СБОРКА</p>
-            </a>
-            <a href="https://timzinin.com/media-layoffs-infographic/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Media Layoffs Report</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Interactive infographic on AI & media</p>
-            </a>
-        </div>
-
-        <!-- GAMES -->
-        <h3 class="bangers" style="color:var(--yellow);font-size:28px;margin:60px 0 24px;position:relative;z-index:1;">Games & Interactive</h3>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative;z-index:1;">
-            <a href="https://timzinin.com/marina-v-ogne/" target="_blank" style="background:rgba(255,215,0,0.1);border:3px solid var(--yellow);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Marina v Ogne</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Incremental sim about founder burnout</p>
-            </a>
-            <a href="https://timzinin.com/space-shooter-unity/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Space Shooter</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">3D synthwave space shooter (Unity WebGL)</p>
-            </a>
-            <a href="https://timzinin.com/minecraft-the-end/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Minecraft: The End</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">The End dimension — Minecraft browser</p>
-            </a>
-            <a href="https://timzinin.com/yacht-sim/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Yacht Simulator</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">8-bit NES-style yacht mooring trainer</p>
-            </a>
-            <a href="https://timzinin.com/friends/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Friends Protocol</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Knowledge networking by digital DNA</p>
-            </a>
-            <a href="https://timzinin.com/game-research/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Game Market Research</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Day-1 revenue optimization research</p>
-            </a>
-            <a href="https://timzinin.com/botanica-backlog/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Botanica Backlog</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">AI tools & ideas in pixel art</p>
-            </a>
-            <a href="https://timzinin.com/sweet-dukkha/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Sweet Dukkha</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Interactive philosophical experience</p>
-            </a>
-            <a href="https://timzinin.com/battle-denis/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Battle Denis</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Interactive game experience</p>
-            </a>
-        </div>
-
-        <!-- CLIENT WORK -->
-        <h3 class="bangers" style="color:var(--yellow);font-size:28px;margin:60px 0 24px;position:relative;z-index:1;">Client Work & Consulting</h3>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative;z-index:1;">
-            <a href="https://github.com/TimmyZinin/egor-project" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Broker Content System</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">AI research + content for fintech vertical</p>
-            </a>
-            <a href="https://github.com/TimmyZinin/marshall" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">Marshall AI Tech</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">AI consulting & lead generation</p>
-            </a>
-            <a href="https://github.com/TimmyZinin/hh-outreach" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">HH Outreach Skill</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Automated AI-powered lead gen via HH.ru</p>
-            </a>
-            <a href="https://timzinin.com/sborka-lecture/" target="_blank" style="background:rgba(255,255,255,0.06);border:2px solid rgba(224,32,32,0.5);padding:16px;text-decoration:none;color:white;transition:all .2s;">
-                <div style="font-family:var(--display);font-size:16px;color:var(--yellow);margin-bottom:4px;">СБОРКА Lecture</div>
-                <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.3;">Educational materials & AI workshops</p>
-            </a>
+            <div>
+                <div class="photo-frame bg-yellow tilt-l">
+                    <div class="bg"></div>
+                    <div class="img"><img src="img/site-assets/provocation.jpg" alt="Stressed businessman looking at invoice"></div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing" class="pricing-section fade-in dots-bg">
-    <div class="container">
-        <div class="price-hero">
-            <img src="img/pricing-grid.jpg" alt="Pop art shocked faces" class="pricing-img" loading="lazy">
-            <div class="price-amount" data-t="price_amount">$250/HR</div>
-            <div class="price-subtitle" data-t="price_subtitle">One hour to start your AI transformation.</div>
-            <p class="price-roast" data-t-html="price_roast">Your competitor already automated this. <strong>You're still paying $300K/year for teams doing work that AI agents handle for a fraction.</strong> They invested $250 in one call. Now their business runs while they sleep.</p>
+<!-- ================ THE MATH ================ -->
+<section class="math">
+    <div class="wrap">
+        <div class="math-head">
+            <span class="math-kick" data-i18n="math_kick">※ The Math</span>
+            <span class="math-rule"></span>
         </div>
-        <div class="tiers-grid">
-            <div class="tier hot">
-                <div class="tier-name" data-t="t1_name">Start Here</div>
-                <div class="tier-title" data-t="t1_title">Consultation</div>
-                <div class="tier-price" data-t="t1_price">$250</div>
-                <div class="tier-period" data-t="t1_period">per hour</div>
-                <ul class="tier-features">
-                    <li data-t="t1_f1">1:1 AI training session</li>
-                    <li data-t="t1_f2">Business pain point analysis</li>
-                    <li data-t="t1_f3">Personalized action plan</li>
-                    <li data-t="t1_f4">Recording + summary</li>
-                    <li data-t="t1_f5">Fee credited toward Cycle</li>
-                </ul>
-                <a href="#book" class="tier-btn tier-btn-red" data-t="t1_btn">Book Now</a>
-            </div>
-            <div class="tier">
-                <div class="tier-name" data-t="t2_name">Transform</div>
-                <div class="tier-title" data-t="t2_title">Transformation Cycle</div>
-                <div class="tier-price" data-t="t2_price">$4,000</div>
-                <div class="tier-period" data-t="t2_period">per month · up to 5 hrs/week</div>
-                <ul class="tier-features">
-                    <li data-t="t2_f1">Founder training + education</li>
-                    <li data-t="t2_f2">AI strategy & architecture</li>
-                    <li data-t="t2_f3">Process automation build-out</li>
-                    <li data-t="t2_f4">Calls billed as work hours</li>
-                    <li data-t="t2_f5">More hours = scales up</li>
-                </ul>
-                <a href="#book" class="tier-btn tier-btn-outline" data-t="t2_btn">Apply</a>
-            </div>
-            <div class="tier">
-                <div class="tier-name" data-t="t3_name">Full-Time</div>
-                <div class="tier-title" data-t="t3_title">Dedicated AI Architect</div>
-                <div class="tier-price" data-t="t3_price">$20,000</div>
-                <div class="tier-period" data-t="t3_period">per month · full-time</div>
-                <ul class="tier-features">
-                    <li data-t="t3_f1">Full-time dedicated engagement</li>
-                    <li data-t="t3_f2">End-to-end AI transformation</li>
-                    <li data-t="t3_f3">Multi-agent system build-out</li>
-                    <li data-t="t3_f4">Team training & mentorship</li>
-                    <li data-t="t3_f5">Production deployment + support</li>
-                </ul>
-                <a href="#book" class="tier-btn tier-btn-outline" data-t="t3_btn">Apply</a>
-            </div>
+        <h2>
+            <span data-i18n="math_h2_a">The numbers nobody on your</span>
+            <span class="col-red" data-i18n="math_h2_b">"AI transformation committee"</span>
+            <span data-i18n="math_h2_c">wants to show you</span>
+        </h2>
+        <div class="math-grid">
+            <div class="math-cell math-1"><div class="halftone ink-10"></div><div class="math-big">$300K/yr</div><div class="math-sm">Team payroll. Replaced by an agent + $240/year in API credits.</div></div>
+            <div class="math-cell math-2"><div class="halftone ink-10"></div><div class="math-big">14 months</div><div class="math-sm">Your AI committee's report. Already obsolete by the time you read it.</div></div>
+            <div class="math-cell math-3"><div class="halftone ink-10"></div><div class="math-big">8h → 30s</div><div class="math-sm">One full day of analyst work. Now: one prompt to one agent.</div></div>
+            <div class="math-cell math-4"><div class="halftone ink-10"></div><div class="math-big">47%</div><div class="math-sm">Of your headcount: replaceable. Today. Not in 2030.</div></div>
         </div>
-        <p class="price-note" data-t="price_note">Everyone who waited "just one more quarter" is now 2 years behind. Don't be that person.</p>
     </div>
 </section>
 
-<!-- FAQ -->
-<section id="faq" class="faq-section fade-in">
-    <div class="container" style="text-align:center;">
-        <div class="section-label" data-t="faq_label">FAQ</div>
-        <h2 class="section-title"><span data-t="faq_title_1">Questions You're Thinking</span><br><span data-t="faq_title_2">But Afraid to Ask</span></h2>
-        <div class="faq-list" id="faqList" style="text-align:left;"></div>
+<!-- ================ SERVICES ================ -->
+<section class="services std" id="what">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="tab ink-yel" data-i18n="serv_kick">※ What I Build</span>
+            <span class="sec-rule"></span>
+            <span class="sec-meta">06 PROGRAMS</span>
+        </div>
+        <h2 class="sec">
+            <span data-i18n="serv_h2_a">What your business looks like</span>
+            <span class="col-red" data-i18n="serv_h2_b">after AI transformation</span>
+        </h2>
+        <p class="sec-blurb" data-i18n="serv_blurb">Every system below exists in production. Not a demo. Not a pilot. Running 24/7. The question isn't whether this works — it's why your business doesn't have it yet.</p>
+        <div class="serv-grid">
+            <div class="serv-cell"><div class="serv-n">01.</div><h3 class="serv-t">Founder AI Training</h3><p class="serv-d">Personalized 1:1 education. Learn to build AI agents, automate workflows, and think in systems. From zero to building your own AI army.</p></div>
+            <div class="serv-cell"><div class="serv-n">02.</div><h3 class="serv-t">Team AI Transformation</h3><p class="serv-d">Workshop format for teams. Modern AI landscape, hands-on tool demos, custom use cases. Turn your team from AI-curious to AI-native.</p></div>
+            <div class="serv-cell"><div class="serv-n">03.</div><h3 class="serv-t">AI Strategy &amp; Architecture</h3><p class="serv-d">Full process audit, automation blueprint, ROI projections. Know exactly where AI saves money and what to build first.</p></div>
+            <div class="serv-cell"><div class="serv-n">04.</div><h3 class="serv-t">Process Automation</h3><p class="serv-d">Content factories, outreach systems, data pipelines, reporting dashboards. Multi-agent systems that run your operations 24/7.</p></div>
+            <div class="serv-cell center"><div class="halftone red-18"></div><div class="serv-n">05.</div><h3 class="serv-t">Multi-Agent AI Systems</h3><p class="serv-d">CEO, CMO, CFO, CTO, Designer, CPO — all AI agents. Event-driven, self-healing, production-grade. 3,963 tests. Zero downtime.</p></div>
+            <div class="serv-cell"><div class="serv-n">06.</div><h3 class="serv-t">GEO &amp; AI Discoverability</h3><p class="serv-d">Make your brand visible to ChatGPT, Perplexity, Claude. Generative Engine Optimization is the new SEO. Schema, llms.txt, content architecture.</p></div>
+        </div>
     </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="fade-in">
-    <div class="container">
+<!-- ================ RECEIPTS ================ -->
+<section class="receipts std" id="results">
+    <div class="halftone yellow-08"></div>
+    <div class="wrap" style="position:relative;">
+        <div class="sec-head">
+            <span class="tab yel-ink" data-i18n="rec_kick">※ Receipts</span>
+            <span class="sec-rule yel"></span>
+        </div>
+        <h2 class="sec">
+            <span data-i18n="rec_h2_a">Systems I've built.</span>
+            <span class="col-yel" data-i18n="rec_h2_b">Numbers that matter.</span>
+        </h2>
+        <p class="sec-blurb" style="color:#ddd;max-width:720px;" data-i18n="rec_blurb">I don't show slides. I show running systems with test suites and revenue dashboards.</p>
+        <div class="rec-grid">
+            <article class="rec-card s-red"><div class="rec-tag">Multi-Agent AI Corporation</div><h3 class="rec-t">6 AI agents running the entire business operation</h3><p class="rec-d">Full AI corporation: CEO, CMO, CFO, CTO, Designer, CPO. Event-driven. Self-healing. 24 sprints without failure.</p><div class="rec-stats"><div class="rec-stat"><div class="rec-stat-n">3,963</div><div class="rec-stat-l">Tests</div></div><div class="rec-stat"><div class="rec-stat-n">24</div><div class="rec-stat-l">Sprints</div></div><div class="rec-stat"><div class="rec-stat-n">0</div><div class="rec-stat-l">Downtime</div></div></div></article>
+            <article class="rec-card s-yel"><div class="rec-tag">13-Platform Content System</div><h3 class="rec-t">Autonomous publishing everywhere that matters</h3><p class="rec-d">LinkedIn, Threads, Telegram, Facebook, VK, YouTube, Bluesky, Mastodon — all automated with per-platform optimization.</p><div class="rec-stats"><div class="rec-stat"><div class="rec-stat-n">13+</div><div class="rec-stat-l">Platforms</div></div><div class="rec-stat"><div class="rec-stat-n">24/7</div><div class="rec-stat-l">Autonomous</div></div></div></article>
+            <article class="rec-card s-sky"><div class="rec-tag">Webinar &amp; Sales Funnel</div><h3 class="rec-t">Full automated funnel from click to paid subscription</h3><p class="rec-d">Career club: 1,158+ bot tests, 3 pricing tiers, partner program, automated commissions, webinar funnels.</p><div class="rec-stats"><div class="rec-stat"><div class="rec-stat-n">1,158+</div><div class="rec-stat-l">Tests</div></div><div class="rec-stat"><div class="rec-stat-n">3</div><div class="rec-stat-l">Tiers</div></div></div></article>
+            <article class="rec-card s-red"><div class="rec-tag">Crypto Marketing Platform</div><h3 class="rec-t">7-vendor marketplace with Telegram Mini App</h3><p class="rec-d">Crypto marketing tools: bot, web app, CRM, vendor management. 7 vendors, 9 offers. Zero to production in weeks.</p><div class="rec-stats"><div class="rec-stat"><div class="rec-stat-n">7</div><div class="rec-stat-l">Vendors</div></div><div class="rec-stat"><div class="rec-stat-n">161</div><div class="rec-stat-l">Tests</div></div></div></article>
+        </div>
+    </div>
+</section>
+
+<!-- ================ PORTFOLIO ================ -->
+<section class="portfolio std" id="portfolio">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="tab red" data-i18n="pf_kick">※ Portfolio</span>
+            <span class="sec-rule"></span>
+        </div>
+        <h2 class="sec">
+            <span data-i18n="pf_h2_a">Built. Deployed.</span>
+            <span class="col-red" data-i18n="pf_h2_b">Making money.</span>
+        </h2>
+        <p class="sec-blurb" data-i18n="pf_blurb">Not mockups. Not slides. Live products, real communities, and systems in production.</p>
+
+        <div class="flagship">
+            <div class="halftone red-06"></div>
+            <div style="position:relative;">
+                <span class="flag-tag">FLAGSHIP</span>
+                <h3 class="flag-t">AI Corporation</h3>
+                <div class="flag-role">Architect &amp; Solo Developer</div>
+                <p class="flag-d">A full autonomous AI company with 6 agents (CEO, CMO, CFO, CTO, Designer, CPO) running 24/7. Event-driven architecture. Self-healing systems. 24 consecutive sprints without a single failure.</p>
+                <div class="flag-chips">
+                    <span class="chip">CrewAI</span><span class="chip">MCP</span><span class="chip">Docker</span><span class="chip">13+ Platforms</span>
+                </div>
+                <div class="flag-stats">
+                    <div class="flag-stat"><div class="flag-stat-n">3,963</div><div class="flag-stat-l">Tests</div></div>
+                    <div class="flag-stat"><div class="flag-stat-n">13+</div><div class="flag-stat-l">Platforms</div></div>
+                    <div class="flag-stat"><div class="flag-stat-n">24</div><div class="flag-stat-l">Sprints</div></div>
+                    <div class="flag-stat"><div class="flag-stat-n">0</div><div class="flag-stat-l">Downtime</div></div>
+                </div>
+                <a href="https://calendly.com/timzinin" target="_blank" rel="noopener" class="flag-cta">→ Book a Strategy Call</a>
+            </div>
+            <div class="photo-frame bg-red">
+                <div class="bg"></div>
+                <div class="img"><img src="img/site-assets/project-aicorp.jpg" alt="AI Corporation — 6 autonomous agents"></div>
+            </div>
+        </div>
+
+        <h3 class="pf-sub-h" data-i18n="pf_communities">Communities I Built</h3>
+        <div class="pf-grid3">
+            <a class="pf-card" href="https://sborka.work" target="_blank" rel="noopener">
+                <div class="pf-role">CO-FOUNDER &amp; AI ARCHITECT</div>
+                <h4 class="pf-t"><span data-i18n="sborka">Sborka</span> Career Club</h4>
+                <p class="pf-d">Discipline-driven career community. Telegram bot, Mini App, webinar funnels, AI podcast pipeline, 1,158+ tests.</p>
+                <div class="pf-link">→ sborka.work</div>
+            </a>
+            <a class="pf-card" href="https://cryptomarketologi.online" target="_blank" rel="noopener">
+                <div class="pf-role">FOUNDER &amp; LEAD DEVELOPER</div>
+                <h4 class="pf-t">Cryptomarketologi</h4>
+                <p class="pf-d">Crypto marketing tools marketplace. 7 vendors, TG Mini App, CRM, affiliate tracking. Full-stack solo build.</p>
+                <div class="pf-link">→ cryptomarketologi.online</div>
+            </a>
+            <a class="pf-card" href="https://t.me/botanica_club" target="_blank" rel="noopener">
+                <div class="pf-role">FOUNDER</div>
+                <h4 class="pf-t">Botanica AI School</h4>
+                <p class="pf-d">AI school for nerds. Community of curious minds exploring the world of AI together. Events, workshops, open-source.</p>
+                <div class="pf-link">→ t.me/botanica_club</div>
+            </a>
+        </div>
+
+        <div class="pf-twocol">
+            <div>
+                <h3 class="pf-sub2" data-i18n="pf_events">Events &amp; Workshops</h3>
+                <div class="events-list">
+                    <div class="event"><h4>AI for Locals — Kaş</h4><p>Workshop with Kaş Municipality on AI &amp; Tourism. Bilingual (TR/EN). March 2026.</p></div>
+                    <div class="event"><h4>KaşFin — Microfinance AI</h4><p>AI-powered microfinance &amp; portfolio management for Kaş tourism businesses.</p></div>
+                    <div class="event"><h4>Human Networks Lecture</h4><p>Educational lecture on human networks &amp; career for the Sborka community.</p></div>
+                </div>
+            </div>
+            <div>
+                <h3 class="pf-sub2" data-i18n="pf_tools">Tools, Skills &amp; Research</h3>
+                <div class="tools-grid">
+                    <div class="tool"><h4>CLI Agents 2026</h4><p>Research on coding agents landscape</p></div>
+                    <div class="tool"><h4>Codex Review Skill</h4><p>Independent AI code review for Claude Code</p></div>
+                    <div class="tool"><h4>Content Pipeline</h4><p>Autonomous publishing on 13 platforms</p></div>
+                    <div class="tool"><h4>MCPHire</h4><p>MCP-first job marketplace, 38K vacancies</p></div>
+                    <div class="tool"><h4>SMM Research Hub</h4><p>29 platform audits, strategies for each</p></div>
+                    <div class="tool"><h4>Media Layoffs Report</h4><p>Interactive infographic on AI &amp; media</p></div>
+                </div>
+                <div class="vault-link">+ Games, interactive experiments, and client work — <a href="https://github.com/TimmyZinin" target="_blank" rel="noopener">see the full vault →</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================ PRICING ================ -->
+<section class="pricing std" id="book">
+    <div class="halftone red-08"></div>
+    <div class="wrap" style="position:relative;">
+        <div class="pricing-grid">
+            <div>
+                <div class="price-big">$250<span class="unit">/HR</span></div>
+                <div class="price-headline">One hour to start your AI transformation.</div>
+                <p class="price-body">Your competitor already automated this. <strong>You're still paying $300K/year for teams doing work that AI agents handle for a fraction.</strong> They invested $250 in one call. Now their business runs while they sleep.</p>
+                <div class="price-pic">
+                    <div class="photo-frame bg-red" style="transform:rotate(-1deg);">
+                        <div class="bg" style="transform:translate(12px,12px);"></div>
+                        <div class="img"><img src="img/site-assets/pricing-grid.jpg" alt="Pop art shocked faces"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tiers">
+                <div class="tier">
+                    <div class="tier-head">
+                        <div>
+                            <div class="tier-tag">Start Here</div>
+                            <h3 class="tier-t">Consultation</h3>
+                        </div>
+                        <div>
+                            <div class="tier-p">$250</div>
+                            <div class="tier-unit">per hour</div>
+                        </div>
+                    </div>
+                    <ul class="tier-li">
+                        <li>1:1 AI training session</li>
+                        <li>Business pain point analysis</li>
+                        <li>Personalized action plan</li>
+                        <li>Recording + summary</li>
+                        <li>Fee credited toward Cycle</li>
+                    </ul>
+                    <a href="https://calendly.com/timzinin" target="_blank" rel="noopener" class="tier-cta">Book Now →</a>
+                </div>
+                <div class="tier featured">
+                    <div class="tier-rec">RECOMMENDED</div>
+                    <div class="tier-head">
+                        <div>
+                            <div class="tier-tag">Transform</div>
+                            <h3 class="tier-t">Transformation Cycle</h3>
+                        </div>
+                        <div>
+                            <div class="tier-p">$4,000</div>
+                            <div class="tier-unit">per month · up to 5 hrs/week</div>
+                        </div>
+                    </div>
+                    <ul class="tier-li">
+                        <li>Founder training + education</li>
+                        <li>AI strategy &amp; architecture</li>
+                        <li>Process automation build-out</li>
+                        <li>Calls billed as work hours</li>
+                        <li>More hours = scales up</li>
+                    </ul>
+                    <a href="https://calendly.com/timzinin" target="_blank" rel="noopener" class="tier-cta">Apply →</a>
+                </div>
+                <div class="tier">
+                    <div class="tier-head">
+                        <div>
+                            <div class="tier-tag">Full-Time</div>
+                            <h3 class="tier-t">Dedicated AI Architect</h3>
+                        </div>
+                        <div>
+                            <div class="tier-p">$20,000</div>
+                            <div class="tier-unit">per month · full-time</div>
+                        </div>
+                    </div>
+                    <ul class="tier-li">
+                        <li>Full-time dedicated engagement</li>
+                        <li>End-to-end AI transformation</li>
+                        <li>Multi-agent system build-out</li>
+                        <li>Team training &amp; mentorship</li>
+                        <li>Production deployment + support</li>
+                    </ul>
+                    <a href="https://calendly.com/timzinin" target="_blank" rel="noopener" class="tier-cta">Apply →</a>
+                </div>
+                <p class="pricing-tail">Everyone who waited "just one more quarter" is now 2 years behind. Don't be that person.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================ ABOUT ================ -->
+<section class="about std" id="about">
+    <div class="wrap">
         <div class="about-grid">
-            <div class="about-photo-wrap">
-                <img src="tim-zinin.jpg" alt="Tim Zinin — AI Transformation Expert" class="about-photo" loading="lazy">
+            <div>
+                <div class="photo-frame bg-red">
+                    <div class="bg"></div>
+                    <div class="img"><img src="img/site-assets/tim-zinin.jpg" alt="Tim Zinin — AI Transformation Expert"></div>
+                </div>
+                <div class="about-cap">
+                    <span data-i18n="ab_kick">※ The Architect</span>
+                    <span>EST. 2024</span>
+                </div>
             </div>
-            <div class="about-content">
-                <div class="section-label" data-t="about_label">The Architect</div>
-                <h2>Tim Zinin</h2>
-                <p data-t-html="about_p1"><strong>Engineer who transforms businesses with AI. Founder who codes production systems.</strong> Most consultants deliver slides. Most engineers don't understand business. I build multi-agent AI systems that run in production — 3,963 tests, 6 agents, 24/7 operation.</p>
-                <p data-t-html="about_p2">From founder training to full process automation. Content factories, outreach systems, dashboards — all AI-powered, all tested, all in production. I've run 2 micro-conferences and a bootcamp in Kas, Turkey on AI transformation.</p>
-                <p data-t-html="about_p3"><strong>I don't send a team. I don't subcontract. I'm the architect and the engineer. Want your business powered by AI? Book a call.</strong></p>
-                <div class="about-links">
-                    <a href="https://t.me/timzinin" target="_blank">Telegram</a>
-                    <a href="https://linkedin.com/in/timzinin" target="_blank">LinkedIn</a>
-                    <a href="https://github.com/TimmyZinin" target="_blank">GitHub</a>
+            <div>
+                <h2>Tim <span class="col-red">Zinin</span></h2>
+                <p><strong>Engineer who transforms businesses with AI. Founder who codes production systems.</strong> Most consultants deliver slides. Most engineers don't understand business. I build multi-agent AI systems that run in production — 3,963 tests, 6 agents, 24/7 operation.</p>
+                <p>From founder training to full process automation. Content factories, outreach systems, dashboards — all AI-powered, all tested, all in production. I've run 2 micro-conferences and a bootcamp in Kaş, Turkey on AI transformation.</p>
+                <p class="about-highlight"><strong>I don't send a team. I don't subcontract. I'm the architect and the engineer. Want your business powered by AI? Book a call.</strong></p>
+                <div class="about-socials">
+                    <a href="https://t.me/timzinin" target="_blank" rel="noopener" class="about-soc soc-tg">Telegram</a>
+                    <a href="https://linkedin.com/in/timzinin" target="_blank" rel="noopener" class="about-soc soc-li">LinkedIn</a>
+                    <a href="https://github.com/TimmyZinin" target="_blank" rel="noopener" class="about-soc soc-gh">GitHub</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- TESTIMONIALS — Social Proof -->
-<section class="testimonials-section fade-in">
-    <div class="container">
-        <div class="section-label" data-t="testimonials_label">What They Say</div>
-        <h2 class="section-title"><span data-t="testimonials_title_1">People Who Stopped</span> <span data-t="testimonials_title_2">Falling Behind</span></h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-text" data-t="test1_text">"I spent 6 months thinking I need to get into AI agents. Never started. Then I came to Tim. No going back. His support — someone who knows my pain points because he's in marketing himself — is priceless. I broke through my glass ceiling. All of this for just $200."</p>
-                <div class="testimonial-author">
-                    <img src="img/avatar-egor.jpg" alt="Egor Donde" class="testimonial-avatar">
-                    <div class="testimonial-info"><strong>Egor Donde</strong><span>Marketing & AI, Content Creator</span></div>
-                </div>
+<!-- ================ TESTIMONIALS ================ -->
+<section class="testim std">
+    <div class="halftone red-10"></div>
+    <div class="wrap" style="position:relative;">
+        <div class="sec-head">
+            <span class="tab red" data-i18n="ts_kick">※ What They Say</span>
+            <span class="sec-rule red"></span>
+        </div>
+        <h2 class="sec">
+            <span data-i18n="ts_h2_a">People who</span>
+            <span class="col-yel" data-i18n="ts_h2_b">stopped falling behind</span>
+        </h2>
+        <div class="ts-grid">
+            <div class="ts-card"><div class="ts-quote">"</div><p class="ts-text">I spent 6 months thinking I need to get into AI agents. Never started. Then I came to Tim. No going back. His support — someone who knows my pain points because he's in marketing himself — is priceless. I broke through my glass ceiling. All of this for just $200.</p><div class="ts-author"><img class="ts-avatar" src="img/avatar-egor.jpg" alt="" onerror="this.style.display='none'"><div><div class="ts-name">Egor Donde</div><div class="ts-role">Marketing &amp; AI, Content Creator</div></div></div></div>
+            <div class="ts-card"><div class="ts-quote">"</div><p class="ts-text">After Tim's mentoring, my approach to work and my own thinking changed. It's mind-blowing — the terminal is the first thing I open in the morning and the last thing at night. News, research, content — all through AI agents now.</p><div class="ts-author"><img class="ts-avatar" src="img/avatar-mz.jpg" alt="" onerror="this.style.display='none'"><div><div class="ts-name">Mikhail Zakharov</div><div class="ts-role">Senior Marketing Manager, Choise.com</div></div></div></div>
+            <div class="ts-card"><div class="ts-quote">"</div><p class="ts-text">A task that used to take our SMM specialist DAYS — now done in MINUTES. The CEO approved the quality. Now every task I see, I think: how can I automate this?</p><div class="ts-author"><img class="ts-avatar" src="img/avatar-vlad.jpg" alt="" onerror="this.style.display='none'"><div><div class="ts-name">Vladislav Klimovets</div><div class="ts-role">Product Lead, Profitage</div></div></div></div>
+            <div class="ts-card"><div class="ts-quote">"</div><p class="ts-text">Thanks for Claude specifically. Want to automate sales for our restaurant IT system in Spain and our HR agency. Tim is brilliant — the analyses I can do now are amazing.</p><div class="ts-author"><img class="ts-avatar" src="img/avatar-nikolai.jpg" alt="" onerror="this.style.display='none'"><div><div class="ts-name">Nikolay Bobrov</div><div class="ts-role">Serial Entrepreneur &amp; Investor</div></div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ================ FINAL CTA ================ -->
+<section class="final">
+    <div class="final-grid">
+        <div class="final-l">
+            <div class="halftone red-18"></div>
+            <div style="position:relative;max-width:640px;">
+                <div class="kicker" style="color:var(--red-deep);"><span class="bar"></span><span data-i18n="final_kick">※ Final notice</span></div>
+                <h2>
+                    <span data-i18n="final_h1_a">Still running your business</span>
+                    <span class="col-red" data-i18n="final_h1_b">like it's 2023?</span>
+                </h2>
+                <p class="body">Your competitors already moved on. They automated operations, trained their teams on AI, and 10x'd efficiency. You can keep pretending it's fine. Or book 1 hour and catch up.</p>
+                <a href="https://calendly.com/timzinin" target="_blank" rel="noopener" class="final-cta" data-i18n="final_cta">Book 1 Hour — $250 →</a>
+                <p class="final-mono">Calendly. Pick a time. 60 minutes. A plan. Done.</p>
             </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text" data-t="test2_text">"After Tim's mentoring, my approach to work and my own thinking changed. It's mind-blowing — the terminal is the first thing I open in the morning and the last thing at night. News, research, content — all through AI agents now."</p>
-                <div class="testimonial-author">
-                    <img src="img/avatar-mz.jpg" alt="Mikhail Zakharov" class="testimonial-avatar">
-                    <div class="testimonial-info"><strong>Mikhail Zakharov</strong><span>Senior Marketing Manager, Choise.com</span></div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text" data-t="test3_text">"A task that used to take our SMM specialist DAYS — now done in MINUTES. The CEO approved the quality. Now every task I see, I think: how can I automate this?"</p>
-                <div class="testimonial-author">
-                    <img src="img/avatar-vlad.jpg" alt="Vladislav Klimovets" class="testimonial-avatar">
-                    <div class="testimonial-info"><strong>Vladislav Klimovets</strong><span>Product Lead, Profitage</span></div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text" data-t="test4_text">"Thanks for Claude specifically. Want to automate sales for our restaurant IT system in Spain and our HR agency. Tim is brilliant — the analyses I can do now are amazing."</p>
-                <div class="testimonial-author">
-                    <img src="img/avatar-nikolai.jpg" alt="Nikolay Bobrov" class="testimonial-avatar">
-                    <div class="testimonial-info"><strong>Nikolay Bobrov</strong><span>Serial Entrepreneur & Investor</span></div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text" data-t="test5_text">"Thank you for your work, your relentless community building, and your huge contribution to creating one of the most positive and useful communities in Telegram."</p>
-                <div class="testimonial-author">
-                    <img src="img/avatar-egor.jpg" alt="Egor Donde" class="testimonial-avatar">
-                    <div class="testimonial-info"><strong>Egor Donde</strong><span>on Botanica AI Club</span></div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text" data-t="test6_text">"I was thinking about directions where I could grow and get a boost from Tim. Came for broker content — got an entire AI-powered research system with Codex review."</p>
-                <div class="testimonial-author">
-                    <img src="img/avatar-yegor.jpg" alt="Yegor B." class="testimonial-avatar">
-                    <div class="testimonial-info"><strong>Yegor B.</strong><span>Fintech & Broker Content</span></div>
-                </div>
+        </div>
+        <div class="final-r">
+            <div class="photo-frame bg-ink tilt-r">
+                <div class="bg"></div>
+                <div class="img"><img src="img/site-assets/cta-hand.jpg" alt="Pop art pointing hand"></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CTA -->
-<section id="book" class="cta-section">
-    <div class="container">
-        <img src="img/cta-hand.jpg" alt="Pop art pointing hand" class="cta-img" loading="lazy">
-        <h2><span data-t="cta_title_1">Still Running Your Business</span> <span class="red" data-t="cta_title_2">Like It's 2023?</span></h2>
-        <p data-t="cta_sub">Your competitors already moved on. They automated operations, trained their teams on AI, and 10x'd efficiency. You can keep pretending it's fine. Or book 1 hour and catch up.</p>
-        <a href="https://calendly.com/timzinin" class="cta-btn" target="_blank" data-t="cta_btn">Book 1 Hour — $250 →</a>
-        <p style="font-size:13px;color:rgba(0,0,0,0.4);margin-top:16px;position:relative;z-index:1;" data-t="cta_note">Calendly. Pick a time. 60 minutes. A plan. Done.</p>
-    </div>
-</section>
-
-<footer>
-    <div class="container">
-        <p>Tim Zinin · AI Transformation Expert · <a href="mailto:tim.zinin@gmail.com">tim.zinin@gmail.com</a> · <a href="https://t.me/timzinin">Telegram</a> · <a href="https://linkedin.com/in/timzinin">LinkedIn</a></p>
-        <p style="margin-top:8px;font-size:0.85em;opacity:0.7"><a href="/terms.html">Terms of Service</a> · <a href="/privacy.html">Privacy Policy</a></p>
+<!-- ================ FOOTER ================ -->
+<footer class="foot">
+    <div class="wrap">
+        <div class="foot-logo">TIM ZININ <span class="yel">//</span> AI TRANSFORMATION</div>
+        <div class="foot-meta">
+            <a href="mailto:tim.zinin@gmail.com">tim.zinin@gmail.com</a> ·
+            <a href="https://t.me/timzinin" target="_blank" rel="noopener">TELEGRAM</a> ·
+            <a href="https://linkedin.com/in/timzinin" target="_blank" rel="noopener">LINKEDIN</a> ·
+            <a href="https://github.com/TimmyZinin" target="_blank" rel="noopener">GITHUB</a> ·
+            <a href="terms.html">TERMS</a> ·
+            <a href="privacy.html">PRIVACY</a>
+        </div>
     </div>
 </footer>
 
-<script>
-// ===== TRANSLATIONS ENGINE =====
-let T = {};
-let currentLang = 'en';
-const LANG_CODES = ['en','es','zh','hi','ar','pt','fr','ru','de','ja'];
-const LANG_NAMES = {en:'English',es:'Español',zh:'中文',hi:'हिन्दी',ar:'العربية',pt:'Português',fr:'Français',ru:'Русский',de:'Deutsch',ja:'日本語'};
+<!-- ================ FLOATING BOOK (injected by JS) ================ -->
+<div id="fbMount"></div>
 
-// Provocative bubble greetings — the OG ones (expanded!)
-const GREETINGS = {
+<script>
+// ==================== i18n ====================
+const LANGS = ["en","ru","tr","es","de","fr","pt"];
+const TR = {
+    nav_services:{en:"Services",ru:"Услуги",tr:"Hizmetler",es:"Servicios",de:"Leistungen",fr:"Services",pt:"Serviços"},
+    nav_results:{en:"Receipts",ru:"Чеки",tr:"Sonuçlar",es:"Pruebas",de:"Beweise",fr:"Preuves",pt:"Provas"},
+    nav_portfolio:{en:"Portfolio",ru:"Портфолио",tr:"Portföy",es:"Portafolio",de:"Portfolio",fr:"Portfolio",pt:"Portfólio"},
+    nav_pricing:{en:"Pricing",ru:"Цены",tr:"Fiyat",es:"Precios",de:"Preise",fr:"Tarifs",pt:"Preços"},
+    nav_about:{en:"About",ru:"Обо мне",tr:"Hakkımda",es:"Sobre mí",de:"Über mich",fr:"À propos",pt:"Sobre"},
+    cta_nav:{en:"Book a Call!",ru:"Записаться!",tr:"Görüşme Al!",es:"¡Reservar Llamada!",de:"Termin buchen!",fr:"Prendre RDV!",pt:"Agendar!"},
+
+    kicker:{en:"While you were in meetings…",ru:"Пока ты сидел на созвонах…",tr:"Siz toplantılardayken…",es:"Mientras estabas en reuniones…",de:"Während du in Meetings warst…",fr:"Pendant que tu étais en réunion…",pt:"Enquanto você estava em reuniões…"},
+    h1_a:{en:"Your competitors",ru:"У твоих конкурентов",tr:"Rakiplerinizin",es:"Tus competidores",de:"Deine Konkurrenten",fr:"Tes concurrents",pt:"Seus concorrentes"},
+    h1_b:{en:"already have",ru:"уже есть",tr:"zaten var",es:"ya tienen",de:"haben bereits",fr:"ont déjà",pt:"já têm"},
+    h1_c:{en:"AI agents.",ru:"AI-агенты.",tr:"yapay zeka ajanları.",es:"agentes de IA.",de:"KI-Agenten.",fr:"des agents IA.",pt:"agentes de IA."},
+    h1_d:{en:"You don't.",ru:"У тебя — нет.",tr:"Sizin yok.",es:"Tú no.",de:"Du nicht.",fr:"Toi non.",pt:"Você não."},
+    hero_body:{en:"They automated their operations. They run AI agents for content, outreach, analytics, and team coordination. They know exactly what produces results. And you? You're still hiring humans for work that machines do better.",ru:"Они автоматизировали операции. У них AI-агенты для контента, outreach, аналитики, координации команд. Они точно знают, что приносит результат. А ты? Ты всё ещё нанимаешь людей на работу, которую машины делают лучше.",tr:"Operasyonlarını otomatikleştirdiler. İçerik, outreach, analitik ve ekip koordinasyonu için yapay zeka ajanları kullanıyorlar. Neyin işe yaradığını biliyorlar. Ya siz? Hâlâ makinelerin daha iyi yaptığı işler için insan istihdam ediyorsunuz.",es:"Automatizaron sus operaciones. Usan agentes de IA para contenido, outreach, analítica y coordinación de equipos. Saben exactamente qué produce resultados. ¿Y tú? Sigues contratando humanos para trabajo que las máquinas hacen mejor.",de:"Sie haben ihre Abläufe automatisiert. Sie nutzen KI-Agenten für Content, Outreach, Analytics und Team-Koordination. Sie wissen genau, was funktioniert. Und du? Du stellst noch Menschen ein für Arbeit, die Maschinen besser erledigen.",fr:"Ils ont automatisé leurs opérations. Ils utilisent des agents IA pour le contenu, l'outreach, l'analytique, la coordination. Ils savent ce qui marche. Et toi ? Tu embauches encore des humains pour faire ce que les machines font mieux.",pt:"Eles automatizaram as operações. Usam agentes de IA para conteúdo, outreach, analytics e coordenação de equipe. Sabem o que produz resultado. E você? Ainda contratando humanos para o que as máquinas fazem melhor."},
+    gap:{en:"That gap gets wider every week.",ru:"Этот разрыв растёт каждую неделю.",tr:"Bu fark her hafta büyüyor.",es:"Esa brecha crece cada semana.",de:"Diese Lücke wird jede Woche größer.",fr:"Cet écart se creuse chaque semaine.",pt:"Essa distância cresce toda semana."},
+    cta_main:{en:"BOOK 1 HOUR — $250 →",ru:"ВЗЯТЬ 1 ЧАС — $250 →",tr:"1 SAAT REZERVE ET — $250 →",es:"RESERVAR 1 HORA — $250 →",de:"1 STUNDE BUCHEN — $250 →",fr:"RÉSERVER 1H — 250$ →",pt:"RESERVAR 1 HORA — $250 →"},
+    cta_sec:{en:"See What You're Missing →",ru:"Посмотри, что ты упускаешь →",tr:"Neyi kaçırdığınızı görün →",es:"Mira qué te estás perdiendo →",de:"Sieh, was du verpasst →",fr:"Vois ce que tu rates →",pt:"Veja o que está perdendo →"},
+    face_cap:{en:"THE ENTIRE OFFICE WHEN YOU SHARE YOUR AI BUDGET",ru:"ВЕСЬ ОФИС КОГДА УЗНАЛ ТВОЙ AI-БЮДЖЕТ",tr:"AI BÜTÇENİZİ DUYAN TÜM OFİS",es:"TODA LA OFICINA AL OÍR TU PRESUPUESTO DE IA",de:"DAS GANZE BÜRO HÖRT DEIN KI-BUDGET",fr:"TOUT LE BUREAU APPREND TON BUDGET IA",pt:"O ESCRITÓRIO INTEIRO AO OUVIR SEU ORÇAMENTO DE IA"},
+
+    hero_sp1:{en:"OH MY... THE SIZE!",ru:"БОЖЕ, КАКОЙ ОГРОМНЫЙ!",tr:"AMAN TANRIM, BU KADAR BÜYÜK!",es:"¡DIOS MIO, QUE GRANDE!",de:"MEIN GOTT, SO GROSS!",fr:"MON DIEU, SI GROS!",pt:"MEU DEUS, QUE GRANDE!"},
+    hero_sp2:{en:"WTF IS THAT ROI?!",ru:"ОХ*ЕТЬ, КАКОЙ ROI!",tr:"BU NE ROI YA?!",es:"¡QUÉ ROI ES ESE?!",de:"WAS FÜR EIN ROI?!",fr:"PUTAIN, CE ROI?!",pt:"QUE ROI É ESSE?!"},
+    hero_sp3:{en:"WAIT, 24/7?!",ru:"СТОП, ОНО ПАШЕТ 24/7?!",tr:"DUR, 24/7 Mİ?!",es:"¿ESPERA, 24/7?!",de:"MOMENT, 24/7?!",fr:"ATTENDS, 24/7?!",pt:"ESPERA, 24/7?!"},
+
+    stat_1:{en:"Team payroll replaced",ru:"Зарплат команды заменено",tr:"Yerine geçtiği ekip maaşı",es:"Nómina del equipo reemplazada",de:"Ersetzte Gehälter",fr:"Salaires d'équipe remplacés",pt:"Folha de pagamento substituída"},
+    stat_2:{en:"Workday into one prompt",ru:"Рабочий день в один промпт",tr:"Tüm gün → tek prompt",es:"Día de trabajo en un prompt",de:"Arbeitstag → ein Prompt",fr:"Une journée → un prompt",pt:"Um dia → um prompt"},
+    stat_3:{en:"Platforms running solo",ru:"Платформ работают сами",tr:"Otonom çalışan platform",es:"Plataformas en piloto automático",de:"Plattformen vollautomatisch",fr:"Plateformes en autonomie",pt:"Plataformas no automático"},
+    stat_4:{en:"While your team sleeps",ru:"Пока твоя команда спит",tr:"Ekibiniz uyurken",es:"Mientras tu equipo duerme",de:"Während dein Team schläft",fr:"Pendant que ton équipe dort",pt:"Enquanto sua equipe dorme"},
+
+    react_kick:{en:"※ The Office Reacts",ru:"※ Офис в шоке",tr:"※ Ofis Tepkisi",es:"※ La Oficina Reacciona",de:"※ Das Büro reagiert",fr:"※ Le Bureau Réagit",pt:"※ O Escritório Reage"},
+    react_h2_a:{en:"When they finally see",ru:"Когда они наконец видят,",tr:"Sistemi çalışırken",es:"Cuando finalmente ven",de:"Wenn sie endlich sehen,",fr:"Quand ils voient enfin",pt:"Quando finalmente vêem"},
+    react_h2_b:{en:"the system",ru:"что система",tr:"gördüklerinde",es:"el sistema",de:"das System",fr:"le système",pt:"o sistema"},
+    react_h2_c:{en:"running…",ru:"работает…",tr:"…",es:"funcionando…",de:"laufen…",fr:"qui tourne…",pt:"rodando…"},
+
+    math_kick:{en:"※ The Math",ru:"※ Математика",tr:"※ Hesap",es:"※ Las cuentas",de:"※ Die Rechnung",fr:"※ Le calcul",pt:"※ A conta"},
+    math_h2_a:{en:"The numbers nobody on your",ru:"Цифры, которые никто из твоего",tr:"Sizin",es:"Los números que nadie de tu",de:"Die Zahlen, die niemand in deinem",fr:"Les chiffres que personne dans ton",pt:"Os números que ninguém do seu"},
+    math_h2_b:{en:'"AI transformation committee"',ru:"«комитета по AI-трансформации»",tr:'"AI dönüşüm komitesindekiler"',es:'"comité de transformación IA"',de:'„KI-Transformations-Komitee"',fr:"« comité de transformation IA »",pt:'"comitê de transformação IA"'},
+    math_h2_c:{en:"wants to show you",ru:"не покажет тебе",tr:"size göstermek istemiyor",es:"quiere mostrarte",de:"dir zeigen will",fr:"ne veut te montrer",pt:"quer te mostrar"},
+
+    serv_kick:{en:"※ What I Build",ru:"※ Что я строю",tr:"※ Ne İnşa Ediyorum",es:"※ Lo Que Construyo",de:"※ Was Ich Baue",fr:"※ Ce Que Je Construis",pt:"※ O Que Eu Construo"},
+    serv_h2_a:{en:"What your business looks like",ru:"Как выглядит твой бизнес",tr:"İşinizin",es:"Cómo se ve tu negocio",de:"Wie dein Geschäft aussieht",fr:"À quoi ressemble ton business",pt:"Como fica o seu negócio"},
+    serv_h2_b:{en:"after AI transformation",ru:"после AI-трансформации",tr:"AI dönüşümünden sonraki hâli",es:"después de la transformación IA",de:"nach der KI-Transformation",fr:"après la transformation IA",pt:"depois da transformação por IA"},
+    serv_blurb:{en:"Every system below exists in production. Not a demo. Not a pilot. Running 24/7. The question isn't whether this works — it's why your business doesn't have it yet.",ru:"Каждая система ниже работает в продакшене. Не демо. Не пилот. 24/7. Вопрос не «работает ли это» — а почему этого ещё нет у тебя.",tr:"Aşağıdaki her sistem üretimde. Demo değil. Pilot değil. 7/24. Soru \"çalışıyor mu\" değil — \"sizde neden yok\".",es:"Cada sistema de abajo está en producción. No es demo. No es piloto. 24/7. La pregunta no es si funciona — es por qué tu negocio aún no lo tiene.",de:"Jedes System unten läuft in Produktion. Keine Demo. Kein Pilot. 24/7. Die Frage ist nicht, ob es funktioniert — sondern warum du es noch nicht hast.",fr:"Chaque système ci-dessous tourne en production. Pas une démo. Pas un pilote. 24/7. La question n'est pas si ça marche — c'est pourquoi tu ne l'as pas encore.",pt:"Cada sistema abaixo está em produção. Não é demo. Não é piloto. 24/7. A pergunta não é se funciona — é por que seu negócio ainda não tem."},
+
+    rec_kick:{en:"※ Receipts",ru:"※ Чеки",tr:"※ Kanıtlar",es:"※ Pruebas",de:"※ Beweise",fr:"※ Preuves",pt:"※ Provas"},
+    rec_h2_a:{en:"Systems I've built.",ru:"Системы, которые я построил.",tr:"İnşa ettiğim sistemler.",es:"Sistemas que he construido.",de:"Systeme, die ich gebaut habe.",fr:"Des systèmes que j'ai construits.",pt:"Sistemas que eu construí."},
+    rec_h2_b:{en:"Numbers that matter.",ru:"Цифры, которые важны.",tr:"Önemli sayılar.",es:"Números que importan.",de:"Zahlen, die zählen.",fr:"Des chiffres qui comptent.",pt:"Números que importam."},
+    rec_blurb:{en:"I don't show slides. I show running systems with test suites and revenue dashboards.",ru:"Я не показываю слайды. Я показываю работающие системы с тестами и дашбордами выручки.",tr:"Slayt göstermem. Test paketleri ve gelir panoları olan çalışan sistemler gösteririm.",es:"No muestro diapositivas. Muestro sistemas en producción con suites de pruebas y dashboards de ingresos.",de:"Ich zeige keine Folien. Ich zeige laufende Systeme mit Testsuites und Umsatz-Dashboards.",fr:"Je ne montre pas de slides. Je montre des systèmes en prod avec suites de tests et dashboards de revenu.",pt:"Não mostro slides. Mostro sistemas em produção com testes e dashboards de receita."},
+
+    pf_kick:{en:"※ Portfolio",ru:"※ Портфолио",tr:"※ Portföy",es:"※ Portafolio",de:"※ Portfolio",fr:"※ Portfolio",pt:"※ Portfólio"},
+    pf_h2_a:{en:"Built. Deployed.",ru:"Построено. Развёрнуто.",tr:"Yapıldı. Dağıtıldı.",es:"Construido. Desplegado.",de:"Gebaut. Deployed.",fr:"Construit. Déployé.",pt:"Construído. Implantado."},
+    pf_h2_b:{en:"Making money.",ru:"Приносит деньги.",tr:"Para kazanıyor.",es:"Generando dinero.",de:"Verdient Geld.",fr:"Génère de l'argent.",pt:"Gerando dinheiro."},
+    pf_blurb:{en:"Not mockups. Not slides. Live products, real communities, and systems in production.",ru:"Не макеты. Не слайды. Живые продукты, реальные комьюнити, системы в проде.",tr:"Mockup değil. Slayt değil. Canlı ürünler, gerçek topluluklar, üretimdeki sistemler.",es:"No son mockups. No son slides. Productos vivos, comunidades reales y sistemas en producción.",de:"Keine Mockups. Keine Folien. Echte Produkte, echte Communities, Systeme in Produktion.",fr:"Pas des maquettes. Pas des slides. Produits live, vraies communautés, systèmes en prod.",pt:"Sem mockups. Sem slides. Produtos no ar, comunidades reais, sistemas em produção."},
+    pf_communities:{en:"Communities I Built",ru:"Сообщества, которые я построил",tr:"İnşa Ettiğim Topluluklar",es:"Comunidades que Construí",de:"Communities, die ich aufgebaut habe",fr:"Communautés que j'ai construites",pt:"Comunidades que Construí"},
+    pf_events:{en:"Events & Workshops",ru:"События и воркшопы",tr:"Etkinlikler ve Atölyeler",es:"Eventos y Talleres",de:"Events & Workshops",fr:"Événements & Ateliers",pt:"Eventos e Workshops"},
+    pf_tools:{en:"Tools, Skills & Research",ru:"Инструменты, скиллы и ресёрч",tr:"Araçlar, Yetenekler & Araştırma",es:"Herramientas, Skills e Investigación",de:"Tools, Skills & Forschung",fr:"Outils, Compétences & Recherche",pt:"Ferramentas, Skills & Pesquisa"},
+    sborka:{en:"Sborka",ru:"СБОРКА",tr:"Sborka",es:"Sborka",de:"Sborka",fr:"Sborka",pt:"Sborka"},
+
+    ts_kick:{en:"※ What They Say",ru:"※ Что они говорят",tr:"※ Ne Diyorlar",es:"※ Lo Que Dicen",de:"※ Was Sie Sagen",fr:"※ Ce Qu'ils Disent",pt:"※ O Que Dizem"},
+    ts_h2_a:{en:"People who",ru:"Люди, которые",tr:"Geride kalmayı bırakan",es:"Personas que",de:"Menschen, die",fr:"Ceux qui",pt:"Pessoas que"},
+    ts_h2_b:{en:"stopped falling behind",ru:"перестали отставать",tr:"kişiler",es:"dejaron de quedarse atrás",de:"aufgehört haben, abgehängt zu werden",fr:"ont arrêté de prendre du retard",pt:"pararam de ficar para trás"},
+
+    ab_kick:{en:"※ The Architect",ru:"※ Архитектор",tr:"※ Mimar",es:"※ El Arquitecto",de:"※ Der Architekt",fr:"※ L'Architecte",pt:"※ O Arquiteto"},
+
+    final_kick:{en:"※ Final notice",ru:"※ Последнее предупреждение",tr:"※ Son uyarı",es:"※ Aviso final",de:"※ Letzte Warnung",fr:"※ Dernier avis",pt:"※ Aviso final"},
+    final_h1_a:{en:"Still running your business",ru:"Всё ещё ведёшь бизнес",tr:"Hâlâ işinizi",es:"¿Sigues llevando tu negocio",de:"Führst du dein Geschäft immer noch",fr:"Toujours en train de gérer ton business",pt:"Ainda tocando seu negócio"},
+    final_h1_b:{en:"like it's 2023?",ru:"как в 2023-м?",tr:"2023'teki gibi mi yönetiyorsunuz?",es:"como en 2023?",de:"wie 2023?",fr:"comme en 2023 ?",pt:"como em 2023?"},
+    final_cta:{en:"Book 1 Hour — $250 →",ru:"Взять 1 час — $250 →",tr:"1 Saat Rezerve Et — $250 →",es:"Reservar 1 hora — $250 →",de:"1 Stunde buchen — $250 →",fr:"Réserver 1h — 250$ →",pt:"Reservar 1 hora — $250 →"},
+
+    fb_tag:{en:"※ TICK-TOCK",ru:"※ ТИКАЕТ",tr:"※ TİK-TAK",es:"※ TIC-TAC",de:"※ TICK-TACK",fr:"※ TIC-TAC",pt:"※ TIQUE-TAQUE"},
+    fb_h_a:{en:"Stop scrolling.",ru:"Хватит скроллить.",tr:"Kaydırmayı bırak.",es:"Deja de hacer scroll.",de:"Hör auf zu scrollen.",fr:"Arrête de scroller.",pt:"Pare de rolar."},
+    fb_h_b:{en:"Start shipping.",ru:"Начинай катить в прод.",tr:"Dağıtmaya başla.",es:"Empieza a entregar.",de:"Fang an zu liefern.",fr:"Commence à livrer.",pt:"Comece a entregar."},
+    fb_body:{en:"While you read this, your competitor deployed 3 more agents. You're already 4 sections behind.",ru:"Пока ты это читаешь, твой конкурент запустил ещё 3 агента. Ты уже отстаёшь на 4 секции.",tr:"Bunu okurken rakibiniz 3 ajan daha dağıttı. Zaten 4 bölüm geridesiniz.",es:"Mientras lees esto, tu competidor desplegó 3 agentes más. Ya vas 4 secciones atrás.",de:"Während du das liest, hat dein Konkurrent 3 weitere Agenten deployt. Du bist schon 4 Sektionen zurück.",fr:"Pendant que tu lis ça, ton concurrent a déployé 3 agents de plus. Tu as déjà 4 sections de retard.",pt:"Enquanto você lê isso, seu concorrente implantou 3 agentes a mais. Você já está 4 seções atrás."},
+    fb_tail:{en:"60 min · $250 · no slides.",ru:"60 мин · $250 · без слайдов.",tr:"60 dk · $250 · slayt yok.",es:"60 min · $250 · sin slides.",de:"60 Min · $250 · keine Folien.",fr:"60 min · 250$ · sans slides.",pt:"60 min · $250 · sem slides."},
+};
+
+function readLang(){try{const v=localStorage.getItem("tz-lang");return v&&LANGS.includes(v)?v:"en";}catch(e){return "en";}}
+function saveLang(l){try{localStorage.setItem("tz-lang",l);}catch(e){}}
+function t(key,lang){const o=TR[key];if(!o)return key;return o[lang]||o.en;}
+
+function applyLang(lang){
+    document.documentElement.lang=lang;
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const k=el.getAttribute("data-i18n");
+        el.textContent=t(k,lang);
+    });
+    buildReactions(lang);
+    const fb=document.getElementById("fbMount");
+    if(fb&&fb.dataset.mounted==="1"){
+        const tag=fb.querySelector(".fb-tag");if(tag)tag.textContent=t("fb_tag",lang);
+        const a=fb.querySelector(".fb-title-a");if(a)a.textContent=t("fb_h_a",lang);
+        const b=fb.querySelector(".fb-title-b");if(b)b.textContent=t("fb_h_b",lang);
+        const bdy=fb.querySelector(".fb-body-text");if(bdy)bdy.textContent=t("fb_body",lang)+" ";
+        const tl=fb.querySelector(".fb-body-tail");if(tl)tl.textContent=t("fb_tail",lang);
+        const cta=fb.querySelector(".fb-cta");if(cta)cta.textContent=t("cta_main",lang);
+    }
+}
+
+// ==================== MARQUEE ====================
+const TICKER=[
+    "Your pipeline is duct tape + prayers",
+    "$300K/year for what an agent does for $20/mo",
+    "Your team has been 'researching AI' for 14 months",
+    "Forwarding emails is not strategy",
+    "Hiring humans to copy-paste from ChatGPT?",
+    "Stop hiring. Start deploying.",
+    "Your competitor's CMO is a Python script",
+    "Manual is the new lazy",
+    "You scheduled a meeting. He shipped a product.",
+    "Your retainer agency bills $40K/mo for 3 prompts",
+    "The robot army doesn't take parental leave",
+    "Everyone who waited 'just one more quarter' is 2 years behind",
+];
+function buildMarquee(){
+    const track=document.getElementById("marqueeTrack");
+    if(!track)return;
+    const tape=[...TICKER,...TICKER,...TICKER];
+    track.innerHTML=tape.map(x=>`<span class="marquee-item">${x}</span><span class="marquee-sep">★</span>`).join("");
+}
+
+// ==================== REACTION CAROUSEL ====================
+const REACT_FACES=[
+    "img/site-assets/face-magenta.jpg",
+    "img/site-assets/face-yellow.jpg",
+    "img/reaction1.jpg",
+    "img/site-assets/face-gold.jpg",
+    "img/reaction2.jpg",
+    "img/site-assets/face-pink.jpg",
+    "img/reaction3.jpg",
+    "img/hero-face.jpg",
+    "img/reaction-face.jpg",
+    "img/site-assets/hero-face.jpg",
+];
+const REACTIONS={
     en:[
         "Holy sh*t, your ROI is HUGE!",
-        "Oh my... is that your... pipeline?!",
-        "I've never seen one this BIG!",
+        "I've never seen one this BIG…",
         "WTF is that conversion rate?!",
-        "That's... impressively LARGE...",
         "Oh my GOD, the size of this automation!",
-        "Wait... it does WHAT all night?!",
-        "I can't handle all of this... data!",
-        "It just keeps going and going...",
-        "Show me that dashboard again... slower"
+        "Wait… it does WHAT all night?!",
+        "It just keeps going and going…",
+        "Show me that dashboard again… slower",
+        "I can't handle all of this… data!",
+        "Is that… 13 platforms?! At once?!",
+        "That's… impressively LARGE…",
     ],
     ru:[
         "Ох*еть, какой у тебя ROI!",
-        "Боже, какой огромный... пайплайн!",
+        "Боже, какой огромный… пайплайн!",
         "Ни х*я себе конверсия!",
         "Здравствуйте, вы к маркетологу?",
-        "Господи, он ещё и не останавливается...",
-        "Я такого большого... бюджета не видела!",
+        "Господи, он ещё и не останавливается…",
+        "Я такого большого… бюджета не видела!",
         "Это что, 13 платформ?! Одновременно?!",
-        "Покажи ещё раз... помедленнее",
+        "Покажи ещё раз… помедленнее",
         "Мамочки, а это всё — один человек?!",
-        "Подожди... оно работает 24/7?! Без перерыва?!"
+        "Подожди… оно работает 24/7?! Без перерыва?!",
     ],
-    es:["Dios mio, que ROI tan ENORME!","Nunca he visto uno tan GRANDE!","Madre mia, esa conversion!","Ay... es que no para!","¿Eso funciona 24/7?! ¡DIOS!"],
-    zh:["天哪，这个ROI太大了！","我从没见过这么大的！","哇，这个转化率！","停不下来了...","24/7不停歇？！"],
-    hi:["भगवान, ये ROI कितना बड़ा है!","इतना बड़ा pipeline?!","ये conversion rate?!","रुकता ही नहीं!","24/7 चलता रहता है?!"],
-    ar:["!يا إلهي، هذا العائد ضخم","!لم أرَ شيئاً بهذا الحجم","!معدل التحويل هذا","!لا يتوقف أبداً","24/7؟!"],
-    pt:["Meu Deus, que ROI ENORME!","Nunca vi um tao GRANDE!","Caramba, essa conversao!","Não para nunca!","24/7 sem parar?!"],
-    fr:["Mon Dieu, quel ROI ENORME!","Je n'ai jamais vu un aussi GROS!","Putain, cette conversion!","Ça s'arrête jamais!","24/7 sans pause?!"],
-    de:["Mein Gott, was fur ein ROI!","So einen GROSSEN hab ich noch nie gesehen!","Krass, diese Conversion!","Das hört nicht auf!","24/7 ohne Pause?!"],
-    ja:["なんてデカいROI！","こんな大きいの見たことない！","やばい、このコンバージョン率！","止まらない…！","24時間365日？！マジで？！"]
+    tr:[
+        "Aman tanrım, bu ROI ne büyük!",
+        "Bu kadar BÜYÜK görmedim hiç!",
+        "Bu conversion rate de neyin nesi?!",
+        "Bu otomasyon DEV ya!",
+        "Bütün gece NE yapıyor diyorsun?!",
+        "Hiç durmuyor be!",
+        "Bu dashboard'ı tekrar göster… yavaş",
+        "13 platform mu?! Aynı anda mı?!",
+        "Bu… etkileyici şekilde BÜYÜK…",
+        "24/7 mi?! Cidden?!",
+    ],
+    es:[
+        "¡Dios mio, qué ROI tan ENORME!",
+        "¡Nunca he visto uno tan GRANDE!",
+        "¿Qué conversión es esa?!",
+        "Madre mía, esa automatización…",
+        "¿Trabaja TODA la noche?!",
+        "¡Y no para nunca!",
+        "Muéstrame el dashboard otra vez… más lento",
+        "¿Eso son 13 plataformas?! ¿A la vez?!",
+        "Es… impresionantemente GRANDE…",
+        "¿24/7? ¡EN SERIO?!",
+    ],
+    de:[
+        "Mein Gott, was für ein ROI!",
+        "So einen GROSSEN hab ich noch nie gesehen!",
+        "Krass, diese Conversion!",
+        "Diese Automatisierung ist RIESIG!",
+        "Was macht es die GANZE Nacht?!",
+        "Das hört nicht auf!",
+        "Zeig mir das Dashboard nochmal… langsamer",
+        "13 Plattformen?! Gleichzeitig?!",
+        "Das ist… beeindruckend GROSS…",
+        "24/7?! Ohne Pause?!",
+    ],
+    fr:[
+        "Putain, quel ROI ENORME !",
+        "Je n'ai jamais vu un aussi GROS !",
+        "C'est quoi cette conversion ?!",
+        "Mon dieu, cette automatisation !",
+        "Ça fait QUOI toute la nuit ?!",
+        "Ça ne s'arrête jamais !",
+        "Montre-moi ce dashboard… plus lentement",
+        "13 plateformes ?! En même temps ?!",
+        "C'est… impressionnamment GROS…",
+        "24/7 ?! Sans pause ?!",
+    ],
+    pt:[
+        "Meu Deus, que ROI ENORME!",
+        "Nunca vi um tão GRANDE!",
+        "Caramba, essa conversão!",
+        "Que automação GIGANTE!",
+        "Faz O QUÊ a noite toda?!",
+        "Não para nunca!",
+        "Mostra esse dashboard de novo… devagar",
+        "São 13 plataformas?! Ao mesmo tempo?!",
+        "Isso é… impressionantemente GRANDE…",
+        "24/7?! Sem parar?!",
+    ],
 };
-
-// Load translations
-fetch('translations.json?v='+Date.now()).then(r=>r.json()).then(data=>{
-    T=data;
-    const urlLang = location.hash.replace('#lang=','');
-    const browserLang = navigator.language.slice(0,2);
-    if(LANG_CODES.includes(urlLang)) currentLang=urlLang;
-    else if(LANG_CODES.includes(browserLang)) currentLang=browserLang;
-    applyLang();
-    updateLangSelect();
-}).catch(()=>{});
-
-function applyLang(){
-    const lang = T[currentLang];
-    if(!lang) return;
-    document.querySelectorAll('[data-t]').forEach(el=>{
-        const key = el.getAttribute('data-t');
-        if(lang[key]) el.textContent = lang[key];
-    });
-    document.querySelectorAll('[data-t-html]').forEach(el=>{
-        const key = el.getAttribute('data-t-html');
-        if(lang[key]) el.innerHTML = lang[key];
-    });
-    buildReactions();
-    buildFAQ();
-    rotateBubble();
-    document.documentElement.lang = currentLang;
-    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    // Price is now universal at $250 — no RU-specific discount needed
-}
-
-function switchLang(code){
-    currentLang = code;
-    location.hash = 'lang='+code;
-    applyLang();
-    updateLangSelect();
-}
-
-function updateLangSelect(){
-    const sel = document.getElementById('langSelect');
-    if(sel) sel.value = currentLang;
-}
-
-// ===== LANG SELECT DROPDOWN — FIX #2 =====
-function initLangSelect(){
-    const sel=document.getElementById('langSelect');
-    LANG_CODES.forEach(code=>{
-        const opt=document.createElement('option');
-        opt.value=code;
-        opt.textContent=LANG_NAMES[code];
-        if(code===currentLang) opt.selected=true;
-        sel.appendChild(opt);
-    });
-}
-
-// ===== GREETING BUBBLE — OG provocative rotation =====
-let bubbleInterval;
-function rotateBubble(){
-    const greetings = GREETINGS[currentLang] || GREETINGS.en;
-    const el = document.getElementById('bubbleText');
-    if(!el) return;
-    el.textContent = greetings[Math.floor(Math.random()*greetings.length)];
-    clearInterval(bubbleInterval);
-    bubbleInterval = setInterval(()=>{
-        el.style.opacity=0;
-        setTimeout(()=>{
-            el.textContent=greetings[Math.floor(Math.random()*greetings.length)];
-            el.style.opacity=1;
-        },300);
-    },3500);
-}
-
-// ===== CHAT WIDGET ENGINE =====
-const CHAT_FLOWS = {
-    en: {
-        greeting: "Hey! I'm Tim. What brings you here?",
-        options: [
-            {text:"I need AI transformation help", next:"ai_help"},
-            {text:"How much does it cost?", next:"pricing"},
-            {text:"What makes you different?", next:"diff"},
-            {text:"Just browsing", next:"browse"}
-        ],
-        ai_help: {
-            msg:"Nice! What's your biggest business pain right now?",
-            options:[
-                {text:"Manual processes eating our time",next:"manual"},
-                {text:"Team doesn't know how to use AI",next:"tracking"},
-                {text:"Need AI strategy for my business",next:"expensive"},
-            ]
-        },
-        manual:{msg:"That's exactly what I automate. I build multi-agent systems that handle operations 24/7 — content, outreach, analytics, coordination. One call and I can map out what that looks like for your business.",next:"close"},
-        tracking:{msg:"That's where founder and team training comes in. I run personalized 1:1 sessions and team workshops. From zero to building your own AI systems. Let me show you how.",next:"close"},
-        expensive:{msg:"I do full AI strategy and architecture — process audit, automation blueprint, ROI projections. Know exactly where AI saves money and what to build first. Want me to walk you through it?",next:"close"},
-        pricing: {
-            msg:"$250 for a consultation hour. $4,000/month for a Transformation Cycle (up to 5 hrs/week). $20,000/month full-time. Every dollar comes back 10-20x. Want to see exactly how?",
-            next:"close"
-        },
-        diff: {
-            msg:"Most AI consultants are either engineers who don't understand business or consultants who can't code. I'm an engineer who builds production AI systems AND understands business operations. 3,963 tests. 6 agents in production. 24 sprints without failure.",
-            next:"close"
-        },
-        browse:{msg:"Cool! Take your time. When you're ready, a $250 consultation is where most people start. I'll find the highest-impact AI opportunities for your business in 60 minutes. No pressure though.",next:"close"},
-        close:{msg:"Want to continue the conversation? Pick what works best for you:",options:[
-            {text:"✈️ Write me in Telegram", action:"telegram"},
-            {text:"📅 Book a call", action:"book"},
-            {text:"Maybe later", next:"later"}
-        ]},
-        later:{msg:"No worries! Write me anytime in Telegram → t.me/timzinin, or book a call when you're ready. Good luck with your marketing!",final:true}
-    },
-    ru: {
-        greeting: "Здарова! Я Тим. Что привело?",
-        options: [
-            {text:"Нужна AI-трансформация", next:"ai_help"},
-            {text:"Сколько стоит?", next:"pricing"},
-            {text:"Чем ты отличаешься?", next:"diff"},
-            {text:"Просто смотрю", next:"browse"}
-        ],
-        ai_help: {
-            msg:"Отлично! Какая главная боль в бизнесе сейчас?",
-            options:[
-                {text:"Ручные процессы жрут время",next:"manual"},
-                {text:"Команда не умеет работать с AI",next:"tracking"},
-                {text:"Нужна AI-стратегия для бизнеса",next:"expensive"},
-            ]
-        },
-        manual:{msg:"Именно это я автоматизирую. Строю мульти-агентные системы, которые ведут операции 24/7 — контент, аутрич, аналитика, координация. За один созвон покажу, как это будет для твоего бизнеса.",next:"close"},
-        tracking:{msg:"Для этого есть обучение — персональное 1:1 и командные воркшопы. От нуля до построения собственных AI-систем. Давай покажу как.",next:"close"},
-        expensive:{msg:"Делаю полную AI-стратегию и архитектуру — аудит процессов, blueprint автоматизации, ROI-прогнозы. Точно знаешь, где AI экономит деньги и что строить первым. Показать?",next:"close"},
-        pricing:{msg:"$250 за консультацию. $4,000/мес за Цикл Трансформации (до 5 часов/нед). $20,000/мес фуллтайм. Каждый доллар возвращается 10-20x. Хочешь увидеть как?",next:"close"},
-        diff:{msg:"Большинство AI-консультантов — либо инженеры, которые не понимают бизнес, либо консультанты, которые не умеют кодить. Я инженер, который строит продакшн AI-системы И понимает бизнес-процессы. 3,963 теста. 6 агентов. 24 спринта без сбоев.",next:"close"},
-        browse:{msg:"Ок, смотри спокойно! Когда будешь готов — консультация за $250 — точка старта. За 60 минут найду самые сильные AI-возможности для твоего бизнеса. Без давления.",next:"close"},
-        close:{msg:"Продолжим разговор? Выбирай как удобнее:",options:[
-            {text:"✈️ Написать в Telegram", action:"telegram"},
-            {text:"📅 Забронировать звонок", action:"book"},
-            {text:"Может позже", next:"later"}
-        ]},
-        later:{msg:"Без проблем! Пиши в любое время в Telegram → t.me/timzinin, или бронируй звонок когда будешь готов. Удачи!",final:true}
-    }
-};
-
-let chatState = 'idle';
-
-function openChat(){
-    document.getElementById('greetingBubble').style.display='none';
-    const win = document.getElementById('chatWindow');
-    win.classList.add('open');
-    if(chatState==='idle'){
-        chatState='active';
-        startChatFlow();
-    }
-}
-
-function closeChat(){
-    document.getElementById('chatWindow').classList.remove('open');
-    document.getElementById('greetingBubble').style.display='block';
-}
-
-function getFlow(){
-    return CHAT_FLOWS[currentLang] || CHAT_FLOWS.en;
-}
-
-function startChatFlow(){
-    const flow = getFlow();
-    addBotMsg(flow.greeting, ()=>{
-        showOptions(flow.options);
-    });
-}
-
-function addBotMsg(text, cb){
-    const msgs = document.getElementById('chatMessages');
-    // Show typing indicator
-    const typing = document.createElement('div');
-    typing.className='chat-msg bot';
-    typing.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
-    msgs.appendChild(typing);
-    msgs.scrollTop=msgs.scrollHeight;
-
-    setTimeout(()=>{
-        typing.remove();
-        const msg = document.createElement('div');
-        msg.className='chat-msg bot';
-        msg.innerHTML='<div class="msg-name">Tim</div>'+text;
-        msgs.appendChild(msg);
-        msgs.scrollTop=msgs.scrollHeight;
-        if(cb) setTimeout(cb, 300);
-    }, 800 + Math.random()*600);
-}
-
-function addUserMsg(text){
-    const msgs = document.getElementById('chatMessages');
-    const msg = document.createElement('div');
-    msg.className='chat-msg user';
-    msg.textContent=text;
-    msgs.appendChild(msg);
-    msgs.scrollTop=msgs.scrollHeight;
-}
-
-function showOptions(opts){
-    const container = document.getElementById('chatOptions');
-    container.innerHTML='';
-    opts.forEach(o=>{
-        const btn = document.createElement('button');
-        btn.className='chat-option';
-        btn.textContent=o.text;
-        btn.onclick=()=>handleOption(o);
-        container.appendChild(btn);
-    });
-}
-
-function clearOptions(){
-    document.getElementById('chatOptions').innerHTML='';
-}
-
-function handleOption(opt){
-    clearOptions();
-    addUserMsg(opt.text);
-
-    if(opt.action==='book'){
-        setTimeout(()=>{
-            window.open('https://calendly.com/timzinin','_blank');
-            addBotMsg("Calendar opened! Looking forward to chatting. Talk soon! 🤙");
-        },500);
-        return;
-    }
-
-    if(opt.action==='telegram'){
-        const flow = getFlow();
-        const isRu = currentLang === 'ru';
-        const msg = isRu
-            ? encodeURIComponent('Привет, Тим! Хочу обсудить AI-трансформацию.')
-            : encodeURIComponent('Hi Tim! I want to discuss AI transformation.');
-        setTimeout(()=>{
-            window.open('https://t.me/timzinin?text='+msg,'_blank');
-            addBotMsg(isRu ? "Telegram открыт! Жду сообщения. До связи! 🤙" : "Telegram opened! Looking forward to chatting. Talk soon! 🤙");
-        },500);
-        return;
-    }
-
-    const flow = getFlow();
-    const node = flow[opt.next];
-    if(!node) return;
-
-    if(typeof node === 'object' && node.msg){
-        addBotMsg(node.msg, ()=>{
-            if(node.options){
-                showOptions(node.options);
-            } else if(node.next){
-                const nextNode = flow[node.next];
-                if(nextNode && nextNode.msg){
-                    setTimeout(()=>{
-                        addBotMsg(nextNode.msg, ()=>{
-                            if(nextNode.options) showOptions(nextNode.options);
-                        });
-                    },600);
-                }
-            }
-            if(node.final){
-                // Show input for free-form
-                document.getElementById('chatInputWrap').style.display='flex';
-            }
-        });
-    }
-}
-
-function sendUserMsg(){
-    const input = document.getElementById('chatInput');
-    const text = input.value.trim();
-    if(!text) return;
-    input.value='';
-    addUserMsg(text);
-    // Simple keyword response
-    setTimeout(()=>{
-        const lower = text.toLowerCase();
-        let reply = "Great question! The best way to get a detailed answer is to book a quick 15-min call. I'll give you a concrete plan tailored to your business.";
-        if(lower.includes('price')||lower.includes('cost')||lower.includes('цен')||lower.includes('стои')){
-            reply = currentLang==='ru' ? "$250/час за консультацию. $4,000/мес за Цикл Трансформации (до 5 часов/нед). $20,000/мес фуллтайм. Напиши в Telegram — покажу точную ROI-математику." : "$250/hr for consultation. $4,000/month for a Transformation Cycle (up to 5 hrs/week). $20,000/month full-time. Book a call and I'll show you the exact ROI math for your case.";
-        } else if(lower.includes('platform')||lower.includes('платформ')){
-            reply = "13+ platforms: LinkedIn, Threads, Telegram, Facebook, VK, YouTube, Bluesky, Mastodon, OK.ru, VC.ru, Dev.to — all automated. Want to see how it works for your business?";
-        }
-        addBotMsg(reply, ()=>{
-            showOptions([
-                {text: currentLang==='ru'?"✈️ Написать в Telegram":"✈️ Write in Telegram", action:"telegram"},
-                {text: currentLang==='ru'?"📅 Забронировать звонок":"📅 Book a call", action:"book"},
-                {text: currentLang==='ru'?"Ещё вопрос":"Another question", next:null}
-            ]);
-        });
-    },500);
-}
-
-// ===== REACTION STRIP — provocative pop-art quotes =====
-function buildReactions(){
-    const reactions = {
-        en:[
-            {text:'"Holy sh*t, your ROI is HUGE!"',face:'img/hero-face.jpg'},
-            {text:'"I\'ve never seen one this BIG..."',face:'img/reaction1.jpg'},
-            {text:'"WTF is that conversion rate?!"',face:'img/reaction2.jpg'},
-            {text:'"Oh my GOD, the size of this automation!"',face:'img/reaction3.jpg'},
-            {text:'"Wait... it does WHAT all night?!"',face:'img/reaction-face.jpg'},
-            {text:'"It just keeps going and going..."',face:'img/hero-face.jpg'},
-            {text:'"Show me that dashboard again... slower"',face:'img/reaction1.jpg'},
-            {text:'"I can\'t handle all of this... data!"',face:'img/reaction2.jpg'},
-            {text:'"Is that... 13 platforms?! At once?!"',face:'img/reaction3.jpg'},
-            {text:'"That\'s... impressively LARGE..."',face:'img/reaction-face.jpg'}
-        ],
-        ru:[
-            {text:'"Ох*еть, какой у тебя ROI!"',face:'img/hero-face.jpg'},
-            {text:'"Боже, какой огромный... пайплайн!"',face:'img/reaction1.jpg'},
-            {text:'"Ни х*я себе конверсия!"',face:'img/reaction2.jpg'},
-            {text:'"Господи, он ещё и не останавливается..."',face:'img/reaction3.jpg'},
-            {text:'"Я такого большого... бюджета не видела!"',face:'img/reaction-face.jpg'},
-            {text:'"Это что, 13 платформ?! Одновременно?!"',face:'img/hero-face.jpg'},
-            {text:'"Покажи ещё раз... помедленнее"',face:'img/reaction1.jpg'},
-            {text:'"Мамочки, а это всё — один человек?!"',face:'img/reaction2.jpg'},
-            {text:'"Подожди... оно работает 24/7?! Без перерыва?!"',face:'img/reaction3.jpg'},
-            {text:'"Я не могу вместить столько... данных!"',face:'img/reaction-face.jpg'}
-        ]
-    };
-    const items = reactions[currentLang] || reactions.en;
-    const scroll = document.getElementById('reactionScroll');
-    const all = [...items,...items];
-    scroll.innerHTML = all.map(c=>`
-        <div class="reaction-card">
-            <div class="reaction-face-wrap"><img src="${c.face}" class="reaction-img" alt="Reaction" loading="lazy"></div>
-            <div class="reaction-text">${c.text}</div>
+function buildReactions(lang){
+    const track=document.getElementById("reactionTrack");
+    if(!track)return;
+    const quotes=REACTIONS[lang]||REACTIONS.en;
+    // Pair each quote with a face; duplicate the set for seamless infinite loop
+    const items=quotes.map((q,i)=>({q,face:REACT_FACES[i%REACT_FACES.length]}));
+    const tape=[...items,...items];
+    track.innerHTML=tape.map(it=>`
+        <div class="react-card">
+            <div class="react-face"><img src="${it.face}" alt="" loading="lazy"></div>
+            <div class="react-quote">${it.q}</div>
         </div>
-    `).join('');
+    `).join("");
 }
 
-// ===== FAQ =====
-function buildFAQ(){
-    const lang = T[currentLang] || T.en || {};
-    const faqs = [];
-    for(let i=1;i<=6;i++){
-        const q = lang['faq'+i+'_q'];
-        const a = lang['faq'+i+'_a'];
-        if(q && a) faqs.push({q,a});
-    }
-    if(faqs.length===0){
-        faqs.push(
-            {q:'How much does an AI transformation consultation cost?',a:'$250/hour for a consultation. $4,000/month for a Transformation Cycle (up to 5 hrs/week). $20,000/month full-time. Team AI training is custom-priced per workshop. Every dollar comes back 10-20x.'},
-            {q:"What's the difference between you and an AI consulting firm?",a:'Consulting firms sell slides and strategy decks. I build production AI systems — 3,963 tests, 6 agents running 24/7. I also train founders and teams to use AI themselves. Strategy + engineering + education in one person.'},
-            {q:'What do I get from a $250 consultation?',a:'A 1:1 AI training session, business pain point analysis, personalized action plan, recording + summary. Fee credited toward a Transformation Cycle if you continue.'},
-            {q:'Can you train my team on AI?',a:'Absolutely. Live workshop format — modern AI landscape overview, hands-on tool demos, custom use cases for your specific team. Recording and materials included.'}
-        );
-    }
-    const list=document.getElementById('faqList');
-    list.innerHTML=faqs.map(f=>`
-        <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">${f.q}</button>
-            <div class="faq-a"><div class="faq-a-inner">${f.a}</div></div>
+// ==================== FLOATING BOOK ====================
+const FB_KEY="tz-fb-dismissed";
+function fbDismissed(){try{return localStorage.getItem(FB_KEY)==="1";}catch(e){return false;}}
+function fbSetDismissed(v){try{v?localStorage.setItem(FB_KEY,"1"):localStorage.removeItem(FB_KEY);}catch(e){}}
+
+function renderFbBubble(){
+    const lang=readLang();
+    const mount=document.getElementById("fbMount");
+    mount.dataset.mounted="1";
+    mount.innerHTML=`
+        <div class="fb-bubble" id="fbBubble" role="dialog" aria-label="Book a call">
+            <svg class="fb-tail" viewBox="0 0 60 40" width="44" height="32" aria-hidden="true">
+                <polygon points="6,4 54,4 28,38" fill="#fff" stroke="#0a0a0a" stroke-width="4" stroke-linejoin="round"/>
+                <line x1="6" y1="6" x2="54" y2="6" stroke="#fff" stroke-width="6"/>
+            </svg>
+            <button class="fb-close" id="fbClose" aria-label="Dismiss">×</button>
+            <div class="fb-tag">${t("fb_tag",lang)}</div>
+            <div class="fb-head">
+                <div class="fb-avatar"><img src="img/site-assets/tim-zinin.jpg" alt="Tim Zinin"></div>
+                <div class="fb-title">
+                    <span class="fb-title-a">${t("fb_h_a",lang)}</span>
+                    <span class="red fb-title-b">${t("fb_h_b",lang)}</span>
+                </div>
+            </div>
+            <div class="fb-body"><span class="fb-body-text">${t("fb_body",lang)} </span><strong class="fb-body-tail">${t("fb_tail",lang)}</strong></div>
+            <a href="https://calendly.com/timzinin" target="_blank" rel="noopener" class="fb-cta" id="fbCta">${t("cta_main",lang)}</a>
         </div>
-    `).join('');
+    `;
+    const bubble=document.getElementById("fbBubble");
+    requestAnimationFrame(()=>{ bubble.classList.add("show"); });
+    document.getElementById("fbClose").addEventListener("click",(e)=>{
+        e.preventDefault();
+        fbSetDismissed(true);
+        renderFbAvatar();
+    });
+    document.getElementById("fbCta").addEventListener("click",()=>{
+        fbSetDismissed(true);
+    });
 }
 
-function toggleFaq(btn){
-    const a=btn.nextElementSibling;
-    const isOpen=btn.classList.contains('active');
-    document.querySelectorAll('.faq-q.active').forEach(q=>{q.classList.remove('active');q.nextElementSibling.style.maxHeight='0';});
-    if(!isOpen){btn.classList.add('active');a.style.maxHeight=a.scrollHeight+'px';}
+function renderFbAvatar(){
+    const mount=document.getElementById("fbMount");
+    mount.dataset.mounted="0";
+    mount.innerHTML=`
+        <button class="fb-avatar-btn" id="fbAvatarBtn" aria-label="Open booking bubble">
+            <img src="img/site-assets/tim-zinin.jpg" alt="Tim Zinin">
+        </button>
+    `;
+    document.getElementById("fbAvatarBtn").addEventListener("click",()=>{
+        fbSetDismissed(false);
+        renderFbBubble();
+    });
 }
 
-// ===== FADE IN =====
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
-document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+function initFb(){
+    if(fbDismissed()){
+        renderFbAvatar();
+    }else{
+        setTimeout(renderFbBubble,1500);
+    }
+}
 
-// ===== SMOOTH SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
+// ==================== INIT ====================
+document.addEventListener("DOMContentLoaded",()=>{
+    buildMarquee();
+    const lang=readLang();
+    const sel=document.getElementById("langSelect");
+    sel.value=lang;
+    applyLang(lang);
+    sel.addEventListener("change",e=>{
+        const l=e.target.value;
+        saveLang(l);
+        applyLang(l);
+    });
+    initFb();
 });
-
-// ===== INIT =====
-initLangSelect();
-buildReactions();
-buildFAQ();
-rotateBubble();
 </script>
 
-<script defer src="https://sborka.work/stats/script.js" data-website-id="8409a709-3f45-4fbf-850f-a3d6dd502864" data-host-url="https://sborka.work/stats"></script>
 </body>
 </html>
