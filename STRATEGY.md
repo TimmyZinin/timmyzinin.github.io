@@ -238,3 +238,4 @@ LinkedIn/Content → Landing Page → Application Form → Strategy Call → Pro
 5. Cold outreach to 50 CTOs of Series A-C companies
 6. Join AI/ML communities and establish presence (not selling, contributing)
 7. Publish 1 technical article per month (Dev.to, Medium, or personal blog)
+
