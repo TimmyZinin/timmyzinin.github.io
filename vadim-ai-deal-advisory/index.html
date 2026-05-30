@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-агенты в Deal Advisory — для Вадима</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="AI-агенты в Deal Advisory — персонально для Вадима (KPMG)">
+<meta property="og:description" content="10 слайдов: как ИИ-агенты снимают ночную рутину PPP/Project Finance — модели, due diligence, меморандумы, сценарии.">
+<meta property="og:type" content="website">
+<style>
+  :root{ --ink:#0f1f3d; --accent:#0a7d5a; --gold:#b8862b; --bg:#f4f1ea; --card:#ffffff; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:"Georgia","Times New Roman",serif; background:#0c1830; color:var(--ink); overflow:hidden; }
+  #deck{ position:relative; height:100vh; width:100vw; }
+  .slide{ position:absolute; inset:0; display:none; flex-direction:column; justify-content:center;
+    padding:6vh 8vw; background:var(--bg);
+    background-image:radial-gradient(circle at 12% 12%, rgba(10,125,90,.06), transparent 40%),
+                     radial-gradient(circle at 88% 88%, rgba(184,134,43,.08), transparent 42%);
+    animation:fade .4s ease; }
+  .slide.active{ display:flex; }
+  @keyframes fade{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+  .kicker{ color:var(--accent); font-size:1.05rem; letter-spacing:.18em; text-transform:uppercase; font-family:Arial,sans-serif; margin-bottom:1.2rem;}
+  h1{ font-size:clamp(2rem,5vw,4rem); line-height:1.08; margin:0 0 1rem; color:var(--ink);}
+  h2{ font-size:clamp(1.6rem,3.6vw,2.8rem); margin:0 0 1.4rem; color:var(--ink);}
+  p.lead{ font-size:clamp(1.1rem,2vw,1.5rem); line-height:1.5; max-width:60ch; color:#33425e;}
+  ul{ font-size:clamp(1rem,1.8vw,1.35rem); line-height:1.7; max-width:64ch; color:#27344d;}
+  li{ margin:.5rem 0;}
+  .big{ font-size:clamp(2.4rem,7vw,6rem); color:var(--accent); font-weight:bold; font-family:Arial,sans-serif;}
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; max-width:70ch;}
+  .card{ background:var(--card); border-left:5px solid var(--gold); padding:1rem 1.3rem; border-radius:6px; box-shadow:0 6px 24px rgba(12,24,48,.08); font-family:Arial,sans-serif; font-size:1.05rem;}
+  .card b{ color:var(--accent);}
+  .pill{ display:inline-block; background:#0a7d5a14; color:var(--accent); padding:.25rem .8rem; border-radius:20px; font-family:Arial,sans-serif; font-size:.95rem; margin:.2rem;}
+  .num{ font-family:Arial,sans-serif; color:var(--gold); font-weight:bold;}
+  .cta{ display:inline-block; margin-top:1.5rem; background:var(--accent); color:#fff; padding:.9rem 1.8rem; border-radius:8px; text-decoration:none; font-family:Arial,sans-serif; font-size:1.2rem;}
+  footer{ position:fixed; bottom:0; left:0; right:0; display:flex; justify-content:space-between; align-items:center; padding:.7rem 2vw; font-family:Arial,sans-serif; font-size:.85rem; color:#7a869c; background:rgba(244,241,234,.85); backdrop-filter:blur(4px);}
+  .nav{ position:fixed; bottom:1rem; left:50%; transform:translateX(-50%); display:flex; gap:.8rem; z-index:10;}
+  .nav button{ background:var(--ink); color:#fff; border:none; width:46px; height:46px; border-radius:50%; font-size:1.3rem; cursor:pointer; opacity:.85;}
+  .nav button:hover{ opacity:1; background:var(--accent);}
+  .dots{ position:fixed; top:1.2rem; left:50%; transform:translateX(-50%); display:flex; gap:.5rem; z-index:10;}
+  .dot{ width:9px; height:9px; border-radius:50%; background:#c5cbd6;}
+  .dot.on{ background:var(--accent); transform:scale(1.3);}
+  .muted{ color:#7a869c; font-size:.95rem;}
+</style>
+</head>
+<body>
+<div id="deck">
+
+  <section class="slide active">
+    <div class="kicker">Персонально для Вадима · KPMG Deal Advisory</div>
+    <h1>AI-агенты в проектном финансировании</h1>
+    <p class="lead">Как один человек с армией ИИ-агентов снимает ночную рутину PPP &amp; Project Finance — и оставляет себе только то, ради чего нанимают Associate Director: суждение и сделку.</p>
+    <p class="muted">Листай стрелками → или свайпом. 10 слайдов.</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Проблема</div>
+    <h2>Твои ночи сейчас</h2>
+    <ul>
+      <li>📊 Пересборка <b>DCF-модели</b> в третий раз — клиент «чуть поменял» CAPEX, поехал весь debt waterfall.</li>
+      <li>🏗️ Структурирование PPP: debt sculpting, DSCR, базовый и стресс-сценарии — к утреннему комитету.</li>
+      <li>📑 Инвест-меморандум и pitchbook вручную (а их у тебя уже 100+).</li>
+      <li>🔍 Due diligence: сотни страниц data room ради одной несостыковки.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Сдвиг</div>
+    <h2>Что изменилось</h2>
+    <p class="lead">ИИ перестал быть «чатом-советчиком». У него появились <b>руки</b>: он сам открывает файлы, считает в Excel, читает документы, ищет в интернете, пишет черновики. Это и есть <b>агент</b> — исполнитель, а не подсказчик.</p>
+    <p><span class="pill">было: ИИ говорит</span> <span class="pill">стало: ИИ делает</span></p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Применение · 1</div>
+    <h2>Финмодели</h2>
+    <div class="grid">
+      <div class="card"><b>Сценарии.</b> Base / Upside / Downside + кастомные, переключатель, независимые драйверы.</div>
+      <div class="card"><b>Summary-вкладка.</b> Дашборд, ключевые метрики, графики — автоматически.</div>
+      <div class="card"><b>Проверки.</b> Balance check, DSCR, covenant-флаги — модель сама себя ловит.</div>
+      <div class="card"><b>Шаблон → новая.</b> Твой стиль как образец, новая модель с нуля по вводным.</div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Применение · 2</div>
+    <h2>Due diligence без бессонницы</h2>
+    <ul>
+      <li>Агент читает весь data room и вытаскивает <b>красные флаги</b>, несостыковки чисел, риски.</li>
+      <li>Сводит контракты и допущения в одну таблицу.</li>
+      <li>Готовит draft DD-findings — тебе остаётся проверить и заверить суждением.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Применение · 3</div>
+    <h2>Меморандумы и pitchbook</h2>
+    <ul>
+      <li>Черновик инвест-меморандума по структуре сделки — за минуты.</li>
+      <li>Рыночный ресёрч и <b>сравнимые сделки</b> с источниками.</li>
+      <li>Причёсывание management presentation под формат инвесткомитета.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Эффект</div>
+    <h2>Что это даёт в цифрах</h2>
+    <div class="grid">
+      <div class="card"><span class="num">−70%</span> времени на пересборку модели</div>
+      <div class="card"><span class="num">×3</span> скорость подготовки меморандума</div>
+      <div class="card"><span class="num">$20–150/мес</span> стоимость на человека</div>
+      <div class="card"><span class="num">24/7</span> агенты не спят и не выгорают</div>
+    </div>
+    <p class="muted">Оценки иллюстративные — точные зависят от твоих процессов.</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Граница</div>
+    <h2>Что остаётся за человеком</h2>
+    <p class="lead">Агенты берут рутину. <b>Финальное суждение по сделке, ответственность, отношения с клиентом и комитетом — на тебе.</b> ИИ — это рычаг, а не замена Associate Director. И никаких клиентских данных под NDA в открытые сервисы.</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Как начать</div>
+    <h2>Первый шаг — маленький</h2>
+    <ul>
+      <li>1️⃣ Берём одну твою модель (на обезличенных цифрах).</li>
+      <li>2️⃣ Добавляем Summary + сценарный блок — ты видишь результат.</li>
+      <li>3️⃣ Фиксируем твои конвенции моделирования в «профиль» — дальше применяю во всех.</li>
+    </ul>
+  </section>
+
+  <section class="slide" style="background:#0c1830; color:#eef2f8;">
+    <div class="kicker" style="color:#5fd0a8;">Дальше</div>
+    <h1 style="color:#fff;">Соберём это под тебя?</h1>
+    <p class="lead" style="color:#c7d2e6;">30 минут с Тимом — разберём один твой реальный кейс и покажем, как агенты впишутся в твой процесс Deal Advisory.</p>
+    <a class="cta" href="https://calendly.com/timzinin" target="_blank">📞 Записаться на 30 минут</a>
+    <p class="muted" style="color:#7a869c; margin-top:2rem;">Сделано ИИ-агентом Клодом по заказу Тима Зинина · 2026</p>
+  </section>
+
+</div>
+
+<div class="dots" id="dots"></div>
+<div class="nav">
+  <button onclick="go(-1)">‹</button>
+  <button onclick="go(1)">›</button>
+</div>
+<footer>
+  <span>AI-агенты в Deal Advisory · для Вадима</span>
+  <span id="counter">1 / 10</span>
+</footer>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  const dots=document.getElementById('dots');
+  slides.forEach((_,n)=>{const d=document.createElement('div');d.className='dot'+(n===0?' on':'');d.onclick=()=>set(n);dots.appendChild(d);});
+  function set(n){ i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+    document.getElementById('counter').textContent=(i+1)+' / '+slides.length; }
+  function go(d){ set(i+d); }
+  document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key===' ')go(1); if(e.key==='ArrowLeft')go(-1); });
+  let sx=null;
+  document.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{ if(sx===null)return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40)go(dx<0?1:-1); sx=null; },{passive:true});
+</script>
+</body>
+</html>
