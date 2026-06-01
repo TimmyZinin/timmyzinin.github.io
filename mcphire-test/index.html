@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>MCPHire — отчёт о тестировании онбординга (01.06.2026)</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1a1d24; --muted:#5b6472; --line:#e6e9ef;
+    --accent:#2f6df0; --accent-soft:#eaf1fe;
+    --p1:#d6453d; --p1-bg:#fdeceb; --p2:#c8780a; --p2-bg:#fdf3e4; --p3:#6b7280; --p3-bg:#eef0f3;
+    --ok:#1f9d5b; --ok-bg:#e8f7ee; --note:#6f42c1; --note-bg:#f1ecfb;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header.top{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:28px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:30px;line-height:1.2;margin:10px 0 8px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:15px;max-width:680px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chip{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted)}
+  .chip b{color:var(--ink)}
+
+  .verdict{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:28px;box-shadow:0 1px 2px rgba(20,30,50,.04)}
+  .verdict h2{margin:0 0 6px;font-size:17px}
+  .verdict .big{font-size:15px;color:var(--ink)}
+  .verdict .big b{color:var(--ok)}
+
+  .counts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}
+  .count{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+  .count .n{font-size:30px;font-weight:800;line-height:1;font-family:var(--mono)}
+  .count .l{font-size:12px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.05em}
+  .count.p0 .n{color:var(--ok)} .count.p1 .n{color:var(--p1)} .count.p2 .n{color:var(--p2)} .count.p3 .n{color:var(--p3)}
+
+  h2.section{font-size:20px;margin:36px 0 14px;font-weight:800;letter-spacing:-.01em}
+  h2.section .em{color:var(--muted);font-weight:500;font-size:14px;display:block;margin-top:2px}
+
+  .finding{background:var(--card);border:1px solid var(--line);border-left-width:4px;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+  .finding.p1{border-left-color:var(--p1)} .finding.p2{border-left-color:var(--p2)} .finding.p3{border-left-color:var(--p3)} .finding.note{border-left-color:var(--note)}
+  .f-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .badge{font-family:var(--mono);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px}
+  .badge.p1{background:var(--p1-bg);color:var(--p1)} .badge.p2{background:var(--p2-bg);color:var(--p2)} .badge.p3{background:var(--p3-bg);color:var(--p3)} .badge.note{background:var(--note-bg);color:var(--note)}
+  .f-id{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .f-type{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--bg);padding:3px 8px;border-radius:6px;border:1px solid var(--line)}
+  .f-title{font-weight:700;font-size:15px;margin-left:auto;flex-basis:100%;order:5;margin-top:2px}
+  .f-body{font-size:14px;color:var(--ink)}
+  .f-body .row{display:flex;gap:8px;margin:5px 0}
+  .f-body .row .k{flex:0 0 78px;color:var(--muted);font-size:13px}
+  .f-body .row .v{flex:1}
+  .f-body code,.ev{font-family:var(--mono);font-size:12.5px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 6px;word-break:break-word}
+  .ev{display:block;padding:8px 10px;margin-top:4px;color:#384;white-space:pre-wrap;line-height:1.45;color:var(--muted)}
+  .who{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:8px}
+
+  .works{background:var(--ok-bg);border:1px solid #cdebd9;border-radius:14px;padding:20px 22px;margin-top:8px}
+  .works ul{margin:8px 0 0;padding-left:20px} .works li{margin:6px 0;font-size:14px}
+  .works li b{color:var(--ok)}
+
+  .rec{background:var(--accent-soft);border:1px solid #cfe0fd;border-radius:14px;padding:20px 22px;margin-top:14px}
+  .rec ol{margin:10px 0 0;padding-left:20px} .rec li{margin:8px 0;font-size:14px}
+
+  footer{margin-top:48px;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:13px}
+  footer .mono{font-family:var(--mono);font-size:12px}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  @media(max-width:600px){.counts{grid-template-columns:repeat(2,1fr)}h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="kicker">MCPHire · QA отчёт</div>
+    <h1>Тестирование онбординга перед анонсом</h1>
+    <p class="sub">Прод проверен глазами свежего MCP-клиента: четыре независимых субагента имитировали первый визит кандидата, работодателя, злоумышленника и обычного человека из браузера. Все находки — на реальных запросах к проду, с доказательствами.</p>
+    <div class="meta-row">
+      <span class="chip">Дата: <b>01.06.2026</b></span>
+      <span class="chip">Прод: <b>mcphire.com</b></span>
+      <span class="chip">Релиз: <b>правки Дениса</b> (rename + delete_employer + SSoT + i18n)</span>
+      <span class="chip">Метод: <b>4 субагента · live curl + MCP</b></span>
+    </div>
+  </header>
+
+  <div class="verdict">
+    <h2>Главный вывод</h2>
+    <p class="big"><b>Блокеров запуска (P0) — нет.</b> Happy-path кандидата и работодателя проходит вживую. Правки Дениса работают: переименование тулов корректно везде, новый <code>delete_employer_profile</code> удаляет каскадно, единый канон <code>skill.md</code> стал настоящим источником правды. Перед анонсом стоит закрыть мелкий «полировочный» спринт — ничего переписывать не нужно.</p>
+  </div>
+
+  <div class="counts">
+    <div class="count p0"><div class="n">0</div><div class="l">P0 блокеры</div></div>
+    <div class="count p1"><div class="n">2</div><div class="l">P1 до анонса</div></div>
+    <div class="count p2"><div class="n">6</div><div class="l">P2 высокий</div></div>
+    <div class="count p3"><div class="n">5</div><div class="l">P3 косметика</div></div>
+  </div>
+
+  <!-- P1 -->
+  <h2 class="section">P1 — закрыть до анонса<span class="em">Два пункта. Оба чинятся дёшево, без переписывания.</span></h2>
+
+  <div class="finding p1">
+    <div class="f-head">
+      <span class="badge p1">P1</span><span class="f-id">BUG-01</span><span class="f-type">api-contract</span>
+      <span class="f-title">Deprecated-алиасы старых имён тулов не реализованы</span>
+    </div>
+    <div class="f-body">
+      <div class="row"><span class="k">Где</span><span class="v"><code>mcp.mcphire.com/sse</code> — <code>register_profile</code> / <code>delete_profile</code></span></div>
+      <div class="row"><span class="k">Ждали</span><span class="v">По плану Спринта 2 и по обещанию в <code>server.json</code> («30-day deprecation window») старые имена работают как алиасы и возвращают <code>deprecation_warning</code>.</span></div>
+      <div class="row"><span class="k">Факт</span><span class="v">Алиасов нет. <code>tools/call register_profile</code> → жёсткий <code>Unknown tool</code>. Агент со старым кэшем падает без подсказки про новое имя.</span></div>
+      <span class="ev">{"content":[{"text":"Unknown tool: 'register_profile'"}],"isError":true}</span>
+      <div class="row" style="margin-top:8px"><span class="k">Контекст</span><span class="v">Денис сам отмечал «~0 реальных юзеров», поэтому риск для текущей базы низкий — но обещанный в манифесте контракт не выполнен. Чинится регистрацией двух обёрток-алиасов.</span></div>
+      <div class="who">▸ нашли независимо Agent A + Agent C</div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="f-head">
+      <span class="badge p1">P1</span><span class="f-id">BUG-02</span><span class="f-type">api-contract</span>
+      <span class="f-title">У delete_employer_profile нет REST-аналога</span>
+    </div>
+    <div class="f-body">
+      <div class="row"><span class="k">Где</span><span class="v"><code>/api/v1/employer/*</code> — удаление профиля</span></div>
+      <div class="row"><span class="k">Ждали</span><span class="v">По симметрии с кандидатом (<code>DELETE /api/v1/candidate/profile</code> работает) у нового тула должен быть REST-twin.</span></div>
+      <div class="row"><span class="k">Факт</span><span class="v">REST-аналога нет: <code>DELETE /employer/profile</code>, <code>/employer/{id}</code>, <code>POST /employer/delete</code> — все 404. Тул только через MCP. Работодатель на чистом REST-fallback не удалит компанию, хотя кандидат — может.</span></div>
+      <span class="ev">{"detail":"Not Found"}  HTTP:404</span>
+      <div class="who">▸ нашёл Agent B</div>
+    </div>
+  </div>
+
+  <!-- P2 -->
+  <h2 class="section">P2 — высокий приоритет<span class="em">Не блокируют запуск, но портят опыт первого визита и засоряют данные.</span></h2>
+
+  <div class="finding p2">
+    <div class="f-head"><span class="badge p2">P2</span><span class="f-id">BUG-03</span><span class="f-type">docs-drift · ux</span>
+    <span class="f-title">skill.md не предупреждает про draft-gate вакансий</span></div>
+    <div class="f-body">
+      <div class="row"><span class="k">Факт</span><span class="v">Канон шаг 4 говорит «опубликовано, матчинг сработает сам». Реально вакансия НЕверифицированного работодателя молча уходит в <code>status=draft</code>, невидима на /jobs (страница отдаёт <code>410</code>). Агент думает, что опубликовал, и ждёт откликов, которых не будет.</span></div>
+      <span class="ev">post_vacancy: {"status":"draft"}   ·   публичная страница: HTTP:410</span>
+      <div class="who">▸ нашёл Agent B</div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="f-head"><span class="badge p2">P2</span><span class="f-id">BUG-04</span><span class="f-type">security-hygiene</span>
+    <span class="f-title">proof_url не валидируется на входе (но реального SSRF нет)</span></div>
+    <div class="f-body">
+      <div class="row"><span class="k">Факт</span><span class="v">Регистрация принимает любой URL — <code>169.254.169.254</code>, <code>localhost</code>, <code>file:///etc/passwd</code> — все 201, URL сохраняется как есть.</span></div>
+      <div class="row"><span class="k">Но</span><span class="v"><b>Root cause проверен в коде:</b> единственный потребитель URL — claim-verifier — фетчит только через <code>safe_fetch</code>, который блокирует приватные/loopback/AWS-метадату/DNS-rebinding (Codex round 1-9). <b>Эксплуатации нет</b> — это гигиена входа и мусор в БД, не дыра. Severity понижен P1 → P2 после проверки.</span></div>
+      <span class="ev">register: HTTP:201   ·   safe_fetcher.py PRIVATE_NETS включает 169.254.0.0/16</span>
+      <div class="who">▸ нашёл Agent C · root cause доуточнён вручную</div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="f-head"><span class="badge p2">P2</span><span class="f-id">BUG-05</span><span class="f-type">registration</span>
+    <span class="f-title">Нет дедупа — неограниченные дубли профилей</span></div>
+    <div class="f-body">
+      <div class="row"><span class="k">Факт</span><span class="v">Четыре регистрации (2 параллельных + 2 последовательных) с идентичным <code>proof_url</code>+email → 4 разных профиля, все 201. Дедупа нет. Rate-limit лишь замедляет. Засоряет матчинг.</span></div>
+      <span class="ev">P1 / P2 / seq3 / seq4 → 4 distinct profile_id, все HTTP:201</span>
+      <div class="who">▸ нашёл Agent C</div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="f-head"><span class="badge p2">P2</span><span class="f-id">BUG-06</span><span class="f-type">ux</span>
+    <span class="f-title">consent-hint врёт при несовпадении фразы</span></div>
+    <div class="f-body">
+      <div class="row"><span class="k">Факт</span><span class="v">При несовпадении consent-фразы hint всегда «set flag to true», хотя флаг уже true. Агент будет крутить флаг, а не фразу.</span></div>
+      <span class="ev">{"error":"CONSENT_PHRASE_MISMATCH...","hint":"set ...to true"}  HTTP:400</span>
+      <div class="who">▸ нашёл Agent B</div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="f-head"><span class="badge p2">P2</span><span class="f-id">BUG-07</span><span class="f-type">registration · security</span>
+    <span class="f-title">consent_phrase можно опустить (окно открыто бессрочно)</span></div>
+    <div class="f-body">
+      <div class="row"><span class="k">Факт</span><span class="v"><code>consent_granted=true</code> + валидный proof_url без <code>consent_phrase</code> → 201. By-design «30-day deprecation window», но окно открыто без срока — позволяет регистрировать без фразы-подтверждения.</span></div>
+      <div class="who">▸ нашёл Agent C</div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="f-head"><span class="badge p2">P2</span><span class="f-id">BUG-08</span><span class="f-type">docs-drift</span>
+    <span class="f-title">proof_url не описан в шагах skill.md</span></div>
+    <div class="f-body">
+      <div class="row"><span class="k">Факт</span><span class="v">proof_url (обязательное поле) упомянут только в «Error recovery» внизу, не в шагах 1-6. Свежий агент сверху вниз гарантированно ловит 400 на первой регистрации (спасает hint на втором заходе).</span></div>
+      <span class="ev">HTTP 400 {"error":"proof_url ... is required for claim verification."}</span>
+      <div class="who">▸ нашёл Agent A</div>
+    </div>
+  </div>
+
+  <!-- P3 -->
+  <h2 class="section">P3 — косметика и мелочи<span class="em">На запуск не влияет, но стоит подчистить.</span></h2>
+
+  <div class="finding p3">
+    <div class="f-head"><span class="badge p3">P3</span><span class="f-id">BUG-09</span><span class="f-type">docs-drift</span>
+    <span class="f-title">Версия в serverInfo отстала (1.4.0 vs 1.5.0)</span></div>
+    <div class="f-body"><div class="row"><span class="k">Факт</span><span class="v">Манифест = 1.5.0-alpha, живой MCP = 1.4.0-alpha. Косметика: 1.5.0-фича <code>delete_employer_profile</code> уже работает → код задеплоен, забыли бампнуть строку версии. Поймали все 3 агента.</span></div><div class="who">▸ Agent A, B, C</div></div>
+  </div>
+
+  <div class="finding p3">
+    <div class="f-head"><span class="badge p3">P3</span><span class="f-id">BUG-10</span><span class="f-type">i18n</span>
+    <span class="f-title">Заголовок вкладки русский при EN-контенте</span></div>
+    <div class="f-body"><div class="row"><span class="k">Факт</span><span class="v">Контент по умолчанию EN, а <code>&lt;title&gt;</code> жёстко русский. SSG-shell title не синхронён с языком. Видно в табе и в шаринге/SEO.</span></div><div class="who">▸ Agent D</div></div>
+  </div>
+
+  <div class="finding p3">
+    <div class="f-head"><span class="badge p3">P3</span><span class="f-id">BUG-11</span><span class="f-type">validation</span>
+    <span class="f-title">language=xx молча отдаёт RU и эхо невалидного кода</span></div>
+    <div class="f-body"><div class="row"><span class="k">Факт</span><span class="v"><code>?language=xx</code> → 200, тихий fallback на RU, но в ответе <code>"language":"xx"</code>. Не отбивает, врёт о языке в метаданных.</span></div><div class="who">▸ Agent C</div></div>
+  </div>
+
+  <div class="finding p3">
+    <div class="f-head"><span class="badge p3">P3</span><span class="f-id">BUG-12</span><span class="f-type">ux · onboarding</span>
+    <span class="f-title">REST-fallback спрятан · нет редиректа /v1 → /api/v1</span></div>
+    <div class="f-body"><div class="row"><span class="k">Факт</span><span class="v">REST-fallback — мелкой строкой внизу. Канон верен (<code>/api/v1/</code>), но обиходный <code>/v1/</code> даёт 404, редиректа нет — легко потерять префикс.</span></div><div class="who">▸ Agent D, Agent B</div></div>
+  </div>
+
+  <div class="finding p3">
+    <div class="f-head"><span class="badge p3">P3</span><span class="f-id">BUG-13</span><span class="f-type">ux</span>
+    <span class="f-title">На главной нет явного контакта поддержки</span></div>
+    <div class="f-body"><div class="row"><span class="k">Факт</span><span class="v">На /employers есть «Напиши в support» → <code>t.me/mcphire_support</code>. На главной — только generic «Telegram» → <code>t.me/mcphire</code> (канал, не support).</span></div><div class="who">▸ Agent D</div></div>
+  </div>
+
+  <!-- NOTE -->
+  <h2 class="section">Наблюдение — не баг для этого запуска</h2>
+  <div class="finding note">
+    <div class="f-head"><span class="badge note">NOTE</span><span class="f-id">NOTE-A1</span><span class="f-type">архитектура онбординга</span>
+    <span class="f-title">Нет веб-онбординга для людей без агента</span></div>
+    <div class="f-body">
+      <div class="row"><span class="k">Суть</span><span class="v">Весь онбординг — вокруг «отправь агенту строку Read skill.md». Для человека без MCP-клиента веб-формы регистрации нет.</span></div>
+      <div class="row"><span class="k">Почему ОК</span><span class="v">Когорта софт-лаунча — <b>только те, кто уже пользуется агентами</b>. Для них MCP-first путь и есть продукт. Веб-форма — продуктовое решение на потом.</span></div>
+      <div class="row"><span class="k">Подстраховка</span><span class="v">Если в группе 15-20 окажется кто-то без настроенного клиента — дать ему персональную мини-инструкцию «поставь Claude Desktop → вставь конфиг».</span></div>
+      <div class="who">▸ Agent D</div>
+    </div>
+  </div>
+
+  <!-- WORKS -->
+  <h2 class="section">Что прошло чисто — это работает</h2>
+  <div class="works">
+    <ul>
+      <li><b>Rename тулов</b> корректен во всех артефактах (server.json, skill.md, llms.txt) — старых имён в доках нет нигде.</li>
+      <li><b>delete_employer_profile</b> работает: без confirm → confirm_required, мусорный токен → не 500, happy-path → каскад (deleted_jobs:1), профиль исчез.</li>
+      <li><b>SSoT skill.md</b> — настоящий единый источник: llms.txt и server.json ссылаются, не дублируют протокол.</li>
+      <li><b>Rate-limit</b> регистрации = 10/min/IP → 429 + Retry-After (ровно как заявлено).</li>
+      <li><b>SSRF-guard</b> в safe_fetcher — comprehensive (приватные сети, AWS-метадата, DNS-rebinding, open-redirect, 1 MB cap), Codex round 1-9.</li>
+      <li><b>Битый/пустой JSON</b> → graceful 422, ни одного 500.</li>
+      <li><b>Auth-отбой</b>: запросы без токена → 400, bogus UUID → 400/404, данные не текут.</li>
+      <li><b>i18n RU↔EN</b> на всех страницах — вёрстка не поехала ни на десктопе, ни на мобиле 390×844.</li>
+      <li><b>SSG /jobs</b> рендерится: «1–12 из 49801», карточки с деталями, пагинация.</li>
+    </ul>
+  </div>
+
+  <!-- REC -->
+  <h2 class="section">Рекомендация — мини-спринт «полировка» перед анонсом</h2>
+  <div class="rec">
+    <p>Ничего переписывать не нужно. До анонса достаточно закрыть P1 + самые заметные P2:</p>
+    <ol>
+      <li><b>Алиасы (BUG-01)</b> — зарегистрировать <code>register_profile</code>/<code>delete_profile</code> как deprecated-обёртки с <code>deprecation_warning</code>, как и планировалось в Спринте 2.</li>
+      <li><b>REST-twin удаления работодателя (BUG-02)</b> — добавить <code>DELETE /api/v1/employer/profile</code> в пару к кандидатскому.</li>
+      <li><b>3 правки в skill.md</b> — предупреждение про draft-gate (BUG-03), proof_url в шагах Track A (BUG-08); заодно поправить consent-hint (BUG-06).</li>
+      <li><b>Дедуп профилей (BUG-05)</b> — уникальность по proof_url/email, чтобы не засорять матчинг.</li>
+      <li><b>Косметика</b> — бампнуть serverInfo.version, валидация language, синхрон title, кнопка support на главной.</li>
+    </ol>
+    <p style="margin-bottom:0">Параллельно: анонс не раньше, чем закроется юридический блок (зона Дениса — Условия / Политика обработки данных).</p>
+  </div>
+
+  <footer>
+    <p class="mono">Сгенерировано QA-прогоном · 4 субагента против прода · 01.06.2026</p>
+    <p>Полный отчёт с repro и evidence: <code>mcphire-mcp/docs/BUG_REPORT_ONBOARDING_2026-06-01.md</code> · Проект: <a href="https://mcphire.com">mcphire.com</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
