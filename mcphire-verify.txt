@@ -1,0 +1,3 @@
+MCPHire ownership verification probe.
+mcphire-verify-df1512fc
+This file proves the claim-verifier green path works end-to-end.
