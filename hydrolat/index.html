@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KPcosm × AI — анализ рынка гидролатов</title>
+<style>
+  :root{
+    --rose:#c75b7a; --rose-deep:#9d3d5c; --rose-soft:#f4d7df;
+    --sage:#7a8b6f; --sage-deep:#566049; --sage-soft:#dfe6d6;
+    --cream:#faf6f0; --cream-2:#f3ece2; --ink:#2e2a2b; --ink-soft:#6b6260;
+    --gold:#c9a24b; --line:#e7ddd0;
+    --target:#9ec79a;
+    --font:"Georgia","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--font);font-weight:600;letter-spacing:-.01em;line-height:1.15}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  section{padding:96px 0}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(250,246,240,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .navwrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{font-family:var(--font);font-size:22px;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+  .brand span{color:var(--rose);font-size:15px;vertical-align:super;margin-left:1px}
+  .navlinks{display:flex;gap:26px;align-items:center}
+  .navlinks a{color:var(--ink-soft);text-decoration:none;font-size:14.5px;font-weight:500;transition:color .2s}
+  .navlinks a:hover{color:var(--rose-deep)}
+  .navlinks .navcta{background:var(--rose);color:#fff;padding:8px 16px;border-radius:100px}
+  .navlinks .navcta:hover{background:var(--rose-deep);color:#fff}
+  @media(max-width:680px){.navlinks{gap:14px}.navlinks a{font-size:13px}.brand{font-size:19px}}
+  @media(max-width:520px){.navlinks a:not(.navcta){display:none}}
+  .eyebrow{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);margin-bottom:18px}
+  .lead{font-size:20px;color:var(--ink-soft);max-width:680px}
+
+  /* HERO */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;color:#fff;overflow:hidden;padding:0}
+  .hero .bg{position:absolute;inset:0;background:linear-gradient(120deg,#7a3047,#3f4a37);background-size:cover;background-position:center}
+  .hero .bg img{width:100%;height:100%;object-fit:cover;opacity:.92}
+  .hero .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,20,28,.72) 0%,rgba(40,20,28,.35) 55%,rgba(40,20,28,.15) 100%)}
+  .hero .wrap{position:relative;z-index:2;padding-top:80px;padding-bottom:80px}
+  .hero h1{font-size:clamp(38px,6vw,76px);color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+  .hero .sub{font-size:clamp(17px,2.2vw,23px);margin-top:24px;max-width:640px;color:rgba(255,255,255,.92);text-shadow:0 1px 12px rgba(0,0,0,.4)}
+  .hero .meta{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:9px 17px;border:1px solid rgba(255,255,255,.4);border-radius:100px;font-size:14px;backdrop-filter:blur(6px);background:rgba(255,255,255,.08)}
+  .badge-ai{position:absolute;top:28px;right:28px;z-index:3;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:100px;background:rgba(0,0,0,.18);backdrop-filter:blur(4px)}
+
+  /* generic blocks */
+  .grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:34px;box-shadow:0 10px 40px -24px rgba(80,40,50,.25)}
+  .quote{font-family:var(--font);font-size:21px;line-height:1.5;color:var(--ink);font-style:italic}
+  .quote .hl{background:linear-gradient(transparent 60%,var(--rose-soft) 60%);font-style:normal;font-weight:600}
+  .small{font-size:14px;color:var(--ink-soft)}
+  .sectimg{width:100%;border-radius:20px;display:block;box-shadow:0 18px 50px -28px rgba(80,40,50,.45)}
+  .tag{display:inline-block;background:var(--cream-2);border:1px solid var(--line);border-radius:100px;padding:5px 13px;font-size:13px;color:var(--ink-soft);margin:3px 4px 0 0}
+
+  /* metric strip */
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:46px}
+  .metric{padding:24px;border-radius:16px;background:#fff;border:1px solid var(--line);text-align:center}
+  .metric .n{font-family:var(--font);font-size:38px;color:var(--rose-deep);line-height:1}
+  .metric .l{font-size:13px;color:var(--ink-soft);margin-top:8px}
+
+  /* CHART ladder */
+  .chart{margin-top:40px}
+  .row{display:grid;grid-template-columns:170px 1fr 78px;align-items:center;gap:14px;margin:7px 0}
+  .row .name{font-size:14px;text-align:right;color:var(--ink)}
+  .row .name small{display:block;color:var(--ink-soft);font-size:11px}
+  .track{position:relative;height:26px;background:var(--cream-2);border-radius:8px;overflow:hidden}
+  .bar{position:absolute;left:0;top:0;bottom:0;border-radius:8px;background:var(--sage);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar.kp{background:linear-gradient(90deg,var(--rose),var(--rose-deep))}
+  .row .val{font-size:14px;font-weight:700;color:var(--ink)}
+  .row.kp .name{font-weight:700;color:var(--rose-deep)}
+  .bandwrap{position:relative;margin:18px 0 6px;height:0}
+  .legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:26px;font-size:13px;color:var(--ink-soft)}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:7px;vertical-align:-2px}
+  .axis{display:grid;grid-template-columns:170px 1fr 78px;gap:14px;margin-top:8px}
+  .axis .scale{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft)}
+
+  /* recommendation */
+  .reco{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .price-card{border-radius:20px;padding:32px;text-align:center}
+  .price-card.now{background:var(--cream-2);border:1px solid var(--line)}
+  .price-card.next{background:linear-gradient(160deg,#fff,var(--rose-soft));border:1px solid var(--rose-soft)}
+  .price-card .k{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .price-card .p{font-family:var(--font);font-size:54px;color:var(--ink);margin:10px 0 4px}
+  .price-card.next .p{color:var(--rose-deep)}
+  .price-card .d{font-size:14px;color:var(--ink-soft)}
+
+  /* levers */
+  .levers{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
+  .lever{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 18px}
+  .lever .num{font-family:var(--font);font-size:30px;color:var(--rose);opacity:.5}
+  .lever h4{font-size:15px;margin:8px 0 6px}
+  .lever p{font-size:13px;color:var(--ink-soft);line-height:1.5}
+
+  /* timeline */
+  .tl{position:relative;margin-top:44px;padding-left:34px}
+  .tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .tl .step{position:relative;margin-bottom:26px}
+  .tl .dot{position:absolute;left:-33px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--rose)}
+  .tl .step h4{font-size:16px}
+  .tl .step p{font-size:14px;color:var(--ink-soft)}
+  .tl .step .t{font-size:12px;color:var(--rose);font-weight:700;letter-spacing:.05em}
+
+  /* cta */
+  .cta{background:linear-gradient(150deg,#3f4a37,#566049);color:#fff;border-radius:28px;padding:60px;text-align:center;position:relative;overflow:hidden}
+  .cta h2{color:#fff;font-size:clamp(28px,4vw,44px)}
+  .cta p{color:rgba(255,255,255,.88);max-width:560px;margin:18px auto 0;font-size:18px}
+  .btn{display:inline-block;margin-top:30px;background:#fff;color:var(--sage-deep);font-weight:700;padding:16px 34px;border-radius:100px;text-decoration:none;font-size:16px;transition:transform .2s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.alt{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);margin-left:10px}
+
+  footer{padding:50px 0;text-align:center;color:var(--ink-soft);font-size:13px}
+  .disclaimer{background:var(--cream-2);border:1px dashed var(--line);border-radius:14px;padding:18px 22px;font-size:13px;color:var(--ink-soft);margin-top:30px}
+
+  .secthead{max-width:720px;margin-bottom:8px}
+  .secthead h2{font-size:clamp(28px,3.6vw,42px)}
+
+  /* promo pillars */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px}
+  .pillar{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px}
+  .pill-h{font-family:var(--font);font-size:19px;margin-bottom:14px;color:var(--ink)}
+  .pillar ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .pillar li{font-size:14px;color:var(--ink-soft);line-height:1.5;padding-left:18px;position:relative}
+  .pillar li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--sage)}
+  .pillar li b{color:var(--ink)}
+  .promo-hi{border-left:4px solid var(--rose)}
+
+  /* video */
+  .videowrap{max-width:760px;margin:0 auto;border-radius:24px;overflow:hidden;box-shadow:0 24px 70px -30px rgba(80,40,50,.6);background:#000}
+  .videowrap video{display:block;width:100%;height:auto;aspect-ratio:16/9}
+
+  @media(max-width:860px){.pillars{grid-template-columns:1fr}}
+
+  @media(max-width:860px){
+    .grid2,.reco{grid-template-columns:1fr;gap:30px}
+    .metrics{grid-template-columns:repeat(2,1fr)}
+    .levers{grid-template-columns:1fr 1fr}
+    .row{grid-template-columns:120px 1fr 60px}
+    .row .name{font-size:12px}
+    .axis{grid-template-columns:120px 1fr 60px}
+    section{padding:64px 0}
+    .cta{padding:38px 26px}
+  }
+  @media(max-width:520px){.levers{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap navwrap">
+    <a href="index.html" class="brand">KPcosm<span>×AI</span></a>
+    <div class="navlinks">
+      <a href="index.html#market">Рынок</a>
+      <a href="index.html#promo">Продвижение</a>
+      <a href="index.html#video">Видео</a>
+      <a href="content-plan.html">Контент-план</a>
+      <a href="index.html#reco" class="navcta">Цена</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="bg"><img src="assets/hero.png" alt="Гидролат KPcosm в горах Красной Поляны"></div>
+  <div class="scrim"></div>
+  <div class="badge-ai">● собрано Claude Code за один проход</div>
+  <div class="wrap">
+    <div class="eyebrow" style="color:#f4d7df">Краснополянская косметика × AI</div>
+    <h1>Гидролат:<br>анализ рынка и цена,<br>которая растит объём</h1>
+    <p class="sub">Куда вписать продукт по цене, чтобы вырасти в продажах в 2–3 раза в штуках — с поправкой на объём фасовки конкурентов.</p>
+    <div class="meta">
+      <span class="pill">🎙️ задача из голосового Ирины</span>
+      <span class="pill">📊 13 продуктов · 8 брендов</span>
+      <span class="pill">🧮 нормализация по ₽/100мл</span>
+    </div>
+  </div>
+</header>
+
+<!-- ЗАДАЧА -->
+<section id="task">
+  <div class="wrap grid2">
+    <div>
+      <div class="eyebrow">Задача</div>
+      <h2 class="secthead" style="margin-bottom:20px">Что нужно Ирине</h2>
+      <p class="lead" style="margin-bottom:24px">Расшифровка голосового сообщения от 02.06.2026 — слово в слово легло в основу всего анализа.</p>
+      <div class="tag">гидролат</div><div class="tag">тоник для лица/тела/волос</div><div class="tag">маркетплейсы</div><div class="tag">рост ×2–3 в штуках</div>
+    </div>
+    <div class="card">
+      <p class="quote">«У нас есть продукт — <span class="hl">гидролат</span>, тоник для лица, тела, волос. Наша задача — <span class="hl">увеличить объём продаж</span>. Для этого хотим провести анализ рынка: аналогичные продукты конкурентов на маркетплейсах, какая у них стоимость, и <span class="hl">в какую цену лучше вписываться</span>, чтобы вырасти в продажах <span class="hl">в 2–3 раза в штуках</span>.»</p>
+      <p class="small" style="margin-top:18px">— Ирина Батракова, KPcosm</p>
+    </div>
+  </div>
+</section>
+
+<!-- КОМПАНИЯ метрики -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Контекст бренда</div>
+    <h2 class="secthead">Сильный бренд, который продаёт ниже своего класса</h2>
+    <p class="lead">Краснополянская косметика — натуральная косметика полного цикла из гор Сочи. У неё сертификаты, которых нет у большинства конкурентов на полке маркетплейса.</p>
+    <div class="metrics">
+      <div class="metric"><div class="n">19</div><div class="l">лет на рынке</div></div>
+      <div class="metric"><div class="n">353</div><div class="l">продукта в линейке</div></div>
+      <div class="metric"><div class="n">518</div><div class="l">точек продаж</div></div>
+      <div class="metric"><div class="n">USDA</div><div class="l">Organic + Euro-leaf</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- МЕТОДОЛОГИЯ -->
+<section style="background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap grid2">
+    <div><img class="sectimg" src="assets/market.png" alt="Сравнение цены за объём"></div>
+    <div>
+      <div class="eyebrow">Методология</div>
+      <h2 class="secthead" style="margin-bottom:18px">Главный параметр — объём</h2>
+      <p class="lead" style="margin-bottom:18px">Сравнивать цену на ценнике нельзя: бренды фасуют по-разному — 50, 100, 245 мл. Поэтому всё приведено к единой мере: <b>рубль за 100 мл</b>.</p>
+      <p style="color:var(--ink-soft)">Это переворачивает картину. Продукт, который выглядит дёшево, за объём может оказаться дорогим — и наоборот:</p>
+      <ul style="margin:14px 0 0 18px;color:var(--ink-soft);font-size:15px;line-height:1.9">
+        <li><b>Mi&Ko</b> «310₽» → на деле <b>620₽/100мл</b> (бутылёк 50 мл)</li>
+        <li><b>Botanica</b> «186₽» → всего <b>76₽/100мл</b> (245 мл)</li>
+        <li><b>KPcosm</b> фасует в честные <b>100 мл</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- КАРТА РЫНКА -->
+<section id="market">
+  <div class="wrap">
+    <div class="eyebrow">Карта рынка</div>
+    <h2 class="secthead">Цена за 100 мл: кто где стоит</h2>
+    <p class="lead">13 продуктов 8 брендов, отсортированы по цене за объём. Розовым — продукты KPcosm. Зелёная полоса — диапазон, который реально максимизирует объём для сертифицированного натур-гидролата.</p>
+
+    <div class="chart" id="ladder"><!-- bars injected by JS --></div>
+
+    <div class="axis"><div></div><div class="scale"><span>0</span><span>200</span><span>400</span><span>600</span><span>800₽</span></div><div></div></div>
+
+    <div class="legend">
+      <span><i style="background:var(--sage)"></i>конкуренты</span>
+      <span><i style="background:var(--rose)"></i>KPcosm</span>
+      <span><i style="background:var(--target);opacity:.55"></i>целевая полоса 360–450₽/100мл</span>
+    </div>
+    <div class="disclaimer">Источник цен — открытые витрины маркетплейсов и сайтов брендов (июнь 2026), значения индикативные. Боевая ИИ-система тянула бы live-цены через API Wildberries / Ozon с ежедневным обновлением.</div>
+  </div>
+</section>
+
+<!-- НАХОДКА -->
+<section style="background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap grid2">
+    <div>
+      <div class="eyebrow" style="color:var(--rose-deep)">Ключевая находка</div>
+      <h2 class="secthead" style="margin-bottom:18px">Флагман-Роза недооценён</h2>
+      <p class="lead" style="margin-bottom:16px">Гидролат Роза по акции 270₽ стоит в зоне бюджет-мида — рядом с продуктами без сертификации. Прямой конкурент <b>Levrana держит 420₽/100мл</b> при более слабой «натуральности».</p>
+      <p style="color:var(--ink-soft)">Постоянная связка «акция 270 / база 490» приучает покупателя ждать скидку и читать продукт как дешёвый. Это бьёт по марже и по восприятию бренда одновременно.</p>
+    </div>
+    <div><img class="sectimg" src="assets/product.png" alt="Гидролат KPcosm"></div>
+  </div>
+</section>
+
+<!-- РЕКОМЕНДАЦИЯ -->
+<section id="reco">
+  <div class="wrap">
+    <div class="eyebrow">Рекомендация по цене</div>
+    <h2 class="secthead">В какую цену вписаться</h2>
+    <p class="lead" style="margin-bottom:38px">Сдвинуть Розу в нижнюю границу натур-премиума — зону Levrana, оправданную более сильной сертификацией. Промо-пол поднять с 270 до 320₽.</p>
+    <div class="reco">
+      <div class="price-card now">
+        <div class="k">Сейчас</div>
+        <div class="p">270₽</div>
+        <div class="d">постоянная «акция» · база 490₽<br>зона бюджет-мида</div>
+      </div>
+      <div class="price-card next">
+        <div class="k">Рекомендация</div>
+        <div class="p">390₽</div>
+        <div class="d">база · промо-пол 320₽<br>зона Levrana, +44% к выручке с единицы</div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:22px;text-align:center;max-width:680px;margin-left:auto;margin-right:auto">Линейку Ромашка/Лаванда/Фейхоа (441–490₽) оставить — она уже в правильной полосе. Василёк 610₽ держать премиум-якорем: он «подсвечивает» выгодность Розы.</p>
+  </div>
+</section>
+
+<!-- РЫЧАГИ -->
+<section style="background:#3f4a37;color:#fff">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--rose-soft)">Честный нюанс</div>
+    <h2 class="secthead" style="color:#fff">Рост ×2–3 — это не только цена</h2>
+    <p class="lead" style="color:rgba(255,255,255,.85)">На WB/Ozon объём — это маховик из пяти рычагов. Цена лишь один из них. Вот полный стек, который выводит SKU в ×2–3 по штукам:</p>
+    <div class="levers">
+      <div class="lever"><div class="num">01</div><h4>Цена в полосе</h4><p>360–420₽/100мл. Стоп гонке вниз — это и маржа, и доверие.</p></div>
+      <div class="lever"><div class="num">02</div><h4>Скорость отзывов</h4><p>Пост-продажная автоматизация → отзывы → рост в ранге поиска.</p></div>
+      <div class="lever"><div class="num">03</div><h4>SEO карточки</h4><p>Заголовки по спросу + A+ контент и фото, поднимающие конверсию.</p></div>
+      <div class="lever"><div class="num">04</div><h4>Репрайсинг</h4><p>Мониторинг цен конкурентов и динамика внутри полосы.</p></div>
+      <div class="lever"><div class="num">05</div><h4>Фокус рекламы</h4><p>Бюджет на героя (Роза), а не размазанный по всей линейке.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ПРОДВИЖЕНИЕ -->
+<section id="promo" style="background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow">Продвижение</div>
+    <h2 class="secthead">Как познакомить новую аудиторию и максимизировать прибыль</h2>
+    <p class="lead">Объём растёт на двух фронтах: привести нового покупателя дёшево — и выжать максимум прибыли с каждого. Ниже — рычаги по трём целям, проверенные на бьюти-нише маркетплейсов.</p>
+
+    <div class="promo-hi card" style="margin-top:34px;display:flex;gap:24px;align-items:center">
+      <div style="font-family:var(--font);font-size:46px;color:var(--rose);line-height:1">★</div>
+      <div>
+        <h3 style="font-size:22px;margin-bottom:6px">Главная идея: маховик «пробник → отзыв → ранг»</h3>
+        <p style="color:var(--ink-soft);font-size:15px">Сашет-пробник гидролата в каждый заказ + автоматическая просьба об отзыве через N дней. Первые 10–20 отзывов за 2–4 недели поднимают карточку в поиске — а это бесплатный трафик новой аудитории. Один механизм закрывает и знакомство, и ранг, и доверие.</p>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pill-h">🌱 Новая аудитория</div>
+        <ul>
+          <li><b>Сашеты-пробники</b> в каждый заказ — знакомство без риска</li>
+          <li><b>Сидинг микро-блогеров</b> в эко/бьюти (бартер за продукт)</li>
+          <li><b>Discovery-контент</b>: Pinterest + Reels/Клипы «7 способов применить гидролат»</li>
+          <li><b>Реклама на героя</b> (Роза) внутри МП — 5–15% от цены, не размазывать</li>
+          <li><b>SEO карточки</b> под спрос: «тоник», «мист», «увлажнение», «без спирта»</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pill-h">💰 Средний чек</div>
+        <ul>
+          <li><b>Наборы/бандлы</b>: гидролат + пенка + крем из одной линейки</li>
+          <li><b>Cross-sell</b>: тоник как доп к основному уходу в карточке</li>
+          <li><b>Up-sell объёма</b>: 250 мл с выгодой за мл рядом со 100 мл</li>
+          <li><b>Подписка раз в 4 недели</b> — предсказуемый повторный доход</li>
+          <li><b>Якорь Василёк 610₽</b> делает Розу «выгодной покупкой»</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pill-h">🔁 Удержание</div>
+        <ul>
+          <li><b>Telegram-клуб</b>: уход, ритуалы, ранний доступ к новинкам</li>
+          <li><b>Образовательный контент</b>: гидролат как привычка, а не разовая покупка</li>
+          <li><b>Программа лояльности</b>: бонус за второй заказ</li>
+          <li><b>UGC-конкурсы</b>: «твой утренний ритуал с гидролатом»</li>
+          <li><b>Реактивация</b>: напоминание «пора пополнить» через 5–6 недель</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">Идеи опираются на практику продвижения косметики на Wildberries/Ozon (июнь 2026): без отзывов карточка не продаёт, реклама 5–15% от цены, бандлы и подписка — главный рычаг среднего чека.</div>
+  </div>
+</section>
+
+<!-- ВИДЕО -->
+<section id="video">
+  <div class="wrap">
+    <div class="eyebrow">Промо-ролик</div>
+    <h2 class="secthead">6 секунд про продукт — на английском</h2>
+    <p class="lead" style="margin-bottom:34px">Одна сцена, английская озвучка, для Reels / Shorts / VK Клипов. Ролик сгенерирован ИИ-видеомоделью Hailuo (MiniMax) через OpenRouter.</p>
+    <div class="videowrap">
+      <video src="assets/promo.mp4" controls playsinline preload="metadata" poster="assets/product.png"></video>
+    </div>
+    <p class="small" style="text-align:center;margin-top:18px"><b>Сценарий (EN):</b> «Wake your skin with the mountains. Rose hydrolat from Krasnaya Polyana — pure petals, pure glow.»</p>
+  </div>
+</section>
+
+<!-- КАК ЭТО СДЕЛАНО -->
+<section id="how">
+  <div class="wrap grid2">
+    <div>
+      <div class="eyebrow">Возможности Claude Code</div>
+      <h2 class="secthead" style="margin-bottom:18px">Как собран этот отчёт</h2>
+      <p class="lead" style="margin-bottom:10px">Весь путь — от голосового до сайта, который вы читаете — ИИ-агент прошёл за один проход, без ручного труда между шагами.</p>
+      <div class="tl">
+        <div class="step"><div class="dot"></div><div class="t">ШАГ 1</div><h4>Расшифровка задачи</h4><p>Достал последнее голосовое из Telegram и расшифровал его в текст.</p></div>
+        <div class="step"><div class="dot"></div><div class="t">ШАГ 2</div><h4>Ресёрч компании</h4><p>По нику в профиле определил бренд KPcosm, собрал историю, цифры, сертификаты.</p></div>
+        <div class="step"><div class="dot"></div><div class="t">ШАГ 3</div><h4>Сбор цен конкурентов</h4><p>Прошёл по маркетплейсам и сайтам брендов, собрал цены и объёмы фасовки.</p></div>
+        <div class="step"><div class="dot"></div><div class="t">ШАГ 4</div><h4>Нормализация и вывод</h4><p>Привёл всё к ₽/100мл, нашёл недооценку и целевую полосу цены.</p></div>
+        <div class="step"><div class="dot"></div><div class="t">ШАГ 5</div><h4>Отчёт-сайт + иллюстрации</h4><p>Собрал эту страницу и сгенерировал картинки нейросетями.</p></div>
+      </div>
+    </div>
+    <div><img class="sectimg" src="assets/engine.png" alt="ИИ-движок аналитики"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="wrap">
+    <div class="cta">
+      <div class="eyebrow" style="color:var(--rose-soft)">Дальше</div>
+      <h2>Это разовый анализ. А может работать каждый день.</h2>
+      <p>Те же пять рычагов ИИ-агент способен вести непрерывно: live-цены конкурентов, репрайсинг в полосе, отзывы, SEO карточек, отчёты. Давайте обсудим, как встроить это в процессы KPcosm.</p>
+      <a class="btn" href="https://calendly.com/timzinin/30min">Забронировать 30 минут →</a>
+      <a class="btn alt" href="https://t.me/timzinin">Написать в Telegram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Подготовлено для KPcosm (Краснополянская косметика) · Тим Зинин × Claude Code · июнь 2026<br>
+    <span style="opacity:.7">Цены индикативны (открытые витрины, июнь 2026). Не является публичной офертой.</span>
+  </div>
+</footer>
+
+<script>
+  // ₽/100мл dataset
+  const MAX = 800;
+  const data = [
+    {n:"Botanica (BIO WORLD)", v:"245 мл · масс", val:76},
+    {n:"СпивакЪ", v:"~250 мл · органик", val:90},
+    {n:"Триумф красоты", v:"Крым · 100 мл", val:175},
+    {n:"KPcosm Роза (акция)", v:"100 мл · сейчас", val:270, kp:true},
+    {n:"DNC Ромашка", v:"55 мл спрей", val:310},
+    {n:"Botavikos", v:"100 мл", val:325},
+    {n:"Adarisa", v:"100 мл · премиум", val:400},
+    {n:"Levrana", v:"100 мл · прямой", val:420},
+    {n:"KPcosm Ромашка", v:"100 мл", val:441, kp:true},
+    {n:"KPcosm Лаванда/Фейхоа", v:"100 мл", val:460, kp:true},
+    {n:"KPcosm Роза (база)", v:"100 мл", val:490, kp:true},
+    {n:"KPcosm Василёк", v:"100 мл · якорь", val:610, kp:true},
+    {n:"Mi&Ko (COSMOS)", v:"50 мл · потолок", val:620},
+  ];
+  const host = document.getElementById('ladder');
+  // target band overlay row
+  data.forEach(d=>{
+    const row=document.createElement('div');
+    row.className='row'+(d.kp?' kp':'');
+    const pct=Math.min(100,(d.val/MAX)*100);
+    const lo=(360/MAX)*100, hi=(450/MAX)*100;
+    row.innerHTML=`<div class="name">${d.n}<small>${d.v}</small></div>
+      <div class="track">
+        <div style="position:absolute;left:${lo}%;width:${hi-lo}%;top:0;bottom:0;background:rgba(158,199,154,.45)"></div>
+        <div class="bar ${d.kp?'kp':''}" style="width:0"></div>
+      </div>
+      <div class="val">${d.val}₽</div>`;
+    host.appendChild(row);
+    requestAnimationFrame(()=>{setTimeout(()=>{row.querySelector('.bar').style.width=pct+'%';},80);});
+  });
+  // animate bars on view
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.bar').forEach((b,i)=>{const t=b.parentElement.parentElement; });}})});
+</script>
+</body>
+</html>
