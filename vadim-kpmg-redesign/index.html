@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Редизайн раздела «Инвестиции и рынки капитала» — для Вадима (KPMG)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Редизайн раздела KPMG «Инвестиции и рынки капитала» — план для Вадима">
+<meta property="og:description" content="Как перестроим раздел Deal Advisory: услуга-как-сущность, кейсы, команда, формы. + прыгающие корги 🐕">
+<meta property="og:image" content="https://timzinin.com/vadim-kpmg-redesign/corgi.png">
+<style>
+  :root{ --kpmg:#00338D; --kpmg2:#0091DA; --purple:#483698; --pink:#C6007E; --ink:#15233f; --grey:#f4f6fa; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:Arial,Helvetica,sans-serif; color:var(--ink); background:#fff; line-height:1.55; overflow-x:hidden; }
+  .demo-banner{ background:#fff3cd; color:#7a5c00; text-align:center; padding:8px 14px; font-size:13px; border-bottom:1px solid #e8d48a;}
+  header{ background:linear-gradient(115deg,var(--kpmg) 0%, var(--purple) 70%, var(--pink) 130%); color:#fff; padding:60px 24px 70px; position:relative; overflow:hidden;}
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  header h1{ font-size:clamp(1.8rem,4.5vw,3rem); max-width:20ch; line-height:1.12;}
+  header p{ margin-top:14px; font-size:clamp(1rem,2vw,1.3rem); opacity:.95; max-width:62ch;}
+  .logo{ font-weight:bold; font-size:24px; margin-bottom:26px;}
+  .logo span{ background:#fff; color:var(--kpmg); padding:2px 7px;}
+  section.block{ padding:52px 0; border-bottom:1px solid #eef1f6;}
+  h2{ color:var(--kpmg); font-size:clamp(1.5rem,3vw,2rem); margin-bottom:8px;}
+  .sub{ color:#5a6a85; margin-bottom:26px; font-size:1.1rem;}
+  .cols{ display:grid; grid-template-columns:1fr 1fr; gap:34px;}
+  @media(max-width:760px){ .cols{ grid-template-columns:1fr; } }
+  .now{ background:var(--grey); border-left:5px solid #c0c8d6; padding:20px 24px; border-radius:6px;}
+  .new{ background:#eafaf3; border-left:5px solid #10b981; padding:20px 24px; border-radius:6px;}
+  .now h3{ color:#6b7890; margin-bottom:12px;} .new h3{ color:#0a7d5a; margin-bottom:12px;}
+  ul{ margin-left:18px; } li{ margin:7px 0; }
+  .tree{ font-family:"SF Mono",Consolas,monospace; font-size:.92rem; background:#0c1830; color:#cfe0ff; padding:20px 22px; border-radius:8px; white-space:pre; overflow-x:auto; line-height:1.7;}
+  .map{ counter-reset:step; display:grid; gap:14px; }
+  .step{ background:#fff; border:1px solid #e6e9f0; border-left:4px solid var(--kpmg2); padding:16px 20px 16px 56px; border-radius:6px; position:relative;}
+  .step::before{ counter-increment:step; content:counter(step); position:absolute; left:14px; top:50%; transform:translateY(-50%); width:30px; height:30px; background:var(--kpmg); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;}
+  .step b{ color:var(--kpmg);}
+  .card-demo{ display:inline-block; border:1px solid #e6e9f0; border-top:4px solid var(--kpmg2); border-radius:8px; padding:18px 20px; width:230px; vertical-align:top; margin:8px; background:#fff; box-shadow:0 6px 20px rgba(0,51,141,.07);}
+  .card-demo .ic{ font-size:26px;} .card-demo h4{ color:var(--kpmg); margin:8px 0 6px;} .card-demo p{ font-size:.9rem; color:#5a6a85;}
+  .improve li{ font-size:1.05rem;}
+  footer{ background:#0a1f4d; color:#9fb3d8; font-size:13px; padding:28px 24px 90px; text-align:center;}
+  /* ===== ПРЫГАЮЩИЕ КОРГИ ===== */
+  .corgi{ position:fixed; bottom:0; width:90px; height:90px; background:url('corgi.png') no-repeat center/contain; z-index:9999; pointer-events:none; }
+  .corgi.c1{ animation: run1 9s linear infinite, hop 0.7s ease-in-out infinite; }
+  .corgi.c2{ animation: run2 13s linear infinite, hop 0.9s ease-in-out infinite; bottom:auto; top:120px; width:64px; height:64px; opacity:.9;}
+  .corgi.c3{ animation: run1 16s linear infinite 3s, hop 0.6s ease-in-out infinite; width:70px; height:70px; }
+  @keyframes run1{ from{ left:-120px; } to{ left:100vw; } }
+  @keyframes run2{ from{ left:100vw; transform:scaleX(-1);} to{ left:-120px; transform:scaleX(-1);} }
+  @keyframes hop{ 0%,100%{ margin-bottom:0; } 50%{ margin-bottom:80px; } }
+  @media(max-width:600px){ .corgi{ width:60px; height:60px; } }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">⚠️ Демо-страница для Вадима (KPMG). План редизайна раздела «Инвестиции и рынки капитала». Сверстана ИИ-агентом Клодом. Не официальная страница KPMG.</div>
+
+<header>
+  <div class="wrap">
+    <div class="logo"><span>KPMG</span></div>
+    <h1>Как перестроим раздел «Инвестиции и рынки капитала»</h1>
+    <p>Из текста со ссылками «Подробнее» — в живой раздел: услуга как полноценная сущность, кейсы, команда направления и формы заявки. Ниже — что сейчас и что предлагаем.</p>
+  </div>
+</header>
+
+<section class="block"><div class="wrap">
+  <h2>Что сейчас на kpmg.kz</h2>
+  <p class="sub">Карта твоего действующего раздела (Услуги → Инвестиции и рынки капитала).</p>
+  <div class="tree">Инвестиции и рынки капитала  /services/deal-advisory.html
+├─ Сопровождение корпоративных сделок   (transaction-services)
+├─ Корпоративные финансы                (corporate-finance)
+│   └─ Инфраструктура и ГЧП             ← зарыто на 3-м уровне
+└─ Недвижимость и строительство         (real-estate)
+
+Контакт раздела: Диас Калажанов (Партнёр, рук. департамента)</div>
+  <div class="cols" style="margin-top:26px;">
+    <div class="now">
+      <h3>⚠️ Слабые места</h3>
+      <ul>
+        <li>услуги = текст + «Подробнее», без структуры</li>
+        <li>нет кейсов / референсов сделок</li>
+        <li>персоналии — один партнёр на весь раздел</li>
+        <li>нет форм заявки по направлению</li>
+        <li>ГЧП спрятано на 3-м уровне</li>
+      </ul>
+    </div>
+    <div class="new">
+      <h3>✅ Что починим</h3>
+      <ul>
+        <li>каждая услуга — единый шаблон-сущность</li>
+        <li>лента кейсов (обезличенно где NDA)</li>
+        <li>блок «Команда» с партнёрами и директорами</li>
+        <li>форма «Запрос об услугах» на каждой услуге</li>
+        <li>ГЧП поднимаем на верхний уровень</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <h2>Предлагаемая новая структура</h2>
+  <p class="sub">8 блоков раздела — насыщенный, продающий, с тем что ты просил.</p>
+  <div class="map">
+    <div class="step"><b>Hero</b> — заголовок + позиционирование + кнопка «Обсудить проект»</div>
+    <div class="step"><b>О направлении</b> — 3–4 цифры: объём сделок $, число сделок, лет опыта, % closing</div>
+    <div class="step"><b>Услуги</b> — сетка карточек, каждая = отдельная сущность (см. ниже)</div>
+    <div class="step"><b>Страница услуги</b> — единый каркас: что делаем · кому · этапы · 1–2 кейса · ответственный партнёр · форма</div>
+    <div class="step"><b>Кейсы</b> — лента «сделка / сектор / роль KPMG / результат»</div>
+    <div class="step"><b>Отрасли</b> — теги (инфра, энергетика, нефтегаз, финсектор) со ссылками</div>
+    <div class="step"><b>Команда</b> — фото + должности партнёров и директоров направления</div>
+    <div class="step"><b>Контакты</b> — форма «Запрос об услугах»: имя, компания, email, тип проекта, сообщение</div>
+  </div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <h2>Услуга как единая сущность</h2>
+  <p class="sub">Все услуги по одному шаблону карточки — единообразно и масштабируемо.</p>
+  <div style="text-align:center;">
+    <div class="card-demo"><div class="ic">🤝</div><h4>Сопровождение сделок</h4><p>M&A, due diligence, структурирование</p></div>
+    <div class="card-demo"><div class="ic">📊</div><h4>Корпоративные финансы</h4><p>оценка, привлечение финансирования</p></div>
+    <div class="card-demo"><div class="ic">🏗️</div><h4>Инфраструктура и ГЧП</h4><p>PPP, проектное финансирование</p></div>
+    <div class="card-demo"><div class="ic">🏢</div><h4>Недвижимость</h4><p>сопровождение инвестцикла</p></div>
+  </div>
+</div></section>
+
+<section class="block"><div class="wrap improve">
+  <h2>Главное улучшение vs сейчас</h2>
+  <ul>
+    <li>🎯 Услуга = полноценная сущность с кейсами и ответственным партнёром</li>
+    <li>⬆️ ГЧП выходит из 3-го уровня на верхний</li>
+    <li>📁 Появляются кейсы и блок команды по направлению</li>
+    <li>✉️ На каждой услуге — своя форма заявки</li>
+  </ul>
+  <p style="margin-top:22px; font-size:1.1rem;">Следующий шаг: обкатаем детали голосом — и соберу рабочий HTML-прототип всей структуры, который твои админы «прикрутят».</p>
+</div></section>
+
+<footer>
+  Сделано ИИ-агентом Клодом по заказу Тима Зинина · 2026 · план редизайна для Вадима (KPMG)<br>
+  P.S. корги — бесплатно, для настроения 🐕
+</footer>
+
+<!-- прыгающие корги через весь экран -->
+<div class="corgi c1"></div>
+<div class="corgi c2"></div>
+<div class="corgi c3"></div>
+
+</body>
+</html>
