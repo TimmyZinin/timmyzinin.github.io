@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Inter:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--white:#fff;--red:#e8262d;--yellow:#fed002;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:630px;overflow:hidden;font-family:'Inter',sans-serif;background:var(--ink);}
+.og{width:1200px;height:630px;position:relative;background:var(--ink);overflow:hidden;display:grid;grid-template-columns:1.55fr 1fr;}
+.ht{position:absolute;inset:0;background-image:radial-gradient(#e8262d 28%,transparent 30%);background-size:14px 14px;opacity:0.14;mix-blend-mode:screen;pointer-events:none;}
+.tri{position:absolute;top:0;left:0;width:300px;height:300px;background:var(--yellow);clip-path:polygon(0 0,100% 0,0 100%);opacity:0.95;}
+.L{position:relative;padding:62px 50px 54px;display:flex;flex-direction:column;justify-content:space-between;z-index:2;}
+.kick{font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:5px;color:var(--yellow);text-transform:uppercase;font-weight:700;}
+.kick .bar{display:inline-block;width:38px;height:4px;background:var(--red);vertical-align:middle;margin-right:14px;}
+.h1{font-family:'Anton',sans-serif;font-size:118px;line-height:0.86;color:var(--white);text-transform:uppercase;letter-spacing:-2px;margin-top:6px;}
+.h1 .y{background:var(--yellow);color:var(--ink);padding:0 12px;box-shadow:0 10px 0 var(--ink) inset;}
+.h1 .r{color:var(--red);}
+.sub{font-family:'Anton',sans-serif;font-size:30px;letter-spacing:1px;color:var(--white);text-transform:uppercase;margin-top:6px;}
+.sub .hl{background:var(--red);padding:2px 10px;color:#fff;}
+.foot{display:flex;align-items:center;gap:18px;}
+.pill{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;border:3px solid var(--white);color:var(--white);}
+.pill.r{background:var(--red);border-color:var(--ink);}
+.url{font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:2px;color:var(--yellow);font-weight:700;margin-left:auto;}
+.R{position:relative;border-left:6px solid var(--red);}
+.R img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.05);}
+.R .tape{position:absolute;bottom:30px;left:-30px;background:var(--yellow);color:var(--ink);font-family:'Anton',sans-serif;font-size:26px;letter-spacing:2px;padding:8px 20px;text-transform:uppercase;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);transform:rotate(-4deg);}
+</style>
+</head>
+<body>
+<div class="og">
+  <span class="ht"></span>
+  <div class="L">
+    <div>
+      <div class="kick"><span class="bar"></span>Proposal · Multiverse Computing DACH</div>
+      <div class="h1">Great <span class="r">tech.</span><br>No <span class="y">pipeline</span><br>yet.</div>
+    </div>
+    <div class="sub">AI outreach engine — <span class="hl">3 ways to build it</span></div>
+    <div class="foot">
+      <span class="pill r">Tim Zinin</span>
+      <span class="pill">AI Engineer</span>
+      <span class="url">timzinin.com</span>
+    </div>
+  </div>
+  <div class="R">
+    <span class="tri"></span>
+    <img src="../img/site-assets/tim-zinin.jpg" alt="Tim Zinin">
+    <span class="tape">Let's ship it</span>
+  </div>
+</div>
+</body>
+</html>
