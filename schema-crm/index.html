@@ -88,6 +88,39 @@
   .note b{color:var(--ink-soft)}
   .reset{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--muted);font-family:inherit;font-size:12px;font-weight:700;border-radius:8px;padding:7px 13px;cursor:pointer;margin-top:12px}
   .reset:hover{color:var(--rose);border-color:var(--rose)}
+  .tab.active.maria{border-color:var(--gold)} .tab.active.maria .cnt{background:var(--gold-soft);color:var(--gold)}
+
+  /* MARIA VIEW */
+  .maria-view{display:none;max-width:1100px;margin:0 auto;padding:8px 26px 50px}
+  .maria-view.active{display:block}
+  .mv-head{margin:18px 0 26px}
+  .mv-head .sec-num{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
+  .mv-head h2{font-family:'Spectral',serif;font-size:clamp(24px,3.4vw,34px);font-weight:700;margin-top:8px}
+  .mv-head p{color:var(--ink-soft);font-size:16px;margin-top:10px;max-width:64ch}
+  .mv-block{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);margin-bottom:24px}
+  .mv-block h3{font-family:'Spectral',serif;font-size:21px;font-weight:700;margin-bottom:6px}
+  .mv-block .lead{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .video-wrap{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000;max-width:760px;margin:0 auto}
+  .video-wrap video{width:100%;display:block}
+  .vcap{text-align:center;font-size:13px;color:var(--muted);margin-top:12px}
+  .adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .adv{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--paper)}
+  .adv img{width:100%;height:200px;object-fit:cover;display:block}
+  .adv .body{padding:16px}
+  .adv .tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--rose)}
+  .adv h4{font-family:'Spectral',serif;font-size:17px;font-weight:700;margin:6px 0 6px}
+  .adv p{font-size:13.5px;color:var(--ink-soft)}
+  .cal-tbl{width:100%;border-collapse:collapse;font-size:14px}
+  .cal-tbl th{background:var(--paper-2);text-align:left;padding:12px 14px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--line)}
+  .cal-tbl td{padding:13px 14px;border-bottom:1px solid var(--line);color:var(--ink-soft);vertical-align:top}
+  .cal-tbl td.day{font-weight:800;color:var(--ink);white-space:nowrap}
+  .cal-tbl .ig{border-left:3px solid var(--rose)}
+  .cal-tbl .mx{border-left:3px solid var(--plum)}
+  .cal-tbl b{color:var(--ink)}
+  .cal-legend{display:flex;gap:18px;margin-bottom:14px;font-size:12.5px;font-weight:700}
+  .cal-legend span{display:flex;align-items:center;gap:7px;color:var(--muted)}
+  .cal-legend .d{width:11px;height:11px;border-radius:3px}
+  @media(max-width:760px){.adv-grid{grid-template-columns:1fr}}
   @media(max-width:640px){.kpis{display:none}.col{flex-basis:240px}}
 </style>
 </head>
@@ -116,6 +149,7 @@
   <div class="tabs">
     <button class="tab clients active" data-board="clients">💞 Клиенты — пары / пациенты <span class="cnt" id="cnt-clients">0</span></button>
     <button class="tab pros" data-board="pros">🎓 Специалисты — обучение <span class="cnt" id="cnt-pros">0</span></button>
+    <button class="tab maria" data-board="maria">🎬 Видосик для Марии</button>
   </div>
 </div>
 
@@ -123,12 +157,73 @@
   <b>Как пользоваться:</b> перетаскивайте карточки между стадиями — статус сохраняется в браузере. Две воронки на разных вкладках. Это рабочий каркас MVP, стадии и поля легко меняются под процессы центра.
 </div>
 
-<div class="board-scroll">
+<div class="board-scroll" id="board-scroll">
   <div class="board clients active" id="board-clients"></div>
   <div class="board pros" id="board-pros"></div>
 </div>
 
-<div class="foot">
+<!-- ВКЛАДКА ДЛЯ МАРИИ -->
+<div class="maria-view" id="maria-view">
+  <div class="mv-head">
+    <div class="sec-num">Презентационная витрина</div>
+    <h2>Мария, это короткий ролик и контент для воронки специалистов 🎬</h2>
+    <p>Тестовый промо-ролик под привлечение психологов на обучение, три визуала под ключевые преимущества и черновик контент-плана на неделю. Всё это можно подвесить к CRM-воронкам слева — чтобы видеть, какой контент какой лид привёл.</p>
+  </div>
+
+  <div class="mv-block">
+    <h3>Промо-ролик · парная терапия</h3>
+    <div class="lead">~6,5 секунд · концепт-превизуализация: кинокадры (AI) + движение камеры + брендовый packshot. Идея «момент воссоединения, который создаёт терапевт» → призыв учиться методу</div>
+    <div class="video-wrap">
+      <video controls preload="metadata" poster="media/poster.jpg" playsinline>
+        <source src="media/maria_video.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+      </video>
+    </div>
+    <div class="vcap">Сценарий: одна сцена эмоционального прорыва пары + брендовый packshot «Приходите к нам учиться». Звук включён.</div>
+  </div>
+
+  <div class="mv-block">
+    <h3>Чем компания выделяется на рынке</h3>
+    <div class="lead">Три преимущества, которые стоит вынести в контент и на лендинг обучения</div>
+    <div class="adv-grid">
+      <div class="adv">
+        <img src="img/adv1.png" alt="Международная сертификация ISST">
+        <div class="body"><div class="tag">Преимущество 01</div><h4>Сертификация ISST по парам</h4><p>Единственная русскоязычная программа по схема-терапии пар, аккредитованная по международному стандарту. На фоне нового закона — пропуск в профессию.</p></div>
+      </div>
+      <div class="adv">
+        <img src="img/adv2.png" alt="Доказательный подход">
+        <div class="body"><div class="tag">Преимущество 02</div><h4>Доказательный подход</h4><p>Методы выбираются по научным исследованиям, а не по авторитету и мнениям. Это аргумент и для клиентов, и для специалистов.</p></div>
+      </div>
+      <div class="adv">
+        <img src="img/adv3.png" alt="Фокус на парах">
+        <div class="body"><div class="tag">Преимущество 03</div><h4>Фокус именно на парах</h4><p>Глубокая специализация там, где у массовых сервисов-агрегаторов слабое место. Ниша, в которой компания — лидер.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mv-block">
+    <h3>Контент-план на неделю · черновик</h3>
+    <div class="lead">Две площадки: Instagram (визуал, охваты) и канал в МАКС (глубина, прогрев)</div>
+    <div class="cal-legend">
+      <span><span class="d" style="background:var(--rose)"></span> Instagram</span>
+      <span><span class="d" style="background:var(--plum)"></span> Канал в МАКС</span>
+    </div>
+    <table class="cal-tbl">
+      <thead><tr><th>День</th><th>Instagram</th><th>Канал в МАКС</th></tr></thead>
+      <tbody>
+        <tr><td class="day">Пн</td><td class="ig"><b>Reels:</b> «момент, который создаёт терапевт» — этот ролик. CTA: бесплатный вебинар для специалистов</td><td class="mx"><b>Лонг:</b> что такое схема-терапия пар и почему это доказательный метод</td></tr>
+        <tr><td class="day">Вт</td><td class="ig"><b>Карусель:</b> 3 мифа о работе с парами</td><td class="mx"><b>Разбор кейса</b> (анонимно): пара после измены — как метод восстанавливает близость</td></tr>
+        <tr><td class="day">Ср</td><td class="ig"><b>Stories + опрос:</b> «угадай схему партнёра», вовлечение</td><td class="mx"><b>Анонс</b> бесплатного вебинара для психологов + регистрация</td></tr>
+        <tr><td class="day">Чт</td><td class="ig"><b>Reels:</b> за кулисами обучения / отзыв выпускника</td><td class="mx"><b>Аналитика:</b> почему парных терапевтов в РФ дефицит (под новый закон о психологах)</td></tr>
+        <tr><td class="day">Пт</td><td class="ig"><b>Пост:</b> УТП — единственная ISST-программа по парам</td><td class="mx"><b>FAQ</b> по сертификации + ссылка на курс</td></tr>
+        <tr><td class="day">Сб</td><td class="ig"><b>Reels:</b> упражнение для пар (польза, прогрев клиентов)</td><td class="mx"><b>Подборка</b> книг доказательной парной терапии</td></tr>
+        <tr><td class="day">Вс</td><td class="ig"><b>Пост-история:</b> воссоединение пары + CTA на диагностику</td><td class="mx"><b>Дайджест недели</b> + анонс следующего вебинара</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="foot" id="foot-kanban">
   <div class="note">
     <b>Что это:</b> лёгкая замена Битрикса под два процесса института. <b>Воронка «Клиенты»</b> ведёт пару от заявки до завершённого курса терапии. <b>Воронка «Специалисты»</b> ведёт психолога от интереса к обучению до сертификации и подписки на супервизию. Прототип статичный (данные демо, хранятся локально), но архитектура канбана 1:1 переносится на реальную базу.
   </div>
@@ -274,12 +369,28 @@ function addLead(boardKey,stage){
 function resetData(){if(confirm('Сбросить все изменения к демо-данным?')){state=JSON.parse(JSON.stringify(SEED));save();render('clients');render('pros');}}
 
 /* ---------- TABS ---------- */
+const _boardScroll=document.getElementById('board-scroll');
+const _mariaView=document.getElementById('maria-view');
+const _footKanban=document.getElementById('foot-kanban');
+const _hint=document.getElementById('hint');
 document.querySelectorAll('.tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.board').forEach(b=>b.classList.remove('active'));
     tab.classList.add('active');
-    document.getElementById('board-'+tab.dataset.board).classList.add('active');
+    const b=tab.dataset.board;
+    if(b==='maria'){
+      _boardScroll.style.display='none';
+      _mariaView.classList.add('active');
+      if(_footKanban)_footKanban.style.display='none';
+      if(_hint)_hint.style.display='none';
+    }else{
+      _boardScroll.style.display='';
+      _mariaView.classList.remove('active');
+      if(_footKanban)_footKanban.style.display='';
+      if(_hint)_hint.style.display='';
+      document.querySelectorAll('.board').forEach(x=>x.classList.remove('active'));
+      document.getElementById('board-'+b).classList.add('active');
+    }
   });
 });
 
