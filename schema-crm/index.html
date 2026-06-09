@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM-прототип · Институт Схематерапии Пар</title>
+<meta name="description" content="MVP-прототип собственной CRM для Института Схематерапии Пар: две воронки — клиенты (пары) и специалисты (обучение). Канбан со стадиями лидов.">
+<meta property="og:title" content="CRM-прототип · Институт Схематерапии Пар">
+<meta property="og:description" content="Две воронки на канбане: клиенты и специалисты. Замена Битрикса — лёгкий MVP, от которого можно оттолкнуться.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Spectral:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1d1b2e;--ink-soft:#4a4762;--muted:#7c7a92;
+    --paper:#fbf8f3;--paper-2:#f4eee5;--card:#ffffff;--line:#e7e0d4;
+    --rose:#d6536d;--rose-soft:#f6e3e7;
+    --plum:#6c4f9e;--plum-soft:#ece4f6;
+    --teal:#2f8f83;--teal-soft:#dceeec;
+    --gold:#c98a2b;--gold-soft:#f6ead2;
+    --blue:#3f6fb0;--blue-soft:#e1ebf6;
+    --shadow:0 14px 40px -22px rgba(45,30,70,.4);--radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Manrope',system-ui,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Spectral',Georgia,serif;letter-spacing:-.01em}
+
+  /* TOPBAR */
+  .top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+  .top-in{max-width:1500px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo .mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--plum),var(--rose));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Spectral',serif;font-weight:700;font-size:19px}
+  .logo h1{font-size:18px;font-weight:700;line-height:1.1}
+  .logo .sub{font-size:12px;color:var(--muted);font-weight:600}
+  .badge-mvp{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);padding:6px 11px;border-radius:7px}
+  .spacer{flex:1}
+  .kpis{display:flex;gap:10px;flex-wrap:wrap}
+  .kpi{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 14px;text-align:center;min-width:96px}
+  .kpi .v{font-family:'Spectral',serif;font-size:20px;font-weight:700;line-height:1}
+  .kpi .v.rose{color:var(--rose)} .kpi .v.teal{color:var(--teal)} .kpi .v.plum{color:var(--plum)}
+  .kpi .l{font-size:10.5px;color:var(--muted);font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
+
+  /* TABS */
+  .tabs-wrap{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:69px;z-index:20}
+  .tabs{max-width:1500px;margin:0 auto;padding:0 26px;display:flex;gap:8px}
+  .tab{appearance:none;border:none;background:none;cursor:pointer;font-family:inherit;font-size:15px;font-weight:700;color:var(--muted);padding:16px 20px;border-bottom:3px solid transparent;display:flex;align-items:center;gap:9px;transition:.15s}
+  .tab .cnt{font-size:12px;font-weight:800;background:var(--paper-2);color:var(--muted);border-radius:20px;padding:2px 9px}
+  .tab:hover{color:var(--ink)}
+  .tab.active{color:var(--ink)}
+  .tab.active.clients{border-color:var(--rose)} .tab.active.clients .cnt{background:var(--rose-soft);color:var(--rose)}
+  .tab.active.pros{border-color:var(--plum)} .tab.active.pros .cnt{background:var(--plum-soft);color:var(--plum)}
+
+  .hint{max-width:1500px;margin:0 auto;padding:14px 26px 0;font-size:13.5px;color:var(--muted)}
+  .hint b{color:var(--ink-soft)}
+
+  /* BOARD */
+  .board-scroll{overflow-x:auto;padding:18px 26px 40px}
+  .board{display:none;gap:14px;min-width:min-content}
+  .board.active{display:flex}
+  .col{flex:0 0 268px;background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;max-height:calc(100vh - 230px)}
+  .col-head{padding:14px 16px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper-2);border-radius:var(--radius) var(--radius) 0 0;z-index:1}
+  .col-head .ttl{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;color:var(--ink)}
+  .col-head .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .col-head .meta{display:flex;justify-content:space-between;margin-top:8px;font-size:11.5px;color:var(--muted);font-weight:700}
+  .col-head .meta .sum{color:var(--teal)}
+  .col-body{padding:12px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:10px;min-height:60px}
+  .col-body.drag-over{background:var(--rose-soft);outline:2px dashed var(--rose);outline-offset:-6px;border-radius:10px}
+
+  .lead{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;box-shadow:var(--shadow);cursor:grab;transition:.12s}
+  .lead:active{cursor:grabbing}
+  .lead.dragging{opacity:.4;transform:scale(.97)}
+  .lead .nm{font-size:14.5px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;align-items:start;gap:8px}
+  .lead .nm .pri{font-size:14px;line-height:1}
+  .lead .src{font-size:12px;color:var(--muted);margin-top:3px;font-weight:600}
+  .lead .row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .lead .pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.02em}
+  .p-rose{background:var(--rose-soft);color:var(--rose)} .p-plum{background:var(--plum-soft);color:var(--plum)}
+  .p-teal{background:var(--teal-soft);color:var(--teal)} .p-gold{background:var(--gold-soft);color:var(--gold)} .p-blue{background:var(--blue-soft);color:var(--blue)}
+  .lead .ft{display:flex;justify-content:space-between;align-items:center;margin-top:11px;padding-top:10px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+  .lead .money{font-weight:800;color:var(--ink);font-family:'Spectral',serif;font-size:13px}
+  .lead .who{display:flex;align-items:center;gap:5px}
+  .lead .who .av{width:18px;height:18px;border-radius:50%;background:var(--plum);color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+  .add{appearance:none;border:1px dashed var(--line);background:none;color:var(--muted);font-family:inherit;font-size:12.5px;font-weight:700;border-radius:9px;padding:9px;cursor:pointer;transition:.15s}
+  .add:hover{border-color:var(--rose);color:var(--rose);background:var(--card)}
+
+  .foot{max-width:1500px;margin:0 auto;padding:0 26px 40px}
+  .note{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:10px;padding:13px 16px}
+  .note b{color:var(--ink-soft)}
+  .reset{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--muted);font-family:inherit;font-size:12px;font-weight:700;border-radius:8px;padding:7px 13px;cursor:pointer;margin-top:12px}
+  .reset:hover{color:var(--rose);border-color:var(--rose)}
+  @media(max-width:640px){.kpis{display:none}.col{flex-basis:240px}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-in">
+    <div class="logo">
+      <div class="mark">СП</div>
+      <div>
+        <h1>Институт Схематерапии Пар · CRM</h1>
+        <div class="sub">Единая воронка лидов — клиенты и специалисты</div>
+      </div>
+    </div>
+    <span class="badge-mvp">MVP-прототип</span>
+    <div class="spacer"></div>
+    <div class="kpis">
+      <div class="kpi"><div class="v rose" id="k-leads">—</div><div class="l">Лидов всего</div></div>
+      <div class="kpi"><div class="v plum" id="k-active">—</div><div class="l">В работе</div></div>
+      <div class="kpi"><div class="v teal" id="k-money">—</div><div class="l">Потенциал ₽</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab clients active" data-board="clients">💞 Клиенты — пары / пациенты <span class="cnt" id="cnt-clients">0</span></button>
+    <button class="tab pros" data-board="pros">🎓 Специалисты — обучение <span class="cnt" id="cnt-pros">0</span></button>
+  </div>
+</div>
+
+<div class="hint" id="hint">
+  <b>Как пользоваться:</b> перетаскивайте карточки между стадиями — статус сохраняется в браузере. Две воронки на разных вкладках. Это рабочий каркас MVP, стадии и поля легко меняются под процессы центра.
+</div>
+
+<div class="board-scroll">
+  <div class="board clients active" id="board-clients"></div>
+  <div class="board pros" id="board-pros"></div>
+</div>
+
+<div class="foot">
+  <div class="note">
+    <b>Что это:</b> лёгкая замена Битрикса под два процесса института. <b>Воронка «Клиенты»</b> ведёт пару от заявки до завершённого курса терапии. <b>Воронка «Специалисты»</b> ведёт психолога от интереса к обучению до сертификации и подписки на супервизию. Прототип статичный (данные демо, хранятся локально), но архитектура канбана 1:1 переносится на реальную базу.
+  </div>
+  <button class="reset" onclick="resetData()">↺ Сбросить к демо-данным</button>
+</div>
+
+<script>
+/* ---------- СТАДИИ ВОРОНОК ---------- */
+const STAGES = {
+  clients:[
+    {id:'new',     name:'Новая заявка',        color:'#3f6fb0'},
+    {id:'contact', name:'Первичный контакт',   color:'#6c4f9e'},
+    {id:'diag',    name:'Диагностика · 4 сессии',color:'#c98a2b'},
+    {id:'therapy', name:'В терапии · курс',     color:'#d6536d'},
+    {id:'done',    name:'Курс завершён',        color:'#2f8f83'},
+    {id:'lost',    name:'Отказ / архив',        color:'#9a97ad'}
+  ],
+  pros:[
+    {id:'interest',name:'Интерес к обучению',   color:'#3f6fb0'},
+    {id:'consult', name:'Консультация',         color:'#6c4f9e'},
+    {id:'apply',   name:'Заявка на курс',       color:'#c98a2b'},
+    {id:'paid',    name:'Оплачено',             color:'#d6536d'},
+    {id:'study',   name:'На программе',         color:'#b8528a'},
+    {id:'cert',    name:'Сертифицирован',       color:'#2f8f83'},
+    {id:'sub',     name:'Подписка · супервизия',color:'#1f7a52'},
+    {id:'churn',   name:'Отвал',                color:'#9a97ad'}
+  ]
+};
+
+/* ---------- ДЕМО-ДАННЫЕ ---------- */
+const SEED = {
+  clients:[
+    {id:'c1', stage:'new',     name:'Анна и Дмитрий',  src:'Вебинар «Близость»', tags:[['Пара','p-rose']], money:0,     who:'НК', note:'охлаждение в отношениях'},
+    {id:'c2', stage:'new',     name:'Ирина С.',        src:'Instagram',          tags:[['Индивид.','p-plum']], money:0, who:'НК', note:'тревога в отношениях'},
+    {id:'c3', stage:'contact', name:'Сергей и Ольга',  src:'Сайт · форма',       tags:[['Пара','p-rose'],['Измена','p-gold']], money:0, who:'ЕН', note:'кризис после измены'},
+    {id:'c4', stage:'diag',    name:'Мария и Павел',   src:'Реферал (пара)',     tags:[['Пара','p-rose']], money:48000, who:'ЮП', note:'2 из 4 диагност. сессий'},
+    {id:'c5', stage:'diag',    name:'Катя и Антон',    src:'Киноклуб',           tags:[['Пара','p-rose']], money:48000, who:'НК', note:'назначена 1-я сессия'},
+    {id:'c6', stage:'therapy', name:'Лена и Игорь',    src:'Вебинар',            tags:[['Пакет 10','p-teal']], money:140000, who:'АК', note:'4-я встреча курса'},
+    {id:'c7', stage:'therapy', name:'Vera & John',     src:'EN-консультация',    tags:[['EN','p-blue'],['Пара','p-rose']], money:100000, who:'МС', note:'remote, эмиграция'},
+    {id:'c8', stage:'done',    name:'Наталья и Олег',  src:'Реферал',            tags:[['Пакет 8','p-teal']], money:96000, who:'ЮП', note:'курс завершён, NPS 9'},
+    {id:'c9', stage:'lost',    name:'Роман К.',        src:'Реклама',            tags:[['Индивид.','p-plum']], money:0, who:'НК', note:'дорого, ушёл думать'}
+  ],
+  pros:[
+    {id:'p1', stage:'interest',name:'Психолог · Алёна Т.',  src:'Лендинг курса',      tags:[['КПТ-бэкграунд','p-plum']], money:0,     who:'МС', note:'спросила про ISST'},
+    {id:'p2', stage:'interest',name:'Психолог · Вадим Р.',  src:'Бесплатный вебинар',  tags:[['Новый закон','p-gold']], money:0,    who:'МС', note:'нужна легализация практики'},
+    {id:'p3', stage:'consult', name:'Психотерапевт · Юлия М.',src:'Конференция CBT',   tags:[['Опыт 5л','p-teal']], money:0, who:'НК', note:'выбирает между курсами'},
+    {id:'p4', stage:'apply',   name:'Психолог · Дина К.',   src:'Реферал выпускника',  tags:[['Базовый курс','p-rose']], money:90000, who:'МС', note:'заполнила заявку'},
+    {id:'p5', stage:'paid',    name:'Психолог · Артём В.',  src:'Email-прогрев',       tags:[['Базовый курс','p-rose']], money:90000, who:'АК', note:'оплатил, ждёт старт'},
+    {id:'p6', stage:'study',   name:'Психотерапевт · Ольга Д.',src:'Поток №4',         tags:[['На программе','p-plum']], money:90000, who:'ЮП', note:'модуль 3 из 8'},
+    {id:'p7', stage:'study',   name:'Психолог · Никита Ш.', src:'Поток №4',            tags:[['Продвинутый','p-blue']], money:120000, who:'ЮП', note:'ролевые в парах'},
+    {id:'p8', stage:'cert',    name:'Психолог · Елена Б.',  src:'Поток №3',            tags:[['ISST-путь','p-gold']], money:0, who:'МС', note:'готовит кейсы к серт.'},
+    {id:'p9', stage:'sub',     name:'Терапевт · Марина Л.', src:'Выпускник · поток №2',tags:[['Супервизия','p-teal'],['Recurring','p-teal']], money:8000, who:'НК', note:'подписка 8 000 ₽/мес'},
+    {id:'p10',stage:'sub',     name:'Терапевт · Глеб А.',   src:'Выпускник',           tags:[['В команду центра','p-rose']], money:8000, who:'НК', note:'стажёр клиники + супервизия'},
+    {id:'p11',stage:'churn',   name:'Психолог · Светлана П.',src:'Реклама',            tags:[['Не дошёл','p-plum']], money:0, who:'МС', note:'отложил обучение'}
+  ]
+};
+
+/* ---------- STATE ---------- */
+function load(){
+  try{const s=localStorage.getItem('istc_crm_v1');if(s)return JSON.parse(s);}catch(e){}
+  return JSON.parse(JSON.stringify(SEED));
+}
+function save(){localStorage.setItem('istc_crm_v1',JSON.stringify(state));}
+let state=load();
+
+/* ---------- RENDER ---------- */
+function fmtMoney(n){return n? new Intl.NumberFormat('ru-RU').format(n)+' ₽':'—';}
+function leadCard(l){
+  const tags=l.tags.map(t=>`<span class="pill ${t[1]}">${t[0]}</span>`).join('');
+  return `<div class="lead" draggable="true" data-id="${l.id}">
+    <div class="nm">${l.name}</div>
+    <div class="src">${l.src}${l.note?' · '+l.note:''}</div>
+    <div class="row">${tags}</div>
+    <div class="ft">
+      <span class="money">${fmtMoney(l.money)}</span>
+      <span class="who"><span class="av">${l.who}</span></span>
+    </div>
+  </div>`;
+}
+function render(boardKey){
+  const board=document.getElementById('board-'+boardKey);
+  board.innerHTML='';
+  STAGES[boardKey].forEach(st=>{
+    const items=state[boardKey].filter(l=>l.stage===st.id);
+    const sum=items.reduce((a,l)=>a+(l.money||0),0);
+    const col=document.createElement('div');col.className='col';
+    col.innerHTML=`<div class="col-head">
+        <div class="ttl"><span class="dot" style="background:${st.color}"></span>${st.name}</div>
+        <div class="meta"><span>${items.length} лид${plural(items.length)}</span><span class="sum">${sum?fmtMoney(sum):''}</span></div>
+      </div>
+      <div class="col-body" data-stage="${st.id}" data-board="${boardKey}">
+        ${items.map(leadCard).join('')}
+        <button class="add" onclick="addLead('${boardKey}','${st.id}')">+ лид</button>
+      </div>`;
+    board.appendChild(col);
+  });
+  wireDnD(boardKey);
+  updateKPIs();
+}
+function plural(n){const m=n%10,h=n%100;if(m===1&&h!==11)return'';if(m>=2&&m<=4&&(h<10||h>=20))return'а';return'ов';}
+
+function updateKPIs(){
+  const all=[...state.clients,...state.pros];
+  const active=all.filter(l=>!['lost','churn','done'].includes(l.stage)).length;
+  const money=all.filter(l=>!['lost','churn'].includes(l.stage)).reduce((a,l)=>a+(l.money||0),0);
+  document.getElementById('k-leads').textContent=all.length;
+  document.getElementById('k-active').textContent=active;
+  document.getElementById('k-money').textContent=new Intl.NumberFormat('ru-RU',{notation:'compact',maximumFractionDigits:1}).format(money);
+  document.getElementById('cnt-clients').textContent=state.clients.length;
+  document.getElementById('cnt-pros').textContent=state.pros.length;
+}
+
+/* ---------- DRAG & DROP ---------- */
+let dragId=null,dragBoard=null;
+function wireDnD(boardKey){
+  const board=document.getElementById('board-'+boardKey);
+  board.querySelectorAll('.lead').forEach(el=>{
+    el.addEventListener('dragstart',e=>{dragId=el.dataset.id;dragBoard=boardKey;el.classList.add('dragging');});
+    el.addEventListener('dragend',e=>el.classList.remove('dragging'));
+  });
+  board.querySelectorAll('.col-body').forEach(body=>{
+    body.addEventListener('dragover',e=>{e.preventDefault();body.classList.add('drag-over');});
+    body.addEventListener('dragleave',e=>body.classList.remove('drag-over'));
+    body.addEventListener('drop',e=>{
+      e.preventDefault();body.classList.remove('drag-over');
+      if(dragBoard!==boardKey||!dragId)return;
+      const lead=state[boardKey].find(l=>l.id===dragId);
+      if(lead){lead.stage=body.dataset.stage;save();render(boardKey);}
+    });
+  });
+}
+
+/* ---------- ADD LEAD (минимальный) ---------- */
+function addLead(boardKey,stage){
+  const name=prompt(boardKey==='clients'?'Имя клиента / пары:':'Имя специалиста:');
+  if(!name)return;
+  const src=prompt('Источник лида:','Сайт · форма')||'—';
+  state[boardKey].push({id:boardKey[0]+Date.now(),stage,name,src,tags:[],money:0,who:'—',note:''});
+  save();render(boardKey);
+}
+
+/* ---------- RESET ---------- */
+function resetData(){if(confirm('Сбросить все изменения к демо-данным?')){state=JSON.parse(JSON.stringify(SEED));save();render('clients');render('pros');}}
+
+/* ---------- TABS ---------- */
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.board').forEach(b=>b.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('board-'+tab.dataset.board).classList.add('active');
+  });
+});
+
+render('clients');render('pros');
+</script>
+</body>
+</html>
