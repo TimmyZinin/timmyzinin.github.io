@@ -86,7 +86,7 @@
   .step p b{color:var(--ink);}
 
   /* MONEY */
-  .money-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+  .money-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px;}
   @media(max-width:560px){.money-grid{grid-template-columns:1fr;}}
   .money{
     background:var(--card);border:1px solid var(--line);border-radius:16px;
@@ -157,7 +157,7 @@
       <div class="n">3</div>
       <div>
         <h3>Кому понравилось — идут учиться платно</h3>
-        <p>Они могут выбрать интенсив для себя или взять обучение для всей команды.</p>
+        <p>Они выбирают формат: разовая консультация, цикл трансформации или полное сопровождение.</p>
       </div>
     </div>
     <div class="step">
@@ -175,17 +175,22 @@
     <h2>Сколько это денег</h2>
     <div class="money-grid">
       <div class="money">
-        <div class="what">Интенсив для одного</div>
-        <div class="price">45 000 ₽</div>
-        <div class="cut">твои 6 750 ₽</div>
+        <div class="what">Консультация, 1 час</div>
+        <div class="price">$600</div>
+        <div class="cut">твои $90</div>
       </div>
       <div class="money hot">
-        <div class="what">Обучение команды</div>
-        <div class="price">от 500 000 ₽</div>
-        <div class="cut">твои от 75 000 ₽</div>
+        <div class="what">Цикл трансформации</div>
+        <div class="price">$6,000</div>
+        <div class="cut">твои $900</div>
+      </div>
+      <div class="money">
+        <div class="what">Полное сопровождение</div>
+        <div class="price">$25,000</div>
+        <div class="cut">твои $3,750</div>
       </div>
     </div>
-    <p class="note">Один корпоративный клиент из твоей аудитории — и это уже 75 000 ₽ за рекомендацию. Потолка нет: сколько привела, столько и заработала.</p>
+    <p class="note">Цены — с <a href="https://timzinin.com/">timzinin.com</a>. Один цикл трансформации из твоей аудитории — это $900 за рекомендацию, полное сопровождение — $3,750. Потолка нет: сколько привела, столько и заработала.</p>
   </div>
 </section>
 
