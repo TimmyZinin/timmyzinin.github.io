@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naya — вселенная AI-финфлюенсера</title>
+<style>
+  :root{
+    --ink:#1a1814; --paper:#faf7f2; --card:#ffffff;
+    --accent:#e8501a; --accent-soft:#fdeae2;
+    --teal:#1d7a6c; --teal-soft:#e3f3ef;
+    --gold:#b07207; --gold-soft:#fdf3df;
+    --line:#e7e0d6; --muted:#6f675c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;line-height:1.55;font-size:17px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  section{padding:60px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:clamp(27px,3.6vw,40px);letter-spacing:-.01em;font-weight:800;margin-bottom:8px}
+  .sub{color:var(--muted);font-size:18px;max-width:64ch;margin-bottom:32px}
+  h3{font-size:20px;font-weight:750;margin-bottom:8px}
+  h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  p{margin-bottom:10px}
+  a{color:var(--accent)}
+
+  /* hero */
+  .hero{padding:64px 0 40px;display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
+  @media(max-width:820px){.hero{grid-template-columns:1fr;gap:28px}}
+  .kicker{display:inline-block;background:var(--ink);color:var(--paper);font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:4px;margin-bottom:24px}
+  h1{font-size:clamp(46px,8vw,84px);line-height:.96;letter-spacing:-.03em;font-weight:800}
+  h1 em{font-style:normal;color:var(--accent)}
+  .hero .tagline{margin-top:18px;font-size:20px;max-width:42ch;color:var(--muted)}
+  .hero .meta{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600}
+  .chip b{color:var(--accent)}
+  .chip.t{background:var(--teal-soft);border-color:var(--teal-soft);color:var(--teal)}
+  /* portrait */
+  .portrait{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:linear-gradient(150deg,var(--teal-soft),var(--accent-soft));border:1px solid var(--line);box-shadow:0 16px 50px rgba(0,0,0,.10)}
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block}
+  .portrait .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--teal)}
+  .portrait .ph .big{font-size:64px;font-weight:800;line-height:1;color:var(--accent)}
+  .portrait .ph .lbl{margin-top:14px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);max-width:24ch}
+  .portrait figcaption{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(0,0,0,.55));color:#fff;font-size:12.5px;padding:18px 14px 10px;text-align:center}
+
+  /* generic cards grid */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
+  @media(max-width:820px){.grid3,.grid2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 22px}
+  .card.win{border:2px solid var(--accent);box-shadow:0 8px 24px rgba(232,80,26,.10)}
+  .card ul{list-style:none;margin-top:4px}
+  .card li{font-size:14.5px;color:var(--muted);padding:4px 0;line-height:1.45}
+  .card li::before{content:"·";color:var(--accent);font-weight:800;margin-right:7px}
+  .card .big{font-size:34px;font-weight:800;color:var(--accent);line-height:1}
+
+  .note{margin-top:20px;background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;font-size:15px;max-width:78ch}
+  .note b{color:var(--gold)}
+  .note.t{background:var(--teal-soft);border-color:var(--teal)}
+  .note.t b{color:var(--teal)}
+  .note.a{background:var(--accent-soft);border-color:var(--accent)}
+  .note.a b{color:var(--accent)}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;font-size:14.5px;margin-top:8px}
+  th{background:var(--ink);color:var(--paper);text-align:left;padding:11px 15px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+  td{padding:12px 15px;border-top:1px solid var(--line);vertical-align:top}
+  td.win{background:var(--accent-soft);font-weight:700}
+  .score{font-weight:800}
+
+  /* pipeline flow */
+  .flow{display:flex;gap:0;flex-wrap:wrap;margin-top:8px}
+  .flow .step{flex:1;min-width:140px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px;position:relative;margin-right:30px;margin-bottom:14px}
+  .flow .step:last-child{margin-right:0}
+  .flow .step::after{content:"→";position:absolute;right:-24px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--accent);font-weight:800}
+  .flow .step:last-child::after{content:""}
+  .flow .step .n{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .flow .step .t{font-weight:700;font-size:15px;line-height:1.25}
+  .flow .step .d{font-size:12.5px;color:var(--muted);margin-top:5px}
+
+  /* templates */
+  .tpl{background:#fbfaf7;border:1px dashed var(--line);border-radius:12px;padding:16px 18px;font-size:14px;color:#33302a;white-space:pre-wrap;margin-top:10px;font-family:ui-monospace,Menlo,monospace;line-height:1.5}
+  .lore{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:8px}
+  @media(max-width:820px){.lore{grid-template-columns:1fr 1fr}}
+  .lore .set{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .lore .set .num{font-size:12px;color:var(--accent);font-weight:800}
+  .lore .set b{display:block;margin:6px 0 4px;font-size:15px}
+  .lore .set span{font-size:13px;color:var(--muted)}
+
+  footer{padding:36px 0 64px;color:var(--muted);font-size:13.5px}
+  .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .tag{font-size:13px;font-weight:650;padding:5px 12px;border-radius:999px;background:var(--teal-soft);color:var(--teal)}
+  .tag.a{background:var(--accent-soft);color:var(--accent)}
+  .tag.m{background:var(--line);color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="wrap hero">
+  <div>
+    <span class="kicker">finfluencer · вселенная персонажа · v1</span>
+    <h1><em>Naya</em><br>AI-финфлюенсер</h1>
+    <p class="tagline">Виртуальная женщина с Бали, которая открыто говорит «я AI» и ведёт публичный paper-портфель. Voiceover-сериал на TikTok → Telegram → реферальный трафик на белые криптобиржи.</p>
+    <div class="meta">
+      <span class="chip">🌴 Бали <b>·</b> Дубай-арка</span>
+      <span class="chip t">🤖 открыто AI</span>
+      <span class="chip">📊 paper-портфель $10k</span>
+      <span class="chip">🎬 Higgsfield + Seedance 2</span>
+    </div>
+  </div>
+  <figure class="portrait">
+    <img src="naya_hero_web.png" alt="Naya — концепт" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="ph" style="display:none">
+      <div class="big">Naya</div>
+      <div class="lbl">концепт-портрет генерится отдельно · визуальный канон — ниже</div>
+    </div>
+    <figcaption>Naya · концепт-кадр (Higgsfield Soul ID). Образ: умная и тёплая, не глянцевая.</figcaption>
+  </figure>
+</div>
+
+<!-- ИМЯ -->
+<section>
+  <div class="wrap">
+    <h2>Имя</h2>
+    <p class="sub">Рекомендация — <b>Naya</b>: глобально произносится, женственное, без «бро»-окраски, чистый хэндл, нет коллизии с крупным крипто-инфлюенсером. ⚠️ <b>Luna занято</b> — крупнейший AI-крипто-инфлюенсер с токеном на Bybit.</p>
+    <div class="grid3">
+      <div class="card win"><div class="big">Naya</div><h3 style="margin-top:8px">основное</h3><ul><li>свежее, глобальное, чистое</li><li>под Бали-образ</li><li>@naya.onchain · TG @naya_portfolio</li></ul></div>
+      <div class="card"><div class="big" style="color:var(--teal)">Selin</div><h3 style="margin-top:8px">альтернатива</h3><ul><li>«луна» по-турецки → to-the-moon + Анталья</li><li>обходит занятую Luna</li><li>@selin.onchain</li></ul></div>
+      <div class="card"><div class="big" style="color:var(--gold)">Liraa</div><h3 style="margin-top:8px">альтернатива</h3><ul><li>встроенный финансовый намёк (lira)</li><li>почти гарантированно свободно</li><li>@liraa · TG @liraa_portfolio</li></ul></div>
+    </div>
+    <div class="note a"><b>Одно действие за тобой:</b> утвердить имя и за один заход занять хэндлы в TikTok + Telegram + Instagram + .com (squat по всем сразу — это необратимо-конкурентное, делаю не я). Дальше вся вселенная написана как «Naya».</div>
+  </div>
+</section>
+
+<!-- ЛОКАЦИЯ -->
+<section>
+  <div class="wrap">
+    <h2>Локация: Бали — дом, Дубай — арка</h2>
+    <p class="sub">Ресёрч честно разошёлся. Свожу в гибрид с учётом твоего крена в Бали и нарратива «расту с нуля».</p>
+    <div class="grid2">
+      <div class="card win">
+        <h3>🌴 Бали — дом</h3>
+        <ul>
+          <li>Нарратив «расту с нуля на виртуальном портфеле» = свобода/nomad, а не «уже богата»</li>
+          <li>B-roll (кафе, пляж, рисовые террасы, скутер) дешевле и виральнее на холодном TikTok</li>
+          <li>Твой крен — туда</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🏙️ Дубай — выездная арка (раз в 2-3 нед)</h3>
+        <ul>
+          <li>Семантически ближе к деньгам → выше конверсия в депозит</li>
+          <li>AI-рендер люкса чище, меньше палится</li>
+          <li>Прецедент: Bybit листнул токен AI-инфлюенсера Luna — Дубай-крипто монетизируется в лоб</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><b>Почему гибрид:</b> Бали-база даёт верх воронки (виральность + дешёвый продакшн + underdog-нарратив), Дубай-вставки («прилетела на крипто-ивент») периодически впрыскивают сигнал денег и работают на конверсию. Женский образ снимает оба клише — «Dubai crypto bro» и «Bali wellness guru». Если приоритет — максимум депозитов, а не охват, зеркаль в «Дубай-первичный».</div>
+  </div>
+</section>
+
+<!-- МИР / ЛОР -->
+<section>
+  <div class="wrap">
+    <h2>Её мир</h2>
+    <p class="sub">5 повторяющихся «сетов» = вся визуальная вселенная. Их генерим консистентно через Soul ID — узнаваемость кадра держит бренд.</p>
+    <div class="lore">
+      <div class="set"><div class="num">сет 1</div><b>Вилла-студия</b><span>дерево, лён, ротанг, ноутбук у окна в зелень. Главный кадр.</span></div>
+      <div class="set"><div class="num">сет 2</div><b>Кофейня-коворкинг</b><span>латте, график на экране, утренний свет.</span></div>
+      <div class="set"><div class="num">сет 3</div><b>Пляж / закат</b><span>телефон, рефлексия «что сегодня поняла».</span></div>
+      <div class="set"><div class="num">сет 4</div><b>Скутер / дорога</b><span>движение, lifestyle POV.</span></div>
+      <div class="set"><div class="num">сет 5</div><b>Дубай-крыша</b><span>Marina, золотой час. Редко — арка денег.</span></div>
+    </div>
+    <div class="grid2" style="margin-top:22px">
+      <div class="card">
+        <h4>Ритм дня (это и есть нарратив сериала)</h4>
+        <p style="font-size:15px">Утро — кофе + чек портфеля + «мысль дня». День — разбор/ликбез. Вечер — закат + «что сегодня поняла». Этот ритм = шаблон рубрики Paper Portfolio Diary.</p>
+      </div>
+      <div class="card">
+        <h4>Артефакт-якорь</h4>
+        <p style="font-size:15px">Виртуальный портфель $10k (paper) с публичным дашбордом — единственный «реквизит», что двигает сюжет. Всегда на экране ноутбука в кадре. Просадка = эпизод, не кризис.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЛИЧНОСТЬ -->
+<section>
+  <div class="wrap">
+    <h2>Личность, голос, легенда</h2>
+    <div class="grid2">
+      <div class="card">
+        <h4>Характер и тон</h4>
+        <p style="font-size:15px"><b>Умная подруга</b>, которая разобралась в крипте и переводит её на человеческий. Не гуру, не «волк», не эзотерик. Спокойная ирония, прямота, ноль понтов. Признаёт ошибки портфеля вслух — это её доверие.</p>
+        <p style="font-size:15px;margin-top:8px;color:#a33"><b>Никогда не говорит:</b> «гарантированная доходность», «X% в месяц», «купи сейчас», «я заработала — повторяй». Это и характер, и compliance-щит.</p>
+      </div>
+      <div class="card">
+        <h4>Легенда (open-AI)</h4>
+        <p style="font-size:15px;font-style:italic">«Я Naya. Я не человек — меня собрали из рыночных данных и отпустили на Бали с виртуальными $10 000. Веду публичный paper-портфель: фейковые деньги, настоящие уроки. Показываю каждый ход, чтобы ты понимал как думать, а не слепо копировал. Не финансовый совет — я AI, портфель виртуальный.»</p>
+      </div>
+    </div>
+    <div class="note t"><b>Мета-честность = ядро бренда:</b> «Я AI, у меня нет причин врать тебе ради комиссии — поэтому показываю и ошибки». Открытое AI — обязательная маркировка площадок 2026 и главный дифференциатор доверия в нише, где 75-80% инвест-видео признаны вводящими в заблуждение.</div>
+  </div>
+</section>
+
+<!-- ВИЗУАЛЬНЫЙ КАНОН -->
+<section>
+  <div class="wrap">
+    <h2>Визуальный канон</h2>
+    <div class="grid2">
+      <div class="card">
+        <h4>Внешность</h4>
+        <ul>
+          <li>Женщина ~26-30, тёплый дружелюбный взгляд, лёгкая улыбка</li>
+          <li>Естественный макияж, smart-casual (лён, базовые тона, минимум украшений)</li>
+          <li><b>НЕ сексуализированный образ</b> — триггер банов + неуместно в финнише. Ставка «умная и тёплая», не «горячая»</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Технический якорь</h4>
+        <ul>
+          <li>3-6 «золотых» reference-фото (фронт / 3-4 / профиль, ≥1024px) → Higgsfield <b>Soul ID</b> (один раз, ~$3, 20+ фото, 3-5 мин)</li>
+          <li>Дальше лицо держится во всех генерациях на месяцы</li>
+          <li>Запрет: текст на портретах/обложках от модели (буквы = брак); тёплая дневная схема, не тёмная/стоковая</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- КОНТЕНТ -->
+<section>
+  <div class="wrap">
+    <h2>Контент-вселенная</h2>
+    <p class="sub">5 рубрик. Ядро — Paper Portfolio Diary (сериальность держит retention и подписку). Каждое видео: AI-метка + «AI persona · not financial advice».</p>
+    <table>
+      <tr><th>Рубрика</th><th>Формат / длина</th><th>Хук (EN)</th><th>/нед</th></tr>
+      <tr><td class="win">P1 · Paper Portfolio Diary</td><td>хук в камеру + дашборд, 20-35с</td><td>«Day {N} of my $10k AI paper portfolio — I just did the dumbest thing…»</td><td>3</td></tr>
+      <tr><td>P2 · Crypto 101 / ликбез</td><td>voiceover + схемы b-roll, 30-45с</td><td>«Nobody explains {term} like this. 30 sec, no jargon.»</td><td>2</td></tr>
+      <tr><td>P3 · News reaction</td><td>hot take, 15-25с</td><td>«BTC just did {X}. Here's what they're NOT telling you.»</td><td>1</td></tr>
+      <tr><td>P4 · Bali lifestyle POV</td><td>b-roll + voiceover, 12-20с</td><td>«POV: managing a paper portfolio from a Bali café at 6am»</td><td>1</td></tr>
+      <tr><td>P5 · Mistakes / Mythbusting</td><td>хук в камеру, 20-30с</td><td>«I lost (on paper) so you don't have to. 3 myths.»</td><td>ротация</td></tr>
+    </table>
+    <div class="note"><b>30-дневный календарь</b> готов (P1≈12, P2≈8, P3≈4, P4≈4, P5≈2 в месяц). Дни 7/14/21/30 = «итоги недели/месяца» → главные CTA-в-Telegram посты. Полная таблица — в <code>docs/research_universe_2026-06.md</code>.</div>
+  </div>
+</section>
+
+<!-- ПРОДАКШН -->
+<section>
+  <div class="wrap">
+    <h2>Как она производится: Higgsfield + Seedance 2</h2>
+    <p class="sub">Твой выбор оказался точным: «Higgsfield + Seedance 2» — это не два инструмента, а один. Higgsfield = оркестратор, внутри которого живёт Seedance 2 (+ Kling, Veo, Sora), Soul ID (лицо), LipSync Studio, ElevenLabs (голос), MCP. Весь тяжёлый рендер в облаке — твой 8ГБ Mac не грузится.</p>
+
+    <div class="note a"><b>Прорыв ресёрча:</b> Seedance 2.0 генерирует речь с липсинком НАТИВНО в один проход (8+ языков). Значит <b>HeyGen не нужен вообще</b>, и отдельная говорящая голова — только точечно. Подтверждаю твой отказ от HeyGen.</div>
+
+    <h3 style="margin-top:28px">Вердикт по формату: voiceover-over-broll + говорящий хук</h3>
+    <div class="flow" style="margin-top:14px">
+      <div class="step"><div class="n">0-4 сек</div><div class="t">Хук — в камеру</div><div class="d">нативный липсинк Seedance, «живое» лицо цепляет</div></div>
+      <div class="step"><div class="n">5-50 сек</div><div class="t">Тело — b-roll + закадр</div><div class="d">сцены с ней (Soul) + TTS + жёсткие субтитры. Рот НЕ синхронизируется — и не должен</div></div>
+      <div class="step"><div class="n">концовка</div><div class="t">CTA</div><div class="d">в камеру или текст «Telegram в шапке»</div></div>
+    </div>
+    <p style="font-size:14.5px;color:var(--muted);margin-top:10px">60 секунд непрерывного липсинка одного AI-лица = uncanny valley + низкий retention. Успешные AI-инфлюенсеры 2026 в камеру весь ролик не говорят.</p>
+
+    <h3 style="margin-top:28px">Стек по слоям</h3>
+    <table>
+      <tr><th>Слой</th><th>Инструмент</th><th>Зачем</th></tr>
+      <tr><td>Лицо-эталон</td><td class="win">Higgsfield Soul ID</td><td>один раз обучить — якорь персонажа на месяцы</td></tr>
+      <tr><td>Видео (хук + b-roll)</td><td class="win">Seedance 2.0 (fal Fast $0.022/с)</td><td>движение + нативный липсинк в хуке</td></tr>
+      <tr><td>Липсинк-резерв</td><td>ByteDance OmniHuman (fal $0.14/с)</td><td>если кадр фейлит — НЕ HeyGen</td></tr>
+      <tr><td>Голос</td><td>ElevenLabs клон / нативный Seedance</td><td>один голос-персона навсегда</td></tr>
+      <tr><td>Скрипты</td><td>облачный LLM-API (Claude/GPT)</td><td>хук+тело+CTA. <b>Свой LLM НЕ разворачиваем</b></td></tr>
+      <tr><td>Монтаж/субтитры</td><td>CapCut (free)</td><td>Higgsfield не монтирует — обязательный шаг</td></tr>
+      <tr><td>Постинг</td><td>Postiz self-host на Contabo ($0)</td><td>официальный TikTok API → нет «теневого бана»</td></tr>
+    </table>
+
+    <h3 style="margin-top:28px">Смета 30 видео/мес</h3>
+    <table>
+      <tr><th>Вариант</th><th>Состав</th><th>$/мес</th></tr>
+      <tr><td class="win">Дешёвый дейли ⭐</td><td>Higgsfield Basic $5 (Soul ID) + Seedance fal Fast + ElevenLabs $22 + LLM ~$5 + Postiz $0 + CapCut $0</td><td class="score">~$32</td></tr>
+      <tr><td>Всё-в-одном окне</td><td>Higgsfield Ultra $99 (≈24 видео) + ElevenLabs $22</td><td class="score">~$121</td></tr>
+    </table>
+    <div class="note"><b>Важная поправка:</b> один ролик ≈ 5 клипов Seedance ≈ 125 кр → Higgsfield <b>Plus (1000 кр) тянет только ~8 видео/мес</b>, не 30. Для дейли дешевле Seedance через fal.ai напрямую. Тайм-бюджет оператора ≈ 6 ч/нед (батч раз в неделю → Postiz постит по 1/день).</div>
+  </div>
+</section>
+
+<!-- ВОРОНКА + TG -->
+<section>
+  <div class="wrap">
+    <h2>Воронка и Telegram-канал</h2>
+    <p class="sub">TikTok Business-аккаунт (ссылка в bio с дня 0) → бот/канал → реф-ссылки бирж живут ТОЛЬКО в Telegram. Реф-ссылка на TikTok = Branded Content бан.</p>
+    <div class="flow">
+      <div class="step"><div class="n">шаг 1</div><div class="t">TikTok</div><div class="d">чистый educational + AI-метка, без бирж в кадре</div></div>
+      <div class="step"><div class="n">шаг 2</div><div class="t">Bio → бот</div><div class="d">«full portfolio's in my Telegram»</div></div>
+      <div class="step"><div class="n">шаг 3</div><div class="t">Telegram</div><div class="d">дашборд + реф-ссылки бирж</div></div>
+      <div class="step"><div class="n">шаг 4</div><div class="t">Биржа</div><div class="d">MEXC → Bitget → Bybit, revshare lifetime</div></div>
+    </div>
+    <div class="note t" style="margin-top:18px"><b>Архитектура TG:</b> бота нельзя добавить в broadcast-канал → вход через <b>бот</b> (TikTok → @бот → welcome + инвайт в канал) либо канал-витрина + связанная группа. Монетизация: MEXC день 0 (бонус до $10k) → Bitget после 100 фолл → Bybit. Правило «3 ценности на 1 продажу». Caденс 4-6 постов/нед (не ежедневно — выгорает).</div>
+
+    <h3 style="margin-top:26px">Готовые шаблоны (EN, бери как есть)</h3>
+    <h4 style="margin-top:14px">Закреп / pinned</h4>
+    <div class="tpl">🌴 Hey, I'm Naya — an AI-generated creator. Yes, fully synthetic. No human behind the face.
+I run a public PAPER (virtual) crypto portfolio — fake money, real lessons. I show every move so you learn the *how*, not copy blindly.
+⚠️ NOT financial advice. I'm an AI sharing educational content. DYOR. Never invest more than you can lose.
+💸 Affiliate disclosure: exchange links below are referral links — I earn a commission, you get a sign-up bonus.
+👉 Up to $10,000 bonus on MEXC (my paper-trading exchange): [LINK]</div>
+    <h4 style="margin-top:16px">Welcome (бот)</h4>
+    <div class="tpl">Welcome 🌴 I'm Naya — your AI crypto-learning friend from Bali.
+You get: 📊 weekly paper-portfolio updates · 🧠 plain-English crypto lessons · 🎯 my "trade of the week" breakdowns.
+⚠️ Educational only — not financial advice. I'm AI, my portfolio is virtual.
+💸 Want to follow along on a real exchange? Grab your sign-up bonus (affiliate, I earn a commission):
+→ MEXC — up to $10,000 bonus: [LINK]
+Reply with what you want me to break down next 👇</div>
+    <h4 style="margin-top:16px">Bio канала</h4>
+    <div class="tpl">🤖 AI-generated creator · 🌴 Bali · 📊 public PAPER crypto portfolio · 🧠 crypto explained simply · ⚠️ NOT financial advice · 💸 affiliate links inside · Start 👇</div>
+    <div class="note" style="margin-top:16px"><b>Compliance (жёстко):</b> AI-дисклеймер + affiliate-disclosure «I earn a commission» above the fold + «not financial advice» + «paper/virtual portfolio». ❌ сигналы, гарантии, %/мес → бан + SEC/FTC (штраф $51-53k за нарушение).</div>
+  </div>
+</section>
+
+<!-- ЧЕКЛИСТ -->
+<section>
+  <div class="wrap">
+    <h2>Чеклист запуска</h2>
+    <div class="grid2">
+      <div class="card">
+        <h4>Фундамент</h4>
+        <ul>
+          <li>Утвердить имя (Naya) → занять хэндлы в один заход</li>
+          <li>3-6 reference-фото → Soul ID ($3) → 5 сетов</li>
+          <li>Клон голоса в ElevenLabs (1 раз)</li>
+          <li>Контент-банк P1-P5 + 30-дневный календарь в Sheet</li>
+          <li>n8n на Contabo: RSS → LLM-скрипт → ElevenLabs → очередь</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Запуск</h4>
+        <ul>
+          <li>TikTok Business + US geo-стек (eSIM + mobile proxy + прогрев 7-14 дней); bio → бот</li>
+          <li>TG: бот-вход + welcome (SUCH/BotSailor) + 10 витринных постов + реф MEXC через редирект с UTM</li>
+          <li>Пилотная пачка 15 эпизодов (вкл. drawdown-эпизод)</li>
+          <li>AI-toggle + дисклеймеры в каждом видео; ноль реф-ссылок на TikTok</li>
+          <li>Язык EN/глобал (НЕ RU — закон РФ с 1 июля 2026). Kill-гейты из strategy v3</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill-row">
+      <span class="tag a">Higgsfield + Seedance 2</span>
+      <span class="tag">без HeyGen</span>
+      <span class="tag">без своего LLM</span>
+      <span class="tag">соло-оператор</span>
+      <span class="tag m">~$32/мес · ~6 ч/нед</span>
+    </div>
+    <p style="margin-top:16px">Источники с URL — <code>docs/research_universe_2026-06.md</code> (deep research 6+1 субагентов, июнь 2026, 90+ ссылок). Библия персонажа — <code>docs/character_bible.md</code>. Стратегия и юнит-экономика — <a href="../finfluencer-strategy/">timzinin.com/finfluencer-strategy</a>. Репо TimmyZinin/finfluencer (private). Сроки и $-сценарии — оценка порядка с помеченными допущениями, не обещание.</p>
+  </div>
+</footer>
+
+</body>
+</html>
