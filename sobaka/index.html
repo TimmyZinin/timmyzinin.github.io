@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐾 Миссия: привезти щенка — план для Марка</title>
+<meta property="og:title" content="🐾 Миссия Марка: привезти щенка корги в Грузию">
+<meta property="og:description" content="Пошаговый план поездки: маршрут, документы, сроки. Собрал Claude — цифровой ассистент Тима.">
+<meta name="theme-color" content="#e08a1e">
+<style>
+  :root{
+    --bg:#faf6ef;--card:#fff;--ink:#2b2620;--muted:#7a7166;--line:#ece3d6;
+    --amber:#e08a1e;--amber-soft:#fdf1dd;--green:#2f8f5b;--green-soft:#e7f4ec;
+    --red:#c0392b;--red-soft:#fbe9e7;--blue:#2d6cb5;--blue-soft:#e8f0fa;
+    --shadow:0 1px 3px rgba(60,45,20,.08),0 10px 30px rgba(60,45,20,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:24px 16px 70px}
+  header.hero{background:linear-gradient(135deg,#fff6e8,#fdeccf);border:1px solid var(--line);
+    border-radius:22px;padding:26px 24px;box-shadow:var(--shadow);margin-bottom:20px;text-align:center}
+  .emoji{font-size:46px;line-height:1;margin-bottom:6px}
+  h1{margin:4px 0 8px;font-size:25px;letter-spacing:-.4px}
+  .who{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:7px 15px;font-size:13.5px;color:var(--muted);box-shadow:var(--shadow)}
+  .who b{color:var(--ink)}
+  h2{font-size:19px;margin:30px 0 12px;display:flex;align-items:center;gap:9px}
+  h2 .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;
+    background:var(--amber);color:#fff;font-size:14px;font-weight:700;flex:none}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+  .lead{font-size:16px}
+  .alert{border-radius:16px;padding:15px 18px;margin-bottom:14px;border:1px solid}
+  .alert.green{background:var(--green-soft);border-color:#c5e6d2}
+  .alert.amber{background:var(--amber-soft);border-color:#f3dcb4}
+  .alert.blue{background:var(--blue-soft);border-color:#cfe0f3}
+  .alert.red{background:var(--red-soft);border-color:#f1c8c2}
+  .route{display:flex;flex-direction:column;gap:0}
+  .route .node{display:flex;gap:12px;align-items:flex-start;padding:0 0 16px}
+  .route .ic{width:40px;height:40px;border-radius:12px;background:var(--amber-soft);
+    display:grid;place-items:center;font-size:20px;flex:none;border:1px solid #f1dcb4}
+  .route .tx h4{margin:2px 0 2px;font-size:16px}
+  .route .tx p{margin:0;color:var(--muted);font-size:14px}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:0}
+  .steps>li{position:relative;padding:0 0 20px 48px}
+  .steps>li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-2px;
+    width:32px;height:32px;border-radius:50%;background:var(--amber);color:#fff;font-weight:700;
+    display:grid;place-items:center;font-size:15px}
+  .steps>li:after{content:"";position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--line)}
+  .steps>li:last-child:after{display:none}
+  .steps h4{margin:0 0 4px;font-size:16.5px}
+  .steps p{margin:0 0 4px;color:var(--muted);font-size:14.5px}
+  ul.clean{margin:6px 0;padding-left:20px} ul.clean li{margin:5px 0;font-size:14.5px}
+  .docs li{margin:7px 0}
+  .pill{font-size:13.5px;color:var(--muted)}
+  .kv{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .kv span{background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:13.5px}
+  .big{font-size:20px;font-weight:800}
+  .foot{color:var(--muted);font-size:13px;margin-top:28px;text-align:center;line-height:1.7}
+  b.hl{background:var(--amber-soft);padding:1px 5px;border-radius:5px}
+  .sign{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);margin-top:8px}
+  .sign .av{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#e08a1e,#f0a942);
+    display:grid;place-items:center;font-size:22px;flex:none}
+  .sign .t{font-size:14px} .sign .t b{display:block;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="emoji">🐾</div>
+    <h1>Миссия: привезти щенка</h1>
+    <div class="who">План для <b>Марка</b> · собрал Claude, цифровой ассистент Тима</div>
+  </header>
+
+  <div class="card">
+    <p class="lead" style="margin:0 0 8px">Привет, Марк! 👋</p>
+    <p style="margin:0 0 8px">Я <b>Claude</b> — цифровой ассистент твоего брата Тима. Он попросил меня собрать для тебя понятный план поездки, чтобы всё прошло гладко.</p>
+    <p style="margin:0">Задача простая по сути: <b class="hl">забрать щенка корги под Питером и привезти его Тиму в Грузию</b>. Ниже — маршрут, что взять, какие документы и в какие сроки. Тим оплачивает всё и встречает тебя на границе.</p>
+  </div>
+
+  <!-- ROUTE -->
+  <h2><span class="n">1</span> Маршрут целиком</h2>
+  <div class="card">
+    <div class="route">
+      <div class="node"><div class="ic">🚆</div><div class="tx"><h4>Москва → Санкт-Петербург</h4><p>Ночной поезд (плацкарт). Билет покупает Тим.</p></div></div>
+      <div class="node"><div class="ic">🏡</div><div class="tx"><h4>Посёлок Тайцы (Ленобласть)</h4><p>Забираешь щенка у заводчика + готовый пакет документов. Это рядом с аэропортом Пулково (~15 км).</p></div></div>
+      <div class="node"><div class="ic">✈️</div><div class="tx"><h4>Пулково → Владикавказ</h4><p>Рейс «Победа», ~3,5 часа. Щенок летит <b>в салоне рядом с тобой</b>, в переноске.</p></div></div>
+      <div class="node"><div class="ic">🚕</div><div class="tx"><h4>Владикавказ → граница «Верхний Ларс»</h4><p>Такси ~35 км. На границе меняешь Форму №1 на международную Форму 5а (пункт работает круглосуточно).</p></div></div>
+      <div class="node"><div class="ic">🇬🇪</div><div class="tx"><h4>Грузия — тебя встречает Тим</h4><p>Сразу за границей (КПП Дарьяли). Дальше до дома Тима — всего 12 км. Поживёшь у него пару дней.</p></div></div>
+    </div>
+  </div>
+
+  <!-- TIMING -->
+  <h2><span class="n">2</span> Сроки — важно</h2>
+  <div class="alert amber">
+    <b>Границу нужно пересечь до 1 июля.</b> Причина: щенку ещё нет 3 месяцев, и до этого возраста его пускают в Грузию без прививки от бешенства (это сильно упрощает поездку). После 3 месяцев правила жёстче и придётся ждать ещё месяц.
+  </div>
+  <div class="card">
+    <p style="margin:0 0 6px"><b>Ориентир по датам:</b></p>
+    <div class="kv">
+      <span>🎯 Выезд: <b>24-26 июня</b></span>
+      <span>🛂 Граница: <b>до 30 июня</b></span>
+      <span>⛔ Крайний срок: 1 июля</span>
+    </div>
+    <p class="pill" style="margin:10px 0 0">Чем раньше — тем спокойнее (буфер на очередь на границе и мелкие накладки). Поэтому важно <b>не тянуть до 30-го</b>.</p>
+  </div>
+  <div class="alert blue">
+    <b>Что нужно от тебя прямо сейчас:</b> чтобы Тим купил билеты, ему нужен <b>номер твоего загранпаспорта</b> (по нему и полетишь). Скинь его Тиму как можно скорее — близкие даты быстро раскупают.
+  </div>
+
+  <!-- DOCS -->
+  <h2><span class="n">3</span> Документы — что будет на руках</h2>
+  <div class="card">
+    <ul class="clean docs">
+      <li>🛂 <b>Твой загранпаспорт</b> — по нему покупаются билеты и проходит перелёт (внутренний паспорт не нужен). Действующий — у тебя до 2032, всё ок.</li>
+      <li>📘 <b>Ветпаспорт щенка</b> — с отметками о прививках и чипе (даёт заводчик).</li>
+      <li>📄 <b>Метрика щенка (РКФ)</b> — «свидетельство о рождении» (даёт заводчик).</li>
+      <li>📋 <b>Ветсвидетельство Форма №1</b> — заводчик оформляет перед выездом. На границе её меняют на международную <b>Форму 5а</b>.</li>
+      <li>✍️ <b>Доверенность от Тима</b> — что ты везёшь его собаку (Тим подготовит, возьмёшь с собой).</li>
+    </ul>
+    <div class="alert green" style="margin:10px 0 0">Правило одного документа: раз покупаем билеты по загранпаспорту — <b>и летишь по нему же</b>. Не смешивай с внутренним.</div>
+  </div>
+
+  <!-- PET ON BOARD -->
+  <h2><span class="n">4</span> Щенок в самолёте</h2>
+  <div class="card">
+    <p style="margin:0 0 8px">«Победа» возит питомцев <b>только в салоне</b> — щенок будет рядом с тобой, в переноске на соседнем кресле. Тим оформит это при покупке (услуга «питомец на кресле» + соседнее место).</p>
+    <ul class="clean">
+      <li>📦 <b>Переноска</b> — Тим закажет на Ozon под нужный размер (до 55×35×30 см, с жёстким каркасом и ручкой). Заберёшь по пути.</li>
+      <li>💺 <b>Место</b> — обычный ряд (не у аварийных выходов — туда с питомцем нельзя).</li>
+      <li>🧻 В дорогу: пелёнка в переноску, вода. <b>Не корми щенка за 2-3 часа до вылета</b> — меньше укачает.</li>
+      <li>😴 Щенки в этом возрасте много спят — скорее всего, проспит почти весь полёт.</li>
+    </ul>
+    <p class="pill" style="margin:8px 0 0">Во Владикавказе будет ещё один заказ Ozon (лежанка, корм, вещи для щенка) — заберёшь и сложишь в дорожную сумку. Тим всё подготовит заранее, тебе только забрать.</p>
+  </div>
+
+  <!-- BORDER -->
+  <h2><span class="n">5</span> На границе «Верхний Ларс»</h2>
+  <div class="card">
+    <ul class="clean">
+      <li>Подъезжаешь на такси/трансфере (пешком там нельзя — только на машине).</li>
+      <li>На ветконтроле отдаёшь <b>Форму №1</b> → получаешь международную <b>Форму 5а</b>.</li>
+      <li>Показываешь ветпаспорт + чип щенка. Льгота «щенок до 3 месяцев» — без прививки от бешенства.</li>
+      <li>Если вдруг будут вопросы — у тебя с собой распечатка официального разъяснения про эту льготу (Тим даст).</li>
+      <li>Переходишь — <b>Тим уже ждёт</b> на грузинской стороне. Дальше всё просто.</li>
+    </ul>
+    <div class="alert amber" style="margin:8px 0 0">Летом на границе бывает очередь — поэтому и закладываем запас по времени. Не переживай: с документами всё в порядке, это штатная процедура.</div>
+  </div>
+
+  <!-- CONTACT -->
+  <h2><span class="n">6</span> Связь и поддержка</h2>
+  <div class="card">
+    <p style="margin:0 0 6px">На каждом этапе Тим на связи. Если что-то непонятно или пошло не по плану — пишешь Тиму, решаем.</p>
+    <p style="margin:0" class="pill">Этот план — живой: если даты или детали поменяются, Тим обновит и пришлёт.</p>
+    <div class="sign">
+      <div class="av">🤖</div>
+      <div class="t"><b>Claude</b>цифровой ассистент Тима · собрал этот план</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Спасибо, что выручаешь! 🐶 Щенок — девочка корги, будет ждать тебя в Тайцах.<br>
+    План собран 17 июня 2026 · цены и рейсы проверены под актуальные даты.
+  </div>
+
+</div>
+</body>
+</html>
