@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>TikTok — авторизация постинга</title>
+<style>
+  :root{--ink:#1c2024;--muted:#5b6470;--line:#e7e3da;--paper:#fbf9f4;--card:#fff;--accent:#111418;--cta:#fe2c55;--green:#2f8f5b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:54px 22px 70px}
+  .kick{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cta);font-weight:800;margin-bottom:12px}
+  h1{font-size:30px;line-height:1.12;margin:0 0 14px;letter-spacing:-.02em;font-weight:800}
+  p{margin:12px 0;color:#33373d}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin:22px 0;box-shadow:0 1px 3px rgba(20,20,20,.04)}
+  .cta{display:block;text-align:center;background:var(--cta);color:#fff;font-weight:800;font-size:19px;text-decoration:none;padding:18px 22px;border-radius:14px;margin:8px 0 4px;letter-spacing:.01em}
+  .cta:active{transform:translateY(1px)}
+  ol{padding-left:20px;margin:14px 0}
+  ol li{margin:9px 0}
+  .muted{color:var(--muted);font-size:14px}
+  .badge{display:inline-block;background:#e6f3ec;color:var(--green);border:1px solid #b9e0cb;font-size:12px;font-weight:800;padding:3px 9px;border-radius:6px}
+  code{background:#f1ede3;padding:2px 7px;border-radius:6px;font:13.5px "SF Mono",ui-monospace,Menlo,monospace;word-break:break-all}
+  .small{font-size:13px;color:var(--muted);margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kick">Finfluencer · постинг по API</div>
+  <h1>Авторизовать TikTok для постинга</h1>
+  <p>Открой эту страницу в <b>своём обычном Chrome (Profile 4)</b>, где TikTok уже залогинен — повторный вход и SMS не нужны. <span class="badge">сессия готова</span></p>
+
+  <div class="card">
+    <a class="cta" href="https://www.tiktok.com/v2/auth/authorize/?client_key=awm7le2p64wbjyof&scope=user.info.basic%2Cvideo.publish%2Cvideo.upload&response_type=code&redirect_uri=https%3A%2F%2Ftimzinin.com%2Fauth%2Ftiktok%2Fcallback&state=8ca474fb826f40d5&code_challenge=_sVypDM4P1OjcNn8cJxYNuLnmhGZY2eIoxWVRnDXmCQ&code_challenge_method=S256">Authorize TikTok →</a>
+    <p class="muted" style="text-align:center;margin-top:14px">Нажми кнопку → на экране TikTok нажми <b>Authorize</b></p>
+  </div>
+
+  <p><b>Что дальше:</b></p>
+  <ol>
+    <li>Жми <b>Authorize TikTok</b> выше.</li>
+    <li>TikTok покажет экран согласия — нажми <b>Authorize / Continue</b>.</li>
+    <li>Тебя перекинет на страницу с кодом — она <b>сама покажет</b>, что скопировать и прислать Claude.</li>
+  </ol>
+
+  <p class="small">Ссылка содержит только публичные параметры (client_key + PKCE-challenge), секретов нет. Привязана к одноразовой сессии — если устареет, Claude сгенерит свежую.</p>
+</div>
+</body>
+</html>

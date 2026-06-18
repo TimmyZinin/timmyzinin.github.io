@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>TikTok callback — код получен</title>
+<style>
+  :root{--ink:#1c2024;--muted:#5b6470;--line:#e7e3da;--paper:#fbf9f4;--card:#fff;--cta:#fe2c55;--green:#2f8f5b;--red:#c8442b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:54px 22px 70px}
+  .kick{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:12px}
+  h1{font-size:27px;line-height:1.14;margin:0 0 14px;letter-spacing:-.02em;font-weight:800}
+  p{margin:12px 0;color:#33373d}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin:20px 0;box-shadow:0 1px 3px rgba(20,20,20,.04)}
+  .ok .kick{color:var(--green)} .err .kick{color:var(--red)}
+  textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:12px;padding:14px;font:13.5px "SF Mono",ui-monospace,Menlo,monospace;color:var(--ink);background:#fbfaf6;resize:vertical;word-break:break-all}
+  .btn{display:inline-block;background:var(--cta);color:#fff;font-weight:800;font-size:16px;border:0;border-radius:12px;padding:14px 22px;margin-top:12px;cursor:pointer}
+  .btn:active{transform:translateY(1px)}
+  .muted{color:var(--muted);font-size:14px}
+  .cmd{background:#f1ede3;padding:12px 14px;border-radius:10px;font:13px "SF Mono",ui-monospace,Menlo,monospace;word-break:break-all;margin-top:10px}
+  ol{padding-left:20px} ol li{margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap" id="root">
+  <div class="kick">TikTok OAuth</div>
+  <h1>Обрабатываю ответ…</h1>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  var code = p.get('code');
+  var err = p.get('error') || p.get('error_description');
+  var state = p.get('state');
+  var fullUrl = window.location.href;
+  var root = document.getElementById('root');
+
+  if (code) {
+    root.className = 'wrap ok';
+    root.innerHTML =
+      '<div class="kick">✅ Код получен</div>'+
+      '<h1>Готово — пришли это Claude</h1>'+
+      '<p>Скопируй строку ниже и отправь её Claude (в этот же чат или в «Сохранённые сообщения»). Этого достаточно — остальное сделает он.</p>'+
+      '<div class="card">'+
+        '<textarea id="payload" readonly></textarea>'+
+        '<button class="btn" id="copyBtn">📋 Скопировать</button>'+
+        '<span class="muted" id="copied" style="margin-left:12px"></span>'+
+      '</div>'+
+      '<p class="muted">Если хочешь сделать вручную в терминале:</p>'+
+      '<div class="cmd">cd ~/finfluencer/tiktok &amp;&amp; python3 tiktok_publish.py exchange "'+fullUrl.replace(/"/g,'')+'"</div>';
+    document.getElementById('payload').value = fullUrl;
+    document.getElementById('copyBtn').onclick = function(){
+      var ta = document.getElementById('payload');
+      ta.select(); ta.setSelectionRange(0, 99999);
+      try { document.execCommand('copy'); } catch(e){}
+      if (navigator.clipboard) { navigator.clipboard.writeText(ta.value).catch(function(){}); }
+      document.getElementById('copied').textContent = 'скопировано ✓';
+    };
+  } else if (err) {
+    root.className = 'wrap err';
+    root.innerHTML =
+      '<div class="kick">⛔ Ошибка авторизации</div>'+
+      '<h1>'+String(err).slice(0,120)+'</h1>'+
+      '<p>Попробуй ещё раз с лендинга <a href="https://timzinin.com/tiktok-auth/">timzinin.com/tiktok-auth</a>. Если повторяется — скажи Claude, он сгенерит свежую ссылку.</p>';
+  } else {
+    root.innerHTML =
+      '<div class="kick">TikTok OAuth</div>'+
+      '<h1>Здесь пока пусто</h1>'+
+      '<p>Эта страница ловит ответ TikTok после авторизации. Начни с <a href="https://timzinin.com/tiktok-auth/">timzinin.com/tiktok-auth</a> → кнопка Authorize.</p>';
+  }
+})();
+</script>
+</body>
+</html>
