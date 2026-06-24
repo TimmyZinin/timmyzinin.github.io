@@ -6,6 +6,7 @@
 <title>Привозим собаку в Грузию — план для Марка</title>
 <meta name="description" content="Пошаговый маршрут: поезд, забор щенка, перелёт, граница и документы по моментам. Собрал Клод — цифровой ассистент Тима.">
 <link rel="canonical" href="https://timzinin.com/sobaka/">
+<meta name="robots" content="noindex,nofollow">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://timzinin.com/sobaka/">
 <meta property="og:title" content="Привозим собаку в Грузию — план для Марка">
@@ -44,8 +45,8 @@
   /* ---------- HERO ---------- */
   .hero{position:relative;margin-bottom:30px}
   .photo{position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--sh);border:1px solid var(--line);
-    transform:rotate(-1.2deg)}
-  .photo img{display:block;width:100%;height:auto}
+    transform:rotate(-1.2deg);aspect-ratio:3/2;background:var(--coral-soft)}
+  .photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 36%}
   .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(224,83,31,0) 55%,rgba(29,24,19,.30))}
   .kick{font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
     color:var(--coral);margin:22px 0 4px}
@@ -154,6 +155,29 @@
   .chk label:has(input:checked) .lt{text-decoration:line-through;color:var(--muted)}
   .lt b{color:var(--ink);font-weight:600}
 
+  /* ---------- OZON PICKUP ---------- */
+  .ozon{margin-top:11px}
+  .code{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;box-shadow:var(--sh);
+    text-align:center}
+  .code .cap{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral);margin-bottom:9px}
+  .code img{display:block;width:100%;max-width:340px;margin:0 auto;border-radius:9px}
+  .code .num{font-family:"Space Grotesk";font-weight:700;font-size:21px;letter-spacing:.06em;margin-top:8px;color:var(--ink)}
+  .goods{list-style:none;margin:11px 0 0;padding:0}
+  .goods li{display:flex;gap:11px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:10px 13px;margin-bottom:8px;font-size:14px}
+  .goods li:last-child{margin-bottom:0}
+  .goods .q{flex:none;width:24px;height:24px;border-radius:7px;background:var(--coral-soft);color:var(--coral);
+    font-weight:700;font-size:13px;display:grid;place-items:center;margin-top:1px}
+  .goods li.key{background:var(--green-soft);border-color:#bfe3cd}
+  .goods li.key .q{background:var(--green);color:#fff}
+  .goods b{color:var(--ink);font-weight:600}
+  .goods .pr{color:var(--muted);font-size:12.5px}
+  .shot{display:block;margin:11px 0 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--sh);
+    max-height:420px;position:relative}
+  .shot img{display:block;width:100%;height:auto}
+  .shot .zoom{position:absolute;right:9px;bottom:9px;background:rgba(29,24,19,.82);color:#fff;font-size:12px;font-weight:600;
+    border-radius:999px;padding:5px 12px;backdrop-filter:blur(4px)}
+
   footer{margin-top:46px;padding-top:20px;border-top:1.5px solid var(--line);text-align:center;color:var(--muted);font-size:13px}
   footer b{color:var(--ink)}
   .heart{font-family:"Fraunces";font-style:italic}
@@ -215,17 +239,47 @@
       <div class="card">
         <div class="t">09:00 · вещи для собаки</div>
         <div class="h">Озон — Невский пр-кт, 87/2</div>
-        <div class="d">Пункт Озон <b>Невский пр-кт, 87/2</b> (~5 мин пешком от Московского вокзала). Работает <b>с 09:00 до 21:00</b>, заказ <b>уже там</b> — «можно забирать» (хранится до 7 июля). Здесь <b>переноска для щенка</b> — без неё дальше никак, <b>забери обязательно</b>. В заказе <b>две переноски-автокресла + слинг</b> (на случай сложностей с одной на регистрации) + лакомства, воск для лап, расходники. Лишнюю переноску выкинешь после удачной регистрации.</div>
+        <div class="d">Пункт Озон <b>Невский пр-кт, 87/2</b> (~5 мин пешком от Московского вокзала). Работает <b>с 09:00 до 21:00</b>, заказ <b>оплачен и уже там</b> — «можно забирать» (хранится до 7 июля). Главное здесь — <b>переноска для щенка</b>, без неё дальше никак.</div>
+
+        <div class="ozon">
+          <div class="code">
+            <div class="cap">🎫 Код получения — покажи на кассе ПВЗ</div>
+            <img src="ozon-code.jpg" alt="Штрих-код получения Озон">
+            <div class="num">6417 0352 * 6459</div>
+          </div>
+
+          <ul class="goods">
+            <li class="key"><span class="q">1</span><span><b>Переноска для животных мелких пород</b>, чёрная — <span class="pr">1 413 ₽</span><br>🔑 главная — в ней щенок летит на кресле в самолёте.</span></li>
+            <li class="key"><span class="q">2</span><span><b>Сумка-переноска для кошек и собак</b>, светло-серая — <span class="pr">1 413 ₽</span><br>запасная (на случай придирок к одной на регистрации).</span></li>
+            <li><span class="q">3</span><span><b>Поилка прогулочная</b> 350 мл, белая — <span class="pr">434 ₽</span></span></li>
+            <li><span class="q">4</span><span><b>Пелёнки впитывающие</b> Mr.Fresh Expert Regular 60×60 — <span class="pr">717 ₽</span><br>под переноску в самолёте.</span></li>
+            <li><span class="q">5</span><span><b>Влажные салфетки</b> Teddy pets, 60 шт — <span class="pr">160 ₽</span></span></li>
+          </ul>
+
+          <a class="shot" href="ozon-nevsky.jpg" target="_blank" rel="noopener">
+            <img src="ozon-nevsky.jpg" alt="Скрин заказа Озон Невский 87/2">
+            <span class="zoom">🔍 открыть скрин</span>
+          </a>
+        </div>
+
+        <div class="mini g">✅ <b>5 позиций, оплачено 4 137 ₽.</b> Назови на кассе код <b>6417 0352 * 6459</b> или покажи штрих-код выше. Забери всё — две переноски обязательно.</div>
+        <div class="mini b">🐾 На регистрации в Пулково оставишь <b>одну</b> переноску (которая подойдёт), вторую можно выкинуть. Поилка/пелёнки/салфетки — в ручную кладь.</div>
         <a class="btn" href="https://yandex.ru/maps/?text=Санкт-Петербург, Невский проспект, 87">📍 Озон · Невский 87/2</a>
       </div>
     </div>
     <div class="step">
       <span class="cb"><input type="checkbox"><span class="box"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span></span>
       <div class="card">
-        <div class="t">10:30 · к заводчику</div>
-        <div class="h">Балтийский вокзал → ст. Сиверская</div>
-        <div class="d">С <b>Балтийского вокзала</b> до ст. <b>Сиверская</b> (~1 ч 20, 186 ₽). Расписание на <b>25 июня</b>:</div>
-        <div class="mini b">🚆 <b>Твоя электричка: 10:30 → 11:51</b>. После Озона (09:00) и метро от пл. Восстания до Балтийской (~15 мин) успеваешь спокойно.<br>⚠️ <b>Не опоздай на 10:30</b> — следующая только <b>12:58 → 14:18</b> (большой дневной разрыв).</div>
+        <div class="t">~09:40 · едешь на Балтийский</div>
+        <div class="h">Озон → Балтийский вокзал (метро)</div>
+        <div class="d">Электрички на Сиверскую идут <b>только с Балтийского вокзала</b>. Быстрее всего — на метро, <b>без пересадок</b>:</div>
+        <div class="mini b">🚇 <b>Маршрут метро (≈10–12 мин):</b><br>1. От Озона дойди до метро <b>«Площадь Восстания»</b> (красная линия 1, ~5 мин пешком).<br>2. Садись в сторону <b>«Проспект Ветеранов»</b> и едь <b>4 станции</b>: Владимирская → Пушкинская → Технологический институт → <b>«Балтийская»</b>.<br>3. Выход из метро <b>«Балтийская» = прямо у Балтийского вокзала</b>.</div>
+        <div class="mini">🎫 <b>Где взять билет на электричку:</b> в здании вокзала — <b>пригородные кассы</b> (главный зал) или <b>билетные автоматы</b> (оплата картой, без очереди, быстрее). Бери билет <b>до ст. Сиверская</b> (~186 ₽). С билетом проходишь через турникеты на платформы.</div>
+        <a class="btn" href="https://yandex.ru/maps/?text=Балтийский вокзал пригородные кассы Санкт-Петербург">📍 Балтийский вокзал · кассы на карте</a>
+
+        <div class="day" style="margin-top:18px">🚆 Балтийский → ст. Сиверская</div>
+        <div class="d">~1 ч 20 мин в пути, ~186 ₽. Расписание на <b>25 июня</b>:</div>
+        <div class="mini b">🚆 <b>Твоя электричка: 10:30 → 11:51</b>. После Озона (09:00) и метро до Балтийской успеваешь спокойно — на кассу/автомат закладывай 10–15 мин.<br>⚠️ <b>Не опоздай на 10:30</b> — следующая только <b>12:58 → 14:18</b> (большой дневной разрыв).</div>
         <div class="mini">Ранняя Ласточка 08:37 и электричка 09:36 <b>не подходят</b>: ты в это время ещё забираешь переноску в Озоне (он открывается в 9:00, без переноски щенка не повезёшь). <b>Время приезда на Сиверскую заранее согласуй с Ларисой</b> — она встречает на станции.</div>
         <a class="btn" href="https://rasp.yandex.ru/search/suburban/?fromName=Балтийский вокзал&toName=Сиверская&when=2026-06-25">🚆 Полное расписание на 25 июня</a>
         <a class="btn" href="https://wa.me/79013094795">💬 Написать Ларисе (WhatsApp) — согласовать время</a>
@@ -236,11 +290,26 @@
       <div class="card">
         <div class="t">день · забор щенка</div>
         <div class="h">Сиверская — встречает Лариса</div>
-        <div class="d">Лариса (заводчик) встретит тебя <b>на станции Сиверская</b> (питомник: Сиверский, ул. Лермонтова, 30А-1). Забираешь щенка <b>+ пакет документов</b> (список — в разделе «Документы»).</div>
+        <div class="d">Лариса (заводчик) встретит тебя <b>на станции Сиверская</b> (питомник: Сиверский, ул. Лермонтова, 30А-1). Забираешь щенка <b>+ пакет документов</b>. <b>Форма №1 уже оформлена</b> (24.06), все прививки по возрасту сделаны — на границе вопросов быть не должно.</div>
+        <a class="btn" href="#docs">📋 Открыть список документов — что забрать у Ларисы</a>
         <a class="btn" href="https://yandex.ru/maps/?text=Ленинградская область, Сиверский, улица Лермонтова, 30А">📍 Адрес питомника</a>
         <a class="btn" href="https://wa.me/79013094795">💬 Лариса — WhatsApp +7 901 309-47-95</a>
-        <div class="mini g">✅ Проверь при получении: чип сканируется и совпадает с метрикой и ветпаспортом; клеймо <b>MGB 930</b> (в паху); Форма №1 на руках (или номер ВСД из «Меркурия»); немного привычного корма.</div>
-        <div class="mini b">💬 Убедился, что с щенком всё ок — <b>напиши Тиму</b>. Он переведёт Ларисе остаток за щенка.</div>
+        <div class="mini g">✅ <b>Проверь при получении:</b> клеймо <b>MGB 930</b> (в паху); Форма №1 на руках; немного привычного корма. И обязательно — <b>сверь чип</b> (два варианта ниже).</div>
+
+        <div class="vbox">
+          <div class="vh">🔎 Сверка чипа — обязательно, хоть один вариант</div>
+          <div class="opt">
+            <div class="ot">Вариант А <span class="tag easy">проще, прямо у Ларисы</span></div>
+            <div class="od"><b>Попроси у Ларисы сканер.</b> В питомнике почти всегда есть свой. Лариса при тебе подносит его к <b>холке щенка</b> (чип сидит между лопаток) — на экранчике высветится 15-значный номер. Сверь, что он совпадает с номером в <b>Форме №1 и ветпаспорте: 900123456008776</b>.</div>
+          </div>
+          <div class="opt">
+            <div class="ot">Вариант Б <span class="tag cheap">если сканера нет</span></div>
+            <div class="od"><b>Сверь глазами по документам.</b> Проверь, что номер чипа в <b>ветпаспорте</b>, <b>метрике РКФ</b> и <b>Форме №1</b> написан <b>один и тот же</b> (900123456008776). Само сканирование тогда сделают на границе — у ветврача в окне «Ветконтроль» сканер есть, он приложит и проверит совпадение с документом.</div>
+          </div>
+        </div>
+        <div class="mini r">⚠️ Если номер чипа <b>где-то не совпадает</b> (на сканере или в документах между собой) — сразу скажи Ларисе и напиши Тиму, поправят до вылета.</div>
+
+        <div class="mini b">💬 Как убедился, что с щенком всё ок: <b>напиши Тиму</b> (он переведёт Ларисе остаток) <b>и напиши Алине</b> (<a href="https://t.me/alinades">@alinades</a>) — что выезжаешь к ней в Пушкин, чтобы она знала время.</div>
       </div>
     </div>
     <div class="step">
@@ -271,9 +340,14 @@
       <div class="card">
         <div class="t">вечер · ночёвка</div>
         <div class="h">Пушкин — дом друзей Тима</div>
-        <div class="d">Ночуешь в доме друзей Тима. Тебя встретит <b>Алина</b> (<a href="https://t.me/alinades">@alinades</a>), жена друга Тима — возможно, с её 12-летней дочкой Аней. Это ~20 мин / ~7 км от Пулково. Точный адрес — <b>Тим скинет отдельно</b>.</div>
-        <a class="btn" href="https://t.me/alinades">💬 Написать Алине (Telegram @alinades)</a>
-        <div class="mini b">✍️ В Пушкине Алина передаст тебе <b>доверенность от Тима</b> на перевозку собаки — забери и положи к документам.</div>
+        <div class="d">Ночуешь в доме <b>Алины</b> (<a href="https://t.me/alinades">@alinades</a>), друзей Тима. Это ~20 мин / ~7 км от Пулково — удобно перед утренним вылетом.</div>
+        <div class="mini"><b>📍 Адрес:</b> Пушкин, СНТ «Лшуапк», <b>ул. Кленовая, 14, стр. 1</b>.<br>Если навигатор не находит точно — звони Алине, она подскажет ориентиры.</div>
+        <a class="btn" href="https://yandex.ru/maps/?text=Пушкин Кленовая улица 14">📍 Кленовая 14 на карте</a>
+        <a class="btn" href="https://t.me/alinades">💬 Telegram @alinades</a>
+        <a class="btn" href="tel:+79111457730">📞 Позвонить Алине</a>
+        <div class="mini r">⏰ <b>Важно по времени:</b> Алины <b>не будет дома с 14:00 до 17:00</b>. Ты как раз приедешь в это окно (выезжаешь от заводчицы ~14:00). Поэтому:<br>🔑 <b>Ключ Алина оставит в дровнике сарая — зелёный ключик от нижнего замка.</b> Заходи, располагайся. После <b>17:00</b> Алина приедет.</div>
+        <div class="mini b">✍️ Вечером Алина передаст тебе <b>доверенность от Тима</b> на перевозку собаки — забери и положи к документам.</div>
+        <div class="mini g">💬 Не забудь: <b>напиши Алине</b>, когда выезжаешь от заводчицы — чтобы она знала время и всё подготовила к твоему приезду.</div>
         <div class="mini r">🍽 Не корми щенка за 2–3 часа до утреннего выезда — чтобы не укачало в самолёте. Поить можно.</div>
       </div>
     </div>
@@ -337,7 +411,7 @@
   </div>
 
   <!-- DOCUMENTS -->
-  <h2><span class="n">02</span> Документы — что и когда</h2>
+  <h2 id="docs"><span class="n">02</span> Документы — что и когда</h2>
   <p class="note">Цветные метки = <b>где именно</b> документ понадобится. «Даёт Лариса» — получаешь при заборе щенка 25 июня.</p>
 
   <div class="doc">
@@ -367,8 +441,8 @@
   <div class="doc">
     <div class="ic">📋</div>
     <div>
-      <div class="dn">Форма №1 — ветсвидетельство <span class="src">— оформляет Лариса</span></div>
-      <div class="dd">Гос. ветстанция (СББЖ) через «Меркурий». <b>Действует 5 дней</b>, оформляется под вылет 26-го. Если электронная — Лариса даёт распечатку или номер ВСД. Важно: <b>в Форме №1 должен быть указан ты</b> как сопровождающее лицо.</div>
+      <div class="dn">Форма №1 — ветсвидетельство <span class="src">— даёт Лариса</span></div>
+      <div class="dd"><b>✅ Уже оформлена</b> (СББЖ Гатчинского округа, № 35200280762 от 24.06.2026). <b>Ты вписан в неё</b> как перевозящее лицо («через Горелик Марк Игоревич»). Маршрут — рейс DP 507 Пулково→Владикавказ→Верхний Ларс→Грузия. <b>Действует 5 дней</b> — на вылет 26-го в силе.</div>
       <span class="moment b">Стойка Победы</span><span class="moment g">Граница — её меняют на Форму 5а</span>
     </div>
   </div>
@@ -397,13 +471,24 @@
     </div>
   </div>
 
+  <div class="card" style="margin-top:16px;background:var(--green-soft);border-color:#bfe3cd">
+    <div class="h" style="color:#13502f">🐶 Почему щенка можно везти сейчас — без прививки от бешенства</div>
+    <div class="d">
+      Щенок родился <b>01.04.2026</b> — на дату вылета ему <b>ещё нет 3 месяцев</b>. Прививку от бешенства по правилам делают <b>не раньше 3-месячного возраста</b>, поэтому сейчас она <b>не нужна и по возрасту не делается</b>. Это <b>официально зафиксировано в Форме №1</b>: «животное не привито от бешенства согласно возраста».<br><br>
+      Для перелёта по России (внутренний рейс Победы Пулково → Владикавказ) щенку <b>достаточно ветпаспорта и Формы №1</b> — пакет документов <b>полный для его возраста</b>. Базовые прививки (чума, аденовироз, парагрипп, лептоспироз) и обработка от паразитов уже сделаны.<br><br>
+      <b>Поэтому и едем до 1 июля</b> — пока щенку нет 3 месяцев, не нужно ждать прививку от бешенства и карантин после неё.
+    </div>
+    <a class="btn" href="https://fsvps.gov.ru/puteshestvujushhim-s-pitomcami-vvoz-vyvo/instrukcija-kak-puteshestvovat-s-domashnim-zhivotnym-po-territorii-rossii/">🏛 Россельхознадзор: перевозка по России</a>
+    <a class="btn" href="https://fsvps.gov.ru/puteshestvujushhim-s-pitomcami-vvoz-vyvo/">🏛 Россельхознадзор: вывоз питомца</a>
+  </div>
+
   <!-- CHECKLIST -->
   <h2><span class="n">03</span> Что взять с собой</h2>
   <p class="note">⚠️ Лети налегке: багажа нет, ручная кладь у Победы крошечная (~36×30×27 см). Галочки сохранятся в телефоне.</p>
   <div class="chk" id="chk">
     <label><input type="checkbox"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="lt"><b>Загранпаспорт</b></span></label>
     <label><input type="checkbox"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="lt"><b>Распечатки билетов</b> (поезд + самолёт)</span></label>
-    <label><input type="checkbox"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="lt"><b>Переноски с Озона</b> (обе) + расходники — забрать утром 25-го</span></label>
+    <label><input type="checkbox"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="lt"><b>Заказ с Озона</b> (Невский 87/2): обе переноски + поилка, пелёнки, салфетки — забрать утром 25-го</span></label>
     <label><input type="checkbox"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="lt"><b>Доверенность от Тима</b> — забрать в Пушкине</span></label>
     <label><input type="checkbox"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="lt">Все <b>документы на щенка</b> от Ларисы (раздел 2)</span></label>
     <label><input type="checkbox"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="lt"><b>Немного корма</b> (даст Лариса) + перекус себе</span></label>
@@ -433,7 +518,7 @@
 
   <footer>
     Собрал и держит в актуальности <b>Клод</b> <span class="heart">— цифровой ассистент Тима</span>.<br>
-    Обновлено 21 июня 2026 · <a href="https://timzinin.com/sobaka/">timzinin.com/sobaka</a>
+    Обновлено 24 июня 2026 · <a href="https://timzinin.com/sobaka/">timzinin.com/sobaka</a>
   </footer>
 
 </div>
