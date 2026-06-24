@@ -78,6 +78,16 @@
   .pill{display:inline-block;background:var(--amber-soft);color:#8a5d08;font-weight:600;
     font-size:13px;padding:3px 10px;border-radius:999px;margin:2px 4px 2px 0;}
   strong.hl{background:#fff3bf;padding:0 4px;border-radius:4px;}
+  a{color:var(--coral);text-decoration:underline;text-underline-offset:3px;
+    text-decoration-thickness:1.5px;font-weight:600;}
+  a:hover{color:#b4380f;}
+  .src{list-style:none;padding:0;margin:6px 0 0;}
+  .src li{padding:12px 0;border-bottom:1px solid var(--line);}
+  .src li:last-child{border-bottom:none;}
+  .src a{display:inline;font-size:17px;}
+  .src .d{display:block;color:var(--muted);font-size:14px;margin-top:3px;}
+  .inline-src{font-size:14px;color:var(--muted);margin-top:10px;}
+  .inline-src a{font-size:14px;}
 </style>
 </head>
 <body>
@@ -135,6 +145,7 @@
     <div class="field"><span class="k">Страна назначения</span><span class="v">Грузия</span></div>
     <div class="field"><span class="k">Дата выезда из РФ</span><span class="v">26 июня 2026</span></div>
     <div class="field"><span class="k">Срок действия</span><span class="v">5 дней — оформить 22–26 июня</span></div>
+    <p class="inline-src">Порядок оформления Формы № 1 в «Меркурии»: <a href="https://help.vetrf.ru/wiki/%D0%9E%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%92%D0%A1%D0%94_%D0%BD%D0%B0_%D0%B6%D0%B8%D0%B2%D1%8B%D1%85_%D0%B6%D0%B8%D0%B2%D0%BE%D1%82%D0%BD%D1%8B%D1%85_%D0%BD%D0%B0_%D0%A1%D0%91%D0%91%D0%96_%D0%B2_%D0%9C%D0%B5%D1%80%D0%BA%D1%83%D1%80%D0%B8%D0%B9.%D0%93%D0%92%D0%AD" target="_blank" rel="noopener">справка ВетИС — оформление ВСД на живых животных</a>.</p>
   </section>
 
   <!-- ЖИВОТНОЕ -->
@@ -170,6 +181,7 @@
       <li><b>Акт приёма-передачи:</b> получатель — <b>Марк</b>, как уполномоченный представитель покупателя по доверенности (доверенность будет у Марка на руках).</li>
     </ul>
     <div class="ok">✅ Доверенность от Тима на Марка уже готова — Марк привезёт её с собой при получении щенка.</div>
+    <p class="inline-src">Правовая основа: перевозка животного доверенным лицом оформляется доверенностью по <a href="https://www.consultant.ru/document/cons_doc_LAW_5142/deb1e7bbc3371002688161fcfd76eafcd9c94c99/" target="_blank" rel="noopener">ГК РФ, ст. 185 «Общие положения о доверенности»</a> — простой письменной формы достаточно, собака считается имуществом.</p>
   </section>
 
   <!-- ВОПРОС К СББЖ -->
@@ -178,6 +190,7 @@
     <div class="warn">
       Так как собаку вывозит <b>не лично владелец, а доверенное лицо</b> (Марк по доверенности) — пожалуйста, уточните в вашей СББЖ: достаточно ли <b>доверенности на Марка</b>, или нужно <b>отдельное разрешение Россельхознадзора</b> на вывоз. Это снимает главный риск на границе.
     </div>
+    <p class="inline-src">По правилам Россельхознадзора при вывозе животного <b>без сопровождения владельца</b> может требоваться отдельное разрешение (оформляется через систему «Аргус»). Официально: <a href="https://fsvps.gov.ru/puteshestvujushhim-s-pitomcami-vvoz-vyvo/instrukcija-kak-puteshestvovat-s-zhivotnym-za-rubezh/" target="_blank" rel="noopener">Инструкция «Как путешествовать с животным за рубеж»</a> · <a href="https://fsvps.gov.ru/onlajn-forma-po-voprosam-vvoza-v-rossijskuju-federaciju-vyvoza-iz-rossijskoj-federacii-i-perevozki-po-territorii-rossijskoj-federacii-sobak-i-koshek-vladelcami-dlja-celej-otlichnyh-ot-predprinimatelsk/" target="_blank" rel="noopener">онлайн-форма Россельхознадзора по вывозу</a>.</p>
   </section>
 
   <!-- ЧЕКЛИСТ -->
@@ -191,6 +204,38 @@
       <li>Договор купли-продажи (покупатель — Тим)</li>
       <li>Акт приёма-передачи (получатель — Марк по доверенности)</li>
       <li>Уточнено в СББЖ про разрешение Россельхознадзора на вывоз</li>
+    </ul>
+  </section>
+
+  <!-- ОФИЦИАЛЬНЫЕ ИСТОЧНИКИ -->
+  <section>
+    <h2><span class="num">8</span>📎 Официальные источники</h2>
+    <p class="note">Можно открыть и прочитать первоисточник — все позиции подтверждены официальными ведомствами.</p>
+    <ul class="src">
+      <li>
+        <a href="https://fsvps.gov.ru/puteshestvujushhim-s-pitomcami-vvoz-vyvo/instrukcija-kak-puteshestvovat-s-zhivotnym-za-rubezh/" target="_blank" rel="noopener">Россельхознадзор — «Как путешествовать с животным за рубеж»</a>
+        <span class="d">Порядок вывоза, ветсертификаты Форма №1 → Форма 5а, требования стран назначения.</span>
+      </li>
+      <li>
+        <a href="https://fsvps.gov.ru/onlajn-forma-po-voprosam-vvoza-v-rossijskuju-federaciju-vyvoza-iz-rossijskoj-federacii-i-perevozki-po-territorii-rossijskoj-federacii-sobak-i-koshek-vladelcami-dlja-celej-otlichnyh-ot-predprinimatelsk/" target="_blank" rel="noopener">Россельхознадзор — онлайн-форма по вывозу собак и кошек</a>
+        <span class="d">В том числе вывоз <b>без сопровождения владельца</b> — разрешение через систему «Аргус».</span>
+      </li>
+      <li>
+        <a href="https://777.fsvps.gov.ru/oformlenie-domashnih-zhivotnyh-vyvozimyh-za-rubezh/" target="_blank" rel="noopener">Россельхознадзор (Москва) — оформление животных, вывозимых за рубеж</a>
+        <span class="d">Пошагово: Форма №1, графа «Получатель», особые отметки, маршрут.</span>
+      </li>
+      <li>
+        <a href="https://help.vetrf.ru/wiki/%D0%9E%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%92%D0%A1%D0%94_%D0%BD%D0%B0_%D0%B6%D0%B8%D0%B2%D1%8B%D1%85_%D0%B6%D0%B8%D0%B2%D0%BE%D1%82%D0%BD%D1%8B%D1%85_%D0%BD%D0%B0_%D0%A1%D0%91%D0%91%D0%96_%D0%B2_%D0%9C%D0%B5%D1%80%D0%BA%D1%83%D1%80%D0%B8%D0%B9.%D0%93%D0%92%D0%AD" target="_blank" rel="noopener">Справка ВетИС — оформление ВСД (Форма №1) в «Меркурии»</a>
+        <span class="d">Поля и порядок выписки ветеринарного свидетельства.</span>
+      </li>
+      <li>
+        <a href="https://www.consultant.ru/document/cons_doc_LAW_5142/deb1e7bbc3371002688161fcfd76eafcd9c94c99/" target="_blank" rel="noopener">ГК РФ, ст. 185 «Общие положения о доверенности»</a>
+        <span class="d">Правовая основа перевозки животного доверенным лицом (представителем).</span>
+      </li>
+      <li>
+        <a href="https://www.flypobeda.ru/services/perevozka-zhivotnykh" target="_blank" rel="noopener">«Победа» — правила перевозки питомцев</a>
+        <span class="d">Провоз животного в самолёте (рейс DP507), требования к переноске.</span>
+      </li>
     </ul>
   </section>
 
