@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Документы на щенка — инструкция для Ларисы</title>
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Документы на щенка корги — инструкция">
+<meta property="og:description" content="Что внести в Цербер и Форму №1: ИНН, паспортные данные, маршрут. Полная памятка по оформлению.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1410; --paper:#f6f1e8; --card:#fffdf9; --line:#e6ddcd;
+    --coral:#d6451c; --coral-soft:#fbe7df; --amber:#c98a14; --amber-soft:#fbf0d6;
+    --green:#2f7d4f; --green-soft:#e2f0e6; --muted:#7a7066;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Space Grotesk",-apple-system,system-ui,sans-serif;
+    font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px;}
+  .grain{position:fixed;inset:0;pointer-events:none;opacity:.04;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .wrap>*{position:relative;z-index:1;}
+  h1{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(30px,7vw,46px);
+    line-height:1.08;letter-spacing:-.02em;margin:.2em 0 .15em;}
+  h1 em{font-style:italic;color:var(--coral);}
+  .sub{color:var(--muted);font-size:16px;margin-bottom:8px;}
+  .tag{display:inline-block;background:var(--coral-soft);color:var(--coral);
+    font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+    padding:5px 12px;border-radius:999px;margin-bottom:18px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:22px 22px;margin:18px 0;}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:23px;letter-spacing:-.01em;
+    margin:0 0 14px;display:flex;align-items:center;gap:10px;}
+  .num{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:var(--ink);
+    color:var(--paper);font-family:"Space Grotesk";font-weight:700;font-size:16px;
+    display:flex;align-items:center;justify-content:center;}
+  .hero-answer{background:linear-gradient(135deg,#fff7f2,#fdeee4);
+    border:2px solid var(--coral);border-radius:20px;padding:24px 22px;margin:22px 0;}
+  .hero-answer .q{color:var(--coral);font-weight:700;font-size:15px;text-transform:uppercase;
+    letter-spacing:.04em;margin-bottom:8px;}
+  .hero-answer .a{font-family:"Fraunces",serif;font-size:clamp(22px,5vw,30px);
+    font-weight:600;line-height:1.2;margin:0 0 6px;}
+  .inn{display:inline-block;background:var(--ink);color:#fff;font-weight:700;
+    font-size:clamp(22px,6vw,32px);letter-spacing:.06em;padding:8px 18px;border-radius:12px;
+    margin:6px 0;font-family:"Space Grotesk";}
+  .note{color:var(--muted);font-size:16px;margin-top:10px;}
+  .field{border-bottom:1px dashed var(--line);padding:9px 0;display:flex;
+    flex-wrap:wrap;gap:4px 12px;align-items:baseline;}
+  .field:last-child{border-bottom:none;}
+  .field .k{color:var(--muted);font-size:15px;min-width:140px;flex:0 0 auto;}
+  .field .v{font-weight:600;}
+  .field .v.big{font-size:19px;}
+  .blank{color:var(--amber);font-weight:600;background:var(--amber-soft);
+    padding:1px 8px;border-radius:6px;font-size:15px;}
+  .who{border-left:4px solid var(--green);padding-left:14px;margin:14px 0;}
+  .who.carrier{border-left-color:var(--coral);}
+  .who h3{margin:0 0 8px;font-size:17px;font-family:"Space Grotesk";font-weight:700;}
+  .who .role{font-size:13px;text-transform:uppercase;letter-spacing:.04em;
+    font-weight:600;color:var(--green);}
+  .who.carrier .role{color:var(--coral);}
+  .warn{background:var(--coral-soft);border:1px solid #f1c4b6;border-radius:14px;
+    padding:16px 18px;margin:16px 0;}
+  .warn b{color:var(--coral);}
+  .ok{background:var(--green-soft);border:1px solid #bcdcc6;border-radius:14px;
+    padding:14px 18px;margin:14px 0;}
+  ul.check{list-style:none;padding:0;margin:6px 0 0;}
+  ul.check li{padding:8px 0 8px 30px;position:relative;border-bottom:1px solid var(--line);}
+  ul.check li:last-child{border-bottom:none;}
+  ul.check li::before{content:"☐";position:absolute;left:0;top:7px;font-size:19px;color:var(--coral);}
+  ul.dot{padding-left:20px;margin:8px 0;}
+  ul.dot li{margin-bottom:6px;}
+  .foot{text-align:center;color:var(--muted);font-size:14px;margin-top:36px;line-height:1.5;}
+  .pill{display:inline-block;background:var(--amber-soft);color:#8a5d08;font-weight:600;
+    font-size:13px;padding:3px 10px;border-radius:999px;margin:2px 4px 2px 0;}
+  strong.hl{background:#fff3bf;padding:0 4px;border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="wrap">
+
+  <span class="tag">🐾 Памятка по оформлению</span>
+  <h1>Документы на <em>щенка</em> — что оформить</h1>
+  <p class="sub">Для Ларисы · вельш-корги кардиган · вывоз в Грузию · выезд 26 июня</p>
+
+  <!-- ГЛАВНЫЙ ОТВЕТ -->
+  <div class="hero-answer">
+    <div class="q">❓ Чей ИНН вносить в «Цербер»</div>
+    <p class="a">ИНН владельца — <span style="color:var(--coral)">Тима Зинина</span></p>
+    <div class="inn">772320716802</div>
+    <p class="note">В «Цербер» / «Меркурий» животное привязывается к <b>собственнику</b>, а собственник — Тим. <b>Марк — только перевозчик</b>, он идёт по загранпаспорту, его ИНН не нужен и в систему не вносится.</p>
+  </div>
+
+  <!-- ЦЕРБЕР -->
+  <section>
+    <h2><span class="num">1</span>«Цербер» — привязка животного</h2>
+    <div class="field"><span class="k">Хозяйствующий субъект (владелец)</span><span class="v big">Зинин Тимофей Владимирович</span></div>
+    <div class="field"><span class="k">ИНН</span><span class="v big">772320716802</span></div>
+    <div class="field"><span class="k">Адрес</span><span class="v">г. Москва, Батайский проезд, д. 33, кв. 143</span></div>
+    <p class="note">Это нужно, чтобы в «Меркурии» можно было оформить ветсвидетельство на имя владельца.</p>
+  </section>
+
+  <!-- ФОРМА 1 -->
+  <section>
+    <h2><span class="num">2</span>Форма № 1 (в «Меркурии»)</h2>
+
+    <div class="who">
+      <span class="role">Владелец / собственник</span>
+      <h3>Зинин Тимофей Владимирович</h3>
+      <ul class="dot">
+        <li>Дата рождения: <b>14.03.1984</b>, место рождения: Московская обл.</li>
+        <li>Загранпаспорт РФ: <b>76 № 7983093</b> (выдан МВД 77118, 01.07.2022, действ. до 01.07.2032)</li>
+        <li>ИНН: <b>772320716802</b></li>
+      </ul>
+    </div>
+
+    <div class="who carrier">
+      <span class="role">Сопровождающее (перевозящее) лицо</span>
+      <h3>Горелик Марк Игоревич</h3>
+      <ul class="dot">
+        <li>Дата рождения: <b>10.11.2005</b>, место рождения: г. Москва</li>
+        <li>Загранпаспорт РФ: <b>76 № 9171737</b> (выдан МВД 77528, 31.10.2022, действ. до 31.10.2032)</li>
+      </ul>
+    </div>
+
+    <div class="warn">
+      ⚠️ <b>Самое важное:</b> в графе «сопровождающее (перевозящее) лицо» должен стоять <b>именно Марк</b>, а не владелец. На границе (Верхний Ларс) в окне «Ветконтроль» Форму № 1 меняют на экспортный сертификат <b>Форма 5а</b>, и сделать это вправе <b>только тот, кто указан в Форме № 1 как везущий животное</b>. Если там будет другой человек — обмен не пройдёт.
+    </div>
+
+    <div class="field"><span class="k">Страна назначения</span><span class="v">Грузия</span></div>
+    <div class="field"><span class="k">Дата выезда из РФ</span><span class="v">26 июня 2026</span></div>
+    <div class="field"><span class="k">Срок действия</span><span class="v">5 дней — оформить 22–26 июня</span></div>
+  </section>
+
+  <!-- ЖИВОТНОЕ -->
+  <section>
+    <h2><span class="num">3</span>Данные животного</h2>
+    <div class="field"><span class="k">Вид / порода</span><span class="v">Собака, вельш-корги кардиган</span></div>
+    <div class="field"><span class="k">Пол</span><span class="v">Сука</span></div>
+    <div class="field"><span class="k">Дата рождения</span><span class="v">01.04.2026</span></div>
+    <div class="field"><span class="k">Окрас</span><span class="v">Чёрно-белый</span></div>
+    <div class="field"><span class="k">Клеймо</span><span class="v big">MGB 930</span></div>
+    <div class="field"><span class="k">Микрочип №</span><span class="blank">из ветпаспорта — заполняет Лариса</span></div>
+    <div class="field"><span class="k">Ветпаспорт №</span><span class="blank">заполняет Лариса</span></div>
+    <div class="field"><span class="k">Метрика щенка (РКФ) №</span><span class="blank">заполняет Лариса</span></div>
+    <div class="field"><span class="k">Прививки</span><span class="v">Vanguard 27.05 + дегельминтизация</span></div>
+  </section>
+
+  <!-- МАРШРУТ -->
+  <section>
+    <h2><span class="num">4</span>Маршрут следования</h2>
+    <ul class="dot">
+      <li><b>Поезд:</b> Москва → Санкт-Петербург (Марк выезжает 24 июня)</li>
+      <li><b>Самолёт:</b> рейс <b>DP507 «Победа»</b>, Пулково (СПб) → Владикавказ, <b>26.06.2026</b>, вылет 07:35, прилёт 11:20</li>
+      <li><b>Далее:</b> Владикавказ → погранпереход <b>Верхний Ларс</b> → Грузия (Степанцминда)</li>
+    </ul>
+    <p class="note">Для справки маршрут можно указать кратко: «Пулково (СПб) → рейс DP507 во Владикавказ → погранпереход Верхний Ларс → Грузия».</p>
+  </section>
+
+  <!-- ДОГОВОР -->
+  <section>
+    <h2><span class="num">5</span>Договор + акт приёма-передачи</h2>
+    <ul class="dot">
+      <li><b>Договор купли-продажи:</b> продавец — Лариса; <b>покупатель и собственник — Тим (Зинин Т. В.)</b>. Марка отдельной стороной договора делать не нужно.</li>
+      <li><b>Акт приёма-передачи:</b> получатель — <b>Марк</b>, как уполномоченный представитель покупателя по доверенности (доверенность будет у Марка на руках).</li>
+    </ul>
+    <div class="ok">✅ Доверенность от Тима на Марка уже готова — Марк привезёт её с собой при получении щенка.</div>
+  </section>
+
+  <!-- ВОПРОС К СББЖ -->
+  <section>
+    <h2><span class="num">6</span>Уточнить на ветстанции</h2>
+    <div class="warn">
+      Так как собаку вывозит <b>не лично владелец, а доверенное лицо</b> (Марк по доверенности) — пожалуйста, уточните в вашей СББЖ: достаточно ли <b>доверенности на Марка</b>, или нужно <b>отдельное разрешение Россельхознадзора</b> на вывоз. Это снимает главный риск на границе.
+    </div>
+  </section>
+
+  <!-- ЧЕКЛИСТ -->
+  <section>
+    <h2><span class="num">7</span>Итоговый чек-лист</h2>
+    <ul class="check">
+      <li>В «Цербер» внесён владелец — Тим, <b>ИНН 772320716802</b></li>
+      <li>Форма № 1: владелец — Тим, <b>перевозящее лицо — Марк</b></li>
+      <li>В Форме № 1 указаны страна (Грузия), маршрут, дата выезда 26.06</li>
+      <li>Данные животного (клеймо MGB 930, чип, ветпаспорт, метрика)</li>
+      <li>Договор купли-продажи (покупатель — Тим)</li>
+      <li>Акт приёма-передачи (получатель — Марк по доверенности)</li>
+      <li>Уточнено в СББЖ про разрешение Россельхознадзора на вывоз</li>
+    </ul>
+  </section>
+
+  <p class="foot">
+    Подготовил Клод — цифровой ассистент Тима 🤖<br>
+    Если что-то поменяется, обновляю эту же страницу — ссылка прежняя.<br>
+    Вопросы по оформлению — Тиму.
+  </p>
+
+</div>
+</body>
+</html>
