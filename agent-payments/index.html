@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Платят агенты — x402 · ACP · AP2. Карта заработка на агентских платежах</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,700&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#171310;
+  --paper:#f5f1ea;
+  --paper-2:#ebe4d8;
+  --x402:#e84a24;      /* coral — x402 */
+  --x402-deep:#c5380e;
+  --acp:#1f4fd8;       /* blue — ACP */
+  --acp-deep:#1739a8;
+  --ap2:#1e7a3f;       /* green — AP2 */
+  --ap2-deep:#155c2e;
+  --amber:#e6a817;
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Manrope',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.65;
+  font-size:17px;
+  overflow-x:hidden;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+h1,h2,h3,.display{font-family:'Fraunces',serif;letter-spacing:-0.02em;line-height:1.06}
+
+/* ============ HERO ============ */
+.hero{background:var(--ink);color:var(--paper);position:relative;overflow:hidden;padding:56px 0 0}
+.hero .kicker{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.14em;opacity:.85;display:flex;gap:16px;flex-wrap:wrap}
+.hero h1{font-size:clamp(58px,15vw,200px);font-weight:900;line-height:.9;margin:24px 0 0;position:relative;z-index:2;text-align:left}
+.hero h1 .l1{display:block}
+.hero h1 .l2{display:block;color:var(--x402);margin-left:.7em}
+.hero .heroimg{position:relative;margin-top:-3vw;z-index:1}
+.hero .heroimg img{width:100%;display:block;filter:grayscale(.35) contrast(1.05);border-radius:20px 20px 0 0}
+.hero .sub{max-width:660px;font-size:clamp(18px,2.3vw,23px);font-weight:500;line-height:1.42;margin:30px 0 36px}
+.hero .sub em{font-style:italic;font-family:'Fraunces',serif}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 46px}
+.pill{background:var(--paper);color:var(--ink);border-radius:14px;padding:12px 18px;min-width:150px}
+.pill b{display:block;font-family:var(--mono);font-size:21px;font-weight:700;color:var(--x402-deep)}
+.pill span{font-size:12.5px;font-weight:600;opacity:.75;line-height:1.3;display:block}
+
+/* ============ VERDICT ============ */
+.verdict{background:var(--x402);color:var(--paper);padding:72px 0}
+.verdict .tag{color:var(--paper);opacity:.85}
+.verdict p.big{font-size:clamp(22px,3.2vw,33px);font-family:'Fraunces',serif;font-weight:700;line-height:1.3;max-width:940px}
+.verdict p.big .hl{background:var(--ink);padding:0 .18em;border-radius:6px}
+.verdict .sub-line{margin-top:22px;max-width:860px;opacity:.94;font-size:16.5px}
+
+/* ============ SECTIONS ============ */
+section{padding:100px 0 36px}
+.tag{font-family:var(--mono);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--x402-deep);display:block;margin-bottom:14px}
+h2{font-size:clamp(34px,5.2vw,58px);font-weight:900;margin-bottom:26px;max-width:900px}
+h2 em{font-style:italic}
+h3{font-size:22px;font-weight:800;margin:34px 0 12px}
+p{max-width:780px;margin-bottom:16px}
+p b{font-weight:800}
+ul.list{max-width:780px;margin:0 0 20px 0;list-style:none}
+ul.list li{padding:10px 0 10px 30px;position:relative;border-bottom:1px solid var(--paper-2)}
+ul.list li::before{content:'→';position:absolute;left:2px;color:var(--x402);font-weight:800}
+.note{border-left:4px solid var(--amber);background:var(--paper-2);border-radius:0 12px 12px 0;padding:18px 22px;max-width:780px;margin:24px 0;font-size:15.5px}
+.note.red{border-color:var(--x402)}
+.note.green{border-color:var(--ap2)}
+.note.blue{border-color:var(--acp)}
+a{color:var(--x402-deep);text-decoration-thickness:1px;text-underline-offset:3px}
+code,.m{font-family:var(--mono);font-size:.88em;background:var(--paper-2);border-radius:6px;padding:2px 7px}
+.imgband{margin:44px 0 8px;max-width:1000px}
+.imgband img{width:100%;border-radius:20px;display:block;filter:contrast(1.03)}
+.imgband figcaption{font-family:var(--mono);font-size:12.5px;opacity:.6;margin-top:10px}
+
+/* stack layers */
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px 0;max-width:1000px}
+@media(max-width:860px){.layers{grid-template-columns:1fr}}
+.layer{border-radius:18px;padding:26px 24px;color:var(--paper);position:relative;overflow:hidden}
+.layer.lx{background:var(--x402)}
+.layer.la{background:var(--acp)}
+.layer.lp{background:var(--ap2)}
+.layer .lv{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em;opacity:.85}
+.layer b.nm{display:block;font-family:'Fraunces',serif;font-size:30px;font-weight:900;margin:6px 0 2px}
+.layer .who{font-family:var(--mono);font-size:12.5px;opacity:.9;display:block;margin-bottom:12px}
+.layer p{font-size:14.5px;line-height:1.5;margin:0;max-width:none;opacity:.96}
+.layer .status{margin-top:14px;display:inline-block;background:rgba(0,0,0,.28);border-radius:999px;font-family:var(--mono);font-size:11.5px;padding:5px 12px;letter-spacing:.04em}
+
+/* forecast table */
+.tablewrap{overflow-x:auto;max-width:1000px;margin:28px 0}
+table.rank{width:100%;border-collapse:collapse;font-size:14.5px;background:#fff;border-radius:16px;overflow:hidden;min-width:680px}
+table.rank th{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;text-align:left;padding:13px 14px;background:var(--ink);color:var(--paper)}
+table.rank td{padding:12px 14px;border-top:1px solid var(--paper-2);vertical-align:top}
+table.rank td.num{font-family:var(--mono);font-weight:700;white-space:nowrap}
+table.rank tr.top td{background:#fdf3ec}
+
+/* thesis cards */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0;max-width:1000px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.fact{background:#fff;border-radius:16px;padding:24px}
+.fact .fh{font-family:var(--mono);font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acp);margin-bottom:10px}
+.fact p{font-size:15px;margin-bottom:0;max-width:none}
+
+/* protocol section headers */
+.psec{border-top:6px solid var(--ink);margin-top:60px}
+.psec.px{border-color:var(--x402)}
+.psec.pa{border-color:var(--acp)}
+.psec.pp{border-color:var(--ap2)}
+.psec .tag.tx{color:var(--x402-deep)}
+.psec .tag.ta{color:var(--acp-deep)}
+.psec .tag.tp{color:var(--ap2-deep)}
+
+/* idea cards */
+.idea{background:#fff;border-radius:20px;padding:26px 28px 20px;margin:18px 0;max-width:1000px;border:1px solid var(--paper-2);position:relative}
+.idea .ihead{display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
+.idea h3{margin:0;font-size:21px}
+.idea .price{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap}
+.idea .one{font-size:16px;font-weight:600;margin:8px 0 12px;max-width:none}
+.idea .meta{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px}
+@media(max-width:700px){.idea .meta{grid-template-columns:1fr}}
+.idea .meta div{padding:7px 0;border-top:1px dashed var(--paper-2)}
+.idea .meta b{font-weight:800}
+.badge{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;margin-left:6px;text-transform:uppercase;letter-spacing:.06em;vertical-align:middle}
+.badge.ok{background:#dff0e4;color:var(--ap2-deep)}
+.badge.warn{background:#fbeed2;color:#9a6d05}
+.badge.kill{background:#fbdcd2;color:var(--x402-deep)}
+.idea.vx .price{color:var(--x402-deep)}
+.idea.va .price{color:var(--acp-deep)}
+.idea.vp .price{color:var(--ap2-deep)}
+
+/* plan block */
+.plan{background:var(--ink);color:var(--paper);border-radius:24px;padding:46px;margin:40px 0;max-width:1000px}
+.plan .tag{color:var(--amber)}
+.plan h3{color:var(--paper);margin-top:0;font-size:26px}
+.plan ol{margin:16px 0 4px 22px}
+.plan ol li{margin-bottom:12px;font-size:15.5px}
+.plan p{max-width:none}
+.plan .gate{background:rgba(255,255,255,.08);border-radius:14px;padding:16px 20px;margin-top:18px;font-size:15px}
+.plan .gate b{color:var(--amber)}
+
+/* risk cards */
+.risk{background:#fff;border-radius:16px;padding:22px 24px;margin:14px 0;max-width:1000px;border-left:5px solid var(--x402)}
+.risk h4{font-size:16.5px;font-weight:800;margin-bottom:6px}
+.risk p{font-size:14.5px;margin:0;max-width:none}
+.risk.mid{border-color:var(--amber)}
+.risk.low{border-color:var(--ap2)}
+
+/* sources & footer */
+.sources{font-size:14px;columns:2;column-gap:36px;max-width:1000px}
+@media(max-width:760px){.sources{columns:1}}
+.sources li{margin-bottom:8px;break-inside:avoid}
+footer{background:var(--ink);color:var(--paper);padding:52px 0 64px;margin-top:100px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline}
+footer .fm{font-family:var(--mono);font-size:12.5px;opacity:.7}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker"><span>Ресёрч · 11 июля 2026</span><span>5 AI-агентов · 60+ источников</span><span>x402 · ACP · AP2</span></div>
+    <h1><span class="l1">ПЛАТЯТ</span><span class="l2">АГЕНТЫ</span></h1>
+    <p class="sub">Три протокола делят экономику, в которой ИИ-агенты <em>сами ищут, торгуются и платят</em>. Ниже — их реальное состояние без витринных цифр и 36 проектов с вердиктами: что строить сейчас, что проверять спросом, что придержать.</p>
+    <div class="hero-stats">
+      <div class="pill"><b>$3–5 трлн</b><span>прогноз McKinsey на объём agentic commerce к 2030</span></div>
+      <div class="pill"><b>+693%</b><span>рост genAI-трафика на сайты ритейла YoY — слой influence уже растёт</span></div>
+      <div class="pill"><b>$1.2M/мес</b><span>реальная органика x402 сегодня, ~50% из витрины — wash</span></div>
+      <div class="pill"><b>14%</b><span>потребителей готовы доверить ИИ покупку — trust-gap главный тормоз</span></div>
+      <div class="pill"><b>36 → 13</b><span>идей → BUILD NOW после адверсариал-фильтра</span></div>
+    </div>
+  </div>
+  <div class="wrap heroimg"><img src="img/hero.jpg" alt="Брутализм: бетонная архитектура"></div>
+</div>
+
+<!-- ================= VERDICT ================= -->
+<div class="verdict">
+  <div class="wrap">
+    <span class="tag">TL;DR — честный вердикт</span>
+    <p class="big">Автономная оплата агентами пока буксует: OpenAI свернул Instant Checkout, доверие потребителей — 14%. Но <span class="hl">слой discovery уже растёт трёхзначными темпами</span>, а мерчанты и B2B к нему не готовы. Деньги ближайших 6 месяцев — не в объёме микроплатежей, а в подготовке рынка: интеграции, аудиты, feed-работа, обучение — плюс дешёвые x402-эндпоинты, которые застолбят позицию до бума.</p>
+    <p class="sub-line">Из трёх протоколов принять деньги сегодня соло-разработчику реально только через x402 (USDC на Base, без Coinbase и KYC). ACP закрыт гео-гейтом (US-only + Stripe), AP2 — слой авторизации без собственного рельса, роль оператора закрыта под PCI-кошельки. Поэтому стратегия двойная: продавать услуги фиатом уже сейчас + держать x402-эндпоинты как ставку на кратный рост.</p>
+  </div>
+</div>
+
+<!-- ================= STACK ================= -->
+<section id="stack">
+  <div class="wrap">
+    <span class="tag">01 · Стек</span>
+    <h2>Три протокола — <em>три слоя</em>, а не три конкурента</h2>
+    <p>Рынок уже расставил стандарты по уровням: внизу — расчёты, в середине — оформление заказа, сверху — доверие и авторизация. Победителя-монополиста не будет; зарабатывать можно на каждом слое отдельно — и на «переводах» между ними.</p>
+    <div class="layers">
+      <div class="layer lx">
+        <span class="lv">Settlement · расчёты</span>
+        <b class="nm">x402</b>
+        <span class="who">Coinbase · Cloudflare · Linux Foundation</span>
+        <p>HTTP-код 402 ожил: сервер называет цену в USDC, агент подписывает платёж и повторяет запрос. Без аккаунтов, ключей и карт. 1–2 сек на Base, ~400 мс на Solana.</p>
+        <span class="status">ПРОД. Работает, органика мала</span>
+      </div>
+      <div class="layer la">
+        <span class="lv">Checkout · оформление</span>
+        <b class="nm">ACP</b>
+        <span class="who">Stripe · OpenAI · Microsoft</span>
+        <p>Стандарт корзины и передачи оплаты агентом: product feed, checkout-эндпоинты, Shared Payment Token. Живёт в ChatGPT-экосистеме и у Microsoft Copilot.</p>
+        <span class="status">ПРОД-ЧАСТИЧНО. Checkout свёрнут, спека жива</span>
+      </div>
+      <div class="layer lp">
+        <span class="lv">Authorization · доверие</span>
+        <b class="nm">AP2</b>
+        <span class="who">Google · FIDO Alliance · Visa · Mastercard</span>
+        <p>Криптографические мандаты Intent → Cart → Payment: агент не может потратить больше и не то, что подписал человек. Рельс чужой — карты или x402.</p>
+        <span class="status">ПИЛОТЫ. Спека в FIDO, масс-маркета нет</span>
+      </div>
+    </div>
+    <div class="note red"><b>Ключевой факт для планирования.</b> Единственный слой, где соло-разработчик с грузинским ИП может принять деньги <b>сегодня</b>, — x402: USDC на self-custody кошелёк Base через self-hosted фасилитатор (x402-rs / OpenFacilitator), без Coinbase и KYC. ACP требует US-мерчанта и Stripe (в Грузии недоступен). AP2-роль Credentials Provider закрыта под PCI-кошельки уровня PayPal и Google Wallet.</div>
+  </div>
+</section>
+<!-- ================= FORECASTS ================= -->
+<section id="forecasts">
+  <div class="wrap">
+    <span class="tag" style="color:var(--acp-deep)">02 · Прогнозы аналитиков</span>
+    <h2>Что обещают McKinsey, Gartner и Bain — <em>и почему разброс 35×</em></h2>
+    <p>Прогнозы расходятся от $144 млрд до $5 трлн — не потому, что кто-то ошибается, а потому, что каждый считает под словом «agentic» разное: от прямых продаж на AI-платформах до всего «оркестрированного» агентами объёма вместе с логистикой и платежами.</p>
+    <div class="tablewrap">
+      <table class="rank">
+        <tr><th>Источник</th><th>Метрика и горизонт</th><th>Прогноз</th><th>Что входит</th></tr>
+        <tr class="top"><td class="num">McKinsey<br>окт 2025</td><td>Глобальный объём к 2030</td><td><b>$3–5 трлн</b>; $1 трлн US-retail</td><td>Самая широкая рамка: товары + B2B + логистика + платёжная инфраструктура</td></tr>
+        <tr><td class="num">Gartner<br>окт 2025</td><td>Доля B2B-закупок к 2028</td><td><b>90% B2B</b>, &gt;$15 трлн спенда</td><td>Закупки с участием агентов; +33% enterprise-приложений с агентами</td></tr>
+        <tr><td class="num">Bain<br>дек 2025</td><td>США к 2030</td><td><b>$300–500 млрд</b> = 15–25% e-comm</td><td>Узкое определение: AI-поиск не считается. Первыми — commodity, потом apparel и travel</td></tr>
+        <tr><td class="num">Morgan Stanley</td><td>US e-comm к 2030</td><td>$190–385 млрд (10–20%)</td><td>Только потребительский e-commerce США</td></tr>
+        <tr><td class="num">Juniper<br>апр 2026</td><td>Глобальный спенд к 2030</td><td>$1.5 трлн</td><td>Консервативнее McKinsey</td></tr>
+        <tr><td class="num">eMarketer</td><td>Прямые продажи на AI-платформах к 2029</td><td>$144 млрд</td><td>Самая узкая рамка — только чек внутри AI-интерфейсов</td></tr>
+        <tr><td class="num">Everest Group</td><td>Transaction volume к 2030</td><td>$3–5 трлн</td><td>Procurement + подписки + travel + B2B settlement</td></tr>
+      </table>
+    </div>
+    <h3>Что растёт уже сейчас (факты, не прогнозы)</h3>
+    <ul class="list">
+      <li><b>AI-influence на продажи — реальные деньги сегодня:</b> в праздники-2025 ИИ повлиял на 20% ритейл-продаж — $262 млрд «influenced» (Salesforce); genAI-трафик на сайты ритейла <b>+693% YoY</b>, его конверсия в 9 раз выше соцсетей.</li>
+      <li><b>Walmart:</b> +35% средний чек в агентных сценариях; Pandora/SharkNinja: +59% рост AI-канала.</li>
+      <li><b>Крипто-рельс x402 — единственный, где агентские транзакции реально ходят:</b> 169 млн платежей кумулятивно, но органика ~$1.2M/мес и ~половина витринного счётчика — wash-трейдинг (Artemis).</li>
+      <li><b>Автономный чекаут буксует:</b> OpenAI закрыл Instant Checkout в марте 2026 — живыми стали &lt;15 Shopify-мерчантов из «миллиона», конверсия в чате втрое ниже сайта. Forrester: «hype is running ahead of behavior».</li>
+    </ul>
+    <h3>Барьеры, из-за которых рост сместится вправо</h3>
+    <div class="grid2">
+      <div class="fact"><div class="fh">Доверие</div><p>65% доверяют ИИ сравнивать товары, но лишь <b>14% — совершать покупку</b>. Accenture (25 590 чел., 16 стран): полностью автономную покупку одобряют 9%, автономию на оплате — 12%.</p></div>
+      <div class="fact"><div class="fh">Надёжность</div><p>Галлюцинации и ошибки — барьер №1 по опросам (55%, Futurum). Один неправильный заказ агента = потерянный клиент навсегда.</p></div>
+      <div class="fact"><div class="fh">Фрод и ответственность</div><p>Visa и Mastercard ждут роста AI-identity-атак и синтетических ID в 2026. Кто отвечает за ошибку агента — юридически не решено (IMF, апр 2026). Chargeback в блокчейне отсутствует.</p></div>
+      <div class="fact"><div class="fh">Готовность мерчантов</div><p>85% энтерпрайзов набирают &lt;40/100 по индексу agent-readiness. Bain: 30–45% используют genAI для ресёрча, но к end-to-end транзакции не готово большинство. <b>Это не барьер — это рынок услуг.</b></p></div>
+    </div>
+    <div class="note"><b>Опорный тезис для 6-месячной ставки.</b> Не ставить на «агенты купят за людей» — это история 2027–2030. Ставить на измеримую волну H2 2026: influence-трафик растёт трёхзначными процентами, мерчанты и B2B не готовы — спрос на инструменты, интеграции и консалтинг есть уже сейчас. Плюс дёшево застолбить x402-позиции до созревания рельса.</div>
+    <figure class="imgband"><img src="img/blocks.jpg" alt="Бетонные блоки — слои протоколов"><figcaption>Стек агентских платежей собирается как эти блоки: расчёты внизу, доверие сверху. Зазоры между слоями — и есть ниши.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= X402 ================= -->
+<section id="x402" class="psec px">
+  <div class="wrap">
+    <span class="tag tx">03 · Трек x402 — Coinbase / Cloudflare / Linux Foundation</span>
+    <h2>x402: единственный рельс, <em>который уже платит</em></h2>
+    <p><b>Статус июль 2026.</b> Органика на плато: $1.2M/мес на всю экосистему, ~50% витринных транзакций — wash (Artemis). Дневные транзакции выросли на 321% за 3 месяца (до 672 800/день) — но средний чек упал до $0.11: рост дают микроплатежи Travala и wash, не долларовый объём. Институционализация идёт: с апреля протокол под Linux Foundation (Google, Microsoft, Visa, AWS, Stripe), Fiserv вошёл charter-членом, AWS CloudFront получил нативную поддержку x402, Cloudflare открыл waitlist Monetization Gateway — включая плату за MCP-инструменты.</p>
+    <ul class="list">
+      <li><b>Кто зарабатывает:</b> LLM-прокси blockrun.ai ~$25k/мес (принимает USDC, форвардит в GPT/Claude/Gemini за cost+5%); Virtuals Protocol $34.8k/день объёма при двух продавцах; кастомные data-API $1.5–2.4k/мес. Категории всего две: данные и inference.</li>
+      <li><b>Находимость сломана — это главная дыра:</b> non-CDP эндпоинты фактически не индексируются в Bazaar (подтверждено GitHub issue #2112), органического трафика «выставил эндпоинт — агенты пришли» не существует. Сам Coinbase зовёт Bazaar «стадией Yahoo Search».</li>
+      <li><b>Приём без KYC подтверждён:</b> self-hosted фасилитатор x402-rs или OpenFacilitator + self-custody кошелёк Base. Stripe-вариант x402 — только для US-бизнесов. Узкое место — off-ramp USDC в фиат.</li>
+    </ul>
+    <div class="note red"><b>Следствие для всех идей ниже:</b> «построю эндпоинт — агенты сами найдут и заплатят» пока не работает. Эндпоинты строим дёшево (1 сессия) как витрину, ставку на рост и лид-магнит; живые деньги первых месяцев приходят от услуг фиатом.</div>
+
+    <h3 style="font-size:26px;margin-top:48px">12 проектов на x402</h3>
+
+    <div class="idea vx"><div class="ihead"><h3>1 · TTS-эндпоинт за 402 <span class="badge ok">BUILD NOW</span></h3><span class="price">~$50–400/мес · 1 сессия</span></div>
+      <p class="one">Self-hosted синтез речи (в ~7 раз дешевле OpenAI TTS) за микроплату USDC — компьют-услуга, одна из двух реально денежных категорий.</p>
+      <div class="meta"><div><b>Кто платит:</b> агенты и мелкие dev-команды, которым нужен голос per-call без подписки и выдачи ключей</div><div><b>MVP:</b> обернуть готовый TTS в x402-middleware + self-hosted фасилитатор, цена $0.002–0.01 за 1000 знаков</div><div><b>Ставка 10×:</b> озвучка — тяжёлый recurring-расход агентов; при буме уже стоишь с дешёвым эндпоинтом и историей сеттлментов</div><div><b>Риски:</b> агентский спрос на TTS не доказан; Bazaar не проиндексирует — трафик приводить руками</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>2 · RU-data API: труднодоступные данные за $0.01 <span class="badge ok">BUILD NOW</span></h3><span class="price">~$100–600/мес · 1–2 сессии</span></div>
+      <p class="one">Парсеры труднодоступных русскоязычных данных (рынок труда, зарплаты, компании) как платный data-API — данные это 30.9% активности экосистемы и главная денежная категория.</p>
+      <div class="meta"><div><b>Кто платит:</b> RU/CIS-разработчики агентов, HR-tech, аналитические боты — западные API этих данных не дают</div><div><b>MVP:</b> FastAPI + x402-middleware поверх готовых парсеров, 5–10 эндпоинтов, $0.01 базовый / $0.25 обогащённый</div><div><b>Ставка 10×:</b> уникальный дата-моат; при росте агентской аналитики — дефицитный поставщик RU-сегмента</div><div><b>Риски:</b> легальность парсинга источников; узкий круг покупателей — искать руками</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>3 · «x402 под ключ за вечер» — B2B-интеграция <span class="badge ok">BUILD NOW</span></h3><span class="price">$500–3000/мес · деньги фиатом</span></div>
+      <p class="one">Done-for-you: подключаю SaaS/API/боту приём агентских платежей без Coinbase и KYC. Клиент платит фиатом сегодня — доход не зависит от объёма самого x402.</p>
+      <div class="meta"><div><b>Кто платит:</b> основатели SaaS и API, которые слышали про агентскую экономику и хотят рубильник, не разбираясь в EIP-3009</div><div><b>MVP:</b> шаблон-репозиторий (middleware + фасилитатор + кошелёк + off-ramp-заметка) + оффер через действующую консалтинг-практику. $300–1500 за интеграцию</div><div><b>Ставка 10×:</b> при буме ты «тот, кто ставит x402» в RU/CIS-диаспоре — поток растёт вместе с рынком</div><div><b>Риски:</b> спрос на консалтинг именно по x402 валидировать первыми 10 DM; протокольный риск несёт клиент</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>4 · Платные MCP-инструменты на живом маркетплейсе <span class="badge warn">PROBE</span></h3><span class="price">$0–150/мес · 1 сессия</span></div>
+      <p class="one">Обернуть 1–2 премиум-инструмента живого MCP-сервиса в pay-per-call — Cloudflare прямо позиционирует «charge for MCP tools» как категорию.</p>
+      <div class="meta"><div><b>Кто платит:</b> агенты, дёргающие premium-tools (расширенный поиск, выдача профилей)</div><div><b>MVP:</b> x402-gate перед премиум-эндпоинтами, бесплатный слой не трогать</div><div><b>Ставка 10×:</b> готовый рубильник монетизации каждого инструмента при MCP-экономике</div><div><b>Риски:</b> агентский трафик пока мал; каннибализация бесплатного онбординга. Ценность — референс-кейс, не выручка</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>5 · Фасилитатор-сервис «приём без Coinbase» для RU/CIS <span class="badge warn">PROBE</span></h3><span class="price">$100–800/мес · 1–2 сессии</span></div>
+      <p class="one">Хостить x402-rs фасилитатор + гайд, продавать сегменту с теми же KYC-ограничениями: «решённый приём + off-ramp» как сервис.</p>
+      <div class="meta"><div><b>Кто платит:</b> RU/CIS-девы и SaaS, отрезанные от CDP-KYC</div><div><b>MVP:</b> x402-rs на VPS + регистрация эндпоинтов + лендинг; setup-fee + небольшой rev-share</div><div><b>Ставка 10×:</b> дефолтный фасилитатор сегмента при росте RU/CIS-предложения агентских API</div><div><b>Риски:</b> чужой сеттлмент = операционный и комплаенс-риск; начать с 2–3 пилотов на своём фасилитаторе</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>6 · «Находимость» для x402-эндпоинтов <span class="badge warn">PROBE</span></h3><span class="price">$100–600/мес · 1 сессия на плейбук</span></div>
+      <p class="one">Платная услуга: сделать чужой эндпоинт находимым — Bazaar-регистрация, метаданные, листинги, MCP-каталоги. Боль задокументирована в issue-трекере протокола.</p>
+      <div class="meta"><div><b>Кто платит:</b> продавцы, у которых «8 платежей прошло, а в каталоге нас нет»</div><div><b>MVP:</b> плейбук находимости + done-for-you, предложить продавцам из issue-трекеров</div><div><b>Ставка 10×:</b> находимость — узкое место всей экосистемы</div><div><b>Риски:</b> Bazaar может починить индексацию и закрыть нишу; рынок продавцов пока мал</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>7 · RU-verify API: проверка юрлиц за микроплату <span class="badge warn">PROBE</span></h3><span class="price">$50–300/мес · 1 сессия</span></div>
+      <p class="one">Узкий verify/enrich-эндпоинт по русскоязычным юрлицам (ИНН/ОГРН/арбитраж) per-lookup — verify-запросы высокочастотны у агентов.</p>
+      <div class="meta"><div><b>Кто платит:</b> агенты-скоринг, KYB-боты, due-diligence по RU-контрагентам</div><div><b>MVP:</b> обёртка открытых реестров + x402, вторым эндпоинтом внутри data-API (идея 2)</div><div><b>Ставка 10×:</b> RU-ниша verify дефицитна</div><div><b>Риски:</b> легальность источников; спрос узкий</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>8 · Open-source «x402-paywall за 5 минут» с RU-доками <span class="badge warn">PROBE</span></h3><span class="price">лид-магнит · 1 сессия</span></div>
+      <p class="one">Стартер-репозиторий (FastAPI/Node + фасилитатор + примеры) — бесплатный магнит, воронка в интеграции «под ключ» (идея 3).</p>
+      <div class="meta"><div><b>Кто платит:</b> напрямую никто; конвертит в консалтинг и авторитет</div><div><b>MVP:</b> причесать шаблон из идеи 3, RU+EN доки, листинг в awesome-x402</div><div><b>Ставка 10×:</b> «go-to RU x402 boilerplate» = источник лидов при буме</div><div><b>Риски:</b> бесплатные конкуренты; прямой выручки нет — только воронка</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>9 · Нишевый LLM-прокси за x402 <span class="badge kill">PARK</span></h3><span class="price">$0–300/мес · маржа 5%</span></div>
+      <p class="one">Модель blockrun (cost+5%) с RU/GEO-нишей. Потолок категории доказан ($25k/мес), но маржа тонкая и есть ToS-риск перепродажи апстрима.</p>
+      <div class="meta"><div><b>Почему PARK:</b> демпинг-война с blockrun, ToS провайдеров, органики без Bazaar нет</div><div><b>Когда вернуться:</b> если появится собственный ключ/биллинг и нишевой спрос</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>10 · Контент-фабрика pay-per-artifact <span class="badge kill">PARK</span></h3><span class="price">$0–100/мес</span></div>
+      <p class="one">Оплата USDC за сгенерированный пост/лендинг/SEO-артефакт. Агентская готовность платить за контент не доказана; людям удобнее подписки.</p>
+      <div class="meta"><div><b>Почему PARK:</b> спрос гипотетический, конкуренция с бесплатными LLM</div><div><b>Когда вернуться:</b> при первых сигналах агентских закупок контент-модулей</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>11 · Paywall на премиум-ресёрчи <span class="badge kill">PARK</span></h3><span class="price">$0–50/мес</span></div>
+      <p class="one">Продавать исследования (как это) за USDC-микроплату. Новизна без денег — максимум демо-витрина для интеграционного оффера.</p>
+      <div class="meta"><div><b>Почему PARK:</b> покупателей нет; человек предпочтёт бесплатное</div><div><b>Когда вернуться:</b> как демо в составе идеи 3</div></div></div>
+
+    <div class="idea vx"><div class="ihead"><h3>12 · Вертикальный MCP-протокол (модель Travala) <span class="badge kill">PARK</span></h3><span class="price">требует капитала и инвентаря</span></div>
+      <p class="one">Свой end-to-end агентский сервис в вертикали с оплатой x402 — как Travala с 2.2M отелей. Главный драйвер июньского всплеска, но нужны инвентарь и партнёрства.</p>
+      <div class="meta"><div><b>Почему PARK:</b> неподъёмно соло за 1–3 сессии — нужна база предложения</div><div><b>Когда вернуться:</b> при партнёре с готовым инвентарём</div></div></div>
+
+    <figure class="imgband"><img src="img/spheres.jpg" alt="Металлические сферы — рой агентов"><figcaption>672 800 транзакций в день при среднем чеке $0.11 — рой уже шевелится, но платит пока центы.</figcaption></figure>
+  </div>
+</section>
+<!-- ================= ACP ================= -->
+<section id="acp" class="psec pa">
+  <div class="wrap">
+    <span class="tag ta">04 · Трек ACP — Stripe / OpenAI / Microsoft</span>
+    <h2>ACP: чекаут свернули — <em>рынок услуг остался</em></h2>
+    <p><b>Статус июль 2026, противоречие разрешено.</b> OpenAI действительно откатил Instant Checkout в марте 2026: из «миллиона Shopify-мерчантов» живыми стали меньше 15, конверсия в чате оказалась втрое ниже сайта мерчанта (данные Walmart), не решили sales tax, антифрод и синк остатков. Но сам протокол ACP жив и развивается: спека 2026-04-17 (cart, feed, orders, auth, MCP), 5 релизов за 7 месяцев, governance OpenAI+Stripe. Новая модель — «discover in AI, buy on your site»: витрины-приложения в ChatGPT (Walmart, Etsy, Sephora, DoorDash, Instacart, CarMax, Lowe's, Expedia), а чекаут — на инфраструктуре мерчанта.</p>
+    <ul class="list">
+      <li><b>Пока OpenAI отступал, конкуренты наступали:</b> Perplexity «Buy with Pro» — in-chat чекаут через PayPal, 5000+ мерчантов; Microsoft Copilot Checkout — live в США (внедрил и ACP, и UCP); Google Gemini + Walmart — через собственный UCP; Amazon «Buy for Me» — ~70% Prime-ассортимента. Рынок фрагментирован — «переводчики» между протоколами нужны всем.</li>
+      <li><b>GMV не раскрывает никто</b> — ни OpenAI, ни Stripe, ни Perplexity. Любые «$X GMV agentic commerce» в прессе — оценки, не отчётность.</li>
+      <li><b>Гео-гейт:</b> мерчанты и покупатели — только США; Stripe в Грузии недоступен, Shopify Payments тоже. Прямой путь в мерчанты закрыт.</li>
+      <li><b>Рынок услуг вокруг ACP уже оформился и платит:</b> feed-подготовка (Salsify, Syndigo, Akeneo, Productsup), agent-readiness стартапы (Wildcard, Sitefire — оба YC), checkout-execution (Firmly $5.2M, Rye). Прайс AEO/GEO-услуг: entry $1–2.5k/мес, mid $2–8k/мес, enterprise $10–25k+/мес.</li>
+    </ul>
+    <div class="note blue"><b>Сдвиг рамки, который всё меняет:</b> не нужно быть ACP-мерчантом — нужно обслуживать тех, кто им становится. Грузинское ИП выставляет счета за услуги мерчантам US/EU фиатом: проблема «Stripe в Грузии» исчезает, KYC-риска нет. Это самый чистый трек из трёх.</div>
+
+    <h3 style="font-size:26px;margin-top:48px">12 проектов на ACP</h3>
+
+    <div class="idea va"><div class="ihead"><h3>1 · AEO/GEO-ретейнер для мерчантов <span class="badge ok">BUILD NOW</span></h3><span class="price">$2–4k/мес · 2–3 сессии</span></div>
+      <p class="one">Done-for-you: чтобы магазин цитировался и рекомендовался в ChatGPT/Perplexity/Gemini. Рыночный якорь цены уже есть: $2–8k/мес mid-market.</p>
+      <div class="meta"><div><b>Кто платит:</b> DTC-бренды и агентства, чей трафик уходит в AI-ответы</div><div><b>MVP:</b> упаковать имеющийся GEO/LLMO-опыт в оффер + лендинг + дашборд видимости SKU</div><div><b>Ставка 10×:</b> масштаб в агентство; genAI-трафик растёт +693% YoY — спрос догоняет</div><div><b>Риски:</b> длинный sales-cycle; конкуренты (Wildcard, Sitefire) — но рынок непрозрачный, вход по экспертности открыт</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>2 · Feed Readiness Scanner — аудит фида за $150–500 <span class="badge ok">BUILD NOW</span></h3><span class="price">$500–2000/мес · 1–2 сессии</span></div>
+      <p class="one">Автоаудит каталога магазина против требований ACP/UCP (обязательные поля, availability, GTIN, политики) со скором и fix-листом. Бесплатный скан — лид-магнит, фикс — апселл.</p>
+      <div class="meta"><div><b>Кто платит:</b> Shopify/Woo-мерчанты, желающие видимости в ChatGPT и Gemini</div><div><b>MVP:</b> краулер фида + проверка полей по спеке + отчёт-страница</div><div><b>Ставка 10×:</b> становится стандартным «agent-readiness scan» — как когда-то SEO-аудит</div><div><b>Риски:</b> спросовый; санкционных нет</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>3 · Массовый рерайт каталогов «под агентов» <span class="badge ok">BUILD NOW</span></h3><span class="price">$200–1000 за каталог · 1–2 сессии</span></div>
+      <p class="one">Batch-переписывание title/description по принципу «пиши для агента, не для SEO» — $0.10–0.50 за SKU, каталог на 2000 SKU = $200–1000 разово плюс рекуррент на обновления.</p>
+      <div class="meta"><div><b>Кто платит:</b> магазины с «тонкими» описаниями, невидимые для LLM-рекомендаций</div><div><b>MVP:</b> batch-пайплайн на готовой контент-фабрике</div><div><b>Ставка 10×:</b> масштабирование пайплайна на агентства</div><div><b>Риски:</b> коммодитизируемо — держаться за нишу и скорость</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>4 · Воркшоп «Подготовь магазин к AI-шопингу» <span class="badge ok">BUILD NOW</span></h3><span class="price">$500–3000 за когорту · 1 сессия</span></div>
+      <p class="one">Платный вебинар/когорта для RU/CIS-предпринимателей и диаспоры: как попасть в выдачу AI-ассистентов до конкурентов.</p>
+      <div class="meta"><div><b>Кто платит:</b> владельцы e-com бизнеса, $50–300 за место</div><div><b>MVP:</b> дек + лендинг на базе этого ресёрча</div><div><b>Ставка 10×:</b> образовательный бренд по теме + воронка в ретейнер</div><div><b>Риски:</b> осведомлённость аудитории пока низкая — продавать через страх отставания</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>5 · Лид-магнит «готов ли магазин к агентам» + контент-движок <span class="badge ok">BUILD NOW</span></h3><span class="price">кормит идеи 1–4 · 1 сессия</span></div>
+      <p class="one">Бесплатный мини-скан + серия GEO-статей, закрывающих поисковый спрос «как попасть в ChatGPT-рекомендации». Верх воронки для всех платных услуг трека.</p>
+      <div class="meta"><div><b>Кто платит:</b> напрямую никто — конвертит в услуги</div><div><b>MVP:</b> связка скан-формы и контент-фабрики</div><div><b>Ставка 10×:</b> органический канал в самой быстрорастущей теме e-com</div><div><b>Риски:</b> минимальные</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>6 · Атрибуция агентских заказов <span class="badge ok">BUILD NOW / PROBE</span></h3><span class="price">$49–199/мес за мерчанта · 2–3 сессии</span></div>
+      <p class="one">Webhook-ingestion + дашборд заказов из AI-каналов. У агентских транзакций нет click-данных — атрибуция признана нерешённой болью на 18–24 месяца вперёд.</p>
+      <div class="meta"><div><b>Кто платит:</b> мерчант, не видящий канал, из которого приходят заказы</div><div><b>MVP:</b> FastAPI-вебхуки + дашборд — ровно готовый стек</div><div><b>Ставка 10×:</b> сильная — дыра признана всей индустрией</div><div><b>Риски:</b> нужен доступ к order-events мерчанта — проверить на первом пилоте</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>7 · ACP Merchant Server — FastAPI-шаблон + внедрение <span class="badge warn">PROBE</span></h3><span class="price">$500–2000 за интеграцию · 2–3 сессии</span></div>
+      <p class="one">Open-source ACP-эндпоинты (cart/feed/delegate-payment/orders) как Docker-шаблон; продажа внедрения кастомным платформам вне Shopify-экосистемы.</p>
+      <div class="meta"><div><b>Кто платит:</b> кастомные e-com платформы без авто-интеграции</div><div><b>MVP:</b> реализовать спеку по OpenAPI</div><div><b>Ставка 10×:</b> go-to ACP-адаптер для «всех остальных»</div><div><b>Риски:</b> мерчанту нужен свой Stripe/PayPal; спека дрейфует — 5 версий за 7 месяцев</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>8 · Трекер «State of Agentic Commerce» <span class="badge warn">PROBE</span></h3><span class="price">авторитет + инбаунд · 1–2 сессии</span></div>
+      <p class="one">Живая честная витрина: платформа / протокол / live или нет / GMV раскрыт или нет. Продолжение этого ресёрча как цитируемый reference.</p>
+      <div class="meta"><div><b>Кто платит:</b> косвенно — инбаунд на консалтинг, возможен спонсор из инфра-вендоров</div><div><b>MVP:</b> страница на GitHub Pages + регулярное обновление</div><div><b>Ставка 10×:</b> цитируемость в LLM-ответах = бесплатные лиды годами</div><div><b>Риски:</b> поддержка актуальности</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>9 · Feed Generator: CSV → валидный ACP/UCP JSON <span class="badge warn">PROBE</span></h3><span class="price">$19–99/мес · 2 сессии</span></div>
+      <p class="one">Микро-SaaS/CLI: превратить выгрузку любой платформы в валидный агентский фид + хостинг фида.</p>
+      <div class="meta"><div><b>Кто платит:</b> non-Shopify мерчанты и агентства</div><div><b>MVP:</b> конвертер + валидатор + хостинг</div><div><b>Ставка 10×:</b> инфраструктурная привычка — подписка навсегда</div><div><b>Риски:</b> Shopify делает это автоматически — таргет только «все остальные»</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>10 · Реселл checkout-execution API (Firmly/Rye) <span class="badge warn">PROBE</span></h3><span class="price">$500–1500 setup · 2 сессии</span></div>
+      <p class="one">Стать внедренцем-партнёром чужого «Buy Now across AI»-API: setup-fee + маржа, без собственной платёжной инфраструктуры.</p>
+      <div class="meta"><div><b>Кто платит:</b> мерчант за подключение</div><div><b>MVP:</b> коннектор + оффер</div><div><b>Ставка 10×:</b> партнёрский канал при росте платформ</div><div><b>Риски:</b> зависимость от вендора и его partner-terms</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>11 · Spec-diff бот: мониторинг дрейфа ACP/UCP <span class="badge warn">PROBE / PARK</span></h3><span class="price">$0–300/мес · 1–2 сессии</span></div>
+      <p class="one">Подписка следит за GitHub-спеками (5 версий за 7 месяцев!) и алертит, когда чья-то интеграция протухла.</p>
+      <div class="meta"><div><b>Кто платит:</b> dev-команды с живыми ACP-интеграциями</div><div><b>MVP:</b> GitHub-watcher + дайджест в мессенджер</div><div><b>Ставка 10×:</b> растёт с числом интеграций в мире</div><div><b>Риски:</b> рынок подписчиков пока крошечный</div></div></div>
+
+    <div class="idea va"><div class="ihead"><h3>12 · MCP-витрина RU/CIS-каталогов для агентов <span class="badge kill">PARK</span></h3><span class="price">$0–500 · 2 сессии</span></div>
+      <p class="one">Выставить русскоязычные каталоги агентам через MCP на базе готовых парсеров. Рынок RU-агентской коммерции ещё не созрел.</p>
+      <div class="meta"><div><b>Почему PARK:</b> платёжный и санкционный фрикшн, незрелость спроса</div><div><b>Когда вернуться:</b> при появлении RU-LLM-коммерции с деньгами</div></div></div>
+  </div>
+</section>
+
+<!-- ================= AP2 ================= -->
+<section id="ap2" class="psec pp">
+  <div class="wrap">
+    <span class="tag tp">05 · Трек AP2 — Google / FIDO / Visa / Mastercard</span>
+    <h2>AP2: рельс будущего — <em>деньги в подготовке к нему</em></h2>
+    <p><b>Статус июль 2026.</b> AP2 — слой авторизации, не платёжный рельс: мандаты Intent → Cart → Payment, подписанные ECDSA. В апреле Google передал протокол в FIDO Alliance (v0.2.0, Human-Not-Present, Verifiable Intent с Mastercard). Живые деньги — точечно: PayPal Conversational Commerce, пилот Mastercard Agent Pay, «сотни контролируемых транзакций» у Visa, первый европейский end-to-end платёж (Worldline + ING, июнь). На I/O 2026 показаны Gemini Spark и Universal Cart (Nike, Sephora, Target, Walmart, Wayfair) — раскатка по США «этим летом». Массового прода нет.</p>
+    <ul class="list">
+      <li><b>Роль оператора закрыта:</b> Credentials Provider = PCI-регулируемый кошелёк (PayPal, Google Wallet, Coinbase). Merchant Endpoint технически открыт, но платёж замыкается на регулируемого провайдера. Прямой заработок на рельсах — недоступен.</li>
+      <li><b>Репозиторий honest-check:</b> 3.1k звёзд, но всего 54 коммита — это reference, не платформа. PyPI-пакета нет, официального sandbox нет. Крипто-расширение a2a-x402 стоит на v0.1.0 с сентября — маркетинг «production-ready» опережает код.</li>
+      <li><b>Самый горячий смежный рынок — KYA (Know Your Agent):</b> Vouched, Sumsub, Visa TAP, ERC-8004 — каждая крупная сеть выкатила примитив верификации агентов. Аналитики сравнивают момент с FATF Travel Rule 2019: «table stakes» ближайших лет.</li>
+      <li><b>Merchant-readiness уже продаётся:</b> 85% энтерпрайзов не готовы (&lt;40/100); консалтинг-аудиты в энтерпрайзе оцениваются $5–25k, интеграции $30k+. Adyen признаёт: интеграционный слой не убирает «data work» — она и есть продаваемая соло-услуга.</li>
+    </ul>
+    <div class="note green"><b>Честный тезис:</b> заработать «на самом AP2» сейчас нельзя. Зато подготовка рынка — аудиты, обучение, тулинг, контент — приносит деньги уже сегодня и стейкает позицию под кратный рост, когда карточная нога дозреет из пилотов в масс-маркет.</div>
+
+    <h3 style="font-size:26px;margin-top:48px">12 проектов на AP2</h3>
+
+    <div class="idea vp"><div class="ihead"><h3>1 · Авторитет-хаб по агентским платежам (RU+EN) <span class="badge ok">BUILD NOW</span></h3><span class="price">лиды $2–10k · 1–2 сессии на каркас</span></div>
+      <p class="one">Контент-справочник по AP2/ACP/x402/UCP/KYA под цитирование в LLM-ответах. Авторитетного русскоязычного источника нет — ниша пустая.</p>
+      <div class="meta"><div><b>Кто платит:</b> косвенно — входящие консалт-лиды (энтерпрайзы гуглят «merchant readiness», 85% не готовы)</div><div><b>MVP:</b> 40–60 страниц-разборов + глоссарий + схемы на контент-фабрике</div><div><b>Ставка 10×:</b> главный RU-вход в тему = монополия на цитирование</div><div><b>Риски:</b> низкий барьер для конкурентов — важно успеть первым</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>2 · AP2 Mandate Playground — песочница мандатов <span class="badge ok">BUILD NOW</span></h3><span class="price">репутация + лиды · 1–2 сессии</span></div>
+      <p class="one">Веб-симулятор: сгенерировать Intent/Cart/Payment-мандат, подписать, провалидировать. Официального sandbox не существует — дыра на виду.</p>
+      <div class="meta"><div><b>Кто платит:</b> вниманием — разработчики и интеграторы; конвертит в статус эксперта</div><div><b>MVP:</b> FastAPI + reference SDK из репозитория протокола</div><div><b>Ставка 10×:</b> де-факто «try AP2 online» → hosted validator, CI-плагин</div><div><b>Риски:</b> Google выпустит официальный sandbox — следить</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>3 · Agentic-Readiness аудит для RU/CIS и диаспоры <span class="badge ok">BUILD NOW</span></h3><span class="price">$1–6k/мес · 1–2 сессии</span></div>
+      <p class="one">Платный аудит готовности бизнеса к агентскому чекауту: каталог, фиды, schema.org, API. Западный аналог продаёт это энтерпрайзу за $5–25k — ниша SMB свободна.</p>
+      <div class="meta"><div><b>Кто платит:</b> e-com и SaaS с глобальными амбициями; тёплая база действующей B2B-практики. $500–3000 за аудит</div><div><b>MVP:</b> чек-лист + автоскан на готовых парсерах + PDF-отчёт со скором</div><div><b>Ставка 10×:</b> аудит → интеграция → ретейнер</div><div><b>Риски:</b> платформы закроют часть работы «из коробки» — держаться за data-work</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>4 · Курс «Агентские платежи для RU/CIS» <span class="badge ok">BUILD NOW</span></h3><span class="price">$1–6k за запуск · 2–3 сессии</span></div>
+      <p class="one">Когорта: разработчикам — как строить с AP2/x402/MCP; фаундерам — как подготовить бизнес. Русскоязычных материалов почти нет, тема на хайпе.</p>
+      <div class="meta"><div><b>Кто платит:</b> 15–40 человек × $50–200</div><div><b>MVP:</b> 4–6 модулей на базе хаба и песочницы, озвучка своим TTS</div><div><b>Ставка 10×:</b> флагманский образовательный бренд + апселл в консалтинг</div><div><b>Риски:</b> обучение от своего имени — юридически чистый формат для профиля</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>5 · Feed/Structured-Data продуктайзер <span class="badge ok">BUILD NOW / PROBE</span></h3><span class="price">$1–8k/мес · 2–3 сессии</span></div>
+      <p class="one">Сервис «каталог, читаемый агентами»: schema.org/Product, агент-фиды, API-адресуемый чекаут. Та самая data-work, которую интеграционные слои не убирают.</p>
+      <div class="meta"><div><b>Кто платит:</b> мерчанты после аудита (идея 3), $1–5k за проект</div><div><b>MVP:</b> парсер каталога → генератор schema.org + JSON-feed + шаблон эндпоинта</div><div><b>Ставка 10×:</b> SaaS-подписка «держим твой агент-фид актуальным»</div><div><b>Риски:</b> продавать первым через аудит, не строить вслепую</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>6 · «Agent-ready за выходные» для малых магазинов <span class="badge ok">BUILD NOW</span></h3><span class="price">$1–7k/мес · 1–2 сессии на упаковку</span></div>
+      <p class="one">Фикс-прайс пакет $300–1500: подключить Shopify/Woo-магазин к агентскому чекауту. Universal Cart уже включает Shopify-мерчантов — страх «выпасть из выдачи» реален.</p>
+      <div class="meta"><div><b>Кто платит:</b> малые мерчанты, 2–5 магазинов в квартал</div><div><b>MVP:</b> повторяемый чек-лист + скрипты, переиспользует идею 5</div><div><b>Ставка 10×:</b> конвейер + партнёрка с агентствами</div><div><b>Риски:</b> платформы автоматизируют — маржа тает со временем; приём оплаты через MoR-обёртку</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>7 · Личный бренд «эксперт по агентским платежам» <span class="badge ok">BUILD NOW</span></h3><span class="price">+10–30% конверсии всего · 0.5 сессии/нед</span></div>
+      <p class="one">PR-ы в репозитории протоколов (в AP2 всего 54 коммита — заметным стать легко), разборы, листинги. Множитель для всех остальных идей.</p>
+      <div class="meta"><div><b>Кто платит:</b> никто напрямую — растит конверсию консалтинга и обучения</div><div><b>MVP:</b> 2–3 полезных PR/issue + серия постов</div><div><b>Ставка 10×:</b> «тот, кто в теме с 2026» — премиальные ставки при буме</div><div><b>Риски:</b> размывание фокуса — только вокруг основного трека</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>8 · Каталог agent-ready инструментов и мерчантов <span class="badge warn">PROBE</span></h3><span class="price">$0–300/мес · 2 сессии</span></div>
+      <p class="one">Ранний листинг-сайт «кто уже agent-ready»: вендоры, интеграторы, мерчанты. Аналоги появляются — окно ещё открыто.</p>
+      <div class="meta"><div><b>Кто платит:</b> вендоры за листинг и лиды</div><div><b>MVP:</b> парсер источников + ручная курация</div><div><b>Ставка 10×:</b> «G2 для agentic commerce»</div><div><b>Риски:</b> гонка с конкурентами; поддержка актуальности</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>9 · Voice-checkout демо на дешёвом TTS <span class="badge warn">PROBE</span></h3><span class="price">лид-магнит · 2 сессии</span></div>
+      <p class="one">Голосовой агент-чекаут: Cart Mandate озвучивается («подтвердите $X»), подпись биометрией. Демо под продажу голосовых проектов.</p>
+      <div class="meta"><div><b>Кто платит:</b> клиенты голосовых ботов — отдельным чеком</div><div><b>MVP:</b> связка агент + TTS + мок-мандаты</div><div><b>Ставка 10×:</b> white-label движок voice-commerce</div><div><b>Риски:</b> UX голосового чекаута незрел</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>10 · x402-биллинг на живом MCP-сервисе как AP2-кейс <span class="badge warn">PROBE</span></h3><span class="price">референс-кейс · 2 сессии</span></div>
+      <p class="one">Крипто-нога AP2 (a2a-x402) поверх живого MCP-актива — референс «принимаю агентские платежи», продающий консалтинг.</p>
+      <div class="meta"><div><b>Кто платит:</b> агенты — центы; главная ценность в кейсе</div><div><b>MVP:</b> 402-gate перед премиум-эндпоинтом</div><div><b>Ставка 10×:</b> готовый монетизируемый эндпоинт при росте</div><div><b>Риски:</b> крипто-обвязку строить аккуратно (self-custody, без KYC-зависимых посредников)</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>11 · Лёгкий KYA-тулинг / паспорт агента <span class="badge warn">PROBE → PARK</span></h3><span class="price">$0–300/мес · 2–3 сессии</span></div>
+      <p class="one">Генерация и проверка идентичности агента (ERC-8004-совместимо). Рынок называют «table stakes», но энтерпрайз уже заняли Sumsub и Vouched.</p>
+      <div class="meta"><div><b>Почему осторожно:</b> конкуренция с регуляторными тяжеловесами несопоставима</div><div><b>Когда вернуться:</b> если появится локальный RU/CIS-контур агентов</div></div></div>
+
+    <div class="idea vp"><div class="ihead"><h3>12 · Аудит Cart-мандатов (compliance-верификация) <span class="badge kill">PARK</span></h3><span class="price">~$0 сейчас · 1–2 сессии</span></div>
+      <p class="one">Проверка «подписанное = списанному» по аудит-трейлу ECDSA. Споров и регуляторики ещё нет — значит нет и спроса.</p>
+      <div class="meta"><div><b>Почему PARK:</b> рынок незрелый; при созревании заберут Big-4 и KYA-вендоры</div><div><b>Когда вернуться:</b> первые публичные диспуты по агентским платежам</div></div></div>
+
+    <figure class="imgband"><img src="img/poly.jpg" alt="Металлический полиэдр — криптографический мандат"><figcaption>Мандат AP2 — как этот полиэдр: жёсткая структура, внутри которой агент может двигаться, но не может выйти за грани.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= PLAYBOOK ================= -->
+<section id="playbook">
+  <div class="wrap">
+    <span class="tag">06 · Сводный план</span>
+    <h2>С чего начинать: <em>очередь запуска и гейты</em></h2>
+    <p>36 идей — это меню, не план. План — последовательность: услуги фиатом дают деньги сейчас, дешёвые эндпоинты стейкают позицию, контент кормит и то и другое. Формат «продукт в неделю» работает так: каждую неделю — один запуск из очереди ниже, с жёсткими гейтами и правом закрыть ветку.</p>
+    <div class="plan">
+      <span class="tag">Очередь первых 6 недель</span>
+      <h3>Неделя за неделей</h3>
+      <ol>
+        <li><b>Хаб + личный бренд</b> (AP2-1, AP2-7) — каркас авторитет-хаба, первые разборы, 2–3 PR в репозитории протоколов. Нулевая цена, кормит всё остальное.</li>
+        <li><b>x402-шлюз + TTS-эндпоинт</b> (x402-1) — self-custody кошелёк Base, self-hosted фасилитатор, TTS за paywall. Критический тест: индексация в Bazaar без Coinbase-фасилитатора.</li>
+        <li><b>Оффер «x402 под ключ» + стартер-репо</b> (x402-3, x402-8) — шаблон + страница оффера + 10 адресных DM билдерам вне РФ.</li>
+        <li><b>Feed Readiness Scanner + лид-магнит</b> (ACP-2, ACP-5) — бесплатный скан как верх воронки, платный аудит $150–500.</li>
+        <li><b>Readiness-аудит + рерайт каталогов</b> (AP2-3, ACP-3) — продать первые 1–2 аудита тёплой базе, batch-рерайт как апселл.</li>
+        <li><b>Воркшоп или курс-presale</b> (ACP-4 / AP2-4) — когорта по агентским платежам; запускать только при ≥5 предзаказах.</li>
+      </ol>
+      <div class="gate"><b>Гейты (необсуждаемые):</b> ≥2 предоплаты интеграций после 10 DM → продолжать x402-трек · ≥2 проданных аудита за 3 недели → строить продуктайзер · ≥5 предзаказов курса → производить контент · ни одного гейта за 6 недель → оставить только хаб + эндпоинты-витрины и вернуть фокус на основные направления. Кап на всю программу: ~12–15 рабочих сессий.</div>
+    </div>
+
+    <h3>Риски всей ставки</h3>
+    <div class="risk"><h4>Санкционный / KYC (высокий для крипто-ноги)</h4><p>Coinbase-зависимые пути закрыты для профиля; ЕС с апреля 2026 запрещает крипто-услуги RU-связанным провайдерам. Решение: self-hosted фасилитатор, self-custody, услуги — фиатом от юрлиц вне РФ, клиентский объём — на стороне клиента.</p></div>
+    <div class="risk"><h4>Спросовый (высокий для микроплатежей)</h4><p>Органика x402 — $1.2M/мес на всю экосистему, половина — wash. Прямой доход от агентов в первые месяцы — центы. Решение: эндпоинты только как витрина со стоимостью ≤1 сессии, деньги — от услуг.</p></div>
+    <div class="risk mid"><h4>Платформенный (средний)</h4><p>Shopify/Adyen/Google автоматизируют feed-работу; Bazaar может починить находимость; Google может выпустить официальный sandbox. Решение: держаться за data-work и экспертизу, не за разовые механические ниши.</p></div>
+    <div class="risk mid"><h4>Протокольный дрейф (средний)</h4><p>ACP — 5 версий спеки за 7 месяцев, AP2 — v0.2.0. Интеграции протухают. Решение: закладывать поддержку в прайс, мониторить спеки (это же — идея ACP-11).</p></div>
+    <div class="risk low"><h4>Фокус (управляемый)</h4><p>36 идей = соблазн распыления. Решение: очередь выше, гейты необсуждаемы, кап 12–15 сессий, дальше — только то, что прошло гейт.</p></div>
+
+    <h3>Ожидания по деньгам (честные)</h3>
+    <div class="tablewrap">
+      <table class="rank">
+        <tr><th>Горизонт</th><th>Реалистичный сценарий</th><th>Оптимистичный сценарий</th><th>Что должно произойти</th></tr>
+        <tr><td class="num">1–2 мес</td><td>$0.5–2k разовых (аудиты, интеграции, рерайты)</td><td>$3–6k (2–3 интеграции + ретейнер)</td><td>Пройдены первые гейты, тёплая база конвертит</td></tr>
+        <tr><td class="num">3–6 мес</td><td>$1–4k/мес (ретейнер + услуги + курс)</td><td>$5–12k/мес (2 ретейнера + конвейер аудитов + когорты)</td><td>Хаб цитируется, инбаунд пошёл, эндпоинты дают референс-кейсы</td></tr>
+        <tr class="top"><td class="num">6–18 мес<br>(если бум)</td><td>Кратный рост услуг + эндпоинты начинают платить сами</td><td>Позиция «первого RU-эксперта» = премиальные ставки, поток лидов, готовые рубильники монетизации</td><td>Карточная нога AP2 выходит в масс-маркет, находимость x402 чинится, influence-слой конвертится в транзакции</td></tr>
+      </table>
+    </div>
+    <div class="note"><b>Главное ожидание, на которое опираемся:</b> рост agentic commerce в ближайшие 6–12 месяцев произойдёт в слое influence/discovery (уже +693% YoY по трафику) и в готовности мерчантов (85% не готовы — им нужны руки). Прогнозы $3–5 трлн — это 2030 год и широкая рамка; строить на них план продаж нельзя, но занимать позиции под них — обязательно, пока это стоит сессии, а не месяцы.</div>
+  </div>
+</section>
+
+<!-- ================= SOURCES ================= -->
+<section id="sources">
+  <div class="wrap">
+    <span class="tag">07 · Источники</span>
+    <h2>Ключевые источники</h2>
+    <ul class="sources">
+      <li><a href="https://www.linuxfoundation.org/press/linux-foundation-is-launching-the-x402-foundation">Linux Foundation — запуск x402 Foundation (апр 2026)</a></li>
+      <li><a href="https://classic.artemis.ai/asset/x402">Artemis — независимая аналитика x402 (wash ~50%)</a></li>
+      <li><a href="https://www.chainalysis.com/blog/x402-agentic-payments-adoption/">Chainalysis — разбор всплесков x402</a></li>
+      <li><a href="https://majormatters.co/x402">majormatters — месячный срез органики x402</a></li>
+      <li><a href="https://github.com/x402-foundation/x402/issues/2112">GitHub x402 #2112 — сломанная индексация Bazaar</a></li>
+      <li><a href="https://blog.cloudflare.com/monetization-gateway/">Cloudflare Monetization Gateway (waitlist, июль 2026)</a></li>
+      <li><a href="https://cryptobriefing.com/base-travala-x402-ai-hotel-bookings/">Travala Travel MCP — x402-бронирования в Claude</a></li>
+      <li><a href="https://github.com/agentic-commerce-protocol/agentic-commerce-protocol">Спецификация ACP (OpenAI + Stripe)</a></li>
+      <li><a href="https://www.cnbc.com/2026/03/24/openai-revamps-shopping-experience-in-chatgpt-after-instant-checkout.html">CNBC — OpenAI сворачивает Instant Checkout (март 2026)</a></li>
+      <li><a href="https://www.forrester.com/blogs/what-it-means-that-the-leader-in-agentic-commerce-just-pulled-back/">Forrester — что значит откат лидера</a></li>
+      <li><a href="https://www.modernretail.co/technology/what-went-wrong-with-chatgpts-instant-checkout/">Modern Retail — что пошло не так с Instant Checkout</a></li>
+      <li><a href="https://www.digitalapplied.com/blog/agentic-commerce-q2-2026-platform-comparison">Digital Applied — матрица платформ Q2 2026</a></li>
+      <li><a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol">Google Cloud — анонс AP2 (60+ партнёров)</a></li>
+      <li><a href="https://fidoalliance.org/google-donates-agent-payments-protocol-to-fido-alliance/">FIDO Alliance — Google передаёт AP2 (апр 2026)</a></li>
+      <li><a href="https://github.com/google-agentic-commerce/AP2">Репозиторий AP2 (v0.2.0)</a></li>
+      <li><a href="https://corporate.visa.com/en/sites/visa-perspectives/newsroom/visa-partners-complete-secure-agentic-transactions.html">Visa — первые агентские транзакции</a></li>
+      <li><a href="https://blog.google/products-and-platforms/products/shopping/google-shopping-cart/">Google — Universal Cart / Gemini Spark (I/O 2026)</a></li>
+      <li><a href="https://www.pymnts.com/artificial-intelligence-2/2026/the-kya-moment-why-knowing-your-agent-is-becoming-table-stakes/">PYMNTS — момент KYA (Know Your Agent)</a></li>
+      <li><a href="https://www.digitalcommerce360.com/2026/03/06/openai-shifts-checkout-plans-agentic-commerce-strategy/">DC360 — McKinsey $3–5 трлн и сдвиг стратегии OpenAI</a></li>
+      <li><a href="https://www.bain.com/insights/">Bain — agentic commerce $300–500 млрд US к 2030 (дек 2025)</a></li>
+      <li><a href="https://thedigitalelevator.com/blog/aeo-and-geo-pricing-guide/">Digital Elevator — прайс-гайд AEO/GEO услуг</a></li>
+      <li><a href="https://rye.com/blog/agentic-commerce-startups">Rye — карта стартапов agentic commerce</a></li>
+      <li><a href="https://mediaadsandcommerce.substack.com/p/agentic-commerce-is-a-collective">Скептик: «Agentic commerce — коллективная галлюцинация»</a></li>
+      <li><a href="https://timzinin.com/x402/">Предыдущий ресёрч x402 (3 июля 2026)</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b style="font-family:'Fraunces',serif;font-size:20px">Платят агенты</b><br><span class="fm">x402 · ACP · AP2 — карта заработка</span></div>
+    <div class="fm">Ресёрч 11 июля 2026 · 5 AI-агентов · 60+ источников · маркировка VERIFIED / REPORTED / ESTIMATE соблюдена в исходных данных</div>
+  </div>
+</footer>
+
+</body>
+</html>
