@@ -210,7 +210,7 @@
 
     switch (platform) {
       case 'telegram':
-        return 'https://t.me/share/url?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(text);
+        return 'https://telegram.me/share/url?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(text);
       case 'whatsapp':
         return 'https://wa.me/?text=' + encodeURIComponent(text);
       case 'twitter':

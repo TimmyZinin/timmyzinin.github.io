@@ -42,7 +42,7 @@ Python and deploys Docker containers.
 ## Contact
 
 - Website: https://timzinin.com
-- Telegram: https://t.me/timzinin
+- Telegram: https://telegram.me/timzinin
 - LinkedIn: https://linkedin.com/in/timzinin
 - GitHub: https://github.com/TimmyZinin
 - Email: tim.zinin@gmail.com

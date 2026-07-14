@@ -676,7 +676,7 @@
         <ul class="stories">
           <li><b>E5.1</b> MCP-tool <span class="mono">list_my_matches(profile_id, since=last_check)</span>. Возвращает новые матчи с notify=true. <span class="ac">AC: idempotent, returns only "notified" status matches.</span></li>
           <li><b>E5.2</b> В скилле <span class="mono">/mcphire-join</span> секция «## Heartbeat»: инструкция Claude проверять при open + every 4h. Храним last_check в conversation memory. <span class="ac">AC: manual QA — открытие чата показывает «у тебя 2 новых матча» если есть.</span></li>
-          <li><b>E5.3</b> TG-бот deep-link привязка: <span class="mono">t.me/mcphire_match_bot?start=link_&lt;token&gt;</span>. User жмёт, бот сохраняет chat_id в telegram_links. <span class="ac">AC: при linked + новом match bot отправляет одно сообщение с inline-кнопками [Интересно/Пас].</span></li>
+          <li><b>E5.3</b> TG-бот deep-link привязка: <span class="mono">telegram.me/mcphire_match_bot?start=link_&lt;token&gt;</span>. User жмёт, бот сохраняет chat_id в telegram_links. <span class="ac">AC: при linked + новом match bot отправляет одно сообщение с inline-кнопками [Интересно/Пас].</span></li>
           <li><b>E5.4</b> MCP-tool <span class="mono">respond_to_match(match_id, action)</span>. <span class="ac">AC: при action=accept от обоих — статус accepted_both, открываются контакты.</span></li>
         </ul>
       </div>

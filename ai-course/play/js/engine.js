@@ -405,7 +405,7 @@ export class Engine {
     const ctaBtn = document.createElement('a');
     ctaBtn.className = 'btn-primary cert-cta';
     ctaBtn.textContent = '📞 Записаться на разбор с Тимом';
-    ctaBtn.href = 'https://t.me/timzinin';
+    ctaBtn.href = 'https://telegram.me/timzinin';
     ctaBtn.target = '_blank';
     ctaBtn.addEventListener('click', () => {
       trackCertificateCTA('contact_tim');

@@ -1129,7 +1129,7 @@
         'тим видел твой блокнот. напиши в @timofeyzinin — договоримся про следующие 12 дней.'
       ));
       var $link = $('<a>')
-        .attr('href', 'https://t.me/timofeyzinin')
+        .attr('href', 'https://telegram.me/timofeyzinin')
         .attr('target', '_blank')
         .attr('rel', 'noopener')
         .addClass('ending-link')

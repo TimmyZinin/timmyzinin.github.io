@@ -355,7 +355,7 @@
     playSfx('click');
     const url = generateShareUrl('tg');
     const text = getShareText();
-    const intent = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+    const intent = `https://telegram.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
     window.open(intent, '_blank', 'noopener');
     track('share_clicked', { platform: 'tg', archetype: STATE.archetype });
   }

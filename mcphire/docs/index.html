@@ -481,7 +481,7 @@
           <p>После регистрации Claude знает: <span class="mono">profile_id</span> = prof_7b2f. При каждом открытии этого chat-тредa он автоматически зовёт <span class="mono">list_my_matches(profile_id, since=last_check)</span>.</p>
           <p>Если новых нет — ничего не говорит. Если есть — выкладывает одним сообщением:</p>
           <span class="verb"><em>&gt;</em> Claude: За ночь появились 3 подходящие вакансии:<br><br><b>1.</b> Senior ML Engineer — Avito<br> &nbsp;&nbsp; 350K–450K ₽ | Senior | Remote<br> &nbsp;&nbsp; Совпало: Python, LangGraph, vLLM<br><br><b>2.</b> Data Scientist (LLM) — Ozon<br> &nbsp;&nbsp; 250K–320K ₽ | Middle | Москва<br> &nbsp;&nbsp; Совпало: Python, RAG, evals<br><br><b>3.</b> ML Platform — Т-Банк<br> &nbsp;&nbsp; 280K–400K ₽ | Senior | Москва<br> &nbsp;&nbsp; Совпало: MLOps, production<br><br>Открой какую — дам детали и ссылку.</span>
-          <p style="margin-top:10px">Формат совпадает с публичным каналом <a href="https://t.me/mcphire" target="_blank">@mcphire</a>, но персонализирован под стек Марины. Внутри Claude, не в Telegram.</p>
+          <p style="margin-top:10px">Формат совпадает с публичным каналом <a href="https://telegram.me/mcphire" target="_blank">@mcphire</a>, но персонализирован под стек Марины. Внутри Claude, не в Telegram.</p>
           <p style="margin-top:10px"><b>Supply:</b> первые недели — 74 000 HH-вакансий, обновляются каждые 6 часов. M2M-подряды от предпринимателей подтянутся когда buyer-сторона запущена (следующий спринт).</p>
         </div>
       </div>
@@ -753,7 +753,7 @@
             <span class="act create">create</span>
             <span class="time">~ 25 мин</span>
           </div>
-          <p class="desc">Формат сообщения, которое Claude выкладывает юзеру при срабатывании heartbeat. Референс — публичный канал <a href="https://t.me/mcphire" target="_blank">@mcphire</a>, но адаптированный под chat-окружение.</p>
+          <p class="desc">Формат сообщения, которое Claude выкладывает юзеру при срабатывании heartbeat. Референс — публичный канал <a href="https://telegram.me/mcphire" target="_blank">@mcphire</a>, но адаптированный под chat-окружение.</p>
           <p class="what"><b>что внутри</b>Шаблон: заголовок-summary («За ночь появились N подходящих»), список N матчей в формате «Название — Компания / Зарплата | Уровень | Локация / Совпало: stack». Плюс short closing: «Открой какую — дам детали и ссылку». Без хештегов (чат — не канал), без markdown-бейджей.</p>
           <p class="ac"><b>acceptance</b>3 примера: 1 матч, 3 матча, 5+ матчей (с truncation). Формат не ломается на узком viewport Claude-UI.</p>
         </div>

@@ -1029,7 +1029,7 @@
         if (opt.id === 'tg_subscribe') {
           STATE.lead_submitted = true; // reuse flag to suppress chip after click
           // SPRINT 53.3 — per-locale TG URL via i18n (single channel now, extensible later)
-          var tgUrl = tStr('meta.tim_telegram.url', 'https://t.me/timofeyzinin');
+          var tgUrl = tStr('meta.tim_telegram.url', 'https://telegram.me/timofeyzinin');
           track('telegram_cta_clicked', { overlay: 'tim_creator', target_url: tgUrl });
           // Open Telegram channel in new tab
           var w = window.open(tgUrl, '_blank', 'noopener');
