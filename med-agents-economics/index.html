@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Экономика ИИ-агента в клинике — сколько стоит заменить приём заявок</title>
+<meta name="description" content="Агент принимает пациентов в WhatsApp: $28/мес на клинику против 91–117к ₽ за администратора. Разбор себестоимости, тарифов WhatsApp Business API и трёх моделей продажи.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Экономика ИИ-агента в клинике — сколько стоит заменить приём заявок">
+<meta property="og:description" content="$28/мес на клинику против 91–117к ₽ за администратора. Где экономика ломается и кому это продавать.">
+<meta property="og:url" content="https://timzinin.com/med-agents-economics/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5f2ed; --ink: #1c1a17; --soft: #6b645a; --faint: #a9a196;
+    --coral: #c5380e; --amber: #e6a817; --leaf: #3e7a4e; --card: #fffdf9; --line: #e3ddd2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 700px) { .wrap { padding: 0 22px; } body { font-size: 16px; } }
+
+  .hero { padding: 72px 0 56px; border-bottom: 2px solid var(--ink); }
+  .kicker {
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--coral); margin-bottom: 22px;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif; font-weight: 900;
+    font-size: clamp(44px, 8vw, 116px); line-height: .88; letter-spacing: -0.045em; max-width: 16ch;
+  }
+  h1 em { font-style: italic; font-weight: 400; color: var(--coral); }
+  .hero-foot { display: flex; gap: 46px; flex-wrap: wrap; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+  .hero-foot div { font-size: 14.5px; }
+  .hero-foot .lbl { color: var(--faint); font-size: 11.5px; text-transform: uppercase; letter-spacing: .09em; margin-bottom: 5px; }
+
+  section { padding: 92px 0; border-bottom: 1px solid var(--line); }
+  .sec-head { display: flex; align-items: baseline; gap: 20px; margin-bottom: 44px; }
+  .sec-num { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--coral); font-weight: 600; padding-top: 8px; }
+  h2 { font-family: "Fraunces", serif; font-weight: 700; letter-spacing: -0.03em; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.02; }
+  h2 em { font-style: italic; font-weight: 400; color: var(--coral); }
+  h3 { font-family: "Fraunces", serif; font-weight: 700; font-size: 23px; letter-spacing: -0.02em; margin-bottom: 10px; }
+  p { max-width: 68ch; margin-bottom: 18px; }
+  p.lead { font-size: 21px; line-height: 1.5; max-width: 60ch; }
+  .muted { color: var(--soft); }
+  a { color: var(--coral); }
+
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: 36px 0 8px; }
+  .step { border: 1px solid var(--line); border-radius: 14px; padding: 20px; background: var(--card); }
+  .step .n { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--leaf); font-weight: 600; }
+  .step .t { font-weight: 700; margin: 7px 0 5px; font-size: 15.5px; }
+  .step .d { font-size: 13.5px; color: var(--soft); line-height: 1.5; }
+  .step.done { border-color: var(--leaf); background: #eef3ea; }
+
+  .figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 30px; margin: 44px 0; }
+  .fig .n { font-family: "Fraunces", serif; font-weight: 900; letter-spacing: -0.045em; font-size: clamp(52px, 6.5vw, 86px); line-height: .9; }
+  .fig .n small { font-size: .42em; font-weight: 700; letter-spacing: -0.02em; }
+  .fig .cap { font-size: 14px; color: var(--soft); margin-top: 10px; line-height: 1.45; max-width: 24ch; }
+  .fig.coral .n { color: var(--coral); }
+  .fig.leaf .n { color: var(--leaf); }
+
+  .tbl-scroll { overflow-x: auto; margin: 30px 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+  th, td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; }
+  td.num { font-family: "JetBrains Mono", monospace; font-size: 14px; white-space: nowrap; }
+  tr.pick { background: #eef3ea; }
+  tr.pick td { border-color: #cfdcc9; font-weight: 500; }
+  tr.bad td { color: var(--faint); }
+  .tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 3px 9px; border-radius: 100px; }
+  .tag.yes { background: var(--leaf); color: #fff; }
+  .tag.no { background: #d9d3c8; color: #6b645a; }
+
+  .callout { background: var(--ink); color: var(--paper); border-radius: 22px; padding: 44px 46px; margin: 44px 0; }
+  .callout h3 { color: var(--paper); font-size: 30px; margin-bottom: 18px; }
+  .callout p { color: #d6cfc2; max-width: 66ch; }
+  .callout strong { color: var(--amber); font-weight: 700; }
+  .callout.warm { background: var(--coral); }
+  .callout.warm p { color: #ffe4d9; }
+  .callout.warm strong { color: #fff; }
+
+  .queue { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .q-item { border: 1px dashed var(--line); border-radius: 14px; padding: 22px; }
+  .q-item .h { font-family: "Fraunces", serif; font-weight: 700; font-size: 18px; margin-bottom: 6px; }
+  .q-item .s { font-size: 13.5px; color: var(--soft); line-height: 1.5; }
+
+  .cta { padding: 84px 0; }
+  .cta-box { background: var(--card); border: 2px solid var(--ink); border-radius: 24px; padding: 52px 48px; }
+  .cta-box h2 { margin-bottom: 16px; }
+  .cta-box p { font-size: 19px; }
+  .btn {
+    display: inline-block; margin-top: 20px; background: var(--coral); color: #fff;
+    text-decoration: none; font-weight: 700; padding: 15px 30px; border-radius: 100px; font-size: 16px;
+    transition: transform .18s cubic-bezier(.2,1.4,.3,1);
+  }
+  .btn:hover { transform: translateY(-2px) scale(1.02); }
+
+  footer { padding: 40px 0 80px; color: var(--faint); font-size: 13.5px; border-top: 1px solid var(--line); }
+  footer a { color: var(--soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Разбор · июль 2026 · цифры с источниками</div>
+    <h1>Агент, который <em>принимает пациентов</em> вместо администратора</h1>
+    <div class="hero-foot">
+      <div><div class="lbl">Что внутри</div>Себестоимость, тарифы, три модели продажи</div>
+      <div><div class="lbl">Проверено</div>Живой диалог в WhatsApp, а не слайд</div>
+      <div><div class="lbl">Вывод</div>Технология стоит копейки — дело в том, кому продавать</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Что агент уже <em>умеет</em></h2></div>
+    <p class="lead">Собрано за 40 минут и проверено живым человеком в роли пациента. Каждый шаг ниже реально прошёл в переписке.</p>
+    <div class="flow">
+      <div class="step done"><div class="n">01</div><div class="t">Пациент пишет</div><div class="d">Нашёл клинику на картах, открыл WhatsApp: «Болит зуб, запиши к врачу».</div></div>
+      <div class="step done"><div class="n">02</div><div class="t">Агент отвечает</div><div class="d">Врачи, цены, квалификация, часы работы, адрес, метро, парковка — из базы клиники, без выдумок.</div></div>
+      <div class="step done"><div class="n">03</div><div class="t">Подбор и запись</div><div class="d">Свободные окна нужного врача, бронь слота, подтверждение с адресом и памяткой про обезболивающее.</div></div>
+      <div class="step done"><div class="n">04</div><div class="t">Встреча в календарь</div><div class="d">Отдельным сообщением — карточка со ссылкой «добавить в календарь» в один клик.</div></div>
+      <div class="step done"><div class="n">05</div><div class="t">Голосовое и перенос</div><div class="d">Пациент прислал голосовое «перенеси на четверг» — агент расшифровал, освободил слот, записал заново, прислал новую карточку.</div></div>
+      <div class="step done"><div class="n">06</div><div class="t">Врач на три клиники</div><div class="d">Врача нет в расписании, но он может подскочить. Агент спросил врача лично, тот подтвердил — пациент записан.</div></div>
+    </div>
+    <p style="margin-top:30px" class="muted">Администратор при этом остаётся на месте: он смотрит за потоком, как оператор за пультом. Агент берёт на себя ночь, выходные, обед и первые тридцать секунд ответа, пока пациент ещё горячий.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Сколько это стоит</h2></div>
+    <p class="lead">Три числа, вокруг которых крутится вся экономика.</p>
+
+    <div class="figures">
+      <div class="fig leaf">
+        <div class="n">$28<small>/мес</small></div>
+        <div class="cap">Себестоимость агента на клинику: модель при 300 обращениях плюс доля сервера</div>
+      </div>
+      <div class="fig">
+        <div class="n">91–117<small>к ₽</small></div>
+        <div class="cap">Во столько клинике обходится один администратор в Москве с учётом взносов</div>
+      </div>
+      <div class="fig coral">
+        <div class="n">6 000<small> ₽/мес</small></div>
+        <div class="cap">Канал WhatsApp Business — дороже, чем подписка в $20 за самого агента</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px">Мозг агента</h3>
+    <p class="muted">Замер по реальному диалогу: 8 сообщений пациента, 9 ответов агента, включая расшифровку голосового и перенос записи. Кэширование промпта экономит 60–70% — постоянная часть (прайс, врачи, протокол) читается по льготному тарифу.</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Модель</th><th>За диалог</th><th>100 диалогов</th><th>300 диалогов</th><th>1000 диалогов</th></tr></thead>
+        <tbody>
+          <tr><td>Haiku 4.5</td><td class="num">$0,03</td><td class="num">$3</td><td class="num">$8</td><td class="num">$28</td></tr>
+          <tr class="pick"><td>Sonnet 5 <span class="tag yes">рабочий выбор</span></td><td class="num">$0,085</td><td class="num">$9</td><td class="num">$26</td><td class="num">$85</td></tr>
+          <tr><td>Opus 4.8</td><td class="num">$0,14</td><td class="num">$14</td><td class="num">$42</td><td class="num">$140</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:44px">Канал — вот где реальные деньги</h3>
+    <p class="muted">Официальный WhatsApp Business API стоит 6 000 ₽/мес за канал (4 800 ₽ при годовой оплате), плюс Meta берёт за каждое шаблонное сообщение с июля 2025. Неофициальные библиотеки бесплатны, но кладут номер клиники под бан — для демо годится, для приёма пациентов нет.</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Статья</th><th>В месяц</th><th>Кто платит</th></tr></thead>
+        <tbody>
+          <tr><td>Модель (300 диалогов)</td><td class="num">~$26</td><td>исполнитель</td></tr>
+          <tr><td>Сервер, доля</td><td class="num">~$2</td><td>исполнитель</td></tr>
+          <tr class="pick"><td>Канал WhatsApp Business</td><td class="num">6 000 ₽ / ~$78</td><td>клиника, напрямую провайдеру</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Три модели <em>продажи</em></h2></div>
+    <p class="lead">Здесь ломается интуиция: технология дешёвая, но дешёвая подписка не работает.</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Модель</th><th>Цена</th><th>Маржа</th><th>Сколько нужно на $20k в месяц</th><th></th></tr></thead>
+        <tbody>
+          <tr class="bad"><td>Подписка $20/мес</td><td class="num">1 500 ₽</td><td class="num">−$8 · убыток</td><td class="num">—</td><td><span class="tag no">мимо</span></td></tr>
+          <tr><td>Подписка $50–100 на клинику</td><td class="num">3 800–7 600 ₽</td><td class="num">44–72%</td><td class="num">200–400 клиник</td><td><span class="tag no">не собрать</span></td></tr>
+          <tr class="pick"><td>Пакет на сеть из 10 клиник</td><td class="num">61–115к ₽</td><td class="num">65–81%</td><td class="num">15–25 сетей</td><td><span class="tag yes">работает</span></td></tr>
+          <tr class="pick"><td>Внедрение, разово</td><td class="num">$3–5к за сеть</td><td class="num">—</td><td class="num">10 сетей = $40к сразу</td><td><span class="tag yes">деньги старта</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <h3>Главный вывод</h3>
+      <p>Технология стоит копейки — <strong>$28 в месяц на клинику</strong>. Вся экономика в том, кому продавать. Одиночным клиникам по $50–100 нужно <strong>200–400 подключений</strong>, чтобы выйти на объём — за квартал такая арифметика не сходится. Сеть из десяти клиник — это один контракт, один разговор и цена дешевле одного администратора. Тогда задача — это <strong>15–25 сетей</strong> вместо четырёхсот клиник.</p>
+    </div>
+
+    <div class="callout warm">
+      <h3>Внедрение против подписки</h3>
+      <p>Подписка накапливается медленно и даёт вес через полгода. Быстрые деньги — во внедрении: <strong>10 сетей × $4 000 = $40 000 сразу</strong> против $10–15k в месяц от тех же десяти. И сезон играет за нас: июль в стоматологии — спад, август — оживление, конец сентября — рост. Продавать в спад под аргумент «готовьтесь к сезону сейчас», внедрять в августе, к сезону агент уже знает прайс и врачей.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Что дальше в той же вертикали</h2></div>
+    <p class="lead">Приём заявок — первая роль, которую забирает агент. Дальше идут те, где человек работает с информацией, а не с пациентом.</p>
+    <div class="queue">
+      <div class="q-item"><div class="h">Бэк-офис и закупки</div><div class="s">Поставщики, препараты, расфасовка, пропуска на машины. Вся возня, которая съедает время старших медсестёр.</div></div>
+      <div class="q-item"><div class="h">Кураторы лечения</div><div class="s">Ведут пациента по плану: от терапевта к ортопеду, следят за выполнением, возвращают выпавших. Самая дорогая роль в списке — процент от плана.</div></div>
+      <div class="q-item"><div class="h">Внутренние заявки</div><div class="s">Сломалось оборудование — заявка теряется в общем чате. Агент собирает, ставит задачу и доводит до исполнителя.</div></div>
+      <div class="q-item"><div class="h">Бухгалтерия</div><div class="s">Уже работает у меня: агент сам подаёт декларации и разбирает банк. Переносится в клинику как есть.</div></div>
+      <div class="q-item"><div class="h">Контроль качества</div><div class="s">Разбор звонков и переписок: довёл ли администратор до записи, что забыл предложить, как говорил с пациентом.</div></div>
+      <div class="q-item"><div class="h">Голосовая линия</div><div class="s">Робот как первая линия, запись разговора, расшифровка и привязка к карточке пациента.</div></div>
+    </div>
+    <p style="margin-top:34px" class="muted">Врача агент не заменяет и заменять не собирается: там живой человек, руки и ответственность. Всё, что вокруг врача — расписание, заявки, бумаги, закупки — алгоритмизуется.</p>
+  </section>
+
+  <div class="cta">
+    <div class="cta-box">
+      <h2>Хотите так же?</h2>
+      <p>Показываю на вашей клинике: берём ваш прайс, ваших врачей и ваш поток заявок, запускаем агента на тестовом номере и смотрим, сколько он снимает с администратора за неделю.</p>
+      <a class="btn" href="https://calendly.com/timzinin/30min">Тридцать минут без слайдов →</a>
+    </div>
+  </div>
+
+  <footer>
+    Цены на модели — справочник Anthropic, июль 2026. Курс ЦБ 76,62 ₽/$.
+    Тариф WhatsApp Business API — <a href="https://wazzup24.ru/pricing/">Wazzup</a>.
+    Зарплаты администраторов — <a href="https://finder.work/salaries/administrator_kliniki/moskva">Finder</a>,
+    <a href="https://www.superjob.ru/pro/6258/">SuperJob</a>,
+    <a href="https://moskva.gorodrabot.ru/salaries/administrator-stomatologicheskoy-kliniki">ГородРабот</a>.
+    Все цифры по агенту — замеры на работающем прототипе, не оценки.
+    <br><br>Тим Зинин · <a href="https://timzinin.com/">timzinin.com</a> · Telegram <a href="https://t.me/timzinin">@timzinin</a>
+  </footer>
+
+</div>
+</body>
+</html>
