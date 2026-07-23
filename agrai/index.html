@@ -1,10 +1,10 @@
-<title>Agrai Sushi — Sushi at the foot of Kazbek</title>
-<meta property="og:title" content="Agrai Sushi — Sushi at the foot of Kazbek"/>
-<meta property="og:description" content="Fresh sushi, rolls and hot tempura in Stepantsminda. Order on WhatsApp."/>
+<title>Agrai Sushi — სუში ყაზბეგში</title>
+<meta property="og:title" content="Agrai Sushi — სუში ყაზბეგში"/>
+<meta property="og:description" content="ახალი სუში, როლები და ცხელი ტემპურა სტეფანწმინდაში. Order on WhatsApp."/>
 <meta property="og:image" content="https://timzinin.com/agrai/img/hero.jpg"/>
 <meta property="og:type" content="website"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content="Agrai Sushi Kazbegi — fresh sushi, rolls and hot tempura in Stepantsminda, at the foot of Mt Kazbek. Dine in, pickup or delivery. Order on WhatsApp." />
+<meta name="description" content="Agrai Sushi — ახალი სუში, როლები და ცხელი ტემპურა სტეფანწმინდაში. Fresh sushi in Stepantsminda, at the foot of Mt Kazbek. Order on WhatsApp." />
 <style>
   :root{
     color-scheme: dark;
@@ -19,53 +19,48 @@
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--nori); color:var(--rice);
-    font-family:var(--sans); font-size:17px; line-height:1.55;
-    -webkit-font-smoothing:antialiased; overflow-x:hidden;
-  }
+  body{margin:0; background:var(--nori); color:var(--rice); font-family:var(--sans);
+    font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
   img{max-width:100%; display:block}
   a{color:inherit}
   ::selection{background:var(--lantern); color:#fff}
   :focus-visible{outline:2px solid var(--lantern-hi); outline-offset:3px; border-radius:3px}
-
   .wrap{width:min(100% - 40px, var(--wrap)); margin-inline:auto}
-  .eyebrow{
-    font-family:var(--mono); font-size:12px; letter-spacing:.32em; text-transform:uppercase;
-    color:var(--salmon); margin:0 0 14px;
-  }
-  h2.sec{
-    font-weight:800; font-size:clamp(28px,5vw,44px); line-height:1.02; letter-spacing:-.02em;
-    margin:0 0 6px; text-wrap:balance;
-  }
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.32em; text-transform:uppercase; color:var(--salmon); margin:0 0 14px;}
+  h2.sec{font-weight:800; font-size:clamp(28px,5vw,44px); line-height:1.04; letter-spacing:-.02em; margin:0 0 6px; text-wrap:balance;}
 
-  /* ---------- HERO ---------- */
+  /* language switch */
+  .langbar{position:fixed; top:16px; right:16px; z-index:60; display:flex; gap:2px; padding:4px;
+    background:rgba(16,13,10,.6); backdrop-filter:blur(8px); border:1px solid var(--line); border-radius:30px}
+  .langbar button{border:0; background:transparent; color:var(--rice-dim); font-family:var(--mono); font-size:12px;
+    letter-spacing:.08em; padding:6px 11px; border-radius:20px; cursor:pointer; transition:.14s}
+  .langbar button:hover{color:var(--rice)}
+  .langbar button.on{background:var(--lantern); color:#fff}
+
+  /* hero */
   .hero{position:relative; min-height:min(94vh,780px); display:flex; align-items:flex-end; overflow:hidden}
   .hero__img{position:absolute; inset:0; background:#000}
-  .hero__img img{width:100%; height:100%; object-fit:cover; opacity:.9;
-    animation:kb 26s ease-in-out infinite alternate}
+  .hero__img img{width:100%; height:100%; object-fit:cover; opacity:.9; animation:kb 26s ease-in-out infinite alternate}
   @keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.12)}}
   .hero__scrim{position:absolute; inset:0;
-    background:
-      radial-gradient(120% 80% at 50% -10%, rgba(236,90,34,.20), transparent 55%),
+    background:radial-gradient(120% 80% at 50% -10%, rgba(236,90,34,.20), transparent 55%),
       linear-gradient(180deg, rgba(16,13,10,.35) 0%, rgba(16,13,10,.15) 42%, rgba(16,13,10,.82) 82%, var(--nori) 100%);}
   .hero__inner{position:relative; width:min(100% - 40px,var(--wrap)); margin-inline:auto; padding:0 0 clamp(34px,6vw,64px)}
   .brandline{display:flex; align-items:center; gap:14px; margin-bottom:20px}
-  .brandline .dot{width:9px;height:9px;border-radius:50%;background:var(--wasabi);box-shadow:0 0 0 0 rgba(172,207,78,.6);animation:pulse 2.6s infinite}
+  .brandline .dot{width:9px;height:9px;border-radius:50%;background:var(--wasabi);animation:pulse 2.6s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(172,207,78,.55)}70%{box-shadow:0 0 0 9px rgba(172,207,78,0)}100%{box-shadow:0 0 0 0 rgba(172,207,78,0)}}
-  .brandline .status{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; color:var(--rice-dim)}
-  .wordmark{font-weight:800; letter-spacing:-.03em; line-height:.9;
-    font-size:clamp(64px,17vw,168px); margin:0; text-transform:uppercase}
+  .brandline .status{font-family:var(--mono); font-size:12.5px; letter-spacing:.1em; color:var(--rice-dim)}
+  .wordmark{font-weight:800; letter-spacing:-.03em; line-height:.9; font-size:clamp(64px,17vw,168px); margin:0; text-transform:uppercase}
   .wordmark em{font-family:var(--serif); font-style:italic; font-weight:400; color:var(--lantern); letter-spacing:-.01em}
-  .tagline{font-size:clamp(18px,2.6vw,24px); max-width:30ch; margin:14px 0 0; color:var(--rice)}
+  .wm-sub{font-family:var(--mono); letter-spacing:.42em; text-transform:uppercase; font-size:13px; color:var(--salmon); margin-top:16px}
+  .tagline{font-size:clamp(18px,2.6vw,24px); max-width:32ch; margin:16px 0 0; color:var(--rice)}
   .tagline .sub{font-family:var(--serif); font-style:italic; color:var(--rice-dim); display:block; font-size:.82em; margin-top:6px}
   .rating{display:inline-flex; align-items:center; gap:10px; margin-top:22px; font-family:var(--mono); font-size:13px; color:var(--rice-dim)}
   .rating b{color:var(--rice); font-weight:700}
   .stars{color:var(--lantern-hi); letter-spacing:2px}
   .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px}
-  .btn{display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:15px;
-    padding:14px 22px; border-radius:40px; text-decoration:none; border:1px solid transparent; cursor:pointer;
-    transition:transform .14s ease, background .14s ease, border-color .14s ease}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:15px; padding:14px 22px; border-radius:40px;
+    text-decoration:none; border:1px solid transparent; cursor:pointer; transition:transform .14s ease, background .14s ease, border-color .14s ease}
   .btn:hover{transform:translateY(-2px)}
   .btn--wa{background:var(--lantern); color:#fff}
   .btn--wa:hover{background:var(--lantern-hi)}
@@ -73,62 +68,57 @@
   .btn--ghost:hover{border-color:var(--salmon)}
   .btn svg{width:18px;height:18px;flex:none}
 
-  /* ---------- INFO STRIP ---------- */
   .strip{border-block:1px solid var(--line); background:var(--char)}
   .strip__grid{display:grid; grid-template-columns:repeat(3,1fr)}
   .strip__cell{padding:22px 24px; border-inline-start:1px solid var(--line-soft)}
   .strip__cell:first-child{border-inline-start:0}
-  .strip__k{font-family:var(--mono); font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--rice-faint); margin:0 0 7px}
+  .strip__k{font-family:var(--mono); font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:var(--rice-faint); margin:0 0 7px}
   .strip__v{margin:0; font-size:15.5px; line-height:1.45}
   .strip__v a{color:var(--salmon); text-decoration:none}
   .strip__v a:hover{text-decoration:underline}
   .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:9px}
   .tag{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--rice-dim); border:1px solid var(--line); border-radius:20px; padding:4px 11px}
 
-  /* ---------- SECTIONS ---------- */
   section{padding:clamp(56px,9vw,104px) 0}
   .menu-head{display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; margin-bottom:40px}
-  .menu-head p.note{margin:0; color:var(--rice-dim); font-size:14px; max-width:36ch}
+  .menu-head p.note{margin:10px 0 0; color:var(--rice-dim); font-size:14px; max-width:40ch}
   .cur{font-family:var(--mono); font-size:12px; color:var(--rice-faint); letter-spacing:.1em; white-space:nowrap}
 
   .menu-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,60px)}
   .mcol{display:flex; flex-direction:column; gap:34px}
-  .mgroup > h3{font-weight:800; font-size:19px; letter-spacing:.02em; margin:0 0 4px; display:flex; align-items:baseline; gap:12px}
-  .mgroup > h3 span{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--lantern); text-transform:uppercase; font-weight:400}
+  .mgroup > h3{font-weight:800; font-size:19px; letter-spacing:.01em; margin:0 0 4px}
   .mgroup > .rule{height:1px; background:var(--line); margin:12px 0 6px}
   .item{display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:14px; padding:10px 0; border-bottom:1px solid var(--line-soft)}
   .item:last-child{border-bottom:0}
-  .item__name{font-size:16px}
-  .item__name small{display:block; color:var(--rice-faint); font-size:12.5px; font-family:var(--mono); letter-spacing:.02em}
-  .item__price{font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:14.5px; color:var(--rice-dim)}
-  .stepper{display:inline-flex; align-items:center; gap:0; border:1px solid var(--line); border-radius:22px; overflow:hidden; background:var(--char)}
+  .item__name{font-size:15.5px; line-height:1.3}
+  .item__price{font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:14px; color:var(--rice-dim); white-space:nowrap}
+  .stepper{display:inline-flex; align-items:center; border:1px solid var(--line); border-radius:22px; overflow:hidden; background:var(--char)}
   .stepper button{width:30px; height:30px; border:0; background:transparent; color:var(--rice); font-size:17px; line-height:1; cursor:pointer; font-family:var(--mono)}
   .stepper button:hover{background:var(--raise); color:var(--lantern-hi)}
   .stepper .q{min-width:22px; text-align:center; font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:14px}
-  .item.active{}
-  .item.active .item__name{color:var(--rice)}
   .item.active .stepper{border-color:var(--lantern)}
+  .item__nostep{font-family:var(--mono); font-size:11px; color:var(--rice-faint); letter-spacing:.05em}
 
-  /* photo bands */
   .band{position:relative; margin:0; border-radius:18px; overflow:hidden; border:1px solid var(--line)}
   .band img{width:100%; height:100%; object-fit:cover}
-  .band__cap{position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+  .band__cap{position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase;
     color:#fff; background:rgba(16,13,10,.55); backdrop-filter:blur(3px); padding:6px 12px; border-radius:20px}
   .foodrow{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:44px}
   .foodrow .band{aspect-ratio:3/4}
 
-  /* ---------- ORDER BAR (sticky) ---------- */
-  .orderbar{position:fixed; left:0; right:0; bottom:0; z-index:40; transform:translateY(120%); transition:transform .28s cubic-bezier(.2,.8,.2,1);
-    background:rgba(20,17,13,.94); backdrop-filter:blur(10px); border-top:1px solid var(--line)}
+  .orderbar{position:fixed; left:0; right:0; bottom:0; z-index:50; transform:translateY(130%); transition:transform .28s cubic-bezier(.2,.8,.2,1);
+    background:rgba(20,17,13,.95); backdrop-filter:blur(10px); border-top:1px solid var(--line)}
   .orderbar.show{transform:translateY(0)}
-  .orderbar__in{width:min(100% - 32px,var(--wrap)); margin-inline:auto; display:flex; align-items:center; gap:16px; padding:13px 0}
-  .orderbar__sum{font-family:var(--mono); font-size:13px; color:var(--rice-dim); line-height:1.3}
+  .orderbar__in{width:min(100% - 32px,var(--wrap)); margin-inline:auto; display:flex; align-items:center; gap:14px; padding:12px 0; flex-wrap:wrap}
+  .seg{display:inline-flex; border:1px solid var(--line); border-radius:22px; overflow:hidden}
+  .seg button{border:0; background:transparent; color:var(--rice-dim); font-family:var(--mono); font-size:12px; padding:7px 12px; cursor:pointer}
+  .seg button.on{background:var(--raise); color:var(--rice)}
+  .orderbar__sum{font-family:var(--mono); font-size:12.5px; color:var(--rice-dim); line-height:1.25}
   .orderbar__sum b{color:var(--rice); font-size:16px; display:block; font-variant-numeric:tabular-nums}
   .orderbar__spacer{flex:1}
   .orderbar .btn--wa{padding:12px 20px}
   .orderbar__clear{background:transparent;border:0;color:var(--rice-faint);font-family:var(--mono);font-size:12px;cursor:pointer;text-decoration:underline}
 
-  /* ---------- ORDER SECTION ---------- */
   .order{background:linear-gradient(180deg,var(--char) 0%, var(--nori) 100%); border-block:1px solid var(--line)}
   .order .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:38px}
   .step{padding:24px; border:1px solid var(--line); border-radius:16px; background:rgba(243,235,220,.02)}
@@ -136,19 +126,17 @@
   .step h4{margin:12px 0 6px; font-size:18px; font-weight:700}
   .step p{margin:0; color:var(--rice-dim); font-size:14.5px}
 
-  /* ---------- PLACE ---------- */
   .place-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:20px; margin-top:40px}
   .place-grid .band{aspect-ratio:auto; min-height:100%}
   .place-copy{align-self:center}
-  .place-copy p{color:var(--rice-dim); font-size:16px; max-width:42ch}
+  .place-copy p{color:var(--rice-dim); font-size:16px; max-width:44ch}
   .place-copy p .hl{color:var(--rice); font-style:italic; font-family:var(--serif)}
   .quote{font-family:var(--serif); font-style:italic; font-size:clamp(19px,3vw,26px); line-height:1.4; color:var(--rice); margin:0 0 8px; text-wrap:balance}
-  .quote + .qby{font-family:var(--mono); font-size:12px; color:var(--rice-faint); letter-spacing:.1em}
+  .quote + .qby{font-family:var(--mono); font-size:12px; color:var(--rice-faint); letter-spacing:.08em}
 
-  /* ---------- FOOTER ---------- */
   footer{background:var(--char); border-top:1px solid var(--line); padding:clamp(48px,7vw,80px) 0 40px}
   .foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:36px}
-  .foot h5{font-family:var(--mono); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--rice-faint); margin:0 0 14px}
+  .foot h5{font-family:var(--mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--rice-faint); margin:0 0 14px}
   .foot p,.foot a{font-size:15px; color:var(--rice-dim); text-decoration:none; margin:0 0 8px; line-height:1.5}
   .foot a:hover{color:var(--salmon)}
   .foot .big{font-weight:800; font-size:28px; color:var(--rice); letter-spacing:-.02em; text-transform:uppercase; margin-bottom:6px}
@@ -165,241 +153,332 @@
     .place-grid{grid-template-columns:1fr}
     .foot-grid{grid-template-columns:1fr; gap:26px}
   }
-  @media (max-width:480px){
-    .foodrow{grid-template-columns:1fr}
-    .orderbar__in{gap:10px}
-    .orderbar__sum b{font-size:15px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .hero__img img{animation:none} .brandline .dot{animation:none} .btn:hover{transform:none}
-  }
-  .wm-sub{font-family:var(--mono);letter-spacing:.42em;text-transform:uppercase;font-size:13px;color:var(--salmon);margin-top:16px}
+  @media (max-width:480px){ .foodrow{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion:reduce){ .hero__img img{animation:none} .brandline .dot{animation:none} .btn:hover{transform:none} }
 </style>
 
+<nav class="langbar" aria-label="Language">
+  <button type="button" data-lang="ka" class="on">ქარ</button>
+  <button type="button" data-lang="ru">РУС</button>
+  <button type="button" data-lang="en">ENG</button>
+</nav>
+
 <div class="hero">
-  <div class="hero__img"><img src="img/hero.jpg" alt="Assorted sushi platter on a wooden board with the snowy peaks of Kazbegi through the window" /></div>
+  <div class="hero__img"><img src="img/hero.jpg" alt="Sushi platter with the snowy peaks of Kazbegi in the window" /></div>
   <div class="hero__scrim"></div>
   <div class="hero__inner">
-    <div class="brandline">
-      <span class="dot" aria-hidden="true"></span>
-      <span class="status">OPEN DAILY · STEPANTSMINDA · UNTIL MIDNIGHT</span>
-    </div>
+    <div class="brandline"><span class="dot" aria-hidden="true"></span><span class="status" data-t="status"></span></div>
     <h1 class="wordmark">Ag<em>ra</em>i</h1>
-    <div class="wm-sub">Sushi · Kazbegi</div>
-    <p class="tagline">Fresh sushi at the foot of Mt Kazbek.
-      <span class="sub">Rolls, maki &amp; hot tempura — after days of khinkali.</span>
-    </p>
-    <div class="rating">
-      <span class="stars" aria-hidden="true">★★★★★</span>
-      <span><b>4.5</b> · 192 reviews on Google · 10–20 ₾ per person</span>
-    </div>
+    <div class="wm-sub" data-t="wmsub">Sushi · Kazbegi</div>
+    <p class="tagline"><span data-t="tagline"></span><span class="sub" data-t="taglineSub"></span></p>
+    <div class="rating"><span class="stars" aria-hidden="true">★★★★★</span><span data-th="rating"></span></div>
     <div class="cta">
-      <a class="btn btn--wa" href="https://wa.me/995591456791?text=Hello%20Agrai%20Sushi!%20I'd%20like%20to%20order." target="_blank" rel="noopener">
+      <a class="btn btn--wa" id="heroWa" href="https://wa.me/995591456791" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-1-.3-1.6-.6-2.9-1.3-4.8-4.2-4.9-4.4-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1.1 2 1.2.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.9.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
-        Order on WhatsApp
+        <span data-t="btnOrder"></span>
       </a>
-      <a class="btn btn--ghost" href="https://www.google.com/maps/place/Agrai Sushi+Kazbegi/@42.6573887,44.6454655,17z/data=!4m6!3m5!1s0x404535e4f351692d:0x4484f4ff8b6b9423!8m2!3d42.6573887!4d44.6454655" target="_blank" rel="noopener">
+      <a class="btn btn--ghost" href="https://www.google.com/maps/place/Isushi+Kazbegi/@42.6573887,44.6454655,17z/data=!4m6!3m5!1s0x404535e4f351692d:0x4484f4ff8b6b9423!8m2!3d42.6573887!4d44.6454655" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.4-7-11a7 7 0 0 1 14 0c0 4.6-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-        Get directions
+        <span data-t="btnDir"></span>
       </a>
     </div>
   </div>
 </div>
 
-<div class="strip">
-  <div class="wrap">
-    <div class="strip__grid">
-      <div class="strip__cell">
-        <p class="strip__k">Hours</p>
-        <p class="strip__v">Open every day<br/>until <strong>midnight</strong> (00:00)</p>
-      </div>
-      <div class="strip__cell">
-        <p class="strip__k">Find us</p>
-        <p class="strip__v">Ilia II Street, Stepantsminda 4700<br/><a href="https://www.google.com/maps/place/Agrai Sushi+Kazbegi/@42.6573887,44.6454655,17z/data=!4m6!3m5!1s0x404535e4f351692d:0x4484f4ff8b6b9423!8m2!3d42.6573887!4d44.6454655" target="_blank" rel="noopener">Plus code MJ4W+X5 · open in Maps ↗</a></p>
-      </div>
-      <div class="strip__cell">
-        <p class="strip__k">Order &amp; call</p>
-        <p class="strip__v"><a href="tel:+995591456791">+995 591 45 67 91</a></p>
-        <div class="tags"><span class="tag">Dine-in</span><span class="tag">Pickup</span><span class="tag">Delivery</span></div>
-      </div>
+<div class="strip"><div class="wrap"><div class="strip__grid">
+  <div class="strip__cell"><p class="strip__k" data-t="kHours"></p><p class="strip__v" data-th="vHours"></p></div>
+  <div class="strip__cell"><p class="strip__k" data-t="kFind"></p><p class="strip__v"><span data-t="vFindAddr"></span><br/>
+    <a href="https://www.google.com/maps/place/Isushi+Kazbegi/@42.6573887,44.6454655,17z/data=!4m6!3m5!1s0x404535e4f351692d:0x4484f4ff8b6b9423!8m2!3d42.6573887!4d44.6454655" target="_blank" rel="noopener"><span data-t="vFindLink"></span></a></p></div>
+  <div class="strip__cell"><p class="strip__k" data-t="kCall"></p><p class="strip__v"><a href="tel:+995591456791">+995 591 45 67 91</a></p>
+    <div class="tags"><span class="tag" data-t="tagDine"></span><span class="tag" data-t="tagPickup"></span><span class="tag" data-t="tagDelivery"></span></div></div>
+</div></div></div>
+
+<section id="menu"><div class="wrap">
+  <div class="menu-head">
+    <div><p class="eyebrow" data-t="mEyebrow"></p><h2 class="sec" data-t="mH2"></h2><p class="note" data-t="mNote"></p></div>
+    <span class="cur" data-t="mCur"></span>
+  </div>
+  <div class="menu-grid" id="menuGrid"></div>
+  <div class="foodrow">
+    <figure class="band"><img src="img/maki.jpg" alt="Maki rolls on kraft paper"/><figcaption class="band__cap" data-t="capMaki"></figcaption></figure>
+    <figure class="band"><img src="img/california.jpg" alt="California rolls with tobiko"/><figcaption class="band__cap" data-t="capCalif"></figcaption></figure>
+    <figure class="band"><img src="img/salmon.jpg" alt="Salmon roll and wok box"/><figcaption class="band__cap" data-t="capSalmon"></figcaption></figure>
+  </div>
+</div></section>
+
+<section class="order" id="order"><div class="wrap">
+  <p class="eyebrow" data-t="oEyebrow"></p><h2 class="sec" data-t="oH2"></h2>
+  <div class="steps">
+    <div class="step"><div class="n">01</div><h4 data-t="s1t"></h4><p data-t="s1p"></p></div>
+    <div class="step"><div class="n">02</div><h4 data-t="s2t"></h4><p data-t="s2p"></p></div>
+    <div class="step"><div class="n">03</div><h4 data-t="s3t"></h4><p data-t="s3p"></p></div>
+  </div>
+</div></section>
+
+<section id="place"><div class="wrap">
+  <p class="eyebrow" data-t="pEyebrow"></p><h2 class="sec" data-t="pH2"></h2>
+  <div class="place-grid">
+    <figure class="band"><img src="img/interior.jpg" alt="Cozy Agrai dining room with a red lantern and world flags"/></figure>
+    <div class="place-copy">
+      <p class="quote" data-t="pQuote"></p><div class="qby" data-t="pQuoteBy"></div>
+      <p style="margin-top:22px" data-th="pCopy"></p>
     </div>
   </div>
-</div>
+  <figure class="band" style="margin-top:20px; aspect-ratio:16/7"><img src="img/memory-door.jpg" alt="Guests writing on the chalkboard memory door"/><figcaption class="band__cap" data-t="capDoor"></figcaption></figure>
+</div></section>
 
-<section id="menu">
-  <div class="wrap">
-    <div class="menu-head">
-      <div>
-        <p class="eyebrow">The menu</p>
-        <h2 class="sec">Roll it up.</h2>
-        <p class="note">Tap <b>+</b> on any dish to build an order — we’ll send it to the kitchen over WhatsApp.</p>
-      </div>
-      <span class="cur">Prices in Georgian lari · ₾</span>
-    </div>
+<section id="map" style="padding-top:0"><div class="wrap"><figure class="band" style="aspect-ratio:16/8"><iframe title="Agrai Sushi map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=42.6573887,44.6454655&amp;z=16&amp;output=embed" style="width:100%;height:100%;border:0;filter:saturate(.92) contrast(1.02)"></iframe></figure></div></section>
 
-    <div class="menu-grid" id="menuGrid"><!-- rendered by JS --></div>
-
-    <div class="foodrow">
-      <figure class="band"><img src="img/maki.jpg" alt="Maki rolls in nori on kraft paper with soy and wasabi"/><figcaption class="band__cap">Maki · nori-wrapped</figcaption></figure>
-      <figure class="band"><img src="img/california.jpg" alt="California rolls topped with orange tobiko and avocado"/><figcaption class="band__cap">California · tobiko</figcaption></figure>
-      <figure class="band"><img src="img/salmon.jpg" alt="Salmon roll on a black plate beside a box of stir-fried noodles"/><figcaption class="band__cap">Salmon roll &amp; wok box</figcaption></figure>
-    </div>
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot"><div class="big">Ag<em>ra</em>i</div><p data-th="footTag"></p>
+      <p style="margin-top:14px"><span class="stars" style="color:var(--lantern-hi)">★★★★★</span> &nbsp;<span data-t="footRating"></span></p></div>
+    <div class="foot"><h5 data-t="footVisit"></h5><p data-th="footAddr"></p>
+      <a href="https://www.google.com/maps/place/Isushi+Kazbegi/@42.6573887,44.6454655,17z/data=!4m6!3m5!1s0x404535e4f351692d:0x4484f4ff8b6b9423!8m2!3d42.6573887!4d44.6454655" target="_blank" rel="noopener">Plus code MJ4W+X5 ↗</a>
+      <p style="margin-top:12px" data-t="footHours"></p></div>
+    <div class="foot"><h5 data-t="footOrder"></h5>
+      <a id="footWa" href="https://wa.me/995591456791" target="_blank" rel="noopener"><span data-t="footWaLabel"></span> ↗</a>
+      <a href="tel:+995591456791">+995 591 45 67 91</a>
+      <a href="https://www.facebook.com/share/1FyxiKoR5a/" target="_blank" rel="noopener">Facebook ↗</a></div>
   </div>
-</section>
-
-<section class="order" id="order">
-  <div class="wrap">
-    <p class="eyebrow">How it works</p>
-    <h2 class="sec">Three taps to dinner.</h2>
-    <div class="steps">
-      <div class="step"><div class="n">01</div><h4>Build your order</h4><p>Add rolls and maki above. Your basket follows you at the bottom of the screen.</p></div>
-      <div class="step"><div class="n">02</div><h4>Send on WhatsApp</h4><p>One tap opens a ready-made message to the kitchen. Tell us pickup or delivery and your spot.</p></div>
-      <div class="step"><div class="n">03</div><h4>Eat by the mountain</h4><p>Dine in under the paper lantern, grab it to go, or we bring it to your guesthouse in Stepantsminda.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="place">
-  <div class="wrap">
-    <p class="eyebrow">Our place</p>
-    <h2 class="sec">A warm room full of flags.</h2>
-    <div class="place-grid">
-      <figure class="band"><img src="img/interior.jpg" alt="Cozy Agrai Sushi dining room with a red paper lantern, world flags and sushi laid out on the tables"/></figure>
-      <div class="place-copy">
-        <p class="quote">“Great to find some Asian food up here after days of local cuisine — cosy, relaxing, the staff so welcoming.”</p>
-        <div class="qby">— Google review · Stepantsminda</div>
-        <p style="margin-top:22px"><span class="hl">Flags from every country</span> that ever walked in, a red lantern overhead, and a chalkboard <b>memory door</b> where guests leave a line before they head back to the mountains.</p>
-      </div>
-    </div>
-    <figure class="band" style="margin-top:20px; aspect-ratio:16/7"><img src="img/memory-door.jpg" alt="Guests writing messages on Agrai Sushi's chalkboard memory door covered in notes and stickers"/><figcaption class="band__cap">The memory door — write something</figcaption></figure>
-  </div>
-</section>
-
-<section id="map" style="padding-top:0">
-  <div class="wrap">
-    <figure class="band" style="aspect-ratio:16/8">
-      <iframe title="Agrai Sushi on the map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=42.6573887,44.6454655&amp;z=16&amp;output=embed" style="width:100%;height:100%;border:0;filter:saturate(.92) contrast(1.02)"></iframe>
-    </figure>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot">
-        <div class="big">Ag<em>ra</em>i</div>
-        <p>Sushi at the foot of Mt Kazbek.<br/>Stepantsminda, Georgia.</p>
-        <p style="margin-top:14px"><span class="stars" style="color:var(--lantern-hi)">★★★★★</span> &nbsp;4.5 · 192 Google reviews</p>
-      </div>
-      <div class="foot">
-        <h5>Visit</h5>
-        <p>Ilia II Street<br/>Stepantsminda 4700</p>
-        <a href="https://www.google.com/maps/place/Agrai Sushi+Kazbegi/@42.6573887,44.6454655,17z/data=!4m6!3m5!1s0x404535e4f351692d:0x4484f4ff8b6b9423!8m2!3d42.6573887!4d44.6454655" target="_blank" rel="noopener">Plus code MJ4W+X5 ↗</a>
-        <p style="margin-top:12px">Open daily · until midnight</p>
-      </div>
-      <div class="foot">
-        <h5>Order</h5>
-        <a href="https://wa.me/995591456791?text=Hello%20Agrai%20Sushi!%20I'd%20like%20to%20order." target="_blank" rel="noopener">WhatsApp order ↗</a>
-        <a href="tel:+995591456791">+995 591 45 67 91</a>
-        <a href="https://www.facebook.com/share/1FyxiKoR5a/" target="_blank" rel="noopener">Facebook ↗</a>
-      </div>
-    </div>
-    <div class="footnote">
-      <span>Dine-in · Pickup · Delivery in Stepantsminda</span>
-      <span>Menu &amp; prices as posted in-store · confirm on WhatsApp</span>
-    </div>
-  </div>
-</footer>
+  <div class="footnote"><span data-t="foot1"></span><span data-t="foot2"></span></div>
+</div></footer>
 
 <div class="orderbar" id="orderbar" role="region" aria-label="Your order">
   <div class="orderbar__in">
-    <div class="orderbar__sum"><span id="obCount">0 items</span><b id="obTotal">0.00 ₾</b></div>
-    <button class="orderbar__clear" id="obClear" type="button">clear</button>
+    <div class="seg" id="modeSeg">
+      <button type="button" data-mode="delivery" class="on" data-t="obDeliv"></button>
+      <button type="button" data-mode="pickup" data-t="obPickup"></button>
+    </div>
+    <div class="orderbar__sum"><span id="obCount"></span><b id="obTotal">0 ₾</b></div>
+    <button class="orderbar__clear" id="obClear" type="button" data-t="obClear"></button>
     <div class="orderbar__spacer"></div>
     <a class="btn btn--wa" id="obSend" href="#" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-1-.3-1.6-.6-2.9-1.3-4.8-4.2-4.9-4.4-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1.1 2 1.2.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.9.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
-      Send order
+      <span data-t="obSend"></span>
     </a>
   </div>
 </div>
 
 <script>
 (function(){
-  const MENU = [
-    {cat:"Maki", note:"nori rolls", items:[
-      ["Cucumber Maki",14.90],["Avocado Maki",15.90],["Syake Maki",19.90],["Crab Maki",20.90],
-      ["Unagi Maki",22.90],["Shrimp Maki",22.90],["Yasai Maki",22.90],
-    ]},
-    {cat:"California", note:"topped rolls", items:[
-      ["California Crab",34.90],["California Salmon",37.90],["California Shrimp",39.90],
-      ["California Fried Shrimp",41.90],["Veggie Tempura Roll",26.90],["Green Ocean Roll",26.90],
-    ]},
-    {cat:"Signature rolls", note:"house favourites", items:[
-      ["Agrai Special Roll",35.90],["Spicy Salmon",38.90],["Tiger Roll",35.90],["Hiyashi Roll",32.90],
-      ["Canada",72.90],["Chicken Roll",30.90],["Mix Roll",38.90],["Smoked Salmon Roll",35.90],
-      ["Philadelphia Classic",29.90],["Philadelphia Avocado",32.90],["Philadelphia Shrimp",36.90],["Philadelphia Unagi",39.90],
-    ]},
-    {cat:"Tempura", note:"hot / fried", items:[
-      ["Tempura Roll with Chicken",41.90],["Tempura Roll with Salmon",44.90],["Tempura Roll with Shrimp",45.90],
-    ]},
-    {cat:"SushiRito", note:"2× wraps", items:[
-      ["SushiRito Chicken",25.90],["SushiRito Salmon",30.90],["Hot SushiRito",34.90],
-    ]},
+  var WA="995591456791", DELIVERY_FEE=10;
+  var T={
+   ka:{status:"ყოველდღე ღია · სტეფანწმინდა · შუაღამემდე", wmsub:"სუში · ყაზბეგი",
+    tagline:"ახალი სუში ყაზბეგის ძირში.", taglineSub:"როლები, მაკი და ცხელი ტემპურა.",
+    rating:"<b>4.5</b> · 192 შეფასება Google-ზე · 10–20 ₾ ერთ სტუმარზე",
+    btnOrder:"შეკვეთა WhatsApp-ით", btnDir:"მარშრუტი რუკაზე",
+    kHours:"სამუშაო საათები", vHours:"ღიაა ყოველდღე<br/><strong>შუაღამემდე</strong> (00:00)",
+    kFind:"მისამართი", vFindAddr:"ილია მეორის ქუჩა, სტეფანწმინდა 4700", vFindLink:"Plus code MJ4W+X5 · რუკაზე გახსნა ↗",
+    kCall:"შეკვეთა და ზარი", tagDine:"დარბაზში", tagPickup:"წაღება", tagDelivery:"მიტანა",
+    mEyebrow:"მენიუ", mH2:"დაახვიე.", mNote:"დააჭირე + ნებისმიერ კერძს — შეკვეთას WhatsApp-ით სამზარეულოს გავუგზავნით.", mCur:"ფასები ლარში · ₾",
+    oEyebrow:"როგორ მუშაობს", oH2:"სამი შეხება ვახშმამდე.",
+    s1t:"შეადგინე შეკვეთა", s1p:"დაამატე როლები და მაკი ზემოთ. კალათა ეკრანის ბოლოში დაგყვება.",
+    s2t:"გააგზავნე WhatsApp-ით", s2p:"ერთი შეხება — მზა შეტყობინება სამზარეულოს. მიუთითე მიტანის მისამართი ან წაღება.",
+    s3t:"მიირთვი მთის ძირში", s3p:"მიირთვი დარბაზში ფარნის ქვეშ, წაიღე თან, ან მიგიტანთ სტეფანწმინდაში 10 ₾-ად.",
+    pEyebrow:"ჩვენი ადგილი", pH2:"თბილი დარბაზი დროშებით.",
+    pQuote:"„კარგია, რომ ამ სიმაღლეზე აზიური საჭმელი ვიპოვეთ — მყუდრო, მოდუნებული, პერსონალი ძალიან თბილი.“",
+    pQuoteBy:"— Google-შეფასება · სტეფანწმინდა",
+    pCopy:"<span class=\"hl\">დროშები ყველა ქვეყნიდან</span>, წითელი ფარანი ჭერზე და <b>მოგონებების კარი</b>, სადაც სტუმრები მთაში დაბრუნებამდე რაიმეს წერენ.",
+    capMaki:"მაკი", capCalif:"კალიფორნია", capSalmon:"ორაგულის როლი და ვოკი", capDoor:"მოგონებების კარი — დაწერე რაიმე",
+    footTag:"სუში ყაზბეგის ძირში.<br/>სტეფანწმინდა, საქართველო.", footRating:"4.5 · 192 შეფასება",
+    footVisit:"მისამართი", footAddr:"ილია მეორის ქუჩა<br/>სტეფანწმინდა 4700", footHours:"ღიაა ყოველდღე · შუაღამემდე",
+    footOrder:"შეკვეთა", footWaLabel:"შეკვეთა WhatsApp-ით",
+    foot1:"დარბაზში · წაღება · მიტანა სტეფანწმინდაში", foot2:"მენიუ და ფასები დარბაზის მიხედვით · დაადასტურე WhatsApp-ით",
+    obDeliv:"მიტანა +10 ₾", obPickup:"წაღება", obSend:"შეკვეთის გაგზავნა", obClear:"გასუფთავება",
+    unit:"კერძი", waHi:"გამარჯობა, Agrai Sushi! მინდა შევუკვეთო:", waSub:"ჯამი", waDel:"მიტანა", waPick:"წაღება", waTot:"სულ", waName:"სახელი / მისამართი:"},
+   ru:{status:"Открыто каждый день · Степанцминда · до полуночи", wmsub:"Суши · Казбеги",
+    tagline:"Свежие суши у подножия Казбека.", taglineSub:"Роллы, маки и горячая темпура.",
+    rating:"<b>4.5</b> · 192 отзыва на Google · 10–20 ₾ на человека",
+    btnOrder:"Заказать в WhatsApp", btnDir:"Как доехать",
+    kHours:"Часы", vHours:"Открыто ежедневно<br/>до <strong>полуночи</strong> (00:00)",
+    kFind:"Где мы", vFindAddr:"Ilia II Street, Степанцминда 4700", vFindLink:"Plus code MJ4W+X5 · открыть в картах ↗",
+    kCall:"Заказ и звонок", tagDine:"В зале", tagPickup:"Самовывоз", tagDelivery:"Доставка",
+    mEyebrow:"Меню", mH2:"Разворачиваем.", mNote:"Жми + у любого блюда — соберём заказ и отправим на кухню через WhatsApp.", mCur:"Цены в лари · ₾",
+    oEyebrow:"Как это работает", oH2:"Три касания до ужина.",
+    s1t:"Собери заказ", s1p:"Добавляй роллы и маки выше. Корзина всегда внизу экрана.",
+    s2t:"Отправь в WhatsApp", s2p:"Одно касание — готовое сообщение на кухню. Укажи адрес доставки или самовывоз.",
+    s3t:"Ешь у горы", s3p:"Ешь в зале под фонариком, забирай с собой или доставим по Степанцминде за 10 ₾.",
+    pEyebrow:"Наше место", pH2:"Тёплый зал в флагах.",
+    pQuote:"«Здорово найти азиатскую еду на такой высоте — уютно, спокойно, персонал очень тёплый.»",
+    pQuoteBy:"— отзыв на Google · Степанцминда",
+    pCopy:"<span class=\"hl\">Флаги всех стран</span>, что заходили, красный фонарь под потолком и <b>стена памяти</b>, где гости оставляют надпись перед возвращением в горы.",
+    capMaki:"Маки", capCalif:"Калифорния", capSalmon:"Ролл с лососем и вок", capDoor:"Стена памяти — оставь надпись",
+    footTag:"Суши у подножия Казбека.<br/>Степанцминда, Грузия.", footRating:"4.5 · 192 отзыва",
+    footVisit:"Адрес", footAddr:"Ilia II Street<br/>Степанцминда 4700", footHours:"Открыто ежедневно · до полуночи",
+    footOrder:"Заказ", footWaLabel:"Заказать в WhatsApp",
+    foot1:"В зале · самовывоз · доставка по Степанцминде", foot2:"Меню и цены — как в зале · уточняй в WhatsApp",
+    obDeliv:"Доставка +10 ₾", obPickup:"Самовывоз", obSend:"Отправить заказ", obClear:"очистить",
+    unit:"блюд", waHi:"Здравствуйте, Agrai Sushi! Хочу заказать:", waSub:"Сумма", waDel:"Доставка", waPick:"Самовывоз", waTot:"Итого", waName:"Имя / адрес:"},
+   en:{status:"OPEN DAILY · STEPANTSMINDA · UNTIL MIDNIGHT", wmsub:"Sushi · Kazbegi",
+    tagline:"Fresh sushi at the foot of Mt Kazbek.", taglineSub:"Rolls, maki & hot tempura — after days of khinkali.",
+    rating:"<b>4.5</b> · 192 reviews on Google · 10–20 ₾ per person",
+    btnOrder:"Order on WhatsApp", btnDir:"Get directions",
+    kHours:"Hours", vHours:"Open every day<br/>until <strong>midnight</strong> (00:00)",
+    kFind:"Find us", vFindAddr:"Ilia II Street, Stepantsminda 4700", vFindLink:"Plus code MJ4W+X5 · open in Maps ↗",
+    kCall:"Order & call", tagDine:"Dine-in", tagPickup:"Pickup", tagDelivery:"Delivery",
+    mEyebrow:"The menu", mH2:"Roll it up.", mNote:"Tap + on any dish to build an order — we'll send it to the kitchen over WhatsApp.", mCur:"Prices in Georgian lari · ₾",
+    oEyebrow:"How it works", oH2:"Three taps to dinner.",
+    s1t:"Build your order", s1p:"Add rolls and maki above. Your basket follows you at the bottom of the screen.",
+    s2t:"Send on WhatsApp", s2p:"One tap opens a ready message to the kitchen. Add a delivery address or choose pickup.",
+    s3t:"Eat by the mountain", s3p:"Dine in under the lantern, grab it to go, or we deliver in Stepantsminda for 10 ₾.",
+    pEyebrow:"Our place", pH2:"A warm room full of flags.",
+    pQuote:"“Great to find some Asian food up here after days of local cuisine — cosy, relaxing, the staff so welcoming.”",
+    pQuoteBy:"— Google review · Stepantsminda",
+    pCopy:"<span class=\"hl\">Flags from every country</span> that ever walked in, a red lantern overhead, and a chalkboard <b>memory door</b> where guests leave a line before they head back to the mountains.",
+    capMaki:"Maki", capCalif:"California", capSalmon:"Salmon roll & wok", capDoor:"The memory door — write something",
+    footTag:"Sushi at the foot of Mt Kazbek.<br/>Stepantsminda, Georgia.", footRating:"4.5 · 192 Google reviews",
+    footVisit:"Visit", footAddr:"Ilia II Street<br/>Stepantsminda 4700", footHours:"Open daily · until midnight",
+    footOrder:"Order", footWaLabel:"WhatsApp order",
+    foot1:"Dine-in · pickup · delivery in Stepantsminda", foot2:"Menu & prices as posted in-store · confirm on WhatsApp",
+    obDeliv:"Delivery +10 ₾", obPickup:"Pickup", obSend:"Send order", obClear:"clear",
+    unit:"items", waHi:"Hello Agrai Sushi! I'd like to order:", waSub:"Subtotal", waDel:"Delivery", waPick:"Pickup", waTot:"Total", waName:"Name / address:"}
+  };
+
+  // price: number => orderable; pt: string => display only (glass/bottle)
+  var MENU=[
+   {ka:"ნიგირი სუში",en:"Nigiri sushi",ru:"Нигири суши",items:[
+     {ka:"სუში ავოკადოთი",en:"Sushi Avocado",ru:"Суши с авокадо",p:4},
+     {ka:"სუში ორაგულით",en:"Sushi Salmon",ru:"Суши с лососем",p:5},
+     {ka:"სუში უნაგით",en:"Sushi Unagi",ru:"Суши с угрём",p:6},
+     {ka:"სუში კრევეტებით",en:"Sushi Shrimp",ru:"Суши с креветками",p:6},
+     {ka:"სუში გახეხილი ორაგულით",en:"Sushi Smoked Salmon",ru:"Суши с копчёным лососем",p:6}]},
+   {ka:"მაკი",en:"Maki",ru:"Маки",items:[
+     {ka:"მაკი ორაგულით",en:"Salmon Maki",ru:"Маки с лососем",p:20},
+     {ka:"მაკი კიტრით",en:"Cucumber Maki",ru:"Маки с огурцом",p:15},
+     {ka:"მაკი ავოკადოთი",en:"Avocado Maki",ru:"Маки с авокадо",p:16},
+     {ka:"მაკი კიბორჩხალათი",en:"Crab Maki",ru:"Маки с крабом",p:21},
+     {ka:"მაკი უნაგით",en:"Unagi Maki",ru:"Маки с угрём",p:23},
+     {ka:"მაკი კრევეტებით",en:"Shrimp Maki",ru:"Маки с креветками",p:24}]},
+   {ka:"როლები",en:"Rolls",ru:"Роллы",items:[
+     {ka:"კალიფორნია კიბორჩხალათი",en:"California Crab",ru:"Калифорния с крабом",p:30},
+     {ka:"კალიფორნია ორაგულით",en:"California Salmon",ru:"Калифорния с лососем",p:35},
+     {ka:"კალიფორნია კრევეტებით",en:"California Shrimp",ru:"Калифорния с креветками",p:37},
+     {ka:"მწვანე დრაკონი",en:"Green Dragon",ru:"Зелёный дракон",p:37},
+     {ka:"ცხარე როლი ორაგულით",en:"Spicy Salmon",ru:"Острый ролл с лососем",p:37},
+     {ka:"ტიგერ როლი",en:"Tiger Roll",ru:"Тигровый ролл",p:36},
+     {ka:"როლი ქათმით",en:"Chicken Roll",ru:"Ролл с курицей",p:28},
+     {ka:"როლი გახეხილი ორაგულით",en:"Smoked Salmon Roll",ru:"Ролл с копчёным лососем",p:33},
+     {ka:"ფილადელფია კლასიკური",en:"Philadelphia Classic",ru:"Филадельфия классическая",p:30},
+     {ka:"ფილადელფია ავოკადოთი",en:"Philadelphia Avocado",ru:"Филадельфия с авокадо",p:33},
+     {ka:"ფილადელფია კრევეტებით",en:"Philadelphia Shrimp",ru:"Филадельфия с креветками",p:35},
+     {ka:"ტოკიო",en:"Tokyo",ru:"Токио",p:37}]},
+   {ka:"ტემპურა (ცხელი)",en:"Tempura (hot)",ru:"Темпура (горячее)",items:[
+     {ka:"ტემპურა როლი უნაგით",en:"Tempura Roll Unagi",ru:"Темпура ролл с угрём",p:45},
+     {ka:"ტემპურა როლი ქათმით",en:"Tempura Roll Chicken",ru:"Темпура ролл с курицей",p:40},
+     {ka:"ტემპურა როლი ორაგულით",en:"Tempura Roll Salmon",ru:"Темпура ролл с лососем",p:42},
+     {ka:"ტემპურა როლი კრევეტებით",en:"Tempura Roll Shrimp",ru:"Темпура ролл с креветками",p:43},
+     {ka:"სუში ბურგერი",en:"Sushi Burger",ru:"Суши бургер",p:45}]},
+   {ka:"ნუდლი და ბრინჯი (ვოკი)",en:"Noodles & rice (wok)",ru:"Лапша и рис (вок)",items:[
+     {ka:"ლაფშა ქათმით",en:"Noodles with Chicken",ru:"Лапша с курицей",p:24},
+     {ka:"ლაფშა საქონლის ხორცით, ტერიაკი",en:"Teriyaki Noodles with Beef",ru:"Лапша с говядиной (терияки)",p:28},
+     {ka:"ლაფშა კრევეტებით, ტერიაკი",en:"Teriyaki Noodles with Shrimp",ru:"Лапша с креветками (терияки)",p:27},
+     {ka:"ლაფშა სოკოთი, ტერიაკი",en:"Teriyaki Noodles with Mushroom",ru:"Лапша с грибами (терияки)",p:25},
+     {ka:"ბრინჯი ქათმით, ტერიაკი",en:"Teriyaki Rice with Chicken",ru:"Рис с курицей (терияки)",p:17},
+     {ka:"ბრინჯი საქონლის ხორცით",en:"Rice with Beef",ru:"Рис с говядиной",p:23},
+     {ka:"ბრინჯი კრევეტებით",en:"Rice with Shrimp",ru:"Рис с креветками",p:22},
+     {ka:"ბრინჯი სოკოთი",en:"Rice with Mushroom",ru:"Рис с грибами",p:18}]},
+   {ka:"გარნირი",en:"Side dishes",ru:"Гарниры",items:[
+     {ka:"ფრი კარტოფილი",en:"French Fries",ru:"Картофель фри",p:11},
+     {ka:"ქათმის პოპკორნი",en:"Chicken Popcorn",ru:"Куриные попкорны",p:16},
+     {ka:"ტემპურა კრევეტები",en:"Tempura Shrimp",ru:"Креветки темпура",p:18}]},
+   {ka:"ალკოჰოლური სასმელები",en:"Drinks",ru:"Напитки",items:[
+     {ka:"სახლის ღვინო „საფერავი“",en:"House Wine \"Saperavi\"",ru:"Домашнее вино «Саперави»",pt:"8 / 35"},
+     {ka:"სახლის ღვინო „ქინძმარაული“",en:"House Wine \"Kindzmarauli\"",ru:"Домашнее вино «Киндзмараули»",pt:"10 / 40"},
+     {ka:"სახლის თეთრი ღვინო",en:"House White Wine",ru:"Домашнее белое вино",pt:"7 / 25"},
+     {ka:"სახლის ჭაჭა",en:"House Chacha",ru:"Домашняя чача",pt:"5 / 35"},
+     {ka:"კონიაკი",en:"Cognac",ru:"Коньяк",pt:"50 / 100"},
+     {ka:"აჩხოტის მონასტრის ლუდი",en:"Achkhoti Monastery Beer",ru:"Пиво Ачхотского монастыря",p:9},
+     {ka:"ბოთლის ლუდი",en:"Bottled Beer",ru:"Бутылочное пиво",p:10},
+     {ka:"ჩამოსასხმელი ლუდი",en:"Draft Beer",ru:"Разливное пиво",p:9}]}
   ];
-  const WA = "995591456791";
-  const qty = {};
-  const grid = document.getElementById("menuGrid");
 
-  // split groups into two balanced columns
-  const colA = document.createElement("div"); colA.className="mcol";
-  const colB = document.createElement("div"); colB.className="mcol";
-  MENU.forEach((g,gi)=>{
-    const wrap = document.createElement("div"); wrap.className="mgroup";
-    wrap.innerHTML = '<h3>'+g.cat+' <span>'+g.note+'</span></h3><div class="rule"></div>';
-    g.items.forEach(([name,price])=>{
-      const id = name;
-      qty[id] = {name, price, n:0};
-      const row = document.createElement("div"); row.className="item"; row.dataset.id=id;
-      row.innerHTML =
-        '<div class="item__name">'+name+'</div>'+
-        '<div class="item__price">'+price.toFixed(2)+'</div>'+
-        '<div class="stepper"><button type="button" aria-label="Remove one '+name+'" data-d="-1">–</button>'+
-        '<span class="q" data-q>0</span>'+
-        '<button type="button" aria-label="Add one '+name+'" data-d="1">+</button></div>';
-      wrap.appendChild(row);
+  var lang="ka", mode="delivery", qty={};
+  var grid=document.getElementById("menuGrid");
+  var bar=document.getElementById("orderbar");
+  var obCount=document.getElementById("obCount"), obTotal=document.getElementById("obTotal"), obSend=document.getElementById("obSend");
+
+  function idOf(it){return it.en;}
+  function renderMenu(){
+    grid.innerHTML="";
+    var colA=document.createElement("div"); colA.className="mcol";
+    var colB=document.createElement("div"); colB.className="mcol";
+    MENU.forEach(function(g,gi){
+      var w=document.createElement("div"); w.className="mgroup";
+      var h=document.createElement("h3"); h.textContent=g[lang]; w.appendChild(h);
+      var r=document.createElement("div"); r.className="rule"; w.appendChild(r);
+      g.items.forEach(function(it){
+        var id=idOf(it);
+        if(!(id in qty)) qty[id]={n:0};
+        var row=document.createElement("div"); row.className="item"; row.dataset.id=id;
+        if(qty[id].n>0) row.classList.add("active");
+        var priceHtml, ctrl;
+        if(typeof it.p==="number"){
+          priceHtml='<div class="item__price">'+it.p+' ₾</div>';
+          ctrl='<div class="stepper"><button type="button" data-d="-1" aria-label="-">–</button><span class="q" data-q>'+qty[id].n+'</span><button type="button" data-d="1" aria-label="+">+</button></div>';
+        } else {
+          priceHtml='<div class="item__price">'+it.pt+' ₾</div>';
+          ctrl='<div class="item__nostep">'+(lang==="ka"?"დარბაზში":lang==="ru"?"в зале":"in-store")+'</div>';
+        }
+        row.innerHTML='<div class="item__name">'+it[lang]+'</div>'+priceHtml+ctrl;
+        w.appendChild(row);
+      });
+      (gi%2===0?colA:colB).appendChild(w);
     });
-    (gi%2===0?colA:colB).appendChild(wrap);
-  });
-  grid.appendChild(colA); grid.appendChild(colB);
+    grid.appendChild(colA); grid.appendChild(colB);
+  }
 
-  const bar = document.getElementById("orderbar");
-  const obCount = document.getElementById("obCount");
-  const obTotal = document.getElementById("obTotal");
-  const obSend  = document.getElementById("obSend");
+  function priceOf(id){ for(var i=0;i<MENU.length;i++){for(var j=0;j<MENU[i].items.length;j++){var it=MENU[i].items[j]; if(it.en===id && typeof it.p==="number") return {p:it.p,name:it};}} return null; }
 
   function refresh(){
-    let n=0,total=0,lines=[];
-    Object.values(qty).forEach(it=>{ if(it.n>0){ n+=it.n; total+=it.n*it.price; lines.push(it.n+"× "+it.name+" — "+(it.n*it.price).toFixed(2)+" GEL"); }});
-    obCount.textContent = n+" item"+(n===1?"":"s");
-    obTotal.textContent = total.toFixed(2)+" ₾";
+    var t=T[lang], n=0, sub=0, lines=[];
+    for(var id in qty){ if(qty[id].n>0){ var m=priceOf(id); if(!m) continue; n+=qty[id].n; sub+=qty[id].n*m.p; lines.push(qty[id].n+"× "+m.name[lang]+" — "+(qty[id].n*m.p)+" GEL"); } }
+    var deliv = (mode==="delivery" && n>0) ? DELIVERY_FEE : 0;
+    var total = sub + deliv;
+    obCount.textContent = n+" "+t.unit;
+    obTotal.textContent = total+" ₾";
     bar.classList.toggle("show", n>0);
-    let msg = "Hello Agrai Sushi! I'd like to order:\n"+lines.join("\n")+"\n\nTotal: "+total.toFixed(2)+" GEL\nName / delivery address or pickup:";
-    obSend.href = "https://wa.me/"+WA+"?text="+encodeURIComponent(msg);
+    var msg = t.waHi+"\n"+lines.join("\n")+"\n\n"+t.waSub+": "+sub+" GEL\n"+
+      (mode==="delivery" ? t.waDel+": "+DELIVERY_FEE+" GEL" : t.waPick)+"\n"+t.waTot+": "+total+" GEL\n"+t.waName;
+    obSend.href="https://wa.me/"+WA+"?text="+encodeURIComponent(msg);
   }
-  grid.addEventListener("click",e=>{
-    const b=e.target.closest("button[data-d]"); if(!b) return;
-    const row=b.closest(".item"); const id=row.dataset.id;
-    qty[id].n = Math.max(0, qty[id].n + (b.dataset.d==="1"?1:-1));
-    row.querySelector("[data-q]").textContent = qty[id].n;
+
+  function applyLang(l){
+    lang=l; document.documentElement.lang=l;
+    document.querySelectorAll("[data-t]").forEach(function(e){ e.textContent=T[l][e.dataset.t]; });
+    document.querySelectorAll("[data-th]").forEach(function(e){ e.innerHTML=T[l][e.dataset.th]; });
+    document.querySelectorAll(".langbar button").forEach(function(b){ b.classList.toggle("on", b.dataset.lang===l); });
+    // hero/footer plain WhatsApp links get a localized greeting
+    var hi=encodeURIComponent(T[l].waHi);
+    document.getElementById("heroWa").href="https://wa.me/"+WA+"?text="+hi;
+    document.getElementById("footWa").href="https://wa.me/"+WA+"?text="+hi;
+    renderMenu(); refresh();
+  }
+
+  grid.addEventListener("click",function(e){
+    var b=e.target.closest("button[data-d]"); if(!b) return;
+    var row=b.closest(".item"), id=row.dataset.id;
+    qty[id].n=Math.max(0, qty[id].n + (b.dataset.d==="1"?1:-1));
+    row.querySelector("[data-q]").textContent=qty[id].n;
     row.classList.toggle("active", qty[id].n>0);
     refresh();
   });
-  document.getElementById("obClear").addEventListener("click",()=>{
-    Object.keys(qty).forEach(k=>qty[k].n=0);
-    grid.querySelectorAll("[data-q]").forEach(q=>q.textContent="0");
-    grid.querySelectorAll(".item.active").forEach(r=>r.classList.remove("active"));
+  document.getElementById("modeSeg").addEventListener("click",function(e){
+    var b=e.target.closest("button[data-mode]"); if(!b) return;
+    mode=b.dataset.mode;
+    this.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x.dataset.mode===mode);});
     refresh();
   });
-  refresh();
+  document.getElementById("obClear").addEventListener("click",function(){
+    for(var k in qty) qty[k].n=0;
+    grid.querySelectorAll("[data-q]").forEach(function(q){q.textContent="0";});
+    grid.querySelectorAll(".item.active").forEach(function(r){r.classList.remove("active");});
+    refresh();
+  });
+  document.querySelector(".langbar").addEventListener("click",function(e){
+    var b=e.target.closest("button[data-lang]"); if(b) applyLang(b.dataset.lang);
+  });
+
+  applyLang("ka");
 })();
 </script>
